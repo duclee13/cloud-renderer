@@ -482,6 +482,48 @@ const ANIM_ALIASES: Record<string, AutoPropAnimation> = {
   STATIC: "NONE",
 };
 
+const ROBOTIC_BUBBLE_PATTERNS: readonly RegExp[] = [
+  /^cười(?=$|[\s.!?,…:;])/i,
+  /^khóc(?=$|[\s.!?,…:;])/i,
+  /^đang\s+/i,
+  /^suy\s+nghĩ(?=$|[\s.!?,…:;])/i,
+  /^ngạc\s+nhiên(?=$|[\s.!?,…:;])/i,
+  /^sợ\s+quá(?=$|[\s.!?,…:;])/i,
+  /^lo\s+lắng(?=$|[\s.!?,…:;])/i,
+  /^giật\s+mình(?=$|[\s.!?,…:;])/i,
+  /^thở\s+dài(?=$|[\s.!?,…:;])/i,
+  /^gật\s+đầu(?=$|[\s.!?,…:;])/i,
+  /^lắc\s+đầu(?=$|[\s.!?,…:;])/i,
+  /^vui\s+quá\s+đi(?=$|[\s.!?,…:;])/i,
+  /^buồn\s+quá\s+đi(?=$|[\s.!?,…:;])/i,
+  /^(ha\s*ha+|hi\s*hi+|hu\s*hu+|he\s*he+)[.!?…\s]*$/i,
+  /^\*.*\*$/,
+  /^\(.*\)$/,
+  /^[.!?…\s-]+$/,
+];
+
+/**
+ * V17.2: Lọc bỏ bóng thoại sáo rỗng / mô tả hành động / quá dài (> 5 từ) để chỉ giữ lời thốt đời thường ngắn gọn.
+ */
+export function sanitizeSpeechBubble(rawBubble: unknown): string | undefined {
+  if (typeof rawBubble !== "string") return undefined;
+  const cleaned = rawBubble
+    .trim()
+    .replace(/^["'“”]+|["'“”]+$/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!cleaned) return undefined;
+
+  const words = cleaned.split(/\s+/).filter(Boolean);
+  if (words.length > 5) return undefined;
+
+  for (const pattern of ROBOTIC_BUBBLE_PATTERNS) {
+    if (pattern.test(cleaned)) return undefined;
+  }
+
+  return cleaned.slice(0, 48);
+}
+
 function sanitizeActor(raw: any, index: number): AutoActorSpec {
   const preset = matchEnum(raw?.preset, VALID_ACTOR_PRESETS, "BOY", PRESET_ALIASES);
   const defaultSlot: AutoActorSlot = index === 0 ? "LEFT" : "RIGHT";
@@ -491,7 +533,7 @@ function sanitizeActor(raw: any, index: number): AutoActorSpec {
   const motion = matchEnum(raw?.motion, VALID_ACTOR_MOTIONS, "IDLE_TALK", MOTION_ALIASES);
   const expression = matchEnum(raw?.expression, VALID_ACTOR_EXPRESSIONS, "HAPPY", EXPRESSION_ALIASES);
   const handProp = matchEnum(raw?.handProp, VALID_HAND_PROPS, "NONE", HAND_PROP_ALIASES);
-  const bubbleRaw = typeof raw?.bubble === "string" ? raw.bubble.trim().slice(0, 48) : "";
+  const bubbleClean = sanitizeSpeechBubble(raw?.bubble);
   const shiver = Boolean(raw?.shiver);
 
   return {
@@ -501,7 +543,7 @@ function sanitizeActor(raw: any, index: number): AutoActorSpec {
     motion,
     expression,
     ...(handProp !== "NONE" ? { handProp } : { handProp: "NONE" }),
-    ...(bubbleRaw ? { bubble: bubbleRaw } : {}),
+    ...(bubbleClean ? { bubble: bubbleClean } : {}),
     ...(shiver ? { shiver: true } : {}),
   };
 }

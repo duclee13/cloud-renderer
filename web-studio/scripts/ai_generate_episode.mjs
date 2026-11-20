@@ -213,6 +213,16 @@ Nhiệm vụ của lượt này: Viết DUY NHẤT **${actInfo.role}** (đúng *
    - "svgInner" vẽ trong khung 0..200 (viewBox="0 0 200 200"), nét viền đen phẳng 2D (stroke="#141414" stroke-width="4"), chỉ gồm 4–10 thẻ hình học cơ bản: <path>, <circle>, <ellipse>, <rect>, <line>, <polygon>, <polyline>, <g>. CẤM <script>, <style>, <text>, <image>, on*.
    - Đặt tọa độ x trong 220..1700, y trong 180..720 sao cho KHÔNG che mặt nhân vật (LEFT≈490, CENTER≈960, RIGHT≈1390, mặt ở y≈480..540).
 
+6. BÓNG THOẠI ("bubble") TỰ NHIÊN & KHỚP ĐẠO CỤ CẦM TAY ("handProp"):
+   - CHỈ gắn "bubble" cho khoảng 25%–35% số cảnh thực sự cần điểm nhấn hài hước hoặc cảm thán (~4–5 beat trong 16 beat của Hồi này); toàn bộ các cảnh còn lại BẮT BUỘC bỏ trống không điền "bubble".
+   - Nội dung "bubble" phải là câu thốt ra ĐỜI THƯỜNG, cực ngắn 1–4 từ tự nhiên của người Việt (VD: "Toang rồi!", "Ủa gì vậy?!", "Khoan đã...", "Ảo thật đấy!", "Mắt hoa rồi!").
+   - CẤM TUYỆT ĐỐI kiểu bóng thoại nhạt nhẽo/mô tả hành động hay cảm xúc như "Cười... ha ha...", "Khóc...", "Đang suy nghĩ...", "Suy nghĩ...", "Ngạc nhiên quá", "Sợ quá đi".
+   - KHỚP ĐẠO CỤ CẦM TAY 1-1 VỚI LỜI THOẠI:
+     + Nếu lời thoại nhắc cầm cốc / nước / trà / cà phê / nước ngọt -> BẮT BUỘC gán handProp: "CUP_SODA".
+     + Nếu lời thoại nhắc cầm điện thoại / lướt máy / xem tin -> BẮT BUỘC gán handProp: "PHONE".
+     + Nếu lời thoại nhắc ghi chép / sổ tay / nhật ký / vở -> BẮT BUỘC gán handProp: "NOTEBOOK".
+     + Nhắc soi kính lúp -> "MAGNIFYING_GLASS", soi đèn pin -> "FLASHLIGHT", cầm vợt -> "NET", xách xô -> "BUCKET", cầm que/cành cây -> "STICK".
+
 === DANH SÁCH ENUM HỢP LỆ ===
 - stageType: ${VALID_STAGE_TYPES.join(' | ')}
 - timeOfDay: ${VALID_TIME_OF_DAY.join(' | ')}
@@ -256,7 +266,7 @@ Nhiệm vụ của lượt này: Viết DUY NHẤT **${actInfo.role}** (đúng *
           "motion": "IDLE_TALK",
           "expression": "CURIOUS",
           "handProp": "NONE",
-          "bubble": "Câu ngắn 2-5 chữ (tùy chọn)",
+          "bubble": "Ủa gì vậy?! (CHỈ điền ở 25-35% cảnh cần nhấn, 1-4 từ đời thường; cảnh thường BỎ TRỐNG trường này)",
           "shiver": false
         }
       ],
