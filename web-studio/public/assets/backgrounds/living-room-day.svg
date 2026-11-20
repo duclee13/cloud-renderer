@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2560 1440" width="2560" height="1440">
+  <!-- Warm Minimalist Wall -->
+  <rect x="0" y="0" width="2560" height="1120" fill="#F8EFE3" />
+
+  <!-- High-Detail 2K Window Day (Scaled 1.8x) -->
+  <g id="window-day" transform="translate(240, 160)">
+    <!-- Outer wooden casing -->
+    <rect x="-14" y="-14" width="588" height="488" rx="16" fill="#EDE0D0" stroke="#141414" stroke-width="12" />
+    <!-- Sky background inside window -->
+    <rect x="0" y="0" width="560" height="460" rx="10" fill="#BAE6FD" stroke="#141414" stroke-width="8" />
+    <!-- Fluffy cartoon clouds outside -->
+    <path d="M 120,130 Q 140,90 190,95 Q 240,90 260,130 Q 280,140 270,170 Q 110,170 120,130 Z" fill="#FFFFFF" opacity="0.9" />
+    <path d="M 340,210 Q 360,175 400,180 Q 440,175 455,210 Q 470,220 460,245 Q 330,245 340,210 Z" fill="#FFFFFF" opacity="0.8" />
+    <!-- Window frame dividers -->
+    <line x1="280" y1="0" x2="280" y2="460" stroke="#141414" stroke-width="10" />
+    <line x1="0" y1="230" x2="560" y2="230" stroke="#141414" stroke-width="10" />
+  </g>
+
+  <!-- Large Potted Plant by the side (Scaled 1.8x, resting on lowered floor 1120) -->
+  <g id="potted-plant-corner" transform="translate(180, 1120)">
+    <!-- Shadow under table -->
+    <ellipse cx="0" cy="5" rx="160" ry="14" fill="#000000" opacity="0.25" />
+    <!-- Side plant stand table -->
+    <g stroke="#141414" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="-160" y="-360" width="320" height="30" rx="6" fill="#CE9156" />
+      <line x1="-125" y1="-330" x2="-125" y2="0" />
+      <line x1="-100" y1="-330" x2="-100" y2="0" stroke="#B4773A" />
+      <line x1="125" y1="-330" x2="125" y2="0" />
+      <line x1="100" y1="-330" x2="100" y2="0" stroke="#B4773A" />
+    </g>
+    <!-- Ceramic Plant Pot -->
+    <g transform="translate(0, -360)">
+      <polygon points="-85,-130 85,-130 65,0 -65,0" fill="#FFFFFF" stroke="#141414" stroke-width="12" stroke-linejoin="round" />
+      <!-- Big vibrant tropical monstera leaves -->
+      <g fill="#22C55E" stroke="#141414" stroke-width="10" stroke-linejoin="round">
+        <path d="M 0,-130 C -40,-290 0,-390 0,-390 C 0,-390 40,-290 0,-130 Z" fill="#15803D" />
+        <path d="M -25,-130 C -120,-240 -150,-310 -150,-310 C -150,-310 -40,-260 -25,-130 Z" />
+        <path d="M 25,-130 C 120,-240 150,-310 150,-310 C 150,-310 40,-260 25,-130 Z" />
+        <path d="M -40,-130 C -180,-170 -170,-220 -170,-220 C -170,-220 -65,-190 -40,-130 Z" fill="#16A34A" />
+        <path d="M 40,-130 C 180,-170 170,-220 170,-220 C 170,-220 65,-190 40,-130 Z" fill="#16A34A" />
+      </g>
+    </g>
+  </g>
+
+  <!-- Lowered Baseboard & Natural Wood Floor (y = 1080 to 1440) -->
+  <rect x="0" y="1080" width="2560" height="40" fill="#FFFFFF" stroke="#141414" stroke-width="8" />
+  <line x1="0" y1="1120" x2="2560" y2="1120" stroke="#141414" stroke-width="12" />
+  <rect x="0" y="1120" width="2560" height="320" fill="#E8C39E" />
+  <!-- Diagonal floor planks -->
+  <g stroke="#D4A77D" stroke-width="6" stroke-linecap="round">
+    <line x1="380" y1="1120" x2="310" y2="1440" />
+    <line x1="950" y1="1120" x2="870" y2="1440" />
+    <line x1="1520" y1="1120" x2="1430" y2="1440" />
+    <line x1="2090" y1="1120" x2="2000" y2="1440" />
+  </g>
+</svg>

@@ -1,0 +1,30 @@
+<svg viewBox="0 0 400 400" width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="penBodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2D5A27;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#4A9142;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2D5A27;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Layer 1: Ground contact shadow -->
+  <ellipse cx="200" cy="380" rx="40" ry="8" fill="#000000" opacity="0.2"/>
+
+  <!-- Layer 2: Main Body -->
+  <path d="M190 80 L210 80 L205 380 L195 380 Z" fill="url(#penBodyGrad)" stroke="#1A1A1A" stroke-width="8" stroke-linejoin="round"/>
+  
+  <!-- Layer 3: Tip/Nib -->
+  <path d="M195 380 L205 380 L202 390 L198 390 Z" fill="#FFD700" stroke="#1A1A1A" stroke-width="6" stroke-linejoin="round"/>
+
+  <!-- Layer 4: Cap/Top Detail -->
+  <path d="M185 80 L215 80 L215 95 L185 95 Z" fill="#1A1A1A" stroke="#1A1A1A" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M210 85 L225 85 L225 150 L215 150 Z" fill="#333" stroke="#1A1A1A" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Layer 5: Ambient Occlusion & 3D Depth -->
+  <path d="M195 80 L195 380" fill="none" stroke="#000" stroke-width="2" opacity="0.2"/>
+  <path d="M198 80 L198 380" fill="none" stroke="#FFF" stroke-width="2" opacity="0.2"/>
+
+  <!-- Layer 6: Specular Highlights -->
+  <path d="M202 90 L202 370" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.3"/>
+  <path d="M208 90 L208 370" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+</svg>

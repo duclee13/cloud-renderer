@@ -1,0 +1,28 @@
+# AnimScript Demo 2: Cam coc, mang di roi dat len ban
+# Kiem chung: Reach bang IK 2-khop, Grab gan vat vao tay, di bo khong lam roi/vung tay cam, Put Down giai phong vat
+
+video(width=1920, height=1080, fps=60)
+
+with scene("cup_delivery", duration_ms=7000):
+    desk = prop("desk", width=800, height=450)
+    place(desk, at=[1350, 850])
+
+    coffee_cup = prop("cup", width=60, height=90)
+    place(coffee_cup, at=[500, 850])
+
+    waiter = character("human", height=600, x=250, y=850, facing="right")
+
+    narrate("Nhân vật tiến lại, với tay cầm cốc bằng IK, mang qua bàn và đặt xuống êm ái.", duration_ms=3000)
+
+    with sequence():
+        # Di chuyen den gan coc
+        walk(waiter, to=420, duration_ms=1500)
+        # Voi tay den quai coc bang IK 2-khop bao toan chieu dai xuong
+        reach(waiter.right_hand, to=coffee_cup.grip, duration_ms=800)
+        # Cam coc vao tay
+        grab(waiter, object=coffee_cup, hand="right", duration_ms=500)
+        # Mang coc di bo qua ban (tay cam coc duoc giu on dinh, khong bi danh tay lam vang coc)
+        walk(waiter, to=1050, duration_ms=2200)
+        # Dat coc xuong mat ban va giai phong lien ket
+        put_down(waiter, object=coffee_cup, on=desk.surface.left, duration_ms=800)
+        wait(duration_ms=800)

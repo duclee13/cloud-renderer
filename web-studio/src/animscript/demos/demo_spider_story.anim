@@ -1,0 +1,82 @@
+# AnimScript Demo 4: Chuyen Con Nhen Tam (4 Canh Hoan Chinh chay tren General Engine)
+# Kiem chung: Khong co bat ky nhanh code dac biet nao trong Engine danh rieng cho truyen nay!
+
+video(width=1920, height=1080, fps=60)
+
+with scene("scene_1_spider_discovered", duration_ms=6000):
+    room_window = prop("window", width=400, height=300)
+    place(room_window, at=[500, 450])
+
+    jar = prop("jar", width=140, height=200)
+    place(jar, at=[680, 850])
+
+    tam_spider = prop("spider", width=70, height=50)
+    place(tam_spider, at=[680, 835])
+
+    me = character("human", height=600, x=1350, y=850, facing="left")
+
+    narrate("Tôi nhìn thấy một con nhện nhỏ trong chiếc lọ thủy tinh trên sàn nhà. Tôi bảo 'Để sau!' rồi quên bẵng nó.", duration_ms=5000)
+
+    with sequence():
+        # Nhìn vào lọ nhện
+        look_at(me, target=[680, 800], duration_ms=400)
+        wait(duration_ms=400)
+        # Nói 'Để sau!' qua bong bóng thoại an toàn không che mặt
+        say(me, "Để sau!", duration_ms=1800)
+        # Quay người bỏ đi
+        walk(me, to=1700, duration_ms=2500)
+
+with scene("scene_2_close_up_labeling", duration_ms=6000):
+    jar = prop("jar", width=220, height=310)
+    place(jar, at=[960, 750])
+
+    tam_spider = prop("spider", width=100, height=70)
+    place(tam_spider, at=[960, 730])
+
+    hand_actor = character("human", height=600, x=1400, y=850, facing="left")
+
+    narrate("Chiếc lọ thủy tinh được dán nhãn đặt tên cho nó là 'Tám'.", duration_ms=5000)
+
+    with sequence():
+        # Camera zoom cận chiếc lọ
+        camera_focus(targets=[jar], padding=180, duration_ms=800)
+        # Đưa tay tới dán nhãn
+        reach(hand_actor.right_hand, to=jar.label_slot, duration_ms=1000)
+        # Dán nhãn vật lý 'Tám' lên thân lọ
+        label_prop(jar, "Tám", slot="label_slot")
+        wait(duration_ms=800)
+        # Rút tay về sau khi nhãn đã bám chắc trên lọ
+        move(hand_actor, to=[1650, 850], duration_ms=1200)
+        wait(duration_ms=1500)
+
+with scene("scene_3_metabolic_gauge", duration_ms=5500):
+    clock = prop("metabolic_clock", width=340, height=340)
+    place(clock, at=[960, 580])
+
+    narrate("Nó tự hạ tốc độ trao đổi chất để sống sót.", duration_ms=4500)
+
+    with sequence():
+        camera_focus(targets=[clock], padding=140, duration_ms=1000)
+        wait(duration_ms=4000)
+
+with scene("scene_4_evening_desk", duration_ms=6500):
+    room_window = prop("window", width=420, height=320)
+    place(room_window, at=[480, 480])
+
+    desk = prop("desk", width=850, height=450)
+    place(desk, at=[1100, 850])
+
+    laptop = prop("laptop", width=180, height=110)
+    align(laptop.bottommid, to=desk.surface.center, offset=[-80, 0])
+
+    lamp = prop("lamp", width=140, height=220)
+    align(lamp.bottommid, to=desk.surface.right, offset=[-40, 0])
+
+    coder = character("human", height=600, x=1020, y=850, facing="right")
+
+    narrate("Buổi tối bình thường, tôi ngồi sau bàn học làm việc dưới ánh đèn bàn ấm áp, bên ngoài cửa sổ là trăng sao.", duration_ms=5500)
+
+    with sequence():
+        sit(coder, on=desk.seat, duration_ms=600)
+        camera_focus(targets=[coder, laptop, lamp], padding=160, duration_ms=1200)
+        wait(duration_ms=4000)

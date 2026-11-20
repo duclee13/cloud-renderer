@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-200 -380 400 400" width="400" height="400">
+  <defs>
+    <!-- Contact shadow beneath cardboard box -->
+    <radialGradient id="boxGroundShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0F172A" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#0F172A" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Cardboard warm amber gradient -->
+    <linearGradient id="cardboardBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="60%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+
+    <!-- Tape gradient -->
+    <linearGradient id="tapeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FEF08A"/>
+      <stop offset="100%" stop-color="#FDE047"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 1. Soft ground contact shadow -->
+  <ellipse cx="0" cy="0" rx="165" ry="16" fill="url(#boxGroundShadow)" />
+
+  <!-- 2. Main Box Body (2D Cel-Shading Warm Amber) -->
+  <rect
+    x="-135"
+    y="-235"
+    width="270"
+    height="235"
+    rx="14"
+    ry="14"
+    fill="url(#cardboardBody)"
+    stroke="#141414"
+    stroke-width="10"
+    stroke-linejoin="round"
+  />
+
+  <!-- 3. Cel-shading dark side panel -->
+  <path
+    d="M 12,-235 L 135,-235 L 135,0 L 12,0 Z"
+    fill="#78350F"
+    opacity="0.18"
+  />
+
+  <!-- 4. Top Flap Crease & Center Seam -->
+  <line
+    x1="-135"
+    y1="-185"
+    x2="135"
+    y2="-185"
+    stroke="#141414"
+    stroke-width="7"
+    stroke-dasharray="10 8"
+    opacity="0.8"
+  />
+  <line
+    x1="0"
+    y1="-235"
+    x2="0"
+    y2="-185"
+    stroke="#141414"
+    stroke-width="9"
+    stroke-linecap="round"
+  />
+
+  <!-- 5. Cream Packaging Tape Sealed on Top -->
+  <rect
+    x="-22"
+    y="-240"
+    width="44"
+    height="85"
+    rx="5"
+    fill="url(#tapeGrad)"
+    stroke="#141414"
+    stroke-width="7"
+  />
+
+  <!-- 6. Side Cutout Handles (for 2-hand lifting) -->
+  <rect
+    x="-118"
+    y="-125"
+    width="16"
+    height="36"
+    rx="8"
+    fill="#78350F"
+    stroke="#141414"
+    stroke-width="6"
+  />
+  <rect
+    x="102"
+    y="-125"
+    width="16"
+    height="36"
+    rx="8"
+    fill="#78350F"
+    stroke="#141414"
+    stroke-width="6"
+  />
+
+  <!-- 7. Fragile / This Way Up Dual Arrow Stamp -->
+  <g transform="translate(0, -82)" stroke="#141414" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    {/* Left Arrow */}
+    <line x1="-24" y1="-8" x2="-24" y2="18" />
+    <path d="M -34 3 L -24 -9 L -14 3" />
+
+    {/* Right Arrow */}
+    <line x1="24" y1="-8" x2="24" y2="18" />
+    <path d="M 14 3 L 24 -9 L 34 3" />
+
+    {/* Base bar */}
+    <line x1="-42" y1="28" x2="42" y2="28" stroke-width="8" />
+  </g>
+</svg>

@@ -1,0 +1,128 @@
+name: Render Long 2D Movie (Parallel Chapters Matrix V14.1)
+
+on:
+  workflow_dispatch:
+    inputs:
+      render_script:
+        description: 'Đường dẫn script render trong web-studio (mặc định phim dài V15.0: scripts/render_v15_fire_ant_full_movie.mjs)'
+        required: true
+        default: 'scripts/render_v15_fire_ant_full_movie.mjs'
+      total_chapters:
+        description: 'Tổng số Hồi chạy song song tối đa 5 máy ảo (phim dài 6 phút V15.0: 4 Hồi)'
+        required: true
+        default: '4'
+      output_name:
+        description: 'Tên file MP4 hoàn chỉnh sau khi ghép nối trong out/'
+        required: true
+        default: 'fire_ant_full_movie_v15.mp4'
+
+jobs:
+  render_chapters:
+    name: Render Chapter ${{ matrix.chapter }}/${{ inputs.total_chapters }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        chapter: ${{ fromJson(format('[{0}]', inputs.total_chapters == '1' && '1' || inputs.total_chapters == '2' && '1,2' || inputs.total_chapters == '3' && '1,2,3' || inputs.total_chapters == '4' && '1,2,3,4' || '1,2,3,4,5')) }}
+    steps:
+      - name: Checkout Repository (kèm cache giọng đọc .tts-cache/)
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 24 (Native TS support)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'npm'
+          cache-dependency-path: web-studio/package-lock.json
+
+      - name: Install FFmpeg & Headless Chromium Libraries (Ubuntu)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            ffmpeg \
+            libnss3 \
+            libatk1.0-0 \
+            libatk-bridge2.0-0 \
+            libcups2 \
+            libdrm2 \
+            libxkbcommon0 \
+            libx11-xcb1 \
+            libxcomposite1 \
+            libxdamage1 \
+            libxfixes3 \
+            libxrandr2 \
+            libgbm1 \
+            libpango-1.0-0 \
+            libcairo2 \
+            fonts-noto \
+            fonts-noto-color-emoji || true
+          sudo apt-get install -y libasound2t64 || sudo apt-get install -y libasound2 || true
+
+      - name: Install Web-Studio Dependencies
+        working-directory: web-studio
+        run: npm ci --prefer-offline || npm install --prefer-offline
+
+      - name: Render Chapter ${{ matrix.chapter }} (Parallel VM, Concurrency=4)
+        working-directory: web-studio
+        env:
+          CONCURRENCY: '4'
+          TOTAL_CHAPTERS: ${{ inputs.total_chapters }}
+          TTS_PROVIDER: 'VIENEU_LOCAL'
+        run: |
+          SCRIPT_PATH="${{ inputs.render_script }}"
+          SCRIPT_PATH="${SCRIPT_PATH#web-studio/}"
+          echo "Running Chapter ${{ matrix.chapter }}/${{ inputs.total_chapters }} via $SCRIPT_PATH (CONCURRENCY=$CONCURRENCY)..."
+          node "$SCRIPT_PATH" --chapter=${{ matrix.chapter }}
+
+      - name: Upload Chapter Chunk MP4 Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter-${{ matrix.chapter }}
+          path: out/chunks/*_chapter_${{ matrix.chapter }}.mp4
+          if-no-files-found: error
+          retention-days: 2
+
+  stitch_final_movie:
+    name: Stitch Final Movie (FFmpeg Lossless Concat)
+    needs: render_chapters
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
+
+      - name: Download All Rendered Chapter Chunks into out/chunks/
+        uses: actions/download-artifact@v4
+        with:
+          pattern: chapter-*
+          path: out/chunks
+          merge-multiple: true
+
+      - name: Stitch Final Movie via --concat-only (ffmpeg -c copy)
+        working-directory: web-studio
+        env:
+          TOTAL_CHAPTERS: ${{ inputs.total_chapters }}
+        run: |
+          ls -lah ../out/chunks/
+          SCRIPT_PATH="${{ inputs.render_script }}"
+          SCRIPT_PATH="${SCRIPT_PATH#web-studio/}"
+          node "$SCRIPT_PATH" --concat-only --output="../out/${{ inputs.output_name }}"
+          ffprobe -v error -show_entries format=duration,size -of default=noprint_wrappers=1 "../out/${{ inputs.output_name }}"
+
+      - name: Upload Final Stitched Movie Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-movie-${{ github.run_number }}
+          path: out/${{ inputs.output_name }}
+          if-no-files-found: error
+          retention-days: 7

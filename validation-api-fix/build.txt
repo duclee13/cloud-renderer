@@ -1,0 +1,41 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> web-studio@1.0.0 build
+> next build
+
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+   ▲ Next.js 15.1.7
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/9) ...
+   Generating static pages (2/9) 
+   Generating static pages (4/9) 
+   Generating static pages (6/9) 
+ ✓ Generating static pages (9/9)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    63 kB           168 kB
+├ ○ /_not-found                          981 B           106 kB
+├ ƒ /api/gemini                          145 B           106 kB
+├ ƒ /api/generate-asset                  145 B           106 kB
+├ ƒ /api/github-dispatch                 145 B           106 kB
+├ ƒ /api/pipeline/generate               145 B           106 kB
+└ ƒ /api/tts                             145 B           106 kB
++ First Load JS shared by all            105 kB
+  ├ chunks/651-9b18593185d33dc5.js       50.5 kB
+  ├ chunks/eff6e37f-b5a889563deeda28.js  52.9 kB
+  └ other shared chunks (total)          1.94 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

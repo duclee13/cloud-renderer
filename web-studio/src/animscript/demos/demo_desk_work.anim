@@ -1,0 +1,28 @@
+# AnimScript Demo 3: Ngoi lam viec sau ban, che khuat chan/than, camera can va phu de
+# Kiem chung: Tu the ngoi ha hong ha dui, che khuat phan tang z-index (than sau ban, tay truoc ban), Camera Focus zoom can canh, Phu de tieng Viet
+
+video(width=1920, height=1080, fps=60)
+
+with scene("evening_desk_work", duration_ms=6000):
+    room_window = prop("window", width=420, height=320)
+    place(room_window, at=[500, 480])
+
+    desk = prop("desk", width=850, height=450)
+    place(desk, at=[1100, 850])
+
+    work_laptop = prop("laptop", width=180, height=110)
+    align(work_laptop.bottommid, to=desk.surface.center, offset=[-80, 0])
+
+    lamp = prop("lamp", width=140, height=220)
+    align(lamp.bottommid, to=desk.surface.right, offset=[-40, 0])
+
+    coder = character("human", height=600, x=1020, y=850, facing="right")
+
+    narrate("Buổi tối bình thường, tôi ngồi sau bàn học làm việc dưới ánh đèn bàn ấm áp, bên ngoài cửa sổ là trăng sao.", duration_ms=5000)
+
+    with sequence():
+        # Tu the ngoi sau ban: hong ha xuong ghe, dui giap ngang, than va chan nam sau ban
+        sit(coder, on=desk.seat, duration_ms=600)
+        # Camera zoom can canh vao khu vuc ban lam viec va nhan vat, chuc phu de an toan
+        camera_focus(targets=[coder, work_laptop, lamp], padding=160, duration_ms=1200)
+        wait(duration_ms=3500)

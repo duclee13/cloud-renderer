@@ -1,0 +1,237 @@
+name: Distributed 1080p 60FPS Video Renderer
+
+on:
+  workflow_dispatch:
+    inputs:
+      scriptId:
+        description: 'Identifier for the animation script'
+        required: true
+        default: 'story_001'
+      totalFrames:
+        description: 'Total number of frames to render (e.g. 18000 for 5 mins @ 60fps)'
+        required: true
+        default: '480'
+      chunkCount:
+        description: 'Number of parallel chunks (1 = Full single-runner, 2-10 = Parallel chunks)'
+        required: true
+        default: '1'
+      scenePayloadUrl:
+        description: 'Signed URL or raw JSON string containing the Scene Graph'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  prepare-matrix:
+    name: Calculate Frame Chunks
+    runs-on: ubuntu-latest
+    outputs:
+      chunks: ${{ steps.set-matrix.outputs.chunks }}
+    steps:
+      - name: Compute Frame Ranges
+        id: set-matrix
+        uses: actions/github-script@v7
+        with:
+          script: |
+            let totalFrames = parseInt('${{ github.event.inputs.totalFrames }}', 10) || 480;
+            const chunkCount = Math.max(1, parseInt('${{ github.event.inputs.chunkCount }}', 10) || 1);
+            const rawPayload = `${{ github.event.inputs.scenePayloadUrl }}`.trim();
+            if (rawPayload && rawPayload.startsWith('{')) {
+              try {
+                const parsed = JSON.parse(rawPayload);
+                if (parsed.ir?.totalDurationFrames) {
+                  totalFrames = parseInt(parsed.ir.totalDurationFrames, 10);
+                } else if (parsed.totalDurationFrames) {
+                  totalFrames = parseInt(parsed.totalDurationFrames, 10);
+                } else if (parsed.totalDurationInFrames) {
+                  totalFrames = parseInt(parsed.totalDurationInFrames, 10);
+                } else if (Array.isArray(parsed.scenes) && parsed.scenes.length > 0) {
+                  const maxEnd = parsed.scenes.reduce((acc, s) => {
+                    const start = Number(s?.startFrame) || 0;
+                    const dur = Number(s?.durationInFrames) || 120;
+                    return Math.max(acc, start + dur);
+                  }, 0);
+                  if (maxEnd > 0) totalFrames = maxEnd;
+                }
+              } catch (e) {
+                // Ignore parse errors, stick to totalFrames
+              }
+            }
+            const chunkSize = Math.ceil(totalFrames / chunkCount);
+            const chunks = [];
+
+            for (let i = 0; i < chunkCount; i++) {
+              const start = i * chunkSize;
+              const end = Math.min((i + 1) * chunkSize - 1, totalFrames - 1);
+              if (start <= totalFrames - 1) {
+                chunks.push({
+                  index: i,
+                  startFrame: start,
+                  endFrame: end,
+                  paddedIndex: String(i).padStart(3, '0')
+                });
+              }
+            }
+            core.setOutput('chunks', JSON.stringify(chunks));
+
+  render-chunk:
+    name: Render Chunk ${{ matrix.chunk.paddedIndex }}
+    needs: prepare-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        chunk: ${{ fromJson(needs.prepare-matrix.outputs.chunks) }}
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+          cache-dependency-path: web-studio/package.json
+
+      - name: Install System Dependencies for Headless Chromium
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            ffmpeg \
+            libnss3 \
+            libatk-bridge2.0-0 \
+            libx11-xcb1 \
+            libxcomposite1 \
+            libxdamage1 \
+            libxrandr2 \
+            libgbm1 \
+            fonts-noto-color-emoji || true
+          sudo apt-get install -y libasound2t64 || sudo apt-get install -y libasound2 || true
+
+      - name: Install Project Dependencies
+        working-directory: web-studio
+        run: npm ci --prefer-offline || npm install --prefer-offline
+
+      - name: Prepare Scene Payload & Props File
+        working-directory: web-studio
+        env:
+          RAW_PAYLOAD: ${{ github.event.inputs.scenePayloadUrl }}
+          TOTAL_FRAMES: ${{ github.event.inputs.totalFrames }}
+        run: |
+          mkdir -p ../dist/chunks
+          node -e "
+            const fs = require('fs');
+            const raw = process.env.RAW_PAYLOAD || '';
+            const total = parseInt(process.env.TOTAL_FRAMES || '480', 10);
+            let payload = { totalFrames: total };
+            if (raw.trim().startsWith('{')) {
+              try {
+                const parsed = JSON.parse(raw);
+                const ir = parsed.ir || (parsed.timeline ? parsed : undefined);
+                payload = {
+                  totalFrames: ir?.totalDurationFrames || total,
+                  sceneGraph: parsed,
+                  ...(ir ? { ir } : {}),
+                  ...parsed,
+                };
+              } catch (e) {
+                console.warn('Fallback to default props:', e.message);
+              }
+            }
+            fs.writeFileSync('../dist/props.json', JSON.stringify(payload));
+          "
+
+      - name: Render Video Chunk via Remotion & FFmpeg In-Memory Pipe
+        working-directory: web-studio
+        env:
+          START_FRAME: ${{ matrix.chunk.startFrame }}
+          END_FRAME: ${{ matrix.chunk.endFrame }}
+          CHUNK_INDEX: ${{ matrix.chunk.paddedIndex }}
+        run: |
+          echo "Rendering frames $START_FRAME to $END_FRAME (Chunk $CHUNK_INDEX)..."
+          
+          # Render chunk using Remotion with libx264 animation profile
+          npx remotion render src/remotion/index.ts MainScene ../dist/chunks/chunk_${CHUNK_INDEX}.mp4 \
+            --frames=${START_FRAME}-${END_FRAME} \
+            --props=../dist/props.json \
+            --pixel-format=yuv420p \
+            --codec=h264 \
+            --crf=18 \
+            --concurrency=4 \
+            --log=info
+
+      - name: Upload Chunk Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: chunk-${{ matrix.chunk.paddedIndex }}
+          path: dist/chunks/chunk_${{ matrix.chunk.paddedIndex }}.mp4
+          retention-days: 1
+
+  stitch-and-release:
+    name: Assemble & Publish 1080p Video
+    needs: [prepare-matrix, render-chunk]
+    if: always() && needs.prepare-matrix.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg || true
+
+      - name: Download All Chunk Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: downloaded_chunks
+          pattern: chunk-*
+          merge-multiple: true
+
+      - name: Assemble Video (Full Mode or Concat)
+        run: |
+          mkdir -p output
+          ls -lah downloaded_chunks/
+
+          CHUNK_FILES=( $(ls downloaded_chunks/chunk_*.mp4 2>/dev/null | sort -V) )
+          COUNT=${#CHUNK_FILES[@]}
+          echo "Tìm thấy $COUNT chunk video."
+
+          if [ "$COUNT" -eq 0 ]; then
+            echo "LỖI: Không tìm thấy file chunk video nào được render!"
+            exit 1
+          fi
+
+          if [ "$COUNT" -eq 1 ]; then
+            echo "Chỉ có 1 file duy nhất (Chế độ Full Single Runner) -> Copy trực tiếp, không cần ghép concat!"
+            cp "${CHUNK_FILES[0]}" output/final_raw.mp4
+          else
+            echo "Ghép $COUNT chunks theo đúng thứ tự..."
+            for f in "${CHUNK_FILES[@]}"; do
+              echo "file '$PWD/$f'" >> concat_list.txt
+            done
+            cat concat_list.txt
+            ffmpeg -f concat -safe 0 -i concat_list.txt -c copy output/final_raw.mp4
+          fi
+
+          # Tối ưu hóa FastStart cho Web Streaming
+          ffmpeg -i output/final_raw.mp4 -c copy -movflags +faststart output/story_${{ github.event.inputs.scriptId }}_1080p60fps.mp4
+
+      - name: Create GitHub Release and Upload 1080p Video
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: render-${{ github.event.inputs.scriptId }}-${{ github.run_id }}
+          name: "Render 1080p 60FPS: ${{ github.event.inputs.scriptId }}"
+          body: |
+            ### Automated Render Completion
+            - **Script ID:** `${{ github.event.inputs.scriptId }}`
+            - **Resolution:** `1920x1080 (Full HD)`
+            - **Frame Rate:** `60 FPS`
+            - **Total Frames:** `${{ github.event.inputs.totalFrames }}`
+            - **Parallel Chunks:** `${{ github.event.inputs.chunkCount }}`
+          files: output/story_${{ github.event.inputs.scriptId }}_1080p60fps.mp4
+          draft: false
+          prerelease: false

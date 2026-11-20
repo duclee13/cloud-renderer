@@ -1,0 +1,99 @@
+{
+  "version": "v14.1",
+  "movieId": "v14_countryside_story_demo",
+  "generatedAt": "2026-11-20T04:27:48.496Z",
+  "totalChapters": 2,
+  "totalBeats": 8,
+  "totalFrames": 2837,
+  "totalDurationSec": 47.283,
+  "beats": [
+    {
+      "globalBeatIndex": 1,
+      "chapterNumber": 1,
+      "chapterBeatIndex": 1,
+      "narrationText": "Hồi 12 tuổi, ba mẹ gửi tôi về quê ở với ông nội suốt mùa hè. Sân nhà ông rộng lắm, ngay sát cánh đồng lúa vàng ươm.",
+      "voiceTone": "CALM_STORY",
+      "voiceName": "Hải Đăng",
+      "actualDurationSec": 6.053,
+      "totalDurationFrames": 406,
+      "cacheFile": "c2e6f6192733f20c32b4a120935d.mp3"
+    },
+    {
+      "globalBeatIndex": 2,
+      "chapterNumber": 1,
+      "chapterBeatIndex": 2,
+      "narrationText": "Một buổi chiều lang thang ngoài vườn, tôi bỗng thấy một mô đất tròn xoe nhô lên ngay sát gốc cây xoài.",
+      "voiceTone": "CALM_STORY",
+      "voiceName": "Hải Đăng",
+      "actualDurationSec": 4.814,
+      "totalDurationFrames": 331,
+      "cacheFile": "bbde4b1be46dae0d6c652f315c40.mp3"
+    },
+    {
+      "globalBeatIndex": 3,
+      "chapterNumber": 1,
+      "chapterBeatIndex": 3,
+      "narrationText": "Trông nó giống hệt một chiếc bánh bao bằng đất, chẳng có cái lỗ nào ở trên đỉnh cả.",
+      "voiceTone": "HOOK_INTRIGUE",
+      "voiceName": "Hải Đăng",
+      "actualDurationSec": 3.946,
+      "totalDurationFrames": 279,
+      "cacheFile": "f4ad267a794940c608aff12da1f0.mp3"
+    },
+    {
+      "globalBeatIndex": 4,
+      "chapterNumber": 1,
+      "chapterBeatIndex": 4,
+      "narrationText": "Tò mò quá, tôi lấy cành cây chọc thử một cái. Chỉ một cái nhẹ thôi...",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "voiceName": "Hải Đăng",
+      "actualDurationSec": 3.501,
+      "totalDurationFrames": 253,
+      "cacheFile": "9131552edb7d65fbd468235a1568.mp3"
+    },
+    {
+      "globalBeatIndex": 5,
+      "chapterNumber": 2,
+      "chapterBeatIndex": 1,
+      "narrationText": "Chưa đầy hai giây, cả mô đất như sôi lên! Chúng không chạy loạn mà leo thẳng lên cành cây hướng về tay tôi!",
+      "voiceTone": "TENSE_CLIMAX",
+      "voiceName": "Hải Đăng",
+      "actualDurationSec": 4.818,
+      "totalDurationFrames": 332,
+      "cacheFile": "c8043aa3fbb0a0da2767d026c886.mp3"
+    },
+    {
+      "globalBeatIndex": 6,
+      "chapterNumber": 2,
+      "chapterBeatIndex": 2,
+      "narrationText": "Ông nội nghe tiếng la liền bước ra, nhìn mô đất rồi bật cười lắc đầu: Kiến lửa đó con, đừng có ghẹo tụi nó!",
+      "voiceTone": "CALM_STORY",
+      "voiceName": "Hải Đăng",
+      "actualDurationSec": 5.309,
+      "totalDurationFrames": 361,
+      "cacheFile": "bd1cc5640886f995d12f6fbee0ac.mp3"
+    },
+    {
+      "globalBeatIndex": 7,
+      "chapterNumber": 2,
+      "chapterBeatIndex": 3,
+      "narrationText": "Lúc đó tôi mới biết, mô đất nhỏ xíu trên mặt cỏ chỉ là phần nổi — bên dưới là cả một thành phố đường hầm sâu hơn một mét chứa hàng trăm nghìn con kiến!",
+      "voiceTone": "HOOK_INTRIGUE",
+      "voiceName": "Hải Đăng",
+      "actualDurationSec": 7.142,
+      "totalDurationFrames": 471,
+      "cacheFile": "eec0f753bac38e98e6cd04415b43.mp3"
+    },
+    {
+      "globalBeatIndex": 8,
+      "chapterNumber": 2,
+      "chapterBeatIndex": 4,
+      "narrationText": "Và hóa ra, câu chuyện với tổ kiến lửa dưới gốc xoài hôm đó mới chỉ là bắt đầu cho một tuần lễ nhớ đời của tôi...",
+      "voiceTone": "SLOW_EMOTIONAL",
+      "voiceName": "Hải Đăng",
+      "actualDurationSec": 5.619,
+      "totalDurationFrames": 404,
+      "cacheFile": "0da34561a6b88bd3ece357d5ce17.mp3"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+# AnimScript Demo 1: Di bo roi nhay tren dong co
+# Kiem chung: 2-bone IK, chu ky buoc chan, khoa chan chong bam dat, nhay ballistic 3 pha
+
+video(width=1920, height=1080, fps=60)
+
+with scene("meadow_walk_and_jump", duration_ms=6000):
+    ground = prop("meadow", width=1920, height=200)
+    place(ground, at=[960, 850])
+
+    hero = character("human", height=600, x=300, y=850, facing="right")
+
+    narrate("Nhân vật đi bộ tự nhiên trên đồng cỏ với hai chân tách biệt.", duration_ms=2500)
+
+    with sequence():
+        # Buoc di bo voi chu ky chan chong bam dat, tay danh doi xung
+        walk(hero, to=850, duration_ms=2500)
+        wait(duration_ms=400)
+        # Nhay 3 pha: chùng gối lấy đà, bay theo quỹ đạo parabol, tiếp đất nhún êm
+        jump(hero, to=1350, height=160, duration_ms=1500)
+        wait(duration_ms=1000)
