@@ -60,9 +60,10 @@ jobs:
             sudo apt-get install -y --no-install-recommends libasound2t64 || sudo apt-get install -y --no-install-recommends libasound2 || true
           fi
 
-      - name: Generate V16 Micro-Beat Script JSON via Gemini 2.5 Flash
+      - name: Generate V16 Micro-Beat Script JSON via AI Director (Groq Priority / Gemini Fallback)
         working-directory: web-studio
         env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           node scripts/ai_generate_episode.mjs \

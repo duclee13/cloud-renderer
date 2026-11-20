@@ -1,12 +1,14 @@
 /**
- * AI DIRECTOR V17.1 — Bộ Đạo Diễn AI Sinh Kịch Bản Chuẩn V16 (4-Act Split Generation + 180s Timeout + Model Fallback)
- * Nhận: --topic="<chủ đề>" [--minutes=6.5] [--out=episodes/current_episode.json] [--model=gemini-3.8-flash]
- * - Tách sinh kịch bản thành 4 lượt nối tiếp theo từng Hồi (mặc định 16 beats/Hồi × 4 Hồi = 64 beats),
- *   truyền tóm tắt ngắn các Hồi trước để giữ mạch truyện liền lạc 100%, phản hồi nhanh (~10-15s/Hồi), không bao giờ bị cắt ngang JSON.
- * - Fetch timeout 180_000ms (3 phút).
- * - Danh sách model dự phòng: [process.env.GEMINI_MODEL || 'gemini-3.8-flash', 'gemini-3.8-flash-lite', 'gemini-3.8-pro']
- *   + HTTP 404: nhảy ngay sang model kế tiếp (0s delay).
- *   + HTTP 503 / 429 / AbortError / lỗi mạng tạm thời: retry 3 lần với độ trễ 8s -> 15s -> 25s trước khi chuyển model dự phòng.
+ * AI DIRECTOR V17.2 — Bộ Đạo Diễn AI Sinh Kịch Bản Chuẩn V16 (Ưu tiên Groq Free API / Fallback Gemini)
+ * Nhận: --topic="<chủ đề>" [--minutes=6.5] [--out=episodes/current_episode.json] [--model=...]
+ * - Ưu tiên Groq OpenAI-compatible API (https://api.groq.com/openai/v1/chat/completions) khi có GROQ_API_KEY:
+ *   + response_format: { type: "json_object" }
+ *   + Xoay vòng model: [process.env.GROQ_MODEL || 'openai/gpt-oss-120b', 'qwen/qwen3.8-27b', 'openai/gpt-oss-20b']
+ *   + Nghỉ 10 giây giữa các Hồi để không vượt giới hạn 8.000 token/phút (TPM) của Groq Free Plan.
+ * - Nếu không có GROQ_API_KEY -> Fallback sang GEMINI_API_KEY với danh sách:
+ *   [process.env.GEMINI_MODEL || 'gemini-3.8-flash', 'gemini-3.8-flash-lite', 'gemini-3.8-pro']
+ * - Chia 4 Hồi nối tiếp (16 beats/Hồi × 4 Hồi = 64 beats), timeout 180_000ms (3 phút),
+ *   HTTP 404 nhảy ngay model kế, HTTP 503/429 retry 3 lần trễ 8s -> 15s -> 25s.
  */
 
 import fs from 'fs';
@@ -34,8 +36,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const webStudioRoot = path.resolve(__dirname, '..');
 
+const GROQ_CHAT_COMPLETIONS_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const FETCH_TIMEOUT_MS = 180_000; // 3 phút
 const RETRY_DELAYS_MS = [8_000, 15_000, 25_000]; // 3 lần retry: 8s / 15s / 25s
+const GROQ_INTER_ACT_DELAY_MS = 10_000; // 10 giây nghỉ giữa các Hồi tránh chạm 8.000 TPM của Groq Free Plan
+const GEMINI_INTER_ACT_DELAY_MS = 1_500;
 
 const ACT_BLUEPRINTS = [
   {
@@ -72,6 +77,31 @@ function sleepMs(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+function resolveGroqApiKey() {
+  if (process.env.GROQ_API_KEY && process.env.GROQ_API_KEY.trim()) {
+    return process.env.GROQ_API_KEY.trim();
+  }
+  const cwd = process.cwd();
+  const candidates = [
+    path.join(cwd, '.env.local'),
+    path.join(cwd, '.env'),
+    path.resolve(cwd, '..', '.env.local'),
+    path.resolve(cwd, '..', '.env'),
+  ];
+  for (const envPath of candidates) {
+    try {
+      if (!fs.existsSync(envPath)) continue;
+      const content = fs.readFileSync(envPath, 'utf8');
+      const m = content.match(/^\s*GROQ_API_KEY\s*=\s*(.+)\s*$/m);
+      if (m && m[1]) {
+        const cleaned = m[1].replace(/^["']|["']$/g, '').trim();
+        if (cleaned) return cleaned;
+      }
+    } catch {}
+  }
+  return '';
+}
+
 function parseCliArgs(argv) {
   let topic = '';
   let minutes = 6.5;
@@ -93,7 +123,13 @@ function parseCliArgs(argv) {
   return { topic, minutes, outPath, cliModel };
 }
 
-function buildModelCandidates(cliModel) {
+function buildGroqModelCandidates(cliModel) {
+  const primary = cliModel || process.env.GROQ_MODEL || 'openai/gpt-oss-120b';
+  const rawList = [primary, 'qwen/qwen3.8-27b', 'openai/gpt-oss-20b'].filter(Boolean);
+  return [...new Set(rawList)];
+}
+
+function buildGeminiModelCandidates(cliModel) {
   const primary =
     cliModel || process.env.GEMINI_MODEL || process.env.GEMINI_SCRIPT_MODEL || 'gemini-3.8-flash';
   const rawList = [primary, 'gemini-3.8-flash-lite', 'gemini-3.8-pro'].filter(Boolean);
@@ -101,12 +137,37 @@ function buildModelCandidates(cliModel) {
 }
 
 function computeBeatsPerAct(targetMinutes) {
-  // Với 6.5 phút -> 64 beats (16 beats/Hồi × 4 Hồi). Nếu user nhập phút khác thì chia đều 4 Hồi trong [6..16] beats/Hồi.
+  // Với 6.5 phút -> 64 beats (16 beats/Hồi × 4 Hồi).
   const approxTotal = Math.round((targetMinutes * 60) / 6.0);
   const clampedTotal = Math.max(24, Math.min(64, approxTotal));
   const base = Math.floor(clampedTotal / 4);
   const rem = clampedTotal % 4;
   return [0, 1, 2, 3].map((i) => base + (i < rem ? 1 : 0));
+}
+
+function extractAndParseJson(rawText, modelName) {
+  if (!rawText || !rawText.trim()) {
+    throw new Error(`Model "${modelName}" trả về nội dung rỗng.`);
+  }
+  // Loại bỏ thẻ <think>...</think> (nếu model reasoning có sinh) và markdown fence ```json ... ```
+  let cleaned = rawText
+    .replace(/<think>[\s\S]*?<\/think>/gi, '')
+    .replace(/^```json\s*/i, '')
+    .replace(/^```\s*/i, '')
+    .replace(/```\s*$/i, '')
+    .trim();
+
+  const firstBrace = cleaned.indexOf('{');
+  const lastBrace = cleaned.lastIndexOf('}');
+  if (firstBrace >= 0 && lastBrace > firstBrace) {
+    cleaned = cleaned.slice(firstBrace, lastBrace + 1);
+  }
+
+  const parsed = JSON.parse(cleaned);
+  if (!Array.isArray(parsed?.beats) || parsed.beats.length === 0) {
+    throw new Error(`Model "${modelName}" trả về JSON thiếu mảng beats[].`);
+  }
+  return parsed;
 }
 
 function buildActSystemPrompt(actInfo, actBeatCount, startBeatIdx, totalBeats) {
@@ -148,8 +209,8 @@ Nhiệm vụ của lượt này: Viết DUY NHẤT **${actInfo.role}** (đúng *
    - "ttsText": phiên âm thuần Việt mượt mà cho máy đọc VieNeu-TTS (MỌI chữ số, đơn vị, từ tiếng Anh/khoa học đều viết rõ ra chữ tiếng Việt, VD: "hai giờ sáng", "khí các-bô-níc", "bảy ngày", "năm mươi", "ô-xy", "a-đrê-na-lin").
 
 5. ĐẠO CỤ CHỦ ĐỀ BẰNG SVG PHẲNG ("customProps"):
-   - Dùng 0–2 customProps/beat cho các vật thể đặc trưng của chủ đề.
-   - "svgInner" vẽ trong khung 0..200 (viewBox="0 0 200 200"), nét viền đen phẳng 2D (stroke="#141414" stroke-width="4"), chỉ gồm 5–12 thẻ hình học cơ bản: <path>, <circle>, <ellipse>, <rect>, <line>, <polygon>, <polyline>, <g>. CẤM <script>, <style>, <text>, <image>, on*.
+   - Dùng 0–1 customProps/beat cho các vật thể đặc trưng của chủ đề (ngắn gọn để tiết kiệm token và giữ hình sạch đẹp).
+   - "svgInner" vẽ trong khung 0..200 (viewBox="0 0 200 200"), nét viền đen phẳng 2D (stroke="#141414" stroke-width="4"), chỉ gồm 4–10 thẻ hình học cơ bản: <path>, <circle>, <ellipse>, <rect>, <line>, <polygon>, <polyline>, <g>. CẤM <script>, <style>, <text>, <image>, on*.
    - Đặt tọa độ x trong 220..1700, y trong 180..720 sao cho KHÔNG che mặt nhân vật (LEFT≈490, CENTER≈960, RIGHT≈1390, mặt ở y≈480..540).
 
 === DANH SÁCH ENUM HỢP LỆ ===
@@ -212,7 +273,7 @@ Nhiệm vụ của lượt này: Viết DUY NHẤT **${actInfo.role}** (đúng *
     }
   ]
 }
-Chỉ trả về duy nhất JSON hợp lệ, không bọc markdown fence.`;
+Chỉ trả về duy nhất một JSON object hợp lệ, không kèm văn bản giải thích bên ngoài.`;
 }
 
 function buildActUserPrompt({ topic, episodeTitle, actInfo, actBeatCount, previousSummaries, lastBeatText }) {
@@ -232,96 +293,146 @@ function buildActUserPrompt({ topic, episodeTitle, actInfo, actBeatCount, previo
   }
 
   parts.push(
-    `Hãy viết tiếp ${actInfo.role} gồm ĐÚNG ${actBeatCount} micro-beats sống động, đồng bộ 1-1 hình ảnh và lời kể, trả về đúng JSON theo yêu cầu.`
+    `Hãy viết tiếp ${actInfo.role} gồm ĐÚNG ${actBeatCount} micro-beats sống động, đồng bộ 1-1 hình ảnh và lời kể, trả về đúng JSON object theo yêu cầu.`
   );
   return parts.join('\n');
 }
 
-async function callGeminiWithFallback({ apiKey, modelCandidates, systemPrompt, userPrompt, label }) {
+async function callSingleProviderRequest({ provider, apiKey, model, systemPrompt, userPrompt, signal }) {
+  if (provider === 'GROQ') {
+    const resp = await fetch(GROQ_CHAT_COMPLETIONS_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt },
+        ],
+        response_format: { type: 'json_object' },
+        temperature: 0.78,
+        max_tokens: 7200,
+      }),
+      signal,
+    });
+
+    if (!resp.ok) {
+      const body = await resp.text().catch(() => '');
+      const retryAfterSec = parseFloat(resp.headers.get('retry-after') || '');
+      const err = new Error(`Groq HTTP ${resp.status} (${model}): ${body.slice(0, 280)}`);
+      err.httpStatus = resp.status;
+      err.errorBody = body;
+      if (Number.isFinite(retryAfterSec) && retryAfterSec > 0) {
+        err.retryAfterMs = Math.min(45_000, Math.ceil(retryAfterSec * 1000));
+      }
+      throw err;
+    }
+
+    const data = await resp.json();
+    const rawText = String(data?.choices?.[0]?.message?.content || '').trim();
+    return extractAndParseJson(rawText, model);
+  }
+
+  // Fallback: Gemini REST API
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(
+    model
+  )}:generateContent?key=${encodeURIComponent(apiKey)}`;
+  const resp = await fetch(endpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      systemInstruction: { parts: [{ text: systemPrompt }] },
+      contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
+      generationConfig: {
+        responseMimeType: 'application/json',
+        temperature: 0.85,
+        maxOutputTokens: 16384,
+      },
+    }),
+    signal,
+  });
+
+  if (!resp.ok) {
+    const body = await resp.text().catch(() => '');
+    const err = new Error(`Gemini HTTP ${resp.status} (${model}): ${body.slice(0, 280)}`);
+    err.httpStatus = resp.status;
+    err.errorBody = body;
+    throw err;
+  }
+
+  const data = await resp.json();
+  const rawText = data?.candidates?.[0]?.content?.parts
+    ?.map((p) => p.text || '')
+    .join('')
+    .trim();
+  return extractAndParseJson(rawText, model);
+}
+
+async function callLlmWithFallback({ provider, apiKey, modelCandidates, systemPrompt, userPrompt, label }) {
   let lastErr = null;
 
   for (let mIdx = 0; mIdx < modelCandidates.length; mIdx++) {
     const model = modelCandidates[mIdx];
-    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(
-      model
-    )}:generateContent?key=${encodeURIComponent(apiKey)}`;
+    const maxAttempts = RETRY_DELAYS_MS.length + 1; // 1 lượt đầu + 3 lần retry (8s / 15s / 25s)
 
-    const maxAttempts = RETRY_DELAYS_MS.length + 1; // 1 lần gọi đầu + 3 lần retry (trễ 8s / 15s / 25s)
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
       const t0 = Date.now();
       try {
         console.log(
-          `-> [AI Director | ${label}] Gọi model "${model}" (lượt ${attempt}/${maxAttempts}, timeout=${FETCH_TIMEOUT_MS / 1000}s)...`
+          `-> [AI Director | ${provider} | ${label}] Gọi model "${model}" (lượt ${attempt}/${maxAttempts}, timeout=${FETCH_TIMEOUT_MS / 1000}s)...`
         );
-        const resp = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            systemInstruction: { parts: [{ text: systemPrompt }] },
-            contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
-            generationConfig: {
-              responseMimeType: 'application/json',
-              temperature: 0.85,
-              maxOutputTokens: 16384,
-            },
-          }),
+        const parsed = await callSingleProviderRequest({
+          provider,
+          apiKey,
+          model,
+          systemPrompt,
+          userPrompt,
           signal: controller.signal,
         });
         clearTimeout(timer);
 
-        if (resp.status === 404) {
-          const body = await resp.text().catch(() => '');
-          console.warn(
-            `  ! Model "${model}" trả về HTTP 404 (không tồn tại/chưa mở): ${body.slice(0, 160)} -> Nhảy ngay sang model dự phòng kế tiếp!`
-          );
-          lastErr = new Error(`Gemini HTTP 404 (${model})`);
-          break; // Nhảy ngay sang model kế tiếp, không retry 404
-        }
-
-        if (!resp.ok) {
-          const body = await resp.text().catch(() => '');
-          const err = new Error(`Gemini HTTP ${resp.status} (${model}): ${body.slice(0, 260)}`);
-          err.httpStatus = resp.status;
-          throw err;
-        }
-
-        const data = await resp.json();
-        const rawText = data?.candidates?.[0]?.content?.parts
-          ?.map((p) => p.text || '')
-          .join('')
-          .trim();
-        if (!rawText) {
-          throw new Error(`Model "${model}" trả về nội dung rỗng.`);
-        }
-
-        const stripped = rawText.replace(/^```json\s*/i, '').replace(/```\s*$/i, '').trim();
-        const parsed = JSON.parse(stripped);
-        if (!Array.isArray(parsed?.beats) || parsed.beats.length === 0) {
-          throw new Error(`Model "${model}" trả về JSON thiếu mảng beats[].`);
-        }
-
         const elapsedSec = ((Date.now() - t0) / 1000).toFixed(1);
-        console.log(`  ✅ [${label}] Thành công với "${model}" sau ${elapsedSec}s (${parsed.beats.length} beats)!`);
+        console.log(
+          `  ✅ [${provider} | ${label}] Thành công với "${model}" sau ${elapsedSec}s (${parsed.beats.length} beats)!`
+        );
         return { parsed, usedModel: model };
       } catch (err) {
         clearTimeout(timer);
         lastErr = err;
         const status = err?.httpStatus;
+        const bodyStr = String(err?.errorBody || err?.message || '');
+        const isModelMissing =
+          status === 404 ||
+          (status === 400 && /model_not_found|does not exist|decommissioned|not found/i.test(bodyStr));
+
+        if (isModelMissing) {
+          console.warn(
+            `  ! Model "${model}" không khả dụng (HTTP ${status}): ${bodyStr.slice(0, 160)} -> Nhảy ngay sang model dự phòng kế tiếp!`
+          );
+          break; // Nhảy ngay sang model kế tiếp (0s delay)
+        }
+
         const isAbort = err?.name === 'AbortError' || /abort/i.test(String(err?.message || ''));
         const isRetryableHttp = status === 503 || status === 429 || (status >= 500 && status < 600);
-        const canRetrySameModel = attempt <= RETRY_DELAYS_MS.length && (isRetryableHttp || isAbort || !status);
+        const isJsonValidateErr = status === 400 && /json_validate_failed/i.test(bodyStr);
+        const canRetrySameModel =
+          attempt <= RETRY_DELAYS_MS.length && (isRetryableHttp || isAbort || isJsonValidateErr || !status);
 
         console.warn(
-          `  ! [${label} | ${model} | lượt ${attempt}/${maxAttempts}] Lỗi: ${
+          `  ! [${provider} | ${label} | ${model} | lượt ${attempt}/${maxAttempts}] Lỗi: ${
             isAbort ? `Timeout sau ${FETCH_TIMEOUT_MS / 1000}s (AbortError)` : err?.message || err
           }`
         );
 
         if (canRetrySameModel) {
-          const waitMs = RETRY_DELAYS_MS[attempt - 1];
-          console.log(`  -> Chờ ${waitMs / 1000}s rồi thử lại "${model}"...`);
+          const baseWaitMs = RETRY_DELAYS_MS[attempt - 1];
+          const waitMs = Math.max(baseWaitMs, err?.retryAfterMs || 0);
+          console.log(`  -> Chờ ${(waitMs / 1000).toFixed(0)}s rồi thử lại "${model}"...`);
           await sleepMs(waitMs);
         } else {
           break; // Chuyển sang model kế tiếp
@@ -330,16 +441,19 @@ async function callGeminiWithFallback({ apiKey, modelCandidates, systemPrompt, u
     }
   }
 
-  throw lastErr || new Error(`[${label}] Tất cả model dự phòng đều thất bại: ${modelCandidates.join(', ')}`);
+  throw lastErr || new Error(`[${provider} | ${label}] Tất cả model dự phòng đều thất bại: ${modelCandidates.join(', ')}`);
 }
 
-async function generateEpisodeInFourActs({ apiKey, initialModelCandidates, topic, minutes }) {
+async function generateEpisodeInFourActs({ provider, apiKey, initialModelCandidates, topic, minutes }) {
   const beatsPerAct = computeBeatsPerAct(minutes);
   const totalPlannedBeats = beatsPerAct.reduce((a, b) => a + b, 0);
+  const interActDelayMs = provider === 'GROQ' ? GROQ_INTER_ACT_DELAY_MS : GEMINI_INTER_ACT_DELAY_MS;
+
   console.log(
-    `-> Kế hoạch sinh 4 Hồi nối tiếp: [${beatsPerAct.join(' + ')}] = ${totalPlannedBeats} micro-beats | Models: [${initialModelCandidates.join(
-      ' -> '
-    )}]`
+    `-> Provider: ${provider} | Kế hoạch 4 Hồi nối tiếp: [${beatsPerAct.join(' + ')}] = ${totalPlannedBeats} micro-beats`
+  );
+  console.log(
+    `-> Danh sách model xoay vòng: [${initialModelCandidates.join(' -> ')}] | Nghỉ giữa Hồi: ${interActDelayMs / 1000}s`
   );
 
   let activeModelOrder = [...initialModelCandidates];
@@ -363,7 +477,8 @@ async function generateEpisodeInFourActs({ apiKey, initialModelCandidates, topic
       lastBeatText,
     });
 
-    const { parsed, usedModel } = await callGeminiWithFallback({
+    const { parsed, usedModel } = await callLlmWithFallback({
+      provider,
       apiKey,
       modelCandidates: activeModelOrder,
       systemPrompt,
@@ -371,7 +486,7 @@ async function generateEpisodeInFourActs({ apiKey, initialModelCandidates, topic
       label: `Hồi ${actInfo.actNumber}/4 (${actBeatCount} beats)`,
     });
 
-    // Đưa model đang hoạt động tốt lên đầu danh sách cho các Hồi sau để tránh gọi lại model bị 404
+    // Ghim model đang hoạt động tốt lên đầu cho các Hồi sau
     activeModelOrder = [usedModel, ...activeModelOrder.filter((m) => m !== usedModel)];
 
     if (actInfo.actNumber === 1) {
@@ -408,9 +523,9 @@ async function generateEpisodeInFourActs({ apiKey, initialModelCandidates, topic
     const tailBeat = actBeats[actBeats.length - 1];
     lastBeatText = String(tailBeat?.text || tailBeat?.narrationText || '').trim();
 
-    // Nghỉ nhẹ 1.5s giữa các Hồi tránh burst rate-limit
     if (i < ACT_BLUEPRINTS.length - 1) {
-      await sleepMs(1500);
+      console.log(`  ⏳ Nghỉ ${interActDelayMs / 1000}s trước khi sinh Hồi ${actInfo.actNumber + 1}/4 (tránh vượt giới hạn TPM)...`);
+      await sleepMs(interActDelayMs);
     }
   }
 
@@ -432,14 +547,26 @@ async function main() {
     process.exit(1);
   }
 
-  const apiKey = resolveGeminiApiKey();
-  if (!apiKey) {
-    console.error('Lỗi: Không tìm thấy GEMINI_API_KEY trong môi trường hoặc file .env/.env.local!');
-    process.exit(1);
+  // Ưu tiên tuyệt đối Groq Free API khi có GROQ_API_KEY; chỉ fallback về GEMINI_API_KEY khi không có GROQ_API_KEY
+  const groqApiKey = resolveGroqApiKey();
+  let provider = 'GROQ';
+  let apiKey = groqApiKey;
+  let initialModelCandidates = buildGroqModelCandidates(cliModel);
+
+  if (!groqApiKey) {
+    const geminiApiKey = resolveGeminiApiKey();
+    if (!geminiApiKey) {
+      console.error('Lỗi: Không tìm thấy GROQ_API_KEY hay GEMINI_API_KEY trong môi trường hoặc .env/.env.local!');
+      process.exit(1);
+    }
+    provider = 'GEMINI';
+    apiKey = geminiApiKey;
+    initialModelCandidates = buildGeminiModelCandidates(cliModel);
+    console.log('-> Không phát hiện GROQ_API_KEY, tự động fallback sang GEMINI_API_KEY...');
   }
 
-  const initialModelCandidates = buildModelCandidates(cliModel);
   const episode = await generateEpisodeInFourActs({
+    provider,
     apiKey,
     initialModelCandidates,
     topic,
@@ -458,7 +585,7 @@ async function main() {
     Math.max(1, episode.beats.length);
 
   console.log('====================================================================');
-  console.log(`✅ AI DIRECTOR V17.1 HOÀN TẤT KỊCH BẢN (4 HỒI NỐI TIẾP): "${episode.title}"`);
+  console.log(`✅ AI DIRECTOR V17.2 (${provider} — 4 HỒI NỐI TIẾP) HOÀN TẤT: "${episode.title}"`);
   console.log(`-> Slug: ${episode.slug}`);
   console.log(`-> Tổng số Micro-Beats: ${episode.beats.length} (TB ${avgWords.toFixed(1)} từ/beat)`);
   console.log(
