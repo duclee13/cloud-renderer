@@ -1,6 +1,6 @@
 /**
  * AI DIRECTOR V17.0 — Bộ Đạo Diễn AI Sinh Kịch Bản Chuẩn V16 (JSON Auto-Factory)
- * Nhận: --topic="<chủ đề>" [--minutes=6.5] [--out=episodes/current_episode.json] [--model=gemini-2.5-flash]
+ * Nhận: --topic="<chủ đề>" [--minutes=6.5] [--out=episodes/current_episode.json] [--model=gemini-3.8-flash]
  * Gọi Gemini REST API (responseMimeType: "application/json") -> sanitizeAndValidateEpisode() -> lưu JSON sạch.
  */
 
@@ -33,7 +33,7 @@ function parseCliArgs(argv) {
   let topic = '';
   let minutes = 6.5;
   let outPath = 'episodes/current_episode.json';
-  let model = process.env.GEMINI_SCRIPT_MODEL || 'gemini-2.5-flash';
+  let model = process.env.GEMINI_SCRIPT_MODEL || 'gemini-3.8-flash';
 
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
