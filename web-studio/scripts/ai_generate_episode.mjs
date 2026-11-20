@@ -29,7 +29,7 @@ import {
   VALID_ACTOR_MOTIONS,
   VALID_ACTOR_EXPRESSIONS,
   VALID_HAND_PROPS,
-  VALID_PROP_ANIMATIONS,
+  VALID_AUTO_PROP_IDS,
 } from '../src/lib/v7/episodeJsonSchema.ts';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -66,10 +66,10 @@ const ACT_BLUEPRINTS = [
   },
   {
     actNumber: 4,
-    role: 'HỒI 4 — GIẢI ĐÁP THÚ VỊ & KẾT ẤM ÁP TỰ NHIÊN',
+    role: 'HỒI 4 — GIẢI ĐÁP KHOA HỌC THÚ VỊ & KẾT MỞ GỢI TÒ MÒ',
     defaultBgm: 'BGM_WARM_OUTRO',
     guide:
-      'Giải quyết tình huống gọn gàng, rút ra góc nhìn khoa học thú vị một cách đời thường gần gũi (TUYỆT ĐỐI KHÔNG giáo điều/tuyên truyền), chuyển bgmMood sang "BGM_WARM_OUTRO" và kết bằng câu hỏi giao lưu thân thiện.',
+      'Giải quyết tình huống gọn gàng, hé lộ một sự thật khoa học thú vị (TUYỆT ĐỐI CẤM kết bài kiểu giáo điều/khuyên răn sức khỏe như "sức khỏe là quan trọng nhất", "hãy giữ gìn giấc ngủ"), chuyển bgmMood sang "BGM_WARM_OUTRO" và kết bằng một quan sát khoa học bất ngờ hoặc câu hỏi gợi trí tò mò tự nhiên.',
   },
 ];
 
@@ -193,25 +193,45 @@ Nhiệm vụ của lượt này: Viết DUY NHẤT **${actInfo.role}** (đúng *
        : 'Dùng "CUT" (transitionFrames: 0) cho các cú giật mình/bất ngờ hài hước.'
    } Luôn đặt pauseAfterSec: 0.4.
 
-2. TỶ LỆ CẢNH SỐNG ĐỘNG & ĐA DẠNG BỐI CẢNH:
+2. TỶ LỆ CẢNH SỐNG ĐỘNG, DI CHUYỂN THẬT 60FPS & TƯƠNG TÁC ĐÔI ("APPROACH_OTHER"):
    - Tối đa ${maxExplainersInAct} beat dùng "EXPLAINER_POLKA_DOT" trong Hồi này; toàn bộ phần còn lại (>= 80%) phải dùng bối cảnh sống động có nhân vật hành động.
-   - Thay đổi linh hoạt stageType, timeOfDay, actors[].motion, handProp và customProps qua từng beat để phim luôn cuốn hút.
+   - BẮT BUỘC NHÂN VẬT DI CHUYỂN & HÀNH ĐỘNG THẬT TRÊN >= 70% SỐ CẢNH:
+     + Ưu tiên dùng các động tác có di chuyển/hành động rõ rệt: "WALK_IN", "THINK_STROLL", "APPROACH_OTHER", "JUMP_SHOCK", "RUN_CHASE", "POINT_AT", "SIT_OBSERVE", "WAVE", "CELEBRATE", "HOP_PAIN", "SLEEP_BED".
+     + CHỈ dùng "IDLE_TALK" ở tối đa 25%-30% số cảnh khi nhân vật thực sự đứng yên một chỗ trò chuyện.
+   - TƯƠNG TÁC ĐÔI NHÂN VẬT ("APPROACH_OTHER"):
+     + Khi lời thoại nhắc đến 2 người tương tác trực tiếp (VD: "ông nội đặt tay lên vai tôi", "bà đưa cho tôi cốc nước", "bác sĩ bước tới khám cho tôi", "hàng xóm chạy sang hỏi"): BẮT BUỘC khai báo ĐỦ CẢ 2 NHÂN VẬT trong mảng "actors[]" (1 người ở slot "LEFT", 1 người ở slot "RIGHT") và gán motion: "APPROACH_OTHER" để hai nhân vật bước lại đứng sát cạnh nhau tương tác thật!
    - Định hướng Hồi này: ${actInfo.guide}
    - Nhạc nền gợi ý cho Hồi này: "${actInfo.defaultBgm}".
 
-3. VĂN PHONG & KHOA HỌC TRUNG THỰC:
-   - Ngôi thứ nhất ("tôi", có thể tương tác cùng GRANDPA, GRANDMA, DOCTOR, NEIGHBOR), hồn nhiên, tò mò, có duyên.
-   - TUYỆT ĐỐI CẤM tuyên truyền, giáo điều, khẩu hiệu ("Đừng bao giờ thử!", "Hãy nhớ kỹ bài học", "Quy tắc 3 bước").
+3. VĂN PHONG & KHOA HỌC TRUNG THỰC (CẤM GIÁO ĐIỀU / RĂN ĐE):
+   - Ngôi thứ nhất ("tôi", tương tác tự nhiên cùng GRANDPA, GRANDMA, DOCTOR, NEIGHBOR), hồn nhiên, tò mò, có duyên.
+   - TUYỆT ĐỐI CẤM văn phong tuyên truyền, giáo điều, dạy đời hay khuyên răn sức khỏe ở cuối phim (CẤM các câu như "Sức khỏe là vốn quý nhất", "Hãy giữ gìn giấc ngủ", "Đừng bao giờ thử!", "Hãy nhớ kỹ bài học"). Hãy kết bằng một chi tiết khoa học thú vị hoặc câu hỏi gợi tò mò tự nhiên.
    - TUYỆT ĐỐI KHÔNG bịa số liệu % hay thống kê giả (NO FAKE METRICS).
 
-4. PHIÊN ÂM CHUẨN CHO VIENEU-TTS ("ttsText" vs "text"):
-   - "text": phụ đề hiển thị chuẩn chính tả tiếng Việt (có thể viết số/ký hiệu: "2 giờ sáng", "CO₂", "7 ngày", "50").
+4. PHIÊN ÂM CHUẨN CHO VIENEU-TTS ("ttsText" vs "text") & 100% TIẾNG VIỆT CÓ DẤU:
+   - "text": phụ đề hiển thị chuẩn chính tả tiếng Việt có dấu (có thể viết số/ký hiệu: "2 giờ sáng", "CO₂", "7 ngày", "50").
    - "ttsText": phiên âm thuần Việt mượt mà cho máy đọc VieNeu-TTS (MỌI chữ số, đơn vị, từ tiếng Anh/khoa học đều viết rõ ra chữ tiếng Việt, VD: "hai giờ sáng", "khí các-bô-níc", "bảy ngày", "năm mươi", "ô-xy", "a-đrê-na-lin").
+   - 100% nhãn chữ ("headerTitle", "callout.text", "bubble") BẮT BUỘC là tiếng Việt có dấu chuẩn, tuyệt đối không chèn từ tiếng Anh.
 
-5. ĐẠO CỤ CHỦ ĐỀ BẰNG SVG PHẲNG ("customProps"):
-   - Dùng 0–1 customProps/beat cho các vật thể đặc trưng của chủ đề (ngắn gọn để tiết kiệm token và giữ hình sạch đẹp).
-   - "svgInner" vẽ trong khung 0..200 (viewBox="0 0 200 200"), nét viền đen phẳng 2D (stroke="#141414" stroke-width="4"), chỉ gồm 4–10 thẻ hình học cơ bản: <path>, <circle>, <ellipse>, <rect>, <line>, <polygon>, <polyline>, <g>. CẤM <script>, <style>, <text>, <image>, on*.
-   - Đặt tọa độ x trong 220..1700, y trong 180..720 sao cho KHÔNG che mặt nhân vật (LEFT≈490, CENTER≈960, RIGHT≈1390, mặt ở y≈480..540).
+5. KHO 16 ĐẠO CỤ VECTOR CHUYỂN ĐỘNG 60FPS ("visualProp" — KHÔNG VẼ SVG THÔ):
+   - Mỗi beat chọn 1 mã đạo cụ "visualProp" thật khớp với nội dung lời thoại từ kho 16 đạo cụ chuẩn (hoặc "NONE" nếu cảnh không cần đạo cụ nổi):
+     + Đồng hồ báo thức / thời gian / thức khuya -> "ALARM_CLOCK_RINGING"
+     + Lon nước ngọt / nước tăng lực / đồ uống có ga -> "SODA_CAN_FIZZ"
+     + Ly cà phê nóng / trà nóng bốc khói -> "COFFEE_STEAM"
+     + Bộ não phát sáng / suy nghĩ / trí nhớ -> "BRAIN_GLOW"
+     + Xung thần kinh / tế bào não / tín hiệu điện -> "NEURON_SIGNAL"
+     + Pin yếu đỏ / cạn kiệt năng lượng / mệt mỏi -> "BATTERY_LOW"
+     + Đàn côn trùng / kiến / muỗi / vi khuẩn -> "BUG_SWARM"
+     + Tim đập nhanh / huyết áp / hồi hộp -> "HEART_BEAT"
+     + Nhiệt kế nóng đỏ / sốt / nhiệt độ tăng -> "THERMOMETER_HOT"
+     + Bóng đen ảo giác / hoa mắt / bóng ma -> "GHOST_SHADOW"
+     + Sóng âm thanh / tiếng ồn / tiếng vang -> "SOUND_WAVES"
+     + Lát cắt lòng đất / địa chất / hang ngầm -> "EARTH_CUTAWAY"
+     + Sổ tay mở / ghi chép thí nghiệm / tài liệu -> "NOTEBOOK_OPEN"
+     + Trăng lưỡi liềm & sao đêm (tự động đặt ở bầu trời/cửa sổ) -> "MOON_STARS"
+     + Mặt nước gợn sóng / giọt nước / ao hồ -> "WATER_RIPPLE"
+     + Cúp ngôi sao / thành tựu / khám phá thành công -> "TROPHY_STAR"
+     + Không dùng đạo cụ nổi -> "NONE"
 
 6. BÓNG THOẠI ("bubble") TỰ NHIÊN & KHỚP ĐẠO CỤ CẦM TAY ("handProp"):
    - CHỈ gắn "bubble" cho khoảng 25%–35% số cảnh thực sự cần điểm nhấn hài hước hoặc cảm thán (~4–5 beat trong 16 beat của Hồi này); toàn bộ các cảnh còn lại BẮT BUỘC bỏ trống không điền "bubble".
@@ -230,13 +250,13 @@ Nhiệm vụ của lượt này: Viết DUY NHẤT **${actInfo.role}** (đúng *
 - transitionIn: ${VALID_TRANSITION_IN.join(' | ')}
 - bgmMood: ${VALID_BGM_MOOD.join(' | ')}
 - voiceTone: ${VALID_VOICE_TONE.join(' | ')}
+- visualProp: ${VALID_AUTO_PROP_IDS.join(' | ')}
 - actors[].preset: ${VALID_ACTOR_PRESETS.join(' | ')}
 - actors[].slot: ${VALID_ACTOR_SLOTS.join(' | ')}
 - actors[].facing: ${VALID_ACTOR_FACING.join(' | ')}
 - actors[].motion: ${VALID_ACTOR_MOTIONS.join(' | ')}
 - actors[].expression: ${VALID_ACTOR_EXPRESSIONS.join(' | ')}
 - actors[].handProp: ${VALID_HAND_PROPS.join(' | ')}
-- customProps[].animation: ${VALID_PROP_ANIMATIONS.join(' | ')}
 
 === ĐỊNH DẠNG JSON ĐẦU RA BẮT BUỘC ===
 {
@@ -258,26 +278,17 @@ Nhiệm vụ của lượt này: Viết DUY NHẤT **${actInfo.role}** (đúng *
       "pauseAfterSec": 0.4,
       "bgmMood": "${actInfo.defaultBgm}",
       "voiceTone": "CALM_STORY",
+      "visualProp": "ALARM_CLOCK_RINGING",
       "actors": [
         {
           "preset": "BOY",
           "slot": "LEFT",
           "facing": "RIGHT",
-          "motion": "IDLE_TALK",
+          "motion": "WALK_IN",
           "expression": "CURIOUS",
           "handProp": "NONE",
           "bubble": "Ủa gì vậy?! (CHỈ điền ở 25-35% cảnh cần nhấn, 1-4 từ đời thường; cảnh thường BỎ TRỐNG trường này)",
           "shiver": false
-        }
-      ],
-      "customProps": [
-        {
-          "label": "Nhãn ngắn",
-          "x": 1150,
-          "y": 360,
-          "scale": 1.0,
-          "animation": "FLOAT",
-          "svgInner": "<circle cx='100' cy='100' r='70' fill='#FEF08A' stroke='#141414' stroke-width='5'/>"
         }
       ]
     }
@@ -589,7 +600,7 @@ async function main() {
 
   const explainerCount = episode.beats.filter((b) => b.stageType === 'EXPLAINER_POLKA_DOT').length;
   const liveCount = episode.beats.length - explainerCount;
-  const propCount = episode.beats.reduce((acc, b) => acc + (b.customProps?.length || 0), 0);
+  const propCount = episode.beats.filter((b) => b.visualProp && b.visualProp !== 'NONE').length;
   const avgWords =
     episode.beats.reduce((acc, b) => acc + b.text.split(/\s+/).filter(Boolean).length, 0) /
     Math.max(1, episode.beats.length);
@@ -602,7 +613,7 @@ async function main() {
     `-> Tỷ lệ cảnh sống động 60fps: ${liveCount}/${episode.beats.length} (${(
       (liveCount / episode.beats.length) *
       100
-    ).toFixed(1)}%) | Explainer: ${explainerCount} | Custom SVG Props: ${propCount}`
+    ).toFixed(1)}%) | Explainer: ${explainerCount} | Curated 60fps Props: ${propCount}`
   );
   console.log(`-> Đã lưu file sạch: ${resolvedOut}`);
   console.log('====================================================================');

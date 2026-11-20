@@ -43,7 +43,27 @@ export type AutoActorMotion =
   | "SIT_OBSERVE"
   | "SLEEP_BED"
   | "CELEBRATE"
+  | "APPROACH_OTHER"
   | "IDLE_TALK";
+
+export type AutoPropId =
+  | "NONE"
+  | "ALARM_CLOCK_RINGING"
+  | "SODA_CAN_FIZZ"
+  | "COFFEE_STEAM"
+  | "BRAIN_GLOW"
+  | "NEURON_SIGNAL"
+  | "BATTERY_LOW"
+  | "BUG_SWARM"
+  | "HEART_BEAT"
+  | "THERMOMETER_HOT"
+  | "GHOST_SHADOW"
+  | "SOUND_WAVES"
+  | "EARTH_CUTAWAY"
+  | "NOTEBOOK_OPEN"
+  | "MOON_STARS"
+  | "WATER_RIPPLE"
+  | "TROPHY_STAR";
 
 export type AutoActorExpression =
   | "HAPPY"
@@ -108,6 +128,8 @@ export interface AutoEpisodeBeat {
   pauseAfterSec: number;
   bgmMood: AutoBgmMood;
   voiceTone?: AutoVoiceTone;
+  /** V17.2: Đạo cụ vector chuyên nghiệp 60fps chọn từ 16 mẫu chuẩn (thay thế hoàn toàn svgInner thô của AI) */
+  visualProp?: AutoPropId;
   actors: AutoActorSpec[];
   customProps: AutoCustomPropSpec[];
   callout?: AutoCalloutSpec;
@@ -159,7 +181,28 @@ export const VALID_ACTOR_MOTIONS: readonly AutoActorMotion[] = [
   "SIT_OBSERVE",
   "SLEEP_BED",
   "CELEBRATE",
+  "APPROACH_OTHER",
   "IDLE_TALK",
+];
+
+export const VALID_AUTO_PROP_IDS: readonly AutoPropId[] = [
+  "NONE",
+  "ALARM_CLOCK_RINGING",
+  "SODA_CAN_FIZZ",
+  "COFFEE_STEAM",
+  "BRAIN_GLOW",
+  "NEURON_SIGNAL",
+  "BATTERY_LOW",
+  "BUG_SWARM",
+  "HEART_BEAT",
+  "THERMOMETER_HOT",
+  "GHOST_SHADOW",
+  "SOUND_WAVES",
+  "EARTH_CUTAWAY",
+  "NOTEBOOK_OPEN",
+  "MOON_STARS",
+  "WATER_RIPPLE",
+  "TROPHY_STAR",
 ];
 export const VALID_ACTOR_EXPRESSIONS: readonly AutoActorExpression[] = [
   "HAPPY",
@@ -406,10 +449,89 @@ const MOTION_ALIASES: Record<string, AutoActorMotion> = {
   BED: "SLEEP_BED",
   CHEER: "CELEBRATE",
   HAPPY_JUMP: "CELEBRATE",
+  APPROACH: "APPROACH_OTHER",
+  TOUCH_SHOULDER: "APPROACH_OTHER",
+  PAT_SHOULDER: "APPROACH_OTHER",
+  HAND_OVER: "APPROACH_OTHER",
+  GIVE: "APPROACH_OTHER",
+  COMFORT: "APPROACH_OTHER",
+  COME_CLOSE: "APPROACH_OTHER",
   IDLE: "IDLE_TALK",
   TALK: "IDLE_TALK",
   STAND: "IDLE_TALK",
 };
+
+const VISUAL_PROP_ALIASES: Record<string, AutoPropId> = {
+  CLOCK: "ALARM_CLOCK_RINGING",
+  ALARM: "ALARM_CLOCK_RINGING",
+  TIME: "ALARM_CLOCK_RINGING",
+  SODA: "SODA_CAN_FIZZ",
+  CAN: "SODA_CAN_FIZZ",
+  DRINK: "SODA_CAN_FIZZ",
+  COFFEE: "COFFEE_STEAM",
+  TEA: "COFFEE_STEAM",
+  CUP: "COFFEE_STEAM",
+  BRAIN: "BRAIN_GLOW",
+  MIND: "BRAIN_GLOW",
+  NEURON: "NEURON_SIGNAL",
+  SYNAPSE: "NEURON_SIGNAL",
+  NERVE: "NEURON_SIGNAL",
+  BATTERY: "BATTERY_LOW",
+  ENERGY: "BATTERY_LOW",
+  TIRED_BATTERY: "BATTERY_LOW",
+  BUG: "BUG_SWARM",
+  INSECT: "BUG_SWARM",
+  MOSQUITO: "BUG_SWARM",
+  ANT: "BUG_SWARM",
+  HEART: "HEART_BEAT",
+  PULSE: "HEART_BEAT",
+  THERMOMETER: "THERMOMETER_HOT",
+  FEVER: "THERMOMETER_HOT",
+  TEMP: "THERMOMETER_HOT",
+  HOT: "THERMOMETER_HOT",
+  GHOST: "GHOST_SHADOW",
+  SHADOW: "GHOST_SHADOW",
+  HALLUCINATION: "GHOST_SHADOW",
+  SOUND: "SOUND_WAVES",
+  AUDIO: "SOUND_WAVES",
+  VOICE: "SOUND_WAVES",
+  EARTH: "EARTH_CUTAWAY",
+  PLANET: "EARTH_CUTAWAY",
+  WORLD: "EARTH_CUTAWAY",
+  NOTEBOOK: "NOTEBOOK_OPEN",
+  BOOK: "NOTEBOOK_OPEN",
+  DIARY: "NOTEBOOK_OPEN",
+  MOON: "MOON_STARS",
+  STAR: "MOON_STARS",
+  NIGHT_SKY: "MOON_STARS",
+  WATER: "WATER_RIPPLE",
+  WAVE: "WATER_RIPPLE",
+  DROP: "WATER_RIPPLE",
+  TROPHY: "TROPHY_STAR",
+  AWARD: "TROPHY_STAR",
+};
+
+function inferVisualPropFromLegacyLabel(labelOrText: string): AutoPropId {
+  const s = (labelOrText || "").toLowerCase();
+  if (!s) return "NONE";
+  if (/đồng hồ|báo thức|2:00|giờ sáng|kim giờ/.test(s)) return "ALARM_CLOCK_RINGING";
+  if (/cà phê|trà nóng|cốc nóng|khói/.test(s)) return "COFFEE_STEAM";
+  if (/nước ngọt|lon nước|có ga|soda/.test(s)) return "SODA_CAN_FIZZ";
+  if (/tế bào thần kinh|nơ-ron|neuron|xung điện/.test(s)) return "NEURON_SIGNAL";
+  if (/não|trí nhớ|đầu óc/.test(s)) return "BRAIN_GLOW";
+  if (/pin|cạn sức|năng lượng/.test(s)) return "BATTERY_LOW";
+  if (/muỗi|bọ|côn trùng|kiến|ong|ve/.test(s)) return "BUG_SWARM";
+  if (/tim|nhịp đập|mạch/.test(s)) return "HEART_BEAT";
+  if (/nhiệt kế|sốt|nóng/.test(s)) return "THERMOMETER_HOT";
+  if (/ảo giác|bóng đen|hoa mắt|chập chờn/.test(s)) return "GHOST_SHADOW";
+  if (/sóng âm|tiếng kêu|âm thanh/.test(s)) return "SOUND_WAVES";
+  if (/trái đất|địa cầu|lòng đất/.test(s)) return "EARTH_CUTAWAY";
+  if (/sổ tay|ghi chép|nhật ký|trang giấy/.test(s)) return "NOTEBOOK_OPEN";
+  if (/trăng|sao/.test(s)) return "MOON_STARS";
+  if (/mặt nước|giọt nước|sóng nước/.test(s)) return "WATER_RIPPLE";
+  if (/ngôi sao|chiến thắng|cúp/.test(s)) return "TROPHY_STAR";
+  return "NONE";
+}
 
 const EXPRESSION_ALIASES: Record<string, AutoActorExpression> = {
   SMILE: "HAPPY",
@@ -623,10 +745,12 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
     const rawActors = Array.isArray(rb?.actors) ? rb.actors.slice(0, 2) : [];
     const actors = rawActors.map((a: any, aIdx: number) => sanitizeActor(a, aIdx));
 
-    const rawProps = Array.isArray(rb?.customProps) ? rb.customProps.slice(0, 2) : [];
-    const customProps = rawProps
-      .map((p: any) => sanitizeCustomProp(p))
-      .filter((p: AutoCustomPropSpec | null): p is AutoCustomPropSpec => Boolean(p));
+    // V17.2: Ưu tiên visualProp chuẩn 16 mẫu vector 60fps; nếu JSON cũ có customProps.label thì tự ánh xạ sang visualProp và BỎ hẳn svgInner thô
+    let visualProp: AutoPropId = matchEnum(rb?.visualProp, VALID_AUTO_PROP_IDS, "NONE", VISUAL_PROP_ALIASES);
+    if (visualProp === "NONE" && Array.isArray(rb?.customProps) && rb.customProps.length > 0) {
+      const legacyLabel = String(rb.customProps[0]?.label || "");
+      visualProp = inferVisualPropFromLegacyLabel(legacyLabel);
+    }
 
     let callout: AutoCalloutSpec | undefined;
     if (rb?.callout && typeof rb.callout === "object" && typeof rb.callout.text === "string" && rb.callout.text.trim()) {
@@ -651,8 +775,9 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       pauseAfterSec,
       bgmMood,
       voiceTone,
+      visualProp,
       actors,
-      customProps,
+      customProps: [], // V17.2: Khóa rỗng mảng customProps SVG thô của AI để không bao giờ xuất hiện hình vuông/tròn lỗi
       ...(callout ? { callout } : {}),
     };
   });

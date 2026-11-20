@@ -49,15 +49,15 @@ jobs:
 
       - name: Install FFmpeg (and Chromium libs when preview_only)
         run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends ffmpeg
+          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 update
+          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends ffmpeg
           if [ "${{ inputs.preview_only }}" = "true" ]; then
-            sudo apt-get install -y --no-install-recommends \
+            sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends \
               libnss3 libnspr4 libglib2.0-0 libatk1.0-0 libatk-bridge2.0-0 \
               libcups2 libdrm2 libxkbcommon0 libx11-xcb1 libxcomposite1 \
               libxdamage1 libxfixes3 libxrandr2 libgbm1 libxshmfence1 \
               libpango-1.0-0 libcairo2 fonts-noto fonts-noto-color-emoji || true
-            sudo apt-get install -y --no-install-recommends libasound2t64 || sudo apt-get install -y --no-install-recommends libasound2 || true
+            sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends libasound2t64 || sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends libasound2 || true
           fi
 
       - name: Generate V16 Micro-Beat Script JSON via AI Director (Groq Priority / Gemini Fallback)
@@ -163,13 +163,13 @@ jobs:
 
       - name: Install FFmpeg & Headless Chromium Libraries (Ubuntu 24.04 Safe)
         run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
+          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 update
+          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends \
             ffmpeg libnss3 libnspr4 libglib2.0-0 libatk1.0-0 libatk-bridge2.0-0 \
             libcups2 libdrm2 libxkbcommon0 libx11-xcb1 libxcomposite1 \
             libxdamage1 libxfixes3 libxrandr2 libgbm1 libxshmfence1 \
             libpango-1.0-0 libcairo2 fonts-noto fonts-noto-color-emoji || true
-          sudo apt-get install -y --no-install-recommends libasound2t64 || sudo apt-get install -y --no-install-recommends libasound2 || true
+          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends libasound2t64 || sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends libasound2 || true
 
       - name: Install Web-Studio Dependencies & Chromium Browser
         working-directory: web-studio
@@ -229,7 +229,7 @@ jobs:
           node-version: 24
 
       - name: Install FFmpeg
-        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
+        run: sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 update && sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends ffmpeg
 
       - name: Stitch All ${{ inputs.total_chapters }} Chunks via --concat-only
         working-directory: web-studio

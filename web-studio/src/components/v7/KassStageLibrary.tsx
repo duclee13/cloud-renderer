@@ -307,33 +307,33 @@ export const BedroomIndoorBackdrop: React.FC<{
         <line key={`plank_${fy}`} x1={0} y1={fy} x2={1920} y2={fy} stroke="#92400E" strokeWidth={2} opacity={0.35} />
       ))}
 
-      {/* Cửa sổ nhìn ra bầu trời ngày/chiều/đêm hoặc cơn mưa rào */}
-      <g transform="translate(260, 175)">
-        <rect x={0} y={0} width={360} height={260} rx={12} fill={winSky} />
+      {/* Cửa sổ nhìn ra bầu trời ngày/chiều/đêm hoặc cơn mưa rào (V17.2: nâng đỉnh lên y=108, đáy ở y=336 để đầu nhân vật đứng dưới sàn không bao giờ chạm viền cửa sổ!) */}
+      <g transform="translate(260, 108)">
+        <rect x={0} y={0} width={360} height={228} rx={12} fill={winSky} />
         {rainOutside ? (
           <g stroke="#93C5FD" strokeWidth={2.5} strokeLinecap="round" opacity={0.85}>
             {Array.from({ length: 16 }).map((_, ri) => {
               const rx = 20 + ((ri * 37) % 320);
-              const ry = ((ri * 53 + frame * 11) % 235) + 5;
-              return <line key={`win_rain_${ri}`} x1={rx} y1={ry} x2={rx - 8} y2={Math.min(252, ry + 22)} />;
+              const ry = ((ri * 53 + frame * 11) % 205) + 5;
+              return <line key={`win_rain_${ri}`} x1={rx} y1={ry} x2={rx - 8} y2={Math.min(220, ry + 22)} />;
             })}
           </g>
         ) : isNight ? (
           <>
-            <path d="M 85,55 A 28,28 0 1,0 85,110 A 21,21 0 1,1 85,55 Z" fill="#FEF08A" stroke="none" />
-            <circle cx={240} cy={70} r={3.5} fill="#FEF9C3" stroke="none" />
-            <circle cx={290} cy={125} r={2.8} fill="#FEF9C3" stroke="none" />
+            <path d="M 85,48 A 28,28 0 1,0 85,103 A 21,21 0 1,1 85,48 Z" fill="#FEF08A" stroke="none" />
+            <circle cx={240} cy={62} r={3.5} fill="#FEF9C3" stroke="none" />
+            <circle cx={290} cy={112} r={2.8} fill="#FEF9C3" stroke="none" />
           </>
         ) : (
           <>
-            <circle cx={265} cy={75} r={34} fill="#FDE047" stroke="#141414" strokeWidth={2.5} />
-            <ellipse cx={Math.max(48, Math.min(310, winCloudX))} cy={95} rx={36} ry={16} fill="#FFFFFF" stroke="none" opacity={0.85} />
+            <circle cx={265} cy={68} r={34} fill="#FDE047" stroke="#141414" strokeWidth={2.5} />
+            <ellipse cx={Math.max(48, Math.min(310, winCloudX))} cy={86} rx={36} ry={16} fill="#FFFFFF" stroke="none" opacity={0.85} />
           </>
         )}
-        <line x1={180} y1={0} x2={180} y2={260} stroke="#141414" strokeWidth={3} />
-        <line x1={0} y1={130} x2={360} y2={130} stroke="#141414" strokeWidth={3} />
-        <rect x={0} y={0} width={360} height={260} rx={12} fill="none" stroke="#92400E" strokeWidth={10} />
-        <rect x={0} y={0} width={360} height={260} rx={12} fill="none" stroke="#141414" strokeWidth={3} />
+        <line x1={180} y1={0} x2={180} y2={228} stroke="#141414" strokeWidth={3} />
+        <line x1={0} y1={114} x2={360} y2={114} stroke="#141414" strokeWidth={3} />
+        <rect x={0} y={0} width={360} height={228} rx={12} fill="none" stroke="#92400E" strokeWidth={10} />
+        <rect x={0} y={0} width={360} height={228} rx={12} fill="none" stroke="#141414" strokeWidth={3} />
       </g>
 
       {/* Giường ngủ ấm cúng bên phải */}

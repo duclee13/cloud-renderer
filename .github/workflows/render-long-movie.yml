@@ -39,8 +39,8 @@ jobs:
 
       - name: Install FFmpeg & Headless Chromium Libraries (Ubuntu 24.04 Safe)
         run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
+          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 update
+          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends \
             ffmpeg \
             libnss3 \
             libnspr4 \
@@ -61,7 +61,7 @@ jobs:
             libcairo2 \
             fonts-noto \
             fonts-noto-color-emoji || true
-          sudo apt-get install -y --no-install-recommends libasound2t64 || sudo apt-get install -y --no-install-recommends libasound2 || true
+          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends libasound2t64 || sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends libasound2 || true
 
       - name: Install Web-Studio Dependencies
         working-directory: web-studio
@@ -106,7 +106,7 @@ jobs:
           node-version: 24
 
       - name: Install FFmpeg
-        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
+        run: sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 update && sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends ffmpeg
 
       - name: Download All Rendered Chunk Artifacts into out/chunks/
         uses: actions/download-artifact@v4
