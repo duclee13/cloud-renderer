@@ -10,6 +10,7 @@ import type { StoryCardType, StoryCardProps } from "../remotion/components/cards
 import type { MantisHungerStage } from "../remotion/components/character/MantisRig";
 import type { HornetNightSceneMode } from "../remotion/components/backgrounds/FlashlightNightStage";
 import type { KassStoryDemoMode } from "../components/v7/KassStageLibrary";
+import type { AutoEpisodeBeat } from "../lib/v7/episodeJsonSchema";
 import type {
   VitalityPreset,
   ActionIntent,
@@ -63,7 +64,9 @@ export type StageTheme =
   | "BEDROOM_INDOOR"
   | "UNDERGROUND_CROSS_SECTION"
   | "EXPLAINER_POLKA_DOT"
-  | "SIMPLE_GRASS_FIELD";
+  | "SIMPLE_GRASS_FIELD"
+  | "LOTUS_POND_STAGE"
+  | "BEDROOM_TANK_STAGE";
 
 export interface ScriptBeat {
   id?: string;
@@ -86,6 +89,16 @@ export interface ScriptBeat {
   sub?: string;
   customData?: Record<string, any>;
   narrationText?: string;
+  /** V16.0: Alias ngắn cho narrationText (phụ đề hiển thị chuẩn chính tả, VD: "khí CO₂") */
+  text?: string;
+  /** V16.0: Chuỗi phát âm riêng gửi sang VieNeu-TTS (VD: "khí các-bô-níc"), không đổi phụ đề màn hình */
+  ttsText?: string;
+  /** V16.0: Kiểu chuyển cảnh vào beat hiện tại (mặc định 'CROSSFADE' 0.5s không nháy đen; 'CUT' chuyển tức thì) */
+  transitionIn?: "CROSSFADE" | "CUT";
+  /** V16.0: Số frame giao điểm Crossfade đồng thời (mặc định 30 frames = 0.5s @ 60fps) */
+  transitionFrames?: number;
+  /** V16.0: Nhịp nghỉ tự nhiên (giây) sau lời thoại beat hiện tại trước khi beat sau cất tiếng (mặc định chuẩn V16: 0.4s) */
+  pauseAfterSec?: number;
   audioUrl?: string;
   audioDurationMs?: number;
   speechBubbleText?: string;
@@ -100,6 +113,8 @@ export interface ScriptBeat {
   metricMode?: MetricDisplayMode;
   hornetSceneMode?: HornetNightSceneMode;
   kassSceneMode?: KassStoryDemoMode;
+  /** V17.0: Thông số cảnh JSON tự động toàn phần cho UniversalAutoStage */
+  autoStageSpec?: AutoEpisodeBeat;
   voiceTone?: VoiceEmotionTone;
   sfxType?: SfxType;
   hungerStage?: MantisHungerStage;
@@ -1631,7 +1646,7 @@ export function compileScriptBeats(
     rimColor: "#38BDF8",
     hudTitle: currentBeat.title ?? `HÀNH ĐỘNG: ${effectiveActionType}`,
     hudSub: currentBeat.sub ?? `Tiến độ chuẩn hóa u = ${u.toFixed(2)} | duration: ${currentBeat.durationFrames}f`,
-    narrationText: currentBeat.narrationText,
+    narrationText: currentBeat.narrationText ?? currentBeat.text,
     speechBubbleText: currentBeat.speechBubbleText,
     archetype: currentBeat.archetype,
     showXrayAbdomen: partial.showXrayAbdomen ?? Boolean(currentBeat.showXrayAbdomen),

@@ -11,6 +11,8 @@ out/
 !.tts-cache/
 !.tts-cache/v15_fire_ant_full/
 !.tts-cache/v15_fire_ant_full/**
+!.tts-cache/v16_tadpole_bedroom/
+!.tts-cache/v16_tadpole_bedroom/**
 
 # Build artifacts
 dist/

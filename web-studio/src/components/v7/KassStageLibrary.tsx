@@ -12,8 +12,15 @@ import React from "react";
 import { StickmanRig, ComicSpeechBubble, isComicBubbleActive } from "./StickmanRig";
 import { smoothstep, lerpNum } from "../../lib/v7/universalAnimationStandard";
 import { FireAntV15SceneLayer, type FireAntV15SceneMode } from "./FireAntMovieStages";
+import {
+  TadpoleV16SceneLayer,
+  isTadpoleV16SceneMode,
+  LotusPondBackdrop,
+  type TadpoleV16SceneMode,
+} from "./TadpoleMovieStages";
 
-export type { FireAntV15SceneMode };
+export type { FireAntV15SceneMode, TadpoleV16SceneMode };
+export { LotusPondBackdrop };
 export type KassTimeOfDay = "DAY" | "SUNSET" | "NIGHT";
 export type PolkaPalette = "mint" | "cream" | "lavender";
 
@@ -22,10 +29,13 @@ export type KassStageName =
   | "BEDROOM_INDOOR"
   | "UNDERGROUND_CROSS_SECTION"
   | "EXPLAINER_POLKA_DOT"
-  | "SIMPLE_GRASS_FIELD";
+  | "SIMPLE_GRASS_FIELD"
+  | "LOTUS_POND_STAGE"
+  | "BEDROOM_TANK_STAGE";
 
 export type KassStoryDemoMode =
   | "YARD_SUMMER_GREET"
+  | "GARDEN_CHASE_DRAGONFLY"
   | "GARDEN_FIND_MOUND"
   | "EXPLAIN_BUN_COMPARE"
   | "GARDEN_POKE_MOUND"
@@ -33,7 +43,8 @@ export type KassStoryDemoMode =
   | "YARD_GRANDPA_LAUGH"
   | "UNDERGROUND_ANT_CITY"
   | "EXPLAIN_SEVEN_DAYS_OUTRO"
-  | FireAntV15SceneMode;
+  | FireAntV15SceneMode
+  | TadpoleV16SceneMode;
 
 function easeOutBack(t: number): number {
   const c = Math.max(0, Math.min(1, t));
@@ -726,18 +737,18 @@ export const SimpleGrassFieldBackdrop: React.FC<{
   return (
     <g id="stage-simple-grass-field">
       <defs>
-        <linearGradient id={`field-sky-${timeOfDay}`} x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={`field-sky-${timeOfDay}-${weather}`} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor={skyTop} />
           <stop offset="56%" stopColor={skyMid} />
           <stop offset="100%" stopColor={skyBot} />
         </linearGradient>
-        <linearGradient id={`field-grass-${timeOfDay}`} x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={`field-grass-${timeOfDay}-${weather}`} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor={grassTop} />
           <stop offset="100%" stopColor={grassBot} />
         </linearGradient>
       </defs>
 
-      <rect x={0} y={0} width={1920} height={groundY} fill={`url(#field-sky-${timeOfDay})`} />
+      <rect x={0} y={0} width={1920} height={groundY} fill={`url(#field-sky-${timeOfDay}-${weather})`} />
 
       {/* Mặt trời chiều dịu / ban ngày */}
       {!isNight && (
@@ -806,7 +817,7 @@ export const SimpleGrassFieldBackdrop: React.FC<{
       />
 
       {/* Mặt bãi cỏ xanh rì */}
-      <rect x={0} y={760} width={1920} height={320} fill={`url(#field-grass-${timeOfDay})`} />
+      <rect x={0} y={760} width={1920} height={320} fill={`url(#field-grass-${timeOfDay}-${weather})`} />
       <line x1={0} y1={760} x2={1920} y2={760} stroke="#141414" strokeWidth={3} />
 
       {/* Cây xoài cổ thụ rợp bóng bên phải với những quả xoài chín vàng */}
@@ -1049,6 +1060,196 @@ export const KassStorySceneLayer: React.FC<{
             mouth: "smile",
           }}
         />
+      </g>
+    );
+  }
+
+  // =========================================================================
+  // V16.0: GARDEN_CHASE_DRAGONFLY — BOY cầm cành cây nhỏ chạy vui vẻ 60fps
+  // đuổi theo 2 con chuồn chuồn (xanh dương & cam) + 1 con bướm vàng bay lượn hình sin mượt mà!
+  // =========================================================================
+  if (mode === "GARDEN_CHASE_DRAGONFLY") {
+    const startX = 240;
+    const endX = 1110;
+    const runT = smoothstep(0.0, 0.96, u);
+    const boyX = lerpNum(startX, endX, runT);
+    // Nhịp chạy hoạt bát 60fps (~2.1 bước/giây = 28 frames/bước) khớp độ nghiêng thân vui vẻ
+    const runCycle = (localFrame / 28) % 1;
+    const rampIn = smoothstep(0.0, 0.06, u);
+    const rampOut = 1 - smoothstep(0.92, 1.0, u);
+    const runWeight = Math.min(rampIn, rampOut);
+    const airBounce = Math.max(0, Math.sin(runCycle * Math.PI * 2)) * 10 * runWeight;
+
+    // Tay phải cầm cành cây nhỏ vung nhẹ 60fps — neo CHÍNH XÁC 0px lệch tại cổ tay phải (nằm trong tầm IK & dưới vùng an toàn đầu!)
+    const twigSwing = Math.sin(localFrame * 0.22);
+    const handX = boyX + 86 + twigSwing * 10;
+    const handY = groundY - 212 - airBounce + twigSwing * 14;
+    const twigAngleDeg = -34 + twigSwing * 18;
+
+    // Quỹ đạo bay lượn hình sin mượt mà 60fps cho 2 chuồn chuồn + 1 bướm vàng tách thoáng phía trước cành cây
+    const bfX = Math.min(1620, boyX + 270 + Math.sin(frame * 0.062 + 2.1) * 32);
+    const bfY = 515 + Math.sin(frame * 0.11 + 0.7) * 40;
+    const bfRot = Math.cos(frame * 0.11 + 0.7) * 12;
+    const bfWingScaleY = 0.36 + Math.abs(Math.sin(frame * 0.34)) * 0.64;
+
+    const df1X = Math.min(1700, boyX + 355 + Math.sin(frame * 0.055) * 38);
+    const df1Y = 395 + Math.sin(frame * 0.095) * 46;
+    const df1Rot = Math.cos(frame * 0.095) * 15;
+
+    const df2X = Math.min(1760, boyX + 485 + Math.cos(frame * 0.048) * 40);
+    const df2Y = 475 + Math.cos(frame * 0.088 + 1.1) * 42;
+    const df2Rot = -Math.sin(frame * 0.088 + 1.1) * 14;
+
+    const renderDragonfly = (
+      key: string,
+      cx: number,
+      cy: number,
+      rotDeg: number,
+      bodyColor: string,
+      tailColor: string,
+      wingColor: string,
+      phaseOffset: number,
+      scaleVal: number
+    ) => {
+      const wingFlapA = 4.5 + Math.sin(frame * 1.15 + phaseOffset) * 3.4;
+      const wingFlapB = 4.5 + Math.cos(frame * 1.15 + phaseOffset) * 3.4;
+      return (
+        <g key={key} transform={`translate(${cx.toFixed(1)}, ${cy.toFixed(1)}) rotate(${rotDeg.toFixed(1)}) scale(${scaleVal})`}>
+          {/* 2 cặp cánh trong suốt đập rung 60fps */}
+          <ellipse cx={-2} cy={-11} rx={17} ry={wingFlapA} transform="rotate(-14, -2, -11)" fill={wingColor} fillOpacity={0.82} stroke="#141414" strokeWidth={2.0} />
+          <ellipse cx={-12} cy={-9} rx={14} ry={wingFlapB} transform="rotate(-24, -12, -9)" fill={wingColor} fillOpacity={0.76} stroke="#141414" strokeWidth={1.8} />
+          <ellipse cx={-2} cy={11} rx={17} ry={wingFlapB} transform="rotate(14, -2, 11)" fill={wingColor} fillOpacity={0.82} stroke="#141414" strokeWidth={2.0} />
+          <ellipse cx={-12} cy={9} rx={14} ry={wingFlapA} transform="rotate(24, -12, 9)" fill={wingColor} fillOpacity={0.76} stroke="#141414" strokeWidth={1.8} />
+          {/* Đuôi phân đốt mảnh + thân + đầu tròn mắt sáng */}
+          <line x1={-38} y1={0} x2={-4} y2={0} stroke="#141414" strokeWidth={7} strokeLinecap="round" />
+          <line x1={-37} y1={0} x2={-5} y2={0} stroke={tailColor} strokeWidth={3.6} strokeLinecap="round" />
+          <ellipse cx={4} cy={0} rx={11} ry={6.5} fill={bodyColor} stroke="#141414" strokeWidth={2.4} />
+          <circle cx={16} cy={-1} r={6.5} fill={bodyColor} stroke="#141414" strokeWidth={2.4} />
+          <circle cx={19} cy={-3} r={2.8} fill="#FFFFFF" stroke="#141414" strokeWidth={1.2} />
+          <circle cx={20} cy={-3} r={1.2} fill="#141414" />
+        </g>
+      );
+    };
+
+    return (
+      <g id="v16-garden-chase-dragonfly">
+        <SimpleGrassFieldBackdrop timeOfDay="DAY" frame={frame} groundY={groundY} />
+
+        {/* Vài khóm cỏ xanh & hoa dại trắng/vàng nhỏ trên bãi cỏ tạo sức sống tự nhiên */}
+        {[
+          { x: 185, y: 816, c: "#FEF08A" },
+          { x: 430, y: 868, c: "#FFFFFF" },
+          { x: 690, y: 808, c: "#FDE047" },
+          { x: 960, y: 874, c: "#FFFFFF" },
+          { x: 1215, y: 814, c: "#FEF08A" },
+          { x: 1480, y: 862, c: "#FFFFFF" },
+        ].map((fl, i) => (
+          <g key={`meadow_flower_${i}`} transform={`translate(${fl.x}, ${fl.y})`}>
+            <path d="M -10,6 Q -14,-8 -8,-16 M 0,6 Q 2,-10 0,-18 M 10,6 Q 14,-8 10,-14" fill="none" stroke="#15803D" strokeWidth={3} strokeLinecap="round" />
+            <circle cx={0} cy={-18} r={5.5} fill={fl.c} stroke="#141414" strokeWidth={1.8} />
+            <circle cx={0} cy={-18} r={2.2} fill="#F59E0B" />
+          </g>
+        ))}
+
+        {/* Đường nét đứt mềm mại biểu thị quỹ đạo bay lượn hình sin của chuồn chuồn & bướm vàng */}
+        <path
+          d={`M ${(df1X - 165).toFixed(1)},${(df1Y + 28).toFixed(1)} Q ${(df1X - 95).toFixed(1)},${(df1Y - 46).toFixed(1)} ${(df1X - 36).toFixed(1)},${(df1Y + 6).toFixed(1)}`}
+          fill="none"
+          stroke="#FFFFFF"
+          strokeWidth={3.2}
+          strokeDasharray="7 9"
+          strokeLinecap="round"
+          opacity={0.72}
+        />
+        <path
+          d={`M ${(bfX - 135).toFixed(1)},${(bfY - 22).toFixed(1)} Q ${(bfX - 75).toFixed(1)},${(bfY + 42).toFixed(1)} ${(bfX - 28).toFixed(1)},${(bfY - 4).toFixed(1)}`}
+          fill="none"
+          stroke="#FEF08A"
+          strokeWidth={3.2}
+          strokeDasharray="6 9"
+          strokeLinecap="round"
+          opacity={0.78}
+        />
+
+        {/* Cành cây nhỏ cầm trên tay cậu bé vung vui vẻ theo nhịp chạy */}
+        <g transform={`translate(${handX.toFixed(1)}, ${handY.toFixed(1)}) rotate(${twigAngleDeg.toFixed(1)})`}>
+          <path d="M -14,2 L 122,-4" stroke="#141414" strokeWidth={11} strokeLinecap="round" />
+          <path d="M -14,2 L 122,-4" stroke="#92400E" strokeWidth={6.5} strokeLinecap="round" />
+          <path d="M 68,-2 L 96,-24" stroke="#141414" strokeWidth={7} strokeLinecap="round" />
+          <path d="M 68,-2 L 96,-24" stroke="#92400E" strokeWidth={4} strokeLinecap="round" />
+          {/* Chiếc lá xanh nhỏ trên đầu cành cây */}
+          <ellipse cx={104} cy={-26} rx={12} ry={6.5} transform="rotate(-18, 104, -26)" fill="#4ADE80" stroke="#141414" strokeWidth={2.4} />
+        </g>
+
+        {/* Cậu bé BOY chạy hào hứng 60fps với khuôn mặt thân thiện V16.0 */}
+        <StickmanRig
+          characterPreset="BOY"
+          frame={frame}
+          state={{
+            x: boyX,
+            y: groundY,
+            scale: 0.98,
+            facing: "right",
+            pose: runWeight > 0.05 ? "running" : "standing",
+            torsoTiltDeg: 14 * runWeight,
+            flightLift: airBounce,
+            walkCycleProgress: runCycle,
+            walkWeight: runWeight,
+            nodAmplitudeDeg: 3.4,
+            nodFreq: 0.20,
+            eyes: "happy",
+            eyebrows: "neutral",
+            mouth: "smile",
+            blush: true,
+            pupilGaze: { x: 0.78, y: -0.22 },
+            holdingTarget: { rightGrip: { x: handX, y: handY } },
+          }}
+        />
+
+        {/* 2 chú chuồn chuồn xanh dương & cam đỏ bay lượn mượt mà */}
+        {renderDragonfly("v16_df_blue", df1X, df1Y, df1Rot, "#0284C7", "#38BDF8", "#E0F2FE", 0, 1.18)}
+        {renderDragonfly("v16_df_orange", df2X, df2Y, df2Rot, "#EA580C", "#FB923C", "#FEF3C7", 1.7, 1.08)}
+
+        {/* 1 chú bướm vàng rực rỡ vỗ cánh hình sin 60fps */}
+        <g transform={`translate(${bfX.toFixed(1)}, ${bfY.toFixed(1)}) rotate(${bfRot.toFixed(1)}) scale(1.16)`}>
+          <g transform={`scale(1, ${bfWingScaleY.toFixed(3)})`}>
+            {/* Cánh trên vàng sáng */}
+            <path
+              d="M 0,0 C -10,-32 -36,-28 -30,-4 C -26,8 -10,8 0,0 Z"
+              fill="#FACC15"
+              stroke="#141414"
+              strokeWidth={2.5}
+              strokeLinejoin="round"
+            />
+            <path
+              d="M 0,0 C 10,-32 36,-28 30,-4 C 26,8 10,8 0,0 Z"
+              fill="#FDE047"
+              stroke="#141414"
+              strokeWidth={2.5}
+              strokeLinejoin="round"
+            />
+            {/* Cánh dưới vàng ấm + chấm cam trang trí */}
+            <path
+              d="M 0,2 C -12,4 -28,22 -16,28 C -4,32 0,16 0,2 Z"
+              fill="#F59E0B"
+              stroke="#141414"
+              strokeWidth={2.4}
+              strokeLinejoin="round"
+            />
+            <path
+              d="M 0,2 C 12,4 28,22 16,28 C 4,32 0,16 0,2 Z"
+              fill="#FBBF24"
+              stroke="#141414"
+              strokeWidth={2.4}
+              strokeLinejoin="round"
+            />
+            <circle cx={-16} cy={-11} r={4.2} fill="#F97316" />
+            <circle cx={16} cy={-11} r={4.2} fill="#F97316" />
+          </g>
+          {/* Thân bướm & 2 râu cong mảnh */}
+          <ellipse cx={0} cy={4} rx={3.6} ry={13} fill="#1E293B" stroke="#141414" strokeWidth={1.6} />
+          <path d="M -1,-9 Q -8,-20 -13,-18 M 1,-9 Q 8,-20 13,-18" fill="none" stroke="#141414" strokeWidth={2} strokeLinecap="round" />
+        </g>
       </g>
     );
   }
@@ -1552,6 +1753,31 @@ export const KassStorySceneLayer: React.FC<{
           </g>
         </g>
       </g>
+    );
+  }
+
+  // =========================================================================
+  // V16.1 FULL MOVIE (64 MICRO-BEATS): "50 Con Nòng Nọc Trong Phòng Ngủ"
+  // =========================================================================
+  if (isTadpoleV16SceneMode(mode)) {
+    return (
+      <TadpoleV16SceneLayer
+        mode={mode}
+        frame={frame}
+        localFrame={localFrame}
+        durationFrames={durationFrames}
+        u={u}
+        groundY={groundY}
+        backdrops={{
+          CountrysideYardBackdrop,
+          BedroomIndoorBackdrop,
+          UndergroundCrossSectionStage,
+          ExplainerPolkaDotBackdrop,
+          MagnifyingGlassOverlay,
+          SimpleGrassFieldBackdrop,
+          FireAntMound,
+        }}
+      />
     );
   }
 

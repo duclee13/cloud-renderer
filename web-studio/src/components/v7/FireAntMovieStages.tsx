@@ -138,7 +138,7 @@ export const FireAntV15SceneLayer: React.FC<{
   u: number;
   groundY?: number;
   backdrops: KassStageBackdropsKit;
-}> = ({ mode, frame, localFrame, u, groundY = 840, backdrops }) => {
+}> = ({ mode, frame, localFrame, durationFrames, u, groundY = 840, backdrops }) => {
   const STRIDE_CYCLE_PX = 160;
   const {
     CountrysideYardBackdrop,
@@ -158,7 +158,7 @@ export const FireAntV15SceneLayer: React.FC<{
     const boyX = lerpNum(280, 820, walkT);
     const walkWeight = u <= 0.74 ? Math.min(smoothstep(0.03, 0.10, u), 1 - smoothstep(0.64, 0.74, u)) : 0;
     const walkCycle = (Math.abs(boyX - 280) / STRIDE_CYCLE_PX) % 1;
-    const bubbleAppear = 135;
+    const bubbleAppear = Math.min(135, Math.max(48, Math.round(durationFrames * 0.44)));
     const isTalking = isComicBubbleActive(localFrame, bubbleAppear);
     const dfX = 950 + Math.sin(frame * 0.08) * 140;
     const dfY = 470 + Math.cos(frame * 0.14) * 38;
@@ -187,7 +187,7 @@ export const FireAntV15SceneLayer: React.FC<{
             walkWeight,
             isSpeaking: isTalking,
             eyes: "curious",
-            eyebrows: "raised",
+            eyebrows: "inquisitive",
             mouth: "smile",
             pupilGaze: { x: 0.85, y: 0.2 },
           }}

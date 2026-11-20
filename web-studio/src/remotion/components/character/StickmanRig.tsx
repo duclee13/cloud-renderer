@@ -896,15 +896,23 @@ export const StickmanRig: React.FC<StickmanRigProps> = ({
                       facingDir={flipSign}
                     />
                     <circle cx={0} cy={0} r={headRadius} fill="#FFFFFF" />
-                    {/* Bóng đổ 3D hình lưỡi liềm (#CBD5E1, opacity 0.55) ôm dọc viền khuôn mặt */}
+                    {/* V16.0: Dải inner shading viền trong hình tròn đầu tinh tế, sạch mắt (thay cho nét cằm xám cũ) */}
                     <path
-                      d={`M ${-flipSign * 10},${-headRadius + 6} A ${headRadius - 6},${headRadius - 6} 0 0,${
-                        flipSign >= 0 ? 0 : 1
-                      } ${-flipSign * 10},${headRadius - 6} A ${headRadius - 18},${headRadius - 6} 0 0,${
-                        flipSign >= 0 ? 1 : 0
-                      } ${-flipSign * 10},${-headRadius + 6} Z`}
-                      fill="#CBD5E1"
-                      opacity={0.55}
+                      d={`M -8,${-headRadius + 4} A ${headRadius - 4},${headRadius - 4} 0 0,0 -8,${
+                        headRadius - 4
+                      } A ${headRadius - 12},${headRadius - 4} 0 0,1 -8,${-headRadius + 4} Z`}
+                      fill="#E2E8F0"
+                      opacity={0.48}
+                    />
+                    <path
+                      d={`M 14,${-headRadius + 9} A ${headRadius - 10},${headRadius - 10} 0 0,1 ${
+                        headRadius - 11
+                      },-10`}
+                      fill="none"
+                      stroke="#F8FAFC"
+                      strokeWidth={4}
+                      strokeLinecap="round"
+                      opacity={0.9}
                     />
                     <circle cx={0} cy={0} r={headRadius} fill="none" stroke="#141414" strokeWidth={headStroke} />
                     <FacialExpressions

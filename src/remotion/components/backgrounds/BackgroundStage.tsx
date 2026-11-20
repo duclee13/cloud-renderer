@@ -12,6 +12,7 @@ import {
   UndergroundCrossSectionStage,
   ExplainerPolkaDotBackdrop,
   SimpleGrassFieldBackdrop,
+  LotusPondBackdrop,
 } from "../../../components/v7/KassStageLibrary";
 
 export type StageTheme =
@@ -37,7 +38,9 @@ export type StageTheme =
   | "BEDROOM_INDOOR"
   | "UNDERGROUND_CROSS_SECTION"
   | "EXPLAINER_POLKA_DOT"
-  | "SIMPLE_GRASS_FIELD";
+  | "SIMPLE_GRASS_FIELD"
+  | "LOTUS_POND_STAGE"
+  | "BEDROOM_TANK_STAGE";
 
 export interface BackgroundStageProps {
   theme: StageTheme;
@@ -83,14 +86,26 @@ export const BackgroundStage: React.FC<BackgroundStageProps> = ({
     );
   }
 
-  if (theme === "BEDROOM_INDOOR") {
+  if (theme === "BEDROOM_INDOOR" || theme === "BEDROOM_TANK_STAGE") {
     return (
       <svg
         width={width}
         height={height}
         style={{ position: "absolute", top: 0, left: 0, pointerEvents: "none" }}
       >
-        <BedroomIndoorBackdrop timeOfDay="DAY" groundY={groundY} />
+        <BedroomIndoorBackdrop timeOfDay="DAY" frame={frame} groundY={groundY} />
+      </svg>
+    );
+  }
+
+  if (theme === "LOTUS_POND_STAGE") {
+    return (
+      <svg
+        width={width}
+        height={height}
+        style={{ position: "absolute", top: 0, left: 0, pointerEvents: "none" }}
+      >
+        <LotusPondBackdrop timeOfDay="DAY" frame={frame} groundY={groundY} />
       </svg>
     );
   }

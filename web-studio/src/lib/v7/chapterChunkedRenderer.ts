@@ -48,10 +48,55 @@ export interface SynthesizedBeatAudio {
   engine: string;
 }
 
+export const DEFAULT_V16_TRANSITION_IN = "CROSSFADE" as const;
+export const DEFAULT_V16_TRANSITION_FRAMES = 30; // 0.5s @ 60fps
+export const DEFAULT_V16_PAUSE_AFTER_SEC = 0.4; // 0.4s nhịp nghỉ tự nhiên giữa 2 lời thoại
+
+/**
+ * V16.0: Văn bản hiển thị trên phụ đề màn hình (chuẩn chính tả, VD: "khí CO₂")
+ */
+export function resolveBeatSubtitleText(beat: Record<string, any>): string {
+  return String(beat?.narrationText ?? beat?.text ?? "").trim();
+}
+
+/**
+ * V16.0: Văn bản gửi sang VieNeu-TTS để đọc chuẩn tiếng Việt (ưu tiên ttsText, VD: "khí các-bô-níc")
+ */
+export function resolveBeatTtsText(beat: Record<string, any>): string {
+  return String(beat?.ttsText ?? beat?.narrationText ?? beat?.text ?? "").trim();
+}
+
+/**
+ * V16.0: Tính số frame chuẩn của 1 Beat dựa trên thời lượng âm thanh thực tế + pauseAfterSec (nếu có) + extraTailFrames.
+ * - Khi beat có `pauseAfterSec` (mặc định chuẩn V16 = 0.4s): durationFrames = ceil(actualDurationSec * fps) + round(pauseAfterSec * fps) + extraTailFrames
+ *   (đảm bảo giọng Beat i kết thúc xong + nghỉ pauseAfterSec rồi Beat i+1 mới cất tiếng, 0% đọc đè lên nhau kể cả khi Crossfade 0.5s!).
+ * - Khi beat V14/V15 cũ không khai báo `pauseAfterSec`: giữ nguyên `ttsRes.totalDurationFrames + extraTailFrames`.
+ */
+export function computeBeatDurationFrames(
+  rawBeat: Record<string, any>,
+  ttsRes: SynthesizedBeatAudio,
+  fps: number = 60
+): number {
+  const extraTailFrames = Number(rawBeat?.extraTailFrames) || 0;
+  const hasExplicitPause =
+    typeof rawBeat?.pauseAfterSec === "number" &&
+    Number.isFinite(rawBeat.pauseAfterSec) &&
+    rawBeat.pauseAfterSec >= 0;
+  if (hasExplicitPause) {
+    return Math.ceil(ttsRes.actualDurationSec * fps) + Math.round(rawBeat.pauseAfterSec * fps) + extraTailFrames;
+  }
+  return ttsRes.totalDurationFrames + extraTailFrames;
+}
+
 export interface ChapterCompiledBeat {
   startFrame: number;
   durationFrames: number;
   narrationText?: string;
+  text?: string;
+  ttsText?: string;
+  transitionIn?: "CROSSFADE" | "CUT";
+  transitionFrames?: number;
+  pauseAfterSec?: number;
   voiceTone?: string;
   [key: string]: any;
 }
@@ -61,9 +106,11 @@ export interface ChapterAudioManifestEntry {
   chapterNumber: number;
   chapterBeatIndex: number;
   narrationText: string;
+  ttsText?: string;
   voiceTone: string;
   voiceName: string;
   actualDurationSec: number;
+  pauseAfterSec?: number;
   totalDurationFrames: number;
   cacheFile: string;
 }
@@ -399,11 +446,18 @@ async function buildChapterAudioBundle<TBeat extends Record<string, any>>(params
   for (let i = 0; i < chapter.beats.length; i++) {
     const rawBeat = chapter.beats[i];
     const globalIdx = globalBeatStartIdx + i;
-    const ttsRes = await synthesizeBeatAudio(rawBeat, globalIdx);
+    const subtitleText = resolveBeatSubtitleText(rawBeat);
+    const ttsText = resolveBeatTtsText(rawBeat);
+    // Đảm bảo callback synthesizeBeatAudio luôn thấy narrationText (hoặc ttsText nếu ưu tiên phát âm)
+    const beatForTts = {
+      ...rawBeat,
+      narrationText: subtitleText,
+      ttsText: rawBeat.ttsText || undefined,
+    } as TBeat;
+    const ttsRes = await synthesizeBeatAudio(beatForTts, globalIdx);
     if (ttsRes.fromCache) cacheHits++;
 
-    const extraTailFrames = Number(rawBeat.extraTailFrames) || 0;
-    const durationFrames = ttsRes.totalDurationFrames + extraTailFrames;
+    const durationFrames = computeBeatDurationFrames(rawBeat, ttsRes, fps);
     const beatTargetSec = durationFrames / fps;
     const padTailSec = Math.max(0.01, beatTargetSec - ttsRes.actualDurationSec);
 
@@ -426,18 +480,27 @@ async function buildChapterAudioBundle<TBeat extends Record<string, any>>(params
     );
     paddedBeatWavFiles.push(paddedWavPath);
 
+    const resolvedTransitionIn = rawBeat.transitionIn ?? DEFAULT_V16_TRANSITION_IN;
+    const resolvedTransitionFrames =
+      typeof rawBeat.transitionFrames === "number" && Number.isFinite(rawBeat.transitionFrames)
+        ? Math.max(0, Math.round(rawBeat.transitionFrames))
+        : DEFAULT_V16_TRANSITION_FRAMES;
+
     console.log(
       `  -> [Hồi ${chapter.chapterNumber} | Beat #${String(globalIdx + 1).padStart(2, "0")}] [${
         rawBeat.stageTheme || rawBeat.theme || "STAGE"
-      }${rawBeat.kassSceneMode ? `:${rawBeat.kassSceneMode}` : ""} | ${ttsRes.engine}]: audio=${ttsRes.actualDurationSec.toFixed(
-        3
-      )}s -> ${durationFrames}f`
+      }${rawBeat.kassSceneMode ? `:${rawBeat.kassSceneMode}` : ""} | ${ttsRes.engine} | ${resolvedTransitionIn}${
+        resolvedTransitionIn === "CROSSFADE" ? `:${resolvedTransitionFrames}f` : ""
+      }]: audio=${ttsRes.actualDurationSec.toFixed(3)}s -> ${durationFrames}f`
     );
 
     compiledBeats.push({
       ...rawBeat,
+      narrationText: subtitleText,
       type: rawBeat.action || rawBeat.type,
       theme: rawBeat.stageTheme || rawBeat.theme,
+      transitionIn: resolvedTransitionIn,
+      transitionFrames: resolvedTransitionFrames,
       startFrame: localStartFrame,
       durationFrames,
       audioUrl: undefined,
@@ -449,10 +512,12 @@ async function buildChapterAudioBundle<TBeat extends Record<string, any>>(params
       globalBeatIndex: globalIdx + 1,
       chapterNumber: chapter.chapterNumber,
       chapterBeatIndex: i + 1,
-      narrationText: String(rawBeat.narrationText || ""),
+      narrationText: subtitleText,
+      ...(rawBeat.ttsText && ttsText !== subtitleText ? { ttsText } : {}),
       voiceTone: String(rawBeat.voiceTone || "CALM_STORY"),
       voiceName: ttsRes.voiceName,
       actualDurationSec: Number(ttsRes.actualDurationSec.toFixed(3)),
+      ...(typeof rawBeat.pauseAfterSec === "number" ? { pauseAfterSec: rawBeat.pauseAfterSec } : {}),
       totalDurationFrames: durationFrames,
       cacheFile: ttsRes.cacheFilePath ? path.relative(ttsCacheDir, ttsRes.cacheFilePath).replace(/\\/g, "/") : "",
     });
@@ -580,19 +645,22 @@ export async function renderLongMovieByChapters<TBeat extends Record<string, any
     for (const ch of chapters) {
       for (let i = 0; i < ch.beats.length; i++) {
         const beat = ch.beats[i];
+        const subtitleText = resolveBeatSubtitleText(beat);
+        const ttsText = resolveBeatTtsText(beat);
         const ttsRes = await options.synthesizeBeatAudio(beat, globalIdx);
         if (ttsRes.fromCache) cacheHits++;
-        const extraTailFrames = Number(beat.extraTailFrames) || 0;
-        const durationFrames = ttsRes.totalDurationFrames + extraTailFrames;
+        const durationFrames = computeBeatDurationFrames(beat, ttsRes, fps);
         totalFrames += durationFrames;
         manifestEntries.push({
           globalBeatIndex: globalIdx + 1,
           chapterNumber: ch.chapterNumber,
           chapterBeatIndex: i + 1,
-          narrationText: String(beat.narrationText || ""),
+          narrationText: subtitleText,
+          ...(beat.ttsText && ttsText !== subtitleText ? { ttsText } : {}),
           voiceTone: String(beat.voiceTone || "CALM_STORY"),
           voiceName: ttsRes.voiceName,
           actualDurationSec: Number(ttsRes.actualDurationSec.toFixed(3)),
+          ...(typeof beat.pauseAfterSec === "number" ? { pauseAfterSec: beat.pauseAfterSec } : {}),
           totalDurationFrames: durationFrames,
           cacheFile: ttsRes.cacheFilePath
             ? path.relative(options.ttsCacheDir, ttsRes.cacheFilePath).replace(/\\/g, "/")

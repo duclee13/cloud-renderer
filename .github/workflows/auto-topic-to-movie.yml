@@ -1,0 +1,255 @@
+name: Auto Factory — Topic to 7-Min 2D Movie (100% Cloud)
+
+on:
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: 'Chủ đề video, vd: Sẽ ra sao nếu bạn không ngủ trong 7 ngày?'
+        required: true
+        type: string
+      target_minutes:
+        description: 'Thời lượng mục tiêu (phút, mặc định 6.5)'
+        required: true
+        default: '6.5'
+        type: string
+      total_chapters:
+        description: 'Số máy ảo render song song (mặc định 16 máy ảo × 4 micro-beats/máy)'
+        required: true
+        default: '16'
+        type: string
+      preview_only:
+        description: 'Tick nếu chỉ muốn xem trước 4 ảnh đại diện + kịch bản JSON trong ~3 phút'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  # ===========================================================================
+  # JOB 1: AI Đạo Diễn viết kịch bản V16 + VieNeu-TTS giọng Hải Đăng trên Ubuntu
+  # ===========================================================================
+  plan_and_voice:
+    name: Job 1 — AI Script + VieNeu-TTS (Hải Đăng)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'npm'
+          cache-dependency-path: web-studio/package-lock.json
+
+      - name: Setup Python 3.12 (for VieNeu-TTS ONNX)
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install FFmpeg (and Chromium libs when preview_only)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ffmpeg
+          if [ "${{ inputs.preview_only }}" = "true" ]; then
+            sudo apt-get install -y --no-install-recommends \
+              libnss3 libnspr4 libglib2.0-0 libatk1.0-0 libatk-bridge2.0-0 \
+              libcups2 libdrm2 libxkbcommon0 libx11-xcb1 libxcomposite1 \
+              libxdamage1 libxfixes3 libxrandr2 libgbm1 libxshmfence1 \
+              libpango-1.0-0 libcairo2 fonts-noto fonts-noto-color-emoji || true
+            sudo apt-get install -y --no-install-recommends libasound2t64 || sudo apt-get install -y --no-install-recommends libasound2 || true
+          fi
+
+      - name: Generate V16 Micro-Beat Script JSON via Gemini 2.5 Flash
+        working-directory: web-studio
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          node scripts/ai_generate_episode.mjs \
+            --topic="${{ inputs.topic }}" \
+            --minutes="${{ inputs.target_minutes }}" \
+            --out="episodes/current_episode.json"
+
+      - name: Preview-Only Mode — Render 4 Representative Act Stills & Upload
+        if: ${{ inputs.preview_only }}
+        working-directory: web-studio
+        run: |
+          npm ci --prefer-offline || npm install --prefer-offline
+          npx remotion browser ensure
+          node scripts/render_from_episode_json.mjs --episode=episodes/current_episode.json --preview-only
+
+      - name: Upload Preview Stills & Script Artifact (Preview-Only)
+        if: ${{ inputs.preview_only }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-auto-movie-${{ github.run_number }}
+          path: |
+            web-studio/episodes/current_episode.json
+            out/preview_act*.jpg
+          if-no-files-found: error
+          retention-days: 5
+
+      - name: Cache VieNeu-TTS ONNX Model Weights (HuggingFace)
+        if: ${{ !inputs.preview_only }}
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/huggingface
+            ~/.cache/vieneu
+          key: vieneu-v3-turbo-onnx-v1
+
+      - name: Install VieNeu-TTS (Torch-Free ONNX CPU) + Edge-TTS Fallback
+        if: ${{ !inputs.preview_only }}
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install --no-cache-dir vieneu edge-tts soundfile numpy
+
+      - name: Synthesize All Episode Micro-Beats via VieNeu-TTS (Hải Đăng, int8 CPU)
+        if: ${{ !inputs.preview_only }}
+        working-directory: web-studio
+        env:
+          VIENEU_PRECISION: 'int8'
+          VIENEU_TTS_VOICE: 'Hải Đăng'
+          VIENEU_TTS_ATEMPO: '1.10'
+        run: |
+          python3 scripts/cloud_vieneu_tts.py \
+            --episode=episodes/current_episode.json \
+            --cache-dir=../.tts-cache/auto_episode \
+            --voice="Hải Đăng" \
+            --atempo=1.10
+
+      - name: Upload Episode Bundle (JSON Script + Full TTS Audio Cache)
+        if: ${{ !inputs.preview_only }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: episode-bundle
+          path: |
+            web-studio/episodes/current_episode.json
+            .tts-cache/auto_episode/**
+          if-no-files-found: error
+          retention-days: 2
+
+  # ===========================================================================
+  # JOB 2: 16 Máy Ảo Render Song Song (SwANGLE + JPEG q92 + Concurrency=2)
+  # ===========================================================================
+  render_chunks:
+    name: Job 2 — Render Chunk ${{ matrix.chapter }}/${{ inputs.total_chapters }}
+    needs: plan_and_voice
+    if: ${{ !inputs.preview_only }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      max-parallel: 16
+      matrix:
+        chapter: ${{ fromJson(format('[{0}]', inputs.total_chapters == '1' && '1' || inputs.total_chapters == '2' && '1,2' || inputs.total_chapters == '3' && '1,2,3' || inputs.total_chapters == '4' && '1,2,3,4' || inputs.total_chapters == '5' && '1,2,3,4,5' || inputs.total_chapters == '6' && '1,2,3,4,5,6' || inputs.total_chapters == '7' && '1,2,3,4,5,6,7' || inputs.total_chapters == '8' && '1,2,3,4,5,6,7,8' || inputs.total_chapters == '9' && '1,2,3,4,5,6,7,8,9' || inputs.total_chapters == '10' && '1,2,3,4,5,6,7,8,9,10' || inputs.total_chapters == '11' && '1,2,3,4,5,6,7,8,9,10,11' || inputs.total_chapters == '12' && '1,2,3,4,5,6,7,8,9,10,11,12' || inputs.total_chapters == '13' && '1,2,3,4,5,6,7,8,9,10,11,12,13' || inputs.total_chapters == '14' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14' || inputs.total_chapters == '15' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15' || inputs.total_chapters == '16' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16' || inputs.total_chapters == '18' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18' || '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20')) }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Download Episode Bundle (JSON + TTS Cache)
+        uses: actions/download-artifact@v4
+        with:
+          name: episode-bundle
+          path: .
+
+      - name: Setup Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'npm'
+          cache-dependency-path: web-studio/package-lock.json
+
+      - name: Install FFmpeg & Headless Chromium Libraries (Ubuntu 24.04 Safe)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            ffmpeg libnss3 libnspr4 libglib2.0-0 libatk1.0-0 libatk-bridge2.0-0 \
+            libcups2 libdrm2 libxkbcommon0 libx11-xcb1 libxcomposite1 \
+            libxdamage1 libxfixes3 libxrandr2 libgbm1 libxshmfence1 \
+            libpango-1.0-0 libcairo2 fonts-noto fonts-noto-color-emoji || true
+          sudo apt-get install -y --no-install-recommends libasound2t64 || sudo apt-get install -y --no-install-recommends libasound2 || true
+
+      - name: Install Web-Studio Dependencies & Chromium Browser
+        working-directory: web-studio
+        run: |
+          npm ci --prefer-offline || npm install --prefer-offline
+          npx remotion browser ensure
+
+      - name: Render Chunk ${{ matrix.chapter }}/${{ inputs.total_chapters }} (SwANGLE + JPEG q92)
+        working-directory: web-studio
+        env:
+          CONCURRENCY: '2'
+          TOTAL_CHAPTERS: ${{ inputs.total_chapters }}
+          TTS_PROVIDER: 'VIENEU_LOCAL'
+        run: |
+          node scripts/render_from_episode_json.mjs \
+            --episode=episodes/current_episode.json \
+            --chapter=${{ matrix.chapter }} \
+            --total-chapters=${{ inputs.total_chapters }}
+
+      - name: Upload Chapter Chunk MP4
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter-${{ matrix.chapter }}
+          path: out/chunks/*_chapter_${{ matrix.chapter }}.mp4
+          if-no-files-found: error
+          retention-days: 2
+
+  # ===========================================================================
+  # JOB 3: Ghép Nối Lossless (-c copy) & Xuất Artifact Phim Hoàn Chỉnh + Kịch Bản
+  # ===========================================================================
+  stitch_final_movie:
+    name: Job 3 — Stitch Final Auto Movie (FFmpeg Lossless)
+    needs: [plan_and_voice, render_chunks]
+    if: ${{ !inputs.preview_only }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Download Episode Bundle
+        uses: actions/download-artifact@v4
+        with:
+          name: episode-bundle
+          path: .
+
+      - name: Download All Rendered Chunk Artifacts into out/chunks/
+        uses: actions/download-artifact@v4
+        with:
+          pattern: chapter-*
+          path: out/chunks
+          merge-multiple: true
+
+      - name: Setup Node.js 24 & Install FFmpeg
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
+
+      - name: Stitch All ${{ inputs.total_chapters }} Chunks via --concat-only
+        working-directory: web-studio
+        env:
+          TOTAL_CHAPTERS: ${{ inputs.total_chapters }}
+        run: |
+          ls -lah ../out/chunks/
+          node scripts/render_from_episode_json.mjs \
+            --episode=episodes/current_episode.json \
+            --concat-only \
+            --total-chapters=${{ inputs.total_chapters }} \
+            --output="../out/auto_movie_final.mp4"
+          ffprobe -v error -show_entries format=duration,size -of default=noprint_wrappers=1 "../out/auto_movie_final.mp4"
+
+      - name: Upload Final Auto Movie + Episode Script JSON
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-auto-movie-${{ github.run_number }}
+          path: |
+            out/auto_movie_final.mp4
+            web-studio/episodes/current_episode.json
+          if-no-files-found: error
+          retention-days: 7

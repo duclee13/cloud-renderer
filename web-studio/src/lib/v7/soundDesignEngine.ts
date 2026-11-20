@@ -762,13 +762,34 @@ export function buildAutoSoundDesignPlan(beats: SoundDesignBeatInput[], fps = 60
       });
     }
 
-    // 2c. sfx_switch_click: tiếng "tách!" bấm bật đèn (Beat 5 u=0.14) & tắt phụt đèn (Beat 17 u=0.35)
+    // 2c. sfx_switch_click: tiếng "tách!" bấm bật đèn (Beat 5 u=0.14) & tắt phụt đèn (Beat 17 u=0.35) & Ông nội bật đèn phòng ngủ V16.1
     if (b.hornetSceneMode === "FLASHLIGHT_ALERT") {
       sfxCues.push({
         effectId: "sfx_switch_click",
         frame: startF + Math.floor(durF * 0.14),
         volume: 0.42,
         reason: `Beat #${i + 1} flashlight switch ON`,
+      });
+    } else if (b.kassSceneMode === "TAD_BEDROOM_2AM_GRANDPA_LIGHTS") {
+      sfxCues.push({
+        effectId: "sfx_switch_click",
+        frame: startF + 3,
+        volume: 0.42,
+        reason: `Beat #${i + 1} bedroom ceiling light switched ON`,
+      });
+    } else if (b.kassSceneMode === "TAD_BEDROOM_2AM_NOSE_JUMP") {
+      sfxCues.push({
+        effectId: "sfx_alert",
+        frame: startF + 6,
+        volume: 0.30,
+        reason: `Beat #${i + 1} 2AM frog nose jump startle`,
+      });
+    } else if (b.kassSceneMode === "TAD_POND_RELEASE_FROGS" || b.kassSceneMode === "TAD_BEDROOM_PEACEFUL_SLEEP") {
+      sfxCues.push({
+        effectId: "sfx_ding",
+        frame: startF + Math.floor(durF * 0.25),
+        volume: 0.22,
+        reason: `Beat #${i + 1} warm resolution chime`,
       });
     } else if (b.hornetSceneMode === "FLASHLIGHT_SWITCH_OFF") {
       const switchOffF = startF + Math.floor(durF * 0.35);

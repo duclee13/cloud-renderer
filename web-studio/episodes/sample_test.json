@@ -1,0 +1,163 @@
+{
+  "title": "Sẽ Ra Sao Nếu Bạn Không Ngủ Trong 7 Ngày?",
+  "slug": "sample_test",
+  "topic": "Sẽ ra sao nếu bạn không ngủ trong 7 ngày?",
+  "beats": [
+    {
+      "id": "beat_01",
+      "actTitle": "Hồi 1: Đêm Thức Trắng Đầu Tiên",
+      "headerTitle": "7 NGÀY KHÔNG NGỦ?",
+      "text": "Hai giờ sáng rồi mà tôi vẫn tỉnh táo cầm điện thoại lướt trong phòng ngủ, tò mò tự hỏi chuyện gì sẽ xảy ra nếu thức trắng cả tuần.",
+      "ttsText": "Hai giờ sáng rồi mà tôi vẫn tỉnh táo cầm điện thoại lướt trong phòng ngủ, tò mò tự hỏi chuyện gì sẽ xảy ra nếu thức trắng cả tuần.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "HOOK_INTRIGUE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "PHONE",
+          "bubble": "Thử thức trắng xem!"
+        }
+      ],
+      "customProps": [
+        {
+          "label": "Đồng hồ 2:00 AM",
+          "x": 920,
+          "y": 300,
+          "scale": 0.95,
+          "animation": "PULSE",
+          "svgInner": "<circle cx='100' cy='100' r='74' fill='#FEF08A' stroke='#141414' stroke-width='6'/><circle cx='100' cy='100' r='58' fill='#FFFFFF' stroke='#141414' stroke-width='4'/><line x1='100' y1='100' x2='100' y2='58' stroke='#141414' stroke-width='6' stroke-linecap='round'/><line x1='100' y1='100' x2='132' y2='82' stroke='#EF4444' stroke-width='5' stroke-linecap='round'/><circle cx='100' cy='100' r='7' fill='#141414'/>"
+        }
+      ]
+    },
+    {
+      "id": "beat_02",
+      "actTitle": "Hồi 2: Bên Trong Phòng Thí Nghiệm Não Bộ",
+      "headerTitle": "HỒI 2: BÊN TRONG NÃO BỘ",
+      "text": "Ở phòng thí nghiệm khoa học, bác sĩ chỉ cho tôi xem chiếc não bộ đang tích tụ chất gây buồn ngủ mỗi khi ta thức quá khuya.",
+      "ttsText": "Ở phòng thí nghiệm khoa học, bác sĩ chỉ cho tôi xem chiếc não bộ đang tích tụ chất gây buồn ngủ mỗi khi ta thức quá khuya.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "POINT_AT",
+          "expression": "PROUD",
+          "handProp": "MAGNIFYING_GLASS",
+          "bubble": "Nhìn tín hiệu não kìa!"
+        },
+        {
+          "preset": "BOY",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NOTEBOOK"
+        }
+      ],
+      "customProps": [
+        {
+          "label": "Não bộ tích tụ mệt mỏi",
+          "x": 950,
+          "y": 330,
+          "scale": 1.05,
+          "animation": "FLOAT",
+          "svgInner": "<path d='M 65,135 C 35,130 28,92 48,72 C 44,44 74,30 100,44 C 126,30 156,44 152,72 C 172,92 165,130 135,135 C 120,152 80,152 65,135 Z' fill='#FDA4AF' stroke='#141414' stroke-width='5' stroke-linejoin='round'/><path d='M 100,46 L 100,142' fill='none' stroke='#141414' stroke-width='4' stroke-linecap='round'/><path d='M 62,82 Q 80,72 88,92 M 138,82 Q 120,72 112,92 M 66,112 Q 82,102 90,118 M 134,112 Q 118,102 110,118' fill='none' stroke='#9F1239' stroke-width='4' stroke-linecap='round'/><circle cx='158' cy='46' r='14' fill='#FACC15' stroke='#141414' stroke-width='3.5'/>"
+        }
+      ],
+      "callout": {
+        "text": "ĐỒNG HỒ SINH HỌC QUÁ TẢI",
+        "x": 950,
+        "y": 155
+      }
+    },
+    {
+      "id": "beat_03",
+      "actTitle": "Hồi 3: Mơ Màng Lơ Lửng Ngoài Vũ Trụ",
+      "headerTitle": "HỒI 3: CẢM GIÁC LƠ LỬNG!",
+      "text": "Đến ngày thứ tư thiếu ngủ, đầu óc tôi bỗng bay bổng kỳ lạ như đang lơ lửng giữa vũ trụ đầy sao cùng chiếc cốc cà phê khổng lồ!",
+      "ttsText": "Đến ngày thứ tư thiếu ngủ, đầu óc tôi bỗng bay bổng kỳ lạ như đang lơ lửng giữa vũ trụ đầy sao cùng chiếc cốc cà phê khổng lồ!",
+      "stageType": "SPACE_COSMOS",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "voiceTone": "TENSE_CLIMAX",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "JUMP_SHOCK",
+          "expression": "SHOCKED",
+          "handProp": "CUP_SODA",
+          "bubble": "Sao bay lơ lửng thế này?",
+          "shiver": true
+        }
+      ],
+      "customProps": [
+        {
+          "label": "Tên lửa cà phê",
+          "x": 1180,
+          "y": 430,
+          "scale": 1.18,
+          "animation": "BOUNCE",
+          "svgInner": "<path d='M 100,24 C 132,56 138,104 130,144 L 70,144 C 62,104 68,56 100,24 Z' fill='#F8FAFC' stroke='#141414' stroke-width='5' stroke-linejoin='round'/><path d='M 100,24 C 116,42 124,58 128,72 L 72,72 C 76,58 84,42 100,24 Z' fill='#EF4444' stroke='#141414' stroke-width='4'/><circle cx='100' cy='102' r='20' fill='#38BDF8' stroke='#141414' stroke-width='4.5'/><polygon points='70,118 42,150 68,144' fill='#F97316' stroke='#141414' stroke-width='4'/><polygon points='130,118 158,150 132,144' fill='#F97316' stroke='#141414' stroke-width='4'/><path d='M 84,146 L 100,184 L 116,146 Z' fill='#FACC15' stroke='#141414' stroke-width='4'/>"
+        }
+      ]
+    },
+    {
+      "id": "beat_04",
+      "actTitle": "Hồi 4: Giấc Ngủ Ngon Đáng Giá Hơn Cả",
+      "headerTitle": "HỒI 4: NGỦ NGON LÀ NHẤT",
+      "text": "Hóa ra cơ thể chúng ta cần giấc ngủ sâu để dọn dẹp trí nhớ, thế là tôi vứt ngay điện thoại rồi lên giường ngủ một giấc thật đã.",
+      "ttsText": "Hóa ra cơ thể chúng ta cần giấc ngủ sâu để dọn dẹp trí nhớ, thế là tôi vứt ngay điện thoại rồi lên giường ngủ một giấc thật đã.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "SLOW_EMOTIONAL",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "SLEEP_BED",
+          "expression": "HAPPY"
+        }
+      ],
+      "customProps": [
+        {
+          "label": "Pin năng lượng đầy ắp",
+          "x": 860,
+          "y": 330,
+          "scale": 1.0,
+          "animation": "PULSE",
+          "svgInner": "<rect x='46' y='56' width='108' height='92' rx='14' fill='#FFFFFF' stroke='#141414' stroke-width='5.5'/><rect x='154' y='82' width='16' height='40' rx='5' fill='#141414'/><rect x='58' y='68' width='24' height='68' rx='6' fill='#22C55E' stroke='#141414' stroke-width='3'/><rect x='88' y='68' width='24' height='68' rx='6' fill='#22C55E' stroke='#141414' stroke-width='3'/><rect x='118' y='68' width='24' height='68' rx='6' fill='#4ADE80' stroke='#141414' stroke-width='3'/>"
+        }
+      ]
+    }
+  ]
+}

@@ -1,20 +1,20 @@
-name: Render Long 2D Movie (Parallel Cloud Matrix V15.1 — 10 VMs SwANGLE)
+name: Render Long 2D Movie (Parallel Cloud Matrix V16.1 — 16 VMs SwANGLE)
 
 on:
   workflow_dispatch:
     inputs:
       render_script:
-        description: 'Đường dẫn script render trong web-studio (mặc định phim dài V15.0: scripts/render_v15_fire_ant_full_movie.mjs)'
+        description: 'Đường dẫn script render trong web-studio (mặc định phim V16.1: scripts/render_v16_tadpole_bedroom_movie.mjs)'
         required: true
-        default: 'scripts/render_v15_fire_ant_full_movie.mjs'
+        default: 'scripts/render_v16_tadpole_bedroom_movie.mjs'
       total_chapters:
-        description: 'Tổng số Chunk chạy song song (mặc định 10 máy ảo × 4 cảnh/máy cho phim 7 phút ~8-12 phút)'
+        description: 'Tổng số Chunk chạy song song (mặc định 16 máy ảo × 4 micro-beats/máy cho tập 64 micro-beats ~15-20 phút)'
         required: true
-        default: '10'
+        default: '16'
       output_name:
         description: 'Tên file MP4 hoàn chỉnh sau khi ghép nối trong out/'
         required: true
-        default: 'fire_ant_full_movie_v15.mp4'
+        default: 'tadpole_bedroom_movie_v16.mp4'
 
 jobs:
   render_chapters:
@@ -23,9 +23,9 @@ jobs:
     timeout-minutes: 45
     strategy:
       fail-fast: false
-      max-parallel: 10
+      max-parallel: 16
       matrix:
-        chapter: ${{ fromJson(format('[{0}]', inputs.total_chapters == '1' && '1' || inputs.total_chapters == '2' && '1,2' || inputs.total_chapters == '3' && '1,2,3' || inputs.total_chapters == '4' && '1,2,3,4' || inputs.total_chapters == '5' && '1,2,3,4,5' || inputs.total_chapters == '6' && '1,2,3,4,5,6' || inputs.total_chapters == '7' && '1,2,3,4,5,6,7' || inputs.total_chapters == '8' && '1,2,3,4,5,6,7,8' || inputs.total_chapters == '9' && '1,2,3,4,5,6,7,8,9' || inputs.total_chapters == '10' && '1,2,3,4,5,6,7,8,9,10' || inputs.total_chapters == '11' && '1,2,3,4,5,6,7,8,9,10,11' || '1,2,3,4,5,6,7,8,9,10,11,12')) }}
+        chapter: ${{ fromJson(format('[{0}]', inputs.total_chapters == '1' && '1' || inputs.total_chapters == '2' && '1,2' || inputs.total_chapters == '3' && '1,2,3' || inputs.total_chapters == '4' && '1,2,3,4' || inputs.total_chapters == '5' && '1,2,3,4,5' || inputs.total_chapters == '6' && '1,2,3,4,5,6' || inputs.total_chapters == '7' && '1,2,3,4,5,6,7' || inputs.total_chapters == '8' && '1,2,3,4,5,6,7,8' || inputs.total_chapters == '9' && '1,2,3,4,5,6,7,8,9' || inputs.total_chapters == '10' && '1,2,3,4,5,6,7,8,9,10' || inputs.total_chapters == '11' && '1,2,3,4,5,6,7,8,9,10,11' || inputs.total_chapters == '12' && '1,2,3,4,5,6,7,8,9,10,11,12' || inputs.total_chapters == '13' && '1,2,3,4,5,6,7,8,9,10,11,12,13' || inputs.total_chapters == '14' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14' || inputs.total_chapters == '15' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15' || inputs.total_chapters == '16' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16' || inputs.total_chapters == '18' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18' || '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20')) }}
     steps:
       - name: Checkout Repository (kèm cache giọng đọc .tts-cache/)
         uses: actions/checkout@v4

@@ -1,0 +1,59 @@
+{
+  "version": "v14.1",
+  "movieId": "v16_microbeat_demo",
+  "generatedAt": "2026-11-20T13:02:21.615Z",
+  "totalChapters": 1,
+  "totalBeats": 4,
+  "totalFrames": 1403,
+  "totalDurationSec": 23.383,
+  "beats": [
+    {
+      "globalBeatIndex": 1,
+      "chapterNumber": 1,
+      "chapterBeatIndex": 1,
+      "narrationText": "Hồi mười hai tuổi, nghỉ hè vừa tới là tôi được ba mẹ gửi ngay về quê chơi với ông nội suốt hai tháng trời.",
+      "voiceTone": "CALM_STORY",
+      "voiceName": "Hải Đăng",
+      "actualDurationSec": 5.104,
+      "pauseAfterSec": 0.4,
+      "totalDurationFrames": 331,
+      "cacheFile": "237d80ffcb3f01ec57b345f7cd8d.mp3"
+    },
+    {
+      "globalBeatIndex": 2,
+      "chapterNumber": 1,
+      "chapterBeatIndex": 2,
+      "narrationText": "Ở quê chẳng có máy tính hay điện thoại, nên thú vui lớn nhất của tôi mỗi buổi chiều là cầm que chạy đuổi chuồn chuồn khắp mảnh vườn sau nhà.",
+      "voiceTone": "CALM_STORY",
+      "voiceName": "Hải Đăng",
+      "actualDurationSec": 6.49,
+      "pauseAfterSec": 0.4,
+      "totalDurationFrames": 414,
+      "cacheFile": "3f278f51378b3c34b863ab3cf9f4.mp3"
+    },
+    {
+      "globalBeatIndex": 3,
+      "chapterNumber": 1,
+      "chapterBeatIndex": 3,
+      "narrationText": "Thế nhưng ngay ngày đầu tiên, tôi đã bắt gặp một thứ cực kỳ lạ lùng dưới gốc cây xoài.",
+      "voiceTone": "HOOK_INTRIGUE",
+      "voiceName": "Hải Đăng",
+      "actualDurationSec": 4.238,
+      "pauseAfterSec": 0.4,
+      "totalDurationFrames": 279,
+      "cacheFile": "ba245558f0ad579b0c2504922783.mp3"
+    },
+    {
+      "globalBeatIndex": 4,
+      "chapterNumber": 1,
+      "chapterBeatIndex": 4,
+      "narrationText": "Sát dưới gốc xoài cổ thụ có một mô đất nâu tròn xoe nhô cao khỏi mặt cỏ, khiến tôi rón rén cúi sát lại săm soi.",
+      "voiceTone": "CALM_STORY",
+      "voiceName": "Hải Đăng",
+      "actualDurationSec": 5.915,
+      "pauseAfterSec": 0.4,
+      "totalDurationFrames": 379,
+      "cacheFile": "87bb193ac5b5aadfbfc067e9ea35.mp3"
+    }
+  ]
+}

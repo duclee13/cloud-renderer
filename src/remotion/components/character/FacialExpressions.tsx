@@ -16,14 +16,15 @@ interface FacialExpressionsProps {
 }
 
 /**
- * FacialExpressions: Khuôn mặt Đối xứng Tuyệt đối 100% (Storytime 2D Art Style)
- * - Mắt trái: cx = -22, cy = -6; Mắt phải: cx = +22, cy = -6 (r = 7.5px hoặc oval cân đối kèm phản quang)
- * - Hai lông mày có độ dài 22px, độ dày 6px, đối xứng hoàn toàn qua trục x = 0
- * - Miệng cười mượt mà, má hồng blush và bóng cằm cel-shading
+ * FacialExpressions V16.0: Khuôn Mặt Thân Thiện, Tối Giản & Ấm Áp
+ * 1. Mắt tròn đen to hơn ~25% (r ≈ 9.6px), rõ nét ngay cả ở cỡ nhỏ, kèm chấm sáng trắng & vầng sáng lưỡi liềm (dot + crescent highlight).
+ * 2. ẨN hoàn toàn lông mày ở các biểu cảm mặc định (HAPPY, IDLE, SMILE, CALM) cho gương mặt thoáng hiền;
+ *    CHỈ vẽ lông mày mảnh tinh tế (3.4px) khi biểu cảm cần nhấn mạnh (CURIOUS, SHOCKED, ANGRY, WORRIED).
+ * 3. Xóa hoàn toàn vệt cong cằm màu xám cũ (không còn cảm giác già).
+ * 4. Miệng chữ U cười tròn mềm thân thiện; Lip-Sync mở/đóng tròn tự nhiên khi nói.
  */
 export const FacialExpressions: React.FC<FacialExpressionsProps> = ({
   headRadius = 56,
-  facing = "right",
   eyes = "neutral",
   eyebrows = "neutral",
   mouth = "smile",
@@ -31,176 +32,157 @@ export const FacialExpressions: React.FC<FacialExpressionsProps> = ({
   blush = false,
   sweatDrop = false,
   strokeColor = "#141414",
-  useDotEyes = false,
-  showWhiskers = false,
 }) => {
-  // Chuẩn hóa tỷ lệ: nếu headRadius = 56, eyeDistance = 22, eyeY = -6
   const scale = headRadius / 56;
-  const eyeDistance = 22 * scale;
-  const eyeY = -6 * scale;
-  const eyeR = 7.5 * scale;
-  const pupilRadius = 4.2 * scale;
+  const eyeDistance = 21.5 * scale;
+  const eyeY = -5 * scale;
+  // V16.0: Mắt tròn đen to hơn ~25% so với cũ (7.5 -> 9.6 * scale)
+  const eyeR = 9.6 * scale;
 
-  // Lông mày chuẩn 22px đối xứng
-  const browHalfW = 11 * scale;
-  const browY = eyeY - eyeR - 7 * scale;
-  const browStrokeWidth = 6 * scale;
+  // Lông mày mảnh tinh tế — CHỈ hiển thị khi biểu cảm cần nhấn mạnh (CURIOUS, SHOCKED, ANGRY, WORRIED)
+  const isEmphasizedExpression =
+    eyebrows === "inquisitive" ||
+    eyebrows === "worried" ||
+    eyebrows === "furrowed" ||
+    eyes === "surprised" ||
+    (eyebrows === "raised" && eyes === "wide");
 
-  // Gaze offset: con ngươi di chuyển trong mắt
+  const browHalfW = 9.5 * scale;
+  const browY = eyeY - eyeR - 6.5 * scale;
+  const browStrokeWidth = 3.5 * scale;
+
+  // Gaze offset nhẹ cho ánh nhìn sống động
   const clampedGazeX = Math.max(-1, Math.min(1, pupilGaze.x || 0));
   const clampedGazeY = Math.max(-1, Math.min(1, pupilGaze.y || 0));
-  const maxPupilDx = 3.5 * scale;
-  const maxPupilDy = 3.0 * scale;
-  const gazeDx = clampedGazeX * maxPupilDx;
-  const gazeDy = clampedGazeY * maxPupilDy;
+  const gazeDx = clampedGazeX * 2.4 * scale;
+  const gazeDy = clampedGazeY * 2.0 * scale;
 
   const leftEyeCenter = { x: -eyeDistance, y: eyeY };
   const rightEyeCenter = { x: eyeDistance, y: eyeY };
 
-  // Tọa độ 2 lông mày đối xứng tuyệt đối qua trục x = 0
   const leftBrowX1 = -eyeDistance - browHalfW;
   const leftBrowX2 = -eyeDistance + browHalfW;
   const rightBrowX1 = eyeDistance - browHalfW;
   const rightBrowX2 = eyeDistance + browHalfW;
 
+  const renderFriendlyGlossyEye = (cx: number, cy: number, keyPrefix: string, isExtraWide = false) => {
+    const r = isExtraWide ? eyeR * 1.08 : eyeR;
+    const ex = cx + gazeDx;
+    const ey = cy + gazeDy;
+    return (
+      <g key={keyPrefix}>
+        {/* Tròng mắt tròn đen lớn thân thiện */}
+        <circle cx={ex} cy={ey} r={r} fill={strokeColor} />
+        {/* Chấm sáng trắng chính góc trên-trái (dot highlight) */}
+        <circle cx={ex - r * 0.32} cy={ey - r * 0.30} r={r * 0.33} fill="#FFFFFF" />
+        {/* Vầng sáng lưỡi liềm nhỏ góc dưới-phải (crescent/sparkle highlight) */}
+        <path
+          d={`M ${ex + r * 0.14} ${ey + r * 0.44} A ${r * 0.48} ${r * 0.48} 0 0 0 ${ex + r * 0.46} ${ey + r * 0.12}`}
+          fill="none"
+          stroke="#FFFFFF"
+          strokeWidth={1.8 * scale}
+          strokeLinecap="round"
+          opacity={0.85}
+        />
+      </g>
+    );
+  };
+
   return (
     <g className="stickman-face">
-      {/* Má hồng (Blush cheeks) */}
+      {/* 1. Má hồng mềm mại ấm áp (Blush cheeks) */}
       {blush && (
-        <g opacity={0.65}>
-          <ellipse cx={-eyeDistance - 4} cy={eyeY + 22 * scale} rx={14 * scale} ry={8 * scale} fill="#F472B6" />
-          <ellipse cx={eyeDistance + 4} cy={eyeY + 22 * scale} rx={14 * scale} ry={8 * scale} fill="#F472B6" />
+        <g opacity={0.48}>
+          <ellipse cx={-eyeDistance - 5 * scale} cy={eyeY + 18 * scale} rx={11.5 * scale} ry={6.2 * scale} fill="#FB7185" />
+          <ellipse cx={eyeDistance + 5 * scale} cy={eyeY + 18 * scale} rx={11.5 * scale} ry={6.2 * scale} fill="#FB7185" />
         </g>
       )}
 
-      {/* 2. HAI LÔNG MÀY ĐỐI XỨNG TUYỆT ĐỐI */}
-      <g stroke={strokeColor} strokeWidth={browStrokeWidth} strokeLinecap="round" strokeLinejoin="round" fill="none">
-        {eyebrows === "neutral" && (
-          <>
-            <line x1={leftBrowX1} y1={browY + 1} x2={leftBrowX2} y2={browY - 2} />
-            <line x1={rightBrowX1} y1={browY - 2} x2={rightBrowX2} y2={browY + 1} />
-          </>
-        )}
-        {eyebrows === "raised" && (
-          <>
-            <line x1={leftBrowX1} y1={browY - 8 * scale} x2={leftBrowX2} y2={browY - 10 * scale} />
-            <line x1={rightBrowX1} y1={browY - 10 * scale} x2={rightBrowX2} y2={browY - 8 * scale} />
-          </>
-        )}
-        {eyebrows === "inquisitive" && (
-          <>
-            <line x1={leftBrowX1} y1={browY} x2={leftBrowX2} y2={browY} />
-            <line x1={rightBrowX1} y1={browY - 6 * scale} x2={rightBrowX2} y2={browY - 2 * scale} />
-          </>
-        )}
-        {eyebrows === "worried" && (
-          <>
-            <line x1={leftBrowX1} y1={browY - 5 * scale} x2={leftBrowX2} y2={browY + 3 * scale} />
-            <line x1={rightBrowX1} y1={browY + 3 * scale} x2={rightBrowX2} y2={browY - 5 * scale} />
-          </>
-        )}
-        {eyebrows === "furrowed" && (
-          <>
-            <line x1={leftBrowX1} y1={browY + 4 * scale} x2={leftBrowX2} y2={browY - 4 * scale} />
-            <line x1={rightBrowX1} y1={browY - 4 * scale} x2={rightBrowX2} y2={browY + 4 * scale} />
-          </>
-        )}
-      </g>
+      {/* 2. LÔNG MÀY MẢNH TINH TẾ — ẨN HOÀN TOÀN Ở MẶC ĐỊNH (HAPPY/IDLE/SMILE/CALM), CHỈ HIỆN KHI NHẤN MẠNH */}
+      {isEmphasizedExpression && (
+        <g stroke={strokeColor} strokeWidth={browStrokeWidth} strokeLinecap="round" strokeLinejoin="round" fill="none">
+          {eyebrows === "inquisitive" && (
+            <>
+              <path d={`M ${leftBrowX1} ${browY + 1} Q ${-eyeDistance} ${browY - 2 * scale} ${leftBrowX2} ${browY + 1}`} />
+              <path d={`M ${rightBrowX1} ${browY - 5 * scale} Q ${eyeDistance} ${browY - 8 * scale} ${rightBrowX2} ${browY - 3 * scale}`} />
+            </>
+          )}
+          {eyebrows === "worried" && (
+            <>
+              <path d={`M ${leftBrowX1} ${browY + 2 * scale} Q ${-eyeDistance} ${browY - 2 * scale} ${leftBrowX2} ${browY - 4 * scale}`} />
+              <path d={`M ${rightBrowX1} ${browY - 4 * scale} Q ${eyeDistance} ${browY - 2 * scale} ${rightBrowX2} ${browY + 2 * scale}`} />
+            </>
+          )}
+          {eyebrows === "furrowed" && (
+            <>
+              <line x1={leftBrowX1} y1={browY - 3 * scale} x2={leftBrowX2} y2={browY + 3 * scale} />
+              <line x1={rightBrowX1} y1={browY + 3 * scale} x2={rightBrowX2} y2={browY - 3 * scale} />
+            </>
+          )}
+          {(eyes === "surprised" || (eyebrows === "raised" && eyes === "wide")) &&
+            eyebrows !== "worried" &&
+            eyebrows !== "furrowed" &&
+            eyebrows !== "inquisitive" && (
+              <>
+                <path d={`M ${leftBrowX1} ${browY - 4 * scale} Q ${-eyeDistance} ${browY - 9 * scale} ${leftBrowX2} ${browY - 4 * scale}`} />
+                <path d={`M ${rightBrowX1} ${browY - 4 * scale} Q ${eyeDistance} ${browY - 9 * scale} ${rightBrowX2} ${browY - 4 * scale}`} />
+              </>
+            )}
+        </g>
+      )}
 
-      {/* 3. MẮT ĐỐI XỨNG 100% CÓ PHẢN QUANG */}
-      {useDotEyes ? (
-        <g>
-          <circle cx={leftEyeCenter.x + gazeDx} cy={leftEyeCenter.y + gazeDy} r={5 * scale} fill={strokeColor} />
-          <circle cx={rightEyeCenter.x + gazeDx} cy={rightEyeCenter.y + gazeDy} r={5 * scale} fill={strokeColor} />
+      {/* 3. ĐÔI MẮT TRÒN ĐEN TO THÂN THIỆN KÈM CHẤM SÁNG TRẮNG */}
+      {eyes === "closed" ? (
+        <g stroke={strokeColor} strokeWidth={4.2 * scale} strokeLinecap="round" fill="none">
+          <path d={`M ${leftEyeCenter.x - 9 * scale} ${eyeY + 1 * scale} Q ${leftEyeCenter.x} ${eyeY + 5 * scale} ${leftEyeCenter.x + 9 * scale} ${eyeY + 1 * scale}`} />
+          <path d={`M ${rightEyeCenter.x - 9 * scale} ${eyeY + 1 * scale} Q ${rightEyeCenter.x} ${eyeY + 5 * scale} ${rightEyeCenter.x + 9 * scale} ${eyeY + 1 * scale}`} />
         </g>
-      ) : eyes === "closed" ? (
-        <g stroke={strokeColor} strokeWidth={Math.max(4, 5 * scale)} strokeLinecap="round" fill="none">
-          <line x1={leftEyeCenter.x - eyeR} y1={leftEyeCenter.y} x2={leftEyeCenter.x + eyeR} y2={leftEyeCenter.y} />
-          <line x1={rightEyeCenter.x - eyeR} y1={rightEyeCenter.y} x2={rightEyeCenter.x + eyeR} y2={rightEyeCenter.y} />
-        </g>
-      ) : eyes === "happy" ? (
-        <g stroke={strokeColor} strokeWidth={Math.max(4, 5 * scale)} strokeLinecap="round" fill="none">
-          <path d={`M ${leftEyeCenter.x - eyeR} ${eyeY + 2 * scale} Q ${leftEyeCenter.x} ${eyeY - 6 * scale} ${leftEyeCenter.x + eyeR} ${eyeY + 2 * scale}`} />
-          <path d={`M ${rightEyeCenter.x - eyeR} ${eyeY + 2 * scale} Q ${rightEyeCenter.x} ${eyeY - 6 * scale} ${rightEyeCenter.x + eyeR} ${eyeY + 2 * scale}`} />
+      ) : eyes === "surprised" ? (
+        <g id="stickman-surprised-eyes">
+          {[leftEyeCenter, rightEyeCenter].map((ec, i) => (
+            <g key={`surp_eye_${i}`}>
+              <circle cx={ec.x} cy={ec.y} r={11.5 * scale} fill="#FFFFFF" stroke={strokeColor} strokeWidth={3.8 * scale} />
+              <circle cx={ec.x + gazeDx} cy={ec.y + gazeDy} r={5.4 * scale} fill={strokeColor} />
+              <circle cx={ec.x + gazeDx - 1.8 * scale} cy={ec.y + gazeDy - 1.8 * scale} r={2.2 * scale} fill="#FFFFFF" />
+            </g>
+          ))}
         </g>
       ) : (
-        <g id="stickman-symmetric-eyes">
-          {/* Mắt trái */}
-          <circle
-            cx={leftEyeCenter.x}
-            cy={leftEyeCenter.y}
-            r={eyeR}
-            fill="#FFFFFF"
-            stroke={strokeColor}
-            strokeWidth={4.5 * scale}
-          />
-          <circle
-            cx={leftEyeCenter.x + gazeDx}
-            cy={leftEyeCenter.y + gazeDy}
-            r={pupilRadius}
-            fill={strokeColor}
-          />
-          {/* Điểm phản quang mắt trái (catchlight radius ~2px) */}
-          <circle
-            cx={leftEyeCenter.x + gazeDx - 1.5 * scale}
-            cy={leftEyeCenter.y + gazeDy - 1.5 * scale}
-            r={2.2 * scale}
-            fill="#FFFFFF"
-          />
-
-          {/* Mắt phải */}
-          <circle
-            cx={rightEyeCenter.x}
-            cy={rightEyeCenter.y}
-            r={eyeR}
-            fill="#FFFFFF"
-            stroke={strokeColor}
-            strokeWidth={4.5 * scale}
-          />
-          <circle
-            cx={rightEyeCenter.x + gazeDx}
-            cy={rightEyeCenter.y + gazeDy}
-            r={pupilRadius}
-            fill={strokeColor}
-          />
-          {/* Điểm phản quang mắt phải (catchlight radius ~2px) */}
-          <circle
-            cx={rightEyeCenter.x + gazeDx - 1.5 * scale}
-            cy={rightEyeCenter.y + gazeDy - 1.5 * scale}
-            r={2.2 * scale}
-            fill="#FFFFFF"
-          />
+        <g id="stickman-friendly-glossy-eyes">
+          {renderFriendlyGlossyEye(leftEyeCenter.x, leftEyeCenter.y, "eye_l", eyes === "wide")}
+          {renderFriendlyGlossyEye(rightEyeCenter.x, rightEyeCenter.y, "eye_r", eyes === "wide")}
         </g>
       )}
 
-      {/* 4. MIỆNG CƯỜI MỘT NÉT */}
-      <g stroke={strokeColor} strokeWidth={Math.max(5, 5.5 * scale)} strokeLinecap="round" strokeLinejoin="round" fill="none">
+      {/* 4. MIỆNG CƯỜI CHỮ U TRÒN MỀM & LIP-SYNC TRÒN TỰ NHIÊN (ĐÃ XÓA BỎ HOÀN TOÀN VỆT CẰM XÁM!) */}
+      <g stroke={strokeColor} strokeWidth={4.6 * scale} strokeLinecap="round" strokeLinejoin="round" fill="none">
         {mouth === "smile" && (
-          <path d={`M ${-16 * scale} ${18 * scale} Q 0 ${28 * scale} ${16 * scale} ${18 * scale}`} />
+          <path d={`M ${-12.5 * scale} ${17 * scale} Q 0 ${29.5 * scale} ${12.5 * scale} ${17 * scale}`} />
         )}
         {mouth === "circleOpen" && (
-          <circle cx={0} cy={22 * scale} r={8 * scale} fill={strokeColor} />
+          <circle cx={0} cy={22 * scale} r={7.2 * scale} fill="#9F1239" stroke={strokeColor} strokeWidth={3.8 * scale} />
         )}
         {mouth === "line" && (
-          <line x1={-14 * scale} y1={20 * scale} x2={14 * scale} y2={20 * scale} />
+          <path d={`M ${-10 * scale} ${21 * scale} Q 0 ${22.5 * scale} ${10 * scale} ${21 * scale}`} />
         )}
         {mouth === "talking" && (
-          <path d={`M ${-14 * scale} ${18 * scale} Q 0 ${32 * scale} ${14 * scale} ${18 * scale} Z`} fill="#881337" strokeWidth={Math.max(4, 4.5 * scale)} />
+          <g>
+            <path
+              d={`M ${-11.5 * scale} ${17 * scale} Q 0 ${15.5 * scale} ${11.5 * scale} ${17 * scale} Q ${11.5 * scale} ${31 * scale} 0 ${31 * scale} Q ${-11.5 * scale} ${31 * scale} ${-11.5 * scale} ${17 * scale} Z`}
+              fill="#9F1239"
+              stroke={strokeColor}
+              strokeWidth={3.8 * scale}
+            />
+            <ellipse cx={0} cy={27 * scale} rx={5.2 * scale} ry={2.8 * scale} fill="#FB7185" stroke="none" />
+          </g>
         )}
         {mouth === "gasp" && (
-          <ellipse cx={0} cy={23 * scale} rx={10 * scale} ry={14 * scale} fill="#141414" />
+          <g>
+            <ellipse cx={0} cy={22.5 * scale} rx={9.5 * scale} ry={12.5 * scale} fill="#9F1239" stroke={strokeColor} strokeWidth={4.0 * scale} />
+            <ellipse cx={0} cy={29.5 * scale} rx={5.5 * scale} ry={3.2 * scale} fill="#FB7185" stroke="none" />
+          </g>
         )}
       </g>
-
-      {/* 5. VỆT XÁM NHẸ DƯỚI CẰM (Chin cel-shading) */}
-      <path
-        d={`M ${-14 * scale} ${30 * scale} Q 0 ${38 * scale} ${14 * scale} ${30 * scale}`}
-        fill="none"
-        stroke="#CBD5E1"
-        strokeWidth={3.5 * scale}
-        strokeLinecap="round"
-        opacity={0.8}
-      />
 
       {/* Giọt mồ hôi lo lắng (Sweat drop) */}
       {sweatDrop && (

@@ -166,17 +166,27 @@ export const HeadFrontAccessories: React.FC<{
     case "BOY":
       return (
         <g id="preset-boy-hair">
-          {/* V14.0 BOY: 4 chỏm tóc nhọn năng động trên đỉnh đầu người que thuần */}
+          {/* V16.0 BOY: Tóc mái mềm bo tròn thân thiện với 2 lọn gợn tự nhiên (thay hẳn kiểu gai răng cưa cũ!) */}
           <path
-            d={`M ${-headRadius * 0.62} ${headCenterY - headRadius * 0.78}
-                Q ${-headRadius * 0.44} ${headCenterY - headRadius * 1.36} ${-headRadius * 0.18} ${headCenterY - headRadius * 0.96}
-                Q ${-headRadius * 0.02} ${headCenterY - headRadius * 1.50} ${headRadius * 0.16} ${headCenterY - headRadius * 0.98}
-                Q ${headRadius * 0.38} ${headCenterY - headRadius * 1.40} ${headRadius * 0.46} ${headCenterY - headRadius * 0.92}
-                Q ${headRadius * 0.68} ${headCenterY - headRadius * 1.18} ${headRadius * 0.66} ${headCenterY - headRadius * 0.76}
-                Q 0 ${headCenterY - headRadius * 0.88} ${-headRadius * 0.62} ${headCenterY - headRadius * 0.78} Z`}
-            fill="#141414"
+            d={`M ${-headRadius * 0.86} ${headCenterY - headRadius * 0.44}
+                C ${-headRadius * 0.90} ${headCenterY - headRadius * 1.10}, ${-headRadius * 0.25} ${headCenterY - headRadius * 1.24}, ${headRadius * 0.24} ${headCenterY - headRadius * 1.14}
+                C ${headRadius * 0.56} ${headCenterY - headRadius * 1.06}, ${headRadius * 0.88} ${headCenterY - headRadius * 0.80}, ${headRadius * 0.86} ${headCenterY - headRadius * 0.44}
+                Q ${headRadius * 0.56} ${headCenterY - headRadius * 0.72} ${headRadius * 0.26} ${headCenterY - headRadius * 0.58}
+                Q ${headRadius * 0.04} ${headCenterY - headRadius * 0.82} ${-headRadius * 0.22} ${headCenterY - headRadius * 0.56}
+                Q ${-headRadius * 0.54} ${headCenterY - headRadius * 0.74} ${-headRadius * 0.86} ${headCenterY - headRadius * 0.44} Z`}
+            fill="#1E293B"
             stroke="#141414"
-            strokeWidth={3.5}
+            strokeWidth={3.6}
+            strokeLinejoin="round"
+          />
+          {/* Một lọn tóc gợn mềm nhỏ đáng yêu trên đỉnh đầu */}
+          <path
+            d={`M ${-headRadius * 0.06} ${headCenterY - headRadius * 1.12}
+                Q ${headRadius * 0.14} ${headCenterY - headRadius * 1.38} ${headRadius * 0.34} ${headCenterY - headRadius * 1.12}`}
+            fill="#1E293B"
+            stroke="#141414"
+            strokeWidth={3.4}
+            strokeLinecap="round"
             strokeLinejoin="round"
           />
         </g>
@@ -231,17 +241,17 @@ export const HeadFrontAccessories: React.FC<{
             strokeWidth={3.8}
             strokeLinejoin="round"
           />
-          {/* Cặp kính tròn hiền hậu */}
-          <circle cx={-16} cy={headCenterY - 4} r={14} fill="rgba(255,255,255,0.28)" stroke="#141414" strokeWidth={3.5} />
-          <circle cx={18} cy={headCenterY - 4} r={14} fill="rgba(255,255,255,0.28)" stroke="#141414" strokeWidth={3.5} />
-          <line x1={-2} y1={headCenterY - 4} x2={4} y2={headCenterY - 4} stroke="#141414" strokeWidth={3.5} />
+          {/* Cặp kính tròn hiền hậu ôm gọn mắt tròn lớn V16.0 */}
+          <circle cx={-21} cy={headCenterY - 5} r={15.5} fill="rgba(255,255,255,0.25)" stroke="#141414" strokeWidth={3.4} />
+          <circle cx={21} cy={headCenterY - 5} r={15.5} fill="rgba(255,255,255,0.25)" stroke="#141414" strokeWidth={3.4} />
+          <line x1={-5.5} y1={headCenterY - 5} x2={5.5} y2={headCenterY - 5} stroke="#141414" strokeWidth={3.4} />
         </g>
       );
 
     case "DOCTOR":
       return (
         <g id="preset-doctor-features">
-          {/* Tóc gọn gàng & kính tròn bác sĩ */}
+          {/* Tóc gọn gàng & kính tròn bác sĩ ôm gọn mắt tròn lớn V16.0 */}
           <path
             d={`M ${-headRadius * 0.86} ${headCenterY - headRadius * 0.55} Q ${-headRadius * 0.2} ${headCenterY - headRadius * 1.18} ${headRadius * 0.78} ${headCenterY - headRadius * 0.62} Q ${headRadius * 0.2} ${headCenterY - headRadius * 0.82} ${-headRadius * 0.86} ${headCenterY - headRadius * 0.55} Z`}
             fill="#1F2937"
@@ -249,9 +259,9 @@ export const HeadFrontAccessories: React.FC<{
             strokeWidth={3.5}
             strokeLinejoin="round"
           />
-          <circle cx={-16} cy={headCenterY - 4} r={13} fill="rgba(224,242,254,0.32)" stroke="#141414" strokeWidth={3.2} />
-          <circle cx={18} cy={headCenterY - 4} r={13} fill="rgba(224,242,254,0.32)" stroke="#141414" strokeWidth={3.2} />
-          <line x1={-3} y1={headCenterY - 4} x2={5} y2={headCenterY - 4} stroke="#141414" strokeWidth={3.2} />
+          <circle cx={-21} cy={headCenterY - 5} r={15} fill="rgba(224,242,254,0.28)" stroke="#141414" strokeWidth={3.2} />
+          <circle cx={21} cy={headCenterY - 5} r={15} fill="rgba(224,242,254,0.28)" stroke="#141414" strokeWidth={3.2} />
+          <line x1={-6} y1={headCenterY - 5} x2={6} y2={headCenterY - 5} stroke="#141414" strokeWidth={3.2} />
         </g>
       );
 

@@ -47,3 +47,30 @@ Tài liệu quy chuẩn tổng hợp từ V10 → V15.0 áp dụng tự động 
   2. `--audio-only`: tạo trước toàn bộ `.mp3` vào `.tts-cache/<movie_cache>/` + `manifest.json` để đẩy lên GitHub.
   3. `--chapter=<k>`: chạy song song tối đa 5 máy ảo Ubuntu 16GB RAM (`CONCURRENCY=4`) qua `.github/workflows/render-long-movie.yml`.
   4. `--concat-only`: ghép không nén lại toàn bộ `out/chunks/*_chapter_*.mp4` thành file MP4 hoàn chỉnh trong `< 1 giây`.
+
+---
+
+## 6. Chuẩn V16.0: Khuôn Mặt Thân Thiện, True Crossfade 0.5s & Luật Micro-Beat Đồng Bộ 1-1 Lời Thoại
+
+### 6.1. Khuôn Mặt Người Que Thân Thiện Tối Giản (`FacialExpressions.tsx`, `StickmanArchetypes.tsx`, `StickmanRig.tsx`)
+1. **Mắt tròn đen lớn (+25%) kèm chấm sáng trắng**: Đường kính mắt tăng lên ~`r = 9.6 * scale`, có chấm sáng chính góc trên-trái (`dot highlight`) và vầng sáng lưỡi liềm góc dưới-phải (`crescent highlight`) giúp nhân vật ấm áp, dễ thương và rõ nét ngay cả ở cỡ nhỏ.
+2. **Ẩn lông mày mặc định**: ẨN hoàn toàn lông mày trên các biểu cảm mặc định (`HAPPY`, `IDLE`, `SMILE`, `CALM`) cho gương mặt thoáng hiền; **chỉ vẽ lông mày mảnh tinh tế (`3.5px`)** khi biểu cảm cần nhấn mạnh (`CURIOUS` / `inquisitive`, `SHOCKED` / `surprised`, `ANGRY` / `furrowed`, `WORRIED`).
+3. **Bỏ nét cằm xám & Inner Shading sạch**: Xóa hoàn toàn vệt cong xám dưới miệng ở bản cũ; thay bằng dải `inner rim shading` nhẹ (`#E2E8F0` opacity `0.48`) dọc viền trong hình tròn đầu.
+4. **Tóc mái mềm thân thiện (`BOY`) & đồng bộ 5 Preset**: Thay tóc gai răng cưa của `BOY` bằng kiểu tóc mái bo tròn mềm với 1–2 lọn gợn tự nhiên; `GRANDPA`, `GRANDMA`, `DOCTOR`, `NEIGHBOR` đồng bộ mắt tròn sáng & không còn nét cằm xám.
+5. **Miệng cười chữ U tròn mềm**: Giữ nét cười chữ U ấm áp và giữ nguyên khẩu hình mở/đóng tròn tự nhiên (`Lip-Sync Micro Talk`) khi hiển thị bóng thoại.
+
+### 6.2. True Simultaneous Crossfade 0.5s, Nhịp Nghỉ 0.4s & `ttsText` (`V7MovieComposition.tsx`, `chapterChunkedRenderer.ts`)
+1. **Thuộc tính tùy chọn trên mỗi Beat (`ScriptBeat`)**:
+   - `transitionIn?: 'CROSSFADE' | 'CUT'` — mặc định `'CROSSFADE'`.
+   - `transitionFrames?: number` — mặc định `30` frames (`0.5s` @ 60fps).
+   - `pauseAfterSec?: number` — mặc định chuẩn V16 là `0.4` giây nghỉ tự nhiên sau mỗi câu thoại.
+   - `ttsText?: string` — văn bản phiên âm riêng gửi sang VieNeu-TTS để đọc chuẩn tiếng Việt (VD: `"khí các-bô-níc"`), trong khi phụ đề màn hình vẫn hiển thị `narrationText` / `text` đúng chính tả (VD: `"khí CO₂"` / `"khí cacbonic"`).
+2. **Cơ chế True Simultaneous Crossfade (0% Nháy Đen)**:
+   - Tại 30 frames giao điểm đầu Beat `i` (`transitionIn === 'CROSSFADE'`), Beat `i-1` giữ tầng nền `opacity = 1` và Beat `i` phủ chồng đồng thời với `opacity` tuyến tính `0 -> 1`, tạo công thức trộn chính xác `(1 - t) * SceneA + t * SceneB` — **tuyệt đối không bao giờ ló nền đen ở giữa**.
+   - **Không bao giờ đọc đè giọng**: Audio Beat `i` chỉ bắt đầu sau khi audio Beat `i-1` kết thúc hoàn toàn + khoảng nghỉ `pauseAfterSec` (`0.4s`).
+   - Khi `transitionIn === 'CUT'`, chuyển cảnh tức thì không fade (dùng cho nhịp giật mình / hài hước).
+
+### 6.3. Luật Khóa V16 Micro-Beat Sync — "1 Ý = 1 Micro-Beat (3.5s–6.0s, 15–28 từ)"
+1. **1 Cảnh = 1 Ý = 1 Hành Động Độc Lập**: Mỗi micro-beat dài chuẩn **`3.5s – 6.0s`** (tương ứng khoảng **`15 – 28 từ`** tiếng Việt đọc ở tốc độ `atempo=1.10`).
+2. **Đồng Bộ 1-1 Lời Thoại ↔ Diễn Xuất**: Lời đọc kể hành động gì thì nhân vật trên màn hình diễn **CHÍNH XÁC** hành động đó trong cùng micro-beat (VD: lời nhắc *"cầm que chạy đuổi chuồn chuồn"* → bắt buộc dùng cảnh `GARDEN_CHASE_DRAGONFLY` chạy đuổi 2 chuồn chuồn + 1 bướm vàng thật sự; lời nhắc *"bắt gặp thứ lạ lùng dưới gốc xoài"* → cảnh chậm bước lại gần mô đất & bật bóng thoại `"Kìa, cái gì thế?"` đúng nhịp!).
+3. **Bắt Buộc Tách Câu Dài Thành 2 Micro-Beat**: Mọi đoạn kịch bản có từ 2 ý hoặc 2 hành động trở lên (hoặc dài hơn `> 30 từ` / `> 6.5s`) **bắt buộc tách thành 2 micro-beat riêng**, nối mượt bằng `transitionIn: 'CROSSFADE'` (`0.5s`) + `pauseAfterSec: 0.4` để nhịp phim luôn sống động, bám sát lời kể 1-1 và tạo khoảng thở dễ nghe.

@@ -439,6 +439,8 @@ export async function synthesizeGeminiTtsBeat(
 
 export interface VieneuLocalTtsOptions {
   text: string;
+  /** V16.0: Nếu có ttsText thì ưu tiên gửi sang VieNeu-TTS để đọc chuẩn phát âm (VD: "khí các-bô-níc") */
+  ttsText?: string;
   voiceTone?: GeminiVoiceTone;
   voice?: string;
   speed?: number;
@@ -477,7 +479,7 @@ export interface VieneuLocalTtsOutcome {
 export async function synthesizeVieneuLocalTtsBeat(
   options: VieneuLocalTtsOptions
 ): Promise<VieneuLocalTtsOutcome> {
-  const text = (options.text || "").trim();
+  const text = (options.ttsText || options.text || "").trim();
   if (!text) {
     return { ok: false, errorReason: "Empty narration text" };
   }
