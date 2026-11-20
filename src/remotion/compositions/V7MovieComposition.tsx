@@ -42,7 +42,7 @@ import {
 import { SCRIPT_BEATS as DEFAULT_BEATS } from "./TestV7AutoScriptShowcase";
 
 export interface HybridRenderConfig {
-  chromiumOptions: { gl: "angle" | "swiftshader"; enableMultiProcessOnLinux?: boolean };
+  chromiumOptions: { gl: "angle" | "swangle"; enableMultiProcessOnLinux?: boolean };
   hardwareAcceleration: "if-possible";
   concurrency: number;
   imageFormat: "jpeg";

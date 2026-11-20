@@ -1,4 +1,4 @@
-name: Render Long 2D Movie (Parallel Chapters Matrix V14.1)
+name: Render Long 2D Movie (Parallel Cloud Matrix V15.1 — 10 VMs SwANGLE)
 
 on:
   workflow_dispatch:
@@ -8,9 +8,9 @@ on:
         required: true
         default: 'scripts/render_v15_fire_ant_full_movie.mjs'
       total_chapters:
-        description: 'Tổng số Hồi chạy song song tối đa 5 máy ảo (phim dài 6 phút V15.0: 4 Hồi)'
+        description: 'Tổng số Chunk chạy song song (mặc định 10 máy ảo × 4 cảnh/máy cho phim 7 phút ~8-12 phút)'
         required: true
-        default: '4'
+        default: '10'
       output_name:
         description: 'Tên file MP4 hoàn chỉnh sau khi ghép nối trong out/'
         required: true
@@ -18,14 +18,14 @@ on:
 
 jobs:
   render_chapters:
-    name: Render Chapter ${{ matrix.chapter }}/${{ inputs.total_chapters }}
+    name: Render Chunk ${{ matrix.chapter }}/${{ inputs.total_chapters }}
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 45
     strategy:
       fail-fast: false
-      max-parallel: 5
+      max-parallel: 10
       matrix:
-        chapter: ${{ fromJson(format('[{0}]', inputs.total_chapters == '1' && '1' || inputs.total_chapters == '2' && '1,2' || inputs.total_chapters == '3' && '1,2,3' || inputs.total_chapters == '4' && '1,2,3,4' || '1,2,3,4,5')) }}
+        chapter: ${{ fromJson(format('[{0}]', inputs.total_chapters == '1' && '1' || inputs.total_chapters == '2' && '1,2' || inputs.total_chapters == '3' && '1,2,3' || inputs.total_chapters == '4' && '1,2,3,4' || inputs.total_chapters == '5' && '1,2,3,4,5' || inputs.total_chapters == '6' && '1,2,3,4,5,6' || inputs.total_chapters == '7' && '1,2,3,4,5,6,7' || inputs.total_chapters == '8' && '1,2,3,4,5,6,7,8' || inputs.total_chapters == '9' && '1,2,3,4,5,6,7,8,9' || inputs.total_chapters == '10' && '1,2,3,4,5,6,7,8,9,10' || inputs.total_chapters == '11' && '1,2,3,4,5,6,7,8,9,10,11' || '1,2,3,4,5,6,7,8,9,10,11,12')) }}
     steps:
       - name: Checkout Repository (kèm cache giọng đọc .tts-cache/)
         uses: actions/checkout@v4
@@ -37,12 +37,14 @@ jobs:
           cache: 'npm'
           cache-dependency-path: web-studio/package-lock.json
 
-      - name: Install FFmpeg & Headless Chromium Libraries (Ubuntu)
+      - name: Install FFmpeg & Headless Chromium Libraries (Ubuntu 24.04 Safe)
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             ffmpeg \
             libnss3 \
+            libnspr4 \
+            libglib2.0-0 \
             libatk1.0-0 \
             libatk-bridge2.0-0 \
             libcups2 \
@@ -54,27 +56,32 @@ jobs:
             libxfixes3 \
             libxrandr2 \
             libgbm1 \
+            libxshmfence1 \
             libpango-1.0-0 \
             libcairo2 \
             fonts-noto \
             fonts-noto-color-emoji || true
-          sudo apt-get install -y libasound2t64 || sudo apt-get install -y libasound2 || true
+          sudo apt-get install -y --no-install-recommends libasound2t64 || sudo apt-get install -y --no-install-recommends libasound2 || true
 
       - name: Install Web-Studio Dependencies
         working-directory: web-studio
         run: npm ci --prefer-offline || npm install --prefer-offline
 
-      - name: Render Chapter ${{ matrix.chapter }} (Parallel VM, Concurrency=4)
+      - name: Ensure Remotion Headless Chromium Browser (Ubuntu Linux)
+        working-directory: web-studio
+        run: npx remotion browser ensure
+
+      - name: Render Chunk ${{ matrix.chapter }}/${{ inputs.total_chapters }} (SwANGLE + JPEG q92 + Concurrency=2)
         working-directory: web-studio
         env:
-          CONCURRENCY: '4'
+          CONCURRENCY: '2'
           TOTAL_CHAPTERS: ${{ inputs.total_chapters }}
           TTS_PROVIDER: 'VIENEU_LOCAL'
         run: |
           SCRIPT_PATH="${{ inputs.render_script }}"
           SCRIPT_PATH="${SCRIPT_PATH#web-studio/}"
-          echo "Running Chapter ${{ matrix.chapter }}/${{ inputs.total_chapters }} via $SCRIPT_PATH (CONCURRENCY=$CONCURRENCY)..."
-          node "$SCRIPT_PATH" --chapter=${{ matrix.chapter }}
+          echo "Running Chunk ${{ matrix.chapter }}/${{ inputs.total_chapters }} via $SCRIPT_PATH (CONCURRENCY=$CONCURRENCY, gl=swangle)..."
+          node "$SCRIPT_PATH" --chapter=${{ matrix.chapter }} --total-chapters=${{ inputs.total_chapters }}
 
       - name: Upload Chapter Chunk MP4 Artifact
         uses: actions/upload-artifact@v4
@@ -101,14 +108,14 @@ jobs:
       - name: Install FFmpeg
         run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
 
-      - name: Download All Rendered Chapter Chunks into out/chunks/
+      - name: Download All Rendered Chunk Artifacts into out/chunks/
         uses: actions/download-artifact@v4
         with:
           pattern: chapter-*
           path: out/chunks
           merge-multiple: true
 
-      - name: Stitch Final Movie via --concat-only (ffmpeg -c copy)
+      - name: Stitch All ${{ inputs.total_chapters }} Chunks via --concat-only (ffmpeg -c copy)
         working-directory: web-studio
         env:
           TOTAL_CHAPTERS: ${{ inputs.total_chapters }}
@@ -116,7 +123,7 @@ jobs:
           ls -lah ../out/chunks/
           SCRIPT_PATH="${{ inputs.render_script }}"
           SCRIPT_PATH="${SCRIPT_PATH#web-studio/}"
-          node "$SCRIPT_PATH" --concat-only --output="../out/${{ inputs.output_name }}"
+          node "$SCRIPT_PATH" --concat-only --total-chapters=${{ inputs.total_chapters }} --output="../out/${{ inputs.output_name }}"
           ffprobe -v error -show_entries format=duration,size -of default=noprint_wrappers=1 "../out/${{ inputs.output_name }}"
 
       - name: Upload Final Stitched Movie Artifact

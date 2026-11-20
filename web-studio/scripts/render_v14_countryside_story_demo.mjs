@@ -3,7 +3,9 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import {
   HYBRID_GPU_CHROMIUM_OPTIONS,
+  isLinuxOrCiEnvironment,
   detectBestHardwareEncoder,
+  selectCompositionWithCheckpoints,
   renderVideoHybridCpuGpu,
 } from '../src/lib/v7/hybridGpuRenderConfig.ts';
 import {
@@ -161,8 +163,7 @@ const RAW_BEATS = [
 
 async function main() {
   const cliArgs = parseChapterRenderCliArgs(process.argv);
-  const totalChapters = cliArgs.totalChaptersOverride || 2;
-  const chapters = splitBeatsIntoChapters(RAW_BEATS, totalChapters, [
+  const chapters = splitBeatsIntoChapters(RAW_BEATS, 2, [
     'Hồi 1: Mùa Hè Quê Nội & Mô Đất Kỳ Lạ Dưới Gốc Xoài',
     'Hồi 2: Kiến Lửa Sôi Sục & Thành Phố Dưới Lòng Đất',
   ]);
@@ -237,9 +238,11 @@ async function main() {
       const { bundle } = await import('@remotion/bundler');
       remotionRendererMod = await import('@remotion/renderer');
       const hwEncoder = detectBestHardwareEncoder();
+      const isCi = isLinuxOrCiEnvironment();
       console.log(
-        `-> Khởi chạy Remotion Bundler & Chromium (${HYBRID_GPU_CHROMIUM_OPTIONS.gl.toUpperCase()} | Encoder: ${hwEncoder.displayName})...`
+        `-> Khởi chạy Remotion Bundler & Chromium (gl="${HYBRID_GPU_CHROMIUM_OPTIONS.gl}" | Linux/CI=${isCi} | Encoder: ${hwEncoder.displayName})...`
       );
+      const bundleStartMs = Date.now();
       const entryPoint = path.resolve(workspaceRoot, 'web-studio/src/remotion/index.ts');
       const bundleLocation = await bundle({
         entryPoint,
@@ -247,6 +250,16 @@ async function main() {
           if (p % 25 === 0) console.log(`Bundling: ${p}%`);
         },
       });
+      console.log(`-> Bundle completed in ${((Date.now() - bundleStartMs) / 1000).toFixed(2)}s`);
+
+      if (isCi) {
+        return {
+          bundleLocation,
+          browserInstance: undefined,
+          close: async () => {},
+        };
+      }
+
       const browserInstance = await remotionRendererMod.openBrowser('chrome', {
         chromiumOptions: HYBRID_GPU_CHROMIUM_OPTIONS,
       });
@@ -266,17 +279,19 @@ async function main() {
       if (!shouldExportStills) return;
 
       const payload = {
-        title: `Mô Đất Kỳ Lạ Dưới Gốc Xoài — Hồi ${ctx.chapter.chapterNumber}`,
+        title: `Mô Đất Kỳ Lạ Dưới Gốc Xoài — ${ctx.chunkLabel}`,
         totalDurationFrames: ctx.chapterTotalFrames,
         fps: 60,
         beats: ctx.compiledBeats,
         showDebugHud: false,
       };
-      const composition = await remotionRendererMod.selectComposition({
+      const composition = await selectCompositionWithCheckpoints({
+        selectComposition: remotionRendererMod.selectComposition,
         serveUrl: ctx.bundleLocation,
         id: 'V7MovieComposition',
         puppeteerInstance: ctx.browserInstance,
         inputProps: { payload, showDebugHud: false },
+        chunkLabel: ctx.chunkLabel,
       });
 
       const stills = [];
@@ -328,20 +343,22 @@ async function main() {
       }
     },
 
-    // 5. Render từng Hồi thành out/chunks/v14_countryside_story_demo_chapter_<k>.mp4 bằng Hybrid CPU + GPU
+    // 5. Render từng Chunk thành out/chunks/v14_countryside_story_demo_chapter_<k>.mp4 bằng Hybrid CPU + GPU / Cloud Matrix
     renderChapterVideo: async (ctx) => {
       const payload = {
-        title: `Mô Đất Kỳ Lạ Dưới Gốc Xoài — Hồi ${ctx.chapter.chapterNumber}`,
+        title: `Mô Đất Kỳ Lạ Dưới Gốc Xoài — ${ctx.chunkLabel}`,
         totalDurationFrames: ctx.chapterTotalFrames,
         fps: 60,
         beats: ctx.compiledBeats,
         showDebugHud: false,
       };
-      const composition = await remotionRendererMod.selectComposition({
+      const composition = await selectCompositionWithCheckpoints({
+        selectComposition: remotionRendererMod.selectComposition,
         serveUrl: ctx.bundleLocation,
         id: 'V7MovieComposition',
         puppeteerInstance: ctx.browserInstance,
         inputProps: { payload, showDebugHud: false },
+        chunkLabel: ctx.chunkLabel,
       });
 
       const res = await renderVideoHybridCpuGpu({
@@ -352,7 +369,8 @@ async function main() {
         outputPath: ctx.chunkOutputPath,
         isPreview: ctx.isPreview,
         concurrency: ctx.concurrency,
-        jpegQuality: 88,
+        jpegQuality: isLinuxOrCiEnvironment() ? 92 : 88,
+        chunkLabel: ctx.chunkLabel,
         tempDirPrefix: `v14_1_ch${ctx.chapter.chapterNumber}_frames_`,
         renderFrames: remotionRendererMod.renderFrames,
         renderMedia: remotionRendererMod.renderMedia,

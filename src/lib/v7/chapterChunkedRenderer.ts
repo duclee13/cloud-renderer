@@ -81,6 +81,8 @@ export interface ChapterAudioManifest {
 
 export interface ChapterRenderContext<TBeat = Record<string, any>> {
   chapter: ChapterDefinition<TBeat>;
+  totalChapters: number;
+  chunkLabel: string;
   compiledBeats: ChapterCompiledBeat[];
   chapterTotalFrames: number;
   chapterMasterAudioPath: string;
@@ -143,19 +145,17 @@ export interface RenderLongMovieSummary {
 }
 
 /**
- * Tự động xác định độ song song mặc định theo phần cứng:
- * - Ưu tiên biến môi trường CONCURRENCY hoặc RENDER_CONCURRENCY
- * - Máy ảo CI / server >= 12GB RAM -> mặc định 4
- * - Laptop 8GB RAM -> mặc định 2
+ * Tự động xác định độ song song mặc định theo phần cứng (V15.1):
+ * - Trên Linux / GitHub Actions CI (runner 4 vCPU): mặc định 2, giới hạn tối đa 3 để tránh deadlock/OOM Chromium!
+ * - Trên Windows laptop 8GB RAM: mặc định 2 (cho phép ghi đè qua CONCURRENCY / RENDER_CONCURRENCY).
  */
 export function resolveDefaultConcurrency(): number {
+  const isLinuxOrCi =
+    process.platform === "linux" || process.env.CI === "true" || process.env.GITHUB_ACTIONS === "true";
   const envVal = Number(process.env.CONCURRENCY || process.env.RENDER_CONCURRENCY || "");
   if (Number.isFinite(envVal) && envVal >= 1) {
-    return Math.min(8, Math.floor(envVal));
-  }
-  const totalRamGb = os.totalmem() / (1024 * 1024 * 1024);
-  if (process.env.CI === "true" || process.env.GITHUB_ACTIONS === "true" || totalRamGb >= 12) {
-    return 4;
+    const clean = Math.floor(envVal);
+    return isLinuxOrCi ? Math.min(3, Math.max(1, clean)) : Math.min(8, Math.max(1, clean));
   }
   return 2;
 }
@@ -190,6 +190,9 @@ export function parseChapterRenderCliArgs(argv: string[] = process.argv): Chapte
       outputOverride = argv[i + 1].trim() || null;
     } else if (arg.startsWith("--total-chapters=")) {
       const n = parseInt(arg.slice("--total-chapters=".length), 10);
+      if (Number.isFinite(n) && n >= 1) totalChaptersOverride = n;
+    } else if (arg === "--total-chapters" && argv[i + 1]) {
+      const n = parseInt(argv[i + 1], 10);
       if (Number.isFinite(n) && n >= 1) totalChaptersOverride = n;
     }
   }
@@ -240,14 +243,44 @@ export function splitBeatsIntoChapters<T>(
   for (let i = 0; i < safeN; i++) {
     const count = baseSize + (i < remainder ? 1 : 0);
     const slice = beats.slice(cursor, cursor + count);
+    const beatStartNum = cursor + 1;
+    const beatEndNum = cursor + count;
     cursor += count;
     chapters.push({
       chapterNumber: i + 1,
-      title: chapterTitles?.[i] || `Hồi ${i + 1}`,
+      title: chapterTitles?.[i] || `Chunk ${i + 1}/${safeN} (Beats ${beatStartNum}–${beatEndNum})`,
       beats: slice,
     });
   }
   return chapters;
+}
+
+/**
+ * V15.1 Dynamic Cloud Chunking:
+ * Nếu Cloud truyền --total-chapters=<N> (hoặc TOTAL_CHAPTERS=<N>) khác số hồi mặc định của kịch bản
+ * (VD: kịch bản 4 Hồi = 40 beats, nhưng Cloud truyền N=10), tự động trải phẳng toàn bộ beats giữ đúng thứ tự
+ * và chia đều thành N chunk (VD: 10 chunk × 4 beats) — giữ nguyên 100% cache key TTS & tính SoundDesign khớp từng chunk!
+ */
+export function rechunkChaptersDynamically<T>(
+  inputChapters: ChapterDefinition<T>[],
+  requestedTotalChapters: number | null | undefined
+): ChapterDefinition<T>[] {
+  if (
+    !requestedTotalChapters ||
+    !Number.isFinite(requestedTotalChapters) ||
+    requestedTotalChapters < 1 ||
+    requestedTotalChapters === inputChapters.length
+  ) {
+    return inputChapters;
+  }
+  const flattenedBeats: T[] = [];
+  for (const ch of inputChapters) {
+    for (const beat of ch.beats) {
+      flattenedBeats.push(beat);
+    }
+  }
+  if (flattenedBeats.length === 0) return inputChapters;
+  return splitBeatsIntoChapters(flattenedBeats, requestedTotalChapters);
 }
 
 export function measureMediaDurationFfprobe(filePath: string): number {
@@ -468,25 +501,31 @@ async function buildChapterAudioBundle<TBeat extends Record<string, any>>(params
  * Điều phối linh hoạt 4 chế độ: Mặc định (Laptop) | --chapter=<k> (CI Matrix) | --concat-only | --audio-only
  */
 export async function renderLongMovieByChapters<TBeat extends Record<string, any>>(
-  chapters: ChapterDefinition<TBeat>[],
+  inputChapters: ChapterDefinition<TBeat>[],
   outputPath: string,
   options: RenderLongMovieByChaptersOptions<TBeat>
 ): Promise<RenderLongMovieSummary> {
   const cli = options.cliArgs || parseChapterRenderCliArgs(process.argv);
   const fps = options.fps || 60;
+  // V15.1 Dynamic Cloud Chunking: Tự động trải phẳng và chia đều thành N chunk nếu --total-chapters / TOTAL_CHAPTERS != mặc định
+  const chapters = rechunkChaptersDynamically(inputChapters, cli.totalChaptersOverride);
+  const wasRechunked = chapters.length !== inputChapters.length;
   const resolvedOutputPath = cli.outputOverride
     ? path.resolve(process.cwd(), cli.outputOverride)
     : path.resolve(outputPath);
   const chunksDir = path.join(options.workspaceRoot, "out", "chunks");
-  const renderEngineVersionTag = options.renderEngineVersionTag || "v14_1_smooth60fps";
+  const renderEngineVersionTag = options.renderEngineVersionTag || "v15_1_swangle_cloud_chunked";
 
   fs.mkdirSync(chunksDir, { recursive: true });
   fs.mkdirSync(path.dirname(resolvedOutputPath), { recursive: true });
 
   console.log("====================================================================");
-  console.log(`[ChapterRenderer V14.1] Movie ID: "${options.movieId}" | Tổng số Hồi: ${chapters.length}`);
   console.log(
-    `-> Mode: ${cli.mode}${cli.chapterIndex ? ` (Chapter ${cli.chapterIndex}/${chapters.length})` : ""} | ` +
+    `[ChapterRenderer V15.1] Movie ID: "${options.movieId}" | Tổng số Chunk: ${chapters.length}` +
+      (wasRechunked ? ` (Dynamic Re-chunk từ ${inputChapters.length} Hồi mặc định)` : "")
+  );
+  console.log(
+    `-> Mode: ${cli.mode}${cli.chapterIndex ? ` (Chunk ${cli.chapterIndex}/${chapters.length})` : ""} | ` +
       `Concurrency: ${cli.concurrency} | ${cli.isPreview ? "PREVIEW 720p@30" : "PRODUCTION 1080p@60"}`
   );
   console.log(`-> Chunks Dir: ${chunksDir}`);
@@ -707,6 +746,8 @@ export async function renderLongMovieByChapters<TBeat extends Record<string, any
 
       const ctx: ChapterRenderContext<TBeat> = {
         chapter: ch,
+        totalChapters: chapters.length,
+        chunkLabel: `Chunk ${ch.chapterNumber}/${chapters.length}`,
         compiledBeats: audioBundle.compiledBeats,
         chapterTotalFrames: audioBundle.chapterTotalFrames,
         chapterMasterAudioPath: audioBundle.chapterMasterAudioPath,

@@ -3,7 +3,9 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import {
   HYBRID_GPU_CHROMIUM_OPTIONS,
+  isLinuxOrCiEnvironment,
   detectBestHardwareEncoder,
+  selectCompositionWithCheckpoints,
   renderVideoHybridCpuGpu,
 } from '../src/lib/v7/hybridGpuRenderConfig.ts';
 import {
@@ -603,8 +605,8 @@ const RAW_BEATS = [
 
 async function main() {
   const cliArgs = parseChapterRenderCliArgs(process.argv);
-  const totalChapters = cliArgs.totalChaptersOverride || 4;
-  const chapters = splitBeatsIntoChapters(RAW_BEATS, totalChapters, [
+  // 4 Hồi mặc định (40 beats); nếu Cloud truyền --total-chapters=10 thì chapterChunkedRenderer tự trải phẳng & chia đều 10 chunk × 4 beats!
+  const chapters = splitBeatsIntoChapters(RAW_BEATS, 4, [
     'Hồi 1: Mùa Hè Ở Quê & Cái Chọc Que Nhớ Đời',
     'Hồi 2: Cuộc Phản Công Của Cậu Nhóc 12 Tuổi & Tổ Vệ Tinh',
     'Hồi 3: Chiến Thuật Đồng Loạt Của Kiến Lửa & Trận Mưa Lớn',
@@ -681,9 +683,11 @@ async function main() {
       const { bundle } = await import('@remotion/bundler');
       remotionRendererMod = await import('@remotion/renderer');
       const hwEncoder = detectBestHardwareEncoder();
+      const isCi = isLinuxOrCiEnvironment();
       console.log(
-        `-> Khởi chạy Remotion Bundler & Chromium (${HYBRID_GPU_CHROMIUM_OPTIONS.gl.toUpperCase()} | Encoder: ${hwEncoder.displayName})...`
+        `-> Khởi chạy Remotion Bundler & Chromium (gl="${HYBRID_GPU_CHROMIUM_OPTIONS.gl}" | Linux/CI=${isCi} | Encoder: ${hwEncoder.displayName})...`
       );
+      const bundleStartMs = Date.now();
       const entryPoint = path.resolve(workspaceRoot, 'web-studio/src/remotion/index.ts');
       const bundleLocation = await bundle({
         entryPoint,
@@ -691,6 +695,17 @@ async function main() {
           if (p % 25 === 0) console.log(`Bundling: ${p}%`);
         },
       });
+      console.log(`-> Bundle completed in ${((Date.now() - bundleStartMs) / 1000).toFixed(2)}s`);
+
+      // Trên Linux/CI (mỗi runner chỉ render 1 chunk): để selectComposition/renderMedia tự quản lý Chromium với gl:"swangle" chống deadlock!
+      if (isCi) {
+        return {
+          bundleLocation,
+          browserInstance: undefined,
+          close: async () => {},
+        };
+      }
+
       const browserInstance = await remotionRendererMod.openBrowser('chrome', {
         chromiumOptions: HYBRID_GPU_CHROMIUM_OPTIONS,
       });
@@ -709,17 +724,19 @@ async function main() {
       if (!cliArgs.isStillsOnly) return;
 
       const payload = {
-        title: `7 Ngày Với Tổ Kiến Lửa — Hồi ${ctx.chapter.chapterNumber}`,
+        title: `7 Ngày Với Tổ Kiến Lửa — ${ctx.chunkLabel}`,
         totalDurationFrames: ctx.chapterTotalFrames,
         fps: 60,
         beats: ctx.compiledBeats,
         showDebugHud: false,
       };
-      const composition = await remotionRendererMod.selectComposition({
+      const composition = await selectCompositionWithCheckpoints({
+        selectComposition: remotionRendererMod.selectComposition,
         serveUrl: ctx.bundleLocation,
         id: 'V7MovieComposition',
         puppeteerInstance: ctx.browserInstance,
         inputProps: { payload, showDebugHud: false },
+        chunkLabel: ctx.chunkLabel,
       });
 
       const stills = [];
@@ -777,20 +794,22 @@ async function main() {
       }
     },
 
-    // 5. Render từng Hồi thành out/chunks/v15_fire_ant_full_movie_chapter_<1..4>.mp4 bằng Hybrid CPU + GPU / Cloud Matrix
+    // 5. Render từng Chunk thành out/chunks/v15_fire_ant_full_movie_chapter_<1..N>.mp4 bằng Hybrid CPU + GPU / Cloud Matrix
     renderChapterVideo: async (ctx) => {
       const payload = {
-        title: `7 Ngày Với Tổ Kiến Lửa — Hồi ${ctx.chapter.chapterNumber}`,
+        title: `7 Ngày Với Tổ Kiến Lửa — ${ctx.chunkLabel}`,
         totalDurationFrames: ctx.chapterTotalFrames,
         fps: 60,
         beats: ctx.compiledBeats,
         showDebugHud: false,
       };
-      const composition = await remotionRendererMod.selectComposition({
+      const composition = await selectCompositionWithCheckpoints({
+        selectComposition: remotionRendererMod.selectComposition,
         serveUrl: ctx.bundleLocation,
         id: 'V7MovieComposition',
         puppeteerInstance: ctx.browserInstance,
         inputProps: { payload, showDebugHud: false },
+        chunkLabel: ctx.chunkLabel,
       });
 
       const res = await renderVideoHybridCpuGpu({
@@ -801,7 +820,8 @@ async function main() {
         outputPath: ctx.chunkOutputPath,
         isPreview: ctx.isPreview,
         concurrency: ctx.concurrency,
-        jpegQuality: 88,
+        jpegQuality: isLinuxOrCiEnvironment() ? 92 : 88,
+        chunkLabel: ctx.chunkLabel,
         tempDirPrefix: `v15_fire_ant_ch${ctx.chapter.chapterNumber}_frames_`,
         renderFrames: remotionRendererMod.renderFrames,
         renderMedia: remotionRendererMod.renderMedia,
