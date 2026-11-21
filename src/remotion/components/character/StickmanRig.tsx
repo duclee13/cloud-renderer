@@ -204,6 +204,199 @@ export function computeLegsAndHip(
 }
 
 /**
+ * V18.0: Bộ giải tay 60fps chính xác cho 18 tư thế Keyframe Action Timeline + tư thế chống hông (handsOnHips).
+ * Trả về tọa độ khớp vai->khuỷu->cổ tay trong hệ trục thân trên (shoulderUpper = (0, -115)),
+ * được khóa cứng chiều dài xương ARM_L1=65 / ARM_L2=58 ở bước enforceRigidTwoBoneIK.
+ */
+export function computeV18ActionArmsUpper(
+  v18Pose: string | undefined,
+  handsOnHips: boolean | undefined,
+  shoulderUpper: Point2D,
+  frame: number,
+  localFrame: number,
+  segU: number
+): {
+  leftElbow: Point2D;
+  leftWrist: Point2D;
+  rightElbow: Point2D;
+  rightWrist: Point2D;
+  allowNearHead: boolean;
+} | null {
+  const sy = shoulderUpper.y; // -115
+  const clampedU = Math.max(0, Math.min(1, segU));
+  const smoothU = clampedU * clampedU * (3 - 2 * clampedU);
+
+  if (handsOnHips && !v18Pose) {
+    // V18.0 Fix cho SIT_OBSERVE cũ: Đứng chống hông tự nhiên thay vì ngồi squat lơ lửng
+    return {
+      leftElbow: { x: -46, y: sy + 49 },
+      leftWrist: { x: -13, y: sy + 97 },
+      rightElbow: { x: 46, y: sy + 49 },
+      rightWrist: { x: 13, y: sy + 97 },
+      allowNearHead: false,
+    };
+  }
+
+  if (!v18Pose) return null;
+
+  switch (v18Pose) {
+    case "CROUCH_LOOK": {
+      const scan = Math.sin(frame * 0.14) * 5;
+      return {
+        leftElbow: { x: -38, y: sy + 46 },
+        leftWrist: { x: -18, y: sy + 86 },
+        rightElbow: { x: 42, y: sy + 48 },
+        rightWrist: { x: 84, y: sy + 18 + scan },
+        allowNearHead: false,
+      };
+    }
+    case "REACH_GRAB": {
+      const reachT = Math.min(1, smoothU / 0.55);
+      const reachEase = reachT * reachT * (3 - 2 * reachT);
+      const grabPulse = Math.sin(frame * 0.28) * 4;
+      const rx = 46 + reachEase * 68 + grabPulse;
+      const ry = sy + 28 - reachEase * 24;
+      return {
+        leftElbow: { x: -34, y: sy + 26 },
+        leftWrist: { x: -48, y: sy + 52 },
+        rightElbow: { x: 52, y: sy + 36 },
+        rightWrist: { x: rx, y: ry },
+        allowNearHead: false,
+      };
+    }
+    case "POINT_UP": {
+      const bob = Math.sin(frame * 0.18) * 4;
+      return {
+        leftElbow: { x: -42, y: sy + 48 },
+        leftWrist: { x: -16, y: sy + 96 },
+        rightElbow: { x: 46, y: sy - 42 },
+        rightWrist: { x: 44, y: sy - 104 + bob },
+        allowNearHead: true,
+      };
+    }
+    case "POINT_FORWARD": {
+      const pulse = Math.sin(frame * 0.22) * 5;
+      return {
+        leftElbow: { x: -34, y: sy + 50 },
+        leftWrist: { x: -24, y: sy + 100 },
+        rightElbow: { x: 58, y: sy + 18 },
+        rightWrist: { x: 114 + pulse, y: sy + 2 },
+        allowNearHead: false,
+      };
+    }
+    case "SCRATCH_HEAD": {
+      // Đưa tay vòng ra sau gáy/thái dương gãi đầu (góc khuỷu mở rộng thoáng rõ rệt ngoài biên đầu r=54!)
+      const sx = Math.sin(frame * 0.42) * 5;
+      const syOff = Math.cos(frame * 0.42) * 4;
+      return {
+        leftElbow: { x: 42, y: sy + 50 },
+        leftWrist: { x: 14, y: sy + 98 },
+        rightElbow: { x: -82, y: sy - 16 },
+        rightWrist: { x: -48 + sx, y: sy - 78 + syOff },
+        allowNearHead: true,
+      };
+    }
+    case "FACEPALM": {
+      const wob = Math.sin(frame * 0.14) * 2.5;
+      return {
+        leftElbow: { x: -22, y: sy + 52 },
+        leftWrist: { x: -28, y: sy + 106 },
+        rightElbow: { x: 64, y: sy - 10 },
+        rightWrist: { x: 38 + wob, y: sy - 85 },
+        allowNearHead: true,
+      };
+    }
+    case "JUMP_BACK": {
+      return {
+        leftElbow: { x: -54, y: sy - 8 },
+        leftWrist: { x: -78, y: sy - 54 },
+        rightElbow: { x: 54, y: sy - 8 },
+        rightWrist: { x: 82, y: sy - 56 },
+        allowNearHead: true,
+      };
+    }
+    case "ARMS_UP_CHEER": {
+      const pump = Math.sin(frame * 0.24) * 11;
+      return {
+        leftElbow: { x: -58, y: sy - 36 },
+        leftWrist: { x: -52, y: sy - 94 - pump },
+        rightElbow: { x: 58, y: sy - 36 },
+        rightWrist: { x: 52, y: sy - 94 - pump },
+        allowNearHead: true,
+      };
+    }
+    case "SIP_DRINK": {
+      const sipWave = Math.pow(0.5 - 0.5 * Math.cos(localFrame * 0.105), 1.35);
+      const wx = 72 + (46 - 72) * sipWave;
+      const wy = sy + 33 + (-39 - 33) * sipWave;
+      const ex = 44 + (68 - 44) * sipWave;
+      const ey = sy + 52 + (18 - 52) * sipWave;
+      return {
+        leftElbow: { x: -26, y: sy + 52 },
+        leftWrist: { x: -22, y: sy + 102 },
+        rightElbow: { x: ex, y: ey },
+        rightWrist: { x: wx, y: wy },
+        allowNearHead: true,
+      };
+    }
+    case "WRITE_NOTE": {
+      const penX = 62 + Math.sin(frame * 0.44) * 11;
+      const penY = sy + 40 + Math.cos(frame * 0.68) * 6;
+      return {
+        leftElbow: { x: 16, y: sy + 60 },
+        leftWrist: { x: 58, y: sy + 43 },
+        rightElbow: { x: 44, y: sy + 68 },
+        rightWrist: { x: penX, y: penY },
+        allowNearHead: false,
+      };
+    }
+    case "SWEEP_LIGHT": {
+      const sweepSin = Math.sin(localFrame * 0.11);
+      return {
+        leftElbow: { x: -34, y: sy + 48 },
+        leftWrist: { x: -28, y: sy + 94 },
+        rightElbow: { x: 52, y: sy + 28 + sweepSin * 16 },
+        rightWrist: { x: 94, y: sy - 2 + sweepSin * 44 },
+        allowNearHead: true,
+      };
+    }
+    case "PAT_SHOULDER": {
+      const patY = Math.abs(Math.sin(localFrame * 0.18)) * 18;
+      return {
+        leftElbow: { x: -26, y: sy + 52 },
+        leftWrist: { x: -22, y: sy + 102 },
+        rightElbow: { x: 56, y: sy + 26 + patY * 0.45 },
+        rightWrist: { x: 110, y: sy - 2 + patY },
+        allowNearHead: false,
+      };
+    }
+    case "STRETCH_YAWN": {
+      const stretchP = Math.sin(Math.min(1, Math.max(0.15, clampedU)) * Math.PI);
+      return {
+        leftElbow: { x: -64, y: sy - 30 },
+        leftWrist: { x: -60, y: sy - 90 - stretchP * 12 },
+        rightElbow: { x: 64, y: sy - 30 },
+        rightWrist: { x: 60, y: sy - 90 - stretchP * 12 },
+        allowNearHead: true,
+      };
+    }
+    case "SHIVER_PANIC": {
+      const jx = Math.sin(frame * 0.85) * 4;
+      const jy = Math.cos(frame * 0.95) * 3;
+      return {
+        leftElbow: { x: -56, y: sy + 28 },
+        leftWrist: { x: -40 + jx, y: sy - 28 + jy },
+        rightElbow: { x: 60, y: sy + 28 },
+        rightWrist: { x: 46 - jx, y: sy - 30 - jy },
+        allowNearHead: true,
+      };
+    }
+    default:
+      return null;
+  }
+}
+
+/**
  * V14.1: Bộ giải góc vẫy tay mượt 60fps liên tục (Cấm Math.floor / bật tắt 2 khung hình):
  * - Cánh tay trên giữ góc -115° (nâng chếch lên thoáng hoàn toàn khỏi khuôn mặt)
  * - Cẳng tay lắc đều mượt 60fps: forearmAngle = -150° + Math.sin(frame * 0.28 + phaseOffset) * 28°
@@ -493,11 +686,27 @@ export function computeStickmanArmsUpper(
     rightElbowUpper = solve2JointIK(shoulderUpper, rightWristUpper, upperArmLen, forearmLen, 1);
   }
 
+  // V18.0: Ưu tiên tư thế tay 60fps từ Keyframe Action Timeline (18 ActionPoseV18) hoặc handsOnHips (SIT_OBSERVE)
+  const v18Arms = computeV18ActionArmsUpper(
+    state.v18ActionPose,
+    state.handsOnHips,
+    shoulderUpper,
+    frame,
+    state.v18LocalFrame ?? frame,
+    state.v18SegmentProgress ?? 0.5
+  );
+  if (v18Arms) {
+    leftElbowUpper = v18Arms.leftElbow;
+    leftWristUpper = v18Arms.leftWrist;
+    rightElbowUpper = v18Arms.rightElbow;
+    rightWristUpper = v18Arms.rightWrist;
+  }
+
   // V14.1: Cho phép vừa bước đi (hoặc đứng cười) vừa vẫy tay mượt 60fps độc lập theo kênh waveRightArm / waveLeftArm
   const isWaveRight = Boolean(state.waveRightArm || pose === "waving");
   const isWaveLeft = Boolean(state.waveLeftArm);
 
-  if (state.waveRightArm && !holdingTarget?.rightGrip) {
+  if (state.waveRightArm && !holdingTarget?.rightGrip && !v18Arms) {
     const waveR = computeSmooth60fpsWaveArm(shoulderUpper, frame, state.wavePhaseOffset ?? 0, "right");
     rightElbowUpper = waveR.elbow;
     rightWristUpper = waveR.wrist;
@@ -507,18 +716,19 @@ export function computeStickmanArmsUpper(
       leftWristUpper = { x: -42, y: shoulderUpper.y + 112 };
     }
   }
-  if (state.waveLeftArm && !holdingTarget?.leftGrip) {
+  if (state.waveLeftArm && !holdingTarget?.leftGrip && !v18Arms) {
     const waveL = computeSmooth60fpsWaveArm(shoulderUpper, frame, state.wavePhaseOffset ?? 0, "left");
     leftElbowUpper = waveL.elbow;
     leftWristUpper = waveL.wrist;
   }
 
-  // Khóa vùng an toàn Đầu: trừ lúc giơ cao ăn mừng/vẫy tay, cấm tay/khuỷu đè ngang qua mắt & mặt
-  if (!isWaveLeft && leftWristUpper.y > shoulderUpper.y - 75) {
+  // Khóa vùng an toàn Đầu: trừ lúc giơ cao ăn mừng/vẫy tay hoặc tư thế V18 chủ động chạm gần đầu (gãi đầu, úp trán, uống nước, ngáp vươn vai...)
+  const allowNearHead = Boolean(v18Arms?.allowNearHead);
+  if (!isWaveLeft && !allowNearHead && leftWristUpper.y > shoulderUpper.y - 75) {
     leftWristUpper = { x: leftWristUpper.x, y: Math.max(shoulderUpper.y + 16, leftWristUpper.y) };
     leftElbowUpper = { x: leftElbowUpper.x, y: Math.max(shoulderUpper.y + 24, leftElbowUpper.y) };
   }
-  if (!isWaveRight && rightWristUpper.y > shoulderUpper.y - 75) {
+  if (!isWaveRight && !allowNearHead && rightWristUpper.y > shoulderUpper.y - 75) {
     rightWristUpper = { x: rightWristUpper.x, y: Math.max(shoulderUpper.y + 16, rightWristUpper.y) };
     rightElbowUpper = { x: rightElbowUpper.x, y: Math.max(shoulderUpper.y + 24, rightElbowUpper.y) };
   }
@@ -813,12 +1023,13 @@ export const StickmanRig: React.FC<StickmanRigProps> = ({
     }
   }, [state, breathScale, onAnchorsComputed]);
 
-  const flipTransform = facing === "left" ? "scale(-1, 1)" : "";
+  const turnScaleX = state.turnScaleX !== undefined ? state.turnScaleX : 1.0;
+  const effectiveScaleX = scale * (facing === "left" ? -1 : 1) * turnScaleX;
 
   return (
     <g
       id="stickman-rig-wrapper"
-      transform={`translate(${effectiveX.toFixed(2)}, ${y}) scale(${scale}) ${flipTransform} scale(1, ${effectiveBreathScaleY.toFixed(4)})`}
+      transform={`translate(${effectiveX.toFixed(2)}, ${y}) scale(${effectiveScaleX.toFixed(4)}, ${(scale * effectiveBreathScaleY).toFixed(4)})`}
       data-character-pose={pose}
     >
       {/* BÓNG ĐỔ MẶT SÀN BIẾN THIÊN THEO ĐỘ CAO (DYNAMIC GROUND SHADOW) */}

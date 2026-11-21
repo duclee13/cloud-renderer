@@ -46,6 +46,46 @@ export type AutoActorMotion =
   | "APPROACH_OTHER"
   | "IDLE_TALK";
 
+/** V18.0: 18 tư thế hành động 60fps chi tiết cho Keyframe Action Timeline ("Nhất Cử Nhất Động") */
+export type ActionPoseV18 =
+  | "WALK"
+  | "RUN"
+  | "TURN_AROUND"
+  | "CROUCH_LOOK"
+  | "REACH_GRAB"
+  | "POINT_UP"
+  | "POINT_FORWARD"
+  | "SCRATCH_HEAD"
+  | "FACEPALM"
+  | "JUMP_BACK"
+  | "ARMS_UP_CHEER"
+  | "SIP_DRINK"
+  | "WRITE_NOTE"
+  | "SWEEP_LIGHT"
+  | "PAT_SHOULDER"
+  | "STRETCH_YAWN"
+  | "LIE_SLEEP"
+  | "SHIVER_PANIC";
+
+export interface ActorKeyframe {
+  fromPct: number; // 0..1
+  toPct: number;   // 0..1
+  startX: number;  // 180..1740
+  endX: number;    // 180..1740
+  facing: AutoActorFacing;
+  pose: ActionPoseV18;
+  expression: AutoActorExpression;
+  handProp?: AutoHandProp;
+  shiver?: boolean;
+}
+
+export interface AutoCameraSpec {
+  fromScale?: number; // 0.85..1.6 (mặc định 1.0)
+  toScale?: number;   // 0.85..1.6 (mặc định 1.03)
+  focusX?: number;    // 160..1760 (mặc định 960)
+  focusY?: number;    // 120..920 (mặc định 520)
+}
+
 export type AutoPropId =
   | "NONE"
   | "ALARM_CLOCK_RINGING"
@@ -96,7 +136,12 @@ export interface AutoActorSpec {
   expression: AutoActorExpression;
   handProp?: AutoHandProp;
   bubble?: string;
+  /** V18.0: Tỷ lệ thời điểm hiện/ẩn bóng thoại trong cảnh (0..1, mặc định 0.15 -> 0.90) */
+  bubbleStartPct?: number;
+  bubbleEndPct?: number;
   shiver?: boolean;
+  /** V18.0: Chuỗi Keyframe Action Timeline diễn xuất liên hoàn 60fps (nếu bỏ trống -> dùng motion/slot V17 cũ) */
+  timeline?: ActorKeyframe[];
 }
 
 export interface AutoCustomPropSpec {
@@ -130,6 +175,8 @@ export interface AutoEpisodeBeat {
   voiceTone?: AutoVoiceTone;
   /** V17.2: Đạo cụ vector chuyên nghiệp 60fps chọn từ 16 mẫu chuẩn (thay thế hoàn toàn svgInner thô của AI) */
   visualProp?: AutoPropId;
+  /** V18.0: Điều khiển Camera Zoom & Tâm lấy nét mượt 60fps cho toàn sân khấu */
+  camera?: AutoCameraSpec;
   actors: AutoActorSpec[];
   customProps: AutoCustomPropSpec[];
   callout?: AutoCalloutSpec;
@@ -183,6 +230,27 @@ export const VALID_ACTOR_MOTIONS: readonly AutoActorMotion[] = [
   "CELEBRATE",
   "APPROACH_OTHER",
   "IDLE_TALK",
+];
+
+export const VALID_ACTION_POSES_V18: readonly ActionPoseV18[] = [
+  "WALK",
+  "RUN",
+  "TURN_AROUND",
+  "CROUCH_LOOK",
+  "REACH_GRAB",
+  "POINT_UP",
+  "POINT_FORWARD",
+  "SCRATCH_HEAD",
+  "FACEPALM",
+  "JUMP_BACK",
+  "ARMS_UP_CHEER",
+  "SIP_DRINK",
+  "WRITE_NOTE",
+  "SWEEP_LIGHT",
+  "PAT_SHOULDER",
+  "STRETCH_YAWN",
+  "LIE_SLEEP",
+  "SHIVER_PANIC",
 ];
 
 export const VALID_AUTO_PROP_IDS: readonly AutoPropId[] = [
@@ -646,6 +714,98 @@ export function sanitizeSpeechBubble(rawBubble: unknown): string | undefined {
   return cleaned.slice(0, 48);
 }
 
+const ACTION_POSE_V18_ALIASES: Record<string, ActionPoseV18> = {
+  WALK_IN: "WALK",
+  STROLL: "WALK",
+  RUN_CHASE: "RUN",
+  SPRINT: "RUN",
+  TURN: "TURN_AROUND",
+  LOOK_BACK: "TURN_AROUND",
+  CROUCH: "CROUCH_LOOK",
+  SQUAT_LOOK: "CROUCH_LOOK",
+  INSPECT: "CROUCH_LOOK",
+  GRAB: "REACH_GRAB",
+  REACH: "REACH_GRAB",
+  PICK_UP: "REACH_GRAB",
+  POINT_SKY: "POINT_UP",
+  IDEA: "POINT_UP",
+  POINT: "POINT_FORWARD",
+  POINT_AT: "POINT_FORWARD",
+  SCRATCH: "SCRATCH_HEAD",
+  CONFUSED: "SCRATCH_HEAD",
+  SLAP_FOREHEAD: "FACEPALM",
+  OH_NO: "FACEPALM",
+  JUMP_SHOCK: "JUMP_BACK",
+  STARTLE: "JUMP_BACK",
+  RECOIL: "JUMP_BACK",
+  CELEBRATE: "ARMS_UP_CHEER",
+  CHEER: "ARMS_UP_CHEER",
+  SIP: "SIP_DRINK",
+  DRINK: "SIP_DRINK",
+  WRITE: "WRITE_NOTE",
+  JOT_DOWN: "WRITE_NOTE",
+  FLASHLIGHT_SWEEP: "SWEEP_LIGHT",
+  SWEEP: "SWEEP_LIGHT",
+  SHINE_LIGHT: "SWEEP_LIGHT",
+  PAT: "PAT_SHOULDER",
+  COMFORT: "PAT_SHOULDER",
+  YAWN: "STRETCH_YAWN",
+  STRETCH: "STRETCH_YAWN",
+  SLEEP: "LIE_SLEEP",
+  SLEEP_BED: "LIE_SLEEP",
+  PANIC: "SHIVER_PANIC",
+  SHIVER: "SHIVER_PANIC",
+};
+
+function sanitizeActorKeyframe(
+  raw: any,
+  fallbackX: number,
+  fallbackFacing: AutoActorFacing,
+  fallbackExpr: AutoActorExpression
+): ActorKeyframe {
+  const fromPct = Number(clampNum(raw?.fromPct, 0, 1, 0).toFixed(3));
+  const rawTo = clampNum(raw?.toPct, fromPct, 1, 1);
+  const toPct = Number(Math.max(fromPct, rawTo).toFixed(3));
+  const startX = Math.round(clampNum(raw?.startX, 180, 1740, fallbackX));
+  const endX = Math.round(clampNum(raw?.endX, 180, 1740, startX));
+  const facing = matchEnum(raw?.facing, VALID_ACTOR_FACING, fallbackFacing);
+  const pose = matchEnum(raw?.pose, VALID_ACTION_POSES_V18, "WALK", ACTION_POSE_V18_ALIASES);
+  const expression = matchEnum(raw?.expression, VALID_ACTOR_EXPRESSIONS, fallbackExpr, EXPRESSION_ALIASES);
+  const handProp = raw?.handProp !== undefined
+    ? matchEnum(raw.handProp, VALID_HAND_PROPS, "NONE", HAND_PROP_ALIASES)
+    : undefined;
+  const shiver = raw?.shiver !== undefined ? Boolean(raw.shiver) : undefined;
+
+  return {
+    fromPct,
+    toPct,
+    startX,
+    endX,
+    facing,
+    pose,
+    expression,
+    ...(handProp !== undefined ? { handProp } : {}),
+    ...(shiver !== undefined ? { shiver } : {}),
+  };
+}
+
+function sanitizeCamera(raw: any): AutoCameraSpec | undefined {
+  if (!raw || typeof raw !== "object") return undefined;
+  const hasAny =
+    raw.fromScale !== undefined ||
+    raw.toScale !== undefined ||
+    raw.focusX !== undefined ||
+    raw.focusY !== undefined;
+  if (!hasAny) return undefined;
+
+  return {
+    fromScale: Number(clampNum(raw.fromScale, 0.85, 1.6, 1.0).toFixed(3)),
+    toScale: Number(clampNum(raw.toScale, 0.85, 1.6, 1.03).toFixed(3)),
+    focusX: Math.round(clampNum(raw.focusX, 160, 1760, 960)),
+    focusY: Math.round(clampNum(raw.focusY, 120, 920, 520)),
+  };
+}
+
 function sanitizeActor(raw: any, index: number): AutoActorSpec {
   const preset = matchEnum(raw?.preset, VALID_ACTOR_PRESETS, "BOY", PRESET_ALIASES);
   const defaultSlot: AutoActorSlot = index === 0 ? "LEFT" : "RIGHT";
@@ -658,6 +818,23 @@ function sanitizeActor(raw: any, index: number): AutoActorSpec {
   const bubbleClean = sanitizeSpeechBubble(raw?.bubble);
   const shiver = Boolean(raw?.shiver);
 
+  const hasBubbleWindow = raw?.bubbleStartPct !== undefined || raw?.bubbleEndPct !== undefined;
+  const bubbleStartPct = hasBubbleWindow
+    ? Number(clampNum(raw?.bubbleStartPct, 0, 0.95, 0.15).toFixed(3))
+    : undefined;
+  const bubbleEndPct = hasBubbleWindow
+    ? Number(clampNum(raw?.bubbleEndPct, Math.min(1, (bubbleStartPct ?? 0.15) + 0.05), 1, 0.9).toFixed(3))
+    : undefined;
+
+  const defaultSlotX = slot === "LEFT" ? 490 : slot === "RIGHT" ? 1390 : 960;
+  let timeline: ActorKeyframe[] | undefined;
+  if (Array.isArray(raw?.timeline) && raw.timeline.length > 0) {
+    timeline = raw.timeline
+      .slice(0, 12)
+      .map((kf: any) => sanitizeActorKeyframe(kf, defaultSlotX, facing, expression))
+      .sort((a: ActorKeyframe, b: ActorKeyframe) => a.fromPct - b.fromPct);
+  }
+
   return {
     preset,
     slot,
@@ -666,7 +843,10 @@ function sanitizeActor(raw: any, index: number): AutoActorSpec {
     expression,
     ...(handProp !== "NONE" ? { handProp } : { handProp: "NONE" }),
     ...(bubbleClean ? { bubble: bubbleClean } : {}),
+    ...(bubbleStartPct !== undefined ? { bubbleStartPct } : {}),
+    ...(bubbleEndPct !== undefined ? { bubbleEndPct } : {}),
     ...(shiver ? { shiver: true } : {}),
+    ...(timeline ? { timeline } : {}),
   };
 }
 
@@ -761,6 +941,8 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       };
     }
 
+    const camera = sanitizeCamera(rb?.camera);
+
     return {
       id,
       ...(actTitle ? { actTitle } : {}),
@@ -776,6 +958,7 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       bgmMood,
       voiceTone,
       visualProp,
+      ...(camera ? { camera } : {}),
       actors,
       customProps: [], // V17.2: Khóa rỗng mảng customProps SVG thô của AI để không bao giờ xuất hiện hình vuông/tròn lỗi
       ...(callout ? { callout } : {}),

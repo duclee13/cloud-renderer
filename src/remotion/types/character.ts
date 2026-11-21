@@ -136,6 +136,14 @@ export interface StickmanState {
   nodFreq?: number;
   /** V14.1: Bật nhịp thở nhẹ & chớp mắt tự nhiên mỗi 3 giây (mặc định true cho characterPreset) */
   enableIdleLife?: boolean;
+  /** V18.0: Tư thế đứng chống hông quan sát tự nhiên (thay dáng squat lơ lửng của SIT_OBSERVE cũ) */
+  handsOnHips?: boolean;
+  /** V18.0: Hệ số xoay ngang mượt cho TURN_AROUND (mặc định 1.0; thu hẹp về 0.18 khi quay người) */
+  turnScaleX?: number;
+  /** V18.0: Tư thế 60fps chi tiết từ Keyframe Action Timeline (18 ActionPoseV18) */
+  v18ActionPose?: string;
+  v18SegmentProgress?: number;
+  v18LocalFrame?: number;
 }
 
 export interface PropAnchorPorts {

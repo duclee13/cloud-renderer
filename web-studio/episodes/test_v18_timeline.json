@@ -1,0 +1,155 @@
+{
+  "title": "Kiểm Thử Engine V18 — Nhất Cử Nhất Động",
+  "slug": "test_v18_timeline",
+  "topic": "Kiểm thử Keyframe Action Timeline 18 tư thế và Camera Zoom V18",
+  "beats": [
+    {
+      "id": "b01_timeline_4_stages",
+      "actTitle": "Hồi 1: Chuỗi 4 Chặng Liên Hoàn",
+      "headerTitle": "V18: CHẠY — CHỘP — LIA ĐÈN — GÃI ĐẦU",
+      "text": "Nghe tiếng động lạ, tôi chạy vội tới chộp ngay chiếc đèn pin rồi lia sáng khắp góc tường nhưng chẳng thấy gì nên chỉ biết gãi đầu.",
+      "ttsText": "Nghe tiếng động lạ, tôi chạy vội tới chộp ngay chiếc đèn pin rồi lia sáng khắp góc tường nhưng chẳng thấy gì nên chỉ biết gãi đầu.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "voiceTone": "TENSE_CLIMAX",
+      "visualProp": "NONE",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.06,
+        "focusX": 880,
+        "focusY": 500
+      },
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "bubble": "Ủa biến mất rồi?!",
+          "bubbleStartPct": 0.46,
+          "bubbleEndPct": 0.92,
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.25,
+              "startX": 340,
+              "endX": 780,
+              "facing": "RIGHT",
+              "pose": "RUN",
+              "expression": "SHOCKED",
+              "handProp": "NONE",
+              "shiver": false
+            },
+            {
+              "fromPct": 0.25,
+              "toPct": 0.45,
+              "startX": 780,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "REACH_GRAB",
+              "expression": "CURIOUS",
+              "handProp": "FLASHLIGHT",
+              "shiver": false
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.78,
+              "startX": 820,
+              "endX": 840,
+              "facing": "RIGHT",
+              "pose": "SWEEP_LIGHT",
+              "expression": "SCARED",
+              "handProp": "FLASHLIGHT",
+              "shiver": false
+            },
+            {
+              "fromPct": 0.78,
+              "toPct": 1.0,
+              "startX": 840,
+              "endX": 840,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "THINKING",
+              "handProp": "NONE",
+              "shiver": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b02_outdoor_thought_brain",
+      "actTitle": "Hồi 2: Bóng Suy Nghĩ Ngoài Trời & V18 Pose",
+      "headerTitle": "V18: BÓNG SUY NGHĨ TRÊN TRỜI",
+      "text": "Ra sân nắng sớm, tôi đi dạo một vòng rồi dừng lại gãi đầu suy ngẫm về cách bộ não tự tạo ra những ảo giác sống động đêm qua.",
+      "ttsText": "Ra sân nắng sớm, tôi đi dạo một vòng rồi dừng lại gãi đầu suy ngẫm về cách bộ não tự tạo ra những ảo giác sống động đêm qua.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "visualProp": "BRAIN_GLOW",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.04,
+        "focusX": 960,
+        "focusY": 460
+      },
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "THINKING",
+          "handProp": "NONE",
+          "bubble": "Thú vị thật đấy!",
+          "bubbleStartPct": 0.35,
+          "bubbleEndPct": 0.90,
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.35,
+              "startX": 260,
+              "endX": 540,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.35,
+              "toPct": 0.72,
+              "startX": 540,
+              "endX": 540,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.72,
+              "toPct": 1.0,
+              "startX": 540,
+              "endX": 560,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

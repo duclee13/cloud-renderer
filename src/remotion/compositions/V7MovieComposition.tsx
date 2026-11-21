@@ -230,13 +230,16 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
         layerBeat.action === "STORY_MICRO_POSE" ||
         layerBeat.cameraZoom
     );
-    const [zoomStart, zoomEnd] = layerBeat.cameraZoom || [1.0, 1.12];
-    const stageCameraScale = isCharacterPoseBeat
-      ? zoomStart + (zoomEnd - zoomStart) * layerProgressU
-      : 1.0;
-
     const isKassStoryBeat = Boolean(!isInfographicCardBeat && layerBeat.kassSceneMode);
     const isAutoStageBeat = Boolean(!isInfographicCardBeat && layerBeat.autoStageSpec);
+
+    const [zoomStart, zoomEnd] = layerBeat.cameraZoom || [1.0, 1.12];
+    // V18.0: UniversalAutoStage tự xử lý camera (fromScale -> toScale, focusX, focusY) bên trong SVG để tránh zoom kép!
+    const stageCameraScale = isAutoStageBeat
+      ? 1.0
+      : isCharacterPoseBeat
+      ? zoomStart + (zoomEnd - zoomStart) * layerProgressU
+      : 1.0;
 
     const isHornetNightBeat = Boolean(
       !isInfographicCardBeat &&
