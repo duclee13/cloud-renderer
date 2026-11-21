@@ -70,6 +70,12 @@ jobs:
           cp "${{ inputs.episode_file }}" episodes/current_episode.json
           node -e "const d = JSON.parse(require('fs').readFileSync('episodes/current_episode.json','utf8')); console.log('Loaded:', d.title, '| Beats:', d.beats.length);"
 
+      - name: Install VieNeu-TTS Python Packages
+        run: |
+          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y espeak-ng || true
+          python3 -m pip install --upgrade pip
+          pip install vieneu edge-tts
+
       - name: Synthesize All Audio via Cloud VieNeu-TTS (Hải Đăng)
         working-directory: web-studio
         run: |
