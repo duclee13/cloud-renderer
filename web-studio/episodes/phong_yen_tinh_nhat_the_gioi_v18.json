@@ -1,0 +1,4215 @@
+{
+  "title": "Sẽ Ra Sao Nếu Bạn Ở Trong Căn Phòng Yên Tĩnh Nhất Thế Giới 1 Tiếng?",
+  "slug": "phong_yen_tinh_nhat_the_gioi_v18",
+  "version": "18.0",
+  "beats": [
+    {
+      "id": "b01",
+      "text": "Hôm nay phố xá ngoài kia ồn ào kinh khủng: tiếng còi xe, tiếng loa rao, tiếng máy khoan vang lên không ngớt bên tai tôi.",
+      "ttsText": "Hôm nay phố xá ngoài kia ồn ào kinh khủng: tiếng còi xe, tiếng loa rao, tiếng máy khoan vang lên không ngớt bên tai tôi.",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "TIRED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 280,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "TIRED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.75,
+              "startX": 760,
+              "endX": 780,
+              "facing": "RIGHT",
+              "pose": "FACEPALM",
+              "expression": "ANGRY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 780,
+              "endX": 920,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "ANGRY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Ồn quá trời!",
+          "bubbleStartPct": 0.45,
+          "bubbleEndPct": 0.9
+        }
+      ],
+      "actTitle": "Hồi 1: Căn Phòng Yên Tĩnh Nhất Thế Giới",
+      "headerTitle": "HỒI 1: CĂN PHÒNG YÊN TĨNH NHẤT THẾ GIỚI",
+      "visualProp": "SOUND_WAVES",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.06,
+        "focusX": 800,
+        "focusY": 560
+      }
+    },
+    {
+      "id": "b02",
+      "text": "Đi bộ giữa dòng người tấp nập, tôi chợt ước mình có thể chui vào một nơi tuyệt đối im lặng, không còn bất kỳ âm thanh nào lọt vào tai.",
+      "ttsText": "Đi bộ giữa dòng người tấp nập, tôi chợt ước mình có thể chui vào một nơi tuyệt đối im lặng, không còn bất kỳ âm thanh nào lọt vào tai.",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 880,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 0.8,
+              "startX": 880,
+              "endX": 900,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.8,
+              "toPct": 1.0,
+              "startX": 900,
+              "endX": 1020,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b03",
+      "text": "Và hóa ra trên đời thật sự có một nơi như vậy: những căn phòng tiêu âm đặc biệt yên tĩnh tới mức đạt kỷ lục thế giới.",
+      "ttsText": "Và hóa ra trên đời thật sự có một nơi như vậy: những căn phòng tiêu âm đặc biệt yên tĩnh tới mức đạt kỷ lục thế giới.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.55,
+              "startX": 220,
+              "endX": 560,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.55,
+              "toPct": 1.0,
+              "startX": 560,
+              "endX": 580,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 1460,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            }
+          ],
+          "bubble": "Chào mừng tới phòng tiêu âm!",
+          "bubbleStartPct": 0.45,
+          "bubbleEndPct": 0.95
+        }
+      ],
+      "visualProp": "TROPHY_STAR",
+      "callout": {
+        "text": "PHÒNG TIÊU ÂM KỶ LỤC"
+      },
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b04",
+      "text": "Nhà nghiên cứu mỉm cười chỉ lên bảng đo âm thanh: độ ồn bên trong căn phòng này đo được là âm hai mươi phẩy sáu đề-xi-ben!",
+      "ttsText": "Nhà nghiên cứu mỉm cười chỉ lên bảng đo âm thanh: độ ồn bên trong căn phòng này đo được là âm hai mươi phẩy sáu đề-xi-ben!",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "PROUD",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.4,
+              "startX": 1180,
+              "endX": 980,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.4,
+              "toPct": 1.0,
+              "startX": 980,
+              "endX": 980,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 560,
+              "endX": 620,
+              "facing": "RIGHT",
+              "pose": "CROUCH_LOOK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 620,
+              "endX": 580,
+              "facing": "RIGHT",
+              "pose": "JUMP_BACK",
+              "expression": "SHOCKED",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Âm 20 đề-xi-ben á?!",
+          "bubbleStartPct": 0.52,
+          "bubbleEndPct": 0.96
+        }
+      ],
+      "headerTitle": "ÂM 20.6 DECIBEL — IM HƠN CẢ NGƯỠNG NGHE",
+      "callout": {
+        "text": "-20.6 dBA (KỶ LỤC THẾ GIỚI)"
+      },
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.08,
+        "focusX": 900,
+        "focusY": 480
+      }
+    },
+    {
+      "id": "b05",
+      "text": "Để dễ hình dung, một thư viện vắng tanh vẫn ồn khoảng ba mươi đề-xi-ben, còn ngưỡng nhỏ nhất tai người nghe thấy là không đề-xi-ben.",
+      "ttsText": "Để dễ hình dung, một thư viện vắng tanh vẫn ồn khoảng ba mươi đề-xi-ben, còn ngưỡng nhỏ nhất tai người nghe thấy là không đề-xi-ben.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.35,
+              "startX": 360,
+              "endX": 560,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.35,
+              "toPct": 0.7,
+              "startX": 560,
+              "endX": 560,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.7,
+              "toPct": 1.0,
+              "startX": 560,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "WRITE_NOTE",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "visualProp": "SOUND_WAVES",
+      "callout": {
+        "text": "NGƯỠNG NGHE NGƯỜI: 0 dBA"
+      },
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b06",
+      "text": "Tức là căn phòng này yên tĩnh tới mức mọi tiếng vang từ tường, sàn và trần nhà đều bị hấp thụ gần như sạch bong.",
+      "ttsText": "Tức là căn phòng này yên tĩnh tới mức mọi tiếng vang từ tường, sàn và trần nhà đều bị hấp thụ gần như sạch bong.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 420,
+              "endX": 620,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.75,
+              "startX": 620,
+              "endX": 620,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 620,
+              "endX": 650,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "visualProp": "BRAIN_GLOW",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b07",
+      "text": "Toàn bộ sáu mặt phòng được phủ kín bằng những khối nêm xốp sợi thủy tinh dày hơn một mét để bẫy từng sóng âm nhỏ nhất.",
+      "ttsText": "Toàn bộ sáu mặt phòng được phủ kín bằng những khối nêm xốp sợi thủy tinh dày hơn một mét để bẫy từng sóng âm nhỏ nhất.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 380,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.75,
+              "startX": 820,
+              "endX": 920,
+              "facing": "RIGHT",
+              "pose": "REACH_GRAB",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 920,
+              "endX": 880,
+              "facing": "RIGHT",
+              "pose": "CROUCH_LOOK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "visualProp": "SOUND_WAVES",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b08",
+      "text": "Cả căn phòng còn được đặt trên một hệ thống lò xo khổng lồ tách rời khỏi tòa nhà, để rung động từ xe cộ ngoài đường không truyền vào được.",
+      "ttsText": "Cả căn phòng còn được đặt trên một hệ thống lò xo khổng lồ tách rời khỏi tòa nhà, để rung động từ xe cộ ngoài đường không truyền vào được.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.4,
+              "startX": 440,
+              "endX": 620,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.4,
+              "toPct": 0.75,
+              "startX": 620,
+              "endX": 620,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 620,
+              "endX": 640,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "visualProp": "EARTH_CUTAWAY",
+      "callout": {
+        "text": "CÁCH LY RUNG ĐỘNG HOÀN TOÀN"
+      },
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b09",
+      "text": "Nghe đồn hiếm ai trụ quá bốn mươi lăm phút bên trong, tôi cười khì quyết tâm thử ngồi trọn một tiếng xem cảm giác thực sự ra sao.",
+      "ttsText": "Nghe đồn hiếm ai trụ quá bốn mươi lăm phút bên trong, tôi cười khì quyết tâm thử ngồi trọn một tiếng xem cảm giác thực sự ra sao.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "PROUD",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 420,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 860,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "1 tiếng quá dễ!",
+          "bubbleStartPct": 0.42,
+          "bubbleEndPct": 0.92
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.55,
+              "startX": 1320,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.55,
+              "toPct": 1.0,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "WRITE_NOTE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b10",
+      "text": "Tôi hăm hở bước vào giữa phòng, đặt đồng hồ bấm giờ xuống, còn nhà nghiên cứu từ từ khép cánh cửa cách âm dày cộp lại.",
+      "ttsText": "Tôi hăm hở bước vào giữa phòng, đặt đồng hồ bấm giờ xuống, còn nhà nghiên cứu từ từ khép cánh cửa cách âm dày cộp lại.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 320,
+              "endX": 920,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 0.8,
+              "startX": 920,
+              "endX": 940,
+              "facing": "RIGHT",
+              "pose": "CROUCH_LOOK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.8,
+              "toPct": 1.0,
+              "startX": 940,
+              "endX": 940,
+              "facing": "LEFT",
+              "pose": "TURN_AROUND",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.55,
+              "startX": 1160,
+              "endX": 1560,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.55,
+              "toPct": 1.0,
+              "startX": 1560,
+              "endX": 1620,
+              "facing": "LEFT",
+              "pose": "TURN_AROUND",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "visualProp": "ALARM_CLOCK_RINGING",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b11",
+      "text": "Cánh cửa vừa sập khóa một tiếng cạch gọn gàng, cả thế giới ồn ã bên ngoài lập tức bị cắt đứt hoàn toàn trong tích tắc.",
+      "ttsText": "Cánh cửa vừa sập khóa một tiếng cạch gọn gàng, cả thế giới ồn ã bên ngoài lập tức bị cắt đứt hoàn toàn trong tích tắc.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "SHOCKED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.35,
+              "startX": 920,
+              "endX": 920,
+              "facing": "LEFT",
+              "pose": "TURN_AROUND",
+              "expression": "SHOCKED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.35,
+              "toPct": 0.7,
+              "startX": 920,
+              "endX": 920,
+              "facing": "RIGHT",
+              "pose": "TURN_AROUND",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.7,
+              "toPct": 1.0,
+              "startX": 920,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Im phăng phắc luôn!",
+          "bubbleStartPct": 0.4,
+          "bubbleEndPct": 0.9
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.08,
+        "focusX": 920,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b12",
+      "text": "Năm phút đầu tiên thực sự giống như thiên đường: tôi vươn vai hít sâu một hơi, tận hưởng sự êm dịu mà cả đời chưa từng trải qua.",
+      "ttsText": "Năm phút đầu tiên thực sự giống như thiên đường: tôi vươn vai hít sâu một hơi, tận hưởng sự êm dịu mà cả đời chưa từng trải qua.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 760,
+              "endX": 920,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.8,
+              "startX": 920,
+              "endX": 920,
+              "facing": "RIGHT",
+              "pose": "STRETCH_YAWN",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.8,
+              "toPct": 1.0,
+              "startX": 920,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "headerTitle": "PHÚT 1–5: THIÊN ĐƯỜNG THƯ GIÃN",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b13",
+      "text": "Tôi thử vỗ tay một cái thật mạnh rồi ngớ người: tiếng vỗ tay nghe cụt ngủn và khô khốc, hoàn toàn không có lấy một chút tiếng vang nào.",
+      "ttsText": "Tôi thử vỗ tay một cái thật mạnh rồi ngớ người: tiếng vỗ tay nghe cụt ngủn và khô khốc, hoàn toàn không có lấy một chút tiếng vang nào.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.35,
+              "startX": 860,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.35,
+              "toPct": 0.65,
+              "startX": 860,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "JUMP_BACK",
+              "expression": "SHOCKED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.65,
+              "toPct": 1.0,
+              "startX": 820,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Ủa sao cụt ngủn vậy?",
+          "bubbleStartPct": 0.55,
+          "bubbleEndPct": 0.95
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b14",
+      "text": "Ngay cả giọng nói của chính tôi cũng nghe lạ hoắc, mỏng dính và rơi tõm xuống sàn ngay vừa khi rời khỏi miệng.",
+      "ttsText": "Ngay cả giọng nói của chính tôi cũng nghe lạ hoắc, mỏng dính và rơi tõm xuống sàn ngay vừa khi rời khỏi miệng.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.4,
+              "startX": 820,
+              "endX": 740,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.4,
+              "toPct": 0.75,
+              "startX": 740,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "TURN_AROUND",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 740,
+              "endX": 780,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "visualProp": "SOUND_WAVES",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b15",
+      "text": "Tôi lấy cuốn sổ tay ra ghi vội dòng đầu tiên: mọi thứ cực kỳ dễ chịu, chắc chắn mình sẽ trụ hết một tiếng ngon ơ!",
+      "ttsText": "Tôi lấy cuốn sổ tay ra ghi vội dòng đầu tiên: mọi thứ cực kỳ dễ chịu, chắc chắn mình sẽ trụ hết một tiếng ngon ơ!",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.35,
+              "startX": 740,
+              "endX": 880,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.35,
+              "toPct": 0.75,
+              "startX": 880,
+              "endX": 880,
+              "facing": "RIGHT",
+              "pose": "WRITE_NOTE",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 880,
+              "endX": 920,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "visualProp": "NOTEBOOK_OPEN",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b16",
+      "text": "Thế nhưng tới phút thứ mười, bầu không khí im lặng bắt đầu dày đặc một cách kỳ quái, như có thứ áp lực vô hình ép nhẹ vào hai màng nhĩ.",
+      "ttsText": "Thế nhưng tới phút thứ mười, bầu không khí im lặng bắt đầu dày đặc một cách kỳ quái, như có thứ áp lực vô hình ép nhẹ vào hai màng nhĩ.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 920,
+              "endX": 760,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.75,
+              "startX": 760,
+              "endX": 760,
+              "facing": "LEFT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "TIRED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "TURN_AROUND",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.07,
+        "focusX": 780,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b17",
+      "text": "Bỗng nhiên có tiếng thình thịch trầm đục vang lên đều đặn ngay trong phòng, khiến tôi giật bắn mình quay phắt đầu nhìn quanh.",
+      "ttsText": "Bỗng nhiên có tiếng thình thịch trầm đục vang lên đều đặn ngay trong phòng, khiến tôi giật bắn mình quay phắt đầu nhìn quanh.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "SHOCKED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.35,
+              "startX": 780,
+              "endX": 680,
+              "facing": "RIGHT",
+              "pose": "JUMP_BACK",
+              "expression": "SHOCKED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.35,
+              "toPct": 0.65,
+              "startX": 680,
+              "endX": 680,
+              "facing": "LEFT",
+              "pose": "TURN_AROUND",
+              "expression": "SCARED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.65,
+              "toPct": 1.0,
+              "startX": 680,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "TURN_AROUND",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Ai gõ trống thế?!",
+          "bubbleStartPct": 0.3,
+          "bubbleEndPct": 0.85
+        }
+      ],
+      "actTitle": "Hồi 2: Khi Cơ Thể Biến Thành Dàn Nhạc",
+      "headerTitle": "HỒI 2: CƠ THỂ TỰ PHÁT NHẠC",
+      "visualProp": "HEART_BEAT",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.12,
+        "focusX": 720,
+        "focusY": 500
+      }
+    },
+    {
+      "id": "b18",
+      "text": "Tôi chạy ra sát cửa nghe ngóng xem bên ngoài có ai đang gõ cửa hay sửa máy không, nhưng cánh cửa dày hoàn toàn bất động.",
+      "ttsText": "Tôi chạy ra sát cửa nghe ngóng xem bên ngoài có ai đang gõ cửa hay sửa máy không, nhưng cánh cửa dày hoàn toàn bất động.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 720,
+              "endX": 1280,
+              "facing": "RIGHT",
+              "pose": "RUN",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.8,
+              "startX": 1280,
+              "endX": 1300,
+              "facing": "RIGHT",
+              "pose": "CROUCH_LOOK",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.8,
+              "toPct": 1.0,
+              "startX": 1300,
+              "endX": 1240,
+              "facing": "LEFT",
+              "pose": "TURN_AROUND",
+              "expression": "SHOCKED",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b19",
+      "text": "Đưa tay đặt lên ngực mình, tôi mới rùng mình phát hiện ra: tiếng trống thình thịch vang dội kia chính là nhịp tim đang đập của tôi!",
+      "ttsText": "Đưa tay đặt lên ngực mình, tôi mới rùng mình phát hiện ra: tiếng trống thình thịch vang dội kia chính là nhịp tim đang đập của tôi!",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.4,
+              "startX": 1180,
+              "endX": 920,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.4,
+              "toPct": 0.75,
+              "startX": 920,
+              "endX": 920,
+              "facing": "LEFT",
+              "pose": "SHIVER_PANIC",
+              "expression": "SHOCKED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 920,
+              "endX": 900,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "SHOCKED",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Tim mình đập to vậy sao?!",
+          "bubbleStartPct": 0.45,
+          "bubbleEndPct": 0.95
+        }
+      ],
+      "visualProp": "HEART_BEAT",
+      "callout": {
+        "text": "NGHE RÕ TỪNG NHỊP TIM"
+      },
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b20",
+      "text": "Tại sao bình thường ta không bao giờ nghe thấy? Bởi vì khi môi trường mất sạch âm thanh, tai người tự động tăng độ nhạy lên mức tối đa.",
+      "ttsText": "Tại sao bình thường ta không bao giờ nghe thấy? Bởi vì khi môi trường mất sạch âm thanh, tai người tự động tăng độ nhạy lên mức tối đa.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.35,
+              "startX": 380,
+              "endX": 580,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.35,
+              "toPct": 0.7,
+              "startX": 580,
+              "endX": 580,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.7,
+              "toPct": 1.0,
+              "startX": 580,
+              "endX": 620,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "headerTitle": "TAI TỰ ĐỘNG KHUẾCH ĐẠI ÂM THANH",
+      "visualProp": "SOUND_WAVES",
+      "callout": {
+        "text": "TỰ ĐỘNG VẶN ÂM LƯỢNG TỐI ĐA"
+      },
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b21",
+      "text": "Giống như bạn vặn nút âm lượng của chiếc mi-crô lên hết cỡ trong căn phòng kín, mọi tiếng động siêu nhỏ bên trong cơ thể bỗng phóng đại gấp trăm lần.",
+      "ttsText": "Giống như bạn vặn nút âm lượng của chiếc mi-crô lên hết cỡ trong căn phòng kín, mọi tiếng động siêu nhỏ bên trong cơ thể bỗng phóng đại gấp trăm lần.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.4,
+              "startX": 460,
+              "endX": 640,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.4,
+              "toPct": 0.75,
+              "startX": 640,
+              "endX": 640,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "SHOCKED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 640,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "JUMP_BACK",
+              "expression": "SHOCKED",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "visualProp": "NEURON_SIGNAL",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b22",
+      "text": "Tới phút thứ mười lăm, không chỉ tiếng tim đập mà tôi còn nghe rõ mồn một tiếng rào rào đều đặn như có con suối nhỏ đang chảy qua hai bên tai.",
+      "ttsText": "Tới phút thứ mười lăm, không chỉ tiếng tim đập mà tôi còn nghe rõ mồn một tiếng rào rào đều đặn như có con suối nhỏ đang chảy qua hai bên tai.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 620,
+              "endX": 940,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.8,
+              "startX": 940,
+              "endX": 940,
+              "facing": "LEFT",
+              "pose": "TURN_AROUND",
+              "expression": "SHOCKED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.8,
+              "toPct": 1.0,
+              "startX": 940,
+              "endX": 900,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "visualProp": "WATER_RIPPLE",
+      "callout": {
+        "text": "TIẾNG MÁU CHẢY QUA MẠCH TAI"
+      },
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b23",
+      "text": "Đó chính là tiếng dòng máu nóng đang được bơm liên tục qua các mạch máu nhỏ sát màng nhĩ theo từng nhịp đập của trái tim.",
+      "ttsText": "Đó chính là tiếng dòng máu nóng đang được bơm liên tục qua các mạch máu nhỏ sát màng nhĩ theo từng nhịp đập của trái tim.",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.4,
+              "startX": 1340,
+              "endX": 1080,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.4,
+              "toPct": 1.0,
+              "startX": 1080,
+              "endX": 1080,
+              "facing": "LEFT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 680,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 680,
+              "endX": 680,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "SHOCKED",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "visualProp": "HEART_BEAT",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b24",
+      "text": "Tôi khẽ xoay cổ sang trái cho đỡ mỏi, lập tức một tiếng rắc khô khốc vang lên giòn tan nghe như ai vừa bẻ gãy một cành cây khô.",
+      "ttsText": "Tôi khẽ xoay cổ sang trái cho đỡ mỏi, lập tức một tiếng rắc khô khốc vang lên giòn tan nghe như ai vừa bẻ gãy một cành cây khô.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "TIRED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.35,
+              "startX": 860,
+              "endX": 860,
+              "facing": "LEFT",
+              "pose": "STRETCH_YAWN",
+              "expression": "TIRED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.35,
+              "toPct": 0.7,
+              "startX": 860,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "JUMP_BACK",
+              "expression": "SHOCKED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.7,
+              "toPct": 1.0,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "FACEPALM",
+              "expression": "SCARED",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Ối giời cổ mình!",
+          "bubbleStartPct": 0.4,
+          "bubbleEndPct": 0.92
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b25",
+      "text": "Tiếp đó là tiếng phổi phồng lên xẹp xuống rì rào theo từng hơi thở, nghe rõ tới mức tôi bỗng thấy... quên luôn cách thở tự nhiên!",
+      "ttsText": "Tiếp đó là tiếng phổi phồng lên xẹp xuống rì rào theo từng hơi thở, nghe rõ tới mức tôi bỗng thấy... quên luôn cách thở tự nhiên!",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 760,
+              "endX": 1020,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.75,
+              "startX": 1020,
+              "endX": 1020,
+              "facing": "RIGHT",
+              "pose": "SHIVER_PANIC",
+              "expression": "CURIOUS",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 1020,
+              "endX": 960,
+              "facing": "LEFT",
+              "pose": "TURN_AROUND",
+              "expression": "TIRED",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b26",
+      "text": "Chưa hết, lúc tôi nuốt nước bọt một cái, âm thanh ực một tiếng vọng thẳng trong vòm họng nghe lớn chẳng khác nào mở vòi nước.",
+      "ttsText": "Chưa hết, lúc tôi nuốt nước bọt một cái, âm thanh ực một tiếng vọng thẳng trong vòm họng nghe lớn chẳng khác nào mở vòi nước.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "CUP_SODA",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.4,
+              "startX": 960,
+              "endX": 840,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "CUP_SODA"
+            },
+            {
+              "fromPct": 0.4,
+              "toPct": 0.75,
+              "startX": 840,
+              "endX": 840,
+              "facing": "LEFT",
+              "pose": "SIP_DRINK",
+              "expression": "CURIOUS",
+              "handProp": "CUP_SODA"
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 840,
+              "endX": 800,
+              "facing": "RIGHT",
+              "pose": "JUMP_BACK",
+              "expression": "SHOCKED",
+              "handProp": "CUP_SODA"
+            }
+          ],
+          "bubble": "To ngang tiếng sấm!",
+          "bubbleStartPct": 0.65,
+          "bubbleEndPct": 0.96
+        }
+      ],
+      "visualProp": "WATER_RIPPLE",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b27",
+      "text": "Và đúng giây phút đó, cái bụng đói của tôi đánh một tràng ục ục dài ngoằng khiến tôi phải ôm trán phì cười vì quá bất ngờ.",
+      "ttsText": "Và đúng giây phút đó, cái bụng đói của tôi đánh một tràng ục ục dài ngoằng khiến tôi phải ôm trán phì cười vì quá bất ngờ.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.35,
+              "startX": 800,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.35,
+              "toPct": 0.7,
+              "startX": 860,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "FACEPALM",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.7,
+              "toPct": 1.0,
+              "startX": 860,
+              "endX": 920,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Bụng kêu cũng vang!",
+          "bubbleStartPct": 0.4,
+          "bubbleEndPct": 0.9
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b28",
+      "text": "Càng ở lâu trong phòng tiêu âm, bạn càng nhận ra một sự thật hài hước: chính cơ thể con người mới là cỗ máy ồn ào nhất!",
+      "ttsText": "Càng ở lâu trong phòng tiêu âm, bạn càng nhận ra một sự thật hài hước: chính cơ thể con người mới là cỗ máy ồn ào nhất!",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 420,
+              "endX": 680,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.75,
+              "startX": 680,
+              "endX": 680,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 680,
+              "endX": 720,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "visualProp": "HEART_BEAT",
+      "callout": {
+        "text": "BẠN CHÍNH LÀ NGUỒN ÂM THANH"
+      },
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b29",
+      "text": "Bình thường não bộ hoạt động như một bộ lọc siêu thông minh, tự động xóa bỏ tiếng tim đập và tiếng máu chảy để ta tập trung nghe thế giới bên ngoài.",
+      "ttsText": "Bình thường não bộ hoạt động như một bộ lọc siêu thông minh, tự động xóa bỏ tiếng tim đập và tiếng máu chảy để ta tập trung nghe thế giới bên ngoài.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.4,
+              "startX": 380,
+              "endX": 580,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.4,
+              "toPct": 0.75,
+              "startX": 580,
+              "endX": 580,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 580,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "WRITE_NOTE",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "visualProp": "BRAIN_GLOW",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b30",
+      "text": "Nhưng khi thế giới bên ngoài tắt tiếng hoàn toàn, bộ lọc ấy mất mục tiêu và bắt đầu đẩy toàn bộ âm thanh nội tạng lên mức rõ mồn một.",
+      "ttsText": "Nhưng khi thế giới bên ngoài tắt tiếng hoàn toàn, bộ lọc ấy mất mục tiêu và bắt đầu đẩy toàn bộ âm thanh nội tạng lên mức rõ mồn một.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 620,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.8,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "WRITE_NOTE",
+              "expression": "CURIOUS",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.8,
+              "toPct": 1.0,
+              "startX": 960,
+              "endX": 920,
+              "facing": "LEFT",
+              "pose": "TURN_AROUND",
+              "expression": "TIRED",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "visualProp": "NEURON_SIGNAL",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b31",
+      "text": "Tới phút thứ hai mươi lăm, một tiếng vo ve mảnh như sợi chỉ bắt đầu ngân dài trong tai tôi dù căn phòng không hề có một con muỗi nào.",
+      "ttsText": "Tới phút thứ hai mươi lăm, một tiếng vo ve mảnh như sợi chỉ bắt đầu ngân dài trong tai tôi dù căn phòng không hề có một con muỗi nào.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.4,
+              "startX": 920,
+              "endX": 740,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.4,
+              "toPct": 0.7,
+              "startX": 740,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "TURN_AROUND",
+              "expression": "SHOCKED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.7,
+              "toPct": 1.0,
+              "startX": 740,
+              "endX": 680,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "TIRED",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "visualProp": "BUG_SWARM",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b32",
+      "text": "Đúng lúc đó, loa liên lạc khẽ báo hiệu bước sang thử thách thực sự của nửa tiếng cuối: nhà nghiên cứu tắt toàn bộ đèn trần trong phòng.",
+      "ttsText": "Đúng lúc đó, loa liên lạc khẽ báo hiệu bước sang thử thách thực sự của nửa tiếng cuối: nhà nghiên cứu tắt toàn bộ đèn trần trong phòng.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "SHOCKED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.35,
+              "startX": 760,
+              "endX": 700,
+              "facing": "RIGHT",
+              "pose": "JUMP_BACK",
+              "expression": "SHOCKED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.35,
+              "toPct": 0.7,
+              "startX": 700,
+              "endX": 700,
+              "facing": "LEFT",
+              "pose": "TURN_AROUND",
+              "expression": "SCARED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.7,
+              "toPct": 1.0,
+              "startX": 700,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "SHIVER_PANIC",
+              "expression": "SCARED",
+              "handProp": "NONE",
+              "shiver": true
+            }
+          ],
+          "bubble": "Tắt đèn luôn á?!",
+          "bubbleStartPct": 0.25,
+          "bubbleEndPct": 0.88
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.12,
+        "focusX": 740,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b33",
+      "text": "Vừa bước sang phút thứ ba mươi trong bóng tối hoàn toàn, tôi thử bước đi vài bước về phía góc phòng thì lập tức loạng choạng suýt ngã.",
+      "ttsText": "Vừa bước sang phút thứ ba mươi trong bóng tối hoàn toàn, tôi thử bước đi vài bước về phía góc phòng thì lập tức loạng choạng suýt ngã.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "TIRED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 620,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "TIRED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.75,
+              "startX": 960,
+              "endX": 840,
+              "facing": "RIGHT",
+              "pose": "JUMP_BACK",
+              "expression": "SCARED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 840,
+              "endX": 840,
+              "facing": "RIGHT",
+              "pose": "CROUCH_LOOK",
+              "expression": "SHOCKED",
+              "handProp": "NONE",
+              "shiver": true
+            }
+          ],
+          "bubble": "Ơ sao chóng mặt thế?!",
+          "bubbleStartPct": 0.5,
+          "bubbleEndPct": 0.95
+        }
+      ],
+      "actTitle": "Hồi 3: Mất Thăng Bằng & Ảo Giác Âm Thanh",
+      "headerTitle": "HỒI 3: KHI KHÔNG GIAN BIẾN MẤT",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b34",
+      "text": "Sàn nhà hoàn toàn bằng phẳng và cứng cáp, vậy mà hai chân tôi lại có cảm giác chao đảo như đang đứng trên boong một con tàu giữa sóng.",
+      "ttsText": "Sàn nhà hoàn toàn bằng phẳng và cứng cáp, vậy mà hai chân tôi lại có cảm giác chao đảo như đang đứng trên boong một con tàu giữa sóng.",
+      "stageType": "WATER_POND_OCEAN",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "SCARED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.35,
+              "startX": 760,
+              "endX": 900,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "SCARED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.35,
+              "toPct": 0.7,
+              "startX": 900,
+              "endX": 780,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "TIRED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.7,
+              "toPct": 1.0,
+              "startX": 780,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "SHIVER_PANIC",
+              "expression": "SHOCKED",
+              "handProp": "NONE",
+              "shiver": true
+            }
+          ]
+        }
+      ],
+      "visualProp": "WATER_RIPPLE",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b35",
+      "text": "Ít ai ngờ rằng khi di chuyển hằng ngày, bộ não chúng ta luôn âm thầm dùng những tiếng vang tí hon dội lại từ tường để định vị không gian.",
+      "ttsText": "Ít ai ngờ rằng khi di chuyển hằng ngày, bộ não chúng ta luôn âm thầm dùng những tiếng vang tí hon dội lại từ tường để định vị không gian.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.4,
+              "startX": 380,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.4,
+              "toPct": 0.75,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 600,
+              "endX": 620,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "headerTitle": "ĐỊNH VỊ BẰNG TIẾNG VANG TÍ HON",
+      "visualProp": "SOUND_WAVES",
+      "callout": {
+        "text": "NÃO DÙNG TIẾNG VANG ĐỂ GIỮ THĂNG BẰNG"
+      },
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b36",
+      "text": "Khi phòng tiêu âm nuốt trọn mọi tiếng vang kết hợp với bóng tối, hệ tiền đình trong tai bỗng mất sạch điểm tựa không gian.",
+      "ttsText": "Khi phòng tiêu âm nuốt trọn mọi tiếng vang kết hợp với bóng tối, hệ tiền đình trong tai bỗng mất sạch điểm tựa không gian.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.4,
+              "startX": 520,
+              "endX": 680,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.4,
+              "toPct": 0.75,
+              "startX": 680,
+              "endX": 620,
+              "facing": "RIGHT",
+              "pose": "JUMP_BACK",
+              "expression": "SHOCKED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 620,
+              "endX": 620,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "TIRED",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "visualProp": "BRAIN_GLOW",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b37",
+      "text": "Đó là lý do vì sao ai vào căn phòng này lâu hơn ba mươi phút đều được khuyên nên ngồi yên, kẻo cảm thấy như đang trôi lơ lửng giữa vũ trụ.",
+      "ttsText": "Đó là lý do vì sao ai vào căn phòng này lâu hơn ba mươi phút đều được khuyên nên ngồi yên, kẻo cảm thấy như đang trôi lơ lửng giữa vũ trụ.",
+      "stageType": "SPACE_COSMOS",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 580,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.8,
+              "startX": 960,
+              "endX": 1080,
+              "facing": "LEFT",
+              "pose": "TURN_AROUND",
+              "expression": "SHOCKED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.8,
+              "toPct": 1.0,
+              "startX": 1080,
+              "endX": 980,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.06,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b38",
+      "text": "Phút thứ ba mươi lăm, cảm giác kỳ lạ nhất bắt đầu kéo đến: khi không có bất kỳ âm thanh thật nào đi vào tai, não tôi bỗng tự sáng tác ra tiếng động!",
+      "ttsText": "Phút thứ ba mươi lăm, cảm giác kỳ lạ nhất bắt đầu kéo đến: khi không có bất kỳ âm thanh thật nào đi vào tai, não tôi bỗng tự sáng tác ra tiếng động!",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.4,
+              "startX": 740,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.4,
+              "toPct": 0.75,
+              "startX": 860,
+              "endX": 860,
+              "facing": "LEFT",
+              "pose": "TURN_AROUND",
+              "expression": "SHOCKED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 860,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "SHIVER_PANIC",
+              "expression": "SCARED",
+              "handProp": "NONE",
+              "shiver": true
+            }
+          ]
+        }
+      ],
+      "headerTitle": "PHÚT 35: NÃO TỰ BỊA RA ÂM THANH",
+      "visualProp": "NEURON_SIGNAL",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b39",
+      "text": "Đầu tiên là tiếng chuông gió leng keng rất khẽ như vang từ góc phòng bên trái, rồi bất chợt chuyển thành tiếng thì thầm lạo xạo ngay sau lưng.",
+      "ttsText": "Đầu tiên là tiếng chuông gió leng keng rất khẽ như vang từ góc phòng bên trái, rồi bất chợt chuyển thành tiếng thì thầm lạo xạo ngay sau lưng.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "SCARED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.35,
+              "startX": 820,
+              "endX": 680,
+              "facing": "LEFT",
+              "pose": "RUN",
+              "expression": "SCARED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.35,
+              "toPct": 0.7,
+              "startX": 680,
+              "endX": 720,
+              "facing": "RIGHT",
+              "pose": "JUMP_BACK",
+              "expression": "SHOCKED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.7,
+              "toPct": 1.0,
+              "startX": 720,
+              "endX": 720,
+              "facing": "RIGHT",
+              "pose": "SHIVER_PANIC",
+              "expression": "SCARED",
+              "handProp": "NONE",
+              "shiver": true
+            }
+          ],
+          "bubble": "Ai ở sau lưng vậy?!",
+          "bubbleStartPct": 0.45,
+          "bubbleEndPct": 0.95
+        }
+      ],
+      "visualProp": "GHOST_SHADOW",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.12,
+        "focusX": 740,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b40",
+      "text": "Tôi vội rút chiếc đèn pin nhỏ trong túi ra bật sáng trưng rồi lia chùm sáng quét dọc ngang khắp bốn bức tường xốp.",
+      "ttsText": "Tôi vội rút chiếc đèn pin nhỏ trong túi ra bật sáng trưng rồi lia chùm sáng quét dọc ngang khắp bốn bức tường xốp.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "SCARED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.25,
+              "startX": 720,
+              "endX": 840,
+              "facing": "RIGHT",
+              "pose": "RUN",
+              "expression": "SCARED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.25,
+              "toPct": 0.45,
+              "startX": 840,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "REACH_GRAB",
+              "expression": "SHOCKED",
+              "handProp": "FLASHLIGHT"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.8,
+              "startX": 860,
+              "endX": 920,
+              "facing": "RIGHT",
+              "pose": "SWEEP_LIGHT",
+              "expression": "CURIOUS",
+              "handProp": "FLASHLIGHT"
+            },
+            {
+              "fromPct": 0.8,
+              "toPct": 1.0,
+              "startX": 920,
+              "endX": 920,
+              "facing": "LEFT",
+              "pose": "TURN_AROUND",
+              "expression": "CURIOUS",
+              "handProp": "FLASHLIGHT"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b41",
+      "text": "Dưới ánh đèn sáng rõ, cả căn phòng hoàn toàn trống trơn chẳng hề có một bóng người hay con vật nào cả.",
+      "ttsText": "Dưới ánh đèn sáng rõ, cả căn phòng hoàn toàn trống trơn chẳng hề có một bóng người hay con vật nào cả.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "FLASHLIGHT",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 920,
+              "endX": 780,
+              "facing": "LEFT",
+              "pose": "SWEEP_LIGHT",
+              "expression": "CURIOUS",
+              "handProp": "FLASHLIGHT"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.75,
+              "startX": 780,
+              "endX": 780,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "THINKING",
+              "handProp": "FLASHLIGHT"
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 780,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "FACEPALM",
+              "expression": "TIRED",
+              "handProp": "FLASHLIGHT"
+            }
+          ],
+          "bubble": "Trống trơn luôn...",
+          "bubbleStartPct": 0.55,
+          "bubbleEndPct": 0.95
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b42",
+      "text": "Các nhà thần kinh học giải thích rằng vùng não xử lý thính giác cực kỳ ghét sự trống rỗng hoàn toàn, nên nó tự phát ra tín hiệu giả để lấp đầy.",
+      "ttsText": "Các nhà thần kinh học giải thích rằng vùng não xử lý thính giác cực kỳ ghét sự trống rỗng hoàn toàn, nên nó tự phát ra tín hiệu giả để lấp đầy.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.35,
+              "startX": 360,
+              "endX": 580,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.35,
+              "toPct": 0.7,
+              "startX": 580,
+              "endX": 580,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.7,
+              "toPct": 1.0,
+              "startX": 580,
+              "endX": 620,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "visualProp": "BRAIN_GLOW",
+      "callout": {
+        "text": "ẢO GIÁC THÍNH GIÁC TỰ SINH"
+      },
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b43",
+      "text": "Hiện tượng này giống hệt lúc bạn nhìn chằm chằm vào căn phòng tối om một hồi lâu sẽ thấy những đốm màu lấp lánh không có thật.",
+      "ttsText": "Hiện tượng này giống hệt lúc bạn nhìn chằm chằm vào căn phòng tối om một hồi lâu sẽ thấy những đốm màu lấp lánh không có thật.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.4,
+              "startX": 480,
+              "endX": 680,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.4,
+              "toPct": 0.75,
+              "startX": 680,
+              "endX": 680,
+              "facing": "RIGHT",
+              "pose": "CROUCH_LOOK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 680,
+              "endX": 720,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "visualProp": "GHOST_SHADOW",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b44",
+      "text": "Phút thứ bốn mươi lăm trôi qua mà đồng hồ như đang chạy chậm lại gấp đôi; mỗi giây tích tắc trong đầu dài đằng đẵng như cả một phút.",
+      "ttsText": "Phút thứ bốn mươi lăm trôi qua mà đồng hồ như đang chạy chậm lại gấp đôi; mỗi giây tích tắc trong đầu dài đằng đẵng như cả một phút.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "TIRED",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 720,
+              "endX": 1040,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "TIRED",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.8,
+              "startX": 1040,
+              "endX": 820,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "TIRED",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.8,
+              "toPct": 1.0,
+              "startX": 820,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "FACEPALM",
+              "expression": "TIRED",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "visualProp": "ALARM_CLOCK_RINGING",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b45",
+      "text": "Tôi thử mở sổ tay viết vài dòng cho đỡ sốt ruột, nhưng cả tiếng đầu bút chì sột soạt trên mặt giấy lúc này cũng nghe to như tiếng cưa gỗ.",
+      "ttsText": "Tôi thử mở sổ tay viết vài dòng cho đỡ sốt ruột, nhưng cả tiếng đầu bút chì sột soạt trên mặt giấy lúc này cũng nghe to như tiếng cưa gỗ.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.35,
+              "startX": 820,
+              "endX": 880,
+              "facing": "RIGHT",
+              "pose": "REACH_GRAB",
+              "expression": "CURIOUS",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.35,
+              "toPct": 0.7,
+              "startX": 880,
+              "endX": 880,
+              "facing": "RIGHT",
+              "pose": "WRITE_NOTE",
+              "expression": "CURIOUS",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.7,
+              "toPct": 1.0,
+              "startX": 880,
+              "endX": 780,
+              "facing": "RIGHT",
+              "pose": "JUMP_BACK",
+              "expression": "SHOCKED",
+              "handProp": "NOTEBOOK"
+            }
+          ],
+          "bubble": "Sột soạt to quá!",
+          "bubbleStartPct": 0.68,
+          "bubbleEndPct": 0.98
+        }
+      ],
+      "visualProp": "NOTEBOOK_OPEN",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b46",
+      "text": "Thế nhưng khi đã hiểu rõ mọi tiếng động kỳ lạ kia đều do chính não và cơ thể mình tạo ra, cảm giác hồi hộp ban đầu bỗng dịu hẳn xuống.",
+      "ttsText": "Thế nhưng khi đã hiểu rõ mọi tiếng động kỳ lạ kia đều do chính não và cơ thể mình tạo ra, cảm giác hồi hộp ban đầu bỗng dịu hẳn xuống.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 780,
+              "endX": 920,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.8,
+              "startX": 920,
+              "endX": 920,
+              "facing": "RIGHT",
+              "pose": "STRETCH_YAWN",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.8,
+              "toPct": 1.0,
+              "startX": 920,
+              "endX": 940,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b47",
+      "text": "Tôi bắt đầu đếm nhịp tim của chính mình thay cho đồng hồ, lắng nghe từng hơi thở sâu đều đặn trôi qua trong bóng tối êm ru.",
+      "ttsText": "Tôi bắt đầu đếm nhịp tim của chính mình thay cho đồng hồ, lắng nghe từng hơi thở sâu đều đặn trôi qua trong bóng tối êm ru.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 940,
+              "endX": 820,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 820,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "TURN_AROUND",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "visualProp": "HEART_BEAT",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b48",
+      "text": "Chỉ còn năm phút cuối cùng nữa thôi — kim đồng hồ bấm giờ nhích từng nấc cuối tới đúng cột mốc sáu mươi phút trọn vẹn.",
+      "ttsText": "Chỉ còn năm phút cuối cùng nữa thôi — kim đồng hồ bấm giờ nhích từng nấc cuối tới đúng cột mốc sáu mươi phút trọn vẹn.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "PROUD",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 820,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.75,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "CROUCH_LOOK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Sắp tròn 1 tiếng rồi!",
+          "bubbleStartPct": 0.4,
+          "bubbleEndPct": 0.92
+        }
+      ],
+      "visualProp": "ALARM_CLOCK_RINGING",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b49",
+      "text": "Tít tít tít! Đúng phút thứ sáu mươi, đèn trần bật sáng rực và cánh cửa cách âm nặng trịch từ từ mở toang ra trước mắt tôi.",
+      "ttsText": "Tít tít tít! Đúng phút thứ sáu mươi, đèn trần bật sáng rực và cánh cửa cách âm nặng trịch từ từ mở toang ra trước mắt tôi.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.4,
+              "startX": 820,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.4,
+              "toPct": 1.0,
+              "startX": 820,
+              "endX": 980,
+              "facing": "RIGHT",
+              "pose": "RUN",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Xong 1 tiếng rồi!",
+          "bubbleStartPct": 0.15,
+          "bubbleEndPct": 0.7
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.55,
+              "startX": 1620,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.55,
+              "toPct": 1.0,
+              "startX": 1180,
+              "endX": 1140,
+              "facing": "LEFT",
+              "pose": "PAT_SHOULDER",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "actTitle": "Hồi 4: Trở Về Với Âm Thanh Cuộc Sống",
+      "headerTitle": "HỒI 4: MỞ CỬA RA THẾ GIỚI",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.07,
+        "focusX": 1020,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b50",
+      "text": "Nhà nghiên cứu bước tới vỗ vai chúc mừng, rồi bảo tôi hãy chú ý lắng nghe cảm giác của đôi tai ngay khi vừa bước chân ra phố.",
+      "ttsText": "Nhà nghiên cứu bước tới vỗ vai chúc mừng, rồi bảo tôi hãy chú ý lắng nghe cảm giác của đôi tai ngay khi vừa bước chân ra phố.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 1140,
+              "endX": 1080,
+              "facing": "LEFT",
+              "pose": "PAT_SHOULDER",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 1080,
+              "endX": 1120,
+              "facing": "LEFT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 940,
+              "endX": 940,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 940,
+              "endX": 940,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b51",
+      "text": "Vừa đẩy cửa bước ra con đường quen thuộc lúc sáng, cả một làn sóng âm thanh rộn rã lập tức ùa vào tai khiến tôi phải dừng khựng lại.",
+      "ttsText": "Vừa đẩy cửa bước ra con đường quen thuộc lúc sáng, cả một làn sóng âm thanh rộn rã lập tức ùa vào tai khiến tôi phải dừng khựng lại.",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 320,
+              "endX": 840,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.75,
+              "startX": 840,
+              "endX": 780,
+              "facing": "RIGHT",
+              "pose": "JUMP_BACK",
+              "expression": "SHOCKED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 780,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "STRETCH_YAWN",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Nghe rõ từng tiếng luôn!",
+          "bubbleStartPct": 0.55,
+          "bubbleEndPct": 0.96
+        }
+      ],
+      "visualProp": "SOUND_WAVES",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b52",
+      "text": "Vì đôi tai vẫn đang ở chế độ khuếch đại tối đa, tôi nghe rõ từng tiếng lá xào xạc trên cao và cả tiếng giày chạm mặt đường cách đó cả chục mét.",
+      "ttsText": "Vì đôi tai vẫn đang ở chế độ khuếch đại tối đa, tôi nghe rõ từng tiếng lá xào xạc trên cao và cả tiếng giày chạm mặt đường cách đó cả chục mét.",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 480,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 860,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "NEIGHBOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.55,
+              "startX": 1520,
+              "endX": 1120,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.55,
+              "toPct": 1.0,
+              "startX": 1120,
+              "endX": 1120,
+              "facing": "LEFT",
+              "pose": "PAT_SHOULDER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b53",
+      "text": "Điều bất ngờ là những tiếng xe cộ và tiếng trò chuyện vốn khiến tôi khó chịu ban sáng, giờ nghe lại lại thấy vô cùng ấm áp và dễ chịu.",
+      "ttsText": "Điều bất ngờ là những tiếng xe cộ và tiếng trò chuyện vốn khiến tôi khó chịu ban sáng, giờ nghe lại lại thấy vô cùng ấm áp và dễ chịu.",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 560,
+              "endX": 1040,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1040,
+              "endX": 1180,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b54",
+      "text": "Về tới sân nhà quê lúc chiều muộn, tôi chạy ào vào kể cho ông nội nghe cảm giác kỳ dị khi tự nghe tiếng tim mình đập vang như trống.",
+      "ttsText": "Về tới sân nhà quê lúc chiều muộn, tôi chạy ào vào kể cho ông nội nghe cảm giác kỳ dị khi tự nghe tiếng tim mình đập vang như trống.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.55,
+              "startX": 280,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "RUN",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.55,
+              "toPct": 1.0,
+              "startX": 960,
+              "endX": 1020,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Ảo lắm ông ơi!",
+          "bubbleStartPct": 0.52,
+          "bubbleEndPct": 0.95
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1340,
+              "endX": 1200,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1200,
+              "endX": 1200,
+              "facing": "LEFT",
+              "pose": "PAT_SHOULDER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b55",
+      "text": "Ông nội nghe xong bật cười lớn, chỉ ra cánh đồng lúa đang xào xạc trước gió rồi bảo: tự nhiên chưa bao giờ thực sự im lặng đâu con!",
+      "ttsText": "Ông nội nghe xong bật cười lớn, chỉ ra cánh đồng lúa đang xào xạc trước gió rồi bảo: tự nhiên chưa bao giờ thực sự im lặng đâu con!",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 1200,
+              "endX": 1140,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 1140,
+              "endX": 1140,
+              "facing": "LEFT",
+              "pose": "POINT_FORWARD",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 960,
+              "endX": 860,
+              "facing": "LEFT",
+              "pose": "TURN_AROUND",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 860,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "TURN_AROUND",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b56",
+      "text": "Quả thật, các phòng tiêu âm siêu yên tĩnh như vậy không phải được xây ra để con người ngồi thư giãn, mà phục vụ cho khoa học đo đạc.",
+      "ttsText": "Quả thật, các phòng tiêu âm siêu yên tĩnh như vậy không phải được xây ra để con người ngồi thư giãn, mà phục vụ cho khoa học đo đạc.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.4,
+              "startX": 420,
+              "endX": 620,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.4,
+              "toPct": 0.75,
+              "startX": 620,
+              "endX": 620,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 620,
+              "endX": 640,
+              "facing": "RIGHT",
+              "pose": "WRITE_NOTE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "headerTitle": "PHÒNG TIÊU ÂM DÙNG ĐỂ LÀM GÌ?",
+      "visualProp": "SOUND_WAVES",
+      "callout": {
+        "text": "ĐO ĐỘ ỒN THIẾT BỊ SIÊU CHÍNH XÁC"
+      },
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b57",
+      "text": "Các kỹ sư dùng chúng để kiểm tra xem một chiếc tai nghe, điện thoại, hay cánh quạt máy tính phát ra tiếng ồn nhỏ tới mức nào.",
+      "ttsText": "Các kỹ sư dùng chúng để kiểm tra xem một chiếc tai nghe, điện thoại, hay cánh quạt máy tính phát ra tiếng ồn nhỏ tới mức nào.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "PHONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 520,
+              "endX": 880,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "PHONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.8,
+              "startX": 880,
+              "endX": 900,
+              "facing": "RIGHT",
+              "pose": "CROUCH_LOOK",
+              "expression": "CURIOUS",
+              "handProp": "PHONE"
+            },
+            {
+              "fromPct": 0.8,
+              "toPct": 1.0,
+              "startX": 900,
+              "endX": 900,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "PROUD",
+              "handProp": "PHONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b58",
+      "text": "Ngay cả cơ quan hàng không vũ trụ cũng dùng phòng tiêu âm để kiểm tra thiết bị vệ tinh và tập cho phi hành gia làm quen với sự tĩnh lặng ngoài không gian.",
+      "ttsText": "Ngay cả cơ quan hàng không vũ trụ cũng dùng phòng tiêu âm để kiểm tra thiết bị vệ tinh và tập cho phi hành gia làm quen với sự tĩnh lặng ngoài không gian.",
+      "stageType": "SPACE_COSMOS",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "PROUD",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 480,
+              "endX": 920,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 920,
+              "endX": 980,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "visualProp": "EARTH_CUTAWAY",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b59",
+      "text": "Còn với bộ não con người, chúng ta tiến hóa hàng triệu năm để sống giữa những âm thanh nền dịu nhẹ như gió thổi, nước chảy và tiếng lá cây.",
+      "ttsText": "Còn với bộ não con người, chúng ta tiến hóa hàng triệu năm để sống giữa những âm thanh nền dịu nhẹ như gió thổi, nước chảy và tiếng lá cây.",
+      "stageType": "SIMPLE_GRASS_FIELD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.55,
+              "startX": 360,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.55,
+              "toPct": 1.0,
+              "startX": 860,
+              "endX": 880,
+              "facing": "RIGHT",
+              "pose": "STRETCH_YAWN",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "visualProp": "WATER_RIPPLE",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b60",
+      "text": "Chính những âm thanh nền tưởng chừng vô nghĩa ấy lại giúp bộ não giữ thăng bằng, cảm nhận thời gian và thấy an tâm về không gian xung quanh.",
+      "ttsText": "Chính những âm thanh nền tưởng chừng vô nghĩa ấy lại giúp bộ não giữ thăng bằng, cảm nhận thời gian và thấy an tâm về không gian xung quanh.",
+      "stageType": "SIMPLE_GRASS_FIELD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 760,
+              "endX": 980,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.8,
+              "startX": 980,
+              "endX": 980,
+              "facing": "RIGHT",
+              "pose": "WRITE_NOTE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.8,
+              "toPct": 1.0,
+              "startX": 980,
+              "endX": 1020,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "visualProp": "BRAIN_GLOW",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b61",
+      "text": "Tối hôm đó về lại phòng ngủ, nghe tiếng mưa rơi tí tách ngoài cửa sổ và tiếng quạt quay đều đều, tôi bỗng mỉm cười thấy dễ ngủ lạ thường.",
+      "ttsText": "Tối hôm đó về lại phòng ngủ, nghe tiếng mưa rơi tí tách ngoài cửa sổ và tiếng quạt quay đều đều, tôi bỗng mỉm cười thấy dễ ngủ lạ thường.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "NIGHT",
+      "weather": "RAIN",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 580,
+              "endX": 1180,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 1380,
+              "endX": 1380,
+              "facing": "LEFT",
+              "pose": "LIE_SLEEP",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Ngủ ngon thật!",
+          "bubbleStartPct": 0.45,
+          "bubbleEndPct": 0.9
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b62",
+      "text": "Hóa ra thứ mang lại cảm giác bình yên nhất cho con người không phải là sự im lặng tuyệt đối không một tiếng động nào.",
+      "ttsText": "Hóa ra thứ mang lại cảm giác bình yên nhất cho con người không phải là sự im lặng tuyệt đối không một tiếng động nào.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 820,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b63",
+      "text": "Mà chính là những thanh âm nhỏ bé quen thuộc của cuộc sống đang nhẹ nhàng vang lên xung quanh mình mỗi ngày.",
+      "ttsText": "Mà chính là những thanh âm nhỏ bé quen thuộc của cuộc sống đang nhẹ nhàng vang lên xung quanh mình mỗi ngày.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 620,
+              "endX": 880,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 880,
+              "endX": 920,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1320,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "PAT_SHOULDER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b64",
+      "text": "Còn bạn, nếu được bước vào căn phòng yên tĩnh nhất thế giới và tắt hết đèn, bạn đoán mình sẽ trụ được bao nhiêu phút trước khi mở cửa bước ra?",
+      "ttsText": "Còn bạn, nếu được bước vào căn phòng yên tĩnh nhất thế giới và tắt hết đèn, bạn đoán mình sẽ trụ được bao nhiêu phút trước khi mở cửa bước ra?",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.6,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 580,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 740,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Hẹn gặp tập sau!",
+          "bubbleStartPct": 0.45,
+          "bubbleEndPct": 0.95
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1260,
+              "endX": 1200,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1200,
+              "endX": 1200,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "headerTitle": "BẠN TRỤ ĐƯỢC BAO NHIÊU PHÚT?",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    }
+  ]
+}
