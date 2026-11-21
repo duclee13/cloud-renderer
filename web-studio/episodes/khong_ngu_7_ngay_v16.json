@@ -1,0 +1,1660 @@
+{
+  "title": "Sẽ Ra Sao Nếu Bạn Không Ngủ Trong 7 Ngày Liên Tiếp?",
+  "slug": "khong_ngu_7_ngay_v16",
+  "version": "16.2",
+  "beats": [
+    {
+      "id": "b01",
+      "actTitle": "Hồi 1: 24 Giờ Đầu Tiên",
+      "headerTitle": "HỒI 1: THỬ THÁCH 7 NGÀY KHÔNG NGỦ",
+      "text": "Sáng thứ Hai, chuông báo thức vừa reo là một câu hỏi kỳ lạ chợt nảy ra trong đầu tôi: chuyện gì sẽ xảy ra nếu con người thức trắng bảy ngày liên tiếp?",
+      "ttsText": "Sáng thứ Hai, chuông báo thức vừa reo là một câu hỏi kỳ lạ chợt nảy ra trong đầu tôi: chuyện gì sẽ xảy ra nếu con người thức trắng bảy ngày liên tiếp?",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "bubble": "Thức 7 ngày á?"
+        }
+      ],
+      "visualProp": "ALARM_CLOCK_RINGING"
+    },
+    {
+      "id": "b02",
+      "text": "Tôi bước ra sân trước hít thở không khí sớm mai, thấy ông nội đang đứng hóng gió bên hàng rào gỗ quen thuộc.",
+      "ttsText": "Tôi bước ra sân trước hít thở không khí sớm mai, thấy ông nội đang đứng hóng gió bên hàng rào gỗ quen thuộc.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK"
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WAVE",
+          "expression": "HAPPY",
+          "handProp": "NONE"
+        }
+      ]
+    },
+    {
+      "id": "b03",
+      "text": "Tôi chạy lại hỏi ông xem trên đời từng có ai thức trắng nguyên một tuần lễ mà vẫn tỉnh táo đi lại bình thường chưa.",
+      "ttsText": "Tôi chạy lại hỏi ông xem trên đời từng có ai thức trắng nguyên một tuần lễ mà vẫn tỉnh táo đi lại bình thường chưa.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "APPROACH_OTHER",
+          "expression": "CURIOUS",
+          "handProp": "NOTEBOOK",
+          "bubble": "Có ai thử chưa ông?"
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "THINKING",
+          "handProp": "NONE"
+        }
+      ]
+    },
+    {
+      "id": "b04",
+      "headerTitle": "KỶ LỤC CÓ THẬT NĂM 1964",
+      "text": "Ông cười khà khà kể rằng năm 1964, một cậu học sinh mười bảy tuổi tên Randy Gardner từng thức trắng tới 11 ngày liên tiếp để làm đề tài khoa học.",
+      "ttsText": "Ông cười khà khà kể rằng năm một nghìn chín trăm sáu mươi tư, một cậu học sinh mười bảy tuổi tên Ran-đi Gác-nơ từng thức trắng tới mười một ngày liên tiếp để làm đề tài khoa học.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "SIT_OBSERVE",
+          "expression": "SHOCKED",
+          "handProp": "NOTEBOOK"
+        }
+      ],
+      "visualProp": "TROPHY_STAR",
+      "callout": {
+        "text": "264 GIỜ KHÔNG NGỦ (1964)",
+        "x": 1350,
+        "y": 240
+      }
+    },
+    {
+      "id": "b05",
+      "text": "Nghe xong tôi tò mò cực độ, liền mở sổ tay mô phỏng lại đúng hành trình bảy ngày thức trắng xem cơ thể con người thực sự biến đổi ra sao.",
+      "ttsText": "Nghe xong tôi tò mò cực độ, liền mở sổ tay mô phỏng lại đúng hành trình bảy ngày thức trắng xem cơ thể con người thực sự biến đổi ra sao.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "THINK_STROLL",
+          "expression": "PROUD",
+          "handProp": "NOTEBOOK",
+          "bubble": "Bắt đầu thôi!"
+        }
+      ],
+      "visualProp": "NOTEBOOK_OPEN"
+    },
+    {
+      "id": "b06",
+      "headerTitle": "MỐC 18 GIỜ ĐẦU TIÊN",
+      "text": "Tới chiều tối ngày đầu tiên, mọi thứ vẫn êm ru như thường lệ; tôi đi dạo quanh vườn cỏ mà đầu óc vẫn minh mẫn lạ thường.",
+      "ttsText": "Tới chiều tối ngày đầu tiên, mọi thứ vẫn êm ru như thường lệ; tôi đi dạo quanh vườn cỏ mà đầu óc vẫn minh mẫn lạ thường.",
+      "stageType": "SIMPLE_GRASS_FIELD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE"
+        }
+      ]
+    },
+    {
+      "id": "b07",
+      "text": "Thế nhưng đồng hồ vừa điểm nửa đêm, mí mắt bắt đầu nặng trĩu như có ai gắn thêm hai cục chì nhỏ xíu lên đó.",
+      "ttsText": "Thế nhưng đồng hồ vừa điểm nửa đêm, mí mắt bắt đầu nặng trĩu như có ai gắn thêm hai cục chì nhỏ xíu lên đó.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "THINK_STROLL",
+          "expression": "TIRED",
+          "handProp": "NONE",
+          "bubble": "Hơi díp mắt rồi..."
+        }
+      ],
+      "visualProp": "MOON_STARS"
+    },
+    {
+      "id": "b08",
+      "text": "Để chống lại cơn buồn ngủ đầu tiên, tôi pha ngay một ly cà phê nóng hổi, tin chắc mùi thơm đậm đà này sẽ kéo mình tỉnh táo tới sáng.",
+      "ttsText": "Để chống lại cơn buồn ngủ đầu tiên, tôi pha ngay một ly cà phê nóng hổi, tin chắc mùi thơm đậm đà này sẽ kéo mình tỉnh táo tới sáng.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "CUP_SODA"
+        }
+      ],
+      "visualProp": "COFFEE_STEAM"
+    },
+    {
+      "id": "b09",
+      "headerTitle": "CHẤT GÂY BUỒN NGỦ ADENOSINE",
+      "text": "Thật ra suốt lúc bạn thức, tế bào não liên tục đốt năng lượng và thải ra một hoạt chất mang tên Adenosine tích tụ dần trong đầu.",
+      "ttsText": "Thật ra suốt lúc bạn thức, tế bào não liên tục đốt năng lượng và thải ra một hoạt chất mang tên A-đê-nô-zin tích tụ dần trong đầu.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "POINT_AT",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK"
+        }
+      ],
+      "visualProp": "BRAIN_GLOW",
+      "callout": {
+        "text": "TÍCH TỤ ADENOSINE",
+        "x": 1350,
+        "y": 240
+      }
+    },
+    {
+      "id": "b10",
+      "text": "Càng thức lâu, lượng Adenosine càng dày đặc và bám vào các thụ thể thần kinh, phát tín hiệu nhắc cơ thể mau chóng đi ngủ.",
+      "ttsText": "Càng thức lâu, lượng A-đê-nô-zin càng dày đặc và bám vào các thụ thể thần kinh, phát tín hiệu nhắc cơ thể mau chóng đi ngủ.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "SIT_OBSERVE",
+          "expression": "CURIOUS",
+          "handProp": "NONE"
+        }
+      ],
+      "visualProp": "NEURON_SIGNAL"
+    },
+    {
+      "id": "b11",
+      "text": "Còn caffeine trong cà phê chỉ tạm thời chiếm chỗ để che mắt bộ não, chứ hoàn toàn không hề dọn sạch cơn mệt đang âm thầm chất đống.",
+      "ttsText": "Còn ca-phê-in trong cà phê chỉ tạm thời chiếm chỗ để che mắt bộ não, chứ hoàn toàn không hề dọn sạch cơn mệt đang âm thầm chất đống.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "POINT_AT",
+          "expression": "SHOCKED",
+          "handProp": "CUP_SODA"
+        }
+      ],
+      "visualProp": "BATTERY_LOW",
+      "callout": {
+        "text": "CHỈ TẠM CHE CƠN MỆT",
+        "x": 1350,
+        "y": 240
+      }
+    },
+    {
+      "id": "b12",
+      "text": "Ba giờ sáng, căn phòng im ắng lạ thường; tôi đi đi lại lại trong phòng để giữ mình khỏi gục xuống chiếc giường xanh êm ái kia.",
+      "ttsText": "Ba giờ sáng, căn phòng im ắng lạ thường; tôi đi đi lại lại trong phòng để giữ mình khỏi gục xuống chiếc giường xanh êm ái kia.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "THINK_STROLL",
+          "expression": "TIRED",
+          "handProp": "NONE"
+        }
+      ]
+    },
+    {
+      "id": "b13",
+      "headerTitle": "TRÒN 24 GIỜ THỨC TRẮNG",
+      "text": "Rồi ánh nắng bình minh cũng ló dạng ngoài khung cửa sổ, đánh dấu tròn hai mươi bốn giờ đồng hồ không hề chợp mắt.",
+      "ttsText": "Rồi ánh nắng bình minh cũng ló dạng ngoài khung cửa sổ, đánh dấu tròn hai mươi bốn giờ đồng hồ không hề chợp mắt.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "CELEBRATE",
+          "expression": "PROUD",
+          "handProp": "NONE",
+          "bubble": "Qua ngày 1 ngon ơ!"
+        }
+      ],
+      "visualProp": "ALARM_CLOCK_RINGING"
+    },
+    {
+      "id": "b14",
+      "text": "Kỳ lạ là sáng hôm đó tôi lại thấy hơi phấn khích, vì não bộ tiết thêm một chút dopamine nhằm bù đắp cho đêm thức trắng vừa qua.",
+      "ttsText": "Kỳ lạ là sáng hôm đó tôi lại thấy hơi phấn khích, vì não bộ tiết thêm một chút đô-pa-min nhằm bù đắp cho đêm thức trắng vừa qua.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE"
+        }
+      ],
+      "visualProp": "BRAIN_GLOW"
+    },
+    {
+      "id": "b15",
+      "text": "Nhưng cái giá phải trả xuất hiện ngay tức thì: khả năng phối hợp tay mắt và tốc độ phản xạ của tôi lúc này chậm tương đương người đang say rượu.",
+      "ttsText": "Nhưng cái giá phải trả xuất hiện ngay tức thì: khả năng phối hợp tay mắt và tốc độ phản xạ của tôi lúc này chậm tương đương người đang say rượu.",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "THINK_STROLL",
+          "expression": "TIRED",
+          "handProp": "PHONE"
+        }
+      ]
+    },
+    {
+      "id": "b16",
+      "text": "Tôi cầm điện thoại nhắn một câu ngắn mà gõ sai chính tả liên tục, bấm xóa tới ba lần vẫn chưa xong nổi một dòng.",
+      "ttsText": "Tôi cầm điện thoại nhắn một câu ngắn mà gõ sai chính tả liên tục, bấm xóa tới ba lần vẫn chưa xong nổi một dòng.",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "PHONE",
+          "bubble": "Ơ sao gõ nhầm mãi?"
+        }
+      ]
+    },
+    {
+      "id": "b17",
+      "actTitle": "Hồi 2: 48 Đến 72 Giờ",
+      "headerTitle": "HỒI 2: HIỆN TƯỢNG NGỦ VI MÔ",
+      "text": "Sang ngày thứ hai ở mốc bốn mươi tám giờ, tôi ra phố đi dạo cho tỉnh táo thì gặp ngay anh hàng xóm đi ngược chiều.",
+      "ttsText": "Sang ngày thứ hai ở mốc bốn mươi tám giờ, tôi ra phố đi dạo cho tỉnh táo thì gặp ngay anh hàng xóm đi ngược chiều.",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "TIRED",
+          "handProp": "NONE"
+        },
+        {
+          "preset": "NEIGHBOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "APPROACH_OTHER",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "bubble": "Chào nhóc!"
+        }
+      ]
+    },
+    {
+      "id": "b18",
+      "text": "Anh ấy vẫy tay hỏi thăm rất to, vậy mà tôi đứng đờ người nhìn thẳng vào khoảng không suốt mấy giây liền như bị đứng hình.",
+      "ttsText": "Anh ấy vẫy tay hỏi thăm rất to, vậy mà tôi đứng đờ người nhìn thẳng vào khoảng không suốt mấy giây liền như bị đứng hình.",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "TIRED",
+          "handProp": "NONE"
+        },
+        {
+          "preset": "NEIGHBOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WAVE",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "bubble": "Ê, nghe anh nói không?"
+        }
+      ]
+    },
+    {
+      "id": "b19",
+      "text": "Giật mình hoàn hồn lại, tôi mới ngớ người nhận ra mình vừa bị mất ký ức trọn vẹn năm giây ngay giữa ban ngày trong khi mắt vẫn mở trừng trừng.",
+      "ttsText": "Giật mình hoàn hồn lại, tôi mới ngớ người nhận ra mình vừa bị mất ký ức trọn vẹn năm giây ngay giữa ban ngày trong khi mắt vẫn mở trừng trừng.",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "JUMP_SHOCK",
+          "expression": "SHOCKED",
+          "handProp": "NONE",
+          "bubble": "Hả... vừa xảy ra gì?!",
+          "shiver": true
+        },
+        {
+          "preset": "NEIGHBOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE"
+        }
+      ]
+    },
+    {
+      "id": "b20",
+      "headerTitle": "MICROSLEEP — NÃO TỰ TẮT NGUỒN",
+      "text": "Khoa học gọi đó là ngủ vi mô: khi quá tải, một phần vỏ não tự động sập nguồn vài giây để tự cứu lấy mình mà không thèm xin phép bạn.",
+      "ttsText": "Khoa học gọi đó là ngủ vi mô: khi quá tải, một phần vỏ não tự động sập nguồn vài giây để tự cứu lấy mình mà không thèm xin phép bạn.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "POINT_AT",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK"
+        }
+      ],
+      "visualProp": "BATTERY_LOW",
+      "callout": {
+        "text": "NGỦ VI MÔ (3–10 GIÂY)",
+        "x": 1350,
+        "y": 240
+      }
+    },
+    {
+      "id": "b21",
+      "text": "Đó là lý do vì sao lái xe sau hai ngày không ngủ cực kỳ nguy hiểm: bạn vẫn cầm vô lăng và mở mắt, nhưng bộ não thực chất đã ngủ say.",
+      "ttsText": "Đó là lý do vì sao lái xe sau hai ngày không ngủ cực kỳ nguy hiểm: bạn vẫn cầm vô lăng và mở mắt, nhưng bộ não thực chất đã ngủ say.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "SIT_OBSERVE",
+          "expression": "SCARED",
+          "handProp": "NONE"
+        }
+      ],
+      "visualProp": "BRAIN_GLOW"
+    },
+    {
+      "id": "b22",
+      "text": "Chiều hôm đó ra bãi cỏ sau nhà, dù trời đang nắng ấm mà hai cánh tay tôi cứ nổi da gà vì thân nhiệt cơ thể bắt đầu tụt xuống.",
+      "ttsText": "Chiều hôm đó ra bãi cỏ sau nhà, dù trời đang nắng ấm mà hai cánh tay tôi cứ nổi da gà vì thân nhiệt cơ thể bắt đầu tụt xuống.",
+      "stageType": "SIMPLE_GRASS_FIELD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "THINK_STROLL",
+          "expression": "TIRED",
+          "handProp": "NONE",
+          "shiver": true
+        }
+      ],
+      "visualProp": "THERMOMETER_HOT"
+    },
+    {
+      "id": "b23",
+      "text": "Cùng lúc đó, cơ thể hiểu nhầm việc thức trắng là tình huống sinh tồn khẩn cấp nên bơm mạnh hormone căng thẳng Cortisol vào máu.",
+      "ttsText": "Cùng lúc đó, cơ thể hiểu nhầm việc thức trắng là tình huống sinh tồn khẩn cấp nên bơm mạnh hoóc-môn căng thẳng coóc-ti-zôn vào máu.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "POINT_AT",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK"
+        }
+      ],
+      "visualProp": "HEART_BEAT",
+      "callout": {
+        "text": "CORTISOL & NHỊP TIM TĂNG",
+        "x": 1350,
+        "y": 240
+      }
+    },
+    {
+      "id": "b24",
+      "text": "Tim tôi đập thình thịch dù chỉ đang ngồi yên, còn bụng thì bỗng cồn cào thèm đồ ngọt một cách khó hiểu để tìm nguồn năng lượng nhanh.",
+      "ttsText": "Tim tôi đập thình thịch dù chỉ đang ngồi yên, còn bụng thì bỗng cồn cào thèm đồ ngọt một cách khó hiểu để tìm nguồn năng lượng nhanh.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "TIRED",
+          "handProp": "CUP_SODA"
+        }
+      ],
+      "visualProp": "SODA_CAN_FIZZ"
+    },
+    {
+      "id": "b25",
+      "headerTitle": "CỘT MỐC 72 GIỜ — RANH GIỚI ẢO GIÁC",
+      "text": "Bước sang đêm thứ ba ở mốc bảy mươi hai giờ, ngoài trời đổ cơn mưa rào lất phất làm căn phòng ngủ càng thêm tĩnh mịch.",
+      "ttsText": "Bước sang đêm thứ ba ở mốc bảy mươi hai giờ, ngoài trời đổ cơn mưa rào lất phất làm căn phòng ngủ càng thêm tĩnh mịch.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "NIGHT",
+      "weather": "RAIN",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "THINK_STROLL",
+          "expression": "TIRED",
+          "handProp": "NONE"
+        }
+      ]
+    },
+    {
+      "id": "b26",
+      "text": "Đột nhiên bên tai vang lên tiếng vo ve rất rõ, tôi quay phắt lại thì thấy cả một đàn bọ đen đang bay vòng vòng ngay góc tường.",
+      "ttsText": "Đột nhiên bên tai vang lên tiếng vo ve rất rõ, tôi quay phắt lại thì thấy cả một đàn bọ đen đang bay vòng vòng ngay góc tường.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "NIGHT",
+      "weather": "RAIN",
+      "transitionIn": "CUT",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "JUMP_SHOCK",
+          "expression": "SCARED",
+          "handProp": "NONE",
+          "bubble": "Bọ ở đâu ra?!",
+          "shiver": true
+        }
+      ],
+      "visualProp": "BUG_SWARM"
+    },
+    {
+      "id": "b27",
+      "text": "Tôi vớ vội chiếc đèn pin trên tủ đầu giường bật sáng rực rồi quét thẳng vào góc tường đang lúc nhúc ấy.",
+      "ttsText": "Tôi vớ vội chiếc đèn pin trên tủ đầu giường bật sáng rực rồi quét thẳng vào góc tường đang lúc nhúc ấy.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "NIGHT",
+      "weather": "RAIN",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "SHOCKED",
+          "handProp": "FLASHLIGHT"
+        }
+      ]
+    },
+    {
+      "id": "b28",
+      "text": "Nhưng dưới luồng sáng trắng, bức tường hoàn toàn trống trơn không hề có lấy một con bọ nào — tất cả chỉ là ảo giác thị giác đầu tiên.",
+      "ttsText": "Nhưng dưới luồng sáng trắng, bức tường hoàn toàn trống trơn không hề có lấy một con bọ nào — tất cả chỉ là ảo giác thị giác đầu tiên.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "NIGHT",
+      "weather": "RAIN",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "FLASHLIGHT",
+          "bubble": "Ủa... biến mất rồi?"
+        }
+      ]
+    },
+    {
+      "id": "b29",
+      "text": "Nghe tiếng động lục cục, ông nội mở cửa phòng bước vào xem tôi có bị làm sao không.",
+      "ttsText": "Nghe tiếng động lục cục, ông nội mở cửa phòng bước vào xem tôi có bị làm sao không.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "NIGHT",
+      "weather": "RAIN",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "FLASHLIGHT",
+          "bubble": "Sao còn thức hả con?"
+        },
+        {
+          "preset": "BOY",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "TIRED",
+          "handProp": "NONE"
+        }
+      ]
+    },
+    {
+      "id": "b30",
+      "text": "Ông lại gần vỗ vai hỏi thăm, tôi định kể về đàn bọ tưởng tượng nhưng lưỡi bỗng líu lại, nói một câu ngắn mà vấp tới mấy nhịp.",
+      "ttsText": "Ông lại gần vỗ vai hỏi thăm, tôi định kể về đàn bọ tưởng tượng nhưng lưỡi bỗng líu lại, nói một câu ngắn mà vấp tới mấy nhịp.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "NIGHT",
+      "weather": "RAIN",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "APPROACH_OTHER",
+          "expression": "CURIOUS",
+          "handProp": "NONE"
+        },
+        {
+          "preset": "BOY",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "TIRED",
+          "handProp": "NONE",
+          "shiver": true
+        }
+      ]
+    },
+    {
+      "id": "b31",
+      "text": "Lúc đó vỏ não trước trán — khu vực lo suy nghĩ logic và điều khiển cảm xúc — đã mệt nhoài nên tâm trạng của tôi trở nên cực kỳ thất thường.",
+      "ttsText": "Lúc đó vỏ não trước trán — khu vực lo suy nghĩ lô-gích và điều khiển cảm xúc — đã mệt nhoài nên tâm trạng của tôi trở nên cực kỳ thất thường.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "SIT_OBSERVE",
+          "expression": "ANGRY",
+          "handProp": "NONE"
+        }
+      ],
+      "visualProp": "BRAIN_GLOW",
+      "callout": {
+        "text": "VỎ NÃO TRƯỚC TRÁN QUÁ TẢI",
+        "x": 1350,
+        "y": 240
+      }
+    },
+    {
+      "id": "b32",
+      "text": "Chỉ một tiếng gió rít nhỏ ngoài cửa sổ cũng đủ làm tôi giật thót tim, trong khi bình thường chẳng bao giờ để tâm.",
+      "ttsText": "Chỉ một tiếng gió rít nhỏ ngoài cửa sổ cũng đủ làm tôi giật thót tim, trong khi bình thường chẳng bao giờ để tâm.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "NIGHT",
+      "weather": "STORM",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "JUMP_SHOCK",
+          "expression": "SCARED",
+          "handProp": "NONE",
+          "shiver": true
+        }
+      ],
+      "visualProp": "SOUND_WAVES"
+    },
+    {
+      "id": "b33",
+      "actTitle": "Hồi 3: Ngày 4 Đến Ngày 6",
+      "headerTitle": "HỒI 3: KHI THỰC TẠI MỜ DẦN",
+      "text": "Sáng ngày thứ tư, ông nội lo lắng dẫn tôi thẳng tới phòng khám đầu phố để bác sĩ kiểm tra nhịp tim và phản xạ.",
+      "ttsText": "Sáng ngày thứ tư, ông nội lo lắng dẫn tôi thẳng tới phòng khám đầu phố để bác sĩ kiểm tra nhịp tim và phản xạ.",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "TIRED",
+          "handProp": "NONE"
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "APPROACH_OTHER",
+          "expression": "CURIOUS",
+          "handProp": "NOTEBOOK"
+        }
+      ]
+    },
+    {
+      "id": "b34",
+      "text": "Bác sĩ đeo kính soi bảng kiểm tra thị lực rồi lắc đầu: mắt tôi vẫn khỏe, nhưng não đã mất khả năng tập trung vào các chi tiết nhỏ.",
+      "ttsText": "Bác sĩ đeo kính soi bảng kiểm tra thị lực rồi lắc đầu: mắt tôi vẫn khỏe, nhưng não đã mất khả năng tập trung vào các chi tiết nhỏ.",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "TIRED",
+          "handProp": "NONE",
+          "bubble": "Mắt mờ hết rồi..."
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "POINT_AT",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK"
+        }
+      ]
+    },
+    {
+      "id": "b35",
+      "text": "Bác sĩ dẫn tôi sang bảng sóng não trong phòng nghiên cứu để giải thích điều gì thực sự xảy ra sau hơn một trăm giờ thức trắng.",
+      "ttsText": "Bác sĩ dẫn tôi sang bảng sóng não trong phòng nghiên cứu để giải thích điều gì thực sự xảy ra sau hơn một trăm giờ thức trắng.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE"
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "POINT_AT",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK"
+        }
+      ],
+      "visualProp": "NEURON_SIGNAL"
+    },
+    {
+      "id": "b36",
+      "headerTitle": "RỐI LOẠN TÍN HIỆU THẦN KINH",
+      "text": "Khi thiếu ngủ kéo dài, ranh giới giữa hình ảnh ngoài đời thật và giấc mơ bên trong não bắt đầu nhòa đi, sinh ra ảo giác cực kỳ sống động.",
+      "ttsText": "Khi thiếu ngủ kéo dài, ranh giới giữa hình ảnh ngoài đời thật và giấc mơ bên trong não bắt đầu nhòa đi, sinh ra ảo giác cực kỳ sống động.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "POINT_AT",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK"
+        }
+      ],
+      "visualProp": "GHOST_SHADOW",
+      "callout": {
+        "text": "GIẤC MƠ TRÀN RA THỰC TẠI",
+        "x": 1350,
+        "y": 240
+      }
+    },
+    {
+      "id": "b37",
+      "text": "Không chỉ vậy, hệ miễn dịch cũng suy giảm rõ rệt vì cơ thể thiếu thời gian sản xuất các tế bào bảo vệ chống lại vi khuẩn thông thường.",
+      "ttsText": "Không chỉ vậy, hệ miễn dịch cũng suy giảm rõ rệt vì cơ thể thiếu thời gian sản xuất các tế bào bảo vệ chống lại vi khuẩn thông thường.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "SIT_OBSERVE",
+          "expression": "TIRED",
+          "handProp": "NONE",
+          "shiver": true
+        }
+      ],
+      "visualProp": "BATTERY_LOW"
+    },
+    {
+      "id": "b38",
+      "text": "Chiều ngày thứ năm trên đường đi bộ về nhà, những biển báo dọc phố trông cứ chập chờn như đang uốn lượn theo nhịp bước chân tôi.",
+      "ttsText": "Chiều ngày thứ năm trên đường đi bộ về nhà, những biển báo dọc phố trông cứ chập chờn như đang uốn lượn theo nhịp bước chân tôi.",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "THINK_STROLL",
+          "expression": "TIRED",
+          "handProp": "NONE"
+        }
+      ],
+      "visualProp": "GHOST_SHADOW"
+    },
+    {
+      "id": "b39",
+      "text": "Tôi thử tự kiểm tra trí nhớ giống hệt bài test năm 1964 của Randy Gardner: bắt đầu từ một trăm rồi trừ lùi đi bảy.",
+      "ttsText": "Tôi thử tự kiểm tra trí nhớ giống hệt bài tét năm một nghìn chín trăm sáu mươi tư của Ran-đi Gác-nơ: bắt đầu từ một trăm rồi trừ lùi đi bảy.",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "THINK_STROLL",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "bubble": "100... 93... 86..."
+        }
+      ]
+    },
+    {
+      "id": "b40",
+      "text": "Mới đếm tới số sáu mươi lăm, đầu óc tôi bỗng trắng xóa hoàn toàn — tôi quên béng luôn mình vừa định làm phép tính gì!",
+      "ttsText": "Mới đếm tới số sáu mươi lăm, đầu óc tôi bỗng trắng xóa hoàn toàn — tôi quên béng luôn mình vừa định làm phép tính gì!",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "JUMP_SHOCK",
+          "expression": "SHOCKED",
+          "handProp": "NOTEBOOK",
+          "bubble": "Ủa đang đếm gì?!",
+          "shiver": true
+        }
+      ]
+    },
+    {
+      "id": "b41",
+      "text": "Về tới sân nhà lúc chạng vạng, bà nội thấy mặt tôi phờ phạc liền mang ngay một ly nước ấm ra cho tôi uống lấy lại sức.",
+      "ttsText": "Về tới sân nhà lúc chạng vạng, bà nội thấy mặt tôi phờ phạc liền mang ngay một ly nước ấm ra cho tôi uống lấy lại sức.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "TIRED",
+          "handProp": "NONE"
+        },
+        {
+          "preset": "GRANDMA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "APPROACH_OTHER",
+          "expression": "HAPPY",
+          "handProp": "CUP_SODA",
+          "bubble": "Uống ngụm nước con!"
+        }
+      ]
+    },
+    {
+      "id": "b42",
+      "text": "Đêm ngày thứ sáu ở mốc một trăm bốn mươi bốn giờ, những cái bóng đổ trên tường phòng ngủ như biến thành nhân vật hoạt hình đang vẫy tay.",
+      "ttsText": "Đêm ngày thứ sáu ở mốc một trăm bốn mươi bốn giờ, những cái bóng đổ trên tường phòng ngủ như biến thành nhân vật hoạt hình đang vẫy tay.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "JUMP_SHOCK",
+          "expression": "SCARED",
+          "handProp": "NONE",
+          "shiver": true
+        }
+      ],
+      "visualProp": "GHOST_SHADOW"
+    },
+    {
+      "id": "b43",
+      "text": "Cảm giác về thời gian cũng bị bẻ cong hoàn toàn: năm phút trôi qua mà tôi cứ ngỡ mình đã ngồi nhìn trần nhà suốt cả hai tiếng đồng hồ.",
+      "ttsText": "Cảm giác về thời gian cũng bị bẻ cong hoàn toàn: năm phút trôi qua mà tôi cứ ngỡ mình đã ngồi nhìn trần nhà suốt cả hai tiếng đồng hồ.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "SIT_OBSERVE",
+          "expression": "TIRED",
+          "handProp": "NONE"
+        }
+      ],
+      "visualProp": "ALARM_CLOCK_RINGING"
+    },
+    {
+      "id": "b44",
+      "text": "Trong đầu tôi lúc này giống như một chiếc máy tính mở cùng lúc hàng trăm tab mà không chịu tắt, mọi suy nghĩ cứ chạy chậm rì rì.",
+      "ttsText": "Trong đầu tôi lúc này giống như một chiếc máy tính mở cùng lúc hàng trăm táp mà không chịu tắt, mọi suy nghĩ cứ chạy chậm rì rì.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "THINK_STROLL",
+          "expression": "TIRED",
+          "handProp": "NONE"
+        }
+      ],
+      "visualProp": "BRAIN_GLOW"
+    },
+    {
+      "id": "b45",
+      "text": "Ngay cả việc cầm cây bút viết tên mình vào cuốn sổ cũng trở nên khó nhọc, nét chữ nguệch ngoạc như đang ngồi trên chuyến xe xóc.",
+      "ttsText": "Ngay cả việc cầm cây bút viết tên mình vào cuốn sổ cũng trở nên khó nhọc, nét chữ nguệch ngoạc như đang ngồi trên chuyến xe xóc.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "TIRED",
+          "handProp": "NOTEBOOK",
+          "shiver": true
+        }
+      ],
+      "visualProp": "NOTEBOOK_OPEN"
+    },
+    {
+      "id": "b46",
+      "text": "Nằm trên sàn nhìn ra bầu trời đầy sao, tôi chợt thấy mọi âm thanh xung quanh vang vọng lại như đang ở trong một hang động lớn.",
+      "ttsText": "Nằm trên sàn nhìn ra bầu trời đầy sao, tôi chợt thấy mọi âm thanh xung quanh vang vọng lại như đang ở trong một hang động lớn.",
+      "stageType": "SPACE_COSMOS",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "THINK_STROLL",
+          "expression": "CURIOUS",
+          "handProp": "NONE"
+        }
+      ],
+      "visualProp": "SOUND_WAVES"
+    },
+    {
+      "id": "b47",
+      "text": "Bộ nhớ ngắn hạn lúc này gần như cạn sạch — cứ vừa bước sang góc phòng là tôi lại ngơ ngác không nhớ mình đi tới đó làm gì.",
+      "ttsText": "Bộ nhớ ngắn hạn lúc này gần như cạn sạch — cứ vừa bước sang góc phòng là tôi lại ngơ ngác không nhớ mình đi tới đó làm gì.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "THINK_STROLL",
+          "expression": "TIRED",
+          "handProp": "NONE",
+          "bubble": "Mình đi lấy gì nhỉ?"
+        }
+      ]
+    },
+    {
+      "id": "b48",
+      "text": "Cơ thể lúc ấy chỉ còn đúng một mục tiêu duy nhất: tìm cách ép tôi nhắm mắt lại bằng bất cứ giá nào.",
+      "ttsText": "Cơ thể lúc ấy chỉ còn đúng một mục tiêu duy nhất: tìm cách ép tôi nhắm mắt lại bằng bất cứ giá nào.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "SIT_OBSERVE",
+          "expression": "TIRED",
+          "handProp": "NONE",
+          "shiver": true
+        }
+      ],
+      "visualProp": "BATTERY_LOW"
+    },
+    {
+      "id": "b49",
+      "actTitle": "Hồi 4: Ngày Thứ 7 & Phép Màu Giấc Ngủ Bù",
+      "headerTitle": "HỒI 4: CHẠM MỐC 168 GIỜ",
+      "text": "Sáng ngày thứ bảy, đồng hồ điểm đúng một trăm sáu mươi tám giờ thức trắng; cả người tôi nặng trĩu như vừa chạy bộ mấy chục cây số.",
+      "ttsText": "Sáng ngày thứ bảy, đồng hồ điểm đúng một trăm sáu mươi tám giờ thức trắng; cả người tôi nặng trĩu như vừa chạy bộ mấy chục cây số.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "TIRED",
+          "handProp": "NONE",
+          "bubble": "Hết pin thật rồi..."
+        }
+      ],
+      "visualProp": "ALARM_CLOCK_RINGING"
+    },
+    {
+      "id": "b50",
+      "text": "Ông nội bước vào phòng, cười hiền rồi nhẹ nhàng dìu tôi về phía chiếc giường êm ái sau một tuần dài thức trắng.",
+      "ttsText": "Ông nội bước vào phòng, cười hiền rồi nhẹ nhàng dìu tôi về phía chiếc giường êm ái sau một tuần dài thức trắng.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "APPROACH_OTHER",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "bubble": "Ngủ bù đi con!"
+        },
+        {
+          "preset": "BOY",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "TIRED",
+          "handProp": "NONE"
+        }
+      ]
+    },
+    {
+      "id": "b51",
+      "text": "Vừa đặt lưng xuống gối chưa đầy nửa phút, mí mắt tôi sập xuống ngay lập tức và chìm vào giấc ngủ sâu nhất đời mình.",
+      "ttsText": "Vừa đặt lưng xuống gối chưa đầy nửa phút, mí mắt tôi sập xuống ngay lập tức và chìm vào giấc ngủ sâu nhất đời mình.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "SLEEP_BED",
+          "expression": "HAPPY",
+          "handProp": "NONE"
+        }
+      ],
+      "visualProp": "MOON_STARS"
+    },
+    {
+      "id": "b52",
+      "headerTitle": "CA TRỰC ĐÊM BẬN RỘN CỦA NÃO",
+      "text": "Và ngay khoảnh khắc bạn ngủ say, một hệ thống dọn dẹp kỳ diệu bên trong não bộ lập tức khởi động hết công suất.",
+      "ttsText": "Và ngay khoảnh khắc bạn ngủ say, một hệ thống dọn dẹp kỳ diệu bên trong não bộ lập tức khởi động hết công suất.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "POINT_AT",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK"
+        }
+      ],
+      "visualProp": "BRAIN_GLOW",
+      "callout": {
+        "text": "HỆ THỐNG DỌN RÁC NÃO BỘ",
+        "x": 1350,
+        "y": 240
+      }
+    },
+    {
+      "id": "b53",
+      "text": "Các tế bào não khẽ co lại tạo khe hở rộng hơn, để dòng dịch não tủy chảy xuyên qua rửa trôi sạch sẽ đống chất thải tích tụ suốt bảy ngày.",
+      "ttsText": "Các tế bào não khẽ co lại tạo khe hở rộng hơn, để dòng dịch não tủy chảy xuyên qua rửa trôi sạch sẽ đống chất thải tích tụ suốt bảy ngày.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "SIT_OBSERVE",
+          "expression": "CURIOUS",
+          "handProp": "NONE"
+        }
+      ],
+      "visualProp": "WATER_RIPPLE"
+    },
+    {
+      "id": "b54",
+      "headerTitle": "HIỆN TƯỢNG ĐÒI NỢ GIẤC MƠ REM",
+      "text": "Thú vị hơn nữa, não không hề ngủ bù đúng bằng số giờ đã mất, mà tăng mạnh thời lượng giấc ngủ REM — giai đoạn có nhiều giấc mơ sống động nhất.",
+      "ttsText": "Thú vị hơn nữa, não không hề ngủ bù đúng bằng số giờ đã mất, mà tăng mạnh thời lượng giấc ngủ rêm — giai đoạn có nhiều giấc mơ sống động nhất.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "POINT_AT",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK"
+        }
+      ],
+      "visualProp": "NEURON_SIGNAL",
+      "callout": {
+        "text": "NGỦ BÙ GIẤC MƠ REM",
+        "x": 1350,
+        "y": 240
+      }
+    },
+    {
+      "id": "b55",
+      "text": "Lúc đó những ký ức rời rạc trong cả tuần được sắp xếp lại ngăn nắp, còn lượng Adenosine gây buồn ngủ cũng được giải tỏa hoàn toàn.",
+      "ttsText": "Lúc đó những ký ức rời rạc trong cả tuần được sắp xếp lại ngăn nắp, còn lượng A-đê-nô-zin gây buồn ngủ cũng được giải tỏa hoàn toàn.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK"
+        }
+      ],
+      "visualProp": "BRAIN_GLOW"
+    },
+    {
+      "id": "b56",
+      "text": "Hồi năm 1964, sau khi phá kỷ lục 11 ngày không ngủ, Randy Gardner cũng chỉ ngủ liền một mạch gần mười lăm tiếng rồi hồi phục hoàn toàn.",
+      "ttsText": "Hồi năm một nghìn chín trăm sáu mươi tư, sau khi phá kỷ lục mười một ngày không ngủ, Ran-đi Gác-nơ cũng chỉ ngủ liền một mạch gần mười lăm tiếng rồi hồi phục hoàn toàn.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "SLEEP_BED",
+          "expression": "HAPPY",
+          "handProp": "NONE"
+        }
+      ],
+      "visualProp": "TROPHY_STAR"
+    },
+    {
+      "id": "b57",
+      "text": "Trưa ngày hôm sau, khi ánh nắng vàng rọi thẳng qua ô cửa sổ, tôi mở mắt bật dậy sau giấc ngủ kéo dài mười bốn tiếng đồng hồ.",
+      "ttsText": "Trưa ngày hôm sau, khi ánh nắng vàng rọi thẳng qua ô cửa sổ, tôi mở mắt bật dậy sau giấc ngủ kéo dài mười bốn tiếng đồng hồ.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "CELEBRATE",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "bubble": "Tỉnh như sáo!"
+        }
+      ]
+    },
+    {
+      "id": "b58",
+      "text": "Mọi ảo giác bọ bay, bóng tường hay cảm giác ớn lạnh đều biến mất sạch sẽ như chưa từng tồn tại.",
+      "ttsText": "Mọi ảo giác bọ bay, bóng tường hay cảm giác ớn lạnh đều biến mất sạch sẽ như chưa từng tồn tại.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "PROUD",
+          "handProp": "NONE"
+        }
+      ]
+    },
+    {
+      "id": "b59",
+      "text": "Tôi chạy ùa ra sân trước vươn vai hít một hơi thật sâu, thấy cánh đồng lúa vàng trước nhà bỗng rực rỡ hơn mọi ngày.",
+      "ttsText": "Tôi chạy ùa ra sân trước vươn vai hít một hơi thật sâu, thấy cánh đồng lúa vàng trước nhà bỗng rực rỡ hơn mọi ngày.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "RUN_CHASE",
+          "expression": "HAPPY",
+          "handProp": "NONE"
+        }
+      ]
+    },
+    {
+      "id": "b60",
+      "text": "Ông nội đứng trước hiên nhà bật cười hỏi tôi xem bây giờ có còn muốn thử thức thêm bảy ngày nữa hay không.",
+      "ttsText": "Ông nội đứng trước hiên nhà bật cười hỏi tôi xem bây giờ có còn muốn thử thức thêm bảy ngày nữa hay không.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "APPROACH_OTHER",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "bubble": "Thôi con xin thua!"
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WAVE",
+          "expression": "HAPPY",
+          "handProp": "NONE"
+        }
+      ]
+    },
+    {
+      "id": "b61",
+      "text": "Tôi lắc đầu cười trừ, lật lại cuốn sổ tay chi chít những ghi chép từ cơn buồn ngủ giờ thứ hai mươi bốn cho tới ảo giác ngày thứ sáu.",
+      "ttsText": "Tôi lắc đầu cười trừ, lật lại cuốn sổ tay chi chít những ghi chép từ cơn buồn ngủ giờ thứ hai mươi bốn cho tới ảo giác ngày thứ sáu.",
+      "stageType": "SIMPLE_GRASS_FIELD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "THINK_STROLL",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK"
+        }
+      ],
+      "visualProp": "NOTEBOOK_OPEN"
+    },
+    {
+      "id": "b62",
+      "text": "Hóa ra giấc ngủ chưa bao giờ là khoảng thời gian cơ thể bấm nút tắt máy để nằm yên vô ích cả.",
+      "ttsText": "Hóa ra giấc ngủ chưa bao giờ là khoảng thời gian cơ thể bấm nút tắt máy để nằm yên vô ích cả.",
+      "stageType": "SIMPLE_GRASS_FIELD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NONE"
+        }
+      ],
+      "visualProp": "BRAIN_GLOW"
+    },
+    {
+      "id": "b63",
+      "text": "Ngược lại, đó chính là ca trực đêm bận rộn nhất giúp bộ não tự bảo trì, dọn sạch rác tế bào và sạc lại toàn bộ trí nhớ của chúng ta.",
+      "ttsText": "Ngược lại, đó chính là ca trực đêm bận rộn nhất giúp bộ não tự bảo trì, dọn sạch rác tế bào và sạc lại toàn bộ trí nhớ của chúng ta.",
+      "stageType": "SPACE_COSMOS",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "POINT_AT",
+          "expression": "PROUD",
+          "handProp": "NONE"
+        }
+      ],
+      "visualProp": "NEURON_SIGNAL"
+    },
+    {
+      "id": "b64",
+      "headerTitle": "CÒN KỶ LỤC CỦA BẠN THÌ SAO?",
+      "text": "Còn bạn, kỷ lục thức trắng lâu nhất của bạn từ trước tới nay là bao nhiêu tiếng, và lúc đó bạn có gặp cảm giác kỳ lạ nào không?",
+      "ttsText": "Còn bạn, kỷ lục thức trắng lâu nhất của bạn từ trước tới nay là bao nhiêu tiếng, và lúc đó bạn có gặp cảm giác kỳ lạ nào không?",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.6,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WAVE",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "bubble": "Hẹn gặp tập sau!"
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WAVE",
+          "expression": "HAPPY",
+          "handProp": "NONE"
+        }
+      ]
+    }
+  ]
+}
