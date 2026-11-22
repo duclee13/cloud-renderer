@@ -8,6 +8,8 @@ interface FacialExpressionsProps {
   eyebrows?: EyebrowExpression;
   mouth?: MouthExpression;
   pupilGaze?: Point2D;
+  /** V18.2: Dịch chuyển đồng tử + đốm sáng trong phạm vi -4px..+4px hướng về mục tiêu/nhân vật đối diện */
+  lookOffset?: { dx: number; dy: number };
   blush?: boolean;
   sweatDrop?: boolean;
   strokeColor?: string;
@@ -29,6 +31,7 @@ export const FacialExpressions: React.FC<FacialExpressionsProps> = ({
   eyebrows = "neutral",
   mouth = "smile",
   pupilGaze = { x: 0, y: 0 },
+  lookOffset,
   blush = false,
   sweatDrop = false,
   strokeColor = "#141414",
@@ -51,11 +54,16 @@ export const FacialExpressions: React.FC<FacialExpressionsProps> = ({
   const browY = eyeY - eyeR - 6.5 * scale;
   const browStrokeWidth = 3.5 * scale;
 
-  // Gaze offset nhẹ cho ánh nhìn sống động
+  // V18.2: Ưu tiên lookOffset (-4px..+4px) cho ánh mắt liếc nhìn mục tiêu/đối phương có hồn; fallback về pupilGaze
+  const hasLookOffset = lookOffset !== undefined;
   const clampedGazeX = Math.max(-1, Math.min(1, pupilGaze.x || 0));
   const clampedGazeY = Math.max(-1, Math.min(1, pupilGaze.y || 0));
-  const gazeDx = clampedGazeX * 2.4 * scale;
-  const gazeDy = clampedGazeY * 2.0 * scale;
+  const gazeDx = hasLookOffset
+    ? Math.max(-4, Math.min(4, lookOffset!.dx || 0)) * scale
+    : clampedGazeX * 2.4 * scale;
+  const gazeDy = hasLookOffset
+    ? Math.max(-4, Math.min(4, lookOffset!.dy || 0)) * scale
+    : clampedGazeY * 2.0 * scale;
 
   const leftEyeCenter = { x: -eyeDistance, y: eyeY };
   const rightEyeCenter = { x: eyeDistance, y: eyeY };
@@ -69,15 +77,18 @@ export const FacialExpressions: React.FC<FacialExpressionsProps> = ({
     const r = isExtraWide ? eyeR * 1.08 : eyeR;
     const ex = cx + gazeDx;
     const ey = cy + gazeDy;
+    // V18.2: Đốm sáng dịch chuyển thêm nhẹ theo hướng liếc mắt để ánh nhìn tập trung rõ nét vào mục tiêu
+    const hlShiftX = gazeDx * 0.22;
+    const hlShiftY = gazeDy * 0.22;
     return (
       <g key={keyPrefix}>
         {/* Tròng mắt tròn đen lớn thân thiện */}
         <circle cx={ex} cy={ey} r={r} fill={strokeColor} />
         {/* Chấm sáng trắng chính góc trên-trái (dot highlight) */}
-        <circle cx={ex - r * 0.32} cy={ey - r * 0.30} r={r * 0.33} fill="#FFFFFF" />
+        <circle cx={ex - r * 0.30 + hlShiftX} cy={ey - r * 0.28 + hlShiftY} r={r * 0.33} fill="#FFFFFF" />
         {/* Vầng sáng lưỡi liềm nhỏ góc dưới-phải (crescent/sparkle highlight) */}
         <path
-          d={`M ${ex + r * 0.14} ${ey + r * 0.44} A ${r * 0.48} ${r * 0.48} 0 0 0 ${ex + r * 0.46} ${ey + r * 0.12}`}
+          d={`M ${ex + r * 0.14 + hlShiftX * 0.5} ${ey + r * 0.44 + hlShiftY * 0.5} A ${r * 0.48} ${r * 0.48} 0 0 0 ${ex + r * 0.46 + hlShiftX * 0.5} ${ey + r * 0.12 + hlShiftY * 0.5}`}
           fill="none"
           stroke="#FFFFFF"
           strokeWidth={1.8 * scale}

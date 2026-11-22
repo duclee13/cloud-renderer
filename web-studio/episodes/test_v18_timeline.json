@@ -150,6 +150,147 @@
           ]
         }
       ]
+    },
+    {
+      "id": "b03_anechoic_day_dialogue",
+      "actTitle": "Hồi 3: Phòng Tiêu Âm & Giao Tiếp Ánh Mắt",
+      "headerTitle": "V18.2: PHÒNG TIÊU ÂM & ÁNH MẮT CÓ HỒN",
+      "text": "Bước vào căn phòng tiêu âm phủ kín các khối nêm xốp tam giác, bác sĩ mỉm cười giải thích vì sao căn phòng này hấp thụ gần như toàn bộ tiếng vang.",
+      "ttsText": "Bước vào căn phòng tiêu âm phủ kín các khối nêm xốp tam giác, bác sĩ mỉm cười giải thích vì sao căn phòng này hấp thụ gần như toàn bộ tiếng vang.",
+      "stageType": "ANECHOIC_CHAMBER",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "visualProp": "NONE",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.04,
+        "focusX": 960,
+        "focusY": 520
+      },
+      "callout": {
+        "text": "PHÒNG TIÊU ÂM IM LẶNG NHẤT THẾ GIỚI (-9.4 dBA)",
+        "x": 960,
+        "y": 170
+      },
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.35,
+              "startX": 360,
+              "endX": 660,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.35,
+              "toPct": 1.0,
+              "startX": 660,
+              "endX": 660,
+              "facing": "RIGHT",
+              "pose": "TURN_AROUND",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "bubble": "Yên lặng tuyệt đối!",
+          "bubbleStartPct": 0.25,
+          "bubbleEndPct": 0.90,
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 1.0,
+              "startX": 1160,
+              "endX": 1160,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b04_anechoic_night_dark",
+      "actTitle": "Hồi 4: Tắt Đèn Trong Phòng Tiêu Âm",
+      "headerTitle": "V18.2: TẮT ĐÈN TỐI OM",
+      "text": "Ngay khi cửa cách âm đóng sập và đèn tắt phụt, căn phòng tối đen như mực khiến tôi phải bật đèn pin lia quanh tìm lối ra.",
+      "ttsText": "Ngay khi cửa cách âm đóng sập và đèn tắt phụt, căn phòng tối đen như mực khiến tôi phải bật đèn pin lia quanh tìm lối ra.",
+      "stageType": "ANECHOIC_CHAMBER",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "voiceTone": "TENSE_CLIMAX",
+      "visualProp": "NONE",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.06,
+        "focusX": 880,
+        "focusY": 520
+      },
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "SCARED",
+          "handProp": "FLASHLIGHT",
+          "bubble": "Tối om thật sự!",
+          "bubbleStartPct": 0.35,
+          "bubbleEndPct": 0.90,
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.25,
+              "startX": 820,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "JUMP_BACK",
+              "expression": "SHOCKED",
+              "handProp": "FLASHLIGHT",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.25,
+              "toPct": 1.0,
+              "startX": 740,
+              "endX": 780,
+              "facing": "RIGHT",
+              "pose": "SWEEP_LIGHT",
+              "expression": "SCARED",
+              "handProp": "FLASHLIGHT",
+              "shiver": true
+            }
+          ]
+        }
+      ]
     }
   ]
 }

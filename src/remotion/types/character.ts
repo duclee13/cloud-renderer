@@ -140,10 +140,26 @@ export interface StickmanState {
   handsOnHips?: boolean;
   /** V18.0: Hệ số xoay ngang mượt cho TURN_AROUND (mặc định 1.0; thu hẹp về 0.18 khi quay người) */
   turnScaleX?: number;
-  /** V18.0: Tư thế 60fps chi tiết từ Keyframe Action Timeline (18 ActionPoseV18) */
+  /** V18.0: Tư thế 60fps chi tiết từ Keyframe Action Timeline (18+ ActionPoseV18) */
   v18ActionPose?: string;
   v18SegmentProgress?: number;
   v18LocalFrame?: number;
+  /** V18.2: Ánh mắt có hồn — dịch chuyển đồng tử + đốm sáng trong phạm vi -4px..+4px (hệ trục cục bộ: dx>0 nhìn tới trước, dy>0 nhìn xuống) */
+  lookOffset?: { dx: number; dy: number };
+  /** V18.2: Góc nghiêng đầu theo ánh nhìn/mục tiêu (độ) */
+  headTiltDeg?: number;
+  /** V18.2: Nén dọc nhún lấy đà trước khi bật nhảy (VD: 0.92 trong 4 frames đầu của JUMP_BACK / ARMS_UP_CHEER) */
+  anticipationScaleY?: number;
+  /** V18.2: Seed cố định theo nhân vật cho chu kỳ chớp mắt tự nhiên 2.8–3.6s (6 frames) không bị nhảy khi di chuyển */
+  blinkSeed?: number;
+  /** V18.2: Khớp tay đã nội suy mượt 10 frames giữa 2 keyframe liền kề (vẫn qua enforceRigidTwoBoneIK để khóa cứng xương 65/58px) */
+  blendedArmPose?: {
+    leftElbow: Point2D;
+    leftWrist: Point2D;
+    rightElbow: Point2D;
+    rightWrist: Point2D;
+    allowNearHead?: boolean;
+  };
 }
 
 export interface PropAnchorPorts {

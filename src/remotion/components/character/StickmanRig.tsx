@@ -391,6 +391,18 @@ export function computeV18ActionArmsUpper(
         allowNearHead: true,
       };
     }
+    case "TALK_GESTURE": {
+      // V18.2: Cử chỉ hai tay nói chuyện tự nhiên ngang ngực nhịp nhàng theo nhịp thoại
+      const g1 = Math.sin(frame * 0.16);
+      const g2 = Math.cos(frame * 0.12 + 0.8);
+      return {
+        leftElbow: { x: -34 + g2 * 6, y: sy + 52 },
+        leftWrist: { x: 24 + g2 * 14, y: sy + 42 - Math.abs(g2) * 14 },
+        rightElbow: { x: 38 + g1 * 6, y: sy + 46 },
+        rightWrist: { x: 82 + g1 * 16, y: sy + 26 - Math.abs(g1) * 18 },
+        allowNearHead: false,
+      };
+    }
     default:
       return null;
   }
@@ -686,15 +698,23 @@ export function computeStickmanArmsUpper(
     rightElbowUpper = solve2JointIK(shoulderUpper, rightWristUpper, upperArmLen, forearmLen, 1);
   }
 
-  // V18.0: Ưu tiên tư thế tay 60fps từ Keyframe Action Timeline (18 ActionPoseV18) hoặc handsOnHips (SIT_OBSERVE)
-  const v18Arms = computeV18ActionArmsUpper(
-    state.v18ActionPose,
-    state.handsOnHips,
-    shoulderUpper,
-    frame,
-    state.v18LocalFrame ?? frame,
-    state.v18SegmentProgress ?? 0.5
-  );
+  // V18.2: Ưu tiên khớp tay đã nội suy mượt 10 frames (blendedArmPose), kế tiếp là v18ActionPose / handsOnHips
+  const v18Arms = state.blendedArmPose
+    ? {
+        leftElbow: state.blendedArmPose.leftElbow,
+        leftWrist: state.blendedArmPose.leftWrist,
+        rightElbow: state.blendedArmPose.rightElbow,
+        rightWrist: state.blendedArmPose.rightWrist,
+        allowNearHead: Boolean(state.blendedArmPose.allowNearHead),
+      }
+    : computeV18ActionArmsUpper(
+        state.v18ActionPose,
+        state.handsOnHips,
+        shoulderUpper,
+        frame,
+        state.v18LocalFrame ?? frame,
+        state.v18SegmentProgress ?? 0.5
+      );
   if (v18Arms) {
     leftElbowUpper = v18Arms.leftElbow;
     leftWristUpper = v18Arms.leftWrist;
@@ -982,23 +1002,25 @@ export const StickmanRig: React.FC<StickmanRigProps> = ({
     frame
   );
 
-  // V14.1 Living Scene Rule: Nhịp thở nhẹ + Gật gù 60fps liên tục + Chớp mắt tự nhiên mỗi 3 giây (180 frames @ 60fps)
+  // V18.2 Living Scene Rule: Nhịp thở nhẹ + Gật đầu + Chớp mắt tự nhiên mỗi 2.8–3.6 giây (nhắm mở nhanh 6 frames, không phụ thuộc x)
   const enableIdleLife = state.enableIdleLife ?? isPureStickmanPreset;
-  const idlePhaseSeed = (Math.abs(Math.round(x)) % 37) * 0.19;
+  const stableSeed = state.blinkSeed !== undefined ? Math.abs(Math.floor(state.blinkSeed)) : (activeArchetype.charCodeAt(0) || 1);
+  const idlePhaseSeed = (stableSeed % 37) * 0.41;
   const idleBreathFactor = enableIdleLife ? 1 + Math.sin(frame * 0.055 + idlePhaseSeed) * 0.0085 : 1.0;
-  const effectiveBreathScaleY = breathScaleY * idleBreathFactor;
+  const effectiveBreathScaleY = breathScaleY * idleBreathFactor * (state.anticipationScaleY ?? 1.0);
 
   const nodDeg = state.nodAmplitudeDeg
     ? Math.sin(frame * (state.nodFreq ?? 0.12)) * state.nodAmplitudeDeg
     : 0;
-  const headAngle = (limbAngles?.head ?? 0) + nodDeg;
+  const headAngle = (state.headTiltDeg ?? 0) + (limbAngles?.head ?? 0) + nodDeg;
 
-  const blinkCycleFrame = (Math.max(0, Math.floor(frame)) + Math.abs(Math.round(x * 0.3))) % 180;
+  // Chu kỳ chớp mắt 168..216 frames (2.8s–3.6s @ 60fps), mỗi nhịp nhắm mở 6 frames mượt mà trên mọi biểu cảm mắt mở
+  const blinkPeriod = 168 + ((stableSeed * 19) % 49);
+  const blinkCycleFrame = (Math.max(0, Math.floor(frame)) + stableSeed * 47) % blinkPeriod;
   const isNaturalBlink =
     enableIdleLife &&
-    blinkCycleFrame >= 166 &&
-    blinkCycleFrame < 171 &&
-    (state.eyes === undefined || state.eyes === "neutral" || state.eyes === "curious" || state.eyes === "wide");
+    blinkCycleFrame >= blinkPeriod - 6 &&
+    state.eyes !== "closed";
   const effectiveEyes = isNaturalBlink ? "closed" : state.eyes;
 
   // V15.0 Lip-Sync Micro Talk: Khi nhân vật đang hiện bóng thoại (isSpeaking = true),
@@ -1133,6 +1155,7 @@ export const StickmanRig: React.FC<StickmanRigProps> = ({
                       eyebrows={state.eyebrows}
                       mouth={effectiveMouth}
                       pupilGaze={state.pupilGaze}
+                      lookOffset={state.lookOffset}
                       blush={state.blush}
                       sweatDrop={state.sweatDrop}
                       showWhiskers={false}

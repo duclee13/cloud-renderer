@@ -14,6 +14,7 @@ export type AutoStageType =
   | "WATER_POND_OCEAN"
   | "UNDERGROUND_EARTH_CUTAWAY"
   | "SPACE_COSMOS"
+  | "ANECHOIC_CHAMBER"
   | "EXPLAINER_POLKA_DOT";
 
 export type AutoTimeOfDay = "DAY" | "SUNSET" | "NIGHT";
@@ -65,7 +66,8 @@ export type ActionPoseV18 =
   | "PAT_SHOULDER"
   | "STRETCH_YAWN"
   | "LIE_SLEEP"
-  | "SHIVER_PANIC";
+  | "SHIVER_PANIC"
+  | "TALK_GESTURE";
 
 export interface ActorKeyframe {
   fromPct: number; // 0..1
@@ -199,6 +201,7 @@ export const VALID_STAGE_TYPES: readonly AutoStageType[] = [
   "WATER_POND_OCEAN",
   "UNDERGROUND_EARTH_CUTAWAY",
   "SPACE_COSMOS",
+  "ANECHOIC_CHAMBER",
   "EXPLAINER_POLKA_DOT",
 ];
 
@@ -251,6 +254,7 @@ export const VALID_ACTION_POSES_V18: readonly ActionPoseV18[] = [
   "STRETCH_YAWN",
   "LIE_SLEEP",
   "SHIVER_PANIC",
+  "TALK_GESTURE",
 ];
 
 export const VALID_AUTO_PROP_IDS: readonly AutoPropId[] = [
@@ -485,6 +489,12 @@ const STAGE_ALIASES: Record<string, AutoStageType> = {
   COSMOS: "SPACE_COSMOS",
   GALAXY: "SPACE_COSMOS",
   UNIVERSE: "SPACE_COSMOS",
+  ANECHOIC: "ANECHOIC_CHAMBER",
+  QUIET_ROOM: "ANECHOIC_CHAMBER",
+  SILENT_ROOM: "ANECHOIC_CHAMBER",
+  SOUNDPROOF: "ANECHOIC_CHAMBER",
+  SOUNDPROOF_ROOM: "ANECHOIC_CHAMBER",
+  CHAMBER: "ANECHOIC_CHAMBER",
   EXPLAINER: "EXPLAINER_POLKA_DOT",
   POLKA: "EXPLAINER_POLKA_DOT",
   DIAGRAM: "EXPLAINER_POLKA_DOT",
@@ -755,6 +765,11 @@ const ACTION_POSE_V18_ALIASES: Record<string, ActionPoseV18> = {
   SLEEP_BED: "LIE_SLEEP",
   PANIC: "SHIVER_PANIC",
   SHIVER: "SHIVER_PANIC",
+  TALK: "TALK_GESTURE",
+  SPEAK: "TALK_GESTURE",
+  GESTURE: "TALK_GESTURE",
+  CHAT: "TALK_GESTURE",
+  EXPLAIN_HANDS: "TALK_GESTURE",
 };
 
 function sanitizeActorKeyframe(
@@ -935,7 +950,7 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
     let callout: AutoCalloutSpec | undefined;
     if (rb?.callout && typeof rb.callout === "object" && typeof rb.callout.text === "string" && rb.callout.text.trim()) {
       callout = {
-        text: rb.callout.text.trim().slice(0, 38),
+        text: rb.callout.text.trim().slice(0, 56),
         x: rb.callout.x !== undefined ? Math.round(clampNum(rb.callout.x, 180, 1740, 960)) : undefined,
         y: rb.callout.y !== undefined ? Math.round(clampNum(rb.callout.y, 130, 760, 230)) : undefined,
       };

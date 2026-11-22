@@ -23,6 +23,7 @@ import {
 } from "./KassStageLibrary";
 import { LotusPondBackdrop } from "./TadpoleMovieStages";
 import { CuratedAnimatedProp } from "./AutoPropLibrary";
+import { resolvePendulumArms } from "../../animscript/motionGraph";
 import { smoothstep, lerpNum } from "../../lib/v7/universalAnimationStandard";
 import {
   type AutoEpisodeBeat,
@@ -35,7 +36,7 @@ import {
   type ActionPoseV18,
   type ActorKeyframe,
 } from "../../lib/v7/episodeJsonSchema";
-import type { EyeExpression, EyebrowExpression, MouthExpression } from "../../remotion/types/character";
+import type { EyeExpression, EyebrowExpression, MouthExpression, Point2D } from "../../remotion/types/character";
 
 function easeOutBack(t: number): number {
   const c = Math.max(0, Math.min(1, t));
@@ -398,6 +399,159 @@ const SpaceCosmosBackdrop: React.FC<{ frame: number; groundY: number }> = ({ fra
   );
 };
 
+/**
+ * V18.2: Bối cảnh Phòng Tiêu Âm (ANECHOIC_CHAMBER)
+ * - Tường sau, trần và sàn phủ khối nêm xốp tam giác 3D tối giản tông xám-xanh đậm
+ * - Cửa cách âm dày chuyên dụng bên phải
+ * - Khi timeOfDay === "NIGHT": tối om thật sự (không bảng trắng, không đèn rực!) để làm nổi nhân vật & tia đèn pin
+ */
+const AnechoicChamberBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: number; groundY: number }> = ({
+  timeOfDay,
+  frame,
+  groundY,
+}) => {
+  const isNight = timeOfDay === "NIGHT";
+  const isSunset = timeOfDay === "SUNSET";
+
+  const bgDeep = isNight ? "#050811" : "#111827";
+  const wedgeFaceA = isNight ? "#0B1120" : isSunset ? "#313B4F" : "#334155";
+  const wedgeFaceB = isNight ? "#0F172A" : isSunset ? "#434E64" : "#475569";
+  const wedgeEdge = isNight ? "#1E293B" : "#141414";
+  const wedgeHighlight = isNight ? "#172033" : "#64748B";
+  const doorOuter = isNight ? "#0B1120" : "#1E293B";
+  const doorInner = isNight ? "#111827" : "#334155";
+  const floorBg = isNight ? "#070B14" : "#1E293B";
+  const gridWire = isNight ? "#1E293B" : "#64748B";
+  const ledPulse = 0.45 + 0.55 * Math.sin(frame * 0.09);
+
+  // Lưới khối nêm xốp tam giác 3D phủ tường sau (x = 0..1500, y = 110..770)
+  const cols = 10;
+  const rows = 5;
+  const cellW = 150;
+  const cellH = 132;
+
+  return (
+    <g id="stage-anechoic-chamber">
+      {/* Nền tối sâu của phòng tiêu âm */}
+      <rect x={0} y={0} width={1920} height={1080} fill={bgDeep} />
+
+      {/* 1. Hàng nêm xốp tiêu âm tam giác 3D rủ từ trần (y = 0..110) */}
+      <g stroke={wedgeEdge} strokeWidth={isNight ? 2 : 3} strokeLinejoin="round">
+        {Array.from({ length: 16 }).map((_, ci) => {
+          const x0 = ci * 120;
+          return (
+            <g key={`ceil_w_${ci}`}>
+              <polygon points={`${x0},0 ${x0 + 60},108 ${x0 + 60},0`} fill={wedgeFaceB} />
+              <polygon points={`${x0 + 60},0 ${x0 + 60},108 ${x0 + 120},0`} fill={wedgeFaceA} />
+            </g>
+          );
+        })}
+      </g>
+
+      {/* Đèn thanh trần dịu nhẹ (CHỈ bật khi không phải NIGHT; ban đêm tắt hẳn tối om thật sự!) */}
+      {!isNight && (
+        <g opacity={isSunset ? 0.55 : 0.72}>
+          <rect x={420} y={12} width={280} height={10} rx={5} fill={isSunset ? "#FDE68A" : "#BAE6FD"} />
+          <rect x={920} y={12} width={280} height={10} rx={5} fill={isSunset ? "#FDE68A" : "#BAE6FD"} />
+          <polygon points="420,22 700,22 860,340 260,340" fill={isSunset ? "#FEF08A" : "#93C5FD"} opacity={0.07} />
+          <polygon points="920,22 1200,22 1360,340 760,340" fill={isSunset ? "#FEF08A" : "#93C5FD"} opacity={0.07} />
+        </g>
+      )}
+
+      {/* 2. Tường sau phủ kín mô-đun nêm xốp 3D xen kẽ ngang-dọc chuẩn phòng tiêu âm */}
+      <g stroke={wedgeEdge} strokeWidth={isNight ? 1.8 : 2.6} strokeLinejoin="round">
+        {Array.from({ length: rows }).map((_, r) =>
+          Array.from({ length: cols }).map((__, c) => {
+            const bx = c * cellW;
+            const by = 110 + r * cellH;
+            const isVertical = (r + c) % 2 === 0;
+            return (
+              <g key={`wall_mod_${r}_${c}`} transform={`translate(${bx}, ${by})`}>
+                <rect x={0} y={0} width={cellW} height={cellH} fill={bgDeep} />
+                {isVertical ? (
+                  [0, 1, 2].map((w) => {
+                    const wx = w * 50;
+                    return (
+                      <g key={`vw_${w}`}>
+                        <polygon points={`${wx},0 ${wx + 25},14 ${wx + 25},${cellH - 14} ${wx},${cellH}`} fill={wedgeFaceB} />
+                        <polygon points={`${wx + 25},14 ${wx + 50},0 ${wx + 50},${cellH} ${wx + 25},${cellH - 14}`} fill={wedgeFaceA} />
+                        <line x1={wx + 25} y1={14} x2={wx + 25} y2={cellH - 14} stroke={wedgeHighlight} strokeWidth={isNight ? 1 : 2} />
+                      </g>
+                    );
+                  })
+                ) : (
+                  [0, 1, 2].map((w) => {
+                    const wy = w * 44;
+                    return (
+                      <g key={`hw_${w}`}>
+                        <polygon points={`0,${wy} 14,${wy + 22} ${cellW - 14},${wy + 22} ${cellW},${wy}`} fill={wedgeFaceB} />
+                        <polygon points={`14,${wy + 22} 0,${wy + 44} ${cellW},${wy + 44} ${cellW - 14},${wy + 22}`} fill={wedgeFaceA} />
+                        <line x1={14} y1={wy + 22} x2={cellW - 14} y2={wy + 22} stroke={wedgeHighlight} strokeWidth={isNight ? 1 : 2} />
+                      </g>
+                    );
+                  })
+                )}
+              </g>
+            );
+          })
+        )}
+      </g>
+
+      {/* 3. Cửa cách âm dày nặng bên phải (x = 1525..1855, y = 215..770) */}
+      <g transform="translate(1525, 215)" stroke={wedgeEdge} strokeWidth={isNight ? 2.5 : 4} strokeLinejoin="round">
+        {/* Khung thép dày & gioăng cao su cách âm */}
+        <rect x={0} y={0} width={330} height={555} rx={10} fill={doorOuter} />
+        <rect x={18} y={18} width={294} height={528} rx={6} fill={doorInner} />
+        {/* Nêm xốp gắn ngay trên mặt cửa cách âm */}
+        {[0, 1, 2, 3].map((dw) => {
+          const dy = 38 + dw * 114;
+          return (
+            <g key={`dw_${dw}`}>
+              <polygon points={`36,${dy} 165,${dy + 42} 294,${dy} 294,${dy + 94} 165,${dy + 52} 36,${dy + 94}`} fill={wedgeFaceA} strokeWidth={isNight ? 1.6 : 2.4} />
+              <line x1={36} y1={dy + 47} x2={294} y2={dy + 47} stroke={wedgeHighlight} strokeWidth={isNight ? 1 : 2} />
+            </g>
+          );
+        })}
+        {/* Tay nắm khóa áp suất inox bên trái cửa */}
+        <rect x={28} y={258} width={22} height={74} rx={6} fill={isNight ? "#1E293B" : "#94A3B8"} />
+        <rect x={36} y={286} width={58} height={18} rx={7} fill={isNight ? "#334155" : "#CBD5E1"} />
+        {/* Đèn báo trạng thái nhỏ xíu (chấm LED dịu, hoàn toàn không gây chói ban đêm) */}
+        <circle cx={165} cy={-24} r={7} fill={isNight ? "#1E3A8A" : "#38BDF8"} opacity={ledPulse} stroke={wedgeEdge} strokeWidth={2} />
+      </g>
+
+      {/* 4. Sàn lưới thép treo + khối nêm xốp sàn bên dưới (y = 770..1080) */}
+      <rect x={0} y={770} width={1920} height={310} fill={floorBg} />
+      {/* Hàng đỉnh nêm xốp nhấp nhô dưới sàn lưới */}
+      <g stroke={wedgeEdge} strokeWidth={isNight ? 1.5 : 2.2} opacity={isNight ? 0.55 : 0.78}>
+        {Array.from({ length: 20 }).map((_, fi) => {
+          const fx = fi * 96;
+          return (
+            <polygon
+              key={`flr_w_${fi}`}
+              points={`${fx},1080 ${fx + 48},868 ${fx + 96},1080`}
+              fill={fi % 2 === 0 ? wedgeFaceA : wedgeFaceB}
+            />
+          );
+        })}
+      </g>
+      {/* Sàn đi bộ lưới cáp căng phẳng tại groundY (840) */}
+      <rect x={0} y={770} width={1920} height={110} fill={isNight ? "#0B1120" : "#334155"} fillOpacity={0.74} />
+      <line x1={0} y1={770} x2={1920} y2={770} stroke={wedgeEdge} strokeWidth={3.5} />
+      <line x1={0} y1={880} x2={1920} y2={880} stroke={wedgeEdge} strokeWidth={3.5} />
+      {/* Đường lưới cáp mảnh */}
+      {[792, 816, 840, 864].map((gy) => (
+        <line key={`glh_${gy}`} x1={0} y1={gy} x2={1920} y2={gy} stroke={gridWire} strokeWidth={1.5} opacity={0.42} />
+      ))}
+      {Array.from({ length: 24 }).map((_, gi) => (
+        <line key={`glv_${gi}`} x1={gi * 84} y1={770} x2={gi * 84 - 28} y2={880} stroke={gridWire} strokeWidth={1.5} opacity={0.36} />
+      ))}
+
+      {/* Lớp phủ tối đêm sâu cho cảm giác phòng tiêu âm tắt đèn tối om thật sự */}
+      {isNight && <rect x={0} y={0} width={1920} height={1080} fill="#020617" opacity={0.46} />}
+    </g>
+  );
+};
+
 /** Lớp thời tiết động 60fps phủ trên các cảnh ngoài trời (RAIN / STORM / FLOOD) */
 const WeatherOverlayLayer: React.FC<{ weather: AutoWeather; frame: number; isOutdoor: boolean }> = ({
   weather,
@@ -642,11 +796,344 @@ function resolveCuratedPropPlacement(spec: AutoEpisodeBeat): {
   return { propId, x: 1360, y: 350, scale: 1.02, inThoughtBubble: false, tailSide: 0 };
 }
 
+/** V18.2: Số frame nội suy mượt các khớp tay/thân khi chuyển keyframe liền kề (10 frames ≈ 0.167s @ 60fps) */
+const V18_POSE_BLEND_FRAMES = 10;
+
+interface V18ArmPoseJoints {
+  leftElbow: Point2D;
+  leftWrist: Point2D;
+  rightElbow: Point2D;
+  rightWrist: Point2D;
+  allowNearHead: boolean;
+}
+
+interface V18PoseSnapshot {
+  actorX: number;
+  effectiveFacing: "LEFT" | "RIGHT";
+  pose: "standing" | "walking" | "running" | "jumping" | "crouching" | "pointing" | "waving";
+  walkWeight: number;
+  walkCycle: number;
+  torsoTiltDeg: number;
+  headTiltDeg: number;
+  flightLift: number;
+  crouchDepth: number;
+  anticipationScaleY: number;
+  turnScaleX: number;
+  v18ActionPose?: ActionPoseV18;
+  arms: V18ArmPoseJoints;
+  hasCustomV18Arms: boolean;
+  handPropTiltDeg: number;
+  activeShiver: boolean;
+  activeHandProp: AutoHandProp;
+  overrideEyes?: EyeExpression;
+  overrideMouth?: MouthExpression;
+  sweepSin: number;
+  sipWave: number;
+}
+
+function easeOutCubic(t: number): number {
+  const c = Math.max(0, Math.min(1, t));
+  return 1 - Math.pow(1 - c, 3);
+}
+
+function lerpPt(a: Point2D, b: Point2D, t: number): Point2D {
+  return {
+    x: lerpNum(a.x, b.x, t),
+    y: lerpNum(a.y, b.y, t),
+  };
+}
+
+/** Tính vị trí tay con lắc mặc định (dùng cho WALK/RUN/TURN_AROUND làm điểm gốc cho blendPose 10 frames!) */
+function computePendulumArmJoints(walkCycle: number, walkWeight: number, isRunning: boolean): V18ArmPoseJoints {
+  const sy = -TORSO_LEN;
+  const p = resolvePendulumArms(walkCycle * Math.PI * 2, walkWeight, 1, isRunning);
+  return {
+    leftElbow: { x: p.leftArm.elbowRel.x, y: sy + p.leftArm.elbowRel.y },
+    leftWrist: { x: p.leftArm.handRel.x, y: sy + p.leftArm.handRel.y },
+    rightElbow: { x: p.rightArm.elbowRel.x, y: sy + p.rightArm.elbowRel.y },
+    rightWrist: { x: p.rightArm.handRel.x, y: sy + p.rightArm.handRel.y },
+    allowNearHead: false,
+  };
+}
+
+/** V18.2: Nội suy mượt khớp tay/thân/đầu/vị trí trong 10 frames đầu của keyframe mới (easeOutCubic) */
+function blendPose(prev: V18PoseSnapshot, curr: V18PoseSnapshot, rawT: number): V18PoseSnapshot {
+  const t = easeOutCubic(rawT);
+  const sameFacing = prev.effectiveFacing === curr.effectiveFacing;
+  return {
+    ...curr,
+    actorX: lerpNum(prev.actorX, curr.actorX, t),
+    torsoTiltDeg: lerpNum(prev.torsoTiltDeg, curr.torsoTiltDeg, t),
+    headTiltDeg: lerpNum(prev.headTiltDeg, curr.headTiltDeg, t),
+    flightLift: lerpNum(prev.flightLift, curr.flightLift, t),
+    crouchDepth: lerpNum(prev.crouchDepth, curr.crouchDepth, t),
+    walkWeight: lerpNum(prev.walkWeight, curr.walkWeight, t),
+    handPropTiltDeg: lerpNum(prev.handPropTiltDeg, curr.handPropTiltDeg, t),
+    arms: sameFacing
+      ? {
+          leftElbow: lerpPt(prev.arms.leftElbow, curr.arms.leftElbow, t),
+          leftWrist: lerpPt(prev.arms.leftWrist, curr.arms.leftWrist, t),
+          rightElbow: lerpPt(prev.arms.rightElbow, curr.arms.rightElbow, t),
+          rightWrist: lerpPt(prev.arms.rightWrist, curr.arms.rightWrist, t),
+          allowNearHead: prev.arms.allowNearHead || curr.arms.allowNearHead,
+        }
+      : curr.arms,
+    hasCustomV18Arms: sameFacing ? (prev.hasCustomV18Arms || curr.hasCustomV18Arms) : curr.hasCustomV18Arms,
+  };
+}
+
+/** V18.2: Tính toàn bộ động học 60fps của 1 keyframe (đủ 19 ActionPoseV18, 6-frame TURN_AROUND, 4-frame anticipation squash) */
+function evaluateV18KeyframeKinematics(
+  kf: ActorKeyframe,
+  prevKf: ActorKeyframe | null,
+  segU: number,
+  segLocalFrame: number,
+  frame: number,
+  defaultHandProp: AutoHandProp,
+  defaultShiver: boolean
+): V18PoseSnapshot {
+  const easeX = smoothstep(0, 1, segU);
+  const moveDist = Math.abs(kf.endX - kf.startX);
+
+  let actorX = lerpNum(kf.startX, kf.endX, easeX);
+  let effectiveFacing: "LEFT" | "RIGHT" = kf.facing;
+  let activeHandProp: AutoHandProp = kf.handProp !== undefined ? kf.handProp : defaultHandProp;
+  let activeShiver = Boolean(kf.shiver ?? defaultShiver);
+  let pose: V18PoseSnapshot["pose"] = "standing";
+  let walkWeight = 0;
+  let walkCycle = 0;
+  let torsoTiltDeg = 0;
+  let headTiltDeg = 0;
+  let flightLift = 0;
+  let crouchDepth = 0;
+  let anticipationScaleY = 1.0;
+  let turnScaleX = 1.0;
+  let v18ActionPose: ActionPoseV18 | undefined;
+  let handPropTiltDeg = 0;
+  let overrideEyes: EyeExpression | undefined;
+  let overrideMouth: MouthExpression | undefined;
+  let sweepSin = 0;
+  let sipWave = 0;
+
+  switch (kf.pose) {
+    case "WALK": {
+      if (moveDist > 4) {
+        walkCycle = (Math.abs(actorX - kf.startX) / 145) % 1;
+        walkWeight = Math.min(smoothstep(0, 0.1, segU), 1 - smoothstep(0.9, 1.0, segU));
+      } else {
+        walkCycle = (segLocalFrame / 36) % 1;
+        walkWeight = 0.85;
+      }
+      pose = walkWeight > 0.05 ? "walking" : "standing";
+      torsoTiltDeg = 6.5 * walkWeight;
+      break;
+    }
+    case "RUN": {
+      if (moveDist > 4) {
+        walkCycle = (Math.abs(actorX - kf.startX) / 165) % 1;
+        walkWeight = Math.min(smoothstep(0, 0.08, segU), 1 - smoothstep(0.92, 1.0, segU));
+      } else {
+        walkCycle = (segLocalFrame / 20) % 1;
+        walkWeight = 0.95;
+      }
+      pose = walkWeight > 0.05 ? "running" : "standing";
+      torsoTiltDeg = 16 * walkWeight;
+      flightLift = Math.max(0, Math.sin(walkCycle * Math.PI * 2)) * 12 * walkWeight;
+      break;
+    }
+    case "TURN_AROUND": {
+      // V18.2: Lật mặt cực nhanh trong đúng 6 frames (0.1s) thay vì ép dẹt kéo dài cả chặng!
+      const oldFacing = prevKf ? prevKf.facing : kf.facing === "RIGHT" ? "LEFT" : "RIGHT";
+      if (oldFacing !== kf.facing && segLocalFrame < 6) {
+        const turnT = Math.max(0, Math.min(1, segLocalFrame / 6));
+        const cosTurn = Math.cos(turnT * Math.PI);
+        if (turnT < 0.5) {
+          effectiveFacing = oldFacing;
+          turnScaleX = Math.max(0.32, cosTurn);
+        } else {
+          effectiveFacing = kf.facing;
+          turnScaleX = Math.max(0.32, -cosTurn);
+        }
+        torsoTiltDeg = Math.sin(turnT * Math.PI) * 5;
+        headTiltDeg = Math.sin(turnT * Math.PI) * 7;
+      } else {
+        effectiveFacing = kf.facing;
+        turnScaleX = 1.0;
+      }
+      break;
+    }
+    case "CROUCH_LOOK": {
+      crouchDepth = 46;
+      pose = "crouching";
+      torsoTiltDeg = 22;
+      headTiltDeg = -8 + Math.sin(frame * 0.09) * 3;
+      v18ActionPose = "CROUCH_LOOK";
+      break;
+    }
+    case "REACH_GRAB": {
+      const reachT = smoothstep(0, 0.55, segU);
+      torsoTiltDeg = 16 * reachT;
+      headTiltDeg = 4 * reachT;
+      v18ActionPose = "REACH_GRAB";
+      break;
+    }
+    case "POINT_UP": {
+      torsoTiltDeg = -3;
+      headTiltDeg = -13;
+      v18ActionPose = "POINT_UP";
+      break;
+    }
+    case "POINT_FORWARD": {
+      torsoTiltDeg = 6;
+      v18ActionPose = "POINT_FORWARD";
+      break;
+    }
+    case "SCRATCH_HEAD": {
+      torsoTiltDeg = 2;
+      headTiltDeg = -10 + Math.sin(frame * 0.24) * 3.5;
+      v18ActionPose = "SCRATCH_HEAD";
+      break;
+    }
+    case "FACEPALM": {
+      torsoTiltDeg = 6;
+      headTiltDeg = 12 + Math.sin(frame * 0.1) * 2;
+      v18ActionPose = "FACEPALM";
+      break;
+    }
+    case "JUMP_BACK": {
+      // V18.2: 4 frames nhún lấy đà (scaleY = 0.92) rồi mới bật nhảy cao -72px kèm giật lùi + shiver!
+      if (segLocalFrame < 4) {
+        const antT = Math.sin(((segLocalFrame + 1) / 4) * Math.PI);
+        anticipationScaleY = 1 - 0.08 * antT; // đạt đúng 0.92 ở đỉnh nhún lấy đà
+        crouchDepth = 15 * antT;
+        flightLift = 0;
+        torsoTiltDeg = 6 * antT;
+        pose = "crouching";
+      } else {
+        const postF = segLocalFrame - 4;
+        const jp = Math.min(1, postF / 32);
+        flightLift = Math.sin(jp * Math.PI) * 72;
+        if (postF < 5) {
+          anticipationScaleY = 1 + 0.035 * Math.sin((postF / 5) * Math.PI); // nhẹ nhàng giãn người lúc vừa bật
+        }
+        if (moveDist < 4) {
+          const initDir: 1 | -1 = kf.facing === "LEFT" ? -1 : 1;
+          actorX = Math.max(180, Math.min(1740, kf.startX - initDir * smoothstep(0, 0.5, segU) * 105));
+        }
+        pose = jp < 0.88 ? "jumping" : "standing";
+        torsoTiltDeg = -13 * (1 - jp * 0.3);
+      }
+      activeShiver = true;
+      v18ActionPose = "JUMP_BACK";
+      break;
+    }
+    case "ARMS_UP_CHEER": {
+      // V18.2: 4 frames nhún lấy đà (scaleY = 0.92) trước khi bật nhảy ăn mừng!
+      if (segLocalFrame < 4) {
+        const antT = Math.sin(((segLocalFrame + 1) / 4) * Math.PI);
+        anticipationScaleY = 1 - 0.08 * antT;
+        crouchDepth = 14 * antT;
+        flightLift = 0;
+        pose = "crouching";
+      } else {
+        flightLift = Math.abs(Math.sin((segLocalFrame - 4) * 0.16)) * 34;
+        torsoTiltDeg = -3;
+      }
+      v18ActionPose = "ARMS_UP_CHEER";
+      break;
+    }
+    case "SIP_DRINK": {
+      sipWave = Math.pow(0.5 - 0.5 * Math.cos(segLocalFrame * 0.105), 1.35);
+      torsoTiltDeg = -3 * sipWave;
+      headTiltDeg = -14 * sipWave;
+      if (activeHandProp === "NONE") activeHandProp = "CUP_SODA";
+      v18ActionPose = "SIP_DRINK";
+      break;
+    }
+    case "WRITE_NOTE": {
+      torsoTiltDeg = 8;
+      headTiltDeg = 12;
+      if (activeHandProp === "NONE") activeHandProp = "NOTEBOOK";
+      v18ActionPose = "WRITE_NOTE";
+      break;
+    }
+    case "SWEEP_LIGHT": {
+      sweepSin = Math.sin(segLocalFrame * 0.11);
+      torsoTiltDeg = 6;
+      headTiltDeg = sweepSin * 14;
+      handPropTiltDeg = sweepSin * 26;
+      if (activeHandProp === "NONE") activeHandProp = "FLASHLIGHT";
+      v18ActionPose = "SWEEP_LIGHT";
+      break;
+    }
+    case "PAT_SHOULDER": {
+      torsoTiltDeg = 7;
+      v18ActionPose = "PAT_SHOULDER";
+      break;
+    }
+    case "STRETCH_YAWN": {
+      const stretchP = Math.sin(Math.min(1, Math.max(0.15, segU)) * Math.PI);
+      torsoTiltDeg = -7 * stretchP;
+      headTiltDeg = -10 * stretchP;
+      overrideMouth = "gasp";
+      if (stretchP > 0.35) overrideEyes = "closed";
+      v18ActionPose = "STRETCH_YAWN";
+      break;
+    }
+    case "SHIVER_PANIC": {
+      crouchDepth = 12;
+      torsoTiltDeg = -5;
+      activeShiver = true;
+      overrideEyes = "wide";
+      overrideMouth = "circleOpen";
+      v18ActionPose = "SHIVER_PANIC";
+      break;
+    }
+    case "TALK_GESTURE": {
+      torsoTiltDeg = 2 + Math.sin(frame * 0.09) * 2.2;
+      headTiltDeg = Math.sin(frame * 0.15) * 3.2;
+      v18ActionPose = "TALK_GESTURE";
+      break;
+    }
+    default:
+      break;
+  }
+
+  const v18Arms = v18ActionPose
+    ? computeV18ActionArmsUpper(v18ActionPose, false, { x: 0, y: -TORSO_LEN }, frame, segLocalFrame, segU)
+    : null;
+  const arms: V18ArmPoseJoints = v18Arms ?? computePendulumArmJoints(walkCycle, walkWeight, pose === "running");
+
+  return {
+    actorX,
+    effectiveFacing,
+    pose,
+    walkWeight,
+    walkCycle,
+    torsoTiltDeg,
+    headTiltDeg,
+    flightLift,
+    crouchDepth,
+    anticipationScaleY,
+    turnScaleX,
+    v18ActionPose,
+    arms,
+    hasCustomV18Arms: Boolean(v18Arms),
+    handPropTiltDeg,
+    activeShiver,
+    activeHandProp,
+    overrideEyes,
+    overrideMouth,
+    sweepSin,
+    sipWave,
+  };
+}
+
 /** V18.0: Tìm keyframe đang hoạt động trong timeline[] theo tiến độ p (0..1) */
 function resolveActiveTimelineKeyframe(
   timeline: ActorKeyframe[],
   p: number
-): { kf: ActorKeyframe; prevKf: ActorKeyframe | null; index: number; segU: number } {
+): { kf: ActorKeyframe; prevKf: ActorKeyframe | null; prevPrevKf: ActorKeyframe | null; index: number; segU: number } {
   let activeIdx = 0;
   for (let i = 0; i < timeline.length; i++) {
     const item = timeline[i];
@@ -660,9 +1147,10 @@ function resolveActiveTimelineKeyframe(
   }
   const kf = timeline[activeIdx];
   const prevKf = activeIdx > 0 ? timeline[activeIdx - 1] : null;
+  const prevPrevKf = activeIdx > 1 ? timeline[activeIdx - 2] : null;
   const span = kf.toPct - kf.fromPct;
   const segU = span > 1e-4 ? Math.max(0, Math.min(1, (p - kf.fromPct) / span)) : 1;
-  return { kf, prevKf, index: activeIdx, segU };
+  return { kf, prevKf, prevPrevKf, index: activeIdx, segU };
 }
 
 /** V18.0: Chiếu tọa độ cổ tay trong hệ trục thân trên StickmanRig sang tọa độ SVG toàn cục (khít 0px với đạo cụ cầm tay!) */
@@ -722,10 +1210,456 @@ export const UniversalAutoStage: React.FC<{
   const camFocusY = spec.camera?.focusY ?? 520;
   const camZoom = lerpNum(camFromScale, camToScale, smoothstep(0.0, 1.0, u));
 
+  // ===========================================================================
+  // PASS 1 (V18.2): Tính động học + 10-frame Smooth Pose Blending cho toàn bộ nhân vật
+  // để Pass 2 tính chính xác ánh mắt nhìn thẳng vào mặt nhau & listenerNod!
+  // ===========================================================================
+  const actorScale = 0.96;
+
+  interface ResolvedActorRenderData {
+    actor: AutoActorSpec;
+    aIdx: number;
+    isLieSleepMode: boolean;
+    sleepAnchorX: number;
+    bubbleAppear: number;
+    bubbleDisappear: number;
+    isSpeaking: boolean;
+    isActivelyTalkingPose: boolean;
+    actorX: number;
+    headWorldY: number;
+    effectiveFacing: "LEFT" | "RIGHT";
+    activeExprEnum: AutoActorExpression;
+    activeHandProp: AutoHandProp;
+    activeShiver: boolean;
+    pose: V18PoseSnapshot["pose"];
+    walkWeight: number;
+    walkCycle: number;
+    torsoTiltDeg: number;
+    headTiltDeg: number;
+    flightLift: number;
+    crouchDepth: number;
+    anticipationScaleY: number;
+    waveRightArm: boolean;
+    waveLeftArm: boolean;
+    handsOnHips: boolean;
+    turnScaleX: number;
+    v18ActionPose?: ActionPoseV18;
+    v18SegmentProgress: number;
+    v18LocalFrame: number;
+    blendedArmPose?: V18ArmPoseJoints;
+    handPropTiltDeg: number;
+    overrideEyes?: EyeExpression;
+    overrideMouth?: MouthExpression;
+    holdingTarget?: { leftGrip?: { x: number; y: number }; rightGrip?: { x: number; y: number } };
+    handGripX: number;
+    handGripY: number;
+    writePenWorld: { x: number; y: number } | null;
+    sweepSin: number;
+    sipWave: number;
+  }
+
+  const resolvedActors: ResolvedActorRenderData[] = spec.actors.map((actor, aIdx) => {
+    const baseX = slotBaseX(actor.slot);
+    const hasTimeline = Boolean(actor.timeline && actor.timeline.length > 0);
+    const timelineResolved = hasTimeline
+      ? resolveActiveTimelineKeyframe(actor.timeline!, sceneProgressP)
+      : null;
+
+    const bubbleStartPct = actor.bubbleStartPct ?? 0.15;
+    const bubbleEndPct = actor.bubbleEndPct ?? 0.9;
+    const bubbleAppear = Math.max(4, Math.round(durationFrames * bubbleStartPct));
+    const bubbleDisappear = Math.max(bubbleAppear + 12, Math.round(durationFrames * bubbleEndPct));
+    const isSpeaking = Boolean(
+      actor.bubble && isComicBubbleActive(localFrame, bubbleAppear, bubbleDisappear)
+    );
+
+    const isLieSleepMode =
+      (timelineResolved && timelineResolved.kf.pose === "LIE_SLEEP") ||
+      (!timelineResolved && actor.motion === "SLEEP_BED");
+
+    if (isLieSleepMode) {
+      const sleepAnchorX = timelineResolved ? timelineResolved.kf.endX : baseX;
+      return {
+        actor,
+        aIdx,
+        isLieSleepMode: true,
+        sleepAnchorX,
+        bubbleAppear,
+        bubbleDisappear,
+        isSpeaking,
+        isActivelyTalkingPose: false,
+        actorX: sleepAnchorX,
+        headWorldY: 610,
+        effectiveFacing: actor.facing,
+        activeExprEnum: actor.expression,
+        activeHandProp: "NONE",
+        activeShiver: false,
+        pose: "standing",
+        walkWeight: 0,
+        walkCycle: 0,
+        torsoTiltDeg: 0,
+        headTiltDeg: 0,
+        flightLift: 0,
+        crouchDepth: 0,
+        anticipationScaleY: 1.0,
+        waveRightArm: false,
+        waveLeftArm: false,
+        handsOnHips: false,
+        turnScaleX: 1.0,
+        v18SegmentProgress: 0.5,
+        v18LocalFrame: localFrame,
+        handPropTiltDeg: 0,
+        handGripX: sleepAnchorX,
+        handGripY: 610,
+        writePenWorld: null,
+        sweepSin: 0,
+        sipWave: 0,
+      };
+    }
+
+    let actorX = baseX;
+    let effectiveFacing: "LEFT" | "RIGHT" = actor.facing;
+    let activeExprEnum: AutoActorExpression = actor.expression;
+    let activeHandProp: AutoHandProp = actor.handProp || "NONE";
+    let activeShiver = Boolean(actor.shiver);
+    let pose: V18PoseSnapshot["pose"] = "standing";
+    let walkWeight = 0;
+    let walkCycle = 0;
+    let torsoTiltDeg = 0;
+    let headTiltDeg = 0;
+    let flightLift = 0;
+    let crouchDepth = 0;
+    let anticipationScaleY = 1.0;
+    let waveRightArm = false;
+    let waveLeftArm = false;
+    let handsOnHips = false;
+    let turnScaleX = 1.0;
+    let v18ActionPose: ActionPoseV18 | undefined;
+    let v18SegmentProgress = 0.5;
+    let v18LocalFrame = localFrame;
+    let blendedArmPose: V18ArmPoseJoints | undefined;
+    let handPropTiltDeg = 0;
+    let overrideEyes: EyeExpression | undefined;
+    let overrideMouth: MouthExpression | undefined;
+    let holdingTarget: { leftGrip?: { x: number; y: number }; rightGrip?: { x: number; y: number } } | undefined;
+    let sweepSin = 0;
+    let sipWave = 0;
+
+    if (timelineResolved) {
+      const { kf, prevKf, prevPrevKf, index, segU } = timelineResolved;
+      const segLocalFrame = Math.max(0, localFrame - Math.round(kf.fromPct * durationFrames));
+      v18SegmentProgress = segU;
+      v18LocalFrame = segLocalFrame;
+      activeExprEnum = kf.expression;
+
+      let snap = evaluateV18KeyframeKinematics(
+        kf,
+        prevKf,
+        segU,
+        segLocalFrame,
+        frame,
+        actor.handProp || "NONE",
+        Boolean(actor.shiver)
+      );
+
+      // V18.2 Smooth Joint Blending: Nội suy mượt (easeOutCubic) 10 frames đầu giữa keyframe k và keyframe k+1!
+      if (index > 0 && prevKf && prevKf.pose !== "LIE_SLEEP" && segLocalFrame < V18_POSE_BLEND_FRAMES) {
+        const prevDurFrames = Math.max(1, Math.round((prevKf.toPct - prevKf.fromPct) * durationFrames));
+        const prevSnap = evaluateV18KeyframeKinematics(
+          prevKf,
+          prevPrevKf,
+          1.0,
+          prevDurFrames,
+          frame,
+          actor.handProp || "NONE",
+          Boolean(actor.shiver)
+        );
+        const blendT = segLocalFrame / V18_POSE_BLEND_FRAMES;
+        snap = blendPose(prevSnap, snap, blendT);
+        if (snap.hasCustomV18Arms) {
+          blendedArmPose = snap.arms;
+        }
+      } else if (snap.hasCustomV18Arms) {
+        blendedArmPose = snap.arms;
+      }
+
+      actorX = snap.actorX;
+      effectiveFacing = snap.effectiveFacing;
+      pose = snap.pose;
+      walkWeight = snap.walkWeight;
+      walkCycle = snap.walkCycle;
+      torsoTiltDeg = snap.torsoTiltDeg;
+      headTiltDeg = snap.headTiltDeg;
+      flightLift = snap.flightLift;
+      crouchDepth = snap.crouchDepth;
+      anticipationScaleY = snap.anticipationScaleY;
+      turnScaleX = snap.turnScaleX;
+      v18ActionPose = snap.v18ActionPose;
+      handPropTiltDeg = snap.handPropTiltDeg;
+      activeShiver = snap.activeShiver;
+      activeHandProp = snap.activeHandProp;
+      overrideEyes = snap.overrideEyes;
+      overrideMouth = snap.overrideMouth;
+      sweepSin = snap.sweepSin;
+      sipWave = snap.sipWave;
+    } else {
+      // NHÁNH V17 LEGACY (100% tương thích ngược)
+      const partner = spec.actors.length > 1 ? spec.actors[aIdx === 0 ? 1 : 0] : undefined;
+      const partnerBaseX = partner ? slotBaseX(partner.slot) : 960;
+
+      switch (actor.motion) {
+        case "WALK_IN": {
+          const walkFromLeft =
+            actor.slot === "LEFT" || (actor.slot === "CENTER" && actor.facing === "RIGHT");
+          const startX = walkFromLeft ? baseX - 320 : baseX + 320;
+          const wt = smoothstep(0.0, 0.45, u);
+          actorX = lerpNum(startX, baseX, wt);
+          walkWeight = u <= 0.47 ? Math.min(smoothstep(0.0, 0.07, u), 1 - smoothstep(0.38, 0.47, u)) : 0;
+          walkCycle = (Math.abs(actorX - startX) / 140) % 1;
+          pose = walkWeight > 0.05 ? "walking" : "standing";
+          torsoTiltDeg = walkWeight * 7.5;
+          if (u < 0.44) {
+            effectiveFacing = startX < baseX ? "RIGHT" : "LEFT";
+          }
+          break;
+        }
+        case "RUN_CHASE": {
+          const runRight = actor.facing === "RIGHT";
+          const startX = runRight ? Math.max(180, baseX - 240) : Math.min(1740, baseX + 240);
+          const endX = runRight ? Math.min(1740, startX + 480) : Math.max(180, startX - 480);
+          actorX = lerpNum(startX, endX, smoothstep(0.0, 0.96, u));
+          walkCycle = (localFrame / 20) % 1;
+          walkWeight = Math.min(smoothstep(0.0, 0.06, u), 1 - smoothstep(0.92, 1.0, u));
+          pose = walkWeight > 0.05 ? "running" : "standing";
+          torsoTiltDeg = 15 * walkWeight;
+          flightLift = Math.max(0, Math.sin(walkCycle * Math.PI * 2)) * 12 * walkWeight;
+          effectiveFacing = runRight ? "RIGHT" : "LEFT";
+          break;
+        }
+        case "WAVE":
+          waveRightArm = true;
+          break;
+        case "THINK_STROLL": {
+          const phase = localFrame * 0.034 + aIdx * 1.3;
+          const offset = Math.sin(phase) * 130;
+          const velocityX = Math.cos(phase);
+          actorX = Math.max(200, Math.min(1720, baseX + offset));
+          effectiveFacing = velocityX >= 0 ? "RIGHT" : "LEFT";
+          const turnSmooth = Math.min(1, Math.abs(velocityX) * 2.4);
+          walkWeight = 0.35 + 0.55 * turnSmooth;
+          walkCycle = (localFrame / 32) % 1;
+          pose = "walking";
+          torsoTiltDeg = 5 * turnSmooth;
+          break;
+        }
+        case "POINT_AT": {
+          torsoTiltDeg = 6;
+          const pDir: 1 | -1 = effectiveFacing === "LEFT" ? -1 : 1;
+          holdingTarget = { rightGrip: { x: actorX + pDir * 105, y: groundY - 215 } };
+          break;
+        }
+        case "JUMP_SHOCK": {
+          const jp = Math.min(1, localFrame / 34);
+          flightLift = Math.sin(jp * Math.PI) * 75;
+          const initDir: 1 | -1 = actor.facing === "LEFT" ? -1 : 1;
+          const recoilT = smoothstep(0.0, 0.42, u);
+          actorX = Math.max(180, Math.min(1740, baseX - initDir * recoilT * 110));
+          pose = jp < 0.88 ? "jumping" : "standing";
+          torsoTiltDeg = -12 * (1 - jp * 0.35);
+          activeShiver = true;
+          holdingTarget = {
+            leftGrip: { x: actorX - 88, y: groundY - 238 - flightLift },
+            rightGrip: { x: actorX + 88, y: groundY - 238 - flightLift },
+          };
+          break;
+        }
+        case "APPROACH_OTHER": {
+          if (partner) {
+            const bothApproach = partner.motion === "APPROACH_OTHER";
+            if (bothApproach && aIdx === 0) {
+              const dirToPartner = partnerBaseX >= baseX ? 1 : -1;
+              const targetX = baseX + dirToPartner * 140;
+              const wt = smoothstep(0.0, 0.36, u);
+              actorX = lerpNum(baseX, targetX, wt);
+              effectiveFacing = dirToPartner > 0 ? "RIGHT" : "LEFT";
+              walkWeight = u <= 0.38 ? Math.min(smoothstep(0.0, 0.07, u), 1 - smoothstep(0.3, 0.38, u)) : 0;
+              walkCycle = (Math.abs(actorX - baseX) / 135) % 1;
+              pose = walkWeight > 0.05 ? "walking" : "standing";
+              torsoTiltDeg = walkWeight * 6;
+            } else {
+              const receiverAnchorX =
+                bothApproach && aIdx === 1
+                  ? partnerBaseX + (baseX >= partnerBaseX ? 140 : -140)
+                  : partnerBaseX;
+              const dirToReceiver = receiverAnchorX >= baseX ? 1 : -1;
+              const stopX = receiverAnchorX - dirToReceiver * 142;
+              const wt = smoothstep(0.0, 0.52, u);
+              actorX = lerpNum(baseX, stopX, wt);
+              effectiveFacing = dirToReceiver > 0 ? "RIGHT" : "LEFT";
+              walkWeight = u <= 0.54 ? Math.min(smoothstep(0.0, 0.07, u), 1 - smoothstep(0.44, 0.54, u)) : 0;
+              walkCycle = (Math.abs(actorX - baseX) / 140) % 1;
+              pose = walkWeight > 0.05 ? "walking" : "standing";
+              torsoTiltDeg = walkWeight * 7 + (1 - walkWeight) * 4;
+              const reachT = smoothstep(0.42, 0.62, u);
+              if (reachT > 0.02) {
+                holdingTarget = {
+                  rightGrip: {
+                    x: actorX + dirToReceiver * (74 + reachT * 36),
+                    y: groundY - 210 - reachT * 26,
+                  },
+                };
+              }
+            }
+          } else {
+            const stopX = baseX < 960 ? 820 : 1100;
+            const dirToCenter: 1 | -1 = stopX >= baseX ? 1 : -1;
+            const wt = smoothstep(0.0, 0.45, u);
+            actorX = lerpNum(baseX, stopX, wt);
+            effectiveFacing = dirToCenter > 0 ? "RIGHT" : "LEFT";
+            walkWeight = u <= 0.47 ? Math.min(smoothstep(0.0, 0.07, u), 1 - smoothstep(0.38, 0.47, u)) : 0;
+            walkCycle = (Math.abs(actorX - baseX) / 140) % 1;
+            pose = walkWeight > 0.05 ? "walking" : "standing";
+            torsoTiltDeg = walkWeight * 7;
+          }
+          break;
+        }
+        case "HOP_PAIN": {
+          flightLift = Math.abs(Math.sin(localFrame * 0.22)) * 42;
+          torsoTiltDeg = -8;
+          activeShiver = true;
+          break;
+        }
+        case "SIT_OBSERVE": {
+          crouchDepth = 0;
+          pose = "standing";
+          torsoTiltDeg = 4;
+          handsOnHips = true;
+          headTiltDeg = -7 + Math.sin(frame * 0.08) * 3;
+          break;
+        }
+        case "CELEBRATE": {
+          flightLift = Math.abs(Math.sin(localFrame * 0.16)) * 38;
+          waveRightArm = true;
+          waveLeftArm = true;
+          break;
+        }
+        default: {
+          if (partner && partner.motion === "APPROACH_OTHER") {
+            effectiveFacing = partnerBaseX >= baseX ? "RIGHT" : "LEFT";
+          }
+          torsoTiltDeg = 2;
+          break;
+        }
+      }
+    }
+
+    const facingDir: 1 | -1 = effectiveFacing === "LEFT" ? -1 : 1;
+    const estHipY = -173 + crouchDepth - flightLift;
+    const headWorldY = groundY + (estHipY - TORSO_LEN - 70) * actorScale;
+
+    let handGripX = holdingTarget?.rightGrip?.x ?? actorX + facingDir * 82;
+    let handGripY = holdingTarget?.rightGrip?.y ?? groundY - 208 - flightLift + crouchDepth * 0.65;
+    let writePenWorld: { x: number; y: number } | null = null;
+
+    if (blendedArmPose) {
+      if (v18ActionPose === "WRITE_NOTE") {
+        const nbPos = projectUpperLocalToWorld(
+          blendedArmPose.leftWrist,
+          estHipY,
+          torsoTiltDeg,
+          actorX,
+          groundY,
+          actorScale,
+          facingDir
+        );
+        handGripX = nbPos.x;
+        handGripY = nbPos.y;
+        writePenWorld = projectUpperLocalToWorld(
+          blendedArmPose.rightWrist,
+          estHipY,
+          torsoTiltDeg,
+          actorX,
+          groundY,
+          actorScale,
+          facingDir
+        );
+      } else {
+        const rwPos = projectUpperLocalToWorld(
+          blendedArmPose.rightWrist,
+          estHipY,
+          torsoTiltDeg,
+          actorX,
+          groundY,
+          actorScale,
+          facingDir
+        );
+        handGripX = rwPos.x;
+        handGripY = rwPos.y;
+      }
+    } else if (activeHandProp !== "NONE") {
+      waveRightArm = false;
+      handsOnHips = false;
+      holdingTarget = {
+        ...(holdingTarget || {}),
+        rightGrip: { x: handGripX, y: handGripY },
+      };
+    }
+
+    const isActivelyTalkingPose = Boolean(
+      isSpeaking ||
+        v18ActionPose === "TALK_GESTURE" ||
+        v18ActionPose === "POINT_FORWARD" ||
+        v18ActionPose === "PAT_SHOULDER" ||
+        (!timelineResolved && (actor.motion === "APPROACH_OTHER" || actor.motion === "POINT_AT"))
+    );
+
+    return {
+      actor,
+      aIdx,
+      isLieSleepMode: false,
+      sleepAnchorX: baseX,
+      bubbleAppear,
+      bubbleDisappear,
+      isSpeaking,
+      isActivelyTalkingPose,
+      actorX,
+      headWorldY,
+      effectiveFacing,
+      activeExprEnum,
+      activeHandProp,
+      activeShiver,
+      pose,
+      walkWeight,
+      walkCycle,
+      torsoTiltDeg,
+      headTiltDeg,
+      flightLift,
+      crouchDepth,
+      anticipationScaleY,
+      waveRightArm,
+      waveLeftArm,
+      handsOnHips,
+      turnScaleX,
+      v18ActionPose,
+      v18SegmentProgress,
+      v18LocalFrame,
+      blendedArmPose,
+      handPropTiltDeg,
+      overrideEyes,
+      overrideMouth,
+      holdingTarget,
+      handGripX,
+      handGripY,
+      writePenWorld,
+      sweepSin,
+      sipWave,
+    };
+  });
+
   return (
     <g id={`universal-auto-stage-${spec.id}`}>
       <g transform={`translate(${camFocusX}, ${camFocusY}) scale(${camZoom.toFixed(4)}) translate(${-camFocusX}, ${-camFocusY})`}>
-        {/* 1. BỐI CẢNH (10 BỐI CẢNH SỐNG ĐỘNG 60FPS) */}
+        {/* 1. BỐI CẢNH (11 BỐI CẢNH SỐNG ĐỘNG 60FPS — BAO GỒM PHÒNG TIÊU ÂM ANECHOIC_CHAMBER V18.2) */}
         {spec.stageType === "COUNTRYSIDE_YARD" && (
           <CountrysideYardBackdrop timeOfDay={spec.timeOfDay} frame={frame} groundY={groundY} />
         )}
@@ -767,6 +1701,9 @@ export const UniversalAutoStage: React.FC<{
           <UndergroundCrossSectionStage frame={frame} localFrame={localFrame} showAnts={true} />
         )}
         {spec.stageType === "SPACE_COSMOS" && <SpaceCosmosBackdrop frame={frame} groundY={groundY} />}
+        {spec.stageType === "ANECHOIC_CHAMBER" && (
+          <AnechoicChamberBackdrop timeOfDay={spec.timeOfDay} frame={frame} groundY={groundY} />
+        )}
         {spec.stageType === "EXPLAINER_POLKA_DOT" && (
           <>
             <ExplainerPolkaDotBackdrop
@@ -804,12 +1741,9 @@ export const UniversalAutoStage: React.FC<{
                   id="outdoor-thought-prop-bubble"
                   transform={`translate(${propPlacement.x}, ${(propPlacement.y + floatY).toFixed(1)}) scale(${enter.toFixed(3)})`}
                 >
-                  {/* Đổ bóng mềm */}
                   <ellipse cx={4} cy={7} rx={104} ry={88} fill="rgba(15, 23, 42, 0.14)" />
-                  {/* Viền ngoài mây suy nghĩ tròn mềm */}
                   <ellipse cx={0} cy={0} rx={102} ry={86} fill="#FFFFFF" stroke="#141414" strokeWidth={3.8} />
                   <ellipse cx={0} cy={0} rx={93} ry={77} fill="#F8FAFC" opacity={0.65} />
-                  {/* 2 chấm tròn suy nghĩ nhỏ dẫn hướng mềm mại về phía nhân vật */}
                   {tx !== 0 && (
                     <>
                       <circle cx={tx * 54} cy={96} r={11} fill="#FFFFFF" stroke="#141414" strokeWidth={3.2} />
@@ -830,41 +1764,21 @@ export const UniversalAutoStage: React.FC<{
           </g>
         )}
 
-        {/* 3. NHÂN VẬT NGƯỜI QUE THUẦN V16/V18 (0..2 ACTORS, TIMELINE 18 TƯ THẾ HOẶC V17 LEGACY) */}
-        {spec.actors.map((actor, aIdx) => {
-          const baseX = slotBaseX(actor.slot);
-          const hasTimeline = Boolean(actor.timeline && actor.timeline.length > 0);
-          const timelineResolved = hasTimeline
-            ? resolveActiveTimelineKeyframe(actor.timeline!, sceneProgressP)
-            : null;
+        {/* 3. PASS 2 (V18.2): RENDER NHÂN VẬT VỚI ÁNH MẮT CÓ HỒN + LISTENER NOD + SMOOTH BLEND */}
+        {resolvedActors.map((ra) => {
+          const { actor, aIdx } = ra;
 
-          // V18.0: Khung thời gian bóng thoại tùy chỉnh (bubbleStartPct..bubbleEndPct, mặc định 0.15 -> 0.90)
-          const bubbleStartPct = actor.bubbleStartPct ?? 0.15;
-          const bubbleEndPct = actor.bubbleEndPct ?? 0.9;
-          const bubbleAppear = Math.max(4, Math.round(durationFrames * bubbleStartPct));
-          const bubbleDisappear = Math.max(bubbleAppear + 12, Math.round(durationFrames * bubbleEndPct));
-          const isSpeaking = Boolean(
-            actor.bubble && isComicBubbleActive(localFrame, bubbleAppear, bubbleDisappear)
-          );
-
-          // Kiểm tra chế độ nằm ngủ trên giường (hỗ trợ cả V17 SLEEP_BED lẫn V18 LIE_SLEEP!)
-          const isLieSleepMode =
-            (timelineResolved && timelineResolved.kf.pose === "LIE_SLEEP") ||
-            (!timelineResolved && actor.motion === "SLEEP_BED");
-
-          if (isLieSleepMode) {
+          if (ra.isLieSleepMode) {
             const breathe = Math.sin(frame * 0.08) * 2.5;
             const isClinic = spec.stageType === "DOCTOR_CLINIC";
             const isBedroom = spec.stageType === "BEDROOM_INDOOR";
-            const sleepAnchorX = timelineResolved ? timelineResolved.kf.endX : baseX;
-            const headX = isBedroom ? 1522 : isClinic ? 1685 : sleepAnchorX + 80;
+            const headX = isBedroom ? 1522 : isClinic ? 1685 : ra.sleepAnchorX + 80;
             const headY = isBedroom ? 610 : isClinic ? 622 : groundY - 62;
-            const blanketX = isBedroom ? 1200 : isClinic ? 1365 : sleepAnchorX - 180;
+            const blanketX = isBedroom ? 1200 : isClinic ? 1365 : ra.sleepAnchorX - 180;
             const blanketY = isBedroom ? 648 : isClinic ? 650 : groundY - 46;
             const blanketW = isBedroom ? 295 : isClinic ? 285 : 230;
             return (
               <g key={`actor_sleep_${aIdx}`}>
-                {/* Chăn đắp gọn ôm thân trên nệm giường */}
                 <path
                   d={`M ${blanketX},${blanketY + 34} Q ${blanketX + blanketW * 0.45},${
                     blanketY - 16 - breathe
@@ -876,7 +1790,6 @@ export const UniversalAutoStage: React.FC<{
                   strokeWidth={3.5}
                   strokeLinejoin="round"
                 />
-                {/* Đầu nhân vật gối gọn trên gối trắng */}
                 <g transform={`translate(${headX}, ${(headY + breathe * 0.4).toFixed(1)}) rotate(-12)`}>
                   <circle cx={0} cy={0} r={46} fill="#FFFFFF" stroke="#141414" strokeWidth={4} />
                   <path
@@ -917,486 +1830,154 @@ export const UniversalAutoStage: React.FC<{
                     headTopY={headY - 48}
                     text={actor.bubble}
                     localFrame={localFrame}
-                    appearFrame={bubbleAppear}
-                    disappearFrame={bubbleDisappear}
+                    appearFrame={ra.bubbleAppear}
+                    disappearFrame={ra.bubbleDisappear}
                   />
                 )}
               </g>
             );
           }
 
-          // Các biến động học chung (dùng cho cả V18 timeline[] và V17 legacy motion)
-          const actorScale = 0.96;
-          let actorX = baseX;
-          let effectiveFacing: "LEFT" | "RIGHT" = actor.facing;
-          let activeExprEnum: AutoActorExpression = actor.expression;
-          let activeHandProp: AutoHandProp = actor.handProp || "NONE";
-          let activeShiver = Boolean(actor.shiver);
-          let pose: "standing" | "walking" | "running" | "jumping" | "crouching" | "pointing" | "waving" = "standing";
-          let walkWeight = 0;
-          let walkCycle = 0;
-          let torsoTiltDeg = 0;
-          let headTiltDeg = 0;
-          let flightLift = 0;
-          let crouchDepth = 0;
-          let waveRightArm = false;
-          let waveLeftArm = false;
-          let handsOnHips = false;
-          let turnScaleX = 1.0;
-          let v18ActionPose: ActionPoseV18 | undefined;
-          let v18SegmentProgress = 0.5;
-          let v18LocalFrame = localFrame;
-          let handPropTiltDeg = 0;
-          let overrideEyes: EyeExpression | undefined;
-          let overrideMouth: MouthExpression | undefined;
-          let holdingTarget: { leftGrip?: { x: number; y: number }; rightGrip?: { x: number; y: number } } | undefined;
+          const expr = mapAutoExpression(ra.activeExprEnum);
+          const facingDir: 1 | -1 = ra.effectiveFacing === "LEFT" ? -1 : 1;
+          const otherActor = resolvedActors.length >= 2 ? resolvedActors[aIdx === 0 ? 1 : 0] : undefined;
 
-          if (timelineResolved) {
-            // =================================================================
-            // NHÁNH V18.0: KEYFRAME ACTION TIMELINE (18 TƯ THẾ LIÊN HOÀN 60FPS)
-            // =================================================================
-            const { kf, prevKf, segU } = timelineResolved;
-            const segLocalFrame = Math.max(0, localFrame - Math.round(kf.fromPct * durationFrames));
-            const easeX = smoothstep(0, 1, segU);
-            const moveDist = Math.abs(kf.endX - kf.startX);
-
-            actorX = lerpNum(kf.startX, kf.endX, easeX);
-            effectiveFacing = kf.facing;
-            activeExprEnum = kf.expression;
-            activeHandProp = kf.handProp !== undefined ? kf.handProp : actor.handProp || "NONE";
-            activeShiver = Boolean(kf.shiver ?? actor.shiver);
-            v18SegmentProgress = segU;
-            v18LocalFrame = segLocalFrame;
-
-            switch (kf.pose) {
-              case "WALK": {
-                if (moveDist > 4) {
-                  walkCycle = (Math.abs(actorX - kf.startX) / 145) % 1;
-                  walkWeight = Math.min(smoothstep(0, 0.1, segU), 1 - smoothstep(0.9, 1.0, segU));
-                } else {
-                  walkCycle = (segLocalFrame / 36) % 1;
-                  walkWeight = 0.85;
-                }
-                pose = walkWeight > 0.05 ? "walking" : "standing";
-                torsoTiltDeg = 6.5 * walkWeight;
-                break;
-              }
-              case "RUN": {
-                if (moveDist > 4) {
-                  walkCycle = (Math.abs(actorX - kf.startX) / 165) % 1;
-                  walkWeight = Math.min(smoothstep(0, 0.08, segU), 1 - smoothstep(0.92, 1.0, segU));
-                } else {
-                  walkCycle = (segLocalFrame / 20) % 1;
-                  walkWeight = 0.95;
-                }
-                pose = walkWeight > 0.05 ? "running" : "standing";
-                torsoTiltDeg = 16 * walkWeight;
-                flightLift = Math.max(0, Math.sin(walkCycle * Math.PI * 2)) * 12 * walkWeight;
-                break;
-              }
-              case "TURN_AROUND": {
-                const turnT = smoothstep(0, 0.45, segU);
-                const oldFacing = prevKf ? prevKf.facing : kf.facing === "RIGHT" ? "LEFT" : "RIGHT";
-                if (oldFacing !== kf.facing && turnT < 0.99) {
-                  const cosTurn = Math.cos(turnT * Math.PI);
-                  if (turnT < 0.5) {
-                    effectiveFacing = oldFacing;
-                    turnScaleX = Math.max(0.18, cosTurn);
-                  } else {
-                    effectiveFacing = kf.facing;
-                    turnScaleX = Math.max(0.18, -cosTurn);
-                  }
-                }
-                torsoTiltDeg = Math.sin(turnT * Math.PI) * 6;
-                headTiltDeg = Math.sin(turnT * Math.PI) * 8;
-                break;
-              }
-              case "CROUCH_LOOK": {
-                crouchDepth = 46;
-                pose = "crouching";
-                torsoTiltDeg = 22;
-                headTiltDeg = -10 + Math.sin(frame * 0.09) * 3;
-                v18ActionPose = "CROUCH_LOOK";
-                break;
-              }
-              case "REACH_GRAB": {
-                const reachT = smoothstep(0, 0.55, segU);
-                torsoTiltDeg = 16 * reachT;
-                headTiltDeg = 4 * reachT;
-                v18ActionPose = "REACH_GRAB";
-                break;
-              }
-              case "POINT_UP": {
-                torsoTiltDeg = -3;
-                headTiltDeg = -13;
-                v18ActionPose = "POINT_UP";
-                break;
-              }
-              case "POINT_FORWARD": {
-                torsoTiltDeg = 6;
-                v18ActionPose = "POINT_FORWARD";
-                break;
-              }
-              case "SCRATCH_HEAD": {
-                torsoTiltDeg = 2;
-                headTiltDeg = -10 + Math.sin(frame * 0.24) * 3.5;
-                v18ActionPose = "SCRATCH_HEAD";
-                break;
-              }
-              case "FACEPALM": {
-                torsoTiltDeg = 6;
-                headTiltDeg = 12 + Math.sin(frame * 0.1) * 2;
-                v18ActionPose = "FACEPALM";
-                break;
-              }
-              case "JUMP_BACK": {
-                const jp = Math.min(1, segU / 0.65);
-                flightLift = Math.sin(jp * Math.PI) * 72;
-                if (moveDist < 4) {
-                  const initDir: 1 | -1 = kf.facing === "LEFT" ? -1 : 1;
-                  actorX = Math.max(180, Math.min(1740, kf.startX - initDir * smoothstep(0, 0.5, segU) * 105));
-                }
-                pose = jp < 0.88 ? "jumping" : "standing";
-                torsoTiltDeg = -13 * (1 - jp * 0.3);
-                activeShiver = true;
-                v18ActionPose = "JUMP_BACK";
-                break;
-              }
-              case "ARMS_UP_CHEER": {
-                flightLift = Math.abs(Math.sin(segLocalFrame * 0.16)) * 34;
-                torsoTiltDeg = -3;
-                v18ActionPose = "ARMS_UP_CHEER";
-                break;
-              }
-              case "SIP_DRINK": {
-                const sipWave = Math.pow(0.5 - 0.5 * Math.cos(segLocalFrame * 0.105), 1.35);
-                torsoTiltDeg = -3 * sipWave;
-                headTiltDeg = -14 * sipWave;
-                if (activeHandProp === "NONE") activeHandProp = "CUP_SODA";
-                v18ActionPose = "SIP_DRINK";
-                break;
-              }
-              case "WRITE_NOTE": {
-                torsoTiltDeg = 8;
-                headTiltDeg = 12;
-                if (activeHandProp === "NONE") activeHandProp = "NOTEBOOK";
-                v18ActionPose = "WRITE_NOTE";
-                break;
-              }
-              case "SWEEP_LIGHT": {
-                const sweepSin = Math.sin(segLocalFrame * 0.11);
-                torsoTiltDeg = 6;
-                headTiltDeg = sweepSin * 14;
-                handPropTiltDeg = sweepSin * 26;
-                if (activeHandProp === "NONE") activeHandProp = "FLASHLIGHT";
-                v18ActionPose = "SWEEP_LIGHT";
-                break;
-              }
-              case "PAT_SHOULDER": {
-                torsoTiltDeg = 7;
-                v18ActionPose = "PAT_SHOULDER";
-                break;
-              }
-              case "STRETCH_YAWN": {
-                const stretchP = Math.sin(Math.min(1, Math.max(0.15, segU)) * Math.PI);
-                torsoTiltDeg = -7 * stretchP;
-                headTiltDeg = -10 * stretchP;
-                overrideMouth = "gasp";
-                if (stretchP > 0.35) overrideEyes = "closed";
-                v18ActionPose = "STRETCH_YAWN";
-                break;
-              }
-              case "SHIVER_PANIC": {
-                crouchDepth = 12;
-                torsoTiltDeg = -5;
-                activeShiver = true;
-                overrideEyes = "wide";
-                overrideMouth = "circleOpen";
-                v18ActionPose = "SHIVER_PANIC";
-                break;
-              }
-              default:
-                break;
-            }
+          // V18.2: Tính hướng ánh mắt tự động (lookOffset trong -4px..+4px) khử triệt để cảm giác "lơ ngơ"
+          let lookOffset: { dx: number; dy: number };
+          if (ra.v18ActionPose === "SWEEP_LIGHT") {
+            // Mắt liếc bám theo góc tia sáng đèn pin lên/xuống
+            lookOffset = { dx: 3.4, dy: Math.max(-3.6, Math.min(3.6, ra.sweepSin * 3.4)) };
+          } else if (ra.v18ActionPose === "WRITE_NOTE") {
+            // Nhìn xuống cuốn sổ tay đang ghi chép
+            lookOffset = { dx: 2.6, dy: 3.6 };
+          } else if (ra.v18ActionPose === "CROUCH_LOOK") {
+            // Nhìn tập trung xuống phía trước mục tiêu
+            lookOffset = { dx: 3.6, dy: 2.6 };
+          } else if (ra.v18ActionPose === "SIP_DRINK") {
+            // Liếc nhìn theo cốc nước đưa lên miệng
+            lookOffset = { dx: 2.8, dy: 2.4 - ra.sipWave * 1.6 };
+          } else if (ra.v18ActionPose === "POINT_UP") {
+            // Liếc nhìn lên phía tay đang chỉ
+            lookOffset = { dx: 2.4, dy: -3.6 };
+          } else if (otherActor && !otherActor.isLieSleepMode) {
+            // Cảnh 2 nhân vật: tự động nhìn thẳng vào mặt nhau khi trò chuyện/tương tác!
+            const rawLocalDx = (otherActor.actorX - ra.actorX) * facingDir;
+            const rawDy = otherActor.headWorldY - ra.headWorldY;
+            const aimedDx =
+              rawLocalDx >= 0
+                ? Math.max(2.4, Math.min(3.8, rawLocalDx / 90))
+                : Math.min(-2.4, Math.max(-3.8, rawLocalDx / 90));
+            lookOffset = {
+              dx: aimedDx,
+              dy: Math.max(-2.5, Math.min(2.5, rawDy / 85)),
+            };
+          } else if (
+            propPlacement.propId !== "NONE" &&
+            (propPlacement.inThoughtBubble || propPlacement.y < ra.headWorldY - 40)
+          ) {
+            // Có bóng suy nghĩ hoặc đạo cụ phía trên: liếc nhìn lên phía bóng suy nghĩ!
+            const rawLocalDx = (propPlacement.x - ra.actorX) * facingDir;
+            const rawDy = propPlacement.y - ra.headWorldY;
+            lookOffset = {
+              dx: Math.max(-3.6, Math.min(3.6, rawLocalDx / 135)),
+              dy: Math.max(-3.8, Math.min(-1.5, rawDy / 85)),
+            };
+          } else if (ra.activeHandProp === "PHONE" || ra.activeHandProp === "NOTEBOOK") {
+            // Cầm điện thoại / sổ tay ở chế độ V17 legacy -> nhìn xuống vật cầm tay
+            lookOffset = { dx: 2.8, dy: 2.8 };
           } else {
-            // =================================================================
-            // NHÁNH V17 LEGACY (100% TƯƠNG THÍCH NGƯỢC KHI KHÔNG CÓ timeline[])
-            // =================================================================
-            const partner = spec.actors.length > 1 ? spec.actors[aIdx === 0 ? 1 : 0] : undefined;
-            const partnerBaseX = partner ? slotBaseX(partner.slot) : 960;
-
-            switch (actor.motion) {
-              case "WALK_IN": {
-                const walkFromLeft =
-                  actor.slot === "LEFT" || (actor.slot === "CENTER" && actor.facing === "RIGHT");
-                const startX = walkFromLeft ? baseX - 320 : baseX + 320;
-                const wt = smoothstep(0.0, 0.45, u);
-                actorX = lerpNum(startX, baseX, wt);
-                walkWeight = u <= 0.47 ? Math.min(smoothstep(0.0, 0.07, u), 1 - smoothstep(0.38, 0.47, u)) : 0;
-                walkCycle = (Math.abs(actorX - startX) / 140) % 1;
-                pose = walkWeight > 0.05 ? "walking" : "standing";
-                torsoTiltDeg = walkWeight * 7.5;
-                if (u < 0.44) {
-                  effectiveFacing = startX < baseX ? "RIGHT" : "LEFT";
-                }
-                break;
-              }
-              case "RUN_CHASE": {
-                const runRight = actor.facing === "RIGHT";
-                const startX = runRight ? Math.max(180, baseX - 240) : Math.min(1740, baseX + 240);
-                const endX = runRight ? Math.min(1740, startX + 480) : Math.max(180, startX - 480);
-                actorX = lerpNum(startX, endX, smoothstep(0.0, 0.96, u));
-                walkCycle = (localFrame / 20) % 1;
-                walkWeight = Math.min(smoothstep(0.0, 0.06, u), 1 - smoothstep(0.92, 1.0, u));
-                pose = walkWeight > 0.05 ? "running" : "standing";
-                torsoTiltDeg = 15 * walkWeight;
-                flightLift = Math.max(0, Math.sin(walkCycle * Math.PI * 2)) * 12 * walkWeight;
-                effectiveFacing = runRight ? "RIGHT" : "LEFT";
-                break;
-              }
-              case "WAVE":
-                waveRightArm = true;
-                break;
-              case "THINK_STROLL": {
-                const phase = localFrame * 0.034 + aIdx * 1.3;
-                const offset = Math.sin(phase) * 130;
-                const velocityX = Math.cos(phase);
-                actorX = Math.max(200, Math.min(1720, baseX + offset));
-                effectiveFacing = velocityX >= 0 ? "RIGHT" : "LEFT";
-                const turnSmooth = Math.min(1, Math.abs(velocityX) * 2.4);
-                walkWeight = 0.35 + 0.55 * turnSmooth;
-                walkCycle = (localFrame / 32) % 1;
-                pose = "walking";
-                torsoTiltDeg = 5 * turnSmooth;
-                break;
-              }
-              case "POINT_AT": {
-                torsoTiltDeg = 6;
-                const pDir: 1 | -1 = effectiveFacing === "LEFT" ? -1 : 1;
-                holdingTarget = { rightGrip: { x: actorX + pDir * 105, y: groundY - 215 } };
-                break;
-              }
-              case "JUMP_SHOCK": {
-                const jp = Math.min(1, localFrame / 34);
-                flightLift = Math.sin(jp * Math.PI) * 75;
-                const initDir: 1 | -1 = actor.facing === "LEFT" ? -1 : 1;
-                const recoilT = smoothstep(0.0, 0.42, u);
-                actorX = Math.max(180, Math.min(1740, baseX - initDir * recoilT * 110));
-                pose = jp < 0.88 ? "jumping" : "standing";
-                torsoTiltDeg = -12 * (1 - jp * 0.35);
-                activeShiver = true;
-                holdingTarget = {
-                  leftGrip: { x: actorX - 88, y: groundY - 238 - flightLift },
-                  rightGrip: { x: actorX + 88, y: groundY - 238 - flightLift },
-                };
-                break;
-              }
-              case "APPROACH_OTHER": {
-                if (partner) {
-                  const bothApproach = partner.motion === "APPROACH_OTHER";
-                  if (bothApproach && aIdx === 0) {
-                    const dirToPartner = partnerBaseX >= baseX ? 1 : -1;
-                    const targetX = baseX + dirToPartner * 140;
-                    const wt = smoothstep(0.0, 0.36, u);
-                    actorX = lerpNum(baseX, targetX, wt);
-                    effectiveFacing = dirToPartner > 0 ? "RIGHT" : "LEFT";
-                    walkWeight = u <= 0.38 ? Math.min(smoothstep(0.0, 0.07, u), 1 - smoothstep(0.3, 0.38, u)) : 0;
-                    walkCycle = (Math.abs(actorX - baseX) / 135) % 1;
-                    pose = walkWeight > 0.05 ? "walking" : "standing";
-                    torsoTiltDeg = walkWeight * 6;
-                  } else {
-                    const receiverAnchorX =
-                      bothApproach && aIdx === 1
-                        ? partnerBaseX + (baseX >= partnerBaseX ? 140 : -140)
-                        : partnerBaseX;
-                    const dirToReceiver = receiverAnchorX >= baseX ? 1 : -1;
-                    const stopX = receiverAnchorX - dirToReceiver * 142;
-                    const wt = smoothstep(0.0, 0.52, u);
-                    actorX = lerpNum(baseX, stopX, wt);
-                    effectiveFacing = dirToReceiver > 0 ? "RIGHT" : "LEFT";
-                    walkWeight = u <= 0.54 ? Math.min(smoothstep(0.0, 0.07, u), 1 - smoothstep(0.44, 0.54, u)) : 0;
-                    walkCycle = (Math.abs(actorX - baseX) / 140) % 1;
-                    pose = walkWeight > 0.05 ? "walking" : "standing";
-                    torsoTiltDeg = walkWeight * 7 + (1 - walkWeight) * 4;
-                    const reachT = smoothstep(0.42, 0.62, u);
-                    if (reachT > 0.02) {
-                      holdingTarget = {
-                        rightGrip: {
-                          x: actorX + dirToReceiver * (74 + reachT * 36),
-                          y: groundY - 210 - reachT * 26,
-                        },
-                      };
-                    }
-                  }
-                } else {
-                  const stopX = baseX < 960 ? 820 : 1100;
-                  const dirToCenter: 1 | -1 = stopX >= baseX ? 1 : -1;
-                  const wt = smoothstep(0.0, 0.45, u);
-                  actorX = lerpNum(baseX, stopX, wt);
-                  effectiveFacing = dirToCenter > 0 ? "RIGHT" : "LEFT";
-                  walkWeight = u <= 0.47 ? Math.min(smoothstep(0.0, 0.07, u), 1 - smoothstep(0.38, 0.47, u)) : 0;
-                  walkCycle = (Math.abs(actorX - baseX) / 140) % 1;
-                  pose = walkWeight > 0.05 ? "walking" : "standing";
-                  torsoTiltDeg = walkWeight * 7;
-                }
-                break;
-              }
-              case "HOP_PAIN": {
-                flightLift = Math.abs(Math.sin(localFrame * 0.22)) * 42;
-                torsoTiltDeg = -8;
-                activeShiver = true;
-                break;
-              }
-              case "SIT_OBSERVE": {
-                // V18.0 Fix #2: Thay dáng ngồi squat lơ lửng bằng dáng đứng chống hông hơi nghiêng đầu quan sát tự nhiên!
-                crouchDepth = 0;
-                pose = "standing";
-                torsoTiltDeg = 4;
-                handsOnHips = true;
-                headTiltDeg = -7 + Math.sin(frame * 0.08) * 3;
-                break;
-              }
-              case "CELEBRATE": {
-                flightLift = Math.abs(Math.sin(localFrame * 0.16)) * 38;
-                waveRightArm = true;
-                waveLeftArm = true;
-                break;
-              }
-              default: {
-                if (partner && partner.motion === "APPROACH_OTHER") {
-                  effectiveFacing = partnerBaseX >= baseX ? "RIGHT" : "LEFT";
-                }
-                torsoTiltDeg = 2;
-                break;
-              }
-            }
-          }
-
-          const expr = mapAutoExpression(activeExprEnum);
-          const facingDir: 1 | -1 = effectiveFacing === "LEFT" ? -1 : 1;
-
-          // Tính tọa độ cổ tay thực để khóa đạo cụ cầm tay (handProp) khít 0px cho cả V18 timeline lẫn V17 legacy!
-          const estHipY = -173 + crouchDepth - flightLift;
-          const v18ArmSnapshot = v18ActionPose
-            ? computeV18ActionArmsUpper(
-                v18ActionPose,
-                handsOnHips,
-                { x: 0, y: -TORSO_LEN },
-                frame,
-                v18LocalFrame,
-                v18SegmentProgress
-              )
-            : null;
-
-          let handGripX = holdingTarget?.rightGrip?.x ?? actorX + facingDir * 82;
-          let handGripY = holdingTarget?.rightGrip?.y ?? groundY - 208 - flightLift + crouchDepth * 0.65;
-          let writePenWorld: { x: number; y: number } | null = null;
-
-          if (v18ArmSnapshot) {
-            if (v18ActionPose === "WRITE_NOTE") {
-              // Sổ tay nằm ở tay trái, tay phải cầm bút viết chuyển động liên tục!
-              const nbPos = projectUpperLocalToWorld(
-                v18ArmSnapshot.leftWrist,
-                estHipY,
-                torsoTiltDeg,
-                actorX,
-                groundY,
-                actorScale,
-                facingDir
-              );
-              handGripX = nbPos.x;
-              handGripY = nbPos.y;
-              writePenWorld = projectUpperLocalToWorld(
-                v18ArmSnapshot.rightWrist,
-                estHipY,
-                torsoTiltDeg,
-                actorX,
-                groundY,
-                actorScale,
-                facingDir
-              );
-            } else {
-              const rwPos = projectUpperLocalToWorld(
-                v18ArmSnapshot.rightWrist,
-                estHipY,
-                torsoTiltDeg,
-                actorX,
-                groundY,
-                actorScale,
-                facingDir
-              );
-              handGripX = rwPos.x;
-              handGripY = rwPos.y;
-            }
-          } else if (activeHandProp !== "NONE") {
-            // V17 legacy hoặc WALK/RUN kèm đạo cụ cầm tay: dùng holdingTarget nếu không chống hông
-            waveRightArm = false;
-            handsOnHips = false;
-            holdingTarget = {
-              ...(holdingTarget || {}),
-              rightGrip: { x: handGripX, y: handGripY },
+            // Ánh nhìn tự nhiên có sinh khí về phía trước
+            lookOffset = {
+              dx: 1.8 + Math.sin(frame * 0.03 + aIdx * 1.7) * 0.65,
+              dy: Math.cos(frame * 0.025 + aIdx * 1.1) * 0.45,
             };
           }
 
+          // V18.2 listenerNod: Người đứng nghe trong cảnh 2 người có nhịp gật đầu phản hồi nhẹ tự nhiên!
+          const isListeningToPartner = Boolean(
+            otherActor &&
+              !otherActor.isLieSleepMode &&
+              !ra.isSpeaking &&
+              (otherActor.isSpeaking || otherActor.isActivelyTalkingPose) &&
+              ra.pose === "standing" &&
+              ra.v18ActionPose !== "JUMP_BACK" &&
+              ra.v18ActionPose !== "SHIVER_PANIC" &&
+              ra.v18ActionPose !== "FACEPALM"
+          );
+          const listenerNodDeg = isListeningToPartner
+            ? Math.sin(frame * 0.14 + aIdx) * 3.6 * (0.45 + 0.55 * Math.max(0, Math.sin(frame * 0.035)))
+            : 0;
+
+          const effectiveHeadTiltDeg = ra.headTiltDeg + listenerNodDeg;
+          const nodAmplitudeDeg =
+            ra.v18ActionPose === "SWEEP_LIGHT" || ra.v18ActionPose === "FACEPALM"
+              ? 0.5
+              : ra.v18ActionPose === "TALK_GESTURE"
+              ? 4.0
+              : isListeningToPartner
+              ? 1.2
+              : actor.motion === "IDLE_TALK" || actor.motion === "WAVE" || actor.motion === "APPROACH_OTHER"
+              ? 3.2
+              : 1.5;
+
           return (
             <g key={`auto_actor_${spec.id}_${aIdx}`}>
-              {activeHandProp !== "NONE" && (
+              {ra.activeHandProp !== "NONE" && (
                 <HandPropGraphic
-                  prop={activeHandProp}
-                  x={handGripX}
-                  y={handGripY}
+                  prop={ra.activeHandProp}
+                  x={ra.handGripX}
+                  y={ra.handGripY}
                   facingDir={facingDir}
                   isNight={isNight}
                   frame={frame}
-                  extraTiltDeg={handPropTiltDeg}
+                  extraTiltDeg={ra.handPropTiltDeg}
                 />
               )}
               <StickmanRig
                 characterPreset={actor.preset}
                 frame={frame}
                 state={{
-                  x: actorX,
+                  x: ra.actorX,
                   y: groundY,
                   scale: actorScale,
-                  facing: effectiveFacing === "LEFT" ? "left" : "right",
-                  pose,
-                  torsoTiltDeg,
-                  limbAngles: Math.abs(headTiltDeg) > 0.1 ? { head: headTiltDeg } : undefined,
-                  flightLift,
-                  crouchDepth,
-                  walkCycleProgress: walkCycle,
-                  walkWeight,
-                  waveRightArm,
-                  waveLeftArm,
+                  facing: ra.effectiveFacing === "LEFT" ? "left" : "right",
+                  pose: ra.pose,
+                  torsoTiltDeg: ra.torsoTiltDeg,
+                  headTiltDeg: effectiveHeadTiltDeg,
+                  flightLift: ra.flightLift,
+                  crouchDepth: ra.crouchDepth,
+                  anticipationScaleY: ra.anticipationScaleY,
+                  walkCycleProgress: ra.walkCycle,
+                  walkWeight: ra.walkWeight,
+                  waveRightArm: ra.waveRightArm,
+                  waveLeftArm: ra.waveLeftArm,
                   wavePhaseOffset: aIdx * 1.4,
-                  handsOnHips,
-                  turnScaleX,
-                  v18ActionPose,
-                  v18SegmentProgress,
-                  v18LocalFrame,
-                  nodAmplitudeDeg:
-                    v18ActionPose === "SWEEP_LIGHT" || v18ActionPose === "FACEPALM"
-                      ? 0.6
-                      : actor.motion === "IDLE_TALK" || actor.motion === "WAVE" || actor.motion === "APPROACH_OTHER"
-                      ? 3.2
-                      : 1.5,
-                  nodFreq: 0.13,
-                  isSpeaking,
-                  eyes: overrideEyes ?? expr.eyes,
+                  handsOnHips: ra.handsOnHips,
+                  turnScaleX: ra.turnScaleX,
+                  v18ActionPose: ra.v18ActionPose,
+                  v18SegmentProgress: ra.v18SegmentProgress,
+                  v18LocalFrame: ra.v18LocalFrame,
+                  blendedArmPose: ra.blendedArmPose,
+                  lookOffset,
+                  blinkSeed: aIdx * 13 + (actor.preset.charCodeAt(0) || 7),
+                  nodAmplitudeDeg,
+                  nodFreq: ra.v18ActionPose === "TALK_GESTURE" ? 0.17 : 0.13,
+                  isSpeaking: ra.isSpeaking,
+                  eyes: ra.overrideEyes ?? expr.eyes,
                   eyebrows: expr.eyebrows,
-                  mouth: overrideMouth ?? expr.mouth,
+                  mouth: ra.overrideMouth ?? expr.mouth,
                   blush: expr.blush,
                   sweatDrop: expr.sweatDrop,
-                  shiver: activeShiver,
-                  shiverDarkStage: isNight || spec.stageType === "SPACE_COSMOS",
+                  shiver: ra.activeShiver,
+                  shiverDarkStage:
+                    isNight || spec.stageType === "SPACE_COSMOS" || spec.stageType === "ANECHOIC_CHAMBER",
                   shiverFrame: frame,
-                  holdingTarget: v18ArmSnapshot ? undefined : holdingTarget,
+                  holdingTarget: ra.blendedArmPose ? undefined : ra.holdingTarget,
                 }}
               />
-              {/* Cây bút chì nhỏ ở tay phải khi diễn tư thế WRITE_NOTE */}
-              {writePenWorld && (
+              {ra.writePenWorld && (
                 <g
-                  transform={`translate(${writePenWorld.x.toFixed(1)}, ${writePenWorld.y.toFixed(
+                  transform={`translate(${ra.writePenWorld.x.toFixed(1)}, ${ra.writePenWorld.y.toFixed(
                     1
                   )}) scale(${facingDir}, 1) rotate(-32)`}
                 >
@@ -1405,13 +1986,12 @@ export const UniversalAutoStage: React.FC<{
                   <circle cx={-7} cy={1} r={2.2} fill="#141414" />
                 </g>
               )}
-              {/* Mũ phi hành gia kính trong căn đúng tâm đầu theo lượng giác góc nghiêng thân */}
               {spec.stageType === "SPACE_COSMOS" &&
                 (() => {
-                  const tRad = (torsoTiltDeg * facingDir * Math.PI) / 180;
-                  const headWorldX = actorX + Math.sin(tRad) * 169 * actorScale;
+                  const tRad = (ra.torsoTiltDeg * facingDir * Math.PI) / 180;
+                  const headWorldX = ra.actorX + Math.sin(tRad) * 169 * actorScale;
                   const headWorldY =
-                    groundY - flightLift + crouchDepth * 0.85 - (173 + Math.cos(tRad) * 169) * actorScale;
+                    groundY - ra.flightLift + ra.crouchDepth * 0.85 - (173 + Math.cos(tRad) * 169) * actorScale;
                   return (
                     <g transform={`translate(${headWorldX.toFixed(1)}, ${headWorldY.toFixed(1)})`}>
                       <circle
@@ -1436,15 +2016,15 @@ export const UniversalAutoStage: React.FC<{
                 })()}
               {actor.bubble && (
                 <ComicSpeechBubble
-                  x={Math.max(220, Math.min(1700, actorX + facingDir * 95))}
-                  y={groundY - 495 - flightLift * 0.4 + crouchDepth * 0.5}
-                  mouthX={actorX + facingDir * 24}
-                  mouthY={groundY - 315 - flightLift + crouchDepth * 0.7}
-                  headTopY={groundY - 405 - flightLift + crouchDepth * 0.7}
+                  x={Math.max(220, Math.min(1700, ra.actorX + facingDir * 95))}
+                  y={groundY - 495 - ra.flightLift * 0.4 + ra.crouchDepth * 0.5}
+                  mouthX={ra.actorX + facingDir * 24}
+                  mouthY={groundY - 315 - ra.flightLift + ra.crouchDepth * 0.7}
+                  headTopY={groundY - 405 - ra.flightLift + ra.crouchDepth * 0.7}
                   text={actor.bubble}
                   localFrame={localFrame}
-                  appearFrame={bubbleAppear}
-                  disappearFrame={bubbleDisappear}
+                  appearFrame={ra.bubbleAppear}
+                  disappearFrame={ra.bubbleDisappear}
                 />
               )}
             </g>
@@ -1455,10 +2035,10 @@ export const UniversalAutoStage: React.FC<{
         <WeatherOverlayLayer weather={spec.weather} frame={frame} isOutdoor={isOutdoor} />
       </g>
 
-      {/* 5. NHÃN CALLOUT VÀNG TỐI GIẢN (MINIMALIST CALLOUT POLICY) */}
+      {/* 5. NHÃN CALLOUT VÀNG TỐI GIẢN — V18.2 AUTO-WIDTH THEO ĐỘ DÀI CHỮ (KHÔNG BAO GIỜ TRÀN VIỀN!) */}
       {spec.callout &&
         (() => {
-          const cx = spec.callout.x ?? 960;
+          const rawCx = spec.callout.x ?? 960;
           const cy = spec.callout.y ?? 210;
           const appearF = 14;
           const hideF = Math.max(appearF + 24, durationFrames - 14);
@@ -1469,9 +2049,10 @@ export const UniversalAutoStage: React.FC<{
               : localFrame > hideF
               ? Math.max(0, 1 - (localFrame - hideF) / 12)
               : 1;
-          const w = Math.max(180, Math.min(540, spec.callout.text.length * 16 + 52));
+          const w = Math.min(1760, Math.max(260, Math.round(spec.callout.text.length * 14.5 + 68)));
+          const safeCx = Math.max(w / 2 + 24, Math.min(1920 - w / 2 - 24, rawCx));
           return (
-            <g transform={`translate(${cx}, ${cy}) scale(${s.toFixed(3)})`}>
+            <g transform={`translate(${safeCx.toFixed(1)}, ${cy}) scale(${s.toFixed(3)})`}>
               <rect x={-w / 2 + 5} y={-24} width={w} height={54} rx={18} fill="#141414" />
               <rect x={-w / 2} y={-29} width={w} height={54} rx={18} fill="#FEF08A" stroke="#141414" strokeWidth={3.8} />
               <text
