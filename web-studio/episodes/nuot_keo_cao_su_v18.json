@@ -1,0 +1,4320 @@
+{
+  "title": "Chuyện Gì Thực Sự Xảy Ra Khi Bạn Lỡ Nuốt Kẹo Cao Su?",
+  "slug": "nuot_keo_cao_su_v18",
+  "version": "18.2",
+  "beats": [
+    {
+      "id": "b01",
+      "text": "Chiều hôm ấy trên đường đi bộ về nhà, tôi vừa huýt sáo vừa nhai ngon lành một viên kẹo cao su bạc hà mát lạnh.",
+      "ttsText": "Chiều hôm ấy trên đường đi bộ về nhà, tôi vừa huýt sáo vừa nhai ngon lành một viên kẹo cao su bạc hà mát lạnh.",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.55,
+              "startX": 260,
+              "endX": 780,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.55,
+              "toPct": 1.0,
+              "startX": 780,
+              "endX": 940,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "actTitle": "Hồi 1: Lỡ Nuốt Kẹo Cao Su",
+      "headerTitle": "HỒI 1: CÚ NUỐT NHẦM KINH ĐIỂN",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b02",
+      "text": "Đang đi tới ngã tư thì anh hàng xóm từ phía sau chạy tới vỗ mạnh lên vai gọi lớn làm tôi giật bắn cả người.",
+      "ttsText": "Đang đi tới ngã tư thì anh hàng xóm từ phía sau chạy tới vỗ mạnh lên vai gọi lớn làm tôi giật bắn cả người.",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 760,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.75,
+              "startX": 960,
+              "endX": 1060,
+              "facing": "LEFT",
+              "pose": "JUMP_BACK",
+              "expression": "SHOCKED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 1060,
+              "endX": 1060,
+              "facing": "LEFT",
+              "pose": "SHIVER_PANIC",
+              "expression": "SHOCKED",
+              "handProp": "NONE",
+              "shiver": true
+            }
+          ],
+          "bubble": "Á! Giật cả mình!",
+          "bubbleStartPct": 0.48,
+          "bubbleEndPct": 0.92
+        },
+        {
+          "preset": "NEIGHBOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.48,
+              "startX": 360,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "RUN",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.48,
+              "toPct": 1.0,
+              "startX": 860,
+              "endX": 880,
+              "facing": "RIGHT",
+              "pose": "PAT_SHOULDER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.08,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b03",
+      "text": "Vừa há miệng hít mạnh một hơi vì bất ngờ, viên kẹo cao su trong miệng tôi liền trôi tuột thẳng xuống cổ họng mất tiêu!",
+      "ttsText": "Vừa há miệng hít mạnh một hơi vì bất ngờ, viên kẹo cao su trong miệng tôi liền trôi tuột thẳng xuống cổ họng mất tiêu!",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "SCARED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.4,
+              "startX": 1020,
+              "endX": 1020,
+              "facing": "LEFT",
+              "pose": "SHIVER_PANIC",
+              "expression": "SCARED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.4,
+              "toPct": 0.75,
+              "startX": 1020,
+              "endX": 1020,
+              "facing": "LEFT",
+              "pose": "FACEPALM",
+              "expression": "SHOCKED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 1020,
+              "endX": 980,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "SCARED",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Toang! Nuốt mất rồi!",
+          "bubbleStartPct": 0.35,
+          "bubbleEndPct": 0.95
+        },
+        {
+          "preset": "NEIGHBOR",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 820,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 820,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b04",
+      "text": "Ngay giây phút đó, câu dọa kinh điển hồi bé của người lớn lập tức vang lên trong đầu tôi: nuốt kẹo cao su sẽ dính trong bụng suốt bảy năm!",
+      "ttsText": "Ngay giây phút đó, câu dọa kinh điển hồi bé của người lớn lập tức vang lên trong đầu tôi: nuốt kẹo cao su sẽ dính trong bụng suốt bảy năm!",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "SCARED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 760,
+              "endX": 900,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "SCARED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.75,
+              "startX": 900,
+              "endX": 900,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "SHOCKED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 900,
+              "endX": 900,
+              "facing": "RIGHT",
+              "pose": "SHIVER_PANIC",
+              "expression": "SCARED",
+              "handProp": "NONE",
+              "shiver": true
+            }
+          ],
+          "bubble": "Bảy năm thật á?!",
+          "bubbleStartPct": 0.5,
+          "bubbleEndPct": 0.96
+        }
+      ],
+      "visualProp": "ALARM_CLOCK_RINGING",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.07,
+        "focusX": 900,
+        "focusY": 500
+      }
+    },
+    {
+      "id": "b05",
+      "text": "Tôi ba chân bốn cẳng chạy một mạch về sân nhà kể ngay cho ông nội nghe với gương mặt lo lắng ra mặt.",
+      "ttsText": "Tôi ba chân bốn cẳng chạy một mạch về sân nhà kể ngay cho ông nội nghe với gương mặt lo lắng ra mặt.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "SCARED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.55,
+              "startX": 220,
+              "endX": 920,
+              "facing": "RIGHT",
+              "pose": "RUN",
+              "expression": "SCARED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.55,
+              "toPct": 1.0,
+              "startX": 920,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "SCARED",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Ông ơi con nuốt kẹo!",
+          "bubbleStartPct": 0.55,
+          "bubbleEndPct": 0.96
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1340,
+              "endX": 1200,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1200,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b06",
+      "text": "Ông nội nghe xong chỉ bật cười hiền rồi bảo: hồi xưa ông cũng nghe người ta dọa thế suốt, chứ có ai đau bụng bảy năm bao giờ đâu.",
+      "ttsText": "Ông nội nghe xong chỉ bật cười hiền rồi bảo: hồi xưa ông cũng nghe người ta dọa thế suốt, chứ có ai đau bụng bảy năm bao giờ đâu.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 940,
+              "endX": 940,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 940,
+              "endX": 940,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 1180,
+              "endX": 1140,
+              "facing": "LEFT",
+              "pose": "PAT_SHOULDER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 1140,
+              "endX": 1140,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Tin đồn thôi con!",
+          "bubbleStartPct": 0.35,
+          "bubbleEndPct": 0.9
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b07",
+      "text": "Bà nội từ trong nhà bước ra đưa cho tôi một ly nước lọc ấm, bảo uống vào cho dễ trôi rồi kệ nó đi.",
+      "ttsText": "Bà nội từ trong nhà bước ra đưa cho tôi một ly nước lọc ấm, bảo uống vào cho dễ trôi rồi kệ nó đi.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.55,
+              "startX": 760,
+              "endX": 880,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.55,
+              "toPct": 1.0,
+              "startX": 880,
+              "endX": 880,
+              "facing": "RIGHT",
+              "pose": "SIP_DRINK",
+              "expression": "HAPPY",
+              "handProp": "CUP_SODA"
+            }
+          ]
+        },
+        {
+          "preset": "GRANDMA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "CUP_SODA",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1380,
+              "endX": 1080,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "CUP_SODA"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1080,
+              "endX": 1080,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b08",
+      "text": "Nhưng tính tò mò nổi lên không chịu yên: rốt cuộc thì ngay lúc này viên kẹo cao su ấy đang làm gì bên trong bụng mình?",
+      "ttsText": "Nhưng tính tò mò nổi lên không chịu yên: rốt cuộc thì ngay lúc này viên kẹo cao su ấy đang làm gì bên trong bụng mình?",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "PHONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 420,
+              "endX": 780,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "PHONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.8,
+              "startX": 780,
+              "endX": 780,
+              "facing": "RIGHT",
+              "pose": "CROUCH_LOOK",
+              "expression": "CURIOUS",
+              "handProp": "PHONE"
+            },
+            {
+              "fromPct": 0.8,
+              "toPct": 1.0,
+              "startX": 780,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "CURIOUS",
+              "handProp": "PHONE"
+            }
+          ]
+        }
+      ],
+      "visualProp": "BRAIN_GLOW",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b09",
+      "text": "Sẵn chiều đó ông nội có lịch khám định kỳ ở phòng khám đầu phố, tôi đi theo luôn để hỏi thẳng bác sĩ cho ra nhẽ.",
+      "ttsText": "Sẵn chiều đó ông nội có lịch khám định kỳ ở phòng khám đầu phố, tôi đi theo luôn để hỏi thẳng bác sĩ cho ra nhẽ.",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 260,
+              "endX": 720,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 720,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 1380,
+              "endX": 1080,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 1080,
+              "endX": 1080,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ],
+          "bubble": "Chào hai ông cháu!",
+          "bubbleStartPct": 0.4,
+          "bubbleEndPct": 0.9
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b10",
+      "text": "Nghe tôi kể vừa lỡ nuốt nguyên viên kẹo cao su, bác sĩ phì cười bảo đây là câu hỏi mà trẻ con lẫn người lớn hỏi nhiều nhất luôn.",
+      "ttsText": "Nghe tôi kể vừa lỡ nuốt nguyên viên kẹo cao su, bác sĩ phì cười bảo đây là câu hỏi mà trẻ con lẫn người lớn hỏi nhiều nhất luôn.",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 740,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 740,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 1080,
+              "endX": 1040,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 1040,
+              "endX": 1040,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b11",
+      "text": "Bác sĩ khẳng định ngay câu đầu tiên: câu chuyện kẹo cao su nằm trong bụng bảy năm là hoàn toàn không có thật về mặt y khoa!",
+      "ttsText": "Bác sĩ khẳng định ngay câu đầu tiên: câu chuyện kẹo cao su nằm trong bụng bảy năm là hoàn toàn không có thật về mặt y khoa!",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "PROUD",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.4,
+              "startX": 1040,
+              "endX": 960,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.4,
+              "toPct": 1.0,
+              "startX": 960,
+              "endX": 960,
+              "facing": "LEFT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ],
+          "bubble": "Không có chuyện 7 năm đâu!",
+          "bubbleStartPct": 0.35,
+          "bubbleEndPct": 0.92
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "SHOCKED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 720,
+              "endX": 720,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "SHOCKED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 720,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "headerTitle": "LỜI ĐỒN 7 NĂM LÀ HOÀN TOÀN SAI!",
+      "callout": {
+        "text": "SỰ THẬT Y KHOA"
+      },
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b12",
+      "text": "Tuy nhiên, hành trình của viên kẹo cao su bên trong hệ tiêu hóa lại khá đặc biệt so với cơm hay bánh mì chúng ta ăn hằng ngày.",
+      "ttsText": "Tuy nhiên, hành trình của viên kẹo cao su bên trong hệ tiêu hóa lại khá đặc biệt so với cơm hay bánh mì chúng ta ăn hằng ngày.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 1280,
+              "endX": 1040,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 1040,
+              "endX": 1040,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 380,
+              "endX": 680,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 680,
+              "endX": 700,
+              "facing": "RIGHT",
+              "pose": "CROUCH_LOOK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b13",
+      "text": "Muốn hiểu vì sao, trước hết phải tách xem bên trong một viên kẹo cao su bé xíu thực ra chứa những thành phần nào.",
+      "ttsText": "Muốn hiểu vì sao, trước hết phải tách xem bên trong một viên kẹo cao su bé xíu thực ra chứa những thành phần nào.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.4,
+              "startX": 380,
+              "endX": 580,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.4,
+              "toPct": 0.75,
+              "startX": 580,
+              "endX": 580,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 580,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "WRITE_NOTE",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "visualProp": "NOTEBOOK_OPEN",
+      "callout": {
+        "text": "4 THÀNH PHẦN CỦA KẸO CAO SU"
+      },
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b14",
+      "text": "Phần lớn vị ngon ta cảm nhận đến từ đường, chất tạo ngọt, tinh dầu bạc hà hoặc hương trái cây cùng một ít chất làm mềm.",
+      "ttsText": "Phần lớn vị ngon ta cảm nhận đến từ đường, chất tạo ngọt, tinh dầu bạc hà hoặc hương trái cây cùng một ít chất làm mềm.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 420,
+              "endX": 640,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 640,
+              "endX": 660,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "visualProp": "SODA_CAN_FIZZ",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b15",
+      "text": "Còn thứ giúp viên kẹo dai nhách, nhai mãi không tan và thổi được bóng chính là lớp cốt nhựa dẻo an toàn thực phẩm.",
+      "ttsText": "Còn thứ giúp viên kẹo dai nhách, nhai mãi không tan và thổi được bóng chính là lớp cốt nhựa dẻo an toàn thực phẩm.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 420,
+              "endX": 620,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 620,
+              "endX": 620,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "visualProp": "BRAIN_GLOW",
+      "callout": {
+        "text": "CỐT NHỰA DẺO THỰC PHẨM"
+      },
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b16",
+      "text": "Và ngay khoảnh khắc bạn lỡ nuốt xuống, cuộc hành trình kéo dài khoảng một đến ba ngày bên trong cơ thể chính thức bắt đầu!",
+      "ttsText": "Và ngay khoảnh khắc bạn lỡ nuốt xuống, cuộc hành trình kéo dài khoảng một đến ba ngày bên trong cơ thể chính thức bắt đầu!",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 560,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 740,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1140,
+              "endX": 1060,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1060,
+              "endX": 1060,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b17",
+      "text": "Chỉ mất khoảng năm đến mười giây sau khi nuốt, cơ thực quản co bóp nhịp nhàng đẩy viên kẹo trượt thẳng xuống khoang dạ dày.",
+      "ttsText": "Chỉ mất khoảng năm đến mười giây sau khi nuốt, cơ thực quản co bóp nhịp nhàng đẩy viên kẹo trượt thẳng xuống khoang dạ dày.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 480,
+              "endX": 720,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 720,
+              "endX": 720,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "actTitle": "Hồi 2: Chuyện Gì Xảy Ra Trong Dạ Dày?",
+      "headerTitle": "HỒI 2: 30 PHÚT ĐẦU TRONG DẠ DÀY",
+      "visualProp": "WATER_RIPPLE",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b18",
+      "text": "Tại đây, dạ dày lập tức tiết ra dịch vị chứa a-xít mạnh và các en-dim tiêu hóa để xử lý vị khách mới đến.",
+      "ttsText": "Tại đây, dạ dày lập tức tiết ra dịch vị chứa a-xít mạnh và các en-dim tiêu hóa để xử lý vị khách mới đến.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.4,
+              "startX": 380,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.4,
+              "toPct": 1.0,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "visualProp": "THERMOMETER_HOT",
+      "callout": {
+        "text": "DỊCH VỊ A-XÍT DẠ DÀY"
+      },
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b19",
+      "text": "Mọi thứ hòa tan được trong viên kẹo — từ đường, chất tạo ngọt cho tới tinh dầu bạc hà — đều bị phân giải sạch sẽ chỉ trong vài chục phút.",
+      "ttsText": "Mọi thứ hòa tan được trong viên kẹo — từ đường, chất tạo ngọt cho tới tinh dầu bạc hà — đều bị phân giải sạch sẽ chỉ trong vài chục phút.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 440,
+              "endX": 660,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 660,
+              "endX": 660,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "visualProp": "SODA_CAN_FIZZ",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b20",
+      "text": "Cơ thể hấp thụ trọn vẹn chút đường và hương liệu đó y hệt như khi bạn vừa ăn một viên kẹo cứng thông thường vậy.",
+      "ttsText": "Cơ thể hấp thụ trọn vẹn chút đường và hương liệu đó y hệt như khi bạn vừa ăn một viên kẹo cứng thông thường vậy.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 640,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 740,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1120,
+              "endX": 1040,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1040,
+              "endX": 1040,
+              "facing": "LEFT",
+              "pose": "WRITE_NOTE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b21",
+      "text": "Thế nhưng tới phần cốt nhựa dẻo thì khác: các en-dim tiêu hóa của người hoàn toàn bó tay, không có cách nào cắt nhỏ chuỗi phân tử dai này ra được.",
+      "ttsText": "Thế nhưng tới phần cốt nhựa dẻo thì khác: các en-dim tiêu hóa của người hoàn toàn bó tay, không có cách nào cắt nhỏ chuỗi phân tử dai này ra được.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.4,
+              "startX": 460,
+              "endX": 640,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.4,
+              "toPct": 0.75,
+              "startX": 640,
+              "endX": 640,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "SHOCKED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 640,
+              "endX": 620,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "A-xít cũng chịu thua á?!",
+          "bubbleStartPct": 0.45,
+          "bubbleEndPct": 0.92
+        }
+      ],
+      "visualProp": "BATTERY_LOW",
+      "callout": {
+        "text": "ENZYME KHÔNG PHÂN GIẢI ĐƯỢC"
+      },
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b22",
+      "text": "Nghe tới đây tôi giật mình hỏi ngay: nếu dạ dày không tiêu hóa được nó, vậy chẳng phải nó sẽ dính chặt mãi trên thành dạ dày sao?",
+      "ttsText": "Nghe tới đây tôi giật mình hỏi ngay: nếu dạ dày không tiêu hóa được nó, vậy chẳng phải nó sẽ dính chặt mãi trên thành dạ dày sao?",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "SCARED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 680,
+              "endX": 780,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "SCARED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 780,
+              "endX": 780,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "SHOCKED",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Nó có dính ruột không ạ?",
+          "bubbleStartPct": 0.4,
+          "bubbleEndPct": 0.95
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1140,
+              "endX": 1060,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1060,
+              "endX": 1060,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b23",
+      "text": "Đó chính xác là lý do tin đồn bảy năm ra đời! Hồi nhỏ ai chẳng từng thấy kẹo cao su dính lên tóc hay đế giày, gỡ muốn rụng tay cũng chẳng ra.",
+      "ttsText": "Đó chính xác là lý do tin đồn bảy năm ra đời! Hồi nhỏ ai chẳng từng thấy kẹo cao su dính lên tóc hay đế giày, gỡ muốn rụng tay cũng chẳng ra.",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.4,
+              "startX": 420,
+              "endX": 780,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.4,
+              "toPct": 0.75,
+              "startX": 780,
+              "endX": 780,
+              "facing": "RIGHT",
+              "pose": "CROUCH_LOOK",
+              "expression": "ANGRY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.75,
+              "toPct": 1.0,
+              "startX": 780,
+              "endX": 780,
+              "facing": "RIGHT",
+              "pose": "FACEPALM",
+              "expression": "TIRED",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Dính đế giày khó chịu thật!",
+          "bubbleStartPct": 0.5,
+          "bubbleEndPct": 0.95
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b24",
+      "text": "Thế nên mọi người tự động suy luận rằng vào trong bụng, cục kẹo dẻo ấy cũng sẽ bám dính cứng ngắc lên thành dạ dày suốt nhiều năm trời.",
+      "ttsText": "Thế nên mọi người tự động suy luận rằng vào trong bụng, cục kẹo dẻo ấy cũng sẽ bám dính cứng ngắc lên thành dạ dày suốt nhiều năm trời.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 520,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 820,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "visualProp": "BRAIN_GLOW",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b25",
+      "text": "Nhưng thực tế hoàn toàn ngược lại: bên trong hệ tiêu hóa của con người không hề khô ráo như đế giày hay sợi tóc ngoài không khí.",
+      "ttsText": "Nhưng thực tế hoàn toàn ngược lại: bên trong hệ tiêu hóa của con người không hề khô ráo như đế giày hay sợi tóc ngoài không khí.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "PROUD",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 540,
+              "endX": 780,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 780,
+              "endX": 780,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "headerTitle": "BÍ MẬT LỚP MÀNG NHẦY TRƠN TUỘT",
+      "visualProp": "WATER_RIPPLE",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b26",
+      "text": "Toàn bộ niêm mạc từ thực quản, dạ dày cho tới ruột non đều được bao phủ liên tục bởi một lớp dịch nhầy ẩm ướt và cực kỳ trơn trượt.",
+      "ttsText": "Toàn bộ niêm mạc từ thực quản, dạ dày cho tới ruột non đều được bao phủ liên tục bởi một lớp dịch nhầy ẩm ướt và cực kỳ trơn trượt.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.4,
+              "startX": 380,
+              "endX": 580,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.4,
+              "toPct": 1.0,
+              "startX": 580,
+              "endX": 620,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "visualProp": "WATER_RIPPLE",
+      "callout": {
+        "text": "LỚP DỊCH NHẦY CHỐNG DÍNH TỰ NHIÊN"
+      },
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b27",
+      "text": "Bạn cứ tưởng tượng thử đem một miếng băng dính dán xuống mặt bàn đang ngập nước xà phòng: nó sẽ trượt đi ngay lập tức chứ không tài nào bám lại được.",
+      "ttsText": "Bạn cứ tưởng tượng thử đem một miếng băng dính dán xuống mặt bàn đang ngập nước xà phòng: nó sẽ trượt đi ngay lập tức chứ không tài nào bám lại được.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 420,
+              "endX": 660,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.8,
+              "startX": 660,
+              "endX": 660,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.8,
+              "toPct": 1.0,
+              "startX": 660,
+              "endX": 680,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "À há! Hiểu luôn!",
+          "bubbleStartPct": 0.55,
+          "bubbleEndPct": 0.95
+        }
+      ],
+      "visualProp": "WATER_RIPPLE",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b28",
+      "text": "Ngay cả trong miệng bạn cũng vậy thôi: khi còn ướt nước bọt, viên kẹo đâu có dính chặt vào lưỡi hay má bạn được đâu!",
+      "ttsText": "Ngay cả trong miệng bạn cũng vậy thôi: khi còn ướt nước bọt, viên kẹo đâu có dính chặt vào lưỡi hay má bạn được đâu!",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1080,
+              "endX": 1040,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1040,
+              "endX": 1040,
+              "facing": "LEFT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 720,
+              "endX": 720,
+              "facing": "RIGHT",
+              "pose": "FACEPALM",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 720,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Đúng thật ha!",
+          "bubbleStartPct": 0.45,
+          "bubbleEndPct": 0.9
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b29",
+      "text": "Hơn nữa, dạ dày đâu phải cái hộp đứng yên — cứ vài chục giây nó lại co bóp mạnh mẽ để nhào trộn thức ăn và đẩy dần xuống ruột non.",
+      "ttsText": "Hơn nữa, dạ dày đâu phải cái hộp đứng yên — cứ vài chục giây nó lại co bóp mạnh mẽ để nhào trộn thức ăn và đẩy dần xuống ruột non.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 580,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 820,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "visualProp": "HEART_BEAT",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b30",
+      "text": "Thực ra cơ thể chúng ta ngày nào cũng phải xử lý rất nhiều thứ không tiêu hóa được, chẳng hạn như vỏ hạt ngô, vỏ hạt vừng hay chất xơ cứng trong rau.",
+      "ttsText": "Thực ra cơ thể chúng ta ngày nào cũng phải xử lý rất nhiều thứ không tiêu hóa được, chẳng hạn như vỏ hạt ngô, vỏ hạt vừng hay chất xơ cứng trong rau.",
+      "stageType": "SIMPLE_GRASS_FIELD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 380,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 820,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "visualProp": "NOTEBOOK_OPEN",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b31",
+      "text": "Với hệ tiêu hóa, cục cốt kẹo cao su nhỏ xíu ấy cũng chỉ giống hệt một mẩu vỏ hạt ngô: không lấy được dinh dưỡng thì cứ đẩy đi tiếp cho xong!",
+      "ttsText": "Với hệ tiêu hóa, cục cốt kẹo cao su nhỏ xíu ấy cũng chỉ giống hệt một mẩu vỏ hạt ngô: không lấy được dinh dưỡng thì cứ đẩy đi tiếp cho xong!",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 420,
+              "endX": 620,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 620,
+              "endX": 620,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "visualProp": "NEURON_SIGNAL",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b32",
+      "text": "Thế là sau vài tiếng nằm chung với bữa tối trong dạ dày, viên kẹo nhỏ được đẩy gọn gàng qua cửa van để bước vào chặng đường dài nhất.",
+      "ttsText": "Thế là sau vài tiếng nằm chung với bữa tối trong dạ dày, viên kẹo nhỏ được đẩy gọn gàng qua cửa van để bước vào chặng đường dài nhất.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 480,
+              "endX": 840,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 840,
+              "endX": 840,
+              "facing": "RIGHT",
+              "pose": "WRITE_NOTE",
+              "expression": "CURIOUS",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b33",
+      "text": "Chặng tiếp theo là đường ống ruột non và ruột già dài nhiều mét, nơi các làn sóng cơ bóp mang tên nhu động ruột hoạt động suốt ngày đêm.",
+      "ttsText": "Chặng tiếp theo là đường ống ruột non và ruột già dài nhiều mét, nơi các làn sóng cơ bóp mang tên nhu động ruột hoạt động suốt ngày đêm.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 520,
+              "endX": 800,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 800,
+              "endX": 800,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "actTitle": "Hồi 3: Hành Trình Qua Ruột & Khi Nào Mới Nguy Hiểm?",
+      "headerTitle": "HỒI 3: BĂNG CHUYỀN NHU ĐỘNG RUỘT",
+      "visualProp": "SOUND_WAVES",
+      "callout": {
+        "text": "NHU ĐỘNG RUỘT ĐẨY ĐỀU 24/7"
+      },
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b34",
+      "text": "Các vòng cơ dọc thành ruột cứ bóp nhịp nhàng phía sau và thả lỏng phía trước giống như cách bạn vuốt tuýp kem đánh răng từ đáy lên vậy.",
+      "ttsText": "Các vòng cơ dọc thành ruột cứ bóp nhịp nhàng phía sau và thả lỏng phía trước giống như cách bạn vuốt tuýp kem đánh răng từ đáy lên vậy.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 440,
+              "endX": 680,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 680,
+              "endX": 680,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "visualProp": "NEURON_SIGNAL",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b35",
+      "text": "Nhờ băng chuyền tự động này, viên kẹo trôi êm ru cùng lượng chất xơ từ rau củ và nước uống mà bạn nạp vào trong ngày.",
+      "ttsText": "Nhờ băng chuyền tự động này, viên kẹo trôi êm ru cùng lượng chất xơ từ rau củ và nước uống mà bạn nạp vào trong ngày.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "CUP_SODA",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 480,
+              "endX": 840,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "CUP_SODA"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 840,
+              "endX": 840,
+              "facing": "RIGHT",
+              "pose": "SIP_DRINK",
+              "expression": "HAPPY",
+              "handProp": "CUP_SODA"
+            }
+          ]
+        },
+        {
+          "preset": "GRANDMA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.55,
+              "startX": 1320,
+              "endX": 1140,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.55,
+              "toPct": 1.0,
+              "startX": 1140,
+              "endX": 1140,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b36",
+      "text": "Thông thường chỉ sau khoảng hai mươi bốn đến bảy mươi hai giờ — tức là từ một đến ba ngày — viên kẹo sẽ theo đường tự nhiên rời khỏi cơ thể nguyên vẹn.",
+      "ttsText": "Thông thường chỉ sau khoảng hai mươi bốn đến bảy mươi hai giờ — tức là từ một đến ba ngày — viên kẹo sẽ theo đường tự nhiên rời khỏi cơ thể nguyên vẹn.",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "PROUD",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 1120,
+              "endX": 1020,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 1020,
+              "endX": 1020,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 680,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 740,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Chỉ 1–3 ngày thôi á!",
+          "bubbleStartPct": 0.45,
+          "bubbleEndPct": 0.95
+        }
+      ],
+      "headerTitle": "CHỈ TỪ 1 ĐẾN 3 NGÀY LÀ RA NGOÀI",
+      "callout": {
+        "text": "24–72 GIỜ ĐÀO THẢI TỰ NHIÊN"
+      },
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b37",
+      "text": "Nghe xong tôi thở phào nhẹ nhõm định bước ra cửa, thì bác sĩ bỗng giơ tay gọi lại: khoan đã, vẫn có một ngoại lệ thực tế cần biết!",
+      "ttsText": "Nghe xong tôi thở phào nhẹ nhõm định bước ra cửa, thì bác sĩ bỗng giơ tay gọi lại: khoan đã, vẫn có một ngoại lệ thực tế cần biết!",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 720,
+              "endX": 420,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.65,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "TURN_AROUND",
+              "expression": "SHOCKED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.65,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 560,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 1060,
+              "endX": 960,
+              "facing": "LEFT",
+              "pose": "POINT_FORWARD",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 960,
+              "endX": 960,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            }
+          ],
+          "bubble": "Khoan đã, còn 1 ngoại lệ!",
+          "bubbleStartPct": 0.3,
+          "bubbleEndPct": 0.9
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.08,
+        "focusX": 780,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b38",
+      "text": "Lỡ nuốt một viên lẻ thì chẳng sao cả, nhưng nếu một người — đặc biệt là trẻ nhỏ — cố tình nuốt nhiều viên kẹo cao su liên tiếp trong ngày thì lại khác.",
+      "ttsText": "Lỡ nuốt một viên lẻ thì chẳng sao cả, nhưng nếu một người — đặc biệt là trẻ nhỏ — cố tình nuốt nhiều viên kẹo cao su liên tiếp trong ngày thì lại khác.",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 1020,
+              "endX": 980,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 980,
+              "endX": 980,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 620,
+              "endX": 720,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 720,
+              "endX": 720,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "headerTitle": "KHI NÀO NUỐT KẸO MỚI THỰC SỰ GÂY RẮC RỐI?",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b39",
+      "text": "Khi có quá nhiều cục cốt nhựa dẻo gặp nhau trong cùng một khoảng thời gian ngắn, chúng có thể dính vào nhau tạo thành một khối lớn hơn.",
+      "ttsText": "Khi có quá nhiều cục cốt nhựa dẻo gặp nhau trong cùng một khoảng thời gian ngắn, chúng có thể dính vào nhau tạo thành một khối lớn hơn.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.4,
+              "startX": 400,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.4,
+              "toPct": 1.0,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "visualProp": "THERMOMETER_HOT",
+      "callout": {
+        "text": "KHỐI BÃ THỨC ĂN GÂY TẮC"
+      },
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b40",
+      "text": "Nhất là khi nuốt kèm với vỏ hạt hướng dương, hạt trái cây hoặc những thứ khó tiêu khác, khối dính ấy có thể làm hẹp hoặc tắc đường ruột.",
+      "ttsText": "Nhất là khi nuốt kèm với vỏ hạt hướng dương, hạt trái cây hoặc những thứ khó tiêu khác, khối dính ấy có thể làm hẹp hoặc tắc đường ruột.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 1120,
+              "endX": 1040,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 1040,
+              "endX": 1040,
+              "facing": "LEFT",
+              "pose": "WRITE_NOTE",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "SHOCKED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 620,
+              "endX": 660,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "SHOCKED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 660,
+              "endX": 620,
+              "facing": "RIGHT",
+              "pose": "JUMP_BACK",
+              "expression": "SCARED",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Ghê thật sự!",
+          "bubbleStartPct": 0.5,
+          "bubbleEndPct": 0.92
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b41",
+      "text": "Trong y văn từng ghi nhận vài trường hợp trẻ nhỏ nuốt cả tá viên kẹo mỗi ngày suốt nhiều tuần liền nên phải tới bệnh viện xử lý.",
+      "ttsText": "Trong y văn từng ghi nhận vài trường hợp trẻ nhỏ nuốt cả tá viên kẹo mỗi ngày suốt nhiều tuần liền nên phải tới bệnh viện xử lý.",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 680,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 860,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "visualProp": "NOTEBOOK_OPEN",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b42",
+      "text": "Nhưng nếu bạn chỉ vô tình nuốt một viên lẻ do cười nói hay bị giật mình như tôi chiều nay, thì hoàn toàn không cần lo lắng hay tìm cách móc họng làm gì.",
+      "ttsText": "Nhưng nếu bạn chỉ vô tình nuốt một viên lẻ do cười nói hay bị giật mình như tôi chiều nay, thì hoàn toàn không cần lo lắng hay tìm cách móc họng làm gì.",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 1060,
+              "endX": 980,
+              "facing": "LEFT",
+              "pose": "PAT_SHOULDER",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 980,
+              "endX": 980,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "STRETCH_YAWN",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Nhẹ cả người!",
+          "bubbleStartPct": 0.45,
+          "bubbleEndPct": 0.92
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b43",
+      "text": "Bác sĩ còn dặn một mẹo cực kỳ thực tế: hôm đó cứ ăn thêm rau xanh và uống đủ nước lọc bình thường để đường ruột đẩy mọi thứ đi trơn tru nhất.",
+      "ttsText": "Bác sĩ còn dặn một mẹo cực kỳ thực tế: hôm đó cứ ăn thêm rau xanh và uống đủ nước lọc bình thường để đường ruột đẩy mọi thứ đi trơn tru nhất.",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1040,
+              "endX": 1040,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1040,
+              "endX": 1040,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 740,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "WRITE_NOTE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 740,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "visualProp": "WATER_RIPPLE",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b44",
+      "text": "Sẵn tiện tôi hỏi thêm luôn một nỗi lo tuổi thơ nữa: thế còn chuyện nuốt hạt dưa hấu hay hạt ổi có bị mọc cây trong bụng không bác sĩ?",
+      "ttsText": "Sẵn tiện tôi hỏi thêm luôn một nỗi lo tuổi thơ nữa: thế còn chuyện nuốt hạt dưa hấu hay hạt ổi có bị mọc cây trong bụng không bác sĩ?",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 740,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 820,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Hạt dưa mọc cây không ạ?",
+          "bubbleStartPct": 0.35,
+          "bubbleEndPct": 0.92
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1080,
+              "endX": 1080,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1080,
+              "endX": 1080,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b45",
+      "text": "Bác sĩ cười phá lên: muốn nảy mầm thì hạt cần ánh sáng mặt trời và đất ẩm, chứ trong bụng vừa tối om vừa ngập a-xít mạnh thì chẳng hạt nào sống nổi!",
+      "ttsText": "Bác sĩ cười phá lên: muốn nảy mầm thì hạt cần ánh sáng mặt trời và đất ẩm, chứ trong bụng vừa tối om vừa ngập a-xít mạnh thì chẳng hạt nào sống nổi!",
+      "stageType": "SIMPLE_GRASS_FIELD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 480,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "visualProp": "THERMOMETER_HOT",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b46",
+      "text": "Chào bác sĩ ra về lúc hoàng hôn buông xuống, tôi bước đi nhẹ tênh trên con phố mà thấy buồn cười cho nỗi lo hồi chiều của chính mình.",
+      "ttsText": "Chào bác sĩ ra về lúc hoàng hôn buông xuống, tôi bước đi nhẹ tênh trên con phố mà thấy buồn cười cho nỗi lo hồi chiều của chính mình.",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.55,
+              "startX": 360,
+              "endX": 920,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.55,
+              "toPct": 1.0,
+              "startX": 920,
+              "endX": 1040,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b47",
+      "text": "Tối hôm đó ăn cơm xong tôi uống thêm cốc nước mát, lên giường ngủ một giấc ngon lành mà bụng dạ hoàn toàn êm ru không chút khó chịu nào.",
+      "ttsText": "Tối hôm đó ăn cơm xong tôi uống thêm cốc nước mát, lên giường ngủ một giấc ngon lành mà bụng dạ hoàn toàn êm ru không chút khó chịu nào.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 580,
+              "endX": 1180,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 1380,
+              "endX": 1380,
+              "facing": "LEFT",
+              "pose": "LIE_SLEEP",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b48",
+      "text": "Đúng như bác sĩ nói, bên trong cơ thể đang âm thầm vận hành nhịp nhàng suốt đêm mà chẳng cần mình phải bận tâm lấy một giây.",
+      "ttsText": "Đúng như bác sĩ nói, bên trong cơ thể đang âm thầm vận hành nhịp nhàng suốt đêm mà chẳng cần mình phải bận tâm lấy một giây.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 1.0,
+              "startX": 1380,
+              "endX": 1380,
+              "facing": "LEFT",
+              "pose": "LIE_SLEEP",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "visualProp": "HEART_BEAT",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b49",
+      "text": "Sáng hai hôm sau tỉnh dậy, ánh nắng chiếu tràn phòng ngủ; tôi vươn vai đứng dậy thấy người nhẹ nhõm khỏe re như mọi ngày.",
+      "ttsText": "Sáng hai hôm sau tỉnh dậy, ánh nắng chiếu tràn phòng ngủ; tôi vươn vai đứng dậy thấy người nhẹ nhõm khỏe re như mọi ngày.",
+      "stageType": "BEDROOM_INDOOR",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 560,
+              "endX": 840,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.8,
+              "startX": 840,
+              "endX": 840,
+              "facing": "RIGHT",
+              "pose": "STRETCH_YAWN",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.8,
+              "toPct": 1.0,
+              "startX": 840,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Khỏe re luôn!",
+          "bubbleStartPct": 0.5,
+          "bubbleEndPct": 0.92
+        }
+      ],
+      "actTitle": "Hồi 4: Sự Thật Đằng Sau Lời Đồn Tuổi Thơ",
+      "headerTitle": "HỒI 4: BÍ MẬT CỦA LỜI ĐỒN 7 NĂM",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b50",
+      "text": "Chạy ra sân kể lại toàn bộ lời giải thích của bác sĩ cho ông nội nghe, tôi mới nhận ra một điều cực kỳ thú vị về nguồn gốc tin đồn này.",
+      "ttsText": "Chạy ra sân kể lại toàn bộ lời giải thích của bác sĩ cho ông nội nghe, tôi mới nhận ra một điều cực kỳ thú vị về nguồn gốc tin đồn này.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 280,
+              "endX": 900,
+              "facing": "RIGHT",
+              "pose": "RUN",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 900,
+              "endX": 940,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1320,
+              "endX": 1160,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1160,
+              "endX": 1160,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b51",
+      "text": "Ông nội cười hóm hỉnh giải thích: người lớn ngày xưa bày ra con số bảy năm thực ra chỉ để nhắc trẻ con đừng có thói quen ăn kẹo cao su rồi nuốt bừa bãi.",
+      "ttsText": "Ông nội cười hóm hỉnh giải thích: người lớn ngày xưa bày ra con số bảy năm thực ra chỉ để nhắc trẻ con đừng có thói quen ăn kẹo cao su rồi nuốt bừa bãi.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 1160,
+              "endX": 1120,
+              "facing": "LEFT",
+              "pose": "PAT_SHOULDER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 1120,
+              "endX": 1120,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Chiêu của người lớn đấy!",
+          "bubbleStartPct": 0.4,
+          "bubbleEndPct": 0.92
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 920,
+              "endX": 920,
+              "facing": "RIGHT",
+              "pose": "FACEPALM",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 920,
+              "endX": 920,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b52",
+      "text": "Nghĩ lại cũng hợp lý thật: với mấy em bé nhỏ xíu chưa biết nhả bã, viên kẹo dẻo nuốt vội rất dễ gây hóc ở cổ họng nếu không để ý.",
+      "ttsText": "Nghĩ lại cũng hợp lý thật: với mấy em bé nhỏ xíu chưa biết nhả bã, viên kẹo dẻo nuốt vội rất dễ gây hóc ở cổ họng nếu không để ý.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 880,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 820,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "GRANDMA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1280,
+              "endX": 1140,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1140,
+              "endX": 1140,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b53",
+      "text": "Còn một chuyện thực tế khác về kẹo cao su mà ít người để ý: ngày xưa kẹo cao su vốn được làm từ nhựa cây tự nhiên của cây hồng xiêm.",
+      "ttsText": "Còn một chuyện thực tế khác về kẹo cao su mà ít người để ý: ngày xưa kẹo cao su vốn được làm từ nhựa cây tự nhiên của cây hồng xiêm.",
+      "stageType": "SIMPLE_GRASS_FIELD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 420,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 820,
+              "endX": 840,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "headerTitle": "KẸO CAO SU NGÀY XƯA LÀM TỪ NHỰA CÂY",
+      "visualProp": "NOTEBOOK_OPEN",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b54",
+      "text": "Về sau khi nhu cầu quá lớn, các nhà máy mới chuyển sang dùng vật liệu dẻo tổng hợp đạt chuẩn an toàn thực phẩm để giữ độ dai lâu hơn.",
+      "ttsText": "Về sau khi nhu cầu quá lớn, các nhà máy mới chuyển sang dùng vật liệu dẻo tổng hợp đạt chuẩn an toàn thực phẩm để giữ độ dai lâu hơn.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 480,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b55",
+      "text": "Và cũng chính vì chất nhựa dẻo ấy cực kỳ bền, nên ngoài môi trường tự nhiên nó mất rất lâu mới phân hủy được nếu ai đó vứt bừa xuống mặt đường.",
+      "ttsText": "Và cũng chính vì chất nhựa dẻo ấy cực kỳ bền, nên ngoài môi trường tự nhiên nó mất rất lâu mới phân hủy được nếu ai đó vứt bừa xuống mặt đường.",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "THINKING",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 440,
+              "endX": 800,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.8,
+              "startX": 800,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "CROUCH_LOOK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.8,
+              "toPct": 1.0,
+              "startX": 820,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b56",
+      "text": "Thế nên cách xử lý gọn đẹp nhất sau khi nhai hết vị vẫn là gói vào một mẩu giấy nhỏ rồi bỏ vào thùng rác.",
+      "ttsText": "Thế nên cách xử lý gọn đẹp nhất sau khi nhai hết vị vẫn là gói vào một mẩu giấy nhỏ rồi bỏ vào thùng rác.",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 620,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Gọn gàng sạch sẽ!",
+          "bubbleStartPct": 0.48,
+          "bubbleEndPct": 0.92
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b57",
+      "text": "Chiều hôm ấy gặp lại anh hàng xóm ngoài đầu ngõ, anh ấy vẫn còn áy náy hỏi tôi xem vụ nuốt viên kẹo hôm kia có sao không.",
+      "ttsText": "Chiều hôm ấy gặp lại anh hàng xóm ngoài đầu ngõ, anh ấy vẫn còn áy náy hỏi tôi xem vụ nuốt viên kẹo hôm kia có sao không.",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 380,
+              "endX": 820,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 820,
+              "endX": 840,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "NEIGHBOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1420,
+              "endX": 1080,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1080,
+              "endX": 1080,
+              "facing": "LEFT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Bụng em ổn chưa?!",
+          "bubbleStartPct": 0.4,
+          "bubbleEndPct": 0.92
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b58",
+      "text": "Tôi bật cười kể lại nguyên bài giảng về lớp màng nhầy chống dính và băng chuyền nhu động ruột khiến anh ấy tròn mắt ngạc nhiên.",
+      "ttsText": "Tôi bật cười kể lại nguyên bài giảng về lớp màng nhầy chống dính và băng chuyền nhu động ruột khiến anh ấy tròn mắt ngạc nhiên.",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "PROUD",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 840,
+              "endX": 840,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 840,
+              "endX": 840,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "NEIGHBOR",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "SHOCKED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1080,
+              "endX": 1080,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "SHOCKED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1080,
+              "endX": 1080,
+              "facing": "LEFT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Giờ anh mới biết!",
+          "bubbleStartPct": 0.5,
+          "bubbleEndPct": 0.95
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b59",
+      "text": "Hóa ra anh ấy lớn từng này tuổi rồi mà trước giờ vẫn tin sái cổ là nuốt kẹo cao su phải nằm trong bụng tận bảy năm mới hết!",
+      "ttsText": "Hóa ra anh ấy lớn từng này tuổi rồi mà trước giờ vẫn tin sái cổ là nuốt kẹo cao su phải nằm trong bụng tận bảy năm mới hết!",
+      "stageType": "CITY_STREET",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 840,
+              "endX": 840,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 840,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "NEIGHBOR",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1080,
+              "endX": 1080,
+              "facing": "LEFT",
+              "pose": "FACEPALM",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1080,
+              "endX": 1080,
+              "facing": "LEFT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b60",
+      "text": "Tóm gọn lại chỉ trong ba ý siêu dễ nhớ: đường và mùi thơm được tiêu hóa hết, cốt nhựa dẻo không dính vào thành ruột nhờ lớp màng nhầy ẩm ướt.",
+      "ttsText": "Tóm gọn lại chỉ trong ba ý siêu dễ nhớ: đường và mùi thơm được tiêu hóa hết, cốt nhựa dẻo không dính vào thành ruột nhờ lớp màng nhầy ẩm ướt.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "PROUD",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 440,
+              "endX": 640,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 640,
+              "endX": 640,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "visualProp": "WATER_RIPPLE",
+      "callout": {
+        "text": "KHÔNG DÍNH — KHÔNG NẰM 7 NĂM"
+      },
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b61",
+      "text": "Và toàn bộ viên kẹo sẽ rời khỏi cơ thể nhẹ nhàng sau khoảng một đến ba ngày nhờ nhịp co bóp tự nhiên của đường ruột.",
+      "ttsText": "Và toàn bộ viên kẹo sẽ rời khỏi cơ thể nhẹ nhàng sau khoảng một đến ba ngày nhờ nhịp co bóp tự nhiên của đường ruột.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "DOCTOR",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 440,
+              "endX": 640,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 640,
+              "endX": 640,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "visualProp": "ALARM_CLOCK_RINGING",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b62",
+      "text": "Chỉ cần nhớ đừng cố tình nuốt nhiều viên liên tục trong thời gian ngắn là chẳng có gì phải hoang mang cả.",
+      "ttsText": "Chỉ cần nhớ đừng cố tình nuốt nhiều viên liên tục trong thời gian ngắn là chẳng có gì phải hoang mang cả.",
+      "stageType": "SIMPLE_GRASS_FIELD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 460,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 860,
+              "endX": 880,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b63",
+      "text": "Nhiều khi những điều từng làm tụi mình lo sốt vó hồi nhỏ, tới lúc tìm hiểu kỹ cơ chế bên trong cơ thể lại thấy vừa hợp lý vừa thú vị bất ngờ.",
+      "ttsText": "Nhiều khi những điều từng làm tụi mình lo sốt vó hồi nhỏ, tới lúc tìm hiểu kỹ cơ chế bên trong cơ thể lại thấy vừa hợp lý vừa thú vị bất ngờ.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 560,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 860,
+              "endX": 880,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1300,
+              "endX": 1140,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1140,
+              "endX": 1140,
+              "facing": "LEFT",
+              "pose": "PAT_SHOULDER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b64",
+      "text": "Còn bạn, hồi nhỏ bạn từng lỡ nuốt kẹo cao su hay tin sái cổ lời dọa nào của người lớn nhất? Kể lại cho mọi người cùng cười nhé!",
+      "ttsText": "Còn bạn, hồi nhỏ bạn từng lỡ nuốt kẹo cao su hay tin sái cổ lời dọa nào của người lớn nhất? Kể lại cho mọi người cùng cười nhé!",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.6,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 620,
+              "endX": 780,
+              "facing": "RIGHT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 780,
+              "endX": 780,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Hẹn gặp tập sau!",
+          "bubbleStartPct": 0.45,
+          "bubbleEndPct": 0.95
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WALK_IN",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1260,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "WALK",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "headerTitle": "HỒI NHỎ BẠN TỪNG TIN LỜI DỌA NÀO?",
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    }
+  ]
+}
