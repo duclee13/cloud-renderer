@@ -471,6 +471,7 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
               durationFrames={layerBeat.durationFrames}
               u={layerProgressU}
               groundY={groundY}
+              fps={fps}
             />
           ) : isKassStoryBeat && layerBeat.kassSceneMode ? (
             <KassStorySceneLayer

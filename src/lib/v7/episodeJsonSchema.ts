@@ -178,6 +178,8 @@ export interface AutoEpisodeBeat {
   voiceTone?: AutoVoiceTone;
   /** V17.2: Đạo cụ vector chuyên nghiệp 60fps chọn từ 16 mẫu chuẩn (thay thế hoàn toàn svgInner thô của AI) */
   visualProp?: AutoPropId;
+  /** V19.0: Khóa component hoạt họa minh họa riêng cho beat trong EPISODE_VISUAL_REGISTRY */
+  customVisual?: string;
   /** V18.0: Điều khiển Camera Zoom & Tâm lấy nét mượt 60fps cho toàn sân khấu */
   camera?: AutoCameraSpec;
   actors: AutoActorSpec[];
@@ -973,6 +975,11 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       };
     }
 
+    const customVisual =
+      typeof rb?.customVisual === "string" && rb.customVisual.trim()
+        ? rb.customVisual.trim().slice(0, 80)
+        : undefined;
+
     const camera = sanitizeCamera(rb?.camera);
 
     return {
@@ -990,6 +997,7 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       bgmMood,
       voiceTone,
       visualProp,
+      ...(customVisual ? { customVisual } : {}),
       ...(camera ? { camera } : {}),
       actors,
       customProps: [], // V17.2: Khóa rỗng mảng customProps SVG thô của AI để không bao giờ xuất hiện hình vuông/tròn lỗi

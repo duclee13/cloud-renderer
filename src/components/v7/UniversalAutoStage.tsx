@@ -1,10 +1,12 @@
 /**
- * UNIVERSAL AUTO STAGE V18.4 — Engine Đa Lớp "Nhất Cử Nhất Động" (20 ActionPoseV18 + Camera Zoom + Topmost SpeechBubble Layer + Auto-Center Solo Explainer)
+ * UNIVERSAL AUTO STAGE V19.0 — Engine Đa Lớp "Nhất Cử Nhất Động" (20 ActionPoseV18 + Camera Zoom + Topmost SpeechBubble Layer + Auto-Center Solo Explainer + Custom Beat Visuals)
  * - Tương thích ngược 100% với kịch bản JSON V17 (nếu actor không có timeline[] thì vẫn chạy theo motion/slot cũ)
  * - Hỗ trợ Keyframe Action Timeline 60fps liên hoàn: nội suy mượt x, facing, expression, handProp & 20 tư thế ngay trong 1 cảnh
  * - Hỗ trợ Camera Zoom theo beat (fromScale -> toScale, focusX, focusY) mà không làm lệch phụ đề/tiêu đề
  * - V18.4: Viết lại dáng tay TALK_GESTURE & NOD_SMILE tự nhiên (góc khuỷu mở rộng, gật nhẹ 2 nhịp rồi dừng),
  *          tách SpeechBubble lên lớp trên cùng (sau tất cả actors), và tự căn giữa nhân vật đơn trên EXPLAINER_POLKA_DOT không có visualProp.
+ * - V19.0: Hỗ trợ hoạt họa minh họa riêng theo từng beat (`beat.customVisual` -> `EPISODE_VISUAL_REGISTRY`), render bên phải (680,150,1120x680)
+ *          trên nền sân khấu & dưới SpeechBubble/phụ đề, đồng thời tự động giữ nhân vật đơn ở bên trái (x ≈ 420, quay mặt RIGHT).
  */
 
 import React from "react";
@@ -29,6 +31,7 @@ import {
 } from "./KassStageLibrary";
 import { LotusPondBackdrop } from "./TadpoleMovieStages";
 import { CuratedAnimatedProp } from "./AutoPropLibrary";
+import { EPISODE_VISUAL_REGISTRY, type EpisodeVisualProps } from "./episodeVisuals";
 import { resolvePendulumArms } from "../../animscript/motionGraph";
 import { smoothstep, lerpNum } from "../../lib/v7/universalAnimationStandard";
 import {
@@ -1255,17 +1258,55 @@ function projectUpperLocalToWorld(
   };
 }
 
+/** V19.0: Vùng hiển thị sạch bên phải sân khấu cho hoạt họa minh họa riêng của beat (customVisual) */
+export const CUSTOM_VISUAL_STAGE_RECT = {
+  left: 680,
+  top: 150,
+  width: 1120,
+  height: 680,
+} as const;
+
+/** V19.0: Tọa độ X mặc định giữ nhân vật đơn ở bên trái khi beat có customVisual bên phải */
+export const SOLO_CUSTOM_VISUAL_ACTOR_X = 420;
+
+/** V19.0: Tra cứu component hoạt họa minh họa riêng theo `beat.customVisual` trong `EPISODE_VISUAL_REGISTRY` */
+export function resolveCustomVisualComponent(
+  customVisual?: string | null
+): React.FC<EpisodeVisualProps> | null {
+  if (typeof customVisual !== "string") return null;
+  const key = customVisual.trim();
+  if (!key) return null;
+  if (!Object.prototype.hasOwnProperty.call(EPISODE_VISUAL_REGISTRY, key)) {
+    return null;
+  }
+  return EPISODE_VISUAL_REGISTRY[key] ?? null;
+}
+
 /**
- * V18.4: Khi beat dùng EXPLAINER_POLKA_DOT, chỉ có 1 nhân vật và KHÔNG có visualProp,
+ * V19.0: Khi beat có `customVisual` hợp lệ trong registry và chỉ có 1 nhân vật,
+ * tự động giữ nhân vật ở bên trái (`x ≈ 420`, quay mặt `RIGHT`) để không đè lên hình minh họa bên phải.
+ */
+export function shouldPinSoloActorLeftForCustomVisual(spec: AutoEpisodeBeat): boolean {
+  return (
+    Boolean(resolveCustomVisualComponent(spec.customVisual)) &&
+    Array.isArray(spec.actors) &&
+    spec.actors.length === 1
+  );
+}
+
+/**
+ * V18.4–V19.0: Khi beat dùng EXPLAINER_POLKA_DOT, chỉ có 1 nhân vật và KHÔNG có visualProp / customVisual,
  * tự động căn nhân vật vào khu vực giữa khung hình (x ≈ 960) để chống trống 70% màn hình.
  */
 export function shouldCenterSoloExplainerBeat(spec: AutoEpisodeBeat): boolean {
   const hasVisualProp = normalizeVisualPropId(spec.visualProp) !== "NONE";
+  const hasCustomVisual = Boolean(resolveCustomVisualComponent(spec.customVisual));
   return (
     spec.stageType === "EXPLAINER_POLKA_DOT" &&
     Array.isArray(spec.actors) &&
     spec.actors.length === 1 &&
-    !hasVisualProp
+    !hasVisualProp &&
+    !hasCustomVisual
   );
 }
 
@@ -1286,12 +1327,7 @@ export function resolveContiguousPoseRunStartPct(
   return timeline[j].fromPct;
 }
 
-/**
- * V18.4: Tính độ dịch ngang để đưa vị trí đứng diễn chủ đạo của timeline về giữa khung hình (x = 960),
- * giữ nguyên quãng đường di chuyển và nhịp bước chân (walkCycle).
- */
-export function computeSoloExplainerCenterShiftX(timeline: ActorKeyframe[]): number {
-  if (!timeline || timeline.length === 0) return 0;
+function computeSoloActorAnchorX(timeline: ActorKeyframe[]): number {
   let weightedSum = 0;
   let totalWeight = 0;
   for (const kf of timeline) {
@@ -1301,11 +1337,16 @@ export function computeSoloExplainerCenterShiftX(timeline: ActorKeyframe[]): num
     weightedSum += midX * dur;
     totalWeight += dur;
   }
-  const anchorX =
-    totalWeight > 0
-      ? weightedSum / totalWeight
-      : timeline[timeline.length - 1].endX;
-  return 960 - anchorX;
+  return totalWeight > 0 ? weightedSum / totalWeight : timeline[timeline.length - 1].endX;
+}
+
+/**
+ * V18.4: Tính độ dịch ngang để đưa vị trí đứng diễn chủ đạo của timeline về giữa khung hình (x = 960),
+ * giữ nguyên quãng đường di chuyển và nhịp bước chân (walkCycle).
+ */
+export function computeSoloExplainerCenterShiftX(timeline: ActorKeyframe[]): number {
+  if (!timeline || timeline.length === 0) return 0;
+  return 960 - computeSoloActorAnchorX(timeline);
 }
 
 export function centerSoloExplainerTimeline(timeline: ActorKeyframe[]): ActorKeyframe[] {
@@ -1315,6 +1356,21 @@ export function centerSoloExplainerTimeline(timeline: ActorKeyframe[]): ActorKey
     ...kf,
     startX: Math.max(180, Math.min(1740, Math.round(kf.startX + shiftX))),
     endX: Math.max(180, Math.min(1740, Math.round(kf.endX + shiftX))),
+  }));
+}
+
+/**
+ * V19.0: Dịch chuyển timeline của nhân vật đơn về bên trái (`x ≈ 420`, kẹp an toàn trong 180..560)
+ * và quay mặt sang phải (`RIGHT`) khi beat có hoạt họa minh họa riêng bên phải (`customVisual`).
+ */
+export function pinSoloCustomVisualTimeline(timeline: ActorKeyframe[]): ActorKeyframe[] {
+  if (!timeline || timeline.length === 0) return timeline;
+  const shiftX = SOLO_CUSTOM_VISUAL_ACTOR_X - computeSoloActorAnchorX(timeline);
+  return timeline.map((kf) => ({
+    ...kf,
+    startX: Math.max(180, Math.min(560, Math.round(kf.startX + shiftX))),
+    endX: Math.max(180, Math.min(560, Math.round(kf.endX + shiftX))),
+    facing: "RIGHT",
   }));
 }
 
@@ -1329,7 +1385,8 @@ export const UniversalAutoStage: React.FC<{
   durationFrames: number;
   u: number;
   groundY?: number;
-}> = ({ spec, frame, localFrame, durationFrames, u, groundY = 840 }) => {
+  fps?: number;
+}> = ({ spec, frame, localFrame, durationFrames, u, groundY = 840, fps = 60 }) => {
   const isNight = spec.timeOfDay === "NIGHT";
   const isOutdoor =
     spec.stageType === "COUNTRYSIDE_YARD" ||
@@ -1342,6 +1399,9 @@ export const UniversalAutoStage: React.FC<{
 
   const sceneProgressP = Math.max(0, Math.min(1, localFrame / Math.max(1, durationFrames)));
   const propPlacement = resolveCuratedPropPlacement(spec);
+  const CustomVisualComponent = resolveCustomVisualComponent(spec.customVisual);
+  const hasCustomVisual = Boolean(CustomVisualComponent);
+  const pinSoloActorLeft = shouldPinSoloActorLeftForCustomVisual(spec);
   const centerSoloExplainer = shouldCenterSoloExplainerBeat(spec);
 
   // V18.0–V18.4 Camera Zoom mượt theo spec.camera (mặc định zoom nhẹ 1.0 -> 1.03 quanh focusX/focusY; phụ đề & tiêu đề luôn cố định)
@@ -1406,10 +1466,16 @@ export const UniversalAutoStage: React.FC<{
 
   const resolvedActors: ResolvedActorRenderData[] = spec.actors.map((actor, aIdx) => {
     const actorScale = resolvePresetDefaultScale(actor.preset); // V18.3: BOY=0.76, Người lớn=1.0
-    const baseX = centerSoloExplainer ? 960 : slotBaseX(actor.slot);
+    const baseX = pinSoloActorLeft
+      ? SOLO_CUSTOM_VISUAL_ACTOR_X
+      : centerSoloExplainer
+      ? 960
+      : slotBaseX(actor.slot);
     const effectiveTimeline =
       actor.timeline && actor.timeline.length > 0
-        ? centerSoloExplainer
+        ? pinSoloActorLeft
+          ? pinSoloCustomVisualTimeline(actor.timeline)
+          : centerSoloExplainer
           ? centerSoloExplainerTimeline(actor.timeline)
           : actor.timeline
         : null;
@@ -1473,7 +1539,7 @@ export const UniversalAutoStage: React.FC<{
     }
 
     let actorX = baseX;
-    let effectiveFacing: "LEFT" | "RIGHT" = actor.facing;
+    let effectiveFacing: "LEFT" | "RIGHT" = pinSoloActorLeft ? "RIGHT" : actor.facing;
     let activeExprEnum: AutoActorExpression = actor.expression;
     let activeHandProp: AutoHandProp = actor.handProp || "NONE";
     let activeShiver = Boolean(actor.shiver);
@@ -1577,7 +1643,9 @@ export const UniversalAutoStage: React.FC<{
       switch (actor.motion) {
         case "WALK_IN": {
           const walkFromLeft =
-            actor.slot === "LEFT" || (actor.slot === "CENTER" && actor.facing === "RIGHT");
+            pinSoloActorLeft ||
+            actor.slot === "LEFT" ||
+            (actor.slot === "CENTER" && actor.facing === "RIGHT");
           const startX = walkFromLeft ? baseX - 320 : baseX + 320;
           const wt = smoothstep(0.0, 0.45, u);
           actorX = lerpNum(startX, baseX, wt);
@@ -1680,6 +1748,16 @@ export const UniversalAutoStage: React.FC<{
                 };
               }
             }
+          } else if (pinSoloActorLeft) {
+            const startX = 260;
+            const stopX = SOLO_CUSTOM_VISUAL_ACTOR_X;
+            const wt = smoothstep(0.0, 0.45, u);
+            actorX = lerpNum(startX, stopX, wt);
+            effectiveFacing = "RIGHT";
+            walkWeight = u <= 0.47 ? Math.min(smoothstep(0.0, 0.07, u), 1 - smoothstep(0.38, 0.47, u)) : 0;
+            walkCycle = (Math.abs(actorX - startX) / 140) % 1;
+            pose = walkWeight > 0.05 ? "walking" : "standing";
+            torsoTiltDeg = walkWeight * 7;
           } else if (centerSoloExplainer) {
             const startX = actor.slot === "RIGHT" ? 1140 : 780;
             const stopX = 960;
@@ -1732,6 +1810,11 @@ export const UniversalAutoStage: React.FC<{
           break;
         }
       }
+    }
+
+    if (pinSoloActorLeft) {
+      actorX = Math.max(180, Math.min(560, actorX));
+      effectiveFacing = "RIGHT";
     }
 
     const facingDir: 1 | -1 = effectiveFacing === "LEFT" ? -1 : 1;
@@ -1962,6 +2045,29 @@ export const UniversalAutoStage: React.FC<{
           </g>
         )}
 
+        {/* 2.5. V19.0: HOẠT HỌA MINH HỌA RIÊNG THEO BEAT (customVisual) — NẰM TRÊN NỀN SÂN KHẤU, DƯỚI NHÂN VẬT / SPEECHBUBBLE / PHỤ ĐỀ */}
+        {CustomVisualComponent && (
+          <g id={`layer-custom-visual-${spec.id}`}>
+            <foreignObject
+              x={CUSTOM_VISUAL_STAGE_RECT.left}
+              y={CUSTOM_VISUAL_STAGE_RECT.top}
+              width={CUSTOM_VISUAL_STAGE_RECT.width}
+              height={CUSTOM_VISUAL_STAGE_RECT.height}
+              style={{ overflow: "visible" }}
+            >
+              <div
+                style={{
+                  width: `${CUSTOM_VISUAL_STAGE_RECT.width}px`,
+                  height: `${CUSTOM_VISUAL_STAGE_RECT.height}px`,
+                  position: "relative",
+                }}
+              >
+                <CustomVisualComponent progress={sceneProgressP} frame={localFrame} fps={fps} />
+              </div>
+            </foreignObject>
+          </g>
+        )}
+
         {/* 3. PASS 2 (V18.2): RENDER NHÂN VẬT VỚI ÁNH MẮT CÓ HỒN + LISTENER NOD + SMOOTH BLEND */}
         {resolvedActors.map((ra) => {
           const { actor, aIdx } = ra;
@@ -2065,6 +2171,8 @@ export const UniversalAutoStage: React.FC<{
               dx: Math.max(-3.6, Math.min(3.6, rawLocalDx / 135)),
               dy: Math.max(-3.8, Math.min(-1.5, rawDy / 85)),
             };
+          } else if (hasCustomVisual) {
+            lookOffset = { dx: 3.0, dy: -0.6 };
           } else if (ra.activeHandProp === "PHONE" || ra.activeHandProp === "NOTEBOOK") {
             lookOffset = { dx: 2.8, dy: 2.8 };
           } else {

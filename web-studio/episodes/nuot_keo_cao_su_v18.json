@@ -1,7 +1,7 @@
 {
   "title": "Chuyện Gì Thực Sự Xảy Ra Khi Bạn Lỡ Nuốt Kẹo Cao Su?",
   "slug": "nuot_keo_cao_su_v18",
-  "version": "v18.4",
+  "version": "v19.0",
   "beats": [
     {
       "id": "b01",
@@ -1089,7 +1089,6 @@
           ]
         }
       ],
-      "visualProp": "NOTEBOOK_OPEN",
       "callout": {
         "text": "4 THÀNH PHẦN CỦA KẸO CAO SU"
       },
@@ -1098,7 +1097,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "customVisual": "GUM_INGREDIENTS_SPLIT"
     },
     {
       "id": "b14",
@@ -1148,7 +1148,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "customVisual": "GUM_INGREDIENTS_SPLIT"
     },
     {
       "id": "b15",
@@ -1201,7 +1202,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "customVisual": "GUM_INGREDIENTS_SPLIT"
     },
     {
       "id": "b16",
@@ -1328,13 +1330,13 @@
       ],
       "actTitle": "Hồi 2: Chuyện Gì Xảy Ra Trong Dạ Dày?",
       "headerTitle": "HỒI 2: 30 PHÚT ĐẦU TRONG DẠ DÀY",
-      "visualProp": "WATER_RIPPLE",
       "camera": {
         "fromScale": 1.0,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "customVisual": "ESOPHAGUS_SLIDE"
     },
     {
       "id": "b18",
@@ -1387,7 +1389,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "customVisual": "STOMACH_ACID_DISSOLVE"
     },
     {
       "id": "b19",
@@ -1437,7 +1440,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "customVisual": "STOMACH_ACID_DISSOLVE"
     },
     {
       "id": "b20",
@@ -1583,7 +1587,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "customVisual": "ENZYME_BOUNCE_OFF"
     },
     {
       "id": "b22",
@@ -1856,13 +1861,13 @@
         }
       ],
       "headerTitle": "BÍ MẬT LỚP MÀNG NHẦY TRƠN TUỘT",
-      "visualProp": "WATER_RIPPLE",
       "camera": {
         "fromScale": 1.0,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "customVisual": "MUCUS_SLIP_DEMO"
     },
     {
       "id": "b26",
@@ -1907,7 +1912,6 @@
           ]
         }
       ],
-      "visualProp": "WATER_RIPPLE",
       "callout": {
         "text": "LỚP DỊCH NHẦY CHỐNG DÍNH TỰ NHIÊN"
       },
@@ -1916,7 +1920,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "customVisual": "MUCUS_SLIP_DEMO"
     },
     {
       "id": "b27",
@@ -1974,13 +1979,13 @@
           "bubbleEndPct": 0.95
         }
       ],
-      "visualProp": "WATER_RIPPLE",
       "camera": {
         "fromScale": 1.0,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "customVisual": "MUCUS_SLIP_DEMO"
     },
     {
       "id": "b28",
@@ -2143,7 +2148,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "customVisual": "STOMACH_CHURN_PUSH"
     },
     {
       "id": "b30",
@@ -2188,13 +2194,13 @@
           ]
         }
       ],
-      "visualProp": "NOTEBOOK_OPEN",
       "camera": {
         "fromScale": 1.0,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "customVisual": "CORN_HUSK_VS_GUM"
     },
     {
       "id": "b31",
@@ -2244,14 +2250,15 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "customVisual": "CORN_HUSK_VS_GUM"
     },
     {
       "id": "b32",
       "text": "Thế là sau vài tiếng nằm chung với bữa tối trong dạ dày, viên kẹo nhỏ được đẩy gọn gàng qua cửa van để bước vào chặng đường dài nhất.",
       "ttsText": "Thế là sau vài tiếng nằm chung với bữa tối trong dạ dày, viên kẹo nhỏ được đẩy gọn gàng qua cửa van để bước vào chặng đường dài nhất.",
-      "stageType": "BEDROOM_INDOOR",
-      "timeOfDay": "SUNSET",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
       "weather": "CLEAR",
       "transitionIn": "CROSSFADE",
       "transitionFrames": 30,
@@ -2294,7 +2301,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "customVisual": "STOMACH_CHURN_PUSH"
     },
     {
       "id": "b33",
@@ -2349,7 +2357,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "customVisual": "INTESTINE_PERISTALSIS"
     },
     {
       "id": "b34",
@@ -2399,7 +2408,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "customVisual": "INTESTINE_PERISTALSIS"
     },
     {
       "id": "b35",
@@ -2883,7 +2893,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "customVisual": "GUM_CLUMP_BLOCKAGE"
     },
     {
       "id": "b40",
@@ -3359,7 +3370,7 @@
       "id": "b45",
       "text": "Bác sĩ cười phá lên: muốn nảy mầm thì hạt cần ánh sáng mặt trời và đất ẩm, chứ trong bụng vừa tối om vừa ngập a-xít mạnh thì chẳng hạt nào sống nổi!",
       "ttsText": "Bác sĩ cười phá lên: muốn nảy mầm thì hạt cần ánh sáng mặt trời và đất ẩm, chứ trong bụng vừa tối om vừa ngập a-xít mạnh thì chẳng hạt nào sống nổi!",
-      "stageType": "SIMPLE_GRASS_FIELD",
+      "stageType": "EXPLAINER_POLKA_DOT",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
       "transitionIn": "CROSSFADE",
@@ -3403,7 +3414,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "customVisual": "WATERMELON_SEED_STOMACH"
     },
     {
       "id": "b46",
@@ -4388,7 +4400,6 @@
           ]
         }
       ],
-      "visualProp": "WATER_RIPPLE",
       "callout": {
         "text": "KHÔNG DÍNH — KHÔNG NẰM 7 NĂM"
       },
@@ -4397,7 +4408,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "customVisual": "GUM_SUMMARY_TIMELINE"
     },
     {
       "id": "b61",
@@ -4447,7 +4459,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "customVisual": "INTESTINE_PERISTALSIS"
     },
     {
       "id": "b62",
