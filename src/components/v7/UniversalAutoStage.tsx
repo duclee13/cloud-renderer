@@ -16,6 +16,8 @@ import {
   isComicBubbleActive,
   computeV18ActionArmsUpper,
   computeGentleDoubleNodDeg,
+  computeSipDrinkWave,
+  resolveStickmanExpressionPreset,
   enforceRigidTwoBoneIK,
   resolvePresetDefaultScale,
   TORSO_LEN,
@@ -630,26 +632,7 @@ function mapAutoExpression(expr: AutoActorExpression): {
   blush: boolean;
   sweatDrop: boolean;
 } {
-  switch (expr) {
-    case "HAPPY":
-      return { eyes: "happy", eyebrows: "neutral", mouth: "smile", blush: false, sweatDrop: false };
-    case "PROUD":
-      return { eyes: "happy", eyebrows: "neutral", mouth: "smile", blush: false, sweatDrop: false };
-    case "CURIOUS":
-      return { eyes: "curious", eyebrows: "inquisitive", mouth: "smile", blush: false, sweatDrop: false };
-    case "THINKING":
-      return { eyes: "curious", eyebrows: "inquisitive", mouth: "line", blush: false, sweatDrop: false };
-    case "SHOCKED":
-      return { eyes: "surprised", eyebrows: "worried", mouth: "gasp", blush: false, sweatDrop: true };
-    case "SCARED":
-      return { eyes: "wide", eyebrows: "worried", mouth: "circleOpen", blush: false, sweatDrop: true };
-    case "TIRED":
-      return { eyes: "closed", eyebrows: "worried", mouth: "line", blush: false, sweatDrop: true };
-    case "ANGRY":
-      return { eyes: "wide", eyebrows: "furrowed", mouth: "circleOpen", blush: false, sweatDrop: false };
-    default:
-      return { eyes: "happy", eyebrows: "neutral", mouth: "smile", blush: false, sweatDrop: false };
-  }
+  return resolveStickmanExpressionPreset(expr);
 }
 
 const HandPropGraphic: React.FC<{
@@ -661,9 +644,10 @@ const HandPropGraphic: React.FC<{
   frame: number;
   extraTiltDeg?: number;
   propScale?: number;
-}> = ({ prop, x, y, facingDir, isNight, frame, extraTiltDeg = 0, propScale = 1.0 }) => {
+  isSipping?: boolean;
+}> = ({ prop, x, y, facingDir, isNight, frame, extraTiltDeg = 0, propScale = 1.0, isSipping = false }) => {
   if (prop === "NONE") return null;
-  const sway = Math.abs(extraTiltDeg) > 0.1 ? extraTiltDeg : Math.sin(frame * 0.14) * 6;
+  const sway = isSipping ? extraTiltDeg : Math.abs(extraTiltDeg) > 0.1 ? extraTiltDeg : Math.sin(frame * 0.14) * 6;
   return (
     <g
       transform={`translate(${x.toFixed(1)}, ${y.toFixed(1)}) scale(${(facingDir * propScale).toFixed(
@@ -714,10 +698,18 @@ const HandPropGraphic: React.FC<{
         </g>
       )}
       {prop === "CUP_SODA" && (
-        <g transform="translate(16, -6)">
-          <path d="M 4,-22 L 10,-44 L 22,-46" fill="none" stroke="#EF4444" strokeWidth={4} strokeLinecap="round" />
-          <path d="M -16,-22 L -12,20 L 12,20 L 16,-22 Z" fill="#F97316" stroke="#141414" strokeWidth={3} />
-          <rect x={-18} y={-26} width={36} height={8} rx={3} fill="#FFFFFF" stroke="#141414" strokeWidth={2.5} />
+        <g transform={isSipping ? "translate(8, 0)" : "translate(12, -6)"}>
+          {/* V19.1: Ống hút luôn xoay gập VÀO PHÍA MIỆNG nhân vật (-x), tuyệt đối không chĩa ngược ra ngoài */}
+          <path
+            d={isSipping ? "M -2,-22 L -8,-37 L -44,-31" : "M -2,-22 L -8,-40 L -24,-36"}
+            fill="none"
+            stroke="#EF4444"
+            strokeWidth={4}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path d="M -15,-22 L -11,18 L 11,18 L 15,-22 Z" fill="#F97316" stroke="#141414" strokeWidth={3} />
+          <rect x={-17} y={-26} width={34} height={8} rx={3} fill="#FFFFFF" stroke="#141414" strokeWidth={2.5} />
         </g>
       )}
       {prop === "NET" && (
@@ -852,6 +844,7 @@ interface V18PoseSnapshot {
   activeShiver: boolean;
   activeHandProp: AutoHandProp;
   overrideEyes?: EyeExpression;
+  overrideEyebrows?: EyebrowExpression;
   overrideMouth?: MouthExpression;
   sweepSin: number;
   sipWave: number;
@@ -984,31 +977,27 @@ function evaluateV18KeyframeKinematics(
   let v18ActionPose: ActionPoseV18 | undefined;
   let handPropTiltDeg = 0;
   let overrideEyes: EyeExpression | undefined;
+  let overrideEyebrows: EyebrowExpression | undefined;
   let overrideMouth: MouthExpression | undefined;
   let sweepSin = 0;
   let sipWave = 0;
 
-  switch (kf.pose) {
+  // V19.1: Chặn tuyệt đối lỗi đi bộ / chạy tại chỗ (Moonwalk) — nếu WALK/RUN mà |endX - startX| < 10
+  // thì tự động chuyển về đứng yên tự nhiên (TALK_GESTURE) với walkWeight = 0.
+  const effectivePose: ActionPoseV18 =
+    (kf.pose === "WALK" || kf.pose === "RUN") && moveDist < 10 ? "TALK_GESTURE" : kf.pose;
+
+  switch (effectivePose) {
     case "WALK": {
-      if (moveDist > 4) {
-        walkCycle = (Math.abs(actorX - kf.startX) / 145) % 1;
-        walkWeight = Math.min(smoothstep(0, 0.1, segU), 1 - smoothstep(0.9, 1.0, segU));
-      } else {
-        walkCycle = (segLocalFrame / 36) % 1;
-        walkWeight = 0.85;
-      }
+      walkCycle = (Math.abs(actorX - kf.startX) / 145) % 1;
+      walkWeight = Math.min(smoothstep(0, 0.1, segU), 1 - smoothstep(0.9, 1.0, segU));
       pose = walkWeight > 0.05 ? "walking" : "standing";
       torsoTiltDeg = 6.5 * walkWeight;
       break;
     }
     case "RUN": {
-      if (moveDist > 4) {
-        walkCycle = (Math.abs(actorX - kf.startX) / 165) % 1;
-        walkWeight = Math.min(smoothstep(0, 0.08, segU), 1 - smoothstep(0.92, 1.0, segU));
-      } else {
-        walkCycle = (segLocalFrame / 20) % 1;
-        walkWeight = 0.95;
-      }
+      walkCycle = (Math.abs(actorX - kf.startX) / 165) % 1;
+      walkWeight = Math.min(smoothstep(0, 0.08, segU), 1 - smoothstep(0.92, 1.0, segU));
       pose = walkWeight > 0.05 ? "running" : "standing";
       torsoTiltDeg = 16 * walkWeight;
       flightLift = Math.max(0, Math.sin(walkCycle * Math.PI * 2)) * 12 * walkWeight;
@@ -1118,9 +1107,12 @@ function evaluateV18KeyframeKinematics(
       break;
     }
     case "SIP_DRINK": {
-      sipWave = Math.pow(0.5 - 0.5 * Math.cos(segLocalFrame * 0.105), 1.35);
-      torsoTiltDeg = -3 * sipWave;
-      headTiltDeg = -14 * sipWave;
+      // V19.1: Nâng ly nước lên ngang cằm/miệng, hơi nghiêng đầu & ly vào miệng, miệng tròn nhỏ (o) hút ống hút
+      sipWave = computeSipDrinkWave(segLocalFrame);
+      torsoTiltDeg = 2 * sipWave;
+      headTiltDeg = 3 * sipWave;
+      handPropTiltDeg = -4 * sipWave;
+      overrideMouth = "sip";
       if (activeHandProp === "NONE") activeHandProp = "CUP_SODA";
       v18ActionPose = "SIP_DRINK";
       break;
@@ -1160,7 +1152,8 @@ function evaluateV18KeyframeKinematics(
       torsoTiltDeg = -4;
       activeShiver = true;
       overrideEyes = "wide";
-      overrideMouth = "circleOpen";
+      overrideEyebrows = "worried";
+      overrideMouth = "worried";
       v18ActionPose = "SHIVER_PANIC";
       break;
     }
@@ -1207,6 +1200,7 @@ function evaluateV18KeyframeKinematics(
     activeShiver,
     activeHandProp,
     overrideEyes,
+    overrideEyebrows,
     overrideMouth,
     sweepSin,
     sipWave,
@@ -1455,6 +1449,7 @@ export const UniversalAutoStage: React.FC<{
     blendedArmPose?: V18ArmPoseJoints;
     handPropTiltDeg: number;
     overrideEyes?: EyeExpression;
+    overrideEyebrows?: EyebrowExpression;
     overrideMouth?: MouthExpression;
     holdingTarget?: { leftGrip?: { x: number; y: number }; rightGrip?: { x: number; y: number } };
     handGripX: number;
@@ -1561,6 +1556,7 @@ export const UniversalAutoStage: React.FC<{
     let blendedArmPose: V18ArmPoseJoints | undefined;
     let handPropTiltDeg = 0;
     let overrideEyes: EyeExpression | undefined;
+    let overrideEyebrows: EyebrowExpression | undefined;
     let overrideMouth: MouthExpression | undefined;
     let holdingTarget: { leftGrip?: { x: number; y: number }; rightGrip?: { x: number; y: number } } | undefined;
     let sweepSin = 0;
@@ -1632,6 +1628,7 @@ export const UniversalAutoStage: React.FC<{
       activeShiver = snap.activeShiver;
       activeHandProp = snap.activeHandProp;
       overrideEyes = snap.overrideEyes;
+      overrideEyebrows = snap.overrideEyebrows;
       overrideMouth = snap.overrideMouth;
       sweepSin = snap.sweepSin;
       sipWave = snap.sipWave;
@@ -1927,6 +1924,7 @@ export const UniversalAutoStage: React.FC<{
       blendedArmPose,
       handPropTiltDeg,
       overrideEyes,
+      overrideEyebrows,
       overrideMouth,
       holdingTarget,
       handGripX,
@@ -2212,9 +2210,12 @@ export const UniversalAutoStage: React.FC<{
               ? 3.2
               : 1.5;
 
+          const renderCupInFrontForSip =
+            ra.activeHandProp === "CUP_SODA" && ra.v18ActionPose === "SIP_DRINK";
+
           return (
             <g key={`auto_actor_${spec.id}_${aIdx}`}>
-              {ra.activeHandProp !== "NONE" && (
+              {ra.activeHandProp !== "NONE" && !renderCupInFrontForSip && (
                 <HandPropGraphic
                   prop={ra.activeHandProp}
                   x={ra.handGripX}
@@ -2257,7 +2258,7 @@ export const UniversalAutoStage: React.FC<{
                   nodFreq: ra.v18ActionPose === "TALK_GESTURE" ? 0.11 : 0.13,
                   isSpeaking: ra.isSpeaking,
                   eyes: ra.overrideEyes ?? expr.eyes,
-                  eyebrows: expr.eyebrows,
+                  eyebrows: ra.overrideEyebrows ?? expr.eyebrows,
                   mouth: ra.overrideMouth ?? expr.mouth,
                   blush: expr.blush,
                   sweatDrop: expr.sweatDrop,
@@ -2269,6 +2270,19 @@ export const UniversalAutoStage: React.FC<{
                   holdingTarget: ra.blendedArmPose ? undefined : ra.holdingTarget,
                 }}
               />
+              {renderCupInFrontForSip && (
+                <HandPropGraphic
+                  prop="CUP_SODA"
+                  x={ra.handGripX}
+                  y={ra.handGripY}
+                  facingDir={facingDir}
+                  isNight={isNight}
+                  frame={frame}
+                  extraTiltDeg={ra.handPropTiltDeg}
+                  propScale={ra.actorScale}
+                  isSipping={true}
+                />
+              )}
               {ra.writePenWorld && (
                 <g
                   transform={`translate(${ra.writePenWorld.x.toFixed(1)}, ${ra.writePenWorld.y.toFixed(
@@ -2367,8 +2381,8 @@ export const UniversalAutoStage: React.FC<{
         </g>
       </g>
 
-      {/* 5. NHÃN CALLOUT VÀNG TỐI GIẢN — V18.2 AUTO-WIDTH THEO ĐỘ DÀI CHỮ (KHÔNG BAO GIỜ TRÀN VIỀN!) */}
-      {spec.callout &&
+      {/* 5. NHÃN CALLOUT VÀNG TỐI GIẢN — V18.2 AUTO-WIDTH THEO ĐỘ DÀI CHỮ; V19.1 TỰ ẨN KHI CÓ customVisual */}
+      {spec.callout && !hasCustomVisual &&
         (() => {
           const rawCx = spec.callout.x ?? 960;
           const cy = spec.callout.y ?? 210;

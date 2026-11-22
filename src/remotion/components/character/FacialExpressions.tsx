@@ -41,13 +41,13 @@ export const FacialExpressions: React.FC<FacialExpressionsProps> = ({
   const eyeY = -5 * scale;
   const scleraBaseR = 10.2 * scale;
 
-  // Lông mày mảnh tinh tế — CHỈ hiển thị khi biểu cảm cần nhấn mạnh (CURIOUS, SHOCKED, ANGRY, WORRIED)
+  // Lông mày mảnh tinh tế — CHỈ hiển thị khi biểu cảm cần nhấn mạnh (CURIOUS, SURPRISED, SHOCKED, ANGRY, SCARED, WORRIED)
   const isEmphasizedExpression =
     eyebrows === "inquisitive" ||
     eyebrows === "worried" ||
     eyebrows === "furrowed" ||
-    eyes === "surprised" ||
-    (eyebrows === "raised" && eyes === "wide");
+    eyebrows === "raised" ||
+    eyes === "surprised";
 
   const browHalfW = 9.5 * scale;
   const browY = eyeY - scleraBaseR - 6.0 * scale;
@@ -125,8 +125,8 @@ export const FacialExpressions: React.FC<FacialExpressionsProps> = ({
           )}
           {eyebrows === "worried" && (
             <>
-              <path d={`M ${leftBrowX1} ${browY + 2 * scale} Q ${-eyeDistance} ${browY - 2 * scale} ${leftBrowX2} ${browY - 4 * scale}`} />
-              <path d={`M ${rightBrowX1} ${browY - 4 * scale} Q ${eyeDistance} ${browY - 2 * scale} ${rightBrowX2} ${browY + 2 * scale}`} />
+              <path d={`M ${leftBrowX1} ${browY + 3.5 * scale} Q ${-eyeDistance} ${browY - 1.5 * scale} ${leftBrowX2} ${browY - 4.5 * scale}`} />
+              <path d={`M ${rightBrowX1} ${browY - 4.5 * scale} Q ${eyeDistance} ${browY - 1.5 * scale} ${rightBrowX2} ${browY + 3.5 * scale}`} />
             </>
           )}
           {eyebrows === "furrowed" && (
@@ -135,13 +135,13 @@ export const FacialExpressions: React.FC<FacialExpressionsProps> = ({
               <line x1={rightBrowX1} y1={browY + 3 * scale} x2={rightBrowX2} y2={browY - 3 * scale} />
             </>
           )}
-          {(eyes === "surprised" || (eyebrows === "raised" && eyes === "wide")) &&
+          {(eyebrows === "raised" || eyes === "surprised") &&
             eyebrows !== "worried" &&
             eyebrows !== "furrowed" &&
             eyebrows !== "inquisitive" && (
               <>
-                <path d={`M ${leftBrowX1} ${browY - 4 * scale} Q ${-eyeDistance} ${browY - 9 * scale} ${leftBrowX2} ${browY - 4 * scale}`} />
-                <path d={`M ${rightBrowX1} ${browY - 4 * scale} Q ${eyeDistance} ${browY - 9 * scale} ${rightBrowX2} ${browY - 4 * scale}`} />
+                <path d={`M ${leftBrowX1} ${browY - 5 * scale} Q ${-eyeDistance} ${browY - 11.5 * scale} ${leftBrowX2} ${browY - 5 * scale}`} />
+                <path d={`M ${rightBrowX1} ${browY - 5 * scale} Q ${eyeDistance} ${browY - 11.5 * scale} ${rightBrowX2} ${browY - 5 * scale}`} />
               </>
             )}
         </g>
@@ -170,16 +170,27 @@ export const FacialExpressions: React.FC<FacialExpressionsProps> = ({
         </g>
       )}
 
-      {/* 4. MIỆNG CƯỜI CHỮ U TRÒN MỀM & LIP-SYNC TRÒN TỰ NHIÊN (ĐÃ XÓA BỎ HOÀN TOÀN VỆT CẰM XÁM!) */}
+      {/* 4. MIỆNG BIỂU CẢM RÕ RÀNG V19.1 (CƯỜI / NGẠC NHIÊN O / LO LẮNG GỢN SÓNG / XỊU / GẠCH NGANG / HÚT ỐNG HÚT o) */}
       <g stroke={strokeColor} strokeWidth={4.6 * scale} strokeLinecap="round" strokeLinejoin="round" fill="none">
         {mouth === "smile" && (
           <path d={`M ${-12.5 * scale} ${17 * scale} Q 0 ${29.5 * scale} ${12.5 * scale} ${17 * scale}`} />
         )}
+        {mouth === "sip" && (
+          <circle cx={0} cy={21 * scale} r={4.4 * scale} fill="#9F1239" stroke={strokeColor} strokeWidth={3.4 * scale} />
+        )}
         {mouth === "circleOpen" && (
-          <circle cx={0} cy={22 * scale} r={7.2 * scale} fill="#9F1239" stroke={strokeColor} strokeWidth={3.8 * scale} />
+          <circle cx={0} cy={22 * scale} r={6.6 * scale} fill="#9F1239" stroke={strokeColor} strokeWidth={3.8 * scale} />
         )}
         {mouth === "line" && (
-          <path d={`M ${-10 * scale} ${21 * scale} Q 0 ${22.5 * scale} ${10 * scale} ${21 * scale}`} />
+          <path d={`M ${-9.5 * scale} ${21.5 * scale} Q 0 ${21.5 * scale} ${9.5 * scale} ${21.5 * scale}`} />
+        )}
+        {mouth === "worried" && (
+          <path
+            d={`M ${-12.5 * scale} ${24 * scale} Q ${-6 * scale} ${19 * scale} 0 ${23.5 * scale} Q ${6 * scale} ${28 * scale} ${12.5 * scale} ${22.5 * scale}`}
+          />
+        )}
+        {mouth === "frown" && (
+          <path d={`M ${-11.5 * scale} ${25.5 * scale} Q 0 ${15.5 * scale} ${11.5 * scale} ${25.5 * scale}`} />
         )}
         {mouth === "talking" && (
           <g>

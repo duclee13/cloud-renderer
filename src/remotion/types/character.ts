@@ -34,7 +34,10 @@ export type MouthExpression =
   | "circleOpen"
   | "line"
   | "talking"
-  | "gasp";
+  | "gasp"
+  | "sip"
+  | "worried"
+  | "frown";
 
 export interface Point2D {
   x: number;

@@ -1,5 +1,12 @@
 import React from "react";
-import { StickmanState, Point2D, StickmanAnchors } from "../../types/character";
+import {
+  StickmanState,
+  Point2D,
+  StickmanAnchors,
+  EyeExpression,
+  EyebrowExpression,
+  MouthExpression,
+} from "../../types/character";
 import { FacialExpressions } from "./FacialExpressions";
 import { getHumanoidBones } from "../../../animscript/registry/assetRegistry";
 import { solve2JointIK, resolvePendulumLegs, resolvePendulumArms } from "../../../animscript/motionGraph";
@@ -240,6 +247,60 @@ export function solveArmFK(
 }
 
 /**
+ * V19.1: Ánh xạ biểu cảm chuẩn cho StickmanRig — phân biệt rõ Ngạc nhiên / Sợ / Lo lắng / Tò mò,
+ * tuyệt đối KHÔNG fallback sai về mặt cười ("smile").
+ */
+export function resolveStickmanExpressionPreset(expr?: string | null): {
+  eyes: EyeExpression;
+  eyebrows: EyebrowExpression;
+  mouth: MouthExpression;
+  blush: boolean;
+  sweatDrop: boolean;
+} {
+  const key = String(expr ?? "").trim().toUpperCase();
+  switch (key) {
+    case "HAPPY":
+    case "PROUD":
+      return { eyes: "happy", eyebrows: "neutral", mouth: "smile", blush: false, sweatDrop: false };
+    case "CURIOUS":
+    case "THINKING":
+      // V19.1: Miệng gạch ngang nhẹ trung tính, tuyệt đối không cười toe toét như HAPPY
+      return { eyes: "curious", eyebrows: "inquisitive", mouth: "line", blush: false, sweatDrop: false };
+    case "SURPRISED":
+      // V19.1: Miệng há bầu dục (O), lông mày nhướng cao
+      return { eyes: "surprised", eyebrows: "raised", mouth: "gasp", blush: false, sweatDrop: false };
+    case "SHOCKED":
+      // V19.1: Miệng há bầu dục (O), lông mày nhướng cao + giọt mồ hôi
+      return { eyes: "surprised", eyebrows: "raised", mouth: "gasp", blush: false, sweatDrop: true };
+    case "SCARED":
+      // V19.1: Miệng run gợn sóng, lông mày chéo nhíu lo lắng — tuyệt đối KHÔNG cười
+      return { eyes: "wide", eyebrows: "worried", mouth: "worried", blush: false, sweatDrop: true };
+    case "WORRIED":
+      // V19.1: Miệng cong xuống, lông mày chéo nhíu lo lắng — tuyệt đối KHÔNG cười
+      return { eyes: "neutral", eyebrows: "worried", mouth: "frown", blush: false, sweatDrop: true };
+    case "TIRED":
+      return { eyes: "closed", eyebrows: "worried", mouth: "frown", blush: false, sweatDrop: true };
+    case "ANGRY":
+      return { eyes: "wide", eyebrows: "furrowed", mouth: "frown", blush: false, sweatDrop: false };
+    default:
+      return { eyes: "neutral", eyebrows: "neutral", mouth: "line", blush: false, sweatDrop: false };
+  }
+}
+
+/**
+ * V19.1: Nhịp nâng ly nước lên ngang cằm/miệng mượt trong 14 frames đầu rồi nhấp từng ngụm êm ái (0.86..1.0).
+ */
+export function computeSipDrinkWave(localFrame: number): number {
+  if (!Number.isFinite(localFrame)) return 1;
+  const f = Math.max(0, localFrame);
+  const enterT = Math.min(1, f / 14);
+  const easeEnter = enterT * enterT * (3 - 2 * enterT);
+  const sipPulse =
+    f <= 14 ? 1 : 0.86 + 0.14 * (0.5 - 0.5 * Math.cos((f - 14) * 0.12));
+  return easeEnter * sipPulse;
+}
+
+/**
  * V18.4: Gật đầu nhẹ đúng 2 nhịp êm ái rồi dừng hẳn (dùng cho pose NOD_SMILE).
  * - Nhịp 1: 0..28f (đỉnh +5.5° rồi về 0°)
  * - Nhịp 2: 28..56f (đỉnh +3.8° rồi về 0°)
@@ -385,16 +446,16 @@ export function computeV18ActionArmsUpper(
       };
     }
     case "SIP_DRINK": {
-      const sipWave = Math.pow(0.5 - 0.5 * Math.cos(localFrame * 0.105), 1.35);
-      const wx = 72 + (46 - 72) * sipWave;
-      const wy = sy + 33 + (-39 - 33) * sipWave;
-      const ex = 44 + (68 - 44) * sipWave;
-      const ey = sy + 52 + (18 - 52) * sipWave;
+      // V19.1: Đưa bàn tay cầm ly nước lên cao ngang cằm/miệng theo FK chuẩn ARM_L1=65 / ARM_L2=58
+      // để ống hút xoay vào trong chạm sát miệng tròn nhỏ (o)
+      const sipWave = computeSipDrinkWave(localFrame);
+      const backArm = solveArmFK(shoulderUpper, -24, 162, true);
+      const frontArm = solveArmFK(shoulderUpper, 32, 68 - 24 * sipWave, true);
       return {
-        leftElbow: { x: -26, y: sy + 52 },
-        leftWrist: { x: -22, y: sy + 102 },
-        rightElbow: { x: ex, y: ey },
-        rightWrist: { x: wx, y: wy },
+        leftElbow: backArm.elbow,
+        leftWrist: backArm.wrist,
+        rightElbow: frontArm.elbow,
+        rightWrist: frontArm.wrist,
         allowNearHead: true,
       };
     }
@@ -1116,20 +1177,50 @@ export const StickmanRig: React.FC<StickmanRigProps> = ({
     state.eyes !== "closed";
   const effectiveEyes = isNaturalBlink ? "closed" : state.eyes;
 
-  // V15.0 Lip-Sync Micro Talk: Khi nhân vật đang hiện bóng thoại (isSpeaking = true),
-  // miệng tự động mở/đóng nhịp nhàng theo Math.sin(frame * 0.45) > 0 thay vì đứng im!
+  // V15.0–V19.1 Lip-Sync & Biểu cảm chuẩn xác:
+  // - Khi đang ở pose SIP_DRINK (hoặc mouth === "sip"): luôn giữ miệng tròn nhỏ (o) ngậm ống hút, tuyệt đối không cười!
+  // - Khi nói chuyện (isSpeaking = true): bảo toàn sắc thái Sợ/Lo lắng/Ngạc nhiên/Tò mò, tuyệt đối không fallback về "smile"!
   const lipSyncOpen = Math.sin(frame * 0.45) > 0;
-  const effectiveMouth = state.isSpeaking
-    ? state.mouth === "gasp"
-      ? lipSyncOpen
-        ? "gasp"
-        : "circleOpen"
-      : lipSyncOpen
-      ? "talking"
-      : state.mouth === "line"
-      ? "line"
-      : "smile"
-    : state.mouth;
+  const baseMouth: MouthExpression =
+    state.v18ActionPose === "SIP_DRINK"
+      ? "sip"
+      : state.mouth ??
+        (state.eyes === "surprised"
+          ? "gasp"
+          : state.eyebrows === "worried" || state.eyebrows === "furrowed"
+          ? "frown"
+          : state.eyebrows === "inquisitive"
+          ? "line"
+          : "smile");
+
+  const effectiveMouth: MouthExpression =
+    baseMouth === "sip"
+      ? "sip"
+      : state.isSpeaking
+      ? baseMouth === "gasp"
+        ? lipSyncOpen
+          ? "gasp"
+          : "circleOpen"
+        : baseMouth === "worried"
+        ? lipSyncOpen
+          ? "circleOpen"
+          : "worried"
+        : baseMouth === "frown"
+        ? lipSyncOpen
+          ? "circleOpen"
+          : "frown"
+        : baseMouth === "circleOpen"
+        ? lipSyncOpen
+          ? "circleOpen"
+          : "line"
+        : baseMouth === "line"
+        ? lipSyncOpen
+          ? "circleOpen"
+          : "line"
+        : lipSyncOpen
+        ? "talking"
+        : "smile"
+      : baseMouth;
 
   React.useEffect(() => {
     if (onAnchorsComputed) {

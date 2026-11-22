@@ -111,8 +111,10 @@ export type AutoPropId =
 export type AutoActorExpression =
   | "HAPPY"
   | "CURIOUS"
+  | "SURPRISED"
   | "SHOCKED"
   | "SCARED"
+  | "WORRIED"
   | "TIRED"
   | "PROUD"
   | "ANGRY"
@@ -283,8 +285,10 @@ export const VALID_AUTO_PROP_IDS: readonly AutoPropId[] = [
 export const VALID_ACTOR_EXPRESSIONS: readonly AutoActorExpression[] = [
   "HAPPY",
   "CURIOUS",
+  "SURPRISED",
   "SHOCKED",
   "SCARED",
+  "WORRIED",
   "TIRED",
   "PROUD",
   "ANGRY",
@@ -621,11 +625,14 @@ const EXPRESSION_ALIASES: Record<string, AutoActorExpression> = {
   EXCITED: "HAPPY",
   INQUISITIVE: "CURIOUS",
   WONDER: "CURIOUS",
-  SURPRISED: "SHOCKED",
-  AMAZED: "SHOCKED",
-  WORRIED: "SCARED",
+  AMAZED: "SURPRISED",
+  ASTONISHED: "SURPRISED",
+  ANXIOUS: "WORRIED",
+  NERVOUS: "WORRIED",
+  CONCERNED: "WORRIED",
   AFRAID: "SCARED",
   FEAR: "SCARED",
+  PANIC: "SCARED",
   SLEEPY: "TIRED",
   EXHAUSTED: "TIRED",
   CONFIDENT: "PROUD",
@@ -774,6 +781,9 @@ const ACTION_POSE_V18_ALIASES: Record<string, ActionPoseV18> = {
   GESTURE: "TALK_GESTURE",
   CHAT: "TALK_GESTURE",
   EXPLAIN_HANDS: "TALK_GESTURE",
+  IDLE: "TALK_GESTURE",
+  STAND: "TALK_GESTURE",
+  STANDING: "TALK_GESTURE",
   NOD: "NOD_SMILE",
   AGREE: "NOD_SMILE",
   SMILE_NOD: "NOD_SMILE",
@@ -793,7 +803,8 @@ function sanitizeActorKeyframe(
   const startX = Math.round(clampNum(raw?.startX, 180, 1740, fallbackX));
   const endX = Math.round(clampNum(raw?.endX, 180, 1740, startX));
   const facing = matchEnum(raw?.facing, VALID_ACTOR_FACING, fallbackFacing);
-  const pose = matchEnum(raw?.pose, VALID_ACTION_POSES_V18, "WALK", ACTION_POSE_V18_ALIASES);
+  const defaultPose: ActionPoseV18 = Math.abs(endX - startX) < 10 ? "TALK_GESTURE" : "WALK";
+  const pose = matchEnum(raw?.pose, VALID_ACTION_POSES_V18, defaultPose, ACTION_POSE_V18_ALIASES);
   const expression = matchEnum(raw?.expression, VALID_ACTOR_EXPRESSIONS, fallbackExpr, EXPRESSION_ALIASES);
   const handProp = raw?.handProp !== undefined
     ? matchEnum(raw.handProp, VALID_HAND_PROPS, "NONE", HAND_PROP_ALIASES)
