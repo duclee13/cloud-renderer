@@ -1,9 +1,10 @@
 /**
- * UNIVERSAL AUTO STAGE V18.0 — Engine Đa Lớp "Nhất Cử Nhất Động" (18 ActionPoseV18 + Camera Zoom + 3 Vá Lỗi Hiển Thị)
+ * UNIVERSAL AUTO STAGE V18.4 — Engine Đa Lớp "Nhất Cử Nhất Động" (20 ActionPoseV18 + Camera Zoom + Topmost SpeechBubble Layer + Auto-Center Solo Explainer)
  * - Tương thích ngược 100% với kịch bản JSON V17 (nếu actor không có timeline[] thì vẫn chạy theo motion/slot cũ)
- * - Hỗ trợ Keyframe Action Timeline 60fps liên hoàn: nội suy mượt x, facing, expression, handProp & 18 tư thế ngay trong 1 cảnh
+ * - Hỗ trợ Keyframe Action Timeline 60fps liên hoàn: nội suy mượt x, facing, expression, handProp & 20 tư thế ngay trong 1 cảnh
  * - Hỗ trợ Camera Zoom theo beat (fromScale -> toScale, focusX, focusY) mà không làm lệch phụ đề/tiêu đề
- * - Vá 3 lỗi hiển thị từ V17: bóng suy nghĩ trên nền trời ngoài trời (không đè mái nhà/tán cây), dáng đứng chống hông cho SIT_OBSERVE, dịu vạch kẻ đường CITY_STREET
+ * - V18.4: Viết lại dáng tay TALK_GESTURE & NOD_SMILE tự nhiên (góc khuỷu mở rộng, gật nhẹ 2 nhịp rồi dừng),
+ *          tách SpeechBubble lên lớp trên cùng (sau tất cả actors), và tự căn giữa nhân vật đơn trên EXPLAINER_POLKA_DOT không có visualProp.
  */
 
 import React from "react";
@@ -12,8 +13,12 @@ import {
   ComicSpeechBubble,
   isComicBubbleActive,
   computeV18ActionArmsUpper,
+  computeGentleDoubleNodDeg,
+  enforceRigidTwoBoneIK,
   resolvePresetDefaultScale,
   TORSO_LEN,
+  ARM_L1,
+  ARM_L2,
 } from "./StickmanRig";
 import {
   CountrysideYardBackdrop,
@@ -27,6 +32,7 @@ import { CuratedAnimatedProp } from "./AutoPropLibrary";
 import { resolvePendulumArms } from "../../animscript/motionGraph";
 import { smoothstep, lerpNum } from "../../lib/v7/universalAnimationStandard";
 import {
+  VALID_AUTO_PROP_IDS,
   type AutoEpisodeBeat,
   type AutoActorSpec,
   type AutoHandProp,
@@ -726,6 +732,17 @@ const HandPropGraphic: React.FC<{
 // 3. BỐ TRÍ TỌA ĐỘ THÔNG MINH CHO KHO 16 ĐẠO CỤ VECTOR 60FPS + BÓNG SUY NGHĨ NGOÀI TRỜI (V18.0)
 // =============================================================================
 
+const VALID_RENDERABLE_PROP_SET = new Set<string>(
+  VALID_AUTO_PROP_IDS.filter((id) => id !== "NONE")
+);
+
+/** Chuẩn hóa `visualProp` (cắt khoảng trắng, viết hoa, kiểm tra hợp lệ) để đồng nhất giữa render đạo cụ & tự căn giữa EXPLAINER_POLKA_DOT */
+export function normalizeVisualPropId(rawProp?: string | null): AutoPropId {
+  if (typeof rawProp !== "string") return "NONE";
+  const key = rawProp.trim().toUpperCase();
+  return VALID_RENDERABLE_PROP_SET.has(key) ? (key as AutoPropId) : "NONE";
+}
+
 function resolveCuratedPropPlacement(spec: AutoEpisodeBeat): {
   propId: AutoPropId;
   x: number;
@@ -734,7 +751,7 @@ function resolveCuratedPropPlacement(spec: AutoEpisodeBeat): {
   inThoughtBubble: boolean;
   tailSide: -1 | 0 | 1;
 } {
-  const propId: AutoPropId = spec.visualProp || "NONE";
+  const propId: AutoPropId = normalizeVisualPropId(spec.visualProp);
   if (propId === "NONE") {
     return { propId: "NONE", x: 960, y: 360, scale: 1, inThoughtBubble: false, tailSide: 0 };
   }
@@ -842,11 +859,41 @@ function easeOutCubic(t: number): number {
   return 1 - Math.pow(1 - c, 3);
 }
 
-function lerpPt(a: Point2D, b: Point2D, t: number): Point2D {
-  return {
-    x: lerpNum(a.x, b.x, t),
-    y: lerpNum(a.y, b.y, t),
+function lerpAngleRad(a: number, b: number, t: number): number {
+  let diff = ((b - a + Math.PI) % (Math.PI * 2)) - Math.PI;
+  if (diff < -Math.PI) diff += Math.PI * 2;
+  return a + diff * t;
+}
+
+/**
+ * V18.4: Nội suy cánh tay 2 đốt theo không gian góc FK (bảo toàn cứng ARM_L1=65 / ARM_L2=58 ở mọi frame trung gian,
+ * khử hoàn toàn hiện tượng lật khuỷu 40–120px khi chuyển tiếp TALK_GESTURE <-> NOD_SMILE hoặc các pose V18 khác).
+ */
+export function blendArmJointsFK(
+  prevElbow: Point2D,
+  prevWrist: Point2D,
+  currElbow: Point2D,
+  currWrist: Point2D,
+  t: number
+): { elbow: Point2D; wrist: Point2D } {
+  const sh: Point2D = { x: 0, y: -TORSO_LEN };
+  const pRigid = enforceRigidTwoBoneIK(sh, prevWrist, ARM_L1, ARM_L2, -1, prevElbow);
+  const cRigid = enforceRigidTwoBoneIK(sh, currWrist, ARM_L1, ARM_L2, -1, currElbow);
+  const pUpper = Math.atan2(pRigid.joint.x - sh.x, pRigid.joint.y - sh.y);
+  const pFore = Math.atan2(pRigid.end.x - pRigid.joint.x, pRigid.end.y - pRigid.joint.y);
+  const cUpper = Math.atan2(cRigid.joint.x - sh.x, cRigid.joint.y - sh.y);
+  const cFore = Math.atan2(cRigid.end.x - cRigid.joint.x, cRigid.end.y - cRigid.joint.y);
+  const uAngle = lerpAngleRad(pUpper, cUpper, t);
+  const fAngle = lerpAngleRad(pFore, cFore, t);
+  const elbow: Point2D = {
+    x: sh.x + ARM_L1 * Math.sin(uAngle),
+    y: sh.y + ARM_L1 * Math.cos(uAngle),
   };
+  const wrist: Point2D = {
+    x: elbow.x + ARM_L2 * Math.sin(fAngle),
+    y: elbow.y + ARM_L2 * Math.cos(fAngle),
+  };
+  return { elbow, wrist };
 }
 
 /** Tính vị trí tay con lắc mặc định (dùng cho WALK/RUN/TURN_AROUND làm điểm gốc cho blendPose 10 frames!) */
@@ -862,10 +909,35 @@ function computePendulumArmJoints(walkCycle: number, walkWeight: number, isRunni
   };
 }
 
-/** V18.2: Nội suy mượt khớp tay/thân/đầu/vị trí trong 10 frames đầu của keyframe mới (easeOutCubic) */
+/** V18.2–V18.4: Nội suy mượt khớp tay (góc FK) / thân / đầu / vị trí trong 10 frames đầu của keyframe mới (easeOutCubic) */
 function blendPose(prev: V18PoseSnapshot, curr: V18PoseSnapshot, rawT: number): V18PoseSnapshot {
   const t = easeOutCubic(rawT);
   const sameFacing = prev.effectiveFacing === curr.effectiveFacing;
+  const blendedArms: V18ArmPoseJoints = sameFacing
+    ? (() => {
+        const left = blendArmJointsFK(
+          prev.arms.leftElbow,
+          prev.arms.leftWrist,
+          curr.arms.leftElbow,
+          curr.arms.leftWrist,
+          t
+        );
+        const right = blendArmJointsFK(
+          prev.arms.rightElbow,
+          prev.arms.rightWrist,
+          curr.arms.rightElbow,
+          curr.arms.rightWrist,
+          t
+        );
+        return {
+          leftElbow: left.elbow,
+          leftWrist: left.wrist,
+          rightElbow: right.elbow,
+          rightWrist: right.wrist,
+          allowNearHead: prev.arms.allowNearHead || curr.arms.allowNearHead,
+        };
+      })()
+    : curr.arms;
   return {
     ...curr,
     actorX: lerpNum(prev.actorX, curr.actorX, t),
@@ -875,15 +947,7 @@ function blendPose(prev: V18PoseSnapshot, curr: V18PoseSnapshot, rawT: number): 
     crouchDepth: lerpNum(prev.crouchDepth, curr.crouchDepth, t),
     walkWeight: lerpNum(prev.walkWeight, curr.walkWeight, t),
     handPropTiltDeg: lerpNum(prev.handPropTiltDeg, curr.handPropTiltDeg, t),
-    arms: sameFacing
-      ? {
-          leftElbow: lerpPt(prev.arms.leftElbow, curr.arms.leftElbow, t),
-          leftWrist: lerpPt(prev.arms.leftWrist, curr.arms.leftWrist, t),
-          rightElbow: lerpPt(prev.arms.rightElbow, curr.arms.rightElbow, t),
-          rightWrist: lerpPt(prev.arms.rightWrist, curr.arms.rightWrist, t),
-          allowNearHead: prev.arms.allowNearHead || curr.arms.allowNearHead,
-        }
-      : curr.arms,
+    arms: blendedArms,
     hasCustomV18Arms: sameFacing ? (prev.hasCustomV18Arms || curr.hasCustomV18Arms) : curr.hasCustomV18Arms,
   };
 }
@@ -1098,15 +1162,16 @@ function evaluateV18KeyframeKinematics(
       break;
     }
     case "TALK_GESTURE": {
-      torsoTiltDeg = 2 + Math.sin(frame * 0.09) * 2.2;
-      headTiltDeg = Math.sin(frame * 0.15) * 3.2;
+      // V18.4: Nhịp thân và đầu chậm rãi tự nhiên, đồng bộ với sóng sin tay chậm (frame * 0.055)
+      torsoTiltDeg = 2 + Math.sin(frame * 0.055) * 1.4;
+      headTiltDeg = Math.sin(frame * 0.08) * 2.2;
       v18ActionPose = "TALK_GESTURE";
       break;
     }
     case "NOD_SMILE": {
-      // V18.3: Gật đầu nhẹ mỉm cười, tay thả lỏng tự nhiên (thay thế việc lạm dụng ARMS_UP_CHEER)
+      // V18.4: Cả 2 tay thả lỏng tự nhiên xuôi bên hông (không vung vẩy), chỉ gật đầu nhẹ 2 nhịp êm ái rồi dừng hẳn
       torsoTiltDeg = 1.5;
-      headTiltDeg = Math.sin(segLocalFrame * 0.13) * 4.5;
+      headTiltDeg = computeGentleDoubleNodDeg(segLocalFrame);
       overrideMouth = "smile";
       v18ActionPose = "NOD_SMILE";
       break;
@@ -1190,6 +1255,69 @@ function projectUpperLocalToWorld(
   };
 }
 
+/**
+ * V18.4: Khi beat dùng EXPLAINER_POLKA_DOT, chỉ có 1 nhân vật và KHÔNG có visualProp,
+ * tự động căn nhân vật vào khu vực giữa khung hình (x ≈ 960) để chống trống 70% màn hình.
+ */
+export function shouldCenterSoloExplainerBeat(spec: AutoEpisodeBeat): boolean {
+  const hasVisualProp = normalizeVisualPropId(spec.visualProp) !== "NONE";
+  return (
+    spec.stageType === "EXPLAINER_POLKA_DOT" &&
+    Array.isArray(spec.actors) &&
+    spec.actors.length === 1 &&
+    !hasVisualProp
+  );
+}
+
+/**
+ * V18.4: Tìm mốc bắt đầu (fromPct) của chuỗi keyframe liên tiếp cùng pose (vd: NOD_SMILE | NOD_SMILE trong b10/b11/b36/b42/b43)
+ * để nhịp gật đầu 2 lần của NOD_SMILE KHÔNG bị reset gật lại giữa chừng khi chia thành 2 segment liền nhau.
+ */
+export function resolveContiguousPoseRunStartPct(
+  timeline: ActorKeyframe[],
+  activeIndex: number
+): number {
+  if (!timeline || activeIndex < 0 || activeIndex >= timeline.length) return 0;
+  const pose = timeline[activeIndex].pose;
+  let j = activeIndex;
+  while (j > 0 && timeline[j - 1].pose === pose) {
+    j--;
+  }
+  return timeline[j].fromPct;
+}
+
+/**
+ * V18.4: Tính độ dịch ngang để đưa vị trí đứng diễn chủ đạo của timeline về giữa khung hình (x = 960),
+ * giữ nguyên quãng đường di chuyển và nhịp bước chân (walkCycle).
+ */
+export function computeSoloExplainerCenterShiftX(timeline: ActorKeyframe[]): number {
+  if (!timeline || timeline.length === 0) return 0;
+  let weightedSum = 0;
+  let totalWeight = 0;
+  for (const kf of timeline) {
+    if (kf.pose === "WALK" || kf.pose === "RUN") continue;
+    const dur = Math.max(0.05, kf.toPct - kf.fromPct);
+    const midX = (kf.startX + kf.endX) * 0.5;
+    weightedSum += midX * dur;
+    totalWeight += dur;
+  }
+  const anchorX =
+    totalWeight > 0
+      ? weightedSum / totalWeight
+      : timeline[timeline.length - 1].endX;
+  return 960 - anchorX;
+}
+
+export function centerSoloExplainerTimeline(timeline: ActorKeyframe[]): ActorKeyframe[] {
+  const shiftX = computeSoloExplainerCenterShiftX(timeline);
+  if (Math.abs(shiftX) < 1e-3) return timeline;
+  return timeline.map((kf) => ({
+    ...kf,
+    startX: Math.max(180, Math.min(1740, Math.round(kf.startX + shiftX))),
+    endX: Math.max(180, Math.min(1740, Math.round(kf.endX + shiftX))),
+  }));
+}
+
 // =============================================================================
 // 4. COMPONENT CHÍNH: UniversalAutoStage (RENDER TOÀN BỘ AUTO EPISODE BEAT 60FPS)
 // =============================================================================
@@ -1214,15 +1342,16 @@ export const UniversalAutoStage: React.FC<{
 
   const sceneProgressP = Math.max(0, Math.min(1, localFrame / Math.max(1, durationFrames)));
   const propPlacement = resolveCuratedPropPlacement(spec);
+  const centerSoloExplainer = shouldCenterSoloExplainerBeat(spec);
 
-  // V18.0 Camera Zoom mượt theo spec.camera (mặc định zoom nhẹ 1.0 -> 1.03 quanh focusX/focusY; phụ đề & tiêu đề luôn cố định)
+  // V18.0–V18.4 Camera Zoom mượt theo spec.camera (mặc định zoom nhẹ 1.0 -> 1.03 quanh focusX/focusY; phụ đề & tiêu đề luôn cố định)
   const isDramaticOrActive =
     spec.bgmMood === "BGM_TENSE_PULSE" ||
     spec.stageType === "EXPLAINER_POLKA_DOT" ||
     spec.actors.some((a) => (a.timeline && a.timeline.length > 0) || a.motion !== "IDLE_TALK");
   const camFromScale = spec.camera?.fromScale ?? 1.0;
   const camToScale = spec.camera?.toScale ?? (isDramaticOrActive ? 1.03 : 1.018);
-  const camFocusX = spec.camera?.focusX ?? 960;
+  const camFocusX = centerSoloExplainer ? 960 : (spec.camera?.focusX ?? 960);
   const camFocusY = spec.camera?.focusY ?? 520;
   const camZoom = lerpNum(camFromScale, camToScale, smoothstep(0.0, 1.0, u));
 
@@ -1277,10 +1406,16 @@ export const UniversalAutoStage: React.FC<{
 
   const resolvedActors: ResolvedActorRenderData[] = spec.actors.map((actor, aIdx) => {
     const actorScale = resolvePresetDefaultScale(actor.preset); // V18.3: BOY=0.76, Người lớn=1.0
-    const baseX = slotBaseX(actor.slot);
-    const hasTimeline = Boolean(actor.timeline && actor.timeline.length > 0);
+    const baseX = centerSoloExplainer ? 960 : slotBaseX(actor.slot);
+    const effectiveTimeline =
+      actor.timeline && actor.timeline.length > 0
+        ? centerSoloExplainer
+          ? centerSoloExplainerTimeline(actor.timeline)
+          : actor.timeline
+        : null;
+    const hasTimeline = Boolean(effectiveTimeline && effectiveTimeline.length > 0);
     const timelineResolved = hasTimeline
-      ? resolveActiveTimelineKeyframe(actor.timeline!, sceneProgressP)
+      ? resolveActiveTimelineKeyframe(effectiveTimeline!, sceneProgressP)
       : null;
 
     const bubbleStartPct = actor.bubbleStartPct ?? 0.15;
@@ -1368,23 +1503,35 @@ export const UniversalAutoStage: React.FC<{
     if (timelineResolved) {
       const { kf, prevKf, prevPrevKf, index, segU } = timelineResolved;
       const segLocalFrame = Math.max(0, localFrame - Math.round(kf.fromPct * durationFrames));
+      // V18.4: Với chuỗi NOD_SMILE nối tiếp (vd: b10/b11/b36/b42/b43), giữ nguyên mốc thời gian từ đầu chuỗi để chỉ gật đúng 2 nhịp rồi dừng!
+      const poseLocalFrame =
+        kf.pose === "NOD_SMILE"
+          ? Math.max(
+              0,
+              localFrame - Math.round(resolveContiguousPoseRunStartPct(effectiveTimeline!, index) * durationFrames)
+            )
+          : segLocalFrame;
       v18SegmentProgress = segU;
-      v18LocalFrame = segLocalFrame;
+      v18LocalFrame = poseLocalFrame;
       activeExprEnum = kf.expression;
 
       let snap = evaluateV18KeyframeKinematics(
         kf,
         prevKf,
         segU,
-        segLocalFrame,
+        poseLocalFrame,
         frame,
         actor.handProp || "NONE",
         Boolean(actor.shiver)
       );
 
-      // V18.2 Smooth Joint Blending: Nội suy mượt (easeOutCubic) 10 frames đầu giữa keyframe k và keyframe k+1!
+      // V18.2–V18.4 Smooth Joint Blending: Nội suy mượt (easeOutCubic + góc FK) 10 frames đầu giữa keyframe k và keyframe k+1!
       if (index > 0 && prevKf && prevKf.pose !== "LIE_SLEEP" && segLocalFrame < V18_POSE_BLEND_FRAMES) {
-        const prevDurFrames = Math.max(1, Math.round((prevKf.toPct - prevKf.fromPct) * durationFrames));
+        const prevStartPct =
+          prevKf.pose === "NOD_SMILE"
+            ? resolveContiguousPoseRunStartPct(effectiveTimeline!, index - 1)
+            : prevKf.fromPct;
+        const prevDurFrames = Math.max(1, Math.round((prevKf.toPct - prevStartPct) * durationFrames));
         const prevSnap = evaluateV18KeyframeKinematics(
           prevKf,
           prevPrevKf,
@@ -1533,6 +1680,17 @@ export const UniversalAutoStage: React.FC<{
                 };
               }
             }
+          } else if (centerSoloExplainer) {
+            const startX = actor.slot === "RIGHT" ? 1140 : 780;
+            const stopX = 960;
+            const dirToCenter: 1 | -1 = stopX >= startX ? 1 : -1;
+            const wt = smoothstep(0.0, 0.45, u);
+            actorX = lerpNum(startX, stopX, wt);
+            effectiveFacing = dirToCenter > 0 ? "RIGHT" : "LEFT";
+            walkWeight = u <= 0.47 ? Math.min(smoothstep(0.0, 0.07, u), 1 - smoothstep(0.38, 0.47, u)) : 0;
+            walkCycle = (Math.abs(actorX - startX) / 140) % 1;
+            pose = walkWeight > 0.05 ? "walking" : "standing";
+            torsoTiltDeg = walkWeight * 7;
           } else {
             const stopX = baseX < 960 ? 820 : 1100;
             const dirToCenter: 1 | -1 = stopX >= baseX ? 1 : -1;
@@ -1861,19 +2019,6 @@ export const UniversalAutoStage: React.FC<{
                     </text>
                   );
                 })}
-                {actor.bubble && (
-                  <ComicSpeechBubble
-                    x={Math.max(240, Math.min(1680, headX - 90))}
-                    y={headY - 190}
-                    mouthX={headX - 8}
-                    mouthY={headY + 12}
-                    headTopY={headY - 48}
-                    text={actor.bubble}
-                    localFrame={localFrame}
-                    appearFrame={ra.bubbleAppear}
-                    disappearFrame={ra.bubbleDisappear}
-                  />
-                )}
               </g>
             );
           }
@@ -1929,7 +2074,8 @@ export const UniversalAutoStage: React.FC<{
             };
           }
 
-          // V18.2/V18.3 listenerNod: Người đứng nghe trong cảnh 2–3 người có nhịp gật đầu phản hồi nhẹ tự nhiên!
+          // V18.2/V18.4 listenerNod: Người đứng nghe trong cảnh 2–3 người có nhịp gật đầu phản hồi nhẹ tự nhiên
+          // (Riêng NOD_SMILE tự quản lý đúng 2 nhịp gật êm ái rồi dừng hẳn nên không cộng thêm listenerNod!)
           const isListeningToPartner = Boolean(
             otherActor &&
               !ra.isSpeaking &&
@@ -1937,7 +2083,8 @@ export const UniversalAutoStage: React.FC<{
               ra.pose === "standing" &&
               ra.v18ActionPose !== "JUMP_BACK" &&
               ra.v18ActionPose !== "SHIVER_PANIC" &&
-              ra.v18ActionPose !== "FACEPALM"
+              ra.v18ActionPose !== "FACEPALM" &&
+              ra.v18ActionPose !== "NOD_SMILE"
           );
           const listenerNodDeg = isListeningToPartner
             ? Math.sin(frame * 0.14 + aIdx) * 3.6 * (0.45 + 0.55 * Math.max(0, Math.sin(frame * 0.035)))
@@ -1945,18 +2092,17 @@ export const UniversalAutoStage: React.FC<{
 
           const effectiveHeadTiltDeg = ra.headTiltDeg + listenerNodDeg;
           const nodAmplitudeDeg =
-            ra.v18ActionPose === "SWEEP_LIGHT" || ra.v18ActionPose === "FACEPALM" || ra.v18ActionPose === "NOD_SMILE"
+            ra.v18ActionPose === "NOD_SMILE"
+              ? 0
+              : ra.v18ActionPose === "SWEEP_LIGHT" || ra.v18ActionPose === "FACEPALM"
               ? 0.5
               : ra.v18ActionPose === "TALK_GESTURE"
-              ? 4.0
+              ? 2.0
               : isListeningToPartner
               ? 1.2
               : actor.motion === "IDLE_TALK" || actor.motion === "WAVE" || actor.motion === "APPROACH_OTHER"
               ? 3.2
               : 1.5;
-
-          const headTopWorldY = ra.headWorldY - 58 * ra.actorScale;
-          const mouthWorldY = ra.headWorldY + 22 * ra.actorScale;
 
           return (
             <g key={`auto_actor_${spec.id}_${aIdx}`}>
@@ -2000,7 +2146,7 @@ export const UniversalAutoStage: React.FC<{
                   lookOffset,
                   blinkSeed: aIdx * 13 + (actor.preset.charCodeAt(0) || 7),
                   nodAmplitudeDeg,
-                  nodFreq: ra.v18ActionPose === "TALK_GESTURE" ? 0.17 : 0.13,
+                  nodFreq: ra.v18ActionPose === "TALK_GESTURE" ? 0.11 : 0.13,
                   isSpeaking: ra.isSpeaking,
                   eyes: ra.overrideEyes ?? expr.eyes,
                   eyebrows: expr.eyebrows,
@@ -2058,25 +2204,59 @@ export const UniversalAutoStage: React.FC<{
                     </g>
                   );
                 })()}
-              {actor.bubble && (
-                <ComicSpeechBubble
-                  x={Math.max(220, Math.min(1700, ra.actorX + facingDir * 85))}
-                  y={headTopWorldY - 76}
-                  mouthX={ra.actorX + facingDir * 22 * ra.actorScale}
-                  mouthY={mouthWorldY}
-                  headTopY={headTopWorldY}
-                  text={actor.bubble}
-                  localFrame={localFrame}
-                  appearFrame={ra.bubbleAppear}
-                  disappearFrame={ra.bubbleDisappear}
-                />
-              )}
             </g>
           );
         })}
 
         {/* 4. HIỆU ỨNG THỜI TIẾT ĐỘNG 60FPS */}
         <WeatherOverlayLayer weather={spec.weather} frame={frame} isOutdoor={isOutdoor} />
+
+        {/* 5. V18.4 LỚP BÓNG THOẠI TRÊN CÙNG (Z-INDEX CAO NHẤT — LUÔN VẼ SAU TẤT CẢ NHÂN VẬT & THỜI TIẾT) */}
+        <g id="layer-speech-bubbles-top">
+          {resolvedActors.map((ra) => {
+            const { actor, aIdx } = ra;
+            if (!actor.bubble) return null;
+
+            if (ra.isLieSleepMode) {
+              const isClinic = spec.stageType === "DOCTOR_CLINIC";
+              const isBedroom = spec.stageType === "BEDROOM_INDOOR";
+              const headX = isBedroom ? 1522 : isClinic ? 1685 : ra.sleepAnchorX + 80;
+              const headY = isBedroom ? 610 : isClinic ? 622 : groundY - 62;
+              return (
+                <ComicSpeechBubble
+                  key={`bubble_sleep_${spec.id}_${aIdx}`}
+                  x={Math.max(240, Math.min(1680, headX - 90))}
+                  y={headY - 190}
+                  mouthX={headX - 8}
+                  mouthY={headY + 12}
+                  headTopY={headY - 48}
+                  text={actor.bubble}
+                  localFrame={localFrame}
+                  appearFrame={ra.bubbleAppear}
+                  disappearFrame={ra.bubbleDisappear}
+                />
+              );
+            }
+
+            const facingDir: 1 | -1 = ra.effectiveFacing === "LEFT" ? -1 : 1;
+            const headTopWorldY = ra.headWorldY - 58 * ra.actorScale;
+            const mouthWorldY = ra.headWorldY + 22 * ra.actorScale;
+            return (
+              <ComicSpeechBubble
+                key={`bubble_${spec.id}_${aIdx}`}
+                x={Math.max(220, Math.min(1700, ra.actorX + facingDir * 85))}
+                y={headTopWorldY - 76}
+                mouthX={ra.actorX + facingDir * 22 * ra.actorScale}
+                mouthY={mouthWorldY}
+                headTopY={headTopWorldY}
+                text={actor.bubble}
+                localFrame={localFrame}
+                appearFrame={ra.bubbleAppear}
+                disappearFrame={ra.bubbleDisappear}
+              />
+            );
+          })}
+        </g>
       </g>
 
       {/* 5. NHÃN CALLOUT VÀNG TỐI GIẢN — V18.2 AUTO-WIDTH THEO ĐỘ DÀI CHỮ (KHÔNG BAO GIỜ TRÀN VIỀN!) */}

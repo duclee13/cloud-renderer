@@ -213,7 +213,53 @@ export function computeLegsAndHip(
 }
 
 /**
- * V18.0: Bộ giải tay 60fps chính xác cho 18 tư thế Keyframe Action Timeline + tư thế chống hông (handsOnHips).
+ * V18.4: Động học thuận (FK) 2 đốt cánh tay chuẩn ARM_L1=65 / ARM_L2=58 theo góc từ phương thẳng đứng (+y):
+ * - upperDeg: góc bắp tay trên tính từ hướng rủ thẳng xuống (+ = đưa về phía trước +x, - = lùi nhẹ phía sau -x)
+ * - elbowInteriorDeg: góc mở bên trong tại khớp khuỷu (180° = thẳng tắp, 160° = hơi cong thả lỏng, 125° = mở rộng tự nhiên)
+ * - bendForward: true = cẳng tay gập hướng về phía trước (+x); false = rủ hướng về phía sau (-x)
+ */
+export function solveArmFK(
+  shoulderUpper: Point2D,
+  upperDeg: number,
+  elbowInteriorDeg: number,
+  bendForward: boolean = true
+): { elbow: Point2D; wrist: Point2D } {
+  const flexDeg = 180 - elbowInteriorDeg;
+  const forearmDeg = upperDeg + (bendForward ? flexDeg : -flexDeg);
+  const uRad = (upperDeg * Math.PI) / 180;
+  const fRad = (forearmDeg * Math.PI) / 180;
+  const elbow: Point2D = {
+    x: shoulderUpper.x + ARM_L1 * Math.sin(uRad),
+    y: shoulderUpper.y + ARM_L1 * Math.cos(uRad),
+  };
+  const wrist: Point2D = {
+    x: elbow.x + ARM_L2 * Math.sin(fRad),
+    y: elbow.y + ARM_L2 * Math.cos(fRad),
+  };
+  return { elbow, wrist };
+}
+
+/**
+ * V18.4: Gật đầu nhẹ đúng 2 nhịp êm ái rồi dừng hẳn (dùng cho pose NOD_SMILE).
+ * - Nhịp 1: 0..28f (đỉnh +5.5° rồi về 0°)
+ * - Nhịp 2: 28..56f (đỉnh +3.8° rồi về 0°)
+ * - Từ frame >= 56 (~0.93s @ 60fps): dừng hoàn toàn ở 0°!
+ */
+export function computeGentleDoubleNodDeg(localFrame: number): number {
+  if (!Number.isFinite(localFrame)) return 0;
+  const f = Math.max(0, localFrame);
+  const cycleFrames = 28;
+  const totalNodFrames = cycleFrames * 2;
+  if (f >= totalNodFrames) return 0;
+  const beatIdx = Math.floor(f / cycleFrames);
+  const t = (f - beatIdx * cycleFrames) / cycleFrames;
+  const smoothPulse = 0.5 * (1 - Math.cos(t * Math.PI * 2));
+  const amplitude = beatIdx === 0 ? 5.5 : 3.8;
+  return smoothPulse * amplitude;
+}
+
+/**
+ * V18.0–V18.4: Bộ giải tay 60fps chính xác cho 20 tư thế Keyframe Action Timeline + tư thế chống hông (handsOnHips).
  * Trả về tọa độ khớp vai->khuỷu->cổ tay trong hệ trục thân trên (shoulderUpper = (0, -115)),
  * được khóa cứng chiều dài xương ARM_L1=65 / ARM_L2=58 ở bước enforceRigidTwoBoneIK.
  */
@@ -407,25 +453,38 @@ export function computeV18ActionArmsUpper(
       };
     }
     case "TALK_GESTURE": {
-      // V18.2: Cử chỉ hai tay nói chuyện tự nhiên ngang ngực nhịp nhàng theo nhịp thoại
-      const g1 = Math.sin(frame * 0.16);
-      const g2 = Math.cos(frame * 0.12 + 0.8);
+      // V18.4: Viết lại hoàn toàn tư thế nói chuyện tự nhiên:
+      // - Tay sau (backArm / left): thả lỏng xuôi xuống bên hông, khuỷu cong nhẹ ~160° (158.5°..161.5°), tuyệt đối KHÔNG gập chéo thân
+      // - Tay trước (frontArm / right): đưa nhẹ ra trước ngang ngực/eo, khuỷu mở rộng tự nhiên ~125° (119°..131°),
+      //   cử động nhịp nhàng chậm rãi theo sóng sin chậm với biên độ rất nhỏ (±6° khuỷu / ±7.5° cẳng tay, luôn ở dưới phương ngang 73.5°..88.5°)
+      const slowWave = Math.sin(frame * 0.055);
+      const backBreath = Math.sin(frame * 0.045);
+
+      const backUpperDeg = -26 + backBreath * 1.0;
+      const backElbowInteriorDeg = 160 + backBreath * 1.5; // 158.5°..161.5° (nằm gọn trong 155–165°)
+      const backArm = solveArmFK(shoulderUpper, backUpperDeg, backElbowInteriorDeg, true);
+
+      const frontUpperDeg = 26 + slowWave * 1.5; // 24.5°..27.5° (tách thoáng viền áo, tự nhiên)
+      const frontElbowInteriorDeg = 125 - slowWave * 6.0; // 119°..131° (mở rộng tự nhiên trong 115–135°)
+      const frontArm = solveArmFK(shoulderUpper, frontUpperDeg, frontElbowInteriorDeg, true);
+
       return {
-        leftElbow: { x: -34 + g2 * 6, y: sy + 52 },
-        leftWrist: { x: 24 + g2 * 14, y: sy + 42 - Math.abs(g2) * 14 },
-        rightElbow: { x: 38 + g1 * 6, y: sy + 46 },
-        rightWrist: { x: 82 + g1 * 16, y: sy + 26 - Math.abs(g1) * 18 },
+        leftElbow: backArm.elbow,
+        leftWrist: backArm.wrist,
+        rightElbow: frontArm.elbow,
+        rightWrist: frontArm.wrist,
         allowNearHead: false,
       };
     }
     case "NOD_SMILE": {
-      // V18.3: Tư thế tiết chế tự nhiên — hai tay thả lỏng mềm mại hai bên hông kèm gật đầu nhẹ mỉm cười
-      const sway = Math.sin(frame * 0.06) * 3;
+      // V18.4: Cả 2 tay thả lỏng tự nhiên xuôi xuống bên hông (không vung vẩy tay), tách thoáng khỏi viền áo, khuỷu cong nhẹ ~160°
+      const backArm = solveArmFK(shoulderUpper, -26, 160, true);
+      const frontArm = solveArmFK(shoulderUpper, 26, 160, false);
       return {
-        leftElbow: { x: -22, y: sy + 56 },
-        leftWrist: { x: -16 - sway, y: sy + 112 },
-        rightElbow: { x: 24, y: sy + 56 },
-        rightWrist: { x: 18 + sway, y: sy + 112 },
+        leftElbow: backArm.elbow,
+        leftWrist: backArm.wrist,
+        rightElbow: frontArm.elbow,
+        rightWrist: frontArm.wrist,
         allowNearHead: false,
       };
     }
@@ -1036,10 +1095,17 @@ export const StickmanRig: React.FC<StickmanRigProps> = ({
   const idleBreathFactor = enableIdleLife ? 1 + Math.sin(frame * 0.055 + idlePhaseSeed) * 0.0085 : 1.0;
   const effectiveBreathScaleY = breathScaleY * idleBreathFactor * (state.anticipationScaleY ?? 1.0);
 
-  const nodDeg = state.nodAmplitudeDeg
-    ? Math.sin(frame * (state.nodFreq ?? 0.12)) * state.nodAmplitudeDeg
-    : 0;
-  const headAngle = (state.headTiltDeg ?? 0) + (limbAngles?.head ?? 0) + nodDeg;
+  const v18FallbackNodDeg =
+    state.v18ActionPose === "NOD_SMILE" && state.headTiltDeg === undefined
+      ? computeGentleDoubleNodDeg(state.v18LocalFrame ?? frame)
+      : 0;
+  const nodDeg =
+    state.v18ActionPose === "NOD_SMILE"
+      ? 0
+      : state.nodAmplitudeDeg
+      ? Math.sin(frame * (state.nodFreq ?? 0.12)) * state.nodAmplitudeDeg
+      : 0;
+  const headAngle = (state.headTiltDeg ?? 0) + (limbAngles?.head ?? 0) + nodDeg + v18FallbackNodDeg;
 
   // Chu kỳ chớp mắt 168..216 frames (2.8s–3.6s @ 60fps), mỗi nhịp nhắm mở 6 frames mượt mà trên mọi biểu cảm mắt mở
   const blinkPeriod = 168 + ((stableSeed * 19) % 49);
