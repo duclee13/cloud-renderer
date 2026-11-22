@@ -622,9 +622,9 @@ function mapAutoExpression(expr: AutoActorExpression): {
 } {
   switch (expr) {
     case "HAPPY":
-      return { eyes: "happy", eyebrows: "neutral", mouth: "smile", blush: true, sweatDrop: false };
+      return { eyes: "happy", eyebrows: "neutral", mouth: "smile", blush: false, sweatDrop: false };
     case "PROUD":
-      return { eyes: "happy", eyebrows: "neutral", mouth: "smile", blush: true, sweatDrop: false };
+      return { eyes: "happy", eyebrows: "neutral", mouth: "smile", blush: false, sweatDrop: false };
     case "CURIOUS":
       return { eyes: "curious", eyebrows: "inquisitive", mouth: "smile", blush: false, sweatDrop: false };
     case "THINKING":

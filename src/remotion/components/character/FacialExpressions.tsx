@@ -18,12 +18,12 @@ interface FacialExpressionsProps {
 }
 
 /**
- * FacialExpressions V16.0: Khuôn Mặt Thân Thiện, Tối Giản & Ấm Áp
- * 1. Mắt tròn đen to hơn ~25% (r ≈ 9.6px), rõ nét ngay cả ở cỡ nhỏ, kèm chấm sáng trắng & vầng sáng lưỡi liềm (dot + crescent highlight).
- * 2. ẨN hoàn toàn lông mày ở các biểu cảm mặc định (HAPPY, IDLE, SMILE, CALM) cho gương mặt thoáng hiền;
- *    CHỈ vẽ lông mày mảnh tinh tế (3.4px) khi biểu cảm cần nhấn mạnh (CURIOUS, SHOCKED, ANGRY, WORRIED).
- * 3. Xóa hoàn toàn vệt cong cằm màu xám cũ (không còn cảm giác già).
- * 4. Miệng chữ U cười tròn mềm thân thiện; Lip-Sync mở/đóng tròn tự nhiên khi nói.
+ * FacialExpressions V18.3: Đôi Mắt 2D Tối Giản Bình Thường (Hết Kiểu Long Lanh Anime)
+ * 1. Đôi mắt 2D sạch tự nhiên: 2 vòng tròng trắng viền đen sắc nét + con ngươi tròn đen đặc bên trong
+ *    di chuyển mượt theo (eyeLookX, eyeLookY) — XÓA HOÀN TOÀN các chấm sáng trắng / vầng sáng anime.
+ * 2. ẨN lông mày ở các biểu cảm bình thường (HAPPY, IDLE, SMILE, CALM); chỉ vẽ lông mày mảnh khi nhấn mạnh.
+ * 3. Bỏ/làm dịu hẳn má hồng để gương mặt tự nhiên, chín chắn, phù hợp kể chuyện khoa học.
+ * 4. Miệng chữ U cười tự nhiên & Lip-Sync mở/đóng mượt khi nói.
  */
 export const FacialExpressions: React.FC<FacialExpressionsProps> = ({
   headRadius = 56,
@@ -39,8 +39,7 @@ export const FacialExpressions: React.FC<FacialExpressionsProps> = ({
   const scale = headRadius / 56;
   const eyeDistance = 21.5 * scale;
   const eyeY = -5 * scale;
-  // V16.0: Mắt tròn đen to hơn ~25% so với cũ (7.5 -> 9.6 * scale)
-  const eyeR = 9.6 * scale;
+  const scleraBaseR = 10.2 * scale;
 
   // Lông mày mảnh tinh tế — CHỈ hiển thị khi biểu cảm cần nhấn mạnh (CURIOUS, SHOCKED, ANGRY, WORRIED)
   const isEmphasizedExpression =
@@ -51,19 +50,19 @@ export const FacialExpressions: React.FC<FacialExpressionsProps> = ({
     (eyebrows === "raised" && eyes === "wide");
 
   const browHalfW = 9.5 * scale;
-  const browY = eyeY - eyeR - 6.5 * scale;
+  const browY = eyeY - scleraBaseR - 6.0 * scale;
   const browStrokeWidth = 3.5 * scale;
 
-  // V18.2: Ưu tiên lookOffset (-4px..+4px) cho ánh mắt liếc nhìn mục tiêu/đối phương có hồn; fallback về pupilGaze
+  // V18.3: Hướng nhìn đồng tử từ lookOffset (-4px..+4px) hoặc pupilGaze
   const hasLookOffset = lookOffset !== undefined;
   const clampedGazeX = Math.max(-1, Math.min(1, pupilGaze.x || 0));
   const clampedGazeY = Math.max(-1, Math.min(1, pupilGaze.y || 0));
-  const gazeDx = hasLookOffset
+  const rawGazeDx = hasLookOffset
     ? Math.max(-4, Math.min(4, lookOffset!.dx || 0)) * scale
-    : clampedGazeX * 2.4 * scale;
-  const gazeDy = hasLookOffset
+    : clampedGazeX * 3.2 * scale;
+  const rawGazeDy = hasLookOffset
     ? Math.max(-4, Math.min(4, lookOffset!.dy || 0)) * scale
-    : clampedGazeY * 2.0 * scale;
+    : clampedGazeY * 2.8 * scale;
 
   const leftEyeCenter = { x: -eyeDistance, y: eyeY };
   const rightEyeCenter = { x: eyeDistance, y: eyeY };
@@ -73,39 +72,45 @@ export const FacialExpressions: React.FC<FacialExpressionsProps> = ({
   const rightBrowX1 = eyeDistance - browHalfW;
   const rightBrowX2 = eyeDistance + browHalfW;
 
-  const renderFriendlyGlossyEye = (cx: number, cy: number, keyPrefix: string, isExtraWide = false) => {
-    const r = isExtraWide ? eyeR * 1.08 : eyeR;
-    const ex = cx + gazeDx;
-    const ey = cy + gazeDy;
-    // V18.2: Đốm sáng dịch chuyển thêm nhẹ theo hướng liếc mắt để ánh nhìn tập trung rõ nét vào mục tiêu
-    const hlShiftX = gazeDx * 0.22;
-    const hlShiftY = gazeDy * 0.22;
+  const renderClean2DEye = (
+    cx: number,
+    cy: number,
+    keyPrefix: string,
+    mode: "normal" | "wide" | "surprised"
+  ) => {
+    const scleraR = mode === "surprised" ? 11.4 * scale : mode === "wide" ? 11.0 * scale : scleraBaseR;
+    const pupilR = mode === "surprised" ? 3.8 * scale : 4.6 * scale;
+    // Giữ con ngươi tròn đen đặc luôn nằm gọn bên trong tròng trắng (không chạm viền đen)
+    const maxTravel = Math.max(1.5 * scale, scleraR - pupilR - 1.5 * scale);
+    const mag = Math.hypot(rawGazeDx, rawGazeDy);
+    const travelScale = mag > maxTravel && mag > 1e-4 ? maxTravel / mag : 1;
+    const px = cx + rawGazeDx * travelScale;
+    const py = cy + rawGazeDy * travelScale;
+
     return (
       <g key={keyPrefix}>
-        {/* Tròng mắt tròn đen lớn thân thiện */}
-        <circle cx={ex} cy={ey} r={r} fill={strokeColor} />
-        {/* Chấm sáng trắng chính góc trên-trái (dot highlight) */}
-        <circle cx={ex - r * 0.30 + hlShiftX} cy={ey - r * 0.28 + hlShiftY} r={r * 0.33} fill="#FFFFFF" />
-        {/* Vầng sáng lưỡi liềm nhỏ góc dưới-phải (crescent/sparkle highlight) */}
-        <path
-          d={`M ${ex + r * 0.14 + hlShiftX * 0.5} ${ey + r * 0.44 + hlShiftY * 0.5} A ${r * 0.48} ${r * 0.48} 0 0 0 ${ex + r * 0.46 + hlShiftX * 0.5} ${ey + r * 0.12 + hlShiftY * 0.5}`}
-          fill="none"
-          stroke="#FFFFFF"
-          strokeWidth={1.8 * scale}
-          strokeLinecap="round"
-          opacity={0.85}
+        {/* Tròng trắng viền đen 2D sắc nét */}
+        <circle
+          cx={cx}
+          cy={cy}
+          r={scleraR}
+          fill="#FFFFFF"
+          stroke={strokeColor}
+          strokeWidth={3.4 * scale}
         />
+        {/* Con ngươi tròn đen đặc (KHÔNG chấm sáng anime) di chuyển mượt theo hướng nhìn */}
+        <circle cx={px} cy={py} r={pupilR} fill={strokeColor} />
       </g>
     );
   };
 
   return (
     <g className="stickman-face">
-      {/* 1. Má hồng mềm mại ấm áp (Blush cheeks) */}
+      {/* 1. Má hồng siêu nhẹ (chỉ hiện rất dịu khi bật blush chủ đích) */}
       {blush && (
-        <g opacity={0.48}>
-          <ellipse cx={-eyeDistance - 5 * scale} cy={eyeY + 18 * scale} rx={11.5 * scale} ry={6.2 * scale} fill="#FB7185" />
-          <ellipse cx={eyeDistance + 5 * scale} cy={eyeY + 18 * scale} rx={11.5 * scale} ry={6.2 * scale} fill="#FB7185" />
+        <g opacity={0.2}>
+          <ellipse cx={-eyeDistance - 5 * scale} cy={eyeY + 18 * scale} rx={9.0 * scale} ry={4.8 * scale} fill="#FB7185" />
+          <ellipse cx={eyeDistance + 5 * scale} cy={eyeY + 18 * scale} rx={9.0 * scale} ry={4.8 * scale} fill="#FB7185" />
         </g>
       )}
 
@@ -142,26 +147,26 @@ export const FacialExpressions: React.FC<FacialExpressionsProps> = ({
         </g>
       )}
 
-      {/* 3. ĐÔI MẮT TRÒN ĐEN TO THÂN THIỆN KÈM CHẤM SÁNG TRẮNG */}
+      {/* 3. ĐÔI MẮT 2D TỐI GIẢN BÌNH THƯỜNG (TRÒNG TRẮNG VIỀN ĐEN + CON NGƯƠI ĐEN ĐẶC — 0% CHẤM SÁNG ANIME) */}
       {eyes === "closed" ? (
-        <g stroke={strokeColor} strokeWidth={4.2 * scale} strokeLinecap="round" fill="none">
+        <g stroke={strokeColor} strokeWidth={4.0 * scale} strokeLinecap="round" fill="none">
           <path d={`M ${leftEyeCenter.x - 9 * scale} ${eyeY + 1 * scale} Q ${leftEyeCenter.x} ${eyeY + 5 * scale} ${leftEyeCenter.x + 9 * scale} ${eyeY + 1 * scale}`} />
           <path d={`M ${rightEyeCenter.x - 9 * scale} ${eyeY + 1 * scale} Q ${rightEyeCenter.x} ${eyeY + 5 * scale} ${rightEyeCenter.x + 9 * scale} ${eyeY + 1 * scale}`} />
         </g>
-      ) : eyes === "surprised" ? (
-        <g id="stickman-surprised-eyes">
-          {[leftEyeCenter, rightEyeCenter].map((ec, i) => (
-            <g key={`surp_eye_${i}`}>
-              <circle cx={ec.x} cy={ec.y} r={11.5 * scale} fill="#FFFFFF" stroke={strokeColor} strokeWidth={3.8 * scale} />
-              <circle cx={ec.x + gazeDx} cy={ec.y + gazeDy} r={5.4 * scale} fill={strokeColor} />
-              <circle cx={ec.x + gazeDx - 1.8 * scale} cy={ec.y + gazeDy - 1.8 * scale} r={2.2 * scale} fill="#FFFFFF" />
-            </g>
-          ))}
-        </g>
       ) : (
-        <g id="stickman-friendly-glossy-eyes">
-          {renderFriendlyGlossyEye(leftEyeCenter.x, leftEyeCenter.y, "eye_l", eyes === "wide")}
-          {renderFriendlyGlossyEye(rightEyeCenter.x, rightEyeCenter.y, "eye_r", eyes === "wide")}
+        <g id="stickman-clean-2d-eyes">
+          {renderClean2DEye(
+            leftEyeCenter.x,
+            leftEyeCenter.y,
+            "eye_l",
+            eyes === "surprised" ? "surprised" : eyes === "wide" ? "wide" : "normal"
+          )}
+          {renderClean2DEye(
+            rightEyeCenter.x,
+            rightEyeCenter.y,
+            "eye_r",
+            eyes === "surprised" ? "surprised" : eyes === "wide" ? "wide" : "normal"
+          )}
         </g>
       )}
 
