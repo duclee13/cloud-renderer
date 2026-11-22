@@ -36,6 +36,15 @@ export interface StickmanBodyParts {
   rightFoot?: React.ReactNode;
 }
 
+/**
+ * V18.3: Chuẩn hóa tỷ lệ chiều cao thực tế trẻ con / người lớn:
+ * - BOY = 0.76 (nhỏ nhắn, đứng ngang vai người lớn, bàn chân vẫn chạm chuẩn groundY)
+ * - Người lớn (GRANDPA, GRANDMA, DOCTOR, NEIGHBOR) = 1.0
+ */
+export function resolvePresetDefaultScale(preset?: CharacterPreset | CharacterArchetype): number {
+  return preset === "BOY" ? 0.76 : 1.0;
+}
+
 export const TORSO_LEN = 115; // Khoảng cách từ Hông tới Vai luôn bằng đúng 115px
 export const ARM_L1 = 65;     // Bắp tay trên luôn đúng 65px
 export const ARM_L2 = 58;     // Cẳng tay luôn đúng 58px (MAX_ARM_REACH = 123px)
@@ -241,12 +250,13 @@ export function computeV18ActionArmsUpper(
 
   switch (v18Pose) {
     case "CROUCH_LOOK": {
-      const scan = Math.sin(frame * 0.14) * 5;
+      // V18.3: Đứng thẳng chân tự nhiên, hơi nghiêng thân 12° về trước quan sát mục tiêu (bỏ dáng gập gối chữ Z!)
+      const scan = Math.sin(frame * 0.12) * 4;
       return {
-        leftElbow: { x: -38, y: sy + 46 },
-        leftWrist: { x: -18, y: sy + 86 },
-        rightElbow: { x: 42, y: sy + 48 },
-        rightWrist: { x: 84, y: sy + 18 + scan },
+        leftElbow: { x: -34, y: sy + 52 },
+        leftWrist: { x: -16, y: sy + 98 },
+        rightElbow: { x: 40, y: sy + 48 },
+        rightWrist: { x: 82, y: sy + 28 + scan },
         allowNearHead: false,
       };
     }
@@ -307,12 +317,15 @@ export function computeV18ActionArmsUpper(
       };
     }
     case "JUMP_BACK": {
+      // V18.3: Giật mình tự nhiên — vung tay khựng nhẹ lúc bật (0..18f), sau đó hạ về thế phòng thủ ngang ngực gọn gàng
+      const settle = Math.max(0, Math.min(1, (localFrame - 15) / 12));
+      const easeS = settle * settle * (3 - 2 * settle);
       return {
-        leftElbow: { x: -54, y: sy - 8 },
-        leftWrist: { x: -78, y: sy - 54 },
-        rightElbow: { x: 54, y: sy - 8 },
-        rightWrist: { x: 82, y: sy - 56 },
-        allowNearHead: true,
+        leftElbow: { x: -50 + 8 * easeS, y: sy + 8 + 30 * easeS },
+        leftWrist: { x: -64 + 34 * easeS, y: sy - 22 + 54 * easeS },
+        rightElbow: { x: 52 - 8 * easeS, y: sy + 8 + 30 * easeS },
+        rightWrist: { x: 66 - 24 * easeS, y: sy - 24 + 54 * easeS },
+        allowNearHead: easeS < 0.5,
       };
     }
     case "ARMS_UP_CHEER": {
@@ -381,14 +394,16 @@ export function computeV18ActionArmsUpper(
       };
     }
     case "SHIVER_PANIC": {
-      const jx = Math.sin(frame * 0.85) * 4;
-      const jy = Math.cos(frame * 0.95) * 3;
+      // V18.3: Chỉ rung nhẹ trong 30 frames đầu (0.5s) rồi tắt dần, không rung bần bật cả cảnh!
+      const jitterDecay = localFrame >= 30 ? 0 : localFrame <= 18 ? 1 : 1 - (localFrame - 18) / 12;
+      const jx = Math.sin(frame * 0.85) * 3.2 * jitterDecay;
+      const jy = Math.cos(frame * 0.95) * 2.4 * jitterDecay;
       return {
-        leftElbow: { x: -56, y: sy + 28 },
-        leftWrist: { x: -40 + jx, y: sy - 28 + jy },
-        rightElbow: { x: 60, y: sy + 28 },
-        rightWrist: { x: 46 - jx, y: sy - 30 - jy },
-        allowNearHead: true,
+        leftElbow: { x: -50, y: sy + 36 },
+        leftWrist: { x: -32 + jx, y: sy - 10 + jy },
+        rightElbow: { x: 54, y: sy + 36 },
+        rightWrist: { x: 38 - jx, y: sy - 12 - jy },
+        allowNearHead: false,
       };
     }
     case "TALK_GESTURE": {
@@ -400,6 +415,17 @@ export function computeV18ActionArmsUpper(
         leftWrist: { x: 24 + g2 * 14, y: sy + 42 - Math.abs(g2) * 14 },
         rightElbow: { x: 38 + g1 * 6, y: sy + 46 },
         rightWrist: { x: 82 + g1 * 16, y: sy + 26 - Math.abs(g1) * 18 },
+        allowNearHead: false,
+      };
+    }
+    case "NOD_SMILE": {
+      // V18.3: Tư thế tiết chế tự nhiên — hai tay thả lỏng mềm mại hai bên hông kèm gật đầu nhẹ mỉm cười
+      const sway = Math.sin(frame * 0.06) * 3;
+      return {
+        leftElbow: { x: -22, y: sy + 56 },
+        leftWrist: { x: -16 - sway, y: sy + 112 },
+        rightElbow: { x: 24, y: sy + 56 },
+        rightWrist: { x: 18 + sway, y: sy + 112 },
         allowNearHead: false,
       };
     }
@@ -908,10 +934,13 @@ export const StickmanRig: React.FC<StickmanRigProps> = ({
   showDebugMarkers = false,
   onAnchorsComputed,
 }) => {
+  const resolvedPreset: CharacterPreset | undefined = characterPreset || state.characterPreset;
+  const activeArchetype: CharacterArchetype =
+    resolvedPreset || archetype || state.archetype || (state.hat !== false ? "oldMan" : "default");
+
   const {
     x,
     y,
-    scale = 1,
     facing = "right",
     pose = "standing",
     walkCycleProgress = 0,
@@ -919,19 +948,17 @@ export const StickmanRig: React.FC<StickmanRigProps> = ({
     pointingTarget,
     limbAngles,
   } = state;
+  const scale = state.scale !== undefined ? state.scale : resolvePresetDefaultScale(activeArchetype);
 
-  // V11.3: Chuyển động run rẩy toàn cục êm nhẹ (Math.sin(frame * 0.35) * 1.4px) + Comic Shiver Lines
-  const isShivering = Boolean(state.shiver);
+  // V18.3: Chuyển động run rẩy tiết chế theo shiverOpacity (tự tắt mượt sau 30 frames / 0.5s!)
+  const shiverOpacity = state.shiverOpacity !== undefined ? Math.max(0, Math.min(1, state.shiverOpacity)) : 1.0;
+  const isShivering = Boolean(state.shiver) && shiverOpacity > 0.02;
   const shiverFrame = state.shiverFrame ?? frame;
   const shiverMotion = isShivering ? computeComicShiverMotion(shiverFrame) : null;
-  const effectiveX = x + (shiverMotion ? shiverMotion.swayX : 0);
+  const effectiveX = x + (shiverMotion ? shiverMotion.swayX * shiverOpacity : 0);
   const shiverStrokeColor = state.shiverDarkStage
     ? COMIC_SHIVER_CONFIG.DARK_STAGE_COLOR
     : COMIC_SHIVER_CONFIG.LIGHT_STAGE_COLOR;
-
-  const resolvedPreset: CharacterPreset | undefined = characterPreset || state.characterPreset;
-  const activeArchetype: CharacterArchetype =
-    resolvedPreset || archetype || state.archetype || (state.hat !== false ? "oldMan" : "default");
 
   const isPureStickmanPreset = Boolean(
     resolvedPreset ||
@@ -1185,7 +1212,7 @@ export const StickmanRig: React.FC<StickmanRigProps> = ({
                     strokeWidth={COMIC_SHIVER_CONFIG.STROKE_WIDTH_PX}
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    opacity={0.92}
+                    opacity={0.92 * shiverOpacity}
                   >
                     {/* Cụm nét run bên TRÁI đầu (cách mép đầu r=60 khoảng 15px-24px) */}
                     <g transform={`translate(-76, ${(headY + dy).toFixed(1)}) rotate(${tilt.toFixed(1)})`}>

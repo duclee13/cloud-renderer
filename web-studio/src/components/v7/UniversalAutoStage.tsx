@@ -12,6 +12,7 @@ import {
   ComicSpeechBubble,
   isComicBubbleActive,
   computeV18ActionArmsUpper,
+  resolvePresetDefaultScale,
   TORSO_LEN,
 } from "./StickmanRig";
 import {
@@ -650,11 +651,16 @@ const HandPropGraphic: React.FC<{
   isNight: boolean;
   frame: number;
   extraTiltDeg?: number;
-}> = ({ prop, x, y, facingDir, isNight, frame, extraTiltDeg = 0 }) => {
+  propScale?: number;
+}> = ({ prop, x, y, facingDir, isNight, frame, extraTiltDeg = 0, propScale = 1.0 }) => {
   if (prop === "NONE") return null;
   const sway = Math.abs(extraTiltDeg) > 0.1 ? extraTiltDeg : Math.sin(frame * 0.14) * 6;
   return (
-    <g transform={`translate(${x.toFixed(1)}, ${y.toFixed(1)}) scale(${facingDir}, 1) rotate(${sway.toFixed(1)})`}>
+    <g
+      transform={`translate(${x.toFixed(1)}, ${y.toFixed(1)}) scale(${(facingDir * propScale).toFixed(
+        3
+      )}, ${propScale.toFixed(3)}) rotate(${sway.toFixed(1)})`}
+    >
       {prop === "STICK" && (
         <g transform="rotate(-24)">
           <path d="M -10,0 L 112,-4" stroke="#141414" strokeWidth={10} strokeLinecap="round" />
@@ -963,10 +969,11 @@ function evaluateV18KeyframeKinematics(
       break;
     }
     case "CROUCH_LOOK": {
-      crouchDepth = 46;
-      pose = "crouching";
-      torsoTiltDeg = 22;
-      headTiltDeg = -8 + Math.sin(frame * 0.09) * 3;
+      // V18.3: Bỏ dáng gập gối hình chữ Z kỳ quặc — giữ hai chân đứng thẳng tự nhiên, hơi nghiêng thân 12° + đầu hơi cúi nhìn mục tiêu
+      crouchDepth = 0;
+      pose = "standing";
+      torsoTiltDeg = 12;
+      headTiltDeg = 10 + Math.sin(frame * 0.09) * 2.5;
       v18ActionPose = "CROUCH_LOOK";
       break;
     }
@@ -1001,27 +1008,28 @@ function evaluateV18KeyframeKinematics(
       break;
     }
     case "JUMP_BACK": {
-      // V18.2: 4 frames nhún lấy đà (scaleY = 0.92) rồi mới bật nhảy cao -72px kèm giật lùi + shiver!
-      if (segLocalFrame < 4) {
-        const antT = Math.sin(((segLocalFrame + 1) / 4) * Math.PI);
-        anticipationScaleY = 1 - 0.08 * antT; // đạt đúng 0.92 ở đỉnh nhún lấy đà
-        crouchDepth = 15 * antT;
+      // V18.3: Giật mình tự nhiên — cú khựng bật nhẹ -20px trong đúng 15 frames (0.25s) rồi tiếp đất đứng vững ngay!
+      if (segLocalFrame < 2) {
+        anticipationScaleY = 0.96;
+        crouchDepth = 6;
         flightLift = 0;
-        torsoTiltDeg = 6 * antT;
-        pose = "crouching";
+        torsoTiltDeg = 4;
       } else {
-        const postF = segLocalFrame - 4;
-        const jp = Math.min(1, postF / 32);
-        flightLift = Math.sin(jp * Math.PI) * 72;
-        if (postF < 5) {
-          anticipationScaleY = 1 + 0.035 * Math.sin((postF / 5) * Math.PI); // nhẹ nhàng giãn người lúc vừa bật
+        const postF = segLocalFrame - 2;
+        if (postF < 15) {
+          const jp = postF / 15;
+          flightLift = Math.sin(jp * Math.PI) * 20;
+          torsoTiltDeg = -7 * Math.sin(jp * Math.PI);
+          pose = "jumping";
+        } else {
+          flightLift = 0;
+          torsoTiltDeg = -2;
+          pose = "standing";
         }
         if (moveDist < 4) {
           const initDir: 1 | -1 = kf.facing === "LEFT" ? -1 : 1;
-          actorX = Math.max(180, Math.min(1740, kf.startX - initDir * smoothstep(0, 0.5, segU) * 105));
+          actorX = Math.max(180, Math.min(1740, kf.startX - initDir * smoothstep(0, 0.3, segU) * 55));
         }
-        pose = jp < 0.88 ? "jumping" : "standing";
-        torsoTiltDeg = -13 * (1 - jp * 0.3);
       }
       activeShiver = true;
       v18ActionPose = "JUMP_BACK";
@@ -1081,8 +1089,8 @@ function evaluateV18KeyframeKinematics(
       break;
     }
     case "SHIVER_PANIC": {
-      crouchDepth = 12;
-      torsoTiltDeg = -5;
+      crouchDepth = 0;
+      torsoTiltDeg = -4;
       activeShiver = true;
       overrideEyes = "wide";
       overrideMouth = "circleOpen";
@@ -1093,6 +1101,14 @@ function evaluateV18KeyframeKinematics(
       torsoTiltDeg = 2 + Math.sin(frame * 0.09) * 2.2;
       headTiltDeg = Math.sin(frame * 0.15) * 3.2;
       v18ActionPose = "TALK_GESTURE";
+      break;
+    }
+    case "NOD_SMILE": {
+      // V18.3: Gật đầu nhẹ mỉm cười, tay thả lỏng tự nhiên (thay thế việc lạm dụng ARMS_UP_CHEER)
+      torsoTiltDeg = 1.5;
+      headTiltDeg = Math.sin(segLocalFrame * 0.13) * 4.5;
+      overrideMouth = "smile";
+      v18ActionPose = "NOD_SMILE";
       break;
     }
     default:
@@ -1211,14 +1227,14 @@ export const UniversalAutoStage: React.FC<{
   const camZoom = lerpNum(camFromScale, camToScale, smoothstep(0.0, 1.0, u));
 
   // ===========================================================================
-  // PASS 1 (V18.2): Tính động học + 10-frame Smooth Pose Blending cho toàn bộ nhân vật
-  // để Pass 2 tính chính xác ánh mắt nhìn thẳng vào mặt nhau & listenerNod!
+  // PASS 1 (V18.3): Tính động học + 10-frame Smooth Pose Blending + Tỷ lệ trẻ con/người lớn (BOY=0.76, Adult=1.0)
+  // Hỗ trợ tối đa 3 nhân vật cùng lúc trên sân khấu!
   // ===========================================================================
-  const actorScale = 0.96;
 
   interface ResolvedActorRenderData {
     actor: AutoActorSpec;
     aIdx: number;
+    actorScale: number;
     isLieSleepMode: boolean;
     sleepAnchorX: number;
     bubbleAppear: number;
@@ -1231,6 +1247,7 @@ export const UniversalAutoStage: React.FC<{
     activeExprEnum: AutoActorExpression;
     activeHandProp: AutoHandProp;
     activeShiver: boolean;
+    shiverOpacity: number;
     pose: V18PoseSnapshot["pose"];
     walkWeight: number;
     walkCycle: number;
@@ -1259,6 +1276,7 @@ export const UniversalAutoStage: React.FC<{
   }
 
   const resolvedActors: ResolvedActorRenderData[] = spec.actors.map((actor, aIdx) => {
+    const actorScale = resolvePresetDefaultScale(actor.preset); // V18.3: BOY=0.76, Người lớn=1.0
     const baseX = slotBaseX(actor.slot);
     const hasTimeline = Boolean(actor.timeline && actor.timeline.length > 0);
     const timelineResolved = hasTimeline
@@ -1282,6 +1300,7 @@ export const UniversalAutoStage: React.FC<{
       return {
         actor,
         aIdx,
+        actorScale,
         isLieSleepMode: true,
         sleepAnchorX,
         bubbleAppear,
@@ -1294,6 +1313,7 @@ export const UniversalAutoStage: React.FC<{
         activeExprEnum: actor.expression,
         activeHandProp: "NONE",
         activeShiver: false,
+        shiverOpacity: 0,
         pose: "standing",
         walkWeight: 0,
         walkCycle: 0,
@@ -1459,18 +1479,21 @@ export const UniversalAutoStage: React.FC<{
           break;
         }
         case "JUMP_SHOCK": {
-          const jp = Math.min(1, localFrame / 34);
-          flightLift = Math.sin(jp * Math.PI) * 75;
+          // V18.3: Tiết chế giật mình tự nhiên (-20px trong 15 frames = 0.25s rồi tiếp đất đứng vững ngay!)
+          if (localFrame < 15) {
+            const jp = localFrame / 15;
+            flightLift = Math.sin(jp * Math.PI) * 20;
+            pose = "jumping";
+            torsoTiltDeg = -7 * Math.sin(jp * Math.PI);
+          } else {
+            flightLift = 0;
+            pose = "standing";
+            torsoTiltDeg = -2;
+          }
           const initDir: 1 | -1 = actor.facing === "LEFT" ? -1 : 1;
-          const recoilT = smoothstep(0.0, 0.42, u);
-          actorX = Math.max(180, Math.min(1740, baseX - initDir * recoilT * 110));
-          pose = jp < 0.88 ? "jumping" : "standing";
-          torsoTiltDeg = -12 * (1 - jp * 0.35);
+          const recoilT = smoothstep(0.0, 0.28, u);
+          actorX = Math.max(180, Math.min(1740, baseX - initDir * recoilT * 60));
           activeShiver = true;
-          holdingTarget = {
-            leftGrip: { x: actorX - 88, y: groundY - 238 - flightLift },
-            rightGrip: { x: actorX + 88, y: groundY - 238 - flightLift },
-          };
           break;
         }
         case "APPROACH_OTHER": {
@@ -1557,8 +1580,23 @@ export const UniversalAutoStage: React.FC<{
     const estHipY = -173 + crouchDepth - flightLift;
     const headWorldY = groundY + (estHipY - TORSO_LEN - 70) * actorScale;
 
-    let handGripX = holdingTarget?.rightGrip?.x ?? actorX + facingDir * 82;
-    let handGripY = holdingTarget?.rightGrip?.y ?? groundY - 208 - flightLift + crouchDepth * 0.65;
+    // V18.3: Khóa cứng thời lượng nét run `shiver` chỉ nháy trong 30 frames đầu (0.5s) rồi tắt dần mượt mà!
+    const shiverAgeFrames = timelineResolved ? v18LocalFrame : localFrame;
+    let shiverOpacity = 0;
+    if (activeShiver) {
+      if (shiverAgeFrames >= 30) {
+        activeShiver = false;
+        shiverOpacity = 0;
+      } else if (shiverAgeFrames >= 20) {
+        shiverOpacity = Math.max(0, 1 - (shiverAgeFrames - 20) / 10);
+      } else {
+        shiverOpacity = 1.0;
+      }
+    }
+
+    let handGripX = holdingTarget?.rightGrip?.x ?? actorX + facingDir * 84 * actorScale;
+    let handGripY =
+      holdingTarget?.rightGrip?.y ?? groundY - (216 + flightLift - crouchDepth * 0.65) * actorScale;
     let writePenWorld: { x: number; y: number } | null = null;
 
     if (blendedArmPose) {
@@ -1616,6 +1654,7 @@ export const UniversalAutoStage: React.FC<{
     return {
       actor,
       aIdx,
+      actorScale,
       isLieSleepMode: false,
       sleepAnchorX: baseX,
       bubbleAppear,
@@ -1628,6 +1667,7 @@ export const UniversalAutoStage: React.FC<{
       activeExprEnum,
       activeHandProp,
       activeShiver,
+      shiverOpacity,
       pose,
       walkWeight,
       walkCycle,
@@ -1840,27 +1880,26 @@ export const UniversalAutoStage: React.FC<{
 
           const expr = mapAutoExpression(ra.activeExprEnum);
           const facingDir: 1 | -1 = ra.effectiveFacing === "LEFT" ? -1 : 1;
-          const otherActor = resolvedActors.length >= 2 ? resolvedActors[aIdx === 0 ? 1 : 0] : undefined;
+          // V18.3: Hỗ trợ 2–3 nhân vật: ưu tiên liếc nhìn nhân vật đang nói chuyện, kế tiếp là người đứng gần nhất!
+          const otherCandidates = resolvedActors.filter((o) => o.aIdx !== aIdx && !o.isLieSleepMode);
+          const otherActor =
+            otherCandidates.find((o) => o.isSpeaking || o.isActivelyTalkingPose) ??
+            otherCandidates.sort((a, b) => Math.abs(a.actorX - ra.actorX) - Math.abs(b.actorX - ra.actorX))[0];
 
-          // V18.2: Tính hướng ánh mắt tự động (lookOffset trong -4px..+4px) khử triệt để cảm giác "lơ ngơ"
+          // V18.2/V18.3: Tính hướng ánh mắt tự động (lookOffset trong -4px..+4px) khử triệt để cảm giác "lơ ngơ"
           let lookOffset: { dx: number; dy: number };
           if (ra.v18ActionPose === "SWEEP_LIGHT") {
-            // Mắt liếc bám theo góc tia sáng đèn pin lên/xuống
             lookOffset = { dx: 3.4, dy: Math.max(-3.6, Math.min(3.6, ra.sweepSin * 3.4)) };
           } else if (ra.v18ActionPose === "WRITE_NOTE") {
-            // Nhìn xuống cuốn sổ tay đang ghi chép
             lookOffset = { dx: 2.6, dy: 3.6 };
           } else if (ra.v18ActionPose === "CROUCH_LOOK") {
-            // Nhìn tập trung xuống phía trước mục tiêu
-            lookOffset = { dx: 3.6, dy: 2.6 };
+            lookOffset = { dx: 3.5, dy: 3.2 };
           } else if (ra.v18ActionPose === "SIP_DRINK") {
-            // Liếc nhìn theo cốc nước đưa lên miệng
             lookOffset = { dx: 2.8, dy: 2.4 - ra.sipWave * 1.6 };
           } else if (ra.v18ActionPose === "POINT_UP") {
-            // Liếc nhìn lên phía tay đang chỉ
             lookOffset = { dx: 2.4, dy: -3.6 };
-          } else if (otherActor && !otherActor.isLieSleepMode) {
-            // Cảnh 2 nhân vật: tự động nhìn thẳng vào mặt nhau khi trò chuyện/tương tác!
+          } else if (otherActor) {
+            // Cảnh 2–3 nhân vật: tự động nhìn thẳng vào mặt nhau (BOY 0.76 tự liếc nhẹ lên mặt người lớn 1.0 và ngược lại!)
             const rawLocalDx = (otherActor.actorX - ra.actorX) * facingDir;
             const rawDy = otherActor.headWorldY - ra.headWorldY;
             const aimedDx =
@@ -1869,13 +1908,12 @@ export const UniversalAutoStage: React.FC<{
                 : Math.min(-2.4, Math.max(-3.8, rawLocalDx / 90));
             lookOffset = {
               dx: aimedDx,
-              dy: Math.max(-2.5, Math.min(2.5, rawDy / 85)),
+              dy: Math.max(-2.8, Math.min(2.8, rawDy / 65)),
             };
           } else if (
             propPlacement.propId !== "NONE" &&
             (propPlacement.inThoughtBubble || propPlacement.y < ra.headWorldY - 40)
           ) {
-            // Có bóng suy nghĩ hoặc đạo cụ phía trên: liếc nhìn lên phía bóng suy nghĩ!
             const rawLocalDx = (propPlacement.x - ra.actorX) * facingDir;
             const rawDy = propPlacement.y - ra.headWorldY;
             lookOffset = {
@@ -1883,20 +1921,17 @@ export const UniversalAutoStage: React.FC<{
               dy: Math.max(-3.8, Math.min(-1.5, rawDy / 85)),
             };
           } else if (ra.activeHandProp === "PHONE" || ra.activeHandProp === "NOTEBOOK") {
-            // Cầm điện thoại / sổ tay ở chế độ V17 legacy -> nhìn xuống vật cầm tay
             lookOffset = { dx: 2.8, dy: 2.8 };
           } else {
-            // Ánh nhìn tự nhiên có sinh khí về phía trước
             lookOffset = {
               dx: 1.8 + Math.sin(frame * 0.03 + aIdx * 1.7) * 0.65,
               dy: Math.cos(frame * 0.025 + aIdx * 1.1) * 0.45,
             };
           }
 
-          // V18.2 listenerNod: Người đứng nghe trong cảnh 2 người có nhịp gật đầu phản hồi nhẹ tự nhiên!
+          // V18.2/V18.3 listenerNod: Người đứng nghe trong cảnh 2–3 người có nhịp gật đầu phản hồi nhẹ tự nhiên!
           const isListeningToPartner = Boolean(
             otherActor &&
-              !otherActor.isLieSleepMode &&
               !ra.isSpeaking &&
               (otherActor.isSpeaking || otherActor.isActivelyTalkingPose) &&
               ra.pose === "standing" &&
@@ -1910,7 +1945,7 @@ export const UniversalAutoStage: React.FC<{
 
           const effectiveHeadTiltDeg = ra.headTiltDeg + listenerNodDeg;
           const nodAmplitudeDeg =
-            ra.v18ActionPose === "SWEEP_LIGHT" || ra.v18ActionPose === "FACEPALM"
+            ra.v18ActionPose === "SWEEP_LIGHT" || ra.v18ActionPose === "FACEPALM" || ra.v18ActionPose === "NOD_SMILE"
               ? 0.5
               : ra.v18ActionPose === "TALK_GESTURE"
               ? 4.0
@@ -1919,6 +1954,9 @@ export const UniversalAutoStage: React.FC<{
               : actor.motion === "IDLE_TALK" || actor.motion === "WAVE" || actor.motion === "APPROACH_OTHER"
               ? 3.2
               : 1.5;
+
+          const headTopWorldY = ra.headWorldY - 58 * ra.actorScale;
+          const mouthWorldY = ra.headWorldY + 22 * ra.actorScale;
 
           return (
             <g key={`auto_actor_${spec.id}_${aIdx}`}>
@@ -1931,6 +1969,7 @@ export const UniversalAutoStage: React.FC<{
                   isNight={isNight}
                   frame={frame}
                   extraTiltDeg={ra.handPropTiltDeg}
+                  propScale={ra.actorScale < 0.9 ? 0.85 : 1.0}
                 />
               )}
               <StickmanRig
@@ -1939,7 +1978,7 @@ export const UniversalAutoStage: React.FC<{
                 state={{
                   x: ra.actorX,
                   y: groundY,
-                  scale: actorScale,
+                  scale: ra.actorScale,
                   facing: ra.effectiveFacing === "LEFT" ? "left" : "right",
                   pose: ra.pose,
                   torsoTiltDeg: ra.torsoTiltDeg,
@@ -1969,6 +2008,7 @@ export const UniversalAutoStage: React.FC<{
                   blush: expr.blush,
                   sweatDrop: expr.sweatDrop,
                   shiver: ra.activeShiver,
+                  shiverOpacity: ra.shiverOpacity,
                   shiverDarkStage:
                     isNight || spec.stageType === "SPACE_COSMOS" || spec.stageType === "ANECHOIC_CHAMBER",
                   shiverFrame: frame,
@@ -1989,11 +2029,15 @@ export const UniversalAutoStage: React.FC<{
               {spec.stageType === "SPACE_COSMOS" &&
                 (() => {
                   const tRad = (ra.torsoTiltDeg * facingDir * Math.PI) / 180;
-                  const headWorldX = ra.actorX + Math.sin(tRad) * 169 * actorScale;
-                  const headWorldY =
-                    groundY - ra.flightLift + ra.crouchDepth * 0.85 - (173 + Math.cos(tRad) * 169) * actorScale;
+                  const headWorldX = ra.actorX + Math.sin(tRad) * 169 * ra.actorScale;
+                  const helmetWorldY =
+                    groundY - (ra.flightLift - ra.crouchDepth * 0.85 + 173 + Math.cos(tRad) * 169) * ra.actorScale;
                   return (
-                    <g transform={`translate(${headWorldX.toFixed(1)}, ${headWorldY.toFixed(1)})`}>
+                    <g
+                      transform={`translate(${headWorldX.toFixed(1)}, ${helmetWorldY.toFixed(1)}) scale(${ra.actorScale.toFixed(
+                        2
+                      )})`}
+                    >
                       <circle
                         cx={0}
                         cy={0}
@@ -2016,11 +2060,11 @@ export const UniversalAutoStage: React.FC<{
                 })()}
               {actor.bubble && (
                 <ComicSpeechBubble
-                  x={Math.max(220, Math.min(1700, ra.actorX + facingDir * 95))}
-                  y={groundY - 495 - ra.flightLift * 0.4 + ra.crouchDepth * 0.5}
-                  mouthX={ra.actorX + facingDir * 24}
-                  mouthY={groundY - 315 - ra.flightLift + ra.crouchDepth * 0.7}
-                  headTopY={groundY - 405 - ra.flightLift + ra.crouchDepth * 0.7}
+                  x={Math.max(220, Math.min(1700, ra.actorX + facingDir * 85))}
+                  y={headTopWorldY - 76}
+                  mouthX={ra.actorX + facingDir * 22 * ra.actorScale}
+                  mouthY={mouthWorldY}
+                  headTopY={headTopWorldY}
                   text={actor.bubble}
                   localFrame={localFrame}
                   appearFrame={ra.bubbleAppear}

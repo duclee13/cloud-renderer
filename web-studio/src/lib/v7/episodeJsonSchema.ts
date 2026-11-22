@@ -67,7 +67,8 @@ export type ActionPoseV18 =
   | "STRETCH_YAWN"
   | "LIE_SLEEP"
   | "SHIVER_PANIC"
-  | "TALK_GESTURE";
+  | "TALK_GESTURE"
+  | "NOD_SMILE";
 
 export interface ActorKeyframe {
   fromPct: number; // 0..1
@@ -255,6 +256,7 @@ export const VALID_ACTION_POSES_V18: readonly ActionPoseV18[] = [
   "LIE_SLEEP",
   "SHIVER_PANIC",
   "TALK_GESTURE",
+  "NOD_SMILE",
 ];
 
 export const VALID_AUTO_PROP_IDS: readonly AutoPropId[] = [
@@ -770,6 +772,11 @@ const ACTION_POSE_V18_ALIASES: Record<string, ActionPoseV18> = {
   GESTURE: "TALK_GESTURE",
   CHAT: "TALK_GESTURE",
   EXPLAIN_HANDS: "TALK_GESTURE",
+  NOD: "NOD_SMILE",
+  AGREE: "NOD_SMILE",
+  SMILE_NOD: "NOD_SMILE",
+  CALM_SMILE: "NOD_SMILE",
+  LISTEN_SMILE: "NOD_SMILE",
 };
 
 function sanitizeActorKeyframe(
@@ -821,9 +828,18 @@ function sanitizeCamera(raw: any): AutoCameraSpec | undefined {
   };
 }
 
-function sanitizeActor(raw: any, index: number): AutoActorSpec {
+function sanitizeActor(raw: any, index: number, totalActors = 2): AutoActorSpec {
   const preset = matchEnum(raw?.preset, VALID_ACTOR_PRESETS, "BOY", PRESET_ALIASES);
-  const defaultSlot: AutoActorSlot = index === 0 ? "LEFT" : "RIGHT";
+  const defaultSlot: AutoActorSlot =
+    totalActors >= 3
+      ? index === 0
+        ? "LEFT"
+        : index === 1
+        ? "CENTER"
+        : "RIGHT"
+      : index === 0
+      ? "LEFT"
+      : "RIGHT";
   const slot = matchEnum(raw?.slot, VALID_ACTOR_SLOTS, defaultSlot);
   const defaultFacing: AutoActorFacing = slot === "RIGHT" ? "LEFT" : "RIGHT";
   const facing = matchEnum(raw?.facing, VALID_ACTOR_FACING, defaultFacing);
@@ -937,8 +953,9 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       ? "SLOW_EMOTIONAL"
       : "CALM_STORY";
 
-    const rawActors = Array.isArray(rb?.actors) ? rb.actors.slice(0, 2) : [];
-    const actors = rawActors.map((a: any, aIdx: number) => sanitizeActor(a, aIdx));
+    // V18.3: Hỗ trợ tối đa 3 nhân vật cùng lúc trên sân khấu (vd: hai ông cháu đi gặp bác sĩ)
+    const rawActors = Array.isArray(rb?.actors) ? rb.actors.slice(0, 3) : [];
+    const actors = rawActors.map((a: any, aIdx: number) => sanitizeActor(a, aIdx, rawActors.length));
 
     // V17.2: Ưu tiên visualProp chuẩn 16 mẫu vector 60fps; nếu JSON cũ có customProps.label thì tự ánh xạ sang visualProp và BỎ hẳn svgInner thô
     let visualProp: AutoPropId = matchEnum(rb?.visualProp, VALID_AUTO_PROP_IDS, "NONE", VISUAL_PROP_ALIASES);

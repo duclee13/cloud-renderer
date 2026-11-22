@@ -125,6 +125,8 @@ export interface StickmanState {
   rimLight?: boolean; // Viền sáng tương phản nổi bật trên nền tối (Rim Light / Dark Theme)
   rimColor?: string; // Màu viền sáng (mặc định #38BDF8 cyan)
   shiver?: boolean; // V11.3: Trạng thái sợ hãi / run rẩy truyện tranh (sway êm 1.4px + Comic Shiver Lines)
+  /** V18.3: Độ mờ nét run (0..1) giúp nét run tự tắt mượt trong 30 frames đầu thay vì rung suốt cảnh */
+  shiverOpacity?: number;
   shiverDarkStage?: boolean; // V11.3: Nền tối dùng nét trắng/xám sáng (#F1F5F9), nền sáng dùng nét xám đậm (#334155)
   shiverFrame?: number; // V11.3: Frame điều khiển nhịp sway êm & đảo cụm nét run mỗi 8 frames
   /** V14.1: Vẫy tay liên tục 60fps (cánh tay trên -115°, cẳng tay -150° + sin(frame*0.28)*28°), hoạt động kể cả khi đang đi bộ */

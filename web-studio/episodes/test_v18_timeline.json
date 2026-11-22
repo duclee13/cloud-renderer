@@ -179,8 +179,28 @@
       },
       "actors": [
         {
-          "preset": "BOY",
+          "preset": "GRANDPA",
           "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 1.0,
+              "startX": 480,
+              "endX": 520,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
           "facing": "RIGHT",
           "motion": "IDLE_TALK",
           "expression": "CURIOUS",
@@ -189,8 +209,8 @@
             {
               "fromPct": 0.0,
               "toPct": 0.35,
-              "startX": 360,
-              "endX": 660,
+              "startX": 560,
+              "endX": 710,
               "facing": "RIGHT",
               "pose": "WALK",
               "expression": "CURIOUS",
@@ -199,10 +219,10 @@
             {
               "fromPct": 0.35,
               "toPct": 1.0,
-              "startX": 660,
-              "endX": 660,
+              "startX": 710,
+              "endX": 710,
               "facing": "RIGHT",
-              "pose": "TURN_AROUND",
+              "pose": "CROUCH_LOOK",
               "expression": "CURIOUS",
               "handProp": "NONE"
             }
