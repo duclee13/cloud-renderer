@@ -48,6 +48,27 @@ import {
   SayXeHappyTripReturnVisual,
   SayXeSummary3RulesVisual,
 } from './sayXeVisualsPart2';
+import {
+  MoiCanhHumidPorchLampVisual,
+  MoiCanhUndergroundColonyVisual,
+  MoiCanhWeatherTriggerVisual,
+  MoiCanhSwarmEmergenceVisual,
+  MoiCanhOldMoonMythVisual,
+  MoiCanhDorsalLightSkyVisual,
+  MoiCanhLampTrapOrbitVisual,
+  MoiCanhWhiteVsYellowLightVisual,
+  MoiCanhWingSheddingVisual,
+} from './moiCanhVisualsPart1';
+import {
+  MoiCanhTandemRunningVisual,
+  MoiCanhNewColonyWoodVisual,
+  MoiCanhTermiteVsAntVisual,
+  MoiCanhTipTurnOffLightsVisual,
+  MoiCanhTipWaterBasinTrapVisual,
+  MoiCanhTipWoodMoistureVisual,
+  MoiCanhPeacefulRainyNightVisual,
+  MoiCanhSummary3RulesVisual,
+} from './moiCanhVisualsPart2';
 
 export type EpisodeVisualProps = {
   progress: number;
@@ -85,7 +106,7 @@ export const EPISODE_VISUAL_REGISTRY: Record<string, React.FC<EpisodeVisualProps
   MOSQUITO_PREVENTION_CHECK: MosquitoPreventionCheckVisual,
   MOSQUITO_SUMMARY_RADAR: MosquitoSummaryRadarVisual,
 
-  // Episode: Tại Sao Đọc Điện Thoại Trên Xe Lại Bị Say Xe? (V20.1 Shared Assets + Step Continuity)
+  // Episode: Tại Sao Đọc Điện Thoại Trên Xe Lại Bị Say Xe? (V20.2)
   SAYXE_CAR_INTERIOR_PHONE: SayXeCarInteriorPhoneVisual,
   SAYXE_CAR_DIZZY_WAVES: SayXeCarDizzyWavesVisual,
   SAYXE_CAR_STOP_BREATHE: SayXeCarStopBreatheVisual,
@@ -104,4 +125,23 @@ export const EPISODE_VISUAL_REGISTRY: Record<string, React.FC<EpisodeVisualProps
   SAYXE_TIP_PUT_PHONE_DOWN: SayXeTipPutPhoneDownVisual,
   SAYXE_HAPPY_TRIP_RETURN: SayXeHappyTripReturnVisual,
   SAYXE_SUMMARY_3_RULES: SayXeSummary3RulesVisual,
+
+  // Episode: Tại Sao Mối Cánh Hay Bay Bu Đèn Đêm Sắp Mưa? (V20.2)
+  MOICANH_HUMID_PORCH_LAMP: MoiCanhHumidPorchLampVisual,
+  MOICANH_UNDERGROUND_COLONY: MoiCanhUndergroundColonyVisual,
+  MOICANH_WEATHER_TRIGGER: MoiCanhWeatherTriggerVisual,
+  MOICANH_SWARM_EMERGENCE: MoiCanhSwarmEmergenceVisual,
+  MOICANH_OLD_MOON_MYTH: MoiCanhOldMoonMythVisual,
+  MOICANH_DORSAL_LIGHT_SKY: MoiCanhDorsalLightSkyVisual,
+  MOICANH_LAMP_TRAP_ORBIT: MoiCanhLampTrapOrbitVisual,
+  MOICANH_WHITE_VS_YELLOW_LIGHT: MoiCanhWhiteVsYellowLightVisual,
+  MOICANH_WING_SHEDDING: MoiCanhWingSheddingVisual,
+  MOICANH_TANDEM_RUNNING: MoiCanhTandemRunningVisual,
+  MOICANH_NEW_COLONY_WOOD: MoiCanhNewColonyWoodVisual,
+  MOICANH_TERMITE_VS_ANT: MoiCanhTermiteVsAntVisual,
+  MOICANH_TIP_TURN_OFF_LIGHTS: MoiCanhTipTurnOffLightsVisual,
+  MOICANH_TIP_WATER_BASIN_TRAP: MoiCanhTipWaterBasinTrapVisual,
+  MOICANH_TIP_WOOD_MOISTURE: MoiCanhTipWoodMoistureVisual,
+  MOICANH_PEACEFUL_RAINY_NIGHT: MoiCanhPeacefulRainyNightVisual,
+  MOICANH_SUMMARY_3_RULES: MoiCanhSummary3RulesVisual,
 };
