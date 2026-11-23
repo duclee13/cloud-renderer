@@ -17,6 +17,7 @@ import {
   computeV18ActionArmsUpper,
   computeGentleDoubleNodDeg,
   computeSipDrinkWave,
+  computeStickmanIdleBreathFactor,
   resolveStickmanExpressionPreset,
   enforceRigidTwoBoneIK,
   resolvePresetDefaultScale,
@@ -698,10 +699,10 @@ const HandPropGraphic: React.FC<{
         </g>
       )}
       {prop === "CUP_SODA" && (
-        <g transform={isSipping ? "translate(8, 0)" : "translate(12, -6)"}>
-          {/* V19.1: Ống hút luôn xoay gập VÀO PHÍA MIỆNG nhân vật (-x), tuyệt đối không chĩa ngược ra ngoài */}
+        <g transform={isSipping ? "translate(8, 10)" : "translate(12, -6)"}>
+          {/* V20.0: Thân ly đặt gọn ngoài biên má/cằm (0px đè mặt) và ống hút xoay gập VÀO PHÍA MIỆNG chạm trực tiếp tâm miệng tròn nhỏ (o) khi SIP_DRINK */}
           <path
-            d={isSipping ? "M -2,-22 L -8,-37 L -44,-31" : "M -2,-22 L -8,-40 L -24,-36"}
+            d={isSipping ? "M -2,-22 L -5,-34 L -69.5,-42.0" : "M -2,-22 L -8,-40 L -24,-36"}
             fill="none"
             stroke="#EF4444"
             strokeWidth={4}
@@ -855,15 +856,20 @@ function easeOutCubic(t: number): number {
   return 1 - Math.pow(1 - c, 3);
 }
 
-function lerpAngleRad(a: number, b: number, t: number): number {
-  let diff = ((b - a + Math.PI) % (Math.PI * 2)) - Math.PI;
+function wrapAngleRad(a: number): number {
+  let diff = ((a + Math.PI) % (Math.PI * 2)) - Math.PI;
   if (diff < -Math.PI) diff += Math.PI * 2;
-  return a + diff * t;
+  return diff;
+}
+
+function lerpAngleRad(a: number, b: number, t: number): number {
+  return a + wrapAngleRad(b - a) * t;
 }
 
 /**
- * V18.4: Nội suy cánh tay 2 đốt theo không gian góc FK (bảo toàn cứng ARM_L1=65 / ARM_L2=58 ở mọi frame trung gian,
- * khử hoàn toàn hiện tượng lật khuỷu 40–120px khi chuyển tiếp TALK_GESTURE <-> NOD_SMILE hoặc các pose V18 khác).
+ * V18.4–V20.0: Nội suy cánh tay 2 đốt theo không gian góc khớp FK (góc bắp tay + góc gập khuỷu tương đối `fore - upper`),
+ * bảo toàn cứng ARM_L1=65 / ARM_L2=58 ở mọi frame trung gian và mở khớp khuỷu tự nhiên khi chuyển từ các pose giơ cao
+ * như SIP_DRINK / FACEPALM sang NOD_SMILE / TALK_GESTURE (0% lật khuỷu qua ngực).
  */
 export function blendArmJointsFK(
   prevElbow: Point2D,
@@ -879,8 +885,10 @@ export function blendArmJointsFK(
   const pFore = Math.atan2(pRigid.end.x - pRigid.joint.x, pRigid.end.y - pRigid.joint.y);
   const cUpper = Math.atan2(cRigid.joint.x - sh.x, cRigid.joint.y - sh.y);
   const cFore = Math.atan2(cRigid.end.x - cRigid.joint.x, cRigid.end.y - cRigid.joint.y);
+  const pFlex = wrapAngleRad(pFore - pUpper);
+  const cFlex = wrapAngleRad(cFore - cUpper);
   const uAngle = lerpAngleRad(pUpper, cUpper, t);
-  const fAngle = lerpAngleRad(pFore, cFore, t);
+  const fAngle = uAngle + lerpNum(pFlex, cFlex, t);
   const elbow: Point2D = {
     x: sh.x + ARM_L1 * Math.sin(uAngle),
     y: sh.y + ARM_L1 * Math.cos(uAngle),
@@ -1107,11 +1115,11 @@ function evaluateV18KeyframeKinematics(
       break;
     }
     case "SIP_DRINK": {
-      // V19.1: Nâng ly nước lên ngang cằm/miệng, hơi nghiêng đầu & ly vào miệng, miệng tròn nhỏ (o) hút ống hút
+      // V20.0: Nâng ly nước lên sát cằm/miệng (ngoài biên má), hơi nghiêng đầu & ly về phía miệng để đầu ống hút chạm trực tiếp miệng tròn nhỏ (o)
       sipWave = computeSipDrinkWave(segLocalFrame);
       torsoTiltDeg = 2 * sipWave;
-      headTiltDeg = 3 * sipWave;
-      handPropTiltDeg = -4 * sipWave;
+      headTiltDeg = 4 * sipWave;
+      handPropTiltDeg = -10 * sipWave;
       overrideMouth = "sip";
       if (activeHandProp === "NONE") activeHandProp = "CUP_SODA";
       v18ActionPose = "SIP_DRINK";
@@ -1231,15 +1239,16 @@ function resolveActiveTimelineKeyframe(
   return { kf, prevKf, prevPrevKf, index: activeIdx, segU };
 }
 
-/** V18.0: Chiếu tọa độ cổ tay trong hệ trục thân trên StickmanRig sang tọa độ SVG toàn cục (khít 0px với đạo cụ cầm tay!) */
+/** V18.0–V20.0: Chiếu tọa độ cổ tay trong hệ trục thân trên StickmanRig sang tọa độ SVG toàn cục (khít 0px với đạo cụ cầm tay kể cả khi thở!) */
 function projectUpperLocalToWorld(
   localPt: { x: number; y: number },
   hipY: number,
   torsoTiltDeg: number,
   actorX: number,
   groundY: number,
-  scale: number,
-  facingDir: 1 | -1
+  scaleX: number,
+  facingDir: 1 | -1,
+  scaleY: number = scaleX
 ): { x: number; y: number } {
   const rad = (torsoTiltDeg * Math.PI) / 180;
   const cosT = Math.cos(rad);
@@ -1247,8 +1256,8 @@ function projectUpperLocalToWorld(
   const rx = localPt.x * cosT - localPt.y * sinT;
   const ry = hipY + localPt.x * sinT + localPt.y * cosT;
   return {
-    x: actorX + rx * scale * facingDir,
-    y: groundY + ry * scale,
+    x: actorX + rx * scaleX * facingDir,
+    y: groundY + ry * scaleY,
   };
 }
 
@@ -1258,6 +1267,14 @@ export const CUSTOM_VISUAL_STAGE_RECT = {
   top: 150,
   width: 1120,
   height: 680,
+} as const;
+
+/** V20.0: Vùng hiển thị tràn toàn màn hình 1920x1080 cho hoạt họa khi beat.fullScreenVisual === true */
+export const CUSTOM_VISUAL_FULLSCREEN_RECT = {
+  left: 0,
+  top: 0,
+  width: 1920,
+  height: 1080,
 } as const;
 
 /** V19.0: Tọa độ X mặc định giữ nhân vật đơn ở bên trái khi beat có customVisual bên phải */
@@ -1277,12 +1294,21 @@ export function resolveCustomVisualComponent(
 }
 
 /**
- * V19.0: Khi beat có `customVisual` hợp lệ trong registry và chỉ có 1 nhân vật,
- * tự động giữ nhân vật ở bên trái (`x ≈ 420`, quay mặt `RIGHT`) để không đè lên hình minh họa bên phải.
+ * V20.0: Xác định beat có render hoạt họa tràn toàn màn hình 1920x1080 hay không:
+ * chỉ bật khi `beat.fullScreenVisual === true` VÀ `beat.customVisual` khớp trong `EPISODE_VISUAL_REGISTRY`.
+ */
+export function isFullScreenCustomVisualBeat(spec: AutoEpisodeBeat): boolean {
+  return Boolean(spec.fullScreenVisual === true && resolveCustomVisualComponent(spec.customVisual));
+}
+
+/**
+ * V19.0–V20.0: Khi beat có `customVisual` hợp lệ trong registry (chế độ khung bên phải V19, KHÔNG bật fullScreenVisual)
+ * và chỉ có 1 nhân vật, tự động giữ nhân vật ở bên trái (`x ≈ 420`, quay mặt `RIGHT`) để không đè lên hình minh họa bên phải.
  */
 export function shouldPinSoloActorLeftForCustomVisual(spec: AutoEpisodeBeat): boolean {
   return (
     Boolean(resolveCustomVisualComponent(spec.customVisual)) &&
+    spec.fullScreenVisual !== true &&
     Array.isArray(spec.actors) &&
     spec.actors.length === 1
   );
@@ -1392,9 +1418,42 @@ export const UniversalAutoStage: React.FC<{
     slot === "LEFT" ? 490 : slot === "RIGHT" ? 1390 : 960;
 
   const sceneProgressP = Math.max(0, Math.min(1, localFrame / Math.max(1, durationFrames)));
-  const propPlacement = resolveCuratedPropPlacement(spec);
   const CustomVisualComponent = resolveCustomVisualComponent(spec.customVisual);
   const hasCustomVisual = Boolean(CustomVisualComponent);
+  const isFullScreenCustomVisual = Boolean(CustomVisualComponent && spec.fullScreenVisual === true);
+
+  // V20.0: Chế độ hoạt họa tràn màn hình 1920x1080 — ẩn toàn bộ nền sân khấu mặc định, actors, thời tiết, speechBubble & callout vàng.
+  // Phụ đề phía dưới (zIndex 60) và chapterBanner phía trên (zIndex 45) vẫn do V7MovieComposition giữ ở layer trên cùng.
+  if (isFullScreenCustomVisual && CustomVisualComponent) {
+    return (
+      <g id={`universal-auto-stage-${spec.id}`} data-fullscreen-visual="true">
+        <g id={`layer-custom-visual-fullscreen-${spec.id}`}>
+          <foreignObject
+            x={CUSTOM_VISUAL_FULLSCREEN_RECT.left}
+            y={CUSTOM_VISUAL_FULLSCREEN_RECT.top}
+            width={CUSTOM_VISUAL_FULLSCREEN_RECT.width}
+            height={CUSTOM_VISUAL_FULLSCREEN_RECT.height}
+            style={{ overflow: "hidden" }}
+          >
+            <div
+              className="v20-fullscreen-visual-host"
+              style={{
+                width: `${CUSTOM_VISUAL_FULLSCREEN_RECT.width}px`,
+                height: `${CUSTOM_VISUAL_FULLSCREEN_RECT.height}px`,
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              <style>{`.v20-fullscreen-visual-host > div { width: 100% !important; height: 100% !important; max-width: none !important; max-height: none !important; } .v20-fullscreen-visual-host > svg, .v20-fullscreen-visual-host > div > svg:only-child { width: 100% !important; height: 100% !important; max-width: none !important; max-height: none !important; display: block; }`}</style>
+              <CustomVisualComponent progress={sceneProgressP} frame={localFrame} fps={fps} />
+            </div>
+          </foreignObject>
+        </g>
+      </g>
+    );
+  }
+
+  const propPlacement = resolveCuratedPropPlacement(spec);
   const pinSoloActorLeft = shouldPinSoloActorLeftForCustomVisual(spec);
   const centerSoloExplainer = shouldCenterSoloExplainerBeat(spec);
 
@@ -1815,8 +1874,11 @@ export const UniversalAutoStage: React.FC<{
     }
 
     const facingDir: 1 | -1 = effectiveFacing === "LEFT" ? -1 : 1;
+    const actorBlinkSeed = aIdx * 13 + (actor.preset.charCodeAt(0) || 7);
+    const actorIdleBreathFactor = computeStickmanIdleBreathFactor(frame, actorBlinkSeed, true);
+    const actorEffectiveScaleY = actorScale * actorIdleBreathFactor * anticipationScaleY;
     const estHipY = -173 + crouchDepth - flightLift;
-    const headWorldY = groundY + (estHipY - TORSO_LEN - 70) * actorScale;
+    const headWorldY = groundY + (estHipY - TORSO_LEN - 70) * actorEffectiveScaleY;
 
     // V18.3: Khóa cứng thời lượng nét run `shiver` chỉ nháy trong 30 frames đầu (0.5s) rồi tắt dần mượt mà!
     const shiverAgeFrames = timelineResolved ? v18LocalFrame : localFrame;
@@ -1834,7 +1896,7 @@ export const UniversalAutoStage: React.FC<{
 
     let handGripX = holdingTarget?.rightGrip?.x ?? actorX + facingDir * 84 * actorScale;
     let handGripY =
-      holdingTarget?.rightGrip?.y ?? groundY - (216 + flightLift - crouchDepth * 0.65) * actorScale;
+      holdingTarget?.rightGrip?.y ?? groundY - (216 + flightLift - crouchDepth * 0.65) * actorEffectiveScaleY;
     let writePenWorld: { x: number; y: number } | null = null;
 
     if (blendedArmPose) {
@@ -1846,7 +1908,8 @@ export const UniversalAutoStage: React.FC<{
           actorX,
           groundY,
           actorScale,
-          facingDir
+          facingDir,
+          actorEffectiveScaleY
         );
         handGripX = nbPos.x;
         handGripY = nbPos.y;
@@ -1857,7 +1920,8 @@ export const UniversalAutoStage: React.FC<{
           actorX,
           groundY,
           actorScale,
-          facingDir
+          facingDir,
+          actorEffectiveScaleY
         );
       } else {
         const rwPos = projectUpperLocalToWorld(
@@ -1867,7 +1931,8 @@ export const UniversalAutoStage: React.FC<{
           actorX,
           groundY,
           actorScale,
-          facingDir
+          facingDir,
+          actorEffectiveScaleY
         );
         handGripX = rwPos.x;
         handGripY = rwPos.y;
@@ -2190,7 +2255,8 @@ export const UniversalAutoStage: React.FC<{
               ra.v18ActionPose !== "JUMP_BACK" &&
               ra.v18ActionPose !== "SHIVER_PANIC" &&
               ra.v18ActionPose !== "FACEPALM" &&
-              ra.v18ActionPose !== "NOD_SMILE"
+              ra.v18ActionPose !== "NOD_SMILE" &&
+              ra.v18ActionPose !== "SIP_DRINK"
           );
           const listenerNodDeg = isListeningToPartner
             ? Math.sin(frame * 0.14 + aIdx) * 3.6 * (0.45 + 0.55 * Math.max(0, Math.sin(frame * 0.035)))
@@ -2198,7 +2264,7 @@ export const UniversalAutoStage: React.FC<{
 
           const effectiveHeadTiltDeg = ra.headTiltDeg + listenerNodDeg;
           const nodAmplitudeDeg =
-            ra.v18ActionPose === "NOD_SMILE"
+            ra.v18ActionPose === "NOD_SMILE" || ra.v18ActionPose === "SIP_DRINK"
               ? 0
               : ra.v18ActionPose === "SWEEP_LIGHT" || ra.v18ActionPose === "FACEPALM"
               ? 0.5

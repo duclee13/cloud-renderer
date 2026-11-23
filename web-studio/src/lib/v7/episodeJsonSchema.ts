@@ -168,6 +168,8 @@ export interface AutoEpisodeBeat {
   id: string;
   actTitle?: string;
   headerTitle?: string;
+  /** V20.0: Tiêu đề đầu mỗi Hồi hiển thị ở tầng trên cùng (map đồng bộ với headerTitle) */
+  chapterBanner?: string;
   text: string;
   ttsText: string;
   stageType: AutoStageType;
@@ -182,6 +184,8 @@ export interface AutoEpisodeBeat {
   visualProp?: AutoPropId;
   /** V19.0: Khóa component hoạt họa minh họa riêng cho beat trong EPISODE_VISUAL_REGISTRY */
   customVisual?: string;
+  /** V20.0: Khi true cùng customVisual hợp lệ -> render hoạt họa tràn toàn màn hình 1920x1080 */
+  fullScreenVisual?: boolean;
   /** V18.0: Điều khiển Camera Zoom & Tâm lấy nét mượt 60fps cho toàn sân khấu */
   camera?: AutoCameraSpec;
   actors: AutoActorSpec[];
@@ -936,10 +940,17 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
     const text = String(rb?.text ?? rb?.narrationText ?? "").trim() || `Phân cảnh số ${idx + 1}.`;
     const ttsText = String(rb?.ttsText ?? text).trim() || text;
     const actTitle = typeof rb?.actTitle === "string" && rb.actTitle.trim() ? rb.actTitle.trim().slice(0, 64) : undefined;
-    const headerTitle =
-      typeof rb?.headerTitle === "string" && rb.headerTitle.trim()
-        ? rb.headerTitle.trim().slice(0, 56)
+    const rawChapterBanner =
+      typeof rb?.chapterBanner === "string" && rb.chapterBanner.trim()
+        ? rb.chapterBanner.trim().slice(0, 64)
         : undefined;
+    const rawHeaderTitle =
+      typeof rb?.headerTitle === "string" && rb.headerTitle.trim()
+        ? rb.headerTitle.trim().slice(0, 64)
+        : undefined;
+    // V20.0: Đồng bộ chapterBanner <-> headerTitle để tiêu đề đầu mỗi Hồi luôn được giữ nguyên và hiển thị đúng
+    const chapterBanner = rawChapterBanner ?? rawHeaderTitle;
+    const headerTitle = rawHeaderTitle ?? rawChapterBanner;
 
     const stageType = matchEnum(rb?.stageType, VALID_STAGE_TYPES, "SIMPLE_GRASS_FIELD", STAGE_ALIASES);
     const timeOfDay = matchEnum(rb?.timeOfDay, VALID_TIME_OF_DAY, "DAY");
@@ -990,6 +1001,8 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       typeof rb?.customVisual === "string" && rb.customVisual.trim()
         ? rb.customVisual.trim().slice(0, 80)
         : undefined;
+    const fullScreenVisual =
+      typeof rb?.fullScreenVisual === "boolean" ? rb.fullScreenVisual : undefined;
 
     const camera = sanitizeCamera(rb?.camera);
 
@@ -997,6 +1010,7 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       id,
       ...(actTitle ? { actTitle } : {}),
       ...(headerTitle ? { headerTitle } : {}),
+      ...(chapterBanner ? { chapterBanner } : {}),
       text,
       ttsText,
       stageType,
@@ -1009,6 +1023,7 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       voiceTone,
       visualProp,
       ...(customVisual ? { customVisual } : {}),
+      ...(fullScreenVisual !== undefined ? { fullScreenVisual } : {}),
       ...(camera ? { camera } : {}),
       actors,
       customProps: [], // V17.2: Khóa rỗng mảng customProps SVG thô của AI để không bao giờ xuất hiện hình vuông/tròn lỗi

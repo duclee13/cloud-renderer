@@ -288,7 +288,22 @@ export function resolveStickmanExpressionPreset(expr?: string | null): {
 }
 
 /**
- * V19.1: Nhịp nâng ly nước lên ngang cằm/miệng mượt trong 14 frames đầu rồi nhấp từng ngụm êm ái (0.86..1.0).
+ * V20.0: Hệ số nhịp thở dọc (idleBreathFactor) đồng bộ 100% giữa StickmanRig và HandPropGraphic
+ * để đạo cụ cầm tay (đặc biệt CUP_SODA khi SIP_DRINK) bám khít 0px vào cổ tay ở mọi frame.
+ */
+export function computeStickmanIdleBreathFactor(
+  frame: number,
+  stableSeed: number,
+  enableIdleLife: boolean
+): number {
+  if (!enableIdleLife) return 1.0;
+  const idlePhaseSeed = (Math.abs(Math.floor(stableSeed)) % 37) * 0.41;
+  return 1 + Math.sin(frame * 0.055 + idlePhaseSeed) * 0.0085;
+}
+
+/**
+ * V20.0: Nhịp nâng ly nước lên ngang sát cằm/miệng mượt trong 14 frames đầu rồi giữ sát miệng khi nhấp từng ngụm (0.95..1.0)
+ * để đầu ống hút luôn chạm trực tiếp vào miệng hình tròn nhỏ (o).
  */
 export function computeSipDrinkWave(localFrame: number): number {
   if (!Number.isFinite(localFrame)) return 1;
@@ -296,7 +311,7 @@ export function computeSipDrinkWave(localFrame: number): number {
   const enterT = Math.min(1, f / 14);
   const easeEnter = enterT * enterT * (3 - 2 * enterT);
   const sipPulse =
-    f <= 14 ? 1 : 0.86 + 0.14 * (0.5 - 0.5 * Math.cos((f - 14) * 0.12));
+    f <= 14 ? 1 : 0.95 + 0.05 * (0.5 - 0.5 * Math.cos((f - 14) * 0.12));
   return easeEnter * sipPulse;
 }
 
@@ -446,11 +461,14 @@ export function computeV18ActionArmsUpper(
       };
     }
     case "SIP_DRINK": {
-      // V19.1: Đưa bàn tay cầm ly nước lên cao ngang cằm/miệng theo FK chuẩn ARM_L1=65 / ARM_L2=58
-      // để ống hút xoay vào trong chạm sát miệng tròn nhỏ (o)
+      // V20.0: Đưa bàn tay cầm ly nước (CUP_SODA) lên cao ngang sát cằm/miệng theo FK cứng ARM_L1=65 / ARM_L2=58
+      // (wrist nâng lên (+65.4, -146.2) — cao hơn vai +31.2px, ngang sát cằm/hàm và hoàn toàn ngoài biên đầu r=54 không đè mặt)
+      // để đầu ống hút xoay chạm trực tiếp vào miệng hình tròn nhỏ (o).
       const sipWave = computeSipDrinkWave(localFrame);
       const backArm = solveArmFK(shoulderUpper, -24, 162, true);
-      const frontArm = solveArmFK(shoulderUpper, 32, 68 - 24 * sipWave, true);
+      const upperDeg = 42 + 24 * sipWave; // 42° -> 66° (nâng bắp tay lên cao tự nhiên, tuyệt đối không để ly lơ lửng ngang vai)
+      const elbowInteriorDeg = 98 - 26 * sipWave; // 98° -> 72° (gập cẳng tay đưa bàn tay lên sát cằm ngoài biên má, không đâm vào mặt)
+      const frontArm = solveArmFK(shoulderUpper, upperDeg, elbowInteriorDeg, true);
       return {
         leftElbow: backArm.elbow,
         leftWrist: backArm.wrist,
@@ -1152,8 +1170,7 @@ export const StickmanRig: React.FC<StickmanRigProps> = ({
   // V18.2 Living Scene Rule: Nhịp thở nhẹ + Gật đầu + Chớp mắt tự nhiên mỗi 2.8–3.6 giây (nhắm mở nhanh 6 frames, không phụ thuộc x)
   const enableIdleLife = state.enableIdleLife ?? isPureStickmanPreset;
   const stableSeed = state.blinkSeed !== undefined ? Math.abs(Math.floor(state.blinkSeed)) : (activeArchetype.charCodeAt(0) || 1);
-  const idlePhaseSeed = (stableSeed % 37) * 0.41;
-  const idleBreathFactor = enableIdleLife ? 1 + Math.sin(frame * 0.055 + idlePhaseSeed) * 0.0085 : 1.0;
+  const idleBreathFactor = computeStickmanIdleBreathFactor(frame, stableSeed, enableIdleLife);
   const effectiveBreathScaleY = breathScaleY * idleBreathFactor * (state.anticipationScaleY ?? 1.0);
 
   const v18FallbackNodDeg =
@@ -1161,7 +1178,7 @@ export const StickmanRig: React.FC<StickmanRigProps> = ({
       ? computeGentleDoubleNodDeg(state.v18LocalFrame ?? frame)
       : 0;
   const nodDeg =
-    state.v18ActionPose === "NOD_SMILE"
+    state.v18ActionPose === "NOD_SMILE" || state.v18ActionPose === "SIP_DRINK"
       ? 0
       : state.nodAmplitudeDeg
       ? Math.sin(frame * (state.nodFreq ?? 0.12)) * state.nodAmplitudeDeg

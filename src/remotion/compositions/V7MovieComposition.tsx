@@ -20,7 +20,7 @@ import {
   HornetNightSceneMode,
 } from "../components/backgrounds/FlashlightNightStage";
 import { KassStorySceneLayer } from "../../components/v7/KassStageLibrary";
-import { UniversalAutoStage } from "../../components/v7/UniversalAutoStage";
+import { UniversalAutoStage, isFullScreenCustomVisualBeat } from "../../components/v7/UniversalAutoStage";
 import { GaugeMeter } from "../components/props/GaugeMeter";
 import { InsertHandShot } from "../components/vfx/InsertHandShot";
 import { SpeechBubble, calculateSafeSpeechBubble } from "../components/ui/SpeechBubble";
@@ -232,6 +232,15 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
     );
     const isKassStoryBeat = Boolean(!isInfographicCardBeat && layerBeat.kassSceneMode);
     const isAutoStageBeat = Boolean(!isInfographicCardBeat && layerBeat.autoStageSpec);
+    const isFullScreenAutoStage = Boolean(
+      isAutoStageBeat &&
+        layerBeat.autoStageSpec &&
+        isFullScreenCustomVisualBeat(layerBeat.autoStageSpec)
+    );
+    const resolvedFloatingHeader =
+      layerBeat.floatingHeader ||
+      layerBeat.autoStageSpec?.chapterBanner ||
+      layerBeat.autoStageSpec?.headerTitle;
 
     const [zoomStart, zoomEnd] = layerBeat.cameraZoom || [1.0, 1.12];
     // V18.0: UniversalAutoStage tự xử lý camera (fromScale -> toScale, focusX, focusY) bên trong SVG để tránh zoom kép!
@@ -271,7 +280,7 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
         ? 520
         : groundY - 210;
 
-    const layerNarration = layerBeat.narrationText ?? layerBeat.text;
+    const layerNarration = layerBeat.narrationText ?? layerBeat.text ?? layerBeat.autoStageSpec?.text;
 
     return (
       <AbsoluteFill
@@ -302,7 +311,7 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
           }}
         >
           {/* ĐẠO CỤ CẢNH 1: STUDY_ROOM */}
-          {layerEvaluated.theme === "STUDY_ROOM" && (
+          {!isAutoStageBeat && !isKassStoryBeat && layerEvaluated.theme === "STUDY_ROOM" && (
             <g id="props-study-room">
               <g id="prop-chair" transform={`translate(915, ${groundY})`}>
                 <ellipse cx={0} cy={2} rx={36} ry={9} fill="rgba(0,0,0,0.22)" />
@@ -352,7 +361,7 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
           )}
 
           {/* ĐẠO CỤ CẢNH 2: SUNSET_PARK */}
-          {layerEvaluated.theme === "SUNSET_PARK" && (
+          {!isAutoStageBeat && !isKassStoryBeat && layerEvaluated.theme === "SUNSET_PARK" && (
             <g id="props-sunset-park">
               {layerEvaluated.propsState.ball?.visible && (
                 <g
@@ -381,7 +390,9 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
           )}
 
           {/* ĐẠO CỤ CẢNH 3: DARK_STUDIO */}
-          {layerEvaluated.theme === "DARK_STUDIO" &&
+          {!isAutoStageBeat &&
+            !isKassStoryBeat &&
+            layerEvaluated.theme === "DARK_STUDIO" &&
             !isInfographicCardBeat &&
             (layerBeat.archetype || layerEvaluated.archetype) !== "mantis" &&
             layerBeat.type !== "STORY_MICRO_POSE" && (
@@ -439,21 +450,21 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
             )}
 
           {/* ĐẠO CỤ MỞ RỘNG V8 */}
-          {layerEvaluated.propsState.box?.visible && (
+          {!isAutoStageBeat && !isKassStoryBeat && layerEvaluated.propsState.box?.visible && (
             <g id="prop-carry-box" transform={`translate(${layerEvaluated.propsState.box.x}, ${layerEvaluated.propsState.box.y})`}>
               <ellipse cx={0} cy={2} rx={60} ry={12} fill="rgba(0,0,0,0.25)" />
               <rect x={-55} y={-85} width={110} height={85} rx={6} fill="#D97706" stroke="#1E293B" strokeWidth={6} />
               <line x1={-55} y1={-50} x2={55} y2={-50} stroke="#B45309" strokeWidth={4} />
             </g>
           )}
-          {layerEvaluated.propsState.apple?.visible && (
+          {!isAutoStageBeat && !isKassStoryBeat && layerEvaluated.propsState.apple?.visible && (
             <g id="prop-carry-apple" transform={`translate(${layerEvaluated.propsState.apple.x}, ${layerEvaluated.propsState.apple.y})`}>
               <circle cx={0} cy={0} r={18} fill="#EF4444" stroke="#1E293B" strokeWidth={4} />
               <path d="M 0,-18 Q 8,-30 12,-26" fill="none" stroke="#78350F" strokeWidth={3} />
               <ellipse cx={8} cy={-24} rx={6} ry={3} fill="#22C55E" />
             </g>
           )}
-          {layerEvaluated.propsState.gauge?.visible && (
+          {!isAutoStageBeat && !isKassStoryBeat && layerEvaluated.propsState.gauge?.visible && (
             <g id="prop-gauge-meter" transform={`translate(${layerEvaluated.propsState.gauge.x}, ${layerEvaluated.propsState.gauge.y})`}>
               <GaugeMeter
                 needleAngle={layerEvaluated.propsState.gauge.needleAngle}
@@ -522,7 +533,7 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
             ))
           )}
 
-          {layerEvaluated.propsState.insertHand?.visible && (
+          {!isAutoStageBeat && !isKassStoryBeat && layerEvaluated.propsState.insertHand?.visible && (
             <InsertHandShot
               targetX={layerEvaluated.propsState.insertHand.targetX}
               targetY={layerEvaluated.propsState.insertHand.targetY}
@@ -547,10 +558,9 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
 
         {!isInfographicCardBeat &&
           (layerEvaluated.rootX > 0 || isHornetNightBeat || isKassStoryBeat || isAutoStageBeat) &&
-          (layerBeat.calloutText ||
-            layerBeat.sfxText ||
-            layerBeat.thoughtText ||
-            layerBeat.floatingHeader) && (() => {
+          (resolvedFloatingHeader ||
+            (!isFullScreenAutoStage &&
+              (layerBeat.calloutText || layerBeat.sfxText || layerBeat.thoughtText))) && (() => {
             const isMantisBeat = (layerBeat.archetype || layerEvaluated.archetype) === "mantis";
             const showXray = Boolean(
               layerEvaluated.showXrayAbdomen ||
@@ -652,17 +662,23 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
                 hungerStage={layerBeat.hungerStage || vPreset}
                 metricMode={layerBeat.metricMode}
                 narrationText={layerNarration}
-                calloutTriggerPhrase={allowMinimalistCallout ? layerBeat.calloutTriggerPhrase : undefined}
-                floatingHeader={layerBeat.floatingHeader}
-                calloutText={allowMinimalistCallout ? layerBeat.calloutText : undefined}
-                calloutSub={allowMinimalistCallout ? layerBeat.calloutSub : undefined}
+                calloutTriggerPhrase={
+                  !isFullScreenAutoStage && allowMinimalistCallout ? layerBeat.calloutTriggerPhrase : undefined
+                }
+                floatingHeader={resolvedFloatingHeader}
+                calloutText={
+                  !isFullScreenAutoStage && allowMinimalistCallout ? layerBeat.calloutText : undefined
+                }
+                calloutSub={
+                  !isFullScreenAutoStage && allowMinimalistCallout ? layerBeat.calloutSub : undefined
+                }
                 calloutTarget={layerBeat.calloutTarget}
                 targetSocket={layerBeat.targetSocket}
                 sockets={activeSockets}
                 preyScreenPos={preyScreenPos}
                 sfxPos={hornetSfxPos}
-                sfxText={layerBeat.sfxText}
-                thoughtText={layerBeat.thoughtText}
+                sfxText={!isFullScreenAutoStage ? layerBeat.sfxText : undefined}
+                thoughtText={!isFullScreenAutoStage ? layerBeat.thoughtText : undefined}
               />
             );
           })()}
@@ -910,7 +926,10 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
              - Bỏ hoàn toàn thanh hộp nền đen che mặt đất & chân nhân vật
              - bottom: 34px, maxWidth: 1420px, 37px, weight 800, stroke 7px #0F172A, paint-order: stroke fill
          ========================================================================= */}
-      {evaluated.narrationText && (
+      {(() => {
+        const activeSubtitleText = evaluated.narrationText || currentBeat.autoStageSpec?.text;
+        if (!activeSubtitleText) return null;
+        return (
         <div
           style={{
             position: "absolute",
@@ -939,10 +958,11 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
               textShadow: "0 3px 6px rgba(0, 0, 0, 0.65)",
             }}
           >
-            {evaluated.narrationText}
+            {activeSubtitleText}
           </span>
         </div>
-      )}
+        );
+      })()}
 
       {/* =========================================================================
           6. DEBUG HUD CHẨN ĐOÁN (CHỈ HIỂN THỊ KHI BẬT showDebugHud)
