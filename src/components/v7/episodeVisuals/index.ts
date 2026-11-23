@@ -53,6 +53,8 @@ export type EpisodeVisualProps = {
   progress: number;
   frame: number;
   fps: number;
+  step?: number;
+  visualStep?: number;
 };
 
 export const EPISODE_VISUAL_REGISTRY: Record<string, React.FC<EpisodeVisualProps>> = {
@@ -83,7 +85,7 @@ export const EPISODE_VISUAL_REGISTRY: Record<string, React.FC<EpisodeVisualProps
   MOSQUITO_PREVENTION_CHECK: MosquitoPreventionCheckVisual,
   MOSQUITO_SUMMARY_RADAR: MosquitoSummaryRadarVisual,
 
-  // Episode: Tại Sao Đọc Điện Thoại Trên Xe Lại Bị Say Xe? (V20 Full-Screen 1920x1080)
+  // Episode: Tại Sao Đọc Điện Thoại Trên Xe Lại Bị Say Xe? (V20.1 Shared Assets + Step Continuity)
   SAYXE_CAR_INTERIOR_PHONE: SayXeCarInteriorPhoneVisual,
   SAYXE_CAR_DIZZY_WAVES: SayXeCarDizzyWavesVisual,
   SAYXE_CAR_STOP_BREATHE: SayXeCarStopBreatheVisual,

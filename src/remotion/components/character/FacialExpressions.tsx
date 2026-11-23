@@ -53,12 +53,14 @@ export const FacialExpressions: React.FC<FacialExpressionsProps> = ({
   const browY = eyeY - scleraBaseR - 6.0 * scale;
   const browStrokeWidth = 3.5 * scale;
 
-  // V18.3: Hướng nhìn đồng tử từ lookOffset (-4px..+4px) hoặc pupilGaze
+  // V18.3–V20.1: Hướng nhìn đồng tử từ lookOffset hoặc pupilGaze
+  // Trong hệ trục cục bộ StickmanRig (+x = hướng facing), khóa cứng rawGazeDx >= 0 để con ngươi
+  // luôn nhìn thẳng hoặc cùng chiều facing, TUYỆT ĐỐI không liếc ngược về phía sau gáy!
   const hasLookOffset = lookOffset !== undefined;
-  const clampedGazeX = Math.max(-1, Math.min(1, pupilGaze.x || 0));
+  const clampedGazeX = Math.max(0, Math.min(1, pupilGaze.x || 0));
   const clampedGazeY = Math.max(-1, Math.min(1, pupilGaze.y || 0));
   const rawGazeDx = hasLookOffset
-    ? Math.max(-4, Math.min(4, lookOffset!.dx || 0)) * scale
+    ? Math.max(0, Math.min(4, lookOffset!.dx || 0)) * scale
     : clampedGazeX * 3.2 * scale;
   const rawGazeDy = hasLookOffset
     ? Math.max(-4, Math.min(4, lookOffset!.dy || 0)) * scale

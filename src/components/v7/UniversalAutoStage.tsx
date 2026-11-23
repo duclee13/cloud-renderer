@@ -1072,28 +1072,18 @@ function evaluateV18KeyframeKinematics(
       break;
     }
     case "JUMP_BACK": {
-      // V18.3: Giật mình tự nhiên — cú khựng bật nhẹ -20px trong đúng 15 frames (0.25s) rồi tiếp đất đứng vững ngay!
-      if (segLocalFrame < 2) {
-        anticipationScaleY = 0.96;
-        crouchDepth = 6;
-        flightLift = 0;
-        torsoTiltDeg = 4;
-      } else {
-        const postF = segLocalFrame - 2;
-        if (postF < 15) {
-          const jp = postF / 15;
-          flightLift = Math.sin(jp * Math.PI) * 20;
-          torsoTiltDeg = -7 * Math.sin(jp * Math.PI);
-          pose = "jumping";
-        } else {
-          flightLift = 0;
-          torsoTiltDeg = -2;
-          pose = "standing";
-        }
-        if (moveDist < 4) {
-          const initDir: 1 | -1 = kf.facing === "LEFT" ? -1 : 1;
-          actorX = Math.max(180, Math.min(1740, kf.startX - initDir * smoothstep(0, 0.3, segU) * 55));
-        }
+      // V20.1: Giật mình phản xạ tự nhiên, hết xiêu vẹo — hai chân đứng vững trên mặt đất (flightLift = 0),
+      // hơi chùng gối nhẹ tự nhiên (crouchDepth 10px -> 6px), hai tay đưa nhẹ ngang ngực góc khuỷu mở rộng 110°–130°
+      const dipT = Math.max(0, Math.min(1, segLocalFrame / 16));
+      const startlePulse = Math.sin(dipT * Math.PI);
+      flightLift = 0;
+      pose = "standing";
+      crouchDepth = 6 + 4 * startlePulse;
+      anticipationScaleY = 1 - 0.025 * startlePulse;
+      torsoTiltDeg = -1.5 - 3.5 * startlePulse;
+      if (moveDist < 4) {
+        const initDir: 1 | -1 = kf.facing === "LEFT" ? -1 : 1;
+        actorX = Math.max(180, Math.min(1740, kf.startX - initDir * smoothstep(0, 0.25, segU) * 36));
       }
       activeShiver = true;
       v18ActionPose = "JUMP_BACK";
@@ -1445,7 +1435,13 @@ export const UniversalAutoStage: React.FC<{
               }}
             >
               <style>{`.v20-fullscreen-visual-host > div { width: 100% !important; height: 100% !important; max-width: none !important; max-height: none !important; } .v20-fullscreen-visual-host > svg, .v20-fullscreen-visual-host > div > svg:only-child { width: 100% !important; height: 100% !important; max-width: none !important; max-height: none !important; display: block; }`}</style>
-              <CustomVisualComponent progress={sceneProgressP} frame={localFrame} fps={fps} />
+              <CustomVisualComponent
+                progress={sceneProgressP}
+                frame={localFrame}
+                fps={fps}
+                step={spec.visualStep ?? 0}
+                visualStep={spec.visualStep ?? 0}
+              />
             </div>
           </foreignObject>
         </g>
@@ -2125,7 +2121,13 @@ export const UniversalAutoStage: React.FC<{
                   position: "relative",
                 }}
               >
-                <CustomVisualComponent progress={sceneProgressP} frame={localFrame} fps={fps} />
+                <CustomVisualComponent
+                  progress={sceneProgressP}
+                  frame={localFrame}
+                  fps={fps}
+                  step={spec.visualStep ?? 0}
+                  visualStep={spec.visualStep ?? 0}
+                />
               </div>
             </foreignObject>
           </g>
@@ -2194,13 +2196,20 @@ export const UniversalAutoStage: React.FC<{
 
           const expr = mapAutoExpression(ra.activeExprEnum);
           const facingDir: 1 | -1 = ra.effectiveFacing === "LEFT" ? -1 : 1;
-          // V18.3: Hỗ trợ 2–3 nhân vật: ưu tiên liếc nhìn nhân vật đang nói chuyện, kế tiếp là người đứng gần nhất!
+          // V18.3–V20.1: Hỗ trợ 2–3 nhân vật:
+          // - Với ánh mắt (frontPartner): CHỈ chọn nhân vật đứng CÙNG PHÍA TRƯỚC mặt (rawLocalDx >= -10),
+          //   TUYỆT ĐỐI không liếc mắt ngược về phía sau gáy khi có người đứng sau lưng!
           const otherCandidates = resolvedActors.filter((o) => o.aIdx !== aIdx && !o.isLieSleepMode);
+          const inFrontCandidates = otherCandidates.filter((o) => (o.actorX - ra.actorX) * facingDir >= -10);
+          const frontPartner =
+            inFrontCandidates.find((o) => o.isSpeaking || o.isActivelyTalkingPose) ??
+            [...inFrontCandidates].sort((a, b) => Math.abs(a.actorX - ra.actorX) - Math.abs(b.actorX - ra.actorX))[0];
           const otherActor =
+            frontPartner ??
             otherCandidates.find((o) => o.isSpeaking || o.isActivelyTalkingPose) ??
-            otherCandidates.sort((a, b) => Math.abs(a.actorX - ra.actorX) - Math.abs(b.actorX - ra.actorX))[0];
+            [...otherCandidates].sort((a, b) => Math.abs(a.actorX - ra.actorX) - Math.abs(b.actorX - ra.actorX))[0];
 
-          // V18.2/V18.3: Tính hướng ánh mắt tự động (lookOffset trong -4px..+4px) khử triệt để cảm giác "lơ ngơ"
+          // V18.2–V20.1: Tính hướng ánh mắt tự động (dx khóa cứng 0..+4px theo chiều facing, không bao giờ nhìn ngược sau gáy!)
           let lookOffset: { dx: number; dy: number };
           if (ra.v18ActionPose === "SWEEP_LIGHT") {
             lookOffset = { dx: 3.4, dy: Math.max(-3.6, Math.min(3.6, ra.sweepSin * 3.4)) };
@@ -2212,26 +2221,24 @@ export const UniversalAutoStage: React.FC<{
             lookOffset = { dx: 2.8, dy: 2.4 - ra.sipWave * 1.6 };
           } else if (ra.v18ActionPose === "POINT_UP") {
             lookOffset = { dx: 2.4, dy: -3.6 };
-          } else if (otherActor) {
-            // Cảnh 2–3 nhân vật: tự động nhìn thẳng vào mặt nhau (BOY 0.76 tự liếc nhẹ lên mặt người lớn 1.0 và ngược lại!)
-            const rawLocalDx = (otherActor.actorX - ra.actorX) * facingDir;
-            const rawDy = otherActor.headWorldY - ra.headWorldY;
-            const aimedDx =
-              rawLocalDx >= 0
-                ? Math.max(2.4, Math.min(3.8, rawLocalDx / 90))
-                : Math.min(-2.4, Math.max(-3.8, rawLocalDx / 90));
+          } else if (frontPartner) {
+            // Cảnh 2–3 nhân vật: chỉ nhìn thẳng vào nhân vật đứng trước mặt (BOY 0.76 tự liếc nhẹ lên mặt người lớn 1.0 và ngược lại!)
+            const rawLocalDx = Math.max(0, (frontPartner.actorX - ra.actorX) * facingDir);
+            const rawDy = frontPartner.headWorldY - ra.headWorldY;
+            const aimedDx = Math.max(1.8, Math.min(3.8, rawLocalDx / 90));
             lookOffset = {
               dx: aimedDx,
               dy: Math.max(-2.8, Math.min(2.8, rawDy / 65)),
             };
           } else if (
             propPlacement.propId !== "NONE" &&
-            (propPlacement.inThoughtBubble || propPlacement.y < ra.headWorldY - 40)
+            (propPlacement.inThoughtBubble || propPlacement.y < ra.headWorldY - 40) &&
+            (propPlacement.x - ra.actorX) * facingDir >= -40
           ) {
-            const rawLocalDx = (propPlacement.x - ra.actorX) * facingDir;
+            const rawLocalDx = Math.max(0, (propPlacement.x - ra.actorX) * facingDir);
             const rawDy = propPlacement.y - ra.headWorldY;
             lookOffset = {
-              dx: Math.max(-3.6, Math.min(3.6, rawLocalDx / 135)),
+              dx: Math.max(0, Math.min(3.6, rawLocalDx / 135)),
               dy: Math.max(-3.8, Math.min(-1.5, rawDy / 85)),
             };
           } else if (hasCustomVisual) {
@@ -2244,6 +2251,10 @@ export const UniversalAutoStage: React.FC<{
               dy: Math.cos(frame * 0.025 + aIdx * 1.1) * 0.45,
             };
           }
+          lookOffset = {
+            dx: Math.max(0, Math.min(4, lookOffset.dx)),
+            dy: Math.max(-4, Math.min(4, lookOffset.dy)),
+          };
 
           // V18.2/V18.4 listenerNod: Người đứng nghe trong cảnh 2–3 người có nhịp gật đầu phản hồi nhẹ tự nhiên
           // (Riêng NOD_SMILE tự quản lý đúng 2 nhịp gật êm ái rồi dừng hẳn nên không cộng thêm listenerNod!)

@@ -439,15 +439,18 @@ export function computeV18ActionArmsUpper(
       };
     }
     case "JUMP_BACK": {
-      // V18.3: Giật mình tự nhiên — vung tay khựng nhẹ lúc bật (0..18f), sau đó hạ về thế phòng thủ ngang ngực gọn gàng
-      const settle = Math.max(0, Math.min(1, (localFrame - 15) / 12));
-      const easeS = settle * settle * (3 - 2 * settle);
+      // V20.1: Giật mình phản xạ tự nhiên — hai tay đưa nhẹ về phía trước ngang ngực với góc khuỷu mở rộng 110°–130°
+      // (tuyệt đối không gập góc nhọn chĩa ngược lên vai), phân tầng trước/sau rõ nét để 2 tay không chồng lên nhau
+      const recoilT = Math.max(0, Math.min(1, 1 - Math.max(0, localFrame) / 18));
+      const easeR = recoilT * recoilT * (3 - 2 * recoilT);
+      const backArm = solveArmFK(shoulderUpper, 14 + 6 * easeR, 126 - 8 * easeR, true); // 118°..126°
+      const frontArm = solveArmFK(shoulderUpper, 28 + 8 * easeR, 122 - 8 * easeR, true); // 114°..122°
       return {
-        leftElbow: { x: -50 + 8 * easeS, y: sy + 8 + 30 * easeS },
-        leftWrist: { x: -64 + 34 * easeS, y: sy - 22 + 54 * easeS },
-        rightElbow: { x: 52 - 8 * easeS, y: sy + 8 + 30 * easeS },
-        rightWrist: { x: 66 - 24 * easeS, y: sy - 24 + 54 * easeS },
-        allowNearHead: easeS < 0.5,
+        leftElbow: backArm.elbow,
+        leftWrist: backArm.wrist,
+        rightElbow: frontArm.elbow,
+        rightWrist: frontArm.wrist,
+        allowNearHead: false,
       };
     }
     case "ARMS_UP_CHEER": {
@@ -1355,8 +1358,22 @@ export const StickmanRig: React.FC<StickmanRigProps> = ({
                       eyes={effectiveEyes}
                       eyebrows={state.eyebrows}
                       mouth={effectiveMouth}
-                      pupilGaze={state.pupilGaze}
-                      lookOffset={state.lookOffset}
+                      pupilGaze={
+                        state.pupilGaze
+                          ? {
+                              x: Math.max(0, Math.min(1, state.pupilGaze.x || 0)),
+                              y: Math.max(-1, Math.min(1, state.pupilGaze.y || 0)),
+                            }
+                          : undefined
+                      }
+                      lookOffset={
+                        state.lookOffset
+                          ? {
+                              dx: Math.max(0, Math.min(4, state.lookOffset.dx || 0)),
+                              dy: Math.max(-4, Math.min(4, state.lookOffset.dy || 0)),
+                            }
+                          : undefined
+                      }
                       blush={state.blush}
                       sweatDrop={state.sweatDrop}
                       showWhiskers={false}

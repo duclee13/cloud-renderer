@@ -237,10 +237,14 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
         layerBeat.autoStageSpec &&
         isFullScreenCustomVisualBeat(layerBeat.autoStageSpec)
     );
-    const resolvedFloatingHeader =
+    const rawFloatingHeader =
       layerBeat.floatingHeader ||
       layerBeat.autoStageSpec?.chapterBanner ||
       layerBeat.autoStageSpec?.headerTitle;
+    const resolvedFloatingHeader =
+      typeof rawFloatingHeader === "string" && rawFloatingHeader.trim()
+        ? rawFloatingHeader.trim()
+        : undefined;
 
     const [zoomStart, zoomEnd] = layerBeat.cameraZoom || [1.0, 1.12];
     // V18.0: UniversalAutoStage tự xử lý camera (fromScale -> toScale, focusX, focusY) bên trong SVG để tránh zoom kép!

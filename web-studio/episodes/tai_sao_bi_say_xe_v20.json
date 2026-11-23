@@ -1,11 +1,10 @@
 {
   "title": "Tại Sao Đọc Điện Thoại Trên Xe Lại Bị Say Xe?",
   "slug": "tai_sao_bi_say_xe_v20",
-  "version": "v20.0",
+  "version": "v20.1",
   "beats": [
     {
       "id": "b01",
-      "chapterBanner": "HỒI 1: CƠN CHOÁNG TRÊN CHUYẾN XE VỀ QUÊ",
       "text": "Cuối tuần vừa rồi, tôi theo ông nội lên xe khách về quê, ghế ngồi êm ru bên cửa sổ mát rượi gió sớm.",
       "ttsText": "Cuối tuần vừa rồi, tôi theo ông nội lên xe khách về quê, ghế ngồi êm ru bên cửa sổ mát rượi gió sớm.",
       "stageType": "EXPLAINER_POLKA_DOT",
@@ -54,7 +53,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 0
     },
     {
       "id": "b02",
@@ -116,7 +116,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 1
     },
     {
       "id": "b03",
@@ -178,7 +179,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 0
     },
     {
       "id": "b04",
@@ -240,7 +242,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 1
     },
     {
       "id": "b05",
@@ -302,7 +305,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 0
     },
     {
       "id": "b06",
@@ -354,7 +358,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 1
     },
     {
       "id": "b07",
@@ -976,7 +981,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 0
     },
     {
       "id": "b14",
@@ -1028,7 +1034,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 1
     },
     {
       "id": "b15",
@@ -1080,7 +1087,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 0
     },
     {
       "id": "b16",
@@ -1142,11 +1150,11 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 1
     },
     {
       "id": "b17",
-      "chapterBanner": "HỒI 2: CUỘC CHIẾN GIỮA MẮT VÀ TAI TRONG",
       "text": "Lúc tôi cúi xuống đọc điện thoại, đôi mắt nhìn màn hình đứng yên liền báo về não rằng cơ thể đang ngồi bất động hoàn toàn.",
       "ttsText": "Lúc tôi cúi xuống đọc điện thoại, đôi mắt nhìn màn hình đứng yên liền báo về não rằng cơ thể đang ngồi bất động hoàn toàn.",
       "stageType": "EXPLAINER_POLKA_DOT",
@@ -1195,7 +1203,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 0
     },
     {
       "id": "b18",
@@ -1247,7 +1256,8 @@
         "toScale": 1.0,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 1
     },
     {
       "id": "b19",
@@ -1309,7 +1319,8 @@
         "toScale": 1.04,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 2
     },
     {
       "id": "b20",
@@ -1587,7 +1598,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 0
     },
     {
       "id": "b23",
@@ -1639,7 +1651,8 @@
         "toScale": 1.0,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 1
     },
     {
       "id": "b24",
@@ -1691,7 +1704,8 @@
         "toScale": 1.04,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 2
     },
     {
       "id": "b25",
@@ -1743,7 +1757,8 @@
         "toScale": 1.04,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 0
     },
     {
       "id": "b26",
@@ -1795,7 +1810,8 @@
         "toScale": 1.0,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 1
     },
     {
       "id": "b27",
@@ -1847,7 +1863,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 2
     },
     {
       "id": "b28",
@@ -2135,7 +2152,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 0
     },
     {
       "id": "b31",
@@ -2187,7 +2205,8 @@
         "toScale": 1.0,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 1
     },
     {
       "id": "b32",
@@ -2239,7 +2258,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 2
     },
     {
       "id": "b33",
@@ -2352,8 +2372,7 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      },
-      "chapterBanner": "HỒI 3: VÌ SAO BÁC TÀI KHÔNG BAO GIỜ SAY?"
+      }
     },
     {
       "id": "b34",
@@ -2528,7 +2547,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 0
     },
     {
       "id": "b36",
@@ -2580,7 +2600,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 1
     },
     {
       "id": "b37",
@@ -2632,7 +2653,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 2
     },
     {
       "id": "b38",
@@ -2684,7 +2706,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 0
     },
     {
       "id": "b39",
@@ -2736,7 +2759,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 1
     },
     {
       "id": "b40",
@@ -2788,7 +2812,8 @@
         "toScale": 1.04,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 2
     },
     {
       "id": "b41",
@@ -3003,7 +3028,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 0
     },
     {
       "id": "b44",
@@ -3055,7 +3081,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 1
     },
     {
       "id": "b45",
@@ -3107,7 +3134,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 2
     },
     {
       "id": "b46",
@@ -3553,8 +3581,7 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      },
-      "chapterBanner": "HỒI 4: 4 MẸO CẮT ĐỨT CƠN SAY XE NGAY LẬP TỨC"
+      }
     },
     {
       "id": "b50",
@@ -3606,7 +3633,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 0
     },
     {
       "id": "b51",
@@ -3658,7 +3686,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 1
     },
     {
       "id": "b52",
@@ -3710,7 +3739,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 0
     },
     {
       "id": "b53",
@@ -3762,7 +3792,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 1
     },
     {
       "id": "b54",
@@ -3814,7 +3845,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 0
     },
     {
       "id": "b55",
@@ -3866,7 +3898,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 1
     },
     {
       "id": "b56",
@@ -3918,7 +3951,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 0
     },
     {
       "id": "b57",
@@ -3970,7 +4004,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 1
     },
     {
       "id": "b58",
@@ -4022,7 +4057,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 0
     },
     {
       "id": "b59",
@@ -4074,7 +4110,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 1
     },
     {
       "id": "b60",
@@ -4126,7 +4163,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 0
     },
     {
       "id": "b61",
@@ -4178,7 +4216,8 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "visualStep": 1
     },
     {
       "id": "b62",
@@ -4421,8 +4460,7 @@
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      },
-      "chapterBanner": "BẠN CÓ HAY BỊ SAY XE KHÔNG?"
+      }
     }
   ]
 }

@@ -184,6 +184,8 @@ export interface AutoEpisodeBeat {
   visualProp?: AutoPropId;
   /** V19.0: Khóa component hoạt họa minh họa riêng cho beat trong EPISODE_VISUAL_REGISTRY */
   customVisual?: string;
+  /** V20.1: Bước diễn tiến (0, 1, 2...) cho hoạt họa customVisual trên các cảnh liên tiếp */
+  visualStep?: number;
   /** V20.0: Khi true cùng customVisual hợp lệ -> render hoạt họa tràn toàn màn hình 1920x1080 */
   fullScreenVisual?: boolean;
   /** V18.0: Điều khiển Camera Zoom & Tâm lấy nét mượt 60fps cho toàn sân khấu */
@@ -940,6 +942,8 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
     const text = String(rb?.text ?? rb?.narrationText ?? "").trim() || `Phân cảnh số ${idx + 1}.`;
     const ttsText = String(rb?.ttsText ?? text).trim() || text;
     const actTitle = typeof rb?.actTitle === "string" && rb.actTitle.trim() ? rb.actTitle.trim().slice(0, 64) : undefined;
+    const explicitlyBlankBanner =
+      typeof rb?.chapterBanner === "string" && rb.chapterBanner.trim() === "";
     const rawChapterBanner =
       typeof rb?.chapterBanner === "string" && rb.chapterBanner.trim()
         ? rb.chapterBanner.trim().slice(0, 64)
@@ -948,9 +952,9 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       typeof rb?.headerTitle === "string" && rb.headerTitle.trim()
         ? rb.headerTitle.trim().slice(0, 64)
         : undefined;
-    // V20.0: Đồng bộ chapterBanner <-> headerTitle để tiêu đề đầu mỗi Hồi luôn được giữ nguyên và hiển thị đúng
-    const chapterBanner = rawChapterBanner ?? rawHeaderTitle;
-    const headerTitle = rawHeaderTitle ?? rawChapterBanner;
+    // V20.0–V20.1: Đồng bộ chapterBanner <-> headerTitle; cho phép bỏ trống hoàn toàn (không sinh banner mặc định)
+    const chapterBanner = explicitlyBlankBanner ? undefined : rawChapterBanner ?? rawHeaderTitle;
+    const headerTitle = explicitlyBlankBanner ? undefined : rawHeaderTitle ?? rawChapterBanner;
 
     const stageType = matchEnum(rb?.stageType, VALID_STAGE_TYPES, "SIMPLE_GRASS_FIELD", STAGE_ALIASES);
     const timeOfDay = matchEnum(rb?.timeOfDay, VALID_TIME_OF_DAY, "DAY");
@@ -1001,6 +1005,14 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       typeof rb?.customVisual === "string" && rb.customVisual.trim()
         ? rb.customVisual.trim().slice(0, 80)
         : undefined;
+    const visualStep =
+      rb?.visualStep !== undefined &&
+      rb?.visualStep !== null &&
+      typeof rb?.visualStep !== "boolean" &&
+      String(rb.visualStep).trim() !== "" &&
+      Number.isFinite(Number(rb.visualStep))
+        ? Math.max(0, Math.round(Number(rb.visualStep)))
+        : undefined;
     const fullScreenVisual =
       typeof rb?.fullScreenVisual === "boolean" ? rb.fullScreenVisual : undefined;
 
@@ -1023,6 +1035,7 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       voiceTone,
       visualProp,
       ...(customVisual ? { customVisual } : {}),
+      ...(visualStep !== undefined ? { visualStep } : {}),
       ...(fullScreenVisual !== undefined ? { fullScreenVisual } : {}),
       ...(camera ? { camera } : {}),
       actors,
