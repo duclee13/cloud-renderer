@@ -1,7 +1,7 @@
 {
   "title": "Tại Sao Đọc Điện Thoại Trên Xe Lại Bị Say Xe?",
   "slug": "tai_sao_bi_say_xe_v20",
-  "version": "v20.1",
+  "version": "v20.2",
   "beats": [
     {
       "id": "b01",
@@ -401,7 +401,10 @@
               "expression": "WORRIED",
               "handProp": "NONE"
             }
-          ]
+          ],
+          "bubble": "Kỳ lạ thật...",
+          "bubbleStartPct": 0.25,
+          "bubbleEndPct": 0.88
         },
         {
           "preset": "GRANDPA",
@@ -731,7 +734,10 @@
               "expression": "PROUD",
               "handProp": "NOTEBOOK"
             }
-          ]
+          ],
+          "bubble": "Không phải dạ dày!",
+          "bubbleStartPct": 0.25,
+          "bubbleEndPct": 0.88
         }
       ],
       "camera": {
@@ -3237,7 +3243,10 @@
               "expression": "PROUD",
               "handProp": "NOTEBOOK"
             }
-          ]
+          ],
+          "bubble": "Lưu ý thêm nhé!",
+          "bubbleStartPct": 0.25,
+          "bubbleEndPct": 0.88
         }
       ],
       "camera": {
@@ -4259,7 +4268,10 @@
               "expression": "HAPPY",
               "handProp": "NONE"
             }
-          ]
+          ],
+          "bubble": "Hiểu rồi ông ạ!",
+          "bubbleStartPct": 0.25,
+          "bubbleEndPct": 0.88
         },
         {
           "preset": "GRANDPA",

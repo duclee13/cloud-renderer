@@ -417,9 +417,9 @@ export function computeV18ActionArmsUpper(
       };
     }
     case "SCRATCH_HEAD": {
-      // Đưa tay vòng ra sau gáy/thái dương gãi đầu (góc khuỷu mở rộng thoáng rõ rệt ngoài biên đầu r=54!)
-      const sx = Math.sin(frame * 0.42) * 5;
-      const syOff = Math.cos(frame * 0.42) * 4;
+      // V20.2: Làm chậm nhịp gãi đầu 2.8x (frame * 0.15) để nhân vật gãi đầu từ tốn, tự nhiên, không giật nhanh
+      const sx = Math.sin(frame * 0.15) * 4.5;
+      const syOff = Math.cos(frame * 0.15) * 3.5;
       return {
         leftElbow: { x: 42, y: sy + 50 },
         leftWrist: { x: 14, y: sy + 98 },

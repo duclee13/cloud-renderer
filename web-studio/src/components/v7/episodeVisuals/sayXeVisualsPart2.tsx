@@ -39,8 +39,8 @@ export const SayXeDriverPredictsVisual: React.FC<EpisodeVisualProps> = ({
 
   // Road curve offset matching steering direction (negative steer = left curve)
   const curveShift = lerp(0, -210, turnFactor);
-  const roadDashOffset = -(frame * 14) % 120;
-  const roadScroll = (frame * 5) % 400;
+  const roadDashOffset = -(frame * 5) % 60;
+  const roadScroll = (frame * 2.2) % 400;
 
   // Steering wheel center
   const wheelCx = 760;
@@ -59,7 +59,7 @@ export const SayXeDriverPredictsVisual: React.FC<EpisodeVisualProps> = ({
 
   // Green predicted path (s >= 2)
   const predictDraw = s >= 2 ? easeOutCubic(clamp01(progress * 1.4)) : 0;
-  const predictFlow = -(frame * 8) % 60;
+  const predictFlow = -(frame * 5) % 40;
 
   const topLabel =
     s === 0
@@ -223,17 +223,17 @@ export const SayXeDriverPredictsVisual: React.FC<EpisodeVisualProps> = ({
         <rect x="-98" y="-5" width="196" height="26" rx="8" fill="#bae6fd" opacity="0.65" />
       </g>
 
-      {/* Dashboard */}
+      {/* Dashboard (lighter slate so 7px black stickman torso & arms pop clearly) */}
       <path
         d="M0 565 L1920 565 L1920 1080 L0 1080 Z"
-        fill="#334155"
+        fill="#94a3b8"
         stroke="#0f172a"
         strokeWidth="6"
       />
       {/* Dashboard upper cowl & instrument cluster */}
       <path
         d="M520 565 Q760 510 1000 565 L1000 660 L520 660 Z"
-        fill="#1e293b"
+        fill="#64748b"
         stroke="#0f172a"
         strokeWidth="5"
       />
@@ -263,89 +263,75 @@ export const SayXeDriverPredictsVisual: React.FC<EpisodeVisualProps> = ({
         <circle cx="0" cy="0" r="14" fill="#64748b" />
       </g>
 
-      {/* DRIVER SEEN FROM BEHIND (shoulders, back of head/cap, arms reaching forward to wheel) */}
+      {/* STICKMAN DRIVER SEEN FROM BEHIND (consistent 7px stick limbs + white head + blue cap from behind) */}
       <g>
-        {/* Left arm reaching forward from left shoulder to steering wheel */}
+        {/* Two 7px black stick arms reaching forward from shoulders to grip the steering wheel */}
         <path
-          d={`M565 800 Q545 705 ${leftHandX} ${leftHandY}`}
-          fill="none"
-          stroke="#1d4ed8"
-          strokeWidth="42"
-          strokeLinecap="round"
-        />
-        <path
-          d={`M565 800 Q545 705 ${leftHandX} ${leftHandY}`}
+          d={`M760 722 Q635 738 ${leftHandX} ${leftHandY}`}
           fill="none"
           stroke={INK}
-          strokeWidth="5"
+          strokeWidth="7"
           strokeLinecap="round"
-          opacity="0.25"
+          strokeLinejoin="round"
         />
-        {/* Right arm reaching forward from right shoulder to steering wheel */}
         <path
-          d={`M955 800 Q975 705 ${rightHandX} ${rightHandY}`}
+          d={`M760 722 Q885 738 ${rightHandX} ${rightHandY}`}
           fill="none"
-          stroke="#1d4ed8"
-          strokeWidth="42"
+          stroke={INK}
+          strokeWidth="7"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        {/* Small stickman hands gripping steering wheel */}
+        <circle cx={leftHandX} cy={leftHandY} r="11" fill="#ffffff" stroke={INK} strokeWidth="4.5" />
+        <circle cx={rightHandX} cy={rightHandY} r="11" fill="#ffffff" stroke={INK} strokeWidth="4.5" />
+
+        {/* 7px black stick torso */}
+        <line
+          x1="760"
+          y1="670"
+          x2="760"
+          y2="858"
+          stroke={INK}
+          strokeWidth="7"
           strokeLinecap="round"
         />
-        {/* Hands gripping steering wheel */}
-        <circle cx={leftHandX} cy={leftHandY} r="22" fill="#fed7aa" stroke={INK} strokeWidth="4.5" />
-        <circle cx={rightHandX} cy={rightHandY} r="22" fill="#fed7aa" stroke={INK} strokeWidth="4.5" />
 
-        {/* Driver shoulders & upper back (uniform shirt seen from behind) */}
+        {/* Compact driver seat backrest positioned neatly behind lower back */}
         <path
-          d="M520 960 L545 790 Q560 735 660 725 L860 725 Q960 735 975 790 L1000 960 Z"
+          d="M625 878 Q625 836 672 836 L848 836 Q895 836 895 878 L912 1080 L608 1080 Z"
           fill="#2563eb"
           stroke={INK}
           strokeWidth="6"
           strokeLinejoin="round"
         />
-        {/* Collar back */}
-        <path
-          d="M700 725 L760 752 L820 725"
-          fill="none"
-          stroke="#eff6ff"
-          strokeWidth="8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        <rect x="676" y="858" width="168" height="22" rx="11" fill="#60a5fa" />
 
-        {/* Driver seat backrest behind the driver */}
-        <path
-          d="M595 835 Q595 790 650 790 L870 790 Q925 790 925 835 L940 1080 L580 1080 Z"
-          fill="#475569"
-          stroke={INK}
-          strokeWidth="6"
-        />
-        <rect x="650" y="818" width="220" height="22" rx="11" fill="#64748b" />
-
-        {/* Neck (back view) */}
-        <rect x="726" y="675" width="68" height="58" rx="18" fill="#fed7aa" stroke={INK} strokeWidth="5" />
-
-        {/* Back of driver's head & cap (NO face, looking straight ahead!) */}
-        <g transform={`translate(760, 615) rotate(${steerAngle * 0.15})`}>
-          {/* Ears visible from behind */}
-          <ellipse cx="-78" cy="6" rx="14" ry="22" fill="#fed7aa" stroke={INK} strokeWidth="4.5" />
-          <ellipse cx="78" cy="6" rx="14" ry="22" fill="#fed7aa" stroke={INK} strokeWidth="4.5" />
-          {/* Back of head / short dark hair */}
-          <circle cx="0" cy="0" r="78" fill="#1e293b" stroke={INK} strokeWidth="5.5" />
-          {/* Lower nape hair contour */}
-          <path d="M-56 42 Q0 76 56 42 L48 64 Q0 82 -48 64 Z" fill="#334155" />
-          {/* Driver cap crown (back view with rear adjustment strap) */}
+        {/* Back of Stickman driver's round white head & blue cap (looking straight ahead) */}
+        <g transform={`translate(760, 616) rotate(${steerAngle * 0.15})`}>
+          {/* Clean white Stickman head */}
+          <circle cx="0" cy="0" r="56" fill="#ffffff" stroke={INK} strokeWidth="6" />
+          {/* Blue driver cap crown (back view) */}
           <path
-            d="M-80 -8 C-80 -76 80 -76 80 -8 Z"
-            fill="#0f172a"
+            d="M-57 -6 C-57 -66 57 -66 57 -6 Z"
+            fill="#2563eb"
             stroke={INK}
-            strokeWidth="5"
+            strokeWidth="5.5"
+            strokeLinejoin="round"
           />
+          {/* Subtle cap panel seams */}
+          <path d="M0 -51 Q-24 -32 -36 -6" fill="none" stroke="#1d4ed8" strokeWidth="2.5" opacity="0.65" />
+          <path d="M0 -51 Q24 -32 36 -6" fill="none" stroke="#1d4ed8" strokeWidth="2.5" opacity="0.65" />
+          {/* Top cap button */}
+          <circle cx="0" cy="-54" r="6" fill="#1d4ed8" stroke={INK} strokeWidth="3" />
+          {/* Rear cap arch cutout & adjustment strap */}
           <path
-            d="M-34 -8 A34 24 0 0 1 34 -8 Z"
-            fill="#1e293b"
-            stroke="#64748b"
-            strokeWidth="3"
+            d="M-22 -6 A22 16 0 0 1 22 -6 Z"
+            fill="#ffffff"
+            stroke={INK}
+            strokeWidth="3.5"
           />
-          <rect x="-28" y="-12" width="56" height="10" rx="5" fill="#94a3b8" />
+          <rect x="-20" y="-12" width="40" height="8" rx="4" fill="#1d4ed8" stroke={INK} strokeWidth="2.5" />
         </g>
       </g>
 
@@ -866,9 +852,147 @@ export const SayXeTipLookHorizonVisual: React.FC<EpisodeVisualProps> = ({
 }) => {
   const s = step ?? visualStep ?? 0;
   const syncAppear = s >= 1 ? easeOutCubic(clamp01(progress * 1.5)) : 0;
-  const cloudDrift = (frame * 0.7) % 1920;
-  const roadDashOffset = -(frame * 12) % 90;
+  const cloudDrift = (frame * 0.5) % 1920;
+  const roadDashOffset = -(frame * 4.5) % 60;
   const pulse = 1 + Math.sin(frame * 0.1) * 0.04;
+  const gentleGlide = Math.sin(frame * 0.08) * 2;
+  const headTilt = -4 + Math.sin(frame * 0.06) * 2.5;
+
+  if (s >= 1) {
+    return (
+      <svg
+        viewBox="0 0 1920 1080"
+        style={{ width: '100%', height: '100%', display: 'block' }}
+      >
+        <BusCabinBackdrop frame={frame} sunset={true} shakeY={gentleGlide}>
+          {/* Subtle warm sunset light ray */}
+          <path
+            d="M720 145 L1240 145 L1540 795 L420 795 Z"
+            fill="#fde047"
+            opacity={0.12 + Math.sin(frame * 0.05) * 0.03}
+          />
+
+          {/* Standard proportioned CoachBusSeat */}
+          <CoachBusSeat x={664} y={685} scale={1.15} />
+
+          {/* Boy looking happily out the window at the warm sunset */}
+          <SharedStickman
+            x={680}
+            y={682}
+            scale={1.22}
+            role="BOY"
+            mood="HAPPY"
+            facing="RIGHT"
+            seated={true}
+            headTiltDeg={headTilt}
+            bubble="Dịu hẳn rồi!"
+          />
+        </BusCabinBackdrop>
+
+        {/* Compact top bar showing Eye + Inner Ear synchronized */}
+        <g
+          transform={`translate(960, ${lerp(136, 152, syncAppear)})`}
+          opacity={Math.max(0.15, syncAppear)}
+        >
+          <rect
+            x="-385"
+            y="-38"
+            width="770"
+            height="76"
+            rx="38"
+            fill="#ffffff"
+            fillOpacity="0.96"
+            stroke="#16a34a"
+            strokeWidth="4.5"
+          />
+
+          {/* Mini Eye icon */}
+          <g transform="translate(-330, 0)">
+            <circle cx="0" cy="0" r="22" fill="#e0f2fe" stroke={INK} strokeWidth="3" />
+            <path
+              d="M-15 0 Q0 -11 15 0 Q0 11 -15 0 Z"
+              fill="#ffffff"
+              stroke={INK}
+              strokeWidth="2.8"
+            />
+            <circle cx="0" cy="0" r="5.5" fill="#2563eb" />
+          </g>
+          <text
+            x="-296"
+            y="8"
+            textAnchor="start"
+            fill={INK}
+            fontSize="24"
+            fontWeight="700"
+            fontFamily={FONT}
+          >
+            Mắt
+          </text>
+
+          {/* Plus connector */}
+          <text
+            x="-228"
+            y="9"
+            textAnchor="middle"
+            fill="#16a34a"
+            fontSize="28"
+            fontWeight="800"
+            fontFamily={FONT}
+          >
+            +
+          </text>
+
+          {/* Mini Inner Ear icon */}
+          <g transform="translate(-188, 0)">
+            <circle cx="0" cy="0" r="22" fill="#fef3c7" stroke={INK} strokeWidth="3" />
+            <path
+              d="M-6 11 C-12 10 -12 -2 -5 -9 C2 -14 12 -10 11 -1 C10 6 4 9 2 5 C0 1 4 -4 6 -1"
+              fill="none"
+              stroke="#d97706"
+              strokeWidth="3.5"
+              strokeLinecap="round"
+            />
+          </g>
+          <text
+            x="-154"
+            y="8"
+            textAnchor="start"
+            fill={INK}
+            fontSize="24"
+            fontWeight="700"
+            fontFamily={FONT}
+          >
+            Tai
+          </text>
+
+          {/* Sync checkmark badge */}
+          <g transform="translate(-72, 0)">
+            <circle cx="0" cy="0" r="20" fill="#dcfce7" stroke="#16a34a" strokeWidth="3.5" />
+            <path
+              d="M-8 1 L-2 7 L10 -6"
+              fill="none"
+              stroke="#16a34a"
+              strokeWidth="4.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </g>
+
+          <text
+            x="-36"
+            y="8"
+            textAnchor="start"
+            fill="#15803d"
+            fontSize="25"
+            fontWeight="800"
+            fontFamily={FONT}
+          >
+            Đồng bộ — nhìn xa thật dễ chịu
+          </text>
+        </g>
+      </svg>
+    );
+  }
 
   return (
     <svg
@@ -970,106 +1094,13 @@ export const SayXeTipLookHorizonVisual: React.FC<EpisodeVisualProps> = ({
         strokeWidth="18"
       />
 
-      {/* s >= 1: Eye & Inner Ear Sync Card */}
-      {syncAppear > 0.01 ? (
-        <g
-          transform={`translate(960, ${lerp(720, 675, syncAppear)})`}
-          opacity={syncAppear}
-        >
-          <rect
-            x="-460"
-            y="-108"
-            width="920"
-            height="216"
-            rx="30"
-            fill="#ffffff"
-            fillOpacity="0.96"
-            stroke="#16a34a"
-            strokeWidth="5.5"
-          />
-
-          {/* Left: Eye icon */}
-          <g transform="translate(-270, -14)">
-            <circle cx="0" cy="0" r="56" fill="#e0f2fe" stroke={INK} strokeWidth="4" />
-            <path
-              d="M-38 0 Q0 -28 38 0 Q0 28 -38 0 Z"
-              fill="#ffffff"
-              stroke={INK}
-              strokeWidth="4.5"
-            />
-            <circle cx="0" cy="0" r="14" fill="#2563eb" stroke={INK} strokeWidth="3" />
-            <circle cx="3" cy="-3" r="4.5" fill="#ffffff" />
-            <text
-              x="0"
-              y="84"
-              textAnchor="middle"
-              fill={INK}
-              fontSize="23"
-              fontWeight="700"
-              fontFamily={FONT}
-            >
-              Mắt thấy đang đi
-            </text>
-          </g>
-
-          {/* Center sync checkmark */}
-          <g transform="translate(0, -14)">
-            <line x1="-180" y1="0" x2="-58" y2="0" stroke="#16a34a" strokeWidth="7" strokeLinecap="round" />
-            <line x1="58" y1="0" x2="180" y2="0" stroke="#16a34a" strokeWidth="7" strokeLinecap="round" />
-            <circle cx="0" cy="0" r="46" fill="#dcfce7" stroke="#16a34a" strokeWidth="5.5" />
-            <path
-              d="M-18 2 L-4 16 L22 -14"
-              fill="none"
-              stroke="#16a34a"
-              strokeWidth="8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <text
-              x="0"
-              y="84"
-              textAnchor="middle"
-              fill="#15803d"
-              fontSize="25"
-              fontWeight="800"
-              fontFamily={FONT}
-            >
-              Mắt và tai đồng bộ
-            </text>
-          </g>
-
-          {/* Right: Inner Ear / Vestibular icon */}
-          <g transform="translate(270, -14)">
-            <circle cx="0" cy="0" r="56" fill="#fef3c7" stroke={INK} strokeWidth="4" />
-            <path
-              d="M-14 26 C-28 24 -30 -4 -12 -22 C6 -36 30 -24 28 -2 C26 16 10 22 4 12 C-2 2 10 -10 14 -2"
-              fill="none"
-              stroke="#d97706"
-              strokeWidth="6.5"
-              strokeLinecap="round"
-            />
-            <text
-              x="0"
-              y="84"
-              textAnchor="middle"
-              fill={INK}
-              fontSize="23"
-              fontWeight="700"
-              fontFamily={FONT}
-            >
-              Tai cảm nhận khớp
-            </text>
-          </g>
-        </g>
-      ) : null}
-
       {/* Top safe-zone label */}
       <CleanLabel
         x={960}
         y={148}
-        text={s === 0 ? 'Mẹo 1: Nhìn thẳng ra đường chân trời' : 'Mắt và tai đồng bộ'}
-        bg={s >= 1 ? '#dcfce7' : '#ffffff'}
-        border={s >= 1 ? '#16a34a' : INK}
+        text="Mẹo 1: Nhìn thẳng ra đường chân trời"
+        bg="#ffffff"
+        border={INK}
         color={INK}
         fontSize={28}
       />
@@ -1145,6 +1176,7 @@ export const SayXeTipFrontSeatVisual: React.FC<EpisodeVisualProps> = ({
             scale={1.32}
             wheelAngle={wheelAngle}
             highlightFrontSeat={true}
+            showPassengers={true}
           />
 
           {/* Green pointer arrow to front seat window */}
@@ -1186,6 +1218,7 @@ export const SayXeTipFrontSeatVisual: React.FC<EpisodeVisualProps> = ({
             scale={1.3}
             wheelAngle={wheelAngle}
             highlightMiddle={true}
+            showPassengers={true}
           />
 
           {/* Green arrow pointing to middle seats (windows 1 & 2 around x = 492 + 320*1.3 = 908) */}
@@ -1249,6 +1282,7 @@ export const SayXeTipFreshAirGingerVisual: React.FC<EpisodeVisualProps> = ({
   const rightAlpha = s === 0 ? 0.25 : lerp(0.25, 1, easeOutCubic(clamp01(progress * 1.5)));
   const breezePhase = (frame * 5) % 80;
   const steamPhase = (frame * 1.4) % 60;
+  const teaFloatY = Math.sin(frame / 22) * 4;
 
   return (
     <svg
@@ -1362,8 +1396,8 @@ export const SayXeTipFreshAirGingerVisual: React.FC<EpisodeVisualProps> = ({
           );
         })}
 
-        {/* Warm mug of ginger tea */}
-        <g transform="translate(1375, 555)">
+        {/* Warm mug of ginger tea (gentle float) */}
+        <g transform={`translate(1375, ${555 + teaFloatY})`}>
           {/* Mug handle */}
           <path
             d="M112 -52 C164 -52 164 42 112 42"
@@ -1606,6 +1640,7 @@ export const SayXeHappyTripReturnVisual: React.FC<EpisodeVisualProps> = ({
           seated={true}
           headphones={true}
           headTiltDeg={-headBob}
+          bubble={s >= 1 ? 'Khỏe re luôn!' : undefined}
         />
 
         {/* Floating peaceful music notes near boy */}
@@ -1655,6 +1690,7 @@ export const SayXeHappyTripReturnVisual: React.FC<EpisodeVisualProps> = ({
  * ============================================================================ */
 export const SayXeSummary3RulesVisual: React.FC<EpisodeVisualProps> = ({
   progress,
+  frame,
   step,
   visualStep,
 }) => {
@@ -1721,10 +1757,11 @@ export const SayXeSummary3RulesVisual: React.FC<EpisodeVisualProps> = ({
       {cards.map((card, i) => {
         const opacity = lerp(0.24, 1, card.lit);
         const liftY = lerp(18, 0, card.lit);
+        const floatY = Math.sin(frame / 22 + i * 1.1) * 4;
         return (
           <g
             key={i}
-            transform={`translate(${card.x}, ${235 + liftY})`}
+            transform={`translate(${card.x}, ${235 + liftY + floatY})`}
             opacity={opacity}
           >
             {/* Card body */}

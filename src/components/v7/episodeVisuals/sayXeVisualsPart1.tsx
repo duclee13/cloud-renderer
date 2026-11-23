@@ -353,6 +353,7 @@ export const SayXeCarInteriorPhoneVisual: React.FC<EpisodeVisualProps> = ({
           seated={true}
           holdingPhone={false}
           headTiltDeg={grandpaLookTilt}
+          bubble={s === 0 ? 'Gió mát quá!' : undefined}
         />
       </BusCabinBackdrop>
     </svg>
@@ -412,6 +413,7 @@ export const SayXeCarDizzyWavesVisual: React.FC<EpisodeVisualProps> = ({
           holdingPhone={s === 0}
           sweating={s >= 1}
           headTiltDeg={headWobble}
+          bubble={s === 0 ? 'Ôi choáng quá...' : undefined}
         />
 
         {/* Gentle dizzy spiral above head */}
@@ -549,6 +551,7 @@ export const SayXeCarStopBreatheVisual: React.FC<EpisodeVisualProps> = ({
           facing="RIGHT"
           seated={false}
           headTiltDeg={s >= 1 ? -4 : -8 + Math.sin(t * 2.2) * 3}
+          bubble={s === 0 ? 'Hít sâu nào...' : undefined}
         />
       </g>
 
@@ -578,30 +581,10 @@ export const SayXeCarStopBreatheVisual: React.FC<EpisodeVisualProps> = ({
             mood="HAPPY"
             facing="LEFT"
             seated={false}
+            holdingBottle={true}
             headTiltDeg={-3}
+            bubble="Uống chút nước đi con!"
           />
-          {/* Water bottle extended toward Boy */}
-          <g transform={`translate(${1418 + Math.sin(t * 2.5) * 4}, 582) rotate(-18)`}>
-            {/* Bottle body */}
-            <rect
-              x="-16"
-              y="-34"
-              width="32"
-              height="68"
-              rx="10"
-              fill="#e0f2fe"
-              stroke={INK}
-              strokeWidth="4"
-            />
-            {/* Cool water inside */}
-            <rect x="-12" y="-8" width="24" height="38" rx="6" fill="#38bdf8" />
-            {/* Label band */}
-            <rect x="-15" y="-12" width="30" height="14" fill="#0284c7" />
-            {/* Neck & cap */}
-            <rect x="-9" y="-48" width="18" height="14" rx="4" fill="#0284c7" stroke={INK} strokeWidth="3.5" />
-            {/* Cool sparkle */}
-            <path d="M-28 -20 L-22 -20 M-25 -23 L-25 -17" stroke="#0284c7" strokeWidth="3" strokeLinecap="round" />
-          </g>
         </g>
       ) : null}
     </svg>
@@ -624,6 +607,7 @@ export const SayXeEyeSeesStillVisual: React.FC<EpisodeVisualProps> = ({
 
   const signalDashOffset = -(frame * 5) % 60;
   const brainGlow = s >= 1 ? 0.22 + Math.sin(t * 5) * 0.08 : 0;
+  const floatY = Math.sin(frame / 22) * 4;
 
   return (
     <svg
@@ -668,7 +652,7 @@ export const SayXeEyeSeesStillVisual: React.FC<EpisodeVisualProps> = ({
       </g>
 
       {/* Enlarged Eye looking left at the phone/seat */}
-      <EyeIcon x={775} y={500} scale={1.15} pupilOffsetX={-18} pupilOffsetY={2} />
+      <EyeIcon x={775} y={500 + floatY} scale={1.15} pupilOffsetX={-18} pupilOffsetY={2} />
 
       {/* Optic nerve pathway to Brain */}
       <path
@@ -716,7 +700,7 @@ export const SayXeEyeSeesStillVisual: React.FC<EpisodeVisualProps> = ({
       {/* Brain on the right */}
       <BrainIcon
         x={1470}
-        y={495}
+        y={495 + floatY}
         scale={1.32}
         glowColor="#4ade80"
         glowOpacity={brainGlow}
@@ -758,6 +742,7 @@ export const SayXeInnerEarFluidVisual: React.FC<EpisodeVisualProps> = ({
   const strongSlosh = Math.sin(t * 6.5) * 20;
   const strongTilt = Math.sin(t * 4.5) * 11;
   const signalOffset = -(frame * 6) % 56;
+  const floatY = Math.sin(frame / 22) * 4;
 
   return (
     <svg
@@ -773,7 +758,7 @@ export const SayXeInnerEarFluidVisual: React.FC<EpisodeVisualProps> = ({
           {/* Centered inner ear starting balanced -> gentle tilt */}
           <InnerEarDiagram
             x={960}
-            y={525}
+            y={525 + floatY}
             scale={1.32}
             tiltDeg={gentleTilt}
             slosh={Math.sin(t * 2.0) * 5 * p}
@@ -802,7 +787,7 @@ export const SayXeInnerEarFluidVisual: React.FC<EpisodeVisualProps> = ({
           {/* Inner ear sloshing strongly */}
           <InnerEarDiagram
             x={635}
-            y={525}
+            y={525 + floatY}
             scale={1.22}
             tiltDeg={strongTilt}
             slosh={strongSlosh}
@@ -847,7 +832,7 @@ export const SayXeInnerEarFluidVisual: React.FC<EpisodeVisualProps> = ({
           {/* Brain receiving red motion signal */}
           <BrainIcon
             x={1470}
-            y={505}
+            y={505 + floatY}
             scale={1.32}
             glowColor="#f87171"
             glowOpacity={0.22 + Math.sin(t * 8) * 0.08}
@@ -889,6 +874,7 @@ export const SayXeSensoryConflictVisual: React.FC<EpisodeVisualProps> = ({
   const isConflict = s >= 2;
   const flash = 0.55 + 0.45 * Math.sin(t * 15);
   const brainShake = isConflict ? Math.sin(t * 24) * 6 : 0;
+  const floatY = Math.sin(frame / 22) * 4;
 
   return (
     <svg
@@ -901,7 +887,7 @@ export const SayXeSensoryConflictVisual: React.FC<EpisodeVisualProps> = ({
 
       {/* LEFT HALF: Eye -> Brain ("Đứng yên") */}
       <g opacity={1}>
-        <EyeIcon x={270} y={520} scale={1.08} pupilOffsetX={12} pupilOffsetY={0} />
+        <EyeIcon x={270} y={520 + floatY} scale={1.08} pupilOffsetX={12} pupilOffsetY={0} />
         <path
           d="M405 520 L805 520"
           fill="none"
@@ -934,7 +920,7 @@ export const SayXeSensoryConflictVisual: React.FC<EpisodeVisualProps> = ({
       <g opacity={rightOpacity}>
         <InnerEarDiagram
           x={1635}
-          y={520}
+          y={520 + floatY}
           scale={0.92}
           tiltDeg={s >= 1 ? Math.sin(t * 5) * 10 : 0}
           slosh={s >= 1 ? Math.sin(t * 6.5) * 18 : 0}
@@ -975,7 +961,7 @@ export const SayXeSensoryConflictVisual: React.FC<EpisodeVisualProps> = ({
       {/* CENTER: Brain */}
       <BrainIcon
         x={960}
-        y={520}
+        y={520 + floatY}
         scale={1.34}
         glowColor={isConflict ? '#f59e0b' : undefined}
         glowOpacity={isConflict ? 0.28 * flash : 0}
@@ -985,39 +971,41 @@ export const SayXeSensoryConflictVisual: React.FC<EpisodeVisualProps> = ({
       {/* Conflict collision sparks right in the middle of the Brain (b19) */}
       {isConflict ? (
         <g>
-          {/* Pulsing collision rings */}
-          <circle
-            cx="960"
-            cy="515"
-            r={64 + Math.sin(t * 10) * 14}
-            fill="none"
-            stroke="#f59e0b"
-            strokeWidth="6"
-            strokeOpacity={flash}
-          />
-          {/* Jagged conflict lightning bolts */}
-          <g fill="#facc15" stroke={INK} strokeWidth="4" strokeLinejoin="round" opacity={flash}>
-            <polygon points="960,445 942,500 966,500 946,568 994,492 968,492" />
+          <g transform={`translate(0, ${floatY})`}>
+            {/* Pulsing collision rings */}
+            <circle
+              cx="960"
+              cy="515"
+              r={64 + Math.sin(t * 10) * 14}
+              fill="none"
+              stroke="#f59e0b"
+              strokeWidth="6"
+              strokeOpacity={flash}
+            />
+            {/* Jagged conflict lightning bolts */}
+            <g fill="#facc15" stroke={INK} strokeWidth="4" strokeLinejoin="round" opacity={flash}>
+              <polygon points="960,445 942,500 966,500 946,568 994,492 968,492" />
+            </g>
+            {/* Radiating spark lines */}
+            {[0, 45, 90, 135, 180, 225, 270, 315].map((deg, idx) => {
+              const rad = (deg * Math.PI) / 180;
+              const r1 = 92;
+              const r2 = 122 + (idx % 2) * 12;
+              return (
+                <line
+                  key={idx}
+                  x1={960 + Math.cos(rad) * r1}
+                  y1={515 + Math.sin(rad) * r1}
+                  x2={960 + Math.cos(rad) * r2}
+                  y2={515 + Math.sin(rad) * r2}
+                  stroke="#ef4444"
+                  strokeWidth="6"
+                  strokeLinecap="round"
+                  strokeOpacity={0.5 + 0.5 * Math.sin(t * 14 + idx)}
+                />
+              );
+            })}
           </g>
-          {/* Radiating spark lines */}
-          {[0, 45, 90, 135, 180, 225, 270, 315].map((deg, idx) => {
-            const rad = (deg * Math.PI) / 180;
-            const r1 = 92;
-            const r2 = 122 + (idx % 2) * 12;
-            return (
-              <line
-                key={idx}
-                x1={960 + Math.cos(rad) * r1}
-                y1={515 + Math.sin(rad) * r1}
-                x2={960 + Math.cos(rad) * r2}
-                y2={515 + Math.sin(rad) * r2}
-                stroke="#ef4444"
-                strokeWidth="6"
-                strokeLinecap="round"
-                strokeOpacity={0.5 + 0.5 * Math.sin(t * 14 + idx)}
-              />
-            );
-          })}
           <g opacity={clamp01(p * 3 + 0.5)}>
             <CleanLabel
               x={960}
@@ -1053,6 +1041,7 @@ export const SayXeBrainPoisonAlarmVisual: React.FC<EpisodeVisualProps> = ({
   const stickScale = s >= 2 ? 1.22 : 1.32;
   const alertPulse = 0.55 + 0.45 * Math.sin(t * 12);
   const leafSway = Math.sin(t * 2.2) * 4;
+  const floatY = Math.sin(frame / 22) * 4;
 
   return (
     <svg
@@ -1181,7 +1170,7 @@ export const SayXeBrainPoisonAlarmVisual: React.FC<EpisodeVisualProps> = ({
           {/* Brain on the right */}
           <BrainIcon
             x={1365}
-            y={515}
+            y={515 + floatY}
             scale={1.34}
             glowColor="#ef4444"
             glowOpacity={0.25 * alertPulse}
@@ -1189,7 +1178,7 @@ export const SayXeBrainPoisonAlarmVisual: React.FC<EpisodeVisualProps> = ({
           />
 
           {/* Flashing warning triangle icon above/on brain */}
-          <g transform={`translate(1365, 365) scale(${0.95 + 0.1 * alertPulse})`}>
+          <g transform={`translate(1365, ${365 + floatY}) scale(${0.95 + 0.1 * alertPulse})`}>
             <polygon
               points="0,-54 52,38 -52,38"
               fill="#facc15"
@@ -1380,10 +1369,13 @@ export const SayXeReadBookVsWindowVisual: React.FC<EpisodeVisualProps> = ({
   const t = frame / Math.max(1, fps);
   const p = clamp01(progress);
 
-  const leftOpacity = s >= 2 ? 0.42 : 1;
-  const rightOpacity = s >= 2 ? 1 : 0.24;
+  const leftActive = s < 2;
+  const rightActive = s >= 2;
+  const leftOpacity = leftActive ? 1 : 0.42;
+  const rightOpacity = rightActive ? 1 : 0.24;
   const loupeScale = s === 1 ? lerp(0.85, 1, Math.min(1, p * 3 + 0.5)) : 1;
-  const treeScroll = (frame * 6) % 960;
+  const leftScroll = leftActive ? (frame * 2.5) % 960 : 0;
+  const rightScroll = rightActive ? (frame * 2.5) % 960 : 0;
 
   return (
     <svg
@@ -1413,10 +1405,21 @@ export const SayXeReadBookVsWindowVisual: React.FC<EpisodeVisualProps> = ({
 
       {/* ================= LEFT HALF: Reading phone/book (DIZZY) ================= */}
       <g clipPath="url(#sx9_leftClip)" opacity={leftOpacity}>
-        {/* Left cabin window */}
+        {/* Left cabin window with full hills & trees (scrolls when active, frozen when inactive) */}
         <g clipPath="url(#sx9_leftWin)">
           <rect x="60" y="160" width="840" height="410" fill="#bae6fd" />
-          <path d="M60 570 Q320 430 620 500 T900 490 L900 570 Z" fill="#86efac" stroke={INK} strokeWidth="3.5" />
+          <path
+            d={`M${0 - leftScroll} 495 Q${240 - leftScroll} 410 ${480 - leftScroll} 495 T${960 - leftScroll} 495 T${1440 - leftScroll} 495 T${1920 - leftScroll} 495 L2040 570 L${0 - leftScroll} 570 Z`}
+            fill="#4ade80"
+            stroke={INK}
+            strokeWidth="4"
+          />
+          {[180, 500, 820, 1140, 1460, 1780].map((tx, idx) => (
+            <g key={idx} transform={`translate(${tx - leftScroll}, 455)`}>
+              <rect x="-9" y="30" width="18" height="72" fill="#92400e" stroke={INK} strokeWidth="3.5" />
+              <circle cx="0" cy="8" r="44" fill="#22c55e" stroke={INK} strokeWidth="4" />
+            </g>
+          ))}
         </g>
         <rect x="60" y="160" width="840" height="410" rx="28" fill="none" stroke={INK} strokeWidth="6" />
         <rect x="0" y="570" width="960" height="28" fill="#94a3b8" stroke={INK} strokeWidth="4.5" />
@@ -1484,17 +1487,17 @@ export const SayXeReadBookVsWindowVisual: React.FC<EpisodeVisualProps> = ({
 
       {/* ================= RIGHT HALF: Looking out window (HAPPY) ================= */}
       <g clipPath="url(#sx9_rightClip)" opacity={rightOpacity}>
-        {/* Right cabin window with smoothly scrolling trees */}
+        {/* Right cabin window with full hills & trees (scrolls when active, frozen when inactive) */}
         <g clipPath="url(#sx9_rightWin)">
           <rect x="1020" y="160" width="840" height="410" fill="#bae6fd" />
           <path
-            d={`M${960 - treeScroll} 570 Q${1240 - treeScroll} 415 ${1520 - treeScroll} 495 T${2080 - treeScroll} 480 T${2640 - treeScroll} 500 L3000 570 Z`}
+            d={`M${960 - rightScroll} 495 Q${1200 - rightScroll} 410 ${1440 - rightScroll} 495 T${1920 - rightScroll} 495 T${2400 - rightScroll} 495 T${2880 - rightScroll} 495 L3000 570 L${960 - rightScroll} 570 Z`}
             fill="#4ade80"
             stroke={INK}
             strokeWidth="4"
           />
-          {[1160, 1460, 1760, 2120, 2420, 2720].map((tx, idx) => (
-            <g key={idx} transform={`translate(${tx - treeScroll}, 455)`}>
+          {[1140, 1460, 1780, 2100, 2420, 2740].map((tx, idx) => (
+            <g key={idx} transform={`translate(${tx - rightScroll}, 455)`}>
               <rect x="-9" y="30" width="18" height="72" fill="#92400e" stroke={INK} strokeWidth="3.5" />
               <circle cx="0" cy="8" r="44" fill="#22c55e" stroke={INK} strokeWidth="4" />
             </g>

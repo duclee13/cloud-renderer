@@ -337,6 +337,101 @@ const DoctorClinicBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: number; 
         <line x1={0} y1={0} x2={Math.sin((secDeg * Math.PI) / 180) * 32} y2={-Math.cos((secDeg * Math.PI) / 180) * 32} stroke="#10B981" strokeWidth={2.4} strokeLinecap="round" />
       </g>
 
+      {/* V20.2: Tủ thuốc kính nhỏ treo sát tường bên phải (trên giường khám, thoáng sạch không che nhân vật) */}
+      <g id="clinic-medicine-cabinet" transform="translate(1525, 178)">
+        <rect
+          x={0}
+          y={0}
+          width={215}
+          height={240}
+          rx={10}
+          fill={isNight ? "#334155" : "#FFFFFF"}
+          stroke="#141414"
+          strokeWidth={3.5}
+        />
+        {/* Khoang tủ kính phía trong */}
+        <rect
+          x={14}
+          y={14}
+          width={187}
+          height={212}
+          rx={6}
+          fill={isNight ? "#1E293B" : "#ECFEFF"}
+          stroke="#141414"
+          strokeWidth={2.4}
+        />
+        {/* 2 đợt kính ngang */}
+        <line x1={14} y1={88} x2={201} y2={88} stroke="#64748B" strokeWidth={3} />
+        <line x1={14} y1={158} x2={201} y2={158} stroke="#64748B" strokeWidth={3} />
+        {/* Hàng 1: 3 lọ thuốc nhỏ gọn */}
+        <rect x={30} y={50} width={22} height={36} rx={4} fill="#F59E0B" stroke="#141414" strokeWidth={2.2} />
+        <rect x={33} y={42} width={16} height={8} rx={2} fill="#FFFFFF" stroke="#141414" strokeWidth={2} />
+        <rect x={68} y={44} width={24} height={42} rx={4} fill="#38BDF8" stroke="#141414" strokeWidth={2.2} />
+        <rect x={72} y={36} width={16} height={8} rx={2} fill="#0F172A" stroke="#141414" strokeWidth={2} />
+        <rect x={110} y={54} width={20} height={32} rx={4} fill="#34D399" stroke="#141414" strokeWidth={2.2} />
+        <rect x={113} y={47} width={14} height={7} rx={2} fill="#FFFFFF" stroke="#141414" strokeWidth={2} />
+        <rect x={148} y={48} width={34} height={38} rx={4} fill="#FFFFFF" stroke="#141414" strokeWidth={2.2} />
+        <line x1={165} y1={58} x2={165} y2={76} stroke="#EF4444" strokeWidth={4} />
+        <line x1={156} y1={67} x2={174} y2={67} stroke="#EF4444" strokeWidth={4} />
+        {/* Hàng 2: 3 lọ thuốc & hộp gạc y tế */}
+        <rect x={32} y={122} width={26} height={34} rx={4} fill="#FB7185" stroke="#141414" strokeWidth={2.2} />
+        <rect x={36} y={115} width={18} height={7} rx={2} fill="#FFFFFF" stroke="#141414" strokeWidth={2} />
+        <rect x={74} y={116} width={22} height={40} rx={4} fill="#A78BFA" stroke="#141414" strokeWidth={2.2} />
+        <rect x={77} y={109} width={16} height={7} rx={2} fill="#FFFFFF" stroke="#141414" strokeWidth={2} />
+        <rect x={114} y={128} width={68} height={28} rx={4} fill="#FEF08A" stroke="#141414" strokeWidth={2.2} />
+        <line x1={124} y1={142} x2={172} y2={142} stroke="#94A3B8" strokeWidth={2.4} />
+        {/* Hàng 3: 2 lọ dung dịch & cốc chia vạch */}
+        <rect x={38} y={182} width={30} height={42} rx={5} fill="#60A5FA" stroke="#141414" strokeWidth={2.2} />
+        <rect x={44} y={174} width={18} height={8} rx={2} fill="#FFFFFF" stroke="#141414" strokeWidth={2} />
+        <rect x={86} y={188} width={26} height={36} rx={4} fill="#4ADE80" stroke="#141414" strokeWidth={2.2} />
+        <rect x={90} y={181} width={18} height={7} rx={2} fill="#141414" stroke="#141414" strokeWidth={1.8} />
+        <rect x={132} y={190} width={48} height={34} rx={4} fill="#F8FAFC" stroke="#141414" strokeWidth={2.2} />
+        {/* Vệt phản chiếu mặt kính + tay nắm cửa tủ */}
+        <path d="M 32,26 L 68,26 L 44,74 L 22,74 Z" fill="#FFFFFF" stroke="none" opacity={isNight ? 0.14 : 0.42} />
+        <line x1={26} y1={110} x2={26} y2={142} stroke="#475569" strokeWidth={4.5} strokeLinecap="round" />
+      </g>
+
+      {/* V20.2: Chậu cây xanh nhỏ ở góc trái phòng khám (cân bằng bố cục, không che nhân vật) */}
+      <g id="clinic-potted-plant" transform="translate(112, 785)">
+        <ellipse cx={0} cy={4} rx={46} ry={10} fill="rgba(15, 23, 42, 0.14)" stroke="none" />
+        {/* Tán lá xanh nhiều lớp nhẹ nhàng */}
+        <g transform={`rotate(${(Math.sin(frame * 0.03) * 1.4).toFixed(2)}, 0, -78)`}>
+          <path
+            d="M -4,-74 C -36,-106 -52,-142 -26,-158 C -8,-146 -2,-112 0,-74 Z"
+            fill="#16A34A"
+            stroke="#141414"
+            strokeWidth={2.8}
+          />
+          <path
+            d="M 4,-74 C 36,-108 54,-144 28,-160 C 10,-148 2,-114 0,-74 Z"
+            fill="#16A34A"
+            stroke="#141414"
+            strokeWidth={2.8}
+          />
+          <path
+            d="M -6,-72 C -46,-82 -66,-108 -46,-126 C -26,-124 -12,-98 -4,-72 Z"
+            fill="#22C55E"
+            stroke="#141414"
+            strokeWidth={2.8}
+          />
+          <path
+            d="M 6,-72 C 46,-82 66,-108 46,-126 C 26,-124 12,-98 4,-72 Z"
+            fill="#22C55E"
+            stroke="#141414"
+            strokeWidth={2.8}
+          />
+          <path
+            d="M 0,-74 C -16,-122 -14,-166 0,-182 C 14,-166 16,-122 0,-74 Z"
+            fill="#4ADE80"
+            stroke="#141414"
+            strokeWidth={2.8}
+          />
+        </g>
+        {/* Chậu sứ trắng-xanh gọn gàng */}
+        <path d="M -36,-72 L -26,0 L 26,0 L 36,-72 Z" fill={isNight ? "#CBD5E1" : "#FFFFFF"} stroke="#141414" strokeWidth={3.2} />
+        <rect x={-42} y={-82} width={84} height={14} rx={5} fill="#10B981" stroke="#141414" strokeWidth={3} />
+      </g>
+
       {/* Giường khám y tế bên phải */}
       <g transform="translate(1310, 620)">
         <rect x={0} y={40} width={450} height={42} rx={10} fill="#38BDF8" />
@@ -1060,8 +1155,9 @@ function evaluateV18KeyframeKinematics(
       break;
     }
     case "SCRATCH_HEAD": {
+      // V20.2: Làm chậm nhịp nghiêng đầu đồng bộ với tay gãi đầu từ tốn
       torsoTiltDeg = 2;
-      headTiltDeg = -10 + Math.sin(frame * 0.24) * 3.5;
+      headTiltDeg = -10 + Math.sin(frame * 0.09) * 2.5;
       v18ActionPose = "SCRATCH_HEAD";
       break;
     }
@@ -2360,6 +2456,43 @@ export const UniversalAutoStage: React.FC<{
                   isSipping={true}
                 />
               )}
+              {ra.v18ActionPose === "SCRATCH_HEAD" &&
+                (ra.activeExprEnum === "CURIOUS" ||
+                  ra.activeExprEnum === "THINKING" ||
+                  ra.activeExprEnum === "WORRIED") &&
+                (() => {
+                  const qPop = ra.v18LocalFrame < 12 ? easeOutBack(ra.v18LocalFrame / 12) : 1.0;
+                  const qFloatY = Math.sin(frame * 0.065 + aIdx) * 5;
+                  const qRot = Math.sin(frame * 0.045 + aIdx) * 6;
+                  const qX = ra.actorX + facingDir * 56 * ra.actorScale;
+                  const qY = ra.headWorldY - 58 * ra.actorScale + qFloatY;
+                  const qScale = ra.actorScale * qPop;
+                  return (
+                    <g
+                      id={`actor-scratch-question-mark-${aIdx}`}
+                      transform={`translate(${qX.toFixed(1)}, ${qY.toFixed(1)}) rotate(${qRot.toFixed(
+                        1
+                      )}) scale(${qScale.toFixed(3)})`}
+                    >
+                      <text
+                        x={0}
+                        y={0}
+                        textAnchor="middle"
+                        dominantBaseline="central"
+                        fill="#FACC15"
+                        stroke="#141414"
+                        strokeWidth={7}
+                        strokeLinejoin="round"
+                        paintOrder="stroke"
+                        fontSize={44}
+                        fontWeight={900}
+                        fontFamily="'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif"
+                      >
+                        ?
+                      </text>
+                    </g>
+                  );
+                })()}
               {ra.writePenWorld && (
                 <g
                   transform={`translate(${ra.writePenWorld.x.toFixed(1)}, ${ra.writePenWorld.y.toFixed(
