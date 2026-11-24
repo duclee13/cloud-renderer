@@ -721,7 +721,10 @@ test("V20 #3A: validate_episode.mjs checks all 5 rules accurately including boun
   ]);
 
   const warnCodes = res.warnings.map((w: { code: string; beatId: string }) => `${w.beatId}:${w.code}`);
-  assert.deepEqual(warnCodes, ["b_close_actors:ACTORS_TOO_CLOSE"]);
+  assert.deepEqual(warnCodes, [
+    "b_close_actors:ACTORS_TOO_CLOSE",
+    "b_close_actors:MISSING_SPEECH_BUBBLE",
+  ]);
 });
 
 test("V20 #3B: validate_episode.mjs CLI exit codes (0 on clean/warnings-only, 1 on serious errors or bad input)", () => {

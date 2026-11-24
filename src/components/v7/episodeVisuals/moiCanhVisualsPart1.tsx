@@ -1666,7 +1666,7 @@ export const MoiCanhLampTrapOrbitVisual: React.FC<EpisodeVisualProps> = ({
 
   // Step 1 orbiting termite with back strictly facing the bulb
   const orbitR = 235;
-  const orbitTheta = -Math.PI + t * 2.15;
+  const orbitTheta = -Math.PI - t * 2.15;
   const orbX = bulbX + Math.cos(orbitTheta) * orbitR;
   const orbY = bulbY + Math.sin(orbitTheta) * orbitR;
   // Back of WingedTermite points along local -Y; align local -Y toward bulb:

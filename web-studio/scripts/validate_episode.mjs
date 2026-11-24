@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * EPISODE VALIDATOR V20.0 — Script kiểm định kịch bản JSON tự động trước khi render
+ * EPISODE VALIDATOR V21.0 — Script kiểm định kịch bản JSON tự động trước khi render
  * Chạy bằng:
  *   node scripts/validate_episode.mjs episodes/<ten_file>.json
  *
@@ -13,6 +13,8 @@
  *   [CẢNH BÁO — exit code 0 nếu không có lỗi nghiêm trọng]:
  *     5. Mảng actors có 2 nhân vật kết thúc cách nhau < 200px (đứng quá sát nhau).
  *     6. fullScreenVisual === true nhưng thiếu customVisual hợp lệ.
+ *     7. Beat sân khấu (fullScreenVisual !== true) có actor ở pose TALK_GESTURE / SCRATCH_HEAD hoặc text chứa '?' nhưng không có actor nào gắn bubble.
+ *     8. transitionFrames < 18.
  */
 
 import fs from 'node:fs';
@@ -624,6 +626,58 @@ export function validateEpisodeData(episode, registeredVisuals) {
         }
       }
     }
+
+    // 6. V21.0 Cảnh báo: beat sân khấu (fullScreenVisual !== true) có actor ở pose TALK_GESTURE / SCRATCH_HEAD
+    //    hoặc text chứa dấu "?" mà không có actor nào gắn bubble
+    if (beat?.fullScreenVisual !== true && actors.length > 0) {
+      const hasAnyActorBubble = actors.some(
+        (actor) => typeof actor?.bubble === 'string' && actor.bubble.trim().length > 0
+      );
+      if (!hasAnyActorBubble) {
+        const isBubbleWorthyPose = (rawPose) => {
+          const key = String(rawPose ?? '').trim().toUpperCase();
+          return key === 'TALK_GESTURE' || key === 'SCRATCH_HEAD';
+        };
+        const hasTalkOrScratchActor = actors.some(
+          (actor) =>
+            isBubbleWorthyPose(actor?.pose) ||
+            (Array.isArray(actor?.timeline) &&
+              actor.timeline.some((kf) => isBubbleWorthyPose(kf?.pose)))
+        );
+        const displayText =
+          typeof beat?.text === 'string'
+            ? beat.text
+            : typeof beat?.narrationText === 'string'
+            ? beat.narrationText
+            : '';
+        const hasQuestionInText = displayText.includes('?');
+
+        if (hasTalkOrScratchActor || hasQuestionInText) {
+          const reasons = [];
+          if (hasTalkOrScratchActor) reasons.push('actor dùng TALK_GESTURE/SCRATCH_HEAD');
+          if (hasQuestionInText) reasons.push('text chứa dấu "?"');
+          warnings.push({
+            code: 'MISSING_SPEECH_BUBBLE',
+            beatId,
+            beatIndex: bIdx,
+            message: `Beat sân khấu (${reasons.join(' & ')}) nhưng chưa có actor nào gắn bubble thoại ngắn.`,
+          });
+        }
+      }
+    }
+
+    // 7. V21.0 Cảnh báo: transitionFrames < 18
+    if (beat?.transitionFrames !== undefined && beat?.transitionFrames !== null) {
+      const tf = parseFiniteNum(beat.transitionFrames);
+      if (!Number.isFinite(tf) || tf < 18) {
+        warnings.push({
+          code: 'SHORT_TRANSITION',
+          beatId,
+          beatIndex: bIdx,
+          message: `transitionFrames = ${beat.transitionFrames} (< 18 frames) -> chuyển cảnh hơi gấp, nên đặt >= 18 frames.`,
+        });
+      }
+    }
   }
 
   return { errors, warnings, totalBeats: episode.beats.length };
@@ -683,7 +737,7 @@ function runCli() {
   const result = validateEpisodeData(episodeJson, registeredVisuals);
 
   console.log('====================================================================');
-  console.log(`KIỂM ĐỊNH KỊCH BẢN TỰ ĐỘNG V20.0`);
+  console.log(`KIỂM ĐỊNH KỊCH BẢN TỰ ĐỘNG V21.0`);
   console.log(`-> File: ${episodePath}`);
   console.log(`-> Tiêu đề: ${episodeJson?.title ?? '(chưa đặt tên)'}`);
   console.log(`-> Số beat: ${result.totalBeats} | Registry visuals: ${registeredVisuals.size}`);

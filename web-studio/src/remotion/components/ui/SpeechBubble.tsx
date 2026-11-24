@@ -29,7 +29,10 @@ export function calculateSafeSpeechBubble(
   const offsetX = facing === "left" ? -(headRadius + width / 2 + 30) : (headRadius + width / 2 + 30);
   const offsetY = -(headRadius + height / 2 + 20);
 
-  const bubbleX = headCenter.x + offsetX;
+  const rawBubbleX = headCenter.x + offsetX;
+  const minSafeX = Math.max(180, width / 2 + 36);
+  const maxSafeX = Math.min(1740, 1920 - width / 2 - 36);
+  const bubbleX = Math.max(minSafeX, Math.min(maxSafeX, rawBubbleX));
   const bubbleY = headCenter.y + offsetY;
 
   // Điểm gốc miệng của nhân vật trong hệ tọa độ cục bộ của bubble
@@ -56,11 +59,14 @@ export const SpeechBubble: React.FC<SpeechBubbleProps> = ({
   const width = Math.max(220, Math.min(720, text.length * 24 + 80));
   const height = 130;
   const radius = 65;
+  const minSafeX = Math.max(180, width / 2 + 36);
+  const maxSafeX = Math.min(1740, 1920 - width / 2 - 36);
+  const safeX = Math.max(minSafeX, Math.min(maxSafeX, x));
 
   const tailBaseX = Math.max(-width / 2 + 50, Math.min(width / 2 - 50, tailAnchor.x * 0.4));
 
   return (
-    <g id="speech-bubble-wrapper" transform={`translate(${x}, ${y})`}>
+    <g id="speech-bubble-wrapper" transform={`translate(${safeX}, ${y})`}>
       {/* =========================================================================
           FIGMA SVG BUBBLE ARTWORK (Nếu có khung vẽ tùy biến từ Figma)
          ========================================================================= */}

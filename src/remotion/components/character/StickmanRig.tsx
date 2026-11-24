@@ -288,17 +288,21 @@ export function resolveStickmanExpressionPreset(expr?: string | null): {
 }
 
 /**
- * V20.0: Hệ số nhịp thở dọc (idleBreathFactor) đồng bộ 100% giữa StickmanRig và HandPropGraphic
- * để đạo cụ cầm tay (đặc biệt CUP_SODA khi SIP_DRINK) bám khít 0px vào cổ tay ở mọi frame.
+ * V20.0–V21.0: Hệ số nhịp thở dọc khi đứng yên (idleBreathFactor ~1.2–1.8px ở thân/vai, bàn chân khóa cứng tại y=0 không trượt đất),
+ * đồng bộ 100% giữa StickmanRig và HandPropGraphic để đạo cụ cầm tay bám khít 0px vào cổ tay ở mọi frame.
  */
 export function computeStickmanIdleBreathFactor(
   frame: number,
   stableSeed: number,
-  enableIdleLife: boolean
+  enableIdleLife: boolean,
+  walkWeight: number = 0
 ): number {
   if (!enableIdleLife) return 1.0;
+  const standFactor = Math.max(0, 1 - Math.min(1, Math.max(0, walkWeight) * 1.25));
+  if (standFactor <= 0) return 1.0;
   const idlePhaseSeed = (Math.abs(Math.floor(stableSeed)) % 37) * 0.41;
-  return 1 + Math.sin(frame * 0.055 + idlePhaseSeed) * 0.0085;
+  // Biên độ 0.0056 -> vai/thân (288px) nhấp nhô nhẹ ~1.6px cho người lớn và ~1.22px cho BOY (0.76), chân y=0 đứng im tuyệt đối!
+  return 1 + Math.sin(frame * 0.052 + idlePhaseSeed) * 0.0056 * standFactor;
 }
 
 /**
@@ -1170,10 +1174,15 @@ export const StickmanRig: React.FC<StickmanRigProps> = ({
     frame
   );
 
-  // V18.2 Living Scene Rule: Nhịp thở nhẹ + Gật đầu + Chớp mắt tự nhiên mỗi 2.8–3.6 giây (nhắm mở nhanh 6 frames, không phụ thuộc x)
+  // V18.2–V21.0 Living Scene Rule: Nhịp thở nhẹ khi đứng yên (~1.2–1.8px ở vai/thân, chân chạm đất cố định) + Chớp mắt tự nhiên
   const enableIdleLife = state.enableIdleLife ?? isPureStickmanPreset;
   const stableSeed = state.blinkSeed !== undefined ? Math.abs(Math.floor(state.blinkSeed)) : (activeArchetype.charCodeAt(0) || 1);
-  const idleBreathFactor = computeStickmanIdleBreathFactor(frame, stableSeed, enableIdleLife);
+  const idleBreathFactor = computeStickmanIdleBreathFactor(
+    frame,
+    stableSeed,
+    enableIdleLife,
+    isWalking ? weight : 0
+  );
   const effectiveBreathScaleY = breathScaleY * idleBreathFactor * (state.anticipationScaleY ?? 1.0);
 
   const v18FallbackNodDeg =
@@ -1188,19 +1197,25 @@ export const StickmanRig: React.FC<StickmanRigProps> = ({
       : 0;
   const headAngle = (state.headTiltDeg ?? 0) + (limbAngles?.head ?? 0) + nodDeg + v18FallbackNodDeg;
 
-  // Chu kỳ chớp mắt 168..216 frames (2.8s–3.6s @ 60fps), mỗi nhịp nhắm mở 6 frames mượt mà trên mọi biểu cảm mắt mở
-  const blinkPeriod = 168 + ((stableSeed * 19) % 49);
-  const blinkCycleFrame = (Math.max(0, Math.floor(frame)) + stableSeed * 47) % blinkPeriod;
+  // V21.0 Natural Blink: Chu kỳ 210..270 frames (3.5s–4.5s @ 60fps), nhắm mở nhanh 4–5 frames, lệch pha theo actor/preset
+  const blinkPeriod = 210 + ((stableSeed * 23) % 61);
+  const blinkDuration = 4 + (stableSeed % 2);
+  const blinkCycleFrame = (Math.max(0, Math.floor(frame)) + stableSeed * 53) % blinkPeriod;
   const isNaturalBlink =
     enableIdleLife &&
-    blinkCycleFrame >= blinkPeriod - 6 &&
+    blinkCycleFrame >= blinkPeriod - blinkDuration &&
     state.eyes !== "closed";
   const effectiveEyes = isNaturalBlink ? "closed" : state.eyes;
 
-  // V15.0–V19.1 Lip-Sync & Biểu cảm chuẩn xác:
+  // V15.0–V21.0 Lip-Sync & Biểu cảm chuẩn xác:
   // - Khi đang ở pose SIP_DRINK (hoặc mouth === "sip"): luôn giữ miệng tròn nhỏ (o) ngậm ống hút, tuyệt đối không cười!
-  // - Khi nói chuyện (isSpeaking = true): bảo toàn sắc thái Sợ/Lo lắng/Ngạc nhiên/Tò mò, tuyệt đối không fallback về "smile"!
-  const lipSyncOpen = Math.sin(frame * 0.45) > 0;
+  // - Khi có bubble đang hiển thị (isSpeaking = true) HOẶC pose === "TALK_GESTURE": miệng mấp máy theo nhịp chậm êm tự nhiên,
+  //   bảo toàn sắc thái Sợ/Lo lắng/Ngạc nhiên/Tò mò, tuyệt đối không fallback về "smile"!
+  const talkPhaseSeed = (stableSeed % 17) * 0.37;
+  const lipSyncWave =
+    Math.sin(frame * 0.24 + talkPhaseSeed) + 0.35 * Math.sin(frame * 0.11 + talkPhaseSeed * 1.7);
+  const lipSyncOpen = lipSyncWave > 0.12;
+  const isMouthTalking = Boolean(state.isSpeaking || state.v18ActionPose === "TALK_GESTURE");
   const baseMouth: MouthExpression =
     state.v18ActionPose === "SIP_DRINK"
       ? "sip"
@@ -1216,7 +1231,7 @@ export const StickmanRig: React.FC<StickmanRigProps> = ({
   const effectiveMouth: MouthExpression =
     baseMouth === "sip"
       ? "sip"
-      : state.isSpeaking
+      : isMouthTalking
       ? baseMouth === "gasp"
         ? lipSyncOpen
           ? "gasp"
@@ -1586,17 +1601,28 @@ export const ComicSpeechBubble: React.FC<ComicSpeechBubbleProps> = ({
   const cleanText = (text || "").trim();
   if (!cleanText || localFrame < appearFrame || localFrame > disappearFrame) return null;
 
-  const inFrames = 14;
-  const outFrames = 10;
+  const inFrames = 8;
+  const outFrames = 6;
   const elapsed = localFrame - appearFrame;
   const remaining = disappearFrame - localFrame;
+  const inT = Math.max(0, Math.min(1, elapsed / inFrames));
+  const outT = Math.max(0, Math.min(1, remaining / outFrames));
+  const easePopIn = 1 - Math.pow(1 - inT, 3);
+  const easeFadeOut = outT * outT * (3 - 2 * outT);
+
+  // V21.0: Pop-in mượt (scale 0.85 -> 1.0 + opacity 0 -> 1 trong ~8 frames) & fade-out êm (~6 frames)
   const scale =
     elapsed < inFrames
-      ? Math.max(0.01, bubbleEaseOutBack(elapsed / inFrames))
+      ? 0.85 + 0.15 * easePopIn
       : remaining < outFrames
-      ? Math.max(0.01, remaining / outFrames)
+      ? 0.96 + 0.04 * easeFadeOut
       : 1.0;
-  const opacity = remaining < outFrames ? Math.max(0, remaining / outFrames) : Math.min(1, elapsed / 6);
+  const opacity =
+    elapsed < inFrames
+      ? easePopIn
+      : remaining < outFrames
+      ? easeFadeOut
+      : 1.0;
 
   const rx = Math.max(92, Math.min(210, cleanText.length * 9.6 + 44));
   const ry = 38;
@@ -1605,7 +1631,10 @@ export const ComicSpeechBubble: React.FC<ComicSpeechBubbleProps> = ({
   const effectiveHeadTopY = headTopY ?? (mouthY - 88);
   const maxSafeCenterY = effectiveHeadTopY - 30 - ry;
   const safeY = Math.max(85 + ry, Math.min(y, maxSafeCenterY));
-  const safeX = Math.max(rx + 28, Math.min(1920 - rx - 28, x));
+  // V21.0: Clamp tọa độ X của bong bóng trong vùng an toàn [180, 1740] đồng thời bảo đảm biên trái/phải không tràn mép 1920px
+  const minSafeX = Math.max(180, rx + 36);
+  const maxSafeX = Math.min(1740, 1920 - rx - 36);
+  const safeX = Math.max(minSafeX, Math.min(maxSafeX, x));
 
   // Đuôi nhọn trỏ về phía miệng nhân vật (chừa khoảng thoáng >= 58px để không bao giờ chạm chỏm tóc/mắt!)
   const dx = mouthX - safeX;

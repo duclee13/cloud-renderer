@@ -466,16 +466,18 @@ export const WingedTermite: React.FC<{
   wingDropProgress = 0,
   highlightParts = false,
 }) => {
-  const flap = Math.sin(frame * 0.7 + phase);
   const drop = clamp01(wingDropProgress);
+  const flapAmp = drop > 0 ? Math.max(0, 1 - drop * 5) : 1;
+  const flap = Math.sin(frame * 0.7 + phase) * flapAmp;
+  const driftTilt = drop > 0 ? Math.sin(drop * Math.PI) * 8 : 0;
   const showWings = wingsAttached || drop > 0;
   const crawlWiggle = !wingsAttached ? Math.sin(frame * 0.35 + phase) * 3.5 : 0;
 
-  // Wing flap angles (4 equal-length wings rooted at thorax x = 4..-4)
-  const foreAngleTop = -34 + flap * 24 - drop * 38;
-  const hindAngleTop = -18 + flap * 18 - drop * 28;
-  const foreAngleBot = 34 - flap * 24 + drop * 38;
-  const hindAngleBot = 18 - flap * 18 + drop * 28;
+  // Wing flap angles (4 equal-length wings rooted at thorax x = 4..-4; detached wings stop flapping immediately)
+  const foreAngleTop = -34 + flap * 24 - drop * 38 + driftTilt;
+  const hindAngleTop = -18 + flap * 18 - drop * 28 + driftTilt * 0.7;
+  const foreAngleBot = 34 - flap * 24 + drop * 38 - driftTilt;
+  const hindAngleBot = 18 - flap * 18 + drop * 28 - driftTilt * 0.7;
 
   const wingDx = -drop * 46;
   const wingDyTop = -drop * 26 + drop * drop * 58;

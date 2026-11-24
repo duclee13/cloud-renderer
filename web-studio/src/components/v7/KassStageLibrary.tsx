@@ -63,8 +63,8 @@ export const CountrysideYardBackdrop: React.FC<{
 }> = ({ timeOfDay = "DAY", frame = 0, groundY = 840 }) => {
   const isSunset = timeOfDay === "SUNSET";
   const isNight = timeOfDay === "NIGHT";
-  // V14.1 Living Scene Rule: Mây trôi chậm đều sang phải (cloudX += frame * 0.18) & gió đung đưa 1.5°
-  const cloudDriftPx = frame * 0.18;
+  // V21.0 Living Scene Rule: Mây trôi cực chậm mượt theo frame (cloudX += frame * 0.055) & gió đung đưa êm 1.5°
+  const cloudDriftPx = frame * 0.055;
   const breezeDeg = Math.sin(frame * 0.04) * 1.5;
 
   const skyTop = isNight ? "#1E293B" : isSunset ? "#FB923C" : "#60A5FA";
@@ -238,20 +238,39 @@ export const CountrysideYardBackdrop: React.FC<{
         <rect x={1335} y={310} width={565} height={18} rx={6} fill="#991B1B" />
       </g>
 
+      {/* V21.0: Tán cây xanh nhỏ phía góc phải cạnh nhà tạo chiều sâu lớp cảnh */}
+      <g id="yard-right-corner-tree" transform="translate(1872, 575)">
+        <rect x={-12} y={24} width={24} height={165} fill="#78350F" stroke="#141414" strokeWidth={3} />
+        <g transform={`rotate(${(-breezeDeg * 0.9).toFixed(2)}, 0, 28)`}>
+          <circle cx={-28} cy={8} r={42} fill={treeDark} stroke="#141414" strokeWidth={3} />
+          <circle cx={26} cy={12} r={38} fill={treeDark} stroke="#141414" strokeWidth={3} />
+          <circle cx={-4} cy={-26} r={50} fill={treeFill} stroke="#141414" strokeWidth={3} />
+        </g>
+      </g>
+
       {/* Mặt sân đất vàng ấm cúng + đường viền ranh giới chân sân */}
       <rect x={0} y={760} width={1920} height={1080 - 760} fill={`url(#yard-ground-${timeOfDay})`} />
       <line x1={0} y1={760} x2={1920} y2={760} stroke="#141414" strokeWidth={3} />
 
-      {/* Bụi cỏ xanh nhỏ chân hàng rào */}
-      {[120, 420, 820, 1140].map((gx, idx) => (
-        <path
-          key={`yard_grass_${idx}`}
-          d={`M ${gx},760 Q ${gx - 8},738 ${gx - 16},742 Q ${gx - 4},748 ${gx + 4},760 Q ${gx + 10},736 ${gx + 18},740 Q ${gx + 12},750 ${gx + 22},760 Z`}
-          fill={treeFill}
-          stroke="#141414"
-          strokeWidth={2.5}
-        />
-      ))}
+      {/* V21.0: Các cụm cỏ xanh rung rinh nhẹ ven chân hàng rào */}
+      <g id="yard-fence-grass-tufts">
+        {[85, 255, 430, 615, 810, 995, 1165].map((gx, idx) => {
+          const grassSway = Math.sin(frame * 0.042 + idx * 0.85) * 2.4;
+          return (
+            <g
+              key={`yard_grass_${idx}`}
+              transform={`rotate(${grassSway.toFixed(2)}, ${gx + 3}, 760)`}
+            >
+              <path
+                d={`M ${gx},760 Q ${gx - 8},736 ${gx - 17},741 Q ${gx - 4},748 ${gx + 4},760 Q ${gx + 11},734 ${gx + 19},739 Q ${gx + 12},750 ${gx + 22},760 Z`}
+                fill={idx % 2 === 0 ? treeFill : treeDark}
+                stroke="#141414"
+                strokeWidth={2.5}
+              />
+            </g>
+          );
+        })}
+      </g>
 
       {/* Các viên sỏi nhỏ rải tự nhiên trên sân đất vàng */}
       {[

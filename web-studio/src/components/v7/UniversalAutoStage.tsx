@@ -204,6 +204,47 @@ const ScienceLabBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: number; gr
       <rect x={0} y={775} width={1920} height={305} fill={isNight ? "#334155" : "#CBD5E1"} stroke="none" />
       <line x1={0} y1={775} x2={1920} y2={775} stroke="#141414" strokeWidth={3.2} />
 
+      {/* V21.0: Cửa sổ kính bên trái hắt vệt sáng chéo mềm nhẹ vào phòng thí nghiệm */}
+      <g id="lab-window-light">
+        <polygon
+          points="74,392 268,166 545,775 200,775"
+          fill={isNight ? "#BAE6FD" : "#FEF9C3"}
+          opacity={isNight ? 0.07 : 0.18}
+          stroke="none"
+        />
+        <g transform="translate(74, 166)">
+          <rect x={0} y={0} width={194} height={226} rx={10} fill={isNight ? "#0F172A" : "#7DD3FC"} />
+          <polygon points="18,14 92,14 38,104 18,104" fill="#FFFFFF" opacity={isNight ? 0.1 : 0.35} stroke="none" />
+          <line x1={97} y1={0} x2={97} y2={226} stroke="#141414" strokeWidth={3} />
+          <line x1={0} y1={113} x2={194} y2={113} stroke="#141414" strokeWidth={3} />
+          <rect x={0} y={0} width={194} height={226} rx={10} fill="none" stroke="#94A3B8" strokeWidth={7} />
+          <rect x={0} y={0} width={194} height={226} rx={10} fill="none" stroke="#141414" strokeWidth={3} />
+        </g>
+      </g>
+
+      {/* V21.0: Kệ sách khoa học nhỏ treo tường bên trái (x=76..286, thoáng hẳn ngoài vùng nhân vật đứng x>=420) */}
+      <g id="lab-science-bookshelf" transform="translate(76, 456)">
+        {/* E-ke giá đỡ sắt */}
+        <path d="M 28,96 L 28,118 L 46,96 Z" fill="#475569" stroke="#141414" strokeWidth={2.5} />
+        <path d="M 182,96 L 182,118 L 164,96 Z" fill="#475569" stroke="#141414" strokeWidth={2.5} />
+        {/* Các cuốn sách khoa học xếp gọn + quả địa cầu mini */}
+        <rect x={18} y={32} width={22} height={64} rx={3} fill="#EF4444" stroke="#141414" strokeWidth={2.6} />
+        <line x1={23} y1={46} x2={35} y2={46} stroke="#FEF08A" strokeWidth={2.5} />
+        <rect x={42} y={22} width={26} height={74} rx={3} fill="#0284C7" stroke="#141414" strokeWidth={2.6} />
+        <line x1={48} y1={38} x2={62} y2={38} stroke="#E0F2FE" strokeWidth={2.5} />
+        <rect x={70} y={38} width={20} height={58} rx={3} fill="#10B981" stroke="#141414" strokeWidth={2.6} />
+        <rect x={96} y={26} width={24} height={70} rx={3} transform="rotate(8, 108, 96)" fill="#F59E0B" stroke="#141414" strokeWidth={2.6} />
+        {/* Quả địa cầu mini trên kệ */}
+        <g transform="translate(166, 62)">
+          <path d="M -14,34 L 14,34 M 0,24 L 0,34" stroke="#334155" strokeWidth={3.2} strokeLinecap="round" />
+          <path d="M 0,-22 A 23,23 0 0,1 0,24" fill="none" stroke="#475569" strokeWidth={3} />
+          <circle cx={0} cy={0} r={18} fill="#38BDF8" stroke="#141414" strokeWidth={2.6} />
+          <path d="M -9,-8 Q -2,-12 5,-4 Q 10,4 2,10 Q -8,8 -9,-8 Z" fill="#22C55E" stroke="none" />
+        </g>
+        {/* Thanh ván kệ gỗ/thép */}
+        <rect x={0} y={96} width={210} height={14} rx={4} fill={isNight ? "#64748B" : "#B45309"} stroke="#141414" strokeWidth={2.8} />
+      </g>
+
       {/* Bảng trắng khoa học chính giữa tường */}
       <g transform="translate(560, 165)">
         <rect x={0} y={0} width={760} height={330} rx={14} fill="#FFFFFF" stroke="#64748B" strokeWidth={9} />
@@ -231,6 +272,19 @@ const ScienceLabBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: number; gr
 
       {/* Bàn thí nghiệm gọn bên phải (x=1485..1895, thoáng sạch cho nhân vật slot RIGHT đứng cạnh!) */}
       <g transform="translate(1485, 560)">
+        {/* V21.0: Bóng đổ mềm dưới chân bàn thí nghiệm */}
+        <ellipse
+          id="lab-table-shadow"
+          cx={200}
+          cy={279}
+          rx={210}
+          ry={14}
+          fill="#0F172A"
+          opacity={isNight ? 0.34 : 0.16}
+          stroke="none"
+        />
+        <ellipse cx={30} cy={279} rx={26} ry={6} fill="#0F172A" opacity={0.22} stroke="none" />
+        <ellipse cx={370} cy={279} rx={26} ry={6} fill="#0F172A" opacity={0.22} stroke="none" />
         <rect x={0} y={100} width={400} height={24} rx={6} fill="#64748B" />
         <rect x={20} y={124} width={20} height={155} fill="#475569" />
         <rect x={360} y={124} width={20} height={155} fill="#475569" />
@@ -1568,6 +1622,7 @@ export const UniversalAutoStage: React.FC<{
   interface ResolvedActorRenderData {
     actor: AutoActorSpec;
     aIdx: number;
+    actorBlinkSeed: number;
     actorScale: number;
     isLieSleepMode: boolean;
     sleepAnchorX: number;
@@ -1612,6 +1667,8 @@ export const UniversalAutoStage: React.FC<{
 
   const resolvedActors: ResolvedActorRenderData[] = spec.actors.map((actor, aIdx) => {
     const actorScale = resolvePresetDefaultScale(actor.preset); // V18.3: BOY=0.76, Người lớn=1.0
+    const presetHash = Array.from(actor.preset).reduce((acc, ch) => acc * 31 + ch.charCodeAt(0), 7);
+    const actorBlinkSeed = aIdx * 97 + presetHash; // V21.0: Lệch pha chớp mắt & nhịp thở rõ rệt theo actor index + preset
     const baseX = pinSoloActorLeft
       ? SOLO_CUSTOM_VISUAL_ACTOR_X
       : centerSoloExplainer
@@ -1647,6 +1704,7 @@ export const UniversalAutoStage: React.FC<{
       return {
         actor,
         aIdx,
+        actorBlinkSeed,
         actorScale,
         isLieSleepMode: true,
         sleepAnchorX,
@@ -1966,8 +2024,13 @@ export const UniversalAutoStage: React.FC<{
     }
 
     const facingDir: 1 | -1 = effectiveFacing === "LEFT" ? -1 : 1;
-    const actorBlinkSeed = aIdx * 13 + (actor.preset.charCodeAt(0) || 7);
-    const actorIdleBreathFactor = computeStickmanIdleBreathFactor(frame, actorBlinkSeed, true);
+    const isActorWalking = (pose === "walking" || pose === "running" || walkCycle > 0) && walkWeight > 0.02;
+    const actorIdleBreathFactor = computeStickmanIdleBreathFactor(
+      frame,
+      actorBlinkSeed,
+      true,
+      isActorWalking ? walkWeight : 0
+    );
     const actorEffectiveScaleY = actorScale * actorIdleBreathFactor * anticipationScaleY;
     const estHipY = -173 + crouchDepth - flightLift;
     const headWorldY = groundY + (estHipY - TORSO_LEN - 70) * actorEffectiveScaleY;
@@ -2049,6 +2112,7 @@ export const UniversalAutoStage: React.FC<{
     return {
       actor,
       aIdx,
+      actorBlinkSeed,
       actorScale,
       isLieSleepMode: false,
       sleepAnchorX: baseX,
@@ -2426,10 +2490,10 @@ export const UniversalAutoStage: React.FC<{
                   v18LocalFrame: ra.v18LocalFrame,
                   blendedArmPose: ra.blendedArmPose,
                   lookOffset,
-                  blinkSeed: aIdx * 13 + (actor.preset.charCodeAt(0) || 7),
+                  blinkSeed: ra.actorBlinkSeed,
                   nodAmplitudeDeg,
                   nodFreq: ra.v18ActionPose === "TALK_GESTURE" ? 0.11 : 0.13,
-                  isSpeaking: ra.isSpeaking,
+                  isSpeaking: ra.isSpeaking || ra.v18ActionPose === "TALK_GESTURE",
                   eyes: ra.overrideEyes ?? expr.eyes,
                   eyebrows: ra.overrideEyebrows ?? expr.eyebrows,
                   mouth: ra.overrideMouth ?? expr.mouth,
@@ -2557,7 +2621,7 @@ export const UniversalAutoStage: React.FC<{
               return (
                 <ComicSpeechBubble
                   key={`bubble_sleep_${spec.id}_${aIdx}`}
-                  x={Math.max(240, Math.min(1680, headX - 90))}
+                  x={Math.max(180, Math.min(1740, headX - 90))}
                   y={headY - 190}
                   mouthX={headX - 8}
                   mouthY={headY + 12}
@@ -2576,7 +2640,7 @@ export const UniversalAutoStage: React.FC<{
             return (
               <ComicSpeechBubble
                 key={`bubble_${spec.id}_${aIdx}`}
-                x={Math.max(220, Math.min(1700, ra.actorX + facingDir * 85))}
+                x={Math.max(180, Math.min(1740, ra.actorX + facingDir * 85))}
                 y={headTopWorldY - 76}
                 mouthX={ra.actorX + facingDir * 22 * ra.actorScale}
                 mouthY={mouthWorldY}

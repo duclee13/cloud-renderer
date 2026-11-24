@@ -1370,7 +1370,7 @@ export const MoiCanhTipWoodMoistureVisual: React.FC<EpisodeVisualProps> = ({
       ? 'Mẹo 3: Giữ đồ gỗ khô thoáng'
       : activeStep === 1
       ? 'Trám kín khe nứt tường & gỗ'
-      : 'Gỗ khô + Khe kín = Không có tổ mối';
+      : 'Mẹo 3: Ngăn mối lập tổ lâu dài';
 
   return (
     <svg viewBox="0 0 1920 1080" style={{ width: '100%', height: '100%', display: 'block' }}>
@@ -2004,15 +2004,7 @@ export const MoiCanhSummary3RulesVisual: React.FC<EpisodeVisualProps> = ({
             expression="HAPPY"
             frame={frame}
           />
-          <CleanLabel
-            x={1060}
-            y={758}
-            text="Chia sẻ cho cả nhà nhé!"
-            bg="#fef08a"
-            border="#d97706"
-            color="#78350f"
-            fontSize={32}
-          />
+          <ShortSpeechBubble x={1060} y={758} text="Chia sẻ cho cả nhà nhé!" tailDir="LEFT" />
         </g>
       ) : null}
     </svg>
