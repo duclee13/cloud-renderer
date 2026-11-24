@@ -14,8 +14,10 @@ import {
   ExternalLink,
   Eye,
   EyeOff,
+  FileText,
   Film,
   Gauge,
+  GitBranch,
   History,
   KeyRound,
   Layers,
@@ -27,6 +29,7 @@ import {
   ShieldAlert,
   Sparkles,
   Square,
+  Upload,
   Volume2,
   X,
   XCircle,
@@ -43,6 +46,40 @@ import type {
 const VM_COUNT_OPTIONS = [8, 12, 16, 20] as const;
 const PIN_STORAGE_KEY = "cloud_dashboard_pin_v1";
 const POLL_INTERVAL_MS = 4000; // Auto-poll 4 giây/lần khi run đang chạy
+const SAFE_EPISODE_FILENAME_RE = /^[a-zA-Z0-9._-]+$/;
+
+interface LocalEpisodeDraft {
+  originalName: string;
+  filename: string;
+  content: string;
+  sizeBytes: number;
+  title: string;
+  beatsCount: number;
+}
+
+type UploadPipelinePhase =
+  | "idle"
+  | "uploading"
+  | "committed"
+  | "dispatched"
+  | "error";
+
+function sanitizeEpisodeFilename(rawName: string): string {
+  const baseOnly = rawName
+    .trim()
+    .replace(/^.*[\\/]/, "")
+    .replace(/\.json$/i, "");
+  const ascii = baseOnly
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ/g, "d")
+    .replace(/Đ/g, "D")
+    .replace(/[^a-zA-Z0-9._-]+/g, "_")
+    .replace(/_+/g, "_")
+    .replace(/^[._-]+|[._-]+$/g, "");
+  const cleanStem = ascii || `episode_${Date.now()}`;
+  return `${cleanStem}.json`;
+}
 
 function formatDuration(sec: number | null | undefined): string {
   if (sec === null || sec === undefined || !Number.isFinite(sec) || sec < 0) {
@@ -217,7 +254,19 @@ export default function CloudDashboardPage() {
   const [episodesError, setEpisodesError] = useState<string | null>(null);
 
   // Dispatch Form State
+  const [sourceMode, setSourceMode] = useState<"github" | "local">("github");
   const [selectedEpisode, setSelectedEpisode] = useState("");
+  const [localDraft, setLocalDraft] = useState<LocalEpisodeDraft | null>(null);
+  const [localParseError, setLocalParseError] = useState<string | null>(null);
+  const [isDraggingFile, setIsDraggingFile] = useState(false);
+  const [uploadPhase, setUploadPhase] = useState<UploadPipelinePhase>("idle");
+  const [lastUploadMeta, setLastUploadMeta] = useState<{
+    commitSha: string | null;
+    overwritten: boolean;
+    episodeFile: string;
+  } | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
   const [vmCount, setVmCount] = useState<number>(16);
   const [outputName, setOutputName] = useState("");
   const [outputTouched, setOutputTouched] = useState(false);
@@ -440,6 +489,119 @@ export default function CloudDashboardPage() {
     return () => window.clearInterval(t);
   }, [runDetail?.run]);
 
+  // Switch between GitHub dropdown and Local .json upload
+  const handleSwitchSourceMode = (mode: "github" | "local") => {
+    setSourceMode(mode);
+    setDispatchFeedback(null);
+    if (mode === "local" && localDraft && !outputTouched) {
+      setOutputName(localDraft.filename.replace(/\.json$/i, ".mp4"));
+    } else if (mode === "github" && selectedEpisode && !outputTouched) {
+      const found = episodes.find((e) => e.path === selectedEpisode);
+      setOutputName(
+        found
+          ? found.suggestedOutput
+          : selectedEpisode.replace(/^episodes\//, "").replace(/\.json$/i, ".mp4")
+      );
+    }
+  };
+
+  // Read & validate local .json file via FileReader
+  const handleLocalFileChosen = (file: File | null | undefined) => {
+    if (!file) return;
+    setDispatchFeedback(null);
+    setUploadPhase("idle");
+    setLastUploadMeta(null);
+
+    if (!file.name.toLowerCase().endsWith(".json")) {
+      setLocalDraft(null);
+      setLocalParseError("Vui lòng chọn đúng định dạng file kịch bản .json.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onerror = () => {
+      setLocalDraft(null);
+      setLocalParseError("Không thể đọc nội dung file từ máy tính.");
+    };
+    reader.onload = () => {
+      const rawText = typeof reader.result === "string" ? reader.result : "";
+      if (!rawText.trim()) {
+        setLocalDraft(null);
+        setLocalParseError("File .json đang trống.");
+        return;
+      }
+
+      let parsed: Record<string, unknown>;
+      try {
+        const val = JSON.parse(rawText);
+        if (!val || typeof val !== "object" || Array.isArray(val)) {
+          setLocalDraft(null);
+          setLocalParseError("Cấu trúc gốc của file JSON phải là một Object.");
+          return;
+        }
+        parsed = val as Record<string, unknown>;
+      } catch (err) {
+        setLocalDraft(null);
+        setLocalParseError(
+          `File JSON lỗi cú pháp: ${
+            err instanceof Error ? err.message : "Không thể parse JSON"
+          }`
+        );
+        return;
+      }
+
+      if (!Array.isArray(parsed.beats) || parsed.beats.length === 0) {
+        setLocalDraft(null);
+        setLocalParseError(
+          "Kịch bản thiếu mảng 'beats' hoặc chưa có beat nào (beats.length === 0)."
+        );
+        return;
+      }
+
+      const safeFilename = sanitizeEpisodeFilename(file.name);
+      if (safeFilename === "current_episode.json") {
+        setLocalDraft(null);
+        setLocalParseError(
+          "Không dùng tên trùng với current_episode.json. Hãy đổi tên file kịch bản trước khi tải lên."
+        );
+        return;
+      }
+
+      const rawTitle =
+        (typeof parsed.title === "string" && parsed.title.trim()) ||
+        (typeof parsed.episodeTitle === "string" && parsed.episodeTitle.trim()) ||
+        safeFilename.replace(/\.json$/i, "");
+
+      setLocalParseError(null);
+      setLocalDraft({
+        originalName: file.name,
+        filename: safeFilename,
+        content: rawText,
+        sizeBytes: file.size,
+        title: rawTitle,
+        beatsCount: parsed.beats.length,
+      });
+
+      const suggestedMp4 = safeFilename.replace(/\.json$/i, ".mp4");
+      setOutputName(suggestedMp4);
+      setOutputTouched(false);
+    };
+
+    reader.readAsText(file, "UTF-8");
+  };
+
+  const handleLocalFilenameChange = (val: string) => {
+    if (!localDraft) return;
+    const trimmed = val.trim();
+    setLocalDraft({ ...localDraft, filename: trimmed });
+    if (!outputTouched && trimmed) {
+      const cleanMp4 = trimmed.toLowerCase().endsWith(".json")
+        ? trimmed.replace(/\.json$/i, ".mp4")
+        : `${trimmed}.mp4`;
+      setOutputName(cleanMp4);
+    }
+  };
+
   // Handle Episode Change -> auto-suggest output_name unless manually overridden
   const handleSelectEpisode = (epPath: string) => {
     setSelectedEpisode(epPath);
@@ -454,6 +616,14 @@ export default function CloudDashboardPage() {
   };
 
   const resetSuggestedOutput = () => {
+    if (sourceMode === "local" && localDraft) {
+      const base = localDraft.filename.toLowerCase().endsWith(".json")
+        ? localDraft.filename.replace(/\.json$/i, ".mp4")
+        : `${localDraft.filename}.mp4`;
+      setOutputName(base);
+      setOutputTouched(false);
+      return;
+    }
     const found = episodes.find((e) => e.path === selectedEpisode);
     const nextOut = found
       ? found.suggestedOutput
@@ -462,9 +632,124 @@ export default function CloudDashboardPage() {
     setOutputTouched(false);
   };
 
-  // Dispatch Cloud Render
+  // Dispatch Cloud Render (either from GitHub selection or Upload & Run from local file)
   const handleDispatch = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (sourceMode === "local") {
+      if (!localDraft) {
+        setDispatchFeedback({
+          type: "error",
+          text: "Vui lòng kéo-thả hoặc chọn một file kịch bản .json từ máy tính.",
+        });
+        return;
+      }
+
+      const fn = localDraft.filename.trim();
+      if (
+        !fn ||
+        !SAFE_EPISODE_FILENAME_RE.test(fn) ||
+        !fn.endsWith(".json") ||
+        fn === ".json" ||
+        fn.includes("..")
+      ) {
+        setDispatchFeedback({
+          type: "error",
+          text: "Tên file trên GitHub chỉ được chứa ký tự [a-zA-Z0-9._-] và kết thúc bằng .json.",
+        });
+        return;
+      }
+
+      setDispatching(true);
+      setDispatchFeedback(null);
+      setLastUploadMeta(null);
+      setUploadPhase("uploading");
+
+      try {
+        const res = await fetch("/api/episodes/upload", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-dashboard-pin": pin.trim(),
+          },
+          body: JSON.stringify({
+            filename: fn,
+            content: localDraft.content,
+            autoDispatch: true,
+            totalChapters: vmCount,
+            outputName: outputName.trim(),
+            previewOnly,
+          }),
+        });
+
+        const data = await res.json();
+
+        if (data?.commitSha || data?.episodeFile) {
+          setLastUploadMeta({
+            commitSha: data.commitSha || null,
+            overwritten: Boolean(data.overwritten),
+            episodeFile: data.episodeFile || `episodes/${fn}`,
+          });
+        }
+
+        if (!res.ok) {
+          setUploadPhase("error");
+          let errText =
+            data?.error || "Không thể tải kịch bản lên GitHub và chạy Render.";
+          if (res.status === 401) {
+            errText =
+              data?.error ||
+              "Sai hoặc thiếu mã PIN bảo mật (401). Vui lòng kiểm tra lại mã PIN.";
+          } else if (res.status === 403) {
+            errText =
+              data?.error ||
+              'Từ chối quyền GitHub (403): Hãy kiểm tra GITHUB_TOKEN đã được cấp quyền "Contents: Read and write" và "Actions: Read and write" chưa.';
+          }
+          setDispatchFeedback({
+            type: "error",
+            text: errText,
+          });
+          if (data?.commitSha) {
+            void fetchEpisodes();
+          }
+          return;
+        }
+
+        setUploadPhase("committed");
+        window.setTimeout(() => {
+          setUploadPhase("dispatched");
+        }, 320);
+
+        setDispatchFeedback({
+          type: "success",
+          text:
+            data.message ||
+            `Đã commit ${data.episodeFile} & kích hoạt Cloud Render thành công!`,
+        });
+
+        if (typeof data.episodeFile === "string") {
+          setSelectedEpisode(data.episodeFile);
+        }
+
+        await fetchEpisodes();
+        fetchRuns(true, false);
+        window.setTimeout(() => fetchRuns(true, false), 2500);
+        window.setTimeout(() => fetchRuns(true, false), 6000);
+      } catch (err) {
+        setUploadPhase("error");
+        setDispatchFeedback({
+          type: "error",
+          text:
+            err instanceof Error
+              ? err.message
+              : "Lỗi kết nối tới API /api/episodes/upload.",
+        });
+      } finally {
+        setDispatching(false);
+      }
+      return;
+    }
+
     if (!selectedEpisode) {
       setDispatchFeedback({
         type: "error",
@@ -493,9 +778,15 @@ export default function CloudDashboardPage() {
 
       const data = await res.json();
       if (!res.ok) {
+        let errText = data.error || "Không thể khởi chạy workflow.";
+        if (res.status === 401) {
+          errText =
+            data.error ||
+            "Sai hoặc thiếu mã PIN bảo mật (401). Vui lòng kiểm tra lại mã PIN.";
+        }
         setDispatchFeedback({
           type: "error",
-          text: data.error || "Không thể khởi chạy workflow.",
+          text: errText,
         });
         return;
       }
@@ -708,50 +999,354 @@ export default function CloudDashboardPage() {
             </div>
 
             <form onSubmit={handleDispatch} className="space-y-4">
-              {/* Episode Dropdown */}
-              <div>
-                <div className="mb-1.5 flex items-center justify-between">
-                  <label
-                    htmlFor="episode-select"
-                    className="text-xs font-semibold uppercase tracking-wider text-slate-300"
-                  >
-                    Tập kịch bản JSON
-                  </label>
-                  <span className="font-mono text-[11px] text-slate-400">
-                    {loadingEpisodes
-                      ? "Đang tải..."
-                      : `${episodes.length} tập sẵn sàng`}
-                  </span>
-                </div>
-
-                {episodes.length > 0 ? (
-                  <select
-                    id="episode-select"
-                    value={selectedEpisode}
-                    onChange={(e) => handleSelectEpisode(e.target.value)}
-                    className="min-h-[44px] w-full cursor-pointer rounded-xl border border-white/10 bg-[#0b1120] px-3.5 py-2.5 font-mono text-xs text-slate-100 transition focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400/30"
-                  >
-                    {episodes.map((ep) => (
-                      <option key={ep.path} value={ep.path}>
-                        {ep.name} ({Math.max(1, Math.round(ep.size / 1024))} KB)
-                      </option>
-                    ))}
-                  </select>
-                ) : (
-                  <input
-                    id="episode-select"
-                    type="text"
-                    value={selectedEpisode}
-                    onChange={(e) => handleSelectEpisode(e.target.value)}
-                    placeholder="episodes/tai_sao_bi_say_xe_v20.json"
-                    className="min-h-[44px] w-full rounded-xl border border-white/10 bg-[#0b1120] px-3.5 py-2.5 font-mono text-xs text-slate-100 placeholder:text-slate-500 focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400/30"
-                  />
-                )}
-
-                {episodesError && (
-                  <p className="mt-1.5 text-xs text-amber-300">{episodesError}</p>
-                )}
+              {/* Source Mode Tabs: Chọn trên GitHub | Tải .json từ máy */}
+              <div
+                role="tablist"
+                aria-label="Nguồn kịch bản tập phim"
+                className="grid grid-cols-2 gap-1.5 rounded-xl border border-white/10 bg-[#0b1120] p-1"
+              >
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={sourceMode === "github"}
+                  onClick={() => handleSwitchSourceMode("github")}
+                  className={`flex min-h-[38px] cursor-pointer items-center justify-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 ${
+                    sourceMode === "github"
+                      ? "bg-sky-500/20 text-sky-200 border border-sky-400/40 shadow-[0_0_12px_rgba(56,189,248,0.15)]"
+                      : "border border-transparent text-slate-400 hover:text-slate-200"
+                  }`}
+                >
+                  <GitBranch className="h-3.5 w-3.5" aria-hidden="true" />
+                  <span>Chọn trên GitHub</span>
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={sourceMode === "local"}
+                  onClick={() => handleSwitchSourceMode("local")}
+                  className={`flex min-h-[38px] cursor-pointer items-center justify-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 ${
+                    sourceMode === "local"
+                      ? "bg-emerald-500/20 text-emerald-200 border border-emerald-400/40 shadow-[0_0_12px_rgba(52,211,153,0.15)]"
+                      : "border border-transparent text-slate-400 hover:text-slate-200"
+                  }`}
+                >
+                  <Upload className="h-3.5 w-3.5" aria-hidden="true" />
+                  <span>Tải .json từ máy</span>
+                </button>
               </div>
+
+              {sourceMode === "github" ? (
+                /* TAB 1: Episode Dropdown on GitHub */
+                <div>
+                  <div className="mb-1.5 flex items-center justify-between">
+                    <label
+                      htmlFor="episode-select"
+                      className="text-xs font-semibold uppercase tracking-wider text-slate-300"
+                    >
+                      Tập kịch bản JSON
+                    </label>
+                    <span className="font-mono text-[11px] text-slate-400">
+                      {loadingEpisodes
+                        ? "Đang tải..."
+                        : `${episodes.length} tập sẵn sàng`}
+                    </span>
+                  </div>
+
+                  {episodes.length > 0 ? (
+                    <select
+                      id="episode-select"
+                      value={selectedEpisode}
+                      onChange={(e) => handleSelectEpisode(e.target.value)}
+                      className="min-h-[44px] w-full cursor-pointer rounded-xl border border-white/10 bg-[#0b1120] px-3.5 py-2.5 font-mono text-xs text-slate-100 transition focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400/30"
+                    >
+                      {episodes.map((ep) => (
+                        <option key={ep.path} value={ep.path}>
+                          {ep.name} ({Math.max(1, Math.round(ep.size / 1024))} KB)
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    <input
+                      id="episode-select"
+                      type="text"
+                      value={selectedEpisode}
+                      onChange={(e) => handleSelectEpisode(e.target.value)}
+                      placeholder="episodes/tai_sao_bi_say_xe_v20.json"
+                      className="min-h-[44px] w-full rounded-xl border border-white/10 bg-[#0b1120] px-3.5 py-2.5 font-mono text-xs text-slate-100 placeholder:text-slate-500 focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400/30"
+                    />
+                  )}
+
+                  {episodesError && (
+                    <p className="mt-1.5 text-xs text-amber-300">{episodesError}</p>
+                  )}
+                </div>
+              ) : (
+                /* TAB 2: Drag & Drop or Pick Local .json File */
+                <div className="space-y-3">
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept=".json,application/json"
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      handleLocalFileChosen(f);
+                      e.target.value = "";
+                    }}
+                    className="sr-only"
+                    aria-label="Chọn file kịch bản JSON từ máy tính"
+                  />
+
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => fileInputRef.current?.click()}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        fileInputRef.current?.click();
+                      }
+                    }}
+                    onDragEnter={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setIsDraggingFile(true);
+                    }}
+                    onDragOver={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      if (!isDraggingFile) setIsDraggingFile(true);
+                    }}
+                    onDragLeave={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setIsDraggingFile(false);
+                    }}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setIsDraggingFile(false);
+                      const dropped = e.dataTransfer.files?.[0];
+                      handleLocalFileChosen(dropped);
+                    }}
+                    className={`flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed px-4 py-4 text-center transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 ${
+                      isDraggingFile
+                        ? "border-emerald-400 bg-emerald-500/15 text-emerald-100"
+                        : localDraft
+                        ? "border-emerald-500/40 bg-emerald-950/20 hover:border-emerald-400/60"
+                        : "border-slate-700 bg-[#0b1120]/90 text-slate-300 hover:border-sky-400/50 hover:bg-[#0e1628]"
+                    }`}
+                  >
+                    <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-slate-900/90 text-emerald-300">
+                      <Upload className="h-4 w-4" aria-hidden="true" />
+                    </div>
+                    <p className="text-xs font-semibold text-slate-100">
+                      {localDraft
+                        ? "Bấm hoặc kéo-thả để đổi file .json khác"
+                        : "Kéo-thả file .json vào đây hoặc bấm để chọn"}
+                    </p>
+                    <p className="mt-0.5 text-[11px] text-slate-400">
+                      Tự động commit lên{" "}
+                      <code className="font-mono text-slate-300">
+                        web-studio/episodes/
+                      </code>{" "}
+                      nhánh {branchLabel}
+                    </p>
+                  </div>
+
+                  {localParseError && (
+                    <div
+                      role="alert"
+                      className="flex items-start gap-2 rounded-xl border border-rose-500/40 bg-rose-500/10 p-3 text-xs text-rose-200"
+                    >
+                      <XCircle
+                        className="mt-0.5 h-4 w-4 shrink-0 text-rose-400"
+                        aria-hidden="true"
+                      />
+                      <span>{localParseError}</span>
+                    </div>
+                  )}
+
+                  {localDraft && (
+                    <div className="space-y-2.5 rounded-xl border border-emerald-500/30 bg-[#0b1120] p-3">
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex min-w-0 items-start gap-2">
+                          <FileText
+                            className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400"
+                            aria-hidden="true"
+                          />
+                          <div className="min-w-0">
+                            <p
+                              className="truncate text-xs font-bold text-white"
+                              title={localDraft.title}
+                            >
+                              {localDraft.title}
+                            </p>
+                            <div className="mt-1 flex flex-wrap items-center gap-1.5 text-[11px]">
+                              <span className="rounded-md border border-emerald-400/30 bg-emerald-500/15 px-1.5 py-0.5 font-mono font-semibold text-emerald-300">
+                                {localDraft.beatsCount} beats
+                              </span>
+                              <span className="font-mono text-slate-400">
+                                {Math.max(1, Math.round(localDraft.sizeBytes / 1024))} KB
+                              </span>
+                              {episodes.some(
+                                (ep) => ep.name === localDraft.filename.trim()
+                              ) ? (
+                                <span className="rounded-md border border-amber-400/30 bg-amber-500/10 px-1.5 py-0.5 text-[10px] font-medium text-amber-300">
+                                  Ghi đè bản cũ
+                                </span>
+                              ) : (
+                                <span className="rounded-md border border-sky-400/30 bg-sky-500/10 px-1.5 py-0.5 text-[10px] font-medium text-sky-300">
+                                  Tạo file mới
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setLocalDraft(null);
+                            setUploadPhase("idle");
+                            setLastUploadMeta(null);
+                          }}
+                          aria-label="Xóa file đã chọn"
+                          className="cursor-pointer rounded-lg p-1 text-slate-400 hover:bg-slate-800 hover:text-slate-200"
+                        >
+                          <X className="h-3.5 w-3.5" aria-hidden="true" />
+                        </button>
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="local-filename-input"
+                          className="mb-1 block text-[11px] font-medium text-slate-400"
+                        >
+                          Tên file lưu trong{" "}
+                          <code className="font-mono text-slate-300">
+                            web-studio/episodes/
+                          </code>
+                        </label>
+                        <input
+                          id="local-filename-input"
+                          type="text"
+                          value={localDraft.filename}
+                          onChange={(e) => handleLocalFilenameChange(e.target.value)}
+                          className="min-h-[36px] w-full rounded-lg border border-white/10 bg-slate-950/80 px-2.5 py-1.5 font-mono text-xs text-emerald-200 focus:border-emerald-400 focus:outline-none focus:ring-1 focus:ring-emerald-400/40"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 3-Step Upload -> Commit -> Dispatch Progress Indicator */}
+                  {uploadPhase !== "idle" && (
+                    <div
+                      role="status"
+                      aria-live="polite"
+                      className="rounded-xl border border-white/10 bg-[#0b1120]/95 p-3"
+                    >
+                      <div className="grid grid-cols-3 gap-1.5 text-[11px] font-semibold">
+                        {/* Step 1: Uploading */}
+                        <div
+                          className={`flex items-center gap-1.5 rounded-lg border px-2 py-1.5 ${
+                            uploadPhase === "uploading"
+                              ? "border-sky-400/50 bg-sky-500/15 text-sky-200"
+                              : uploadPhase === "committed" ||
+                                uploadPhase === "dispatched" ||
+                                Boolean(lastUploadMeta?.commitSha)
+                              ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-300"
+                              : "border-rose-500/40 bg-rose-500/10 text-rose-300"
+                          }`}
+                        >
+                          {uploadPhase === "uploading" ? (
+                            <Loader2
+                              className="h-3.5 w-3.5 shrink-0 animate-spin"
+                              aria-hidden="true"
+                            />
+                          ) : uploadPhase === "committed" ||
+                            uploadPhase === "dispatched" ||
+                            Boolean(lastUploadMeta?.commitSha) ? (
+                            <CheckCircle2
+                              className="h-3.5 w-3.5 shrink-0"
+                              aria-hidden="true"
+                            />
+                          ) : (
+                            <XCircle
+                              className="h-3.5 w-3.5 shrink-0"
+                              aria-hidden="true"
+                            />
+                          )}
+                          <span className="truncate">Tải lên GitHub</span>
+                        </div>
+
+                        {/* Step 2: Committed */}
+                        <div
+                          className={`flex items-center gap-1.5 rounded-lg border px-2 py-1.5 ${
+                            uploadPhase === "committed" ||
+                            uploadPhase === "dispatched" ||
+                            Boolean(lastUploadMeta?.commitSha)
+                              ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-300"
+                              : uploadPhase === "uploading"
+                              ? "border-slate-800 bg-slate-900/70 text-slate-500"
+                              : "border-rose-500/35 bg-rose-500/10 text-rose-300"
+                          }`}
+                        >
+                          {uploadPhase === "committed" ||
+                          uploadPhase === "dispatched" ||
+                          Boolean(lastUploadMeta?.commitSha) ? (
+                            <CheckCircle2
+                              className="h-3.5 w-3.5 shrink-0"
+                              aria-hidden="true"
+                            />
+                          ) : (
+                            <span className="h-2 w-2 shrink-0 rounded-full bg-current opacity-60" />
+                          )}
+                          <span className="truncate">
+                            {lastUploadMeta?.commitSha
+                              ? `Commit ${lastUploadMeta.commitSha.slice(0, 7)}`
+                              : "Đã commit"}
+                          </span>
+                        </div>
+
+                        {/* Step 3: Dispatched VM */}
+                        <div
+                          className={`flex items-center gap-1.5 rounded-lg border px-2 py-1.5 ${
+                            uploadPhase === "dispatched"
+                              ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-300"
+                              : uploadPhase === "committed"
+                              ? "border-sky-400/50 bg-sky-500/15 text-sky-200"
+                              : uploadPhase === "error" &&
+                                Boolean(lastUploadMeta?.commitSha)
+                              ? "border-rose-500/40 bg-rose-500/10 text-rose-300"
+                              : "border-slate-800 bg-slate-900/70 text-slate-500"
+                          }`}
+                        >
+                          {uploadPhase === "dispatched" ? (
+                            <CheckCircle2
+                              className="h-3.5 w-3.5 shrink-0"
+                              aria-hidden="true"
+                            />
+                          ) : uploadPhase === "committed" ? (
+                            <Loader2
+                              className="h-3.5 w-3.5 shrink-0 animate-spin"
+                              aria-hidden="true"
+                            />
+                          ) : uploadPhase === "error" &&
+                            Boolean(lastUploadMeta?.commitSha) ? (
+                            <XCircle
+                              className="h-3.5 w-3.5 shrink-0"
+                              aria-hidden="true"
+                            />
+                          ) : (
+                            <span className="h-2 w-2 shrink-0 rounded-full bg-current opacity-60" />
+                          )}
+                          <span className="truncate">Khởi chạy VM</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* VM Count Selector (8 / 12 / 16 / 20) */}
               <div>
@@ -921,16 +1516,34 @@ export default function CloudDashboardPage() {
                 </div>
               )}
 
-              {/* Primary CTA: Run Cloud Render */}
+              {/* Primary CTA: Run Cloud Render / Upload & Run Cloud Render */}
               <button
                 type="submit"
-                disabled={dispatching || !selectedEpisode}
+                disabled={
+                  dispatching ||
+                  (sourceMode === "github"
+                    ? !selectedEpisode
+                    : !localDraft || Boolean(localParseError))
+                }
                 className="flex min-h-[48px] w-full cursor-pointer items-center justify-center gap-2.5 rounded-xl bg-emerald-500 px-4 py-3 text-sm font-bold text-slate-950 shadow-[0_0_24px_rgba(34,197,94,0.32)] transition hover:bg-emerald-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {dispatching ? (
                   <>
                     <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
-                    <span>Đang gửi lệnh lên GitHub...</span>
+                    <span>
+                      {sourceMode === "local"
+                        ? "Đang tải lên GitHub & khởi chạy VM..."
+                        : "Đang gửi lệnh lên GitHub..."}
+                    </span>
+                  </>
+                ) : sourceMode === "local" ? (
+                  <>
+                    <Upload className="h-4 w-4" aria-hidden="true" />
+                    <span>
+                      {previewOnly
+                        ? "Upload & Run Cloud Render (Preview)"
+                        : `Upload & Run Cloud Render (${vmCount} VMs)`}
+                    </span>
                   </>
                 ) : (
                   <>
