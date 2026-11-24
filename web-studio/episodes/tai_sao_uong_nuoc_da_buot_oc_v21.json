@@ -27,7 +27,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -38,7 +38,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -50,7 +50,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -80,7 +80,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -91,7 +91,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -103,7 +103,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -133,7 +133,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -144,7 +144,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -156,7 +156,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -183,7 +183,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.45,
               "startX": 520,
               "endX": 520,
@@ -204,7 +204,7 @@
             },
             {
               "fromPct": 0.8,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 520,
               "endX": 520,
               "facing": "RIGHT",
@@ -214,8 +214,8 @@
             }
           ],
           "bubble": "Sao buốt tận trán?",
-          "bubbleStartPct": 0.2,
-          "bubbleEndPct": 0.88
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
         },
         {
           "preset": "GRANDPA",
@@ -226,7 +226,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 1220,
               "endX": 1220,
@@ -237,7 +237,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 1220,
               "endX": 1220,
               "facing": "LEFT",
@@ -249,7 +249,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -276,7 +276,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 520,
               "endX": 520,
@@ -287,7 +287,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 520,
               "endX": 520,
               "facing": "RIGHT",
@@ -306,7 +306,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.45,
               "startX": 1220,
               "endX": 1220,
@@ -327,7 +327,7 @@
             },
             {
               "fromPct": 0.8,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 1220,
               "endX": 1220,
               "facing": "LEFT",
@@ -337,12 +337,12 @@
             }
           ],
           "bubble": "Hỏi bác sĩ luôn!",
-          "bubbleStartPct": 0.2,
-          "bubbleEndPct": 0.88
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -372,7 +372,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -383,7 +383,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -395,7 +395,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -425,7 +425,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -436,7 +436,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -448,7 +448,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -478,7 +478,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -489,7 +489,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -501,7 +501,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -528,7 +528,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 360,
               "endX": 360,
@@ -539,7 +539,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 360,
               "endX": 360,
               "facing": "RIGHT",
@@ -558,7 +558,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.45,
               "startX": 760,
               "endX": 760,
@@ -579,7 +579,7 @@
             },
             {
               "fromPct": 0.8,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 760,
               "endX": 760,
               "facing": "RIGHT",
@@ -588,9 +588,9 @@
               "handProp": "NONE"
             }
           ],
-          "bubble": "Não không biết đau ạ?",
-          "bubbleStartPct": 0.2,
-          "bubbleEndPct": 0.88
+          "bubble": "Không biết đau ạ?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
         },
         {
           "preset": "DOCTOR",
@@ -601,7 +601,7 @@
           "handProp": "NOTEBOOK",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 1280,
               "endX": 1280,
@@ -612,7 +612,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 1280,
               "endX": 1280,
               "facing": "LEFT",
@@ -624,7 +624,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -651,7 +651,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 360,
               "endX": 360,
@@ -662,7 +662,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 360,
               "endX": 360,
               "facing": "RIGHT",
@@ -681,7 +681,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 760,
               "endX": 760,
@@ -692,7 +692,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 760,
               "endX": 760,
               "facing": "RIGHT",
@@ -711,7 +711,7 @@
           "handProp": "NOTEBOOK",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.45,
               "startX": 1280,
               "endX": 1280,
@@ -732,7 +732,7 @@
             },
             {
               "fromPct": 0.8,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 1280,
               "endX": 1280,
               "facing": "LEFT",
@@ -742,12 +742,12 @@
             }
           ],
           "bubble": "Chính là vòm miệng!",
-          "bubbleStartPct": 0.2,
-          "bubbleEndPct": 0.88
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -777,7 +777,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -788,7 +788,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -800,7 +800,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -830,7 +830,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -841,7 +841,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -853,7 +853,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -883,7 +883,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -894,7 +894,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -906,7 +906,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -936,7 +936,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -947,7 +947,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -959,7 +959,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -989,7 +989,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -1000,7 +1000,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -1012,7 +1012,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -1042,7 +1042,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -1053,7 +1053,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -1065,7 +1065,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -1073,9 +1073,9 @@
     },
     {
       "id": "b17",
-      "text": "Cậu bé gãi đầu tò mò hỏi bác sĩ rằng các mạch máu sẽ phản ứng ra sao khi nước đá lạnh bất ngờ chạm vào vòm miệng.",
-      "ttsText": "Cậu bé gãi đầu tò mò hỏi bác sĩ rằng các mạch máu sẽ phản ứng ra sao khi nước đá lạnh bất ngờ chạm vào vòm miệng.",
-      "stageType": "SCIENCE_LAB_ROOM",
+      "text": "Tôi gãi đầu tò mò hỏi bác sĩ rằng các mạch máu sẽ phản ứng ra sao khi nước đá lạnh bất ngờ chạm vào vòm miệng.",
+      "ttsText": "Tôi gãi đầu tò mò hỏi bác sĩ rằng các mạch máu sẽ phản ứng ra sao khi nước đá lạnh bất ngờ chạm vào vòm miệng.",
+      "stageType": "DOCTOR_CLINIC",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
       "transitionIn": "CROSSFADE",
@@ -1092,7 +1092,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 360,
               "endX": 360,
@@ -1103,7 +1103,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 360,
               "endX": 360,
               "facing": "RIGHT",
@@ -1122,7 +1122,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 760,
               "endX": 760,
@@ -1133,7 +1133,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 760,
               "endX": 760,
               "facing": "RIGHT",
@@ -1142,9 +1142,9 @@
               "handProp": "NONE"
             }
           ],
-          "bubble": "Mạch máu phản ứng sao ạ?",
-          "bubbleStartPct": 0.2,
-          "bubbleEndPct": 0.88
+          "bubble": "Mạch máu làm sao?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
         },
         {
           "preset": "DOCTOR",
@@ -1155,7 +1155,7 @@
           "handProp": "NOTEBOOK",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 1280,
               "endX": 1280,
@@ -1166,7 +1166,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 1280,
               "endX": 1280,
               "facing": "LEFT",
@@ -1178,7 +1178,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 880,
         "focusY": 540
@@ -1188,7 +1188,7 @@
       "id": "b18",
       "text": "Bác sĩ giơ ngón tay giải thích ngay rằng mạch máu lập tức kích hoạt một chuỗi phản xạ nhiệt hai nhịp diễn ra siêu nhanh.",
       "ttsText": "Bác sĩ giơ ngón tay giải thích ngay rằng mạch máu lập tức kích hoạt một chuỗi phản xạ nhiệt hai nhịp diễn ra siêu nhanh.",
-      "stageType": "SCIENCE_LAB_ROOM",
+      "stageType": "DOCTOR_CLINIC",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
       "transitionIn": "CROSSFADE",
@@ -1205,7 +1205,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 360,
               "endX": 360,
@@ -1216,7 +1216,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 360,
               "endX": 360,
               "facing": "RIGHT",
@@ -1235,7 +1235,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 760,
               "endX": 760,
@@ -1246,7 +1246,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 760,
               "endX": 760,
               "facing": "RIGHT",
@@ -1265,7 +1265,7 @@
           "handProp": "NOTEBOOK",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.45,
               "startX": 1280,
               "endX": 1280,
@@ -1276,7 +1276,7 @@
             },
             {
               "fromPct": 0.45,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 1280,
               "endX": 1280,
               "facing": "LEFT",
@@ -1286,12 +1286,12 @@
             }
           ],
           "bubble": "Phản xạ hai nhịp!",
-          "bubbleStartPct": 0.2,
-          "bubbleEndPct": 0.88
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 1000,
         "focusY": 540
@@ -1321,7 +1321,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -1332,7 +1332,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -1344,7 +1344,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -1374,7 +1374,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -1385,7 +1385,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -1397,7 +1397,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -1427,7 +1427,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -1438,7 +1438,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -1450,7 +1450,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -1480,7 +1480,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -1491,7 +1491,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -1503,7 +1503,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -1533,7 +1533,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -1544,7 +1544,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -1556,7 +1556,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -1586,7 +1586,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -1597,7 +1597,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -1609,7 +1609,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -1639,7 +1639,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -1650,7 +1650,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -1662,7 +1662,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -1692,7 +1692,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -1703,7 +1703,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -1715,7 +1715,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -1745,7 +1745,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -1756,7 +1756,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -1768,7 +1768,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -1798,7 +1798,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -1809,7 +1809,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -1821,7 +1821,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -1851,7 +1851,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -1862,7 +1862,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -1874,7 +1874,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -1904,7 +1904,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -1915,7 +1915,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -1927,7 +1927,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -1935,9 +1935,9 @@
     },
     {
       "id": "b31",
-      "text": "Cậu bé tròn mắt ngạc nhiên kêu lên khi cuối cùng đã hiểu vì sao đá lạnh nằm trong miệng mà vùng trán lại đau buốt.",
-      "ttsText": "Cậu bé tròn mắt ngạc nhiên kêu lên khi cuối cùng đã hiểu vì sao đá lạnh nằm trong miệng mà vùng trán lại đau buốt.",
-      "stageType": "SCIENCE_LAB_ROOM",
+      "text": "Tôi tròn mắt ngạc nhiên kêu lên khi cuối cùng đã hiểu vì sao đá lạnh nằm trong miệng mà vùng trán lại đau buốt.",
+      "ttsText": "Tôi tròn mắt ngạc nhiên kêu lên khi cuối cùng đã hiểu vì sao đá lạnh nằm trong miệng mà vùng trán lại đau buốt.",
+      "stageType": "DOCTOR_CLINIC",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
       "transitionIn": "CROSSFADE",
@@ -1954,7 +1954,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 360,
               "endX": 360,
@@ -1965,7 +1965,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 360,
               "endX": 360,
               "facing": "RIGHT",
@@ -1984,7 +1984,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 760,
               "endX": 760,
@@ -1995,7 +1995,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 760,
               "endX": 760,
               "facing": "RIGHT",
@@ -2004,9 +2004,9 @@
               "handProp": "NONE"
             }
           ],
-          "bubble": "Hóa ra báo nhầm chỗ!",
-          "bubbleStartPct": 0.2,
-          "bubbleEndPct": 0.88
+          "bubble": "Hóa ra báo nhầm!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
         },
         {
           "preset": "DOCTOR",
@@ -2017,7 +2017,7 @@
           "handProp": "NOTEBOOK",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 1280,
               "endX": 1280,
@@ -2028,7 +2028,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 1280,
               "endX": 1280,
               "facing": "LEFT",
@@ -2040,7 +2040,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 880,
         "focusY": 540
@@ -2050,7 +2050,7 @@
       "id": "b32",
       "text": "Ông nội bỗng nhíu mày lo lắng hỏi bác sĩ xem nếu thường xuyên bị buốt óc như vậy thì có gây tổn thương não lâu dài không.",
       "ttsText": "Ông nội bỗng nhíu mày lo lắng hỏi bác sĩ xem nếu thường xuyên bị buốt óc như vậy thì có gây tổn thương não lâu dài không.",
-      "stageType": "SCIENCE_LAB_ROOM",
+      "stageType": "DOCTOR_CLINIC",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
       "transitionIn": "CROSSFADE",
@@ -2067,7 +2067,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 360,
               "endX": 360,
@@ -2078,7 +2078,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 360,
               "endX": 360,
               "facing": "RIGHT",
@@ -2087,9 +2087,9 @@
               "handProp": "NONE"
             }
           ],
-          "bubble": "Có hại não không bác sĩ?",
-          "bubbleStartPct": 0.2,
-          "bubbleEndPct": 0.88
+          "bubble": "Có hại não không?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
         },
         {
           "preset": "BOY",
@@ -2100,7 +2100,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 760,
               "endX": 760,
@@ -2111,11 +2111,11 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 760,
               "endX": 760,
               "facing": "RIGHT",
-              "pose": "SCRATCH_HEAD",
+              "pose": "IDLE",
               "expression": "WORRIED",
               "handProp": "NONE"
             }
@@ -2130,7 +2130,7 @@
           "handProp": "NOTEBOOK",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 1280,
               "endX": 1280,
@@ -2141,7 +2141,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 1280,
               "endX": 1280,
               "facing": "LEFT",
@@ -2153,7 +2153,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 760,
         "focusY": 540
@@ -2183,7 +2183,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -2194,7 +2194,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -2206,7 +2206,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -2236,7 +2236,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -2247,7 +2247,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -2259,7 +2259,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -2289,7 +2289,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -2300,7 +2300,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -2312,7 +2312,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -2342,7 +2342,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -2353,7 +2353,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -2365,7 +2365,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -2395,7 +2395,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -2406,7 +2406,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -2418,7 +2418,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -2448,7 +2448,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -2459,7 +2459,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -2471,7 +2471,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -2498,7 +2498,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.55,
               "startX": 360,
               "endX": 360,
@@ -2509,7 +2509,7 @@
             },
             {
               "fromPct": 0.55,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 360,
               "endX": 360,
               "facing": "RIGHT",
@@ -2528,7 +2528,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.65,
               "startX": 760,
               "endX": 760,
@@ -2539,7 +2539,7 @@
             },
             {
               "fromPct": 0.65,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 760,
               "endX": 760,
               "facing": "RIGHT",
@@ -2548,9 +2548,9 @@
               "handProp": "NONE"
             }
           ],
-          "bubble": "Khác ê buốt răng chứ ạ?",
-          "bubbleStartPct": 0.2,
-          "bubbleEndPct": 0.88
+          "bubble": "Khác ê buốt răng?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
         },
         {
           "preset": "DOCTOR",
@@ -2561,7 +2561,7 @@
           "handProp": "NOTEBOOK",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 1280,
               "endX": 1280,
@@ -2572,7 +2572,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 1280,
               "endX": 1280,
               "facing": "LEFT",
@@ -2584,7 +2584,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 920,
         "focusY": 540
@@ -2611,7 +2611,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 360,
               "endX": 360,
@@ -2622,7 +2622,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 360,
               "endX": 360,
               "facing": "RIGHT",
@@ -2641,7 +2641,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.6,
               "startX": 760,
               "endX": 760,
@@ -2652,7 +2652,7 @@
             },
             {
               "fromPct": 0.6,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 760,
               "endX": 760,
               "facing": "RIGHT",
@@ -2671,7 +2671,7 @@
           "handProp": "NOTEBOOK",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.6,
               "startX": 1280,
               "endX": 1280,
@@ -2682,7 +2682,7 @@
             },
             {
               "fromPct": 0.6,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 1280,
               "endX": 1280,
               "facing": "LEFT",
@@ -2692,12 +2692,12 @@
             }
           ],
           "bubble": "Khác hẳn nhau đấy!",
-          "bubbleStartPct": 0.18,
-          "bubbleEndPct": 0.88
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -2727,7 +2727,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -2738,7 +2738,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -2750,7 +2750,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -2780,7 +2780,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -2791,7 +2791,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -2803,7 +2803,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -2833,7 +2833,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -2844,7 +2844,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -2856,7 +2856,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -2886,7 +2886,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -2897,7 +2897,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -2909,7 +2909,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -2939,7 +2939,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -2950,7 +2950,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -2962,7 +2962,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -2992,7 +2992,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -3003,7 +3003,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -3015,7 +3015,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -3042,7 +3042,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 360,
               "endX": 360,
@@ -3053,7 +3053,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 360,
               "endX": 360,
               "facing": "RIGHT",
@@ -3072,7 +3072,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.65,
               "startX": 760,
               "endX": 760,
@@ -3083,7 +3083,7 @@
             },
             {
               "fromPct": 0.65,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 760,
               "endX": 760,
               "facing": "RIGHT",
@@ -3092,9 +3092,9 @@
               "handProp": "NONE"
             }
           ],
-          "bubble": "Cắt cơn nhanh thế nào ạ?",
-          "bubbleStartPct": 0.18,
-          "bubbleEndPct": 0.88
+          "bubble": "Cắt cơn sao ạ?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
         },
         {
           "preset": "DOCTOR",
@@ -3105,7 +3105,7 @@
           "handProp": "NOTEBOOK",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.55,
               "startX": 1280,
               "endX": 1280,
@@ -3116,7 +3116,7 @@
             },
             {
               "fromPct": 0.55,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 1280,
               "endX": 1280,
               "facing": "LEFT",
@@ -3128,7 +3128,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 920,
         "focusY": 540
@@ -3155,7 +3155,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 360,
               "endX": 360,
@@ -3166,7 +3166,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 360,
               "endX": 360,
               "facing": "RIGHT",
@@ -3185,7 +3185,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.55,
               "startX": 760,
               "endX": 760,
@@ -3196,7 +3196,7 @@
             },
             {
               "fromPct": 0.55,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 760,
               "endX": 760,
               "facing": "RIGHT",
@@ -3215,7 +3215,7 @@
           "handProp": "NOTEBOOK",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.65,
               "startX": 1280,
               "endX": 1280,
@@ -3226,7 +3226,7 @@
             },
             {
               "fromPct": 0.65,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 1280,
               "endX": 1280,
               "facing": "LEFT",
@@ -3235,13 +3235,13 @@
               "handProp": "NOTEBOOK"
             }
           ],
-          "bubble": "Có mẹo hết sau 5 giây!",
-          "bubbleStartPct": 0.18,
-          "bubbleEndPct": 0.9
+          "bubble": "Mẹo hết 5 giây!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -3271,7 +3271,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -3282,7 +3282,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -3294,7 +3294,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -3324,7 +3324,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -3335,7 +3335,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -3347,7 +3347,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -3377,7 +3377,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -3388,7 +3388,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -3400,7 +3400,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -3430,7 +3430,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -3441,7 +3441,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -3453,7 +3453,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -3483,7 +3483,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -3494,7 +3494,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -3506,7 +3506,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -3536,7 +3536,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -3547,7 +3547,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -3559,7 +3559,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -3589,7 +3589,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -3600,7 +3600,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -3612,7 +3612,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -3642,7 +3642,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -3653,7 +3653,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -3665,7 +3665,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -3695,7 +3695,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -3706,7 +3706,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -3718,7 +3718,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -3745,7 +3745,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.45,
               "startX": 520,
               "endX": 520,
@@ -3756,7 +3756,7 @@
             },
             {
               "fromPct": 0.45,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 520,
               "endX": 520,
               "facing": "RIGHT",
@@ -3766,8 +3766,8 @@
             }
           ],
           "bubble": "Uống chậm mát quá!",
-          "bubbleStartPct": 0.2,
-          "bubbleEndPct": 0.88
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
         },
         {
           "preset": "GRANDPA",
@@ -3778,7 +3778,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.45,
               "startX": 1220,
               "endX": 1220,
@@ -3789,7 +3789,7 @@
             },
             {
               "fromPct": 0.45,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 1220,
               "endX": 1220,
               "facing": "LEFT",
@@ -3801,11 +3801,14 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_HAPPY_SUMMER_ENJOY",
+      "visualStep": 3
     },
     {
       "id": "b59",
@@ -3828,7 +3831,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.45,
               "startX": 520,
               "endX": 520,
@@ -3839,7 +3842,7 @@
             },
             {
               "fromPct": 0.45,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 520,
               "endX": 520,
               "facing": "RIGHT",
@@ -3858,7 +3861,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.45,
               "startX": 1220,
               "endX": 1220,
@@ -3869,7 +3872,7 @@
             },
             {
               "fromPct": 0.45,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 1220,
               "endX": 1220,
               "facing": "LEFT",
@@ -3879,16 +3882,19 @@
             }
           ],
           "bubble": "Chuẩn bài luôn cháu!",
-          "bubbleStartPct": 0.2,
-          "bubbleEndPct": 0.88
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
-      }
+      },
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_HAPPY_SUMMER_ENJOY",
+      "visualStep": 4
     },
     {
       "id": "b60",
@@ -3914,7 +3920,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -3925,7 +3931,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -3937,7 +3943,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -3967,7 +3973,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -3978,7 +3984,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -3990,7 +3996,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -4020,7 +4026,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -4031,7 +4037,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -4043,7 +4049,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -4073,7 +4079,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -4084,7 +4090,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -4096,7 +4102,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540
@@ -4126,7 +4132,7 @@
           "handProp": "NONE",
           "timeline": [
             {
-              "fromPct": 0.0,
+              "fromPct": 0,
               "toPct": 0.5,
               "startX": 420,
               "endX": 420,
@@ -4137,7 +4143,7 @@
             },
             {
               "fromPct": 0.5,
-              "toPct": 1.0,
+              "toPct": 1,
               "startX": 420,
               "endX": 420,
               "facing": "RIGHT",
@@ -4149,7 +4155,7 @@
         }
       ],
       "camera": {
-        "fromScale": 1.0,
+        "fromScale": 1,
         "toScale": 1.03,
         "focusX": 960,
         "focusY": 540

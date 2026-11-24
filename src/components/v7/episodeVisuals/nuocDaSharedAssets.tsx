@@ -45,15 +45,33 @@ export const CleanLabel: React.FC<{
   );
 };
 
-/** Short crisp speech bubble for storytelling beats */
+/** Short crisp speech bubble for storytelling beats (supports bottom & horizontal-left tails) */
 export const ShortSpeechBubble: React.FC<{
   x: number;
   y: number;
   text: string;
-  tailDir?: 'LEFT' | 'RIGHT' | 'CENTER';
+  tailDir?: 'LEFT' | 'RIGHT' | 'CENTER' | 'SIDE_LEFT';
 }> = ({ x, y, text, tailDir = 'CENTER' }) => {
   const w = Math.max(170, text.length * 14 + 54);
   const h = 54;
+  if (tailDir === 'SIDE_LEFT') {
+    return (
+      <g transform={`translate(${x}, ${y})`}>
+        <rect x={-w / 2} y={-h / 2} width={w} height={h} rx="27" fill="#ffffff" stroke={INK} strokeWidth="4" />
+        <path
+          d={`M${-w / 2 + 2} -10 L${-w / 2 - 22} 2 L${-w / 2 + 2} 12 Z`}
+          fill="#ffffff"
+          stroke={INK}
+          strokeWidth="3.5"
+          strokeLinejoin="round"
+        />
+        <rect x={-w / 2 - 2} y="-10" width="9" height="22" fill="#ffffff" />
+        <text x="0" y="9" textAnchor="middle" fill={INK} fontSize="22" fontWeight="700" fontFamily={FONT}>
+          {text}
+        </text>
+      </g>
+    );
+  }
   const tailX = tailDir === 'LEFT' ? -w * 0.22 : tailDir === 'RIGHT' ? w * 0.22 : 0;
   return (
     <g transform={`translate(${x}, ${y})`}>
@@ -73,12 +91,167 @@ export const ShortSpeechBubble: React.FC<{
   );
 };
 
+/** Reusable compact wooden side table so drinks never float in midair */
+export const WoodenSideTable: React.FC<{
+  x: number;
+  topY: number;
+  floorY: number;
+  width?: number;
+}> = ({ x, topY, floorY, width = 170 }) => {
+  const legH = Math.max(36, floorY - topY - 18);
+  const halfW = width / 2;
+  return (
+    <g>
+      <ellipse cx={x} cy={floorY + 3} rx={halfW * 0.92} ry="8" fill="#0f172a" opacity="0.14" />
+      <rect
+        x={x - halfW + 16}
+        y={topY + 18}
+        width="14"
+        height={legH}
+        rx="3"
+        fill="#92400e"
+        stroke={INK}
+        strokeWidth="3.2"
+      />
+      <rect
+        x={x + halfW - 30}
+        y={topY + 18}
+        width="14"
+        height={legH}
+        rx="3"
+        fill="#92400e"
+        stroke={INK}
+        strokeWidth="3.2"
+      />
+      <rect
+        x={x - halfW}
+        y={topY}
+        width={width}
+        height="20"
+        rx="7"
+        fill="#b45309"
+        stroke={INK}
+        strokeWidth="3.8"
+      />
+      <line
+        x1={x - halfW + 12}
+        y1={topY + 8}
+        x2={x + halfW - 12}
+        y2={topY + 8}
+        stroke="#d97706"
+        strokeWidth="3"
+        strokeLinecap="round"
+        opacity="0.7"
+      />
+    </g>
+  );
+};
+
+/** Cute 2D ice-cream cone (can be held directly in hand or placed in cards) */
+export const IceCreamCone: React.FC<{
+  x: number;
+  y: number;
+  scale?: number;
+  rotateDeg?: number;
+}> = ({ x, y, scale = 1, rotateDeg = 0 }) => (
+  <g transform={`translate(${x}, ${y}) rotate(${rotateDeg}) scale(${scale})`}>
+    <polygon
+      points="-22,6 22,6 0,68"
+      fill="#f59e0b"
+      stroke={INK}
+      strokeWidth="3.8"
+      strokeLinejoin="round"
+    />
+    <line x1="-13" y1="24" x2="13" y2="24" stroke="#b45309" strokeWidth="2.5" />
+    <line x1="-8" y1="42" x2="8" y2="42" stroke="#b45309" strokeWidth="2.5" />
+    <circle cx="-14" cy="-6" r="19" fill="#f9a8d4" stroke={INK} strokeWidth="3.5" />
+    <circle cx="14" cy="-6" r="19" fill="#fef08a" stroke={INK} strokeWidth="3.5" />
+    <circle cx="0" cy="-24" r="21" fill="#ffffff" stroke={INK} strokeWidth="3.5" />
+    <circle cx="6" cy="-42" r="5.5" fill="#ef4444" stroke={INK} strokeWidth="2" />
+  </g>
+);
+
+/** Crisp 2D warm water glass (~38°C) with gentle rising steam */
+export const WarmWaterGlass: React.FC<{
+  x: number;
+  y: number;
+  scale?: number;
+  frame?: number;
+  uid?: string;
+}> = ({ x, y, scale = 1, frame = 0, uid }) => {
+  const steamLift = (frame * 1.6) % 34;
+  const safeId = uid || `warm_${Math.round(x)}_${Math.round(y)}`;
+  return (
+    <g transform={`translate(${x}, ${y}) scale(${scale})`}>
+      <defs>
+        <linearGradient id={`nd_warm_liq_${safeId}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#fed7aa" />
+          <stop offset="100%" stopColor="#fb923c" />
+        </linearGradient>
+      </defs>
+      {[-18, 0, 18].map((sx, idx) => (
+        <path
+          key={idx}
+          d={`M ${sx} ${-66 - ((steamLift + idx * 11) % 34)} Q ${sx - 7} ${-82 - ((steamLift + idx * 11) % 34)} ${sx} ${-96 - ((steamLift + idx * 11) % 34)}`}
+          fill="none"
+          stroke="#fb923c"
+          strokeWidth="3.6"
+          strokeLinecap="round"
+          opacity={0.72}
+        />
+      ))}
+      <path
+        d="M -36 -54 L 36 -54 L 28 56 Q 27 62 20 62 L -20 62 Q -27 62 -28 56 Z"
+        fill="#ffffff"
+        fillOpacity="0.88"
+        stroke={INK}
+        strokeWidth="4"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M -31 -18 L 31 -18 L 25 54 Q 24 58 18 58 L -18 58 Q -24 58 -25 54 Z"
+        fill={`url(#nd_warm_liq_${safeId})`}
+        opacity="0.88"
+      />
+      <ellipse cx="0" cy="-54" rx="36" ry="6.5" fill="#fff7ed" stroke={INK} strokeWidth="3.5" />
+    </g>
+  );
+};
+
+export type NuocDaStickmanPose =
+  | 'IDLE'
+  | 'SIT'
+  | 'SIT_HOLD_DRINK'
+  | 'SIT_HOLD_CONE'
+  | 'DRINK_FAST'
+  | 'HOLD_HEAD_PAIN'
+  | 'EAT_SLOW'
+  | 'EAT_CONE_FAST'
+  | 'SIP_GLASS'
+  | 'SIP_WARM'
+  | 'HOLD_DRINK_PAUSE'
+  | 'PAT_SHOULDER'
+  | 'RELIEF_SIGH'
+  | 'CUP_BREATH'
+  | 'POINT_UP'
+  | 'HAPPY_WAVE';
+
+export type NuocDaStickmanExpression =
+  | 'HAPPY'
+  | 'PAIN'
+  | 'SURPRISED'
+  | 'CURIOUS'
+  | 'PROUD'
+  | 'TIRED'
+  | 'RELIEF';
+
 /**
  * Consistent full-body V21.0 Stickman matching StickmanRig.tsx:
  * - BOY: black wavy hair dome on top, normal 2D eyes (no anime sparkles)
  * - GRANDPA: bald top with two gray/white side hair tufts, gray mustache, brown buttoned vest
  * - DOCTOR: short black hair, round glasses, white lab coat with stethoscope accent
  * - ALWAYS draws natural bent elbows & knees with rounded linecaps/joins
+ * - Poses holding drinks/cones render the prop DIRECTLY in hand (0px floating gap!)
  */
 export const SharedStickman: React.FC<{
   x: number;
@@ -86,9 +259,12 @@ export const SharedStickman: React.FC<{
   scale?: number;
   role: 'BOY' | 'GRANDPA' | 'DOCTOR';
   facing?: 'LEFT' | 'RIGHT';
-  pose?: 'IDLE' | 'SIT' | 'DRINK_FAST' | 'HOLD_HEAD_PAIN' | 'EAT_SLOW' | 'POINT_UP' | 'HAPPY_WAVE';
-  expression?: 'HAPPY' | 'PAIN' | 'SURPRISED' | 'CURIOUS' | 'PROUD' | 'TIRED';
+  pose?: NuocDaStickmanPose;
+  expression?: NuocDaStickmanExpression;
   frame?: number;
+  drinkFillPct?: number;
+  drinkTiltDeg?: number;
+  uid?: string;
 }> = ({
   x,
   y,
@@ -98,29 +274,39 @@ export const SharedStickman: React.FC<{
   pose = 'IDLE',
   expression = 'HAPPY',
   frame = 0,
+  drinkFillPct = 0.78,
+  drinkTiltDeg = -22,
+  uid,
 }) => {
   const dir = facing === 'RIGHT' ? 1 : -1;
   const breath = Math.sin(frame * 0.08) * 1.6;
   const waveOffset = Math.sin(frame * 0.24) * 14;
-  const gulpBob = pose === 'DRINK_FAST' ? Math.sin(frame * 0.34) * 3.5 : 0;
-  const slowEatBob = pose === 'EAT_SLOW' ? Math.sin(frame * 0.11) * 4.5 : 0;
+  const gulpBob = pose === 'DRINK_FAST' ? Math.sin(frame * 0.34) * 3 : 0;
+  const slowSipBob = pose === 'EAT_SLOW' || pose === 'SIP_GLASS' || pose === 'SIP_WARM' || pose === 'SIT_HOLD_DRINK'
+    ? Math.sin(frame * 0.12) * 3.5
+    : 0;
+  const patBob = pose === 'PAT_SHOULDER' ? Math.abs(Math.sin(frame * 0.18)) * 7 : 0;
   const painShiverX = pose === 'HOLD_HEAD_PAIN' ? Math.sin(frame * 0.55) * 2.4 : 0;
   const painShiverY = pose === 'HOLD_HEAD_PAIN' ? Math.cos(frame * 0.45) * 1.4 : 0;
+  const reliefDrop = pose === 'RELIEF_SIGH' ? Math.sin(frame * 0.1) * 3 : 0;
 
   const headTiltDeg =
     pose === 'DRINK_FAST'
-      ? -11 + Math.sin(frame * 0.34) * 2.5
+      ? -10 + Math.sin(frame * 0.34) * 2
       : pose === 'HOLD_HEAD_PAIN'
         ? 8 + Math.sin(frame * 0.4) * 2
-        : pose === 'EAT_SLOW'
-          ? 3 + Math.sin(frame * 0.11) * 2
-          : pose === 'POINT_UP'
-            ? -9
-            : pose === 'HAPPY_WAVE'
-              ? Math.sin(frame * 0.12) * 4
-              : Math.sin(frame * 0.06) * 1.5;
+        : pose === 'EAT_SLOW' || pose === 'SIP_GLASS' || pose === 'SIP_WARM' || pose === 'EAT_CONE_FAST'
+          ? 2 + Math.sin(frame * 0.11) * 2
+          : pose === 'RELIEF_SIGH'
+            ? -5 + Math.sin(frame * 0.09) * 2
+            : pose === 'POINT_UP'
+              ? -9
+              : pose === 'HAPPY_WAVE'
+                ? Math.sin(frame * 0.12) * 4
+                : Math.sin(frame * 0.06) * 1.5;
 
-  const isSeated = pose === 'SIT';
+  const isSeated = pose === 'SIT' || pose === 'SIT_HOLD_DRINK' || pose === 'SIT_HOLD_CONE';
+  const safeUid = uid || `${role}_${Math.round(x)}_${Math.round(y)}`;
 
   return (
     <g transform={`translate(${x}, ${y})`}>
@@ -128,8 +314,8 @@ export const SharedStickman: React.FC<{
         {/* Legs — ALWAYS complete with natural bent knees */}
         {isSeated ? (
           <g stroke={INK} strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" fill="none">
-            <path d="M0 0 L68 0 L76 92" />
-            <path d="M-4 6 L54 8 L60 92" />
+            <path d="M0 0 L64 0 L72 92" />
+            <path d="M-4 6 L50 8 L56 92" />
           </g>
         ) : pose === 'HOLD_HEAD_PAIN' ? (
           <g stroke={INK} strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" fill="none">
@@ -138,8 +324,8 @@ export const SharedStickman: React.FC<{
           </g>
         ) : pose === 'DRINK_FAST' ? (
           <g stroke={INK} strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" fill="none">
-            <path d="M0 0 L-22 56 L-30 114" />
-            <path d="M0 0 L22 54 L32 114" />
+            <path d="M0 0 L-20 56 L-28 114" />
+            <path d="M0 0 L22 54 L30 114" />
           </g>
         ) : (
           <g stroke={INK} strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" fill="none">
@@ -159,15 +345,25 @@ export const SharedStickman: React.FC<{
             strokeLinejoin="round"
           />
         ) : pose === 'DRINK_FAST' ? (
+          /* Back arm reaches up to grip the far side of the iced glass right at mouth */
           <path
-            d={`M0 ${-84 + breath} L18 ${-64 + breath} L42 ${-108 + breath + gulpBob}`}
+            d={`M0 ${-84 + breath} L32 ${-74 + breath} L68 ${-118 + breath + gulpBob}`}
             fill="none"
             stroke={INK}
             strokeWidth="6.5"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-        ) : pose === 'EAT_SLOW' ? (
+        ) : pose === 'SIP_GLASS' || pose === 'SIP_WARM' || pose === 'SIT_HOLD_DRINK' ? (
+          <path
+            d={`M0 ${-84 + breath} L-22 ${-46 + breath} L-8 ${-18 + breath}`}
+            fill="none"
+            stroke={INK}
+            strokeWidth="6.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        ) : pose === 'EAT_SLOW' || pose === 'EAT_CONE_FAST' ? (
           <path
             d={`M0 ${-84 + breath} L-24 ${-48 + breath} L-10 ${-20 + breath}`}
             fill="none"
@@ -176,9 +372,27 @@ export const SharedStickman: React.FC<{
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-        ) : pose === 'SIT' ? (
+        ) : pose === 'SIT' || pose === 'SIT_HOLD_CONE' ? (
           <path
             d={`M0 ${-84 + breath} L-16 ${-36 + breath} L12 ${-18 + breath}`}
+            fill="none"
+            stroke={INK}
+            strokeWidth="6.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        ) : pose === 'RELIEF_SIGH' ? (
+          <path
+            d={`M0 ${-82 + breath + reliefDrop} L-28 ${-48 + breath + reliefDrop} L-22 ${-14 + breath + reliefDrop}`}
+            fill="none"
+            stroke={INK}
+            strokeWidth="6.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        ) : pose === 'CUP_BREATH' ? (
+          <path
+            d={`M0 ${-84 + breath} L28 ${-76 + breath} L42 ${-124 + breath}`}
             fill="none"
             stroke={INK}
             strokeWidth="6.5"
@@ -201,7 +415,7 @@ export const SharedStickman: React.FC<{
           x1="0"
           y1="0"
           x2="0"
-          y2={-104 + breath}
+          y2={-104 + breath + reliefDrop}
           stroke={INK}
           strokeWidth="7"
           strokeLinecap="round"
@@ -209,8 +423,7 @@ export const SharedStickman: React.FC<{
 
         {/* Role-specific torso attire */}
         {role === 'GRANDPA' ? (
-          <g transform={`translate(0, ${breath})`}>
-            {/* Brown buttoned vest over stick torso */}
+          <g transform={`translate(0, ${breath + reliefDrop})`}>
             <path
               d="M-21 -94 L-9 -98 L0 -74 L9 -98 L21 -94 L24 -10 Q24 -4 16 -4 L-16 -4 Q-24 -4 -24 -10 Z"
               fill="#92400e"
@@ -218,7 +431,6 @@ export const SharedStickman: React.FC<{
               strokeWidth="4"
               strokeLinejoin="round"
             />
-            {/* Inner shirt V-collar */}
             <path
               d="M-9 -98 L0 -74 L9 -98 Z"
               fill="#fef3c7"
@@ -226,17 +438,14 @@ export const SharedStickman: React.FC<{
               strokeWidth="3"
               strokeLinejoin="round"
             />
-            {/* Center button placket + 3 buttons */}
             <line x1="0" y1="-74" x2="0" y2="-4" stroke="#78350f" strokeWidth="2.8" />
             <circle cx="5" cy="-58" r="2.8" fill="#fde68a" stroke={INK} strokeWidth="1.8" />
             <circle cx="5" cy="-39" r="2.8" fill="#fde68a" stroke={INK} strokeWidth="1.8" />
             <circle cx="5" cy="-20" r="2.8" fill="#fde68a" stroke={INK} strokeWidth="1.8" />
-            {/* Small side pocket */}
             <path d="M-17 -32 L-7 -32" stroke="#fde68a" strokeWidth="2.5" strokeLinecap="round" />
           </g>
         ) : role === 'DOCTOR' ? (
-          <g transform={`translate(0, ${breath})`}>
-            {/* White lab coat */}
+          <g transform={`translate(0, ${breath + reliefDrop})`}>
             <path
               d="M-23 -94 L-10 -100 L0 -68 L10 -100 L23 -94 L29 18 Q29 24 22 24 L-22 24 Q-29 24 -29 18 Z"
               fill="#ffffff"
@@ -244,7 +453,6 @@ export const SharedStickman: React.FC<{
               strokeWidth="4.2"
               strokeLinejoin="round"
             />
-            {/* Lab coat lapels & inner shirt */}
             <path
               d="M-10 -100 L0 -68 L10 -100 Z"
               fill="#e0f2fe"
@@ -255,30 +463,80 @@ export const SharedStickman: React.FC<{
             <path d="M-10 -100 L-16 -74 L-4 -66" fill="none" stroke="#94a3b8" strokeWidth="2.5" strokeLinejoin="round" />
             <path d="M10 -100 L16 -74 L4 -66" fill="none" stroke="#94a3b8" strokeWidth="2.5" strokeLinejoin="round" />
             <line x1="0" y1="-68" x2="0" y2="24" stroke="#cbd5e1" strokeWidth="2.5" />
-            {/* Chest pocket */}
             <rect x="6" y="-48" width="14" height="12" rx="2" fill="#f8fafc" stroke="#94a3b8" strokeWidth="2" />
-            {/* Stethoscope draped around neck */}
-            <path
-              d="M-13 -98 C-18 -72 -18 -54 -11 -44"
-              fill="none"
-              stroke="#334155"
-              strokeWidth="4.2"
-              strokeLinecap="round"
-            />
-            <path
-              d="M13 -98 C18 -72 18 -56 12 -46"
-              fill="none"
-              stroke="#334155"
-              strokeWidth="4.2"
-              strokeLinecap="round"
-            />
+            <path d="M-13 -98 C-18 -72 -18 -54 -11 -44" fill="none" stroke="#334155" strokeWidth="4.2" strokeLinecap="round" />
+            <path d="M13 -98 C18 -72 18 -56 12 -46" fill="none" stroke="#334155" strokeWidth="4.2" strokeLinecap="round" />
             <circle cx="-11" cy="-40" r="6" fill="#0ea5e9" stroke={INK} strokeWidth="2.5" />
             <circle cx="-11" cy="-40" r="2.2" fill="#e0f2fe" />
             <circle cx="12" cy="-44" r="3" fill="#64748b" stroke={INK} strokeWidth="1.8" />
           </g>
         ) : null}
 
-        {/* Front Arm (in front of torso/coat) — ALWAYS bent elbow */}
+        {/* Held Drink/Cone rendered RIGHT between back arm and front arm for realistic grip! */}
+        {pose === 'DRINK_FAST' ? (
+          <g transform={`translate(56, ${-116 + breath + gulpBob}) rotate(${drinkTiltDeg})`}>
+            <IcedDrinkGlass
+              x={0}
+              y={0}
+              scale={0.44}
+              fillPct={drinkFillPct}
+              showFrost={true}
+              frame={frame}
+              uid={`${safeUid}_fast`}
+              showShadow={false}
+            />
+          </g>
+        ) : null}
+
+        {pose === 'SIP_GLASS' || pose === 'SIT_HOLD_DRINK' ? (
+          <g transform={`translate(52, ${-98 + breath + slowSipBob}) rotate(-10)`}>
+            <IcedDrinkGlass
+              x={0}
+              y={0}
+              scale={0.4}
+              fillPct={drinkFillPct}
+              showFrost={true}
+              frame={frame}
+              uid={`${safeUid}_sip`}
+              showShadow={false}
+            />
+          </g>
+        ) : null}
+
+        {pose === 'SIP_WARM' ? (
+          <g transform={`translate(54, ${-98 + breath + slowSipBob}) rotate(-10)`}>
+            <WarmWaterGlass x={0} y={0} scale={0.58} frame={frame} uid={`${safeUid}_warm`} />
+          </g>
+        ) : null}
+
+        {pose === 'HOLD_DRINK_PAUSE' ? (
+          <g transform={`translate(56, ${-58 + breath})`}>
+            <IcedDrinkGlass
+              x={0}
+              y={0}
+              scale={0.4}
+              fillPct={drinkFillPct}
+              showFrost={true}
+              frame={frame}
+              uid={`${safeUid}_pause`}
+              showShadow={false}
+            />
+          </g>
+        ) : null}
+
+        {pose === 'EAT_CONE_FAST' ? (
+          <g transform={`translate(48, ${-116 + breath + Math.sin(frame * 0.28) * 3}) rotate(-20)`}>
+            <IceCreamCone x={0} y={0} scale={0.62} />
+          </g>
+        ) : null}
+
+        {pose === 'SIT_HOLD_CONE' ? (
+          <g transform={`translate(56, ${-74 + breath}) rotate(12)`}>
+            <IceCreamCone x={0} y={0} scale={0.62} />
+          </g>
+        ) : null}
+
+        {/* Front Arm (in front of torso/coat & gripping prop!) — ALWAYS bent elbow */}
         {pose === 'HOLD_HEAD_PAIN' ? (
           <path
             d={`M0 ${-84 + breath} L${46 + painShiverX} ${-114 + breath + painShiverY} L${28 + painShiverX} ${-148 + breath + painShiverY}`}
@@ -289,42 +547,70 @@ export const SharedStickman: React.FC<{
             strokeLinejoin="round"
           />
         ) : pose === 'DRINK_FAST' ? (
+          /* Front arm bent elbow gripping the iced glass directly at mouth */
           <path
-            d={`M0 ${-84 + breath} L36 ${-68 + breath} L48 ${-114 + breath + gulpBob}`}
+            d={`M0 ${-84 + breath} L24 ${-68 + breath} L48 ${-110 + breath + gulpBob}`}
             fill="none"
             stroke={INK}
             strokeWidth="6.5"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
+        ) : pose === 'SIP_GLASS' || pose === 'SIP_WARM' || pose === 'SIT_HOLD_DRINK' ? (
+          <path
+            d={`M0 ${-84 + breath} L28 ${-64 + breath} L50 ${-92 + breath + slowSipBob}`}
+            fill="none"
+            stroke={INK}
+            strokeWidth="6.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        ) : pose === 'HOLD_DRINK_PAUSE' ? (
+          <path
+            d={`M0 ${-84 + breath} L26 ${-52 + breath} L54 ${-54 + breath}`}
+            fill="none"
+            stroke={INK}
+            strokeWidth="6.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        ) : pose === 'EAT_CONE_FAST' ? (
+          <path
+            d={`M0 ${-84 + breath} L28 ${-66 + breath} L48 ${-94 + breath + Math.sin(frame * 0.28) * 3}`}
+            fill="none"
+            stroke={INK}
+            strokeWidth="6.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        ) : pose === 'SIT_HOLD_CONE' ? (
+          <path
+            d={`M0 ${-84 + breath} L32 ${-44 + breath} L54 ${-54 + breath}`}
+            fill="none"
+            stroke={INK}
+            strokeWidth="6.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        ) : pose === 'PAT_SHOULDER' ? (
+          /* Extended bent arm reaching forward to physically rest on & pat Boy's shoulder */
+          <path
+            d={`M0 ${-84 + breath} L52 ${-82 + breath} L112 ${-72 + patBob}`}
+            fill="none"
+            stroke={INK}
+            strokeWidth="6.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         ) : pose === 'EAT_SLOW' ? (
-          <g>
-            <path
-              d={`M0 ${-84 + breath} L34 ${-62 + breath} L48 ${-104 + breath + slowEatBob}`}
-              fill="none"
-              stroke={INK}
-              strokeWidth="6.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            {/* Small spoon held gently */}
-            <path
-              d={`M48 ${-104 + breath + slowEatBob} L34 ${-116 + breath + slowEatBob}`}
-              fill="none"
-              stroke="#64748b"
-              strokeWidth="3.5"
-              strokeLinecap="round"
-            />
-            <ellipse
-              cx="30"
-              cy={-119 + breath + slowEatBob}
-              rx="6"
-              ry="3.6"
-              fill="#cbd5e1"
-              stroke={INK}
-              strokeWidth="2"
-            />
-          </g>
+          <path
+            d={`M0 ${-84 + breath} L34 ${-62 + breath} L48 ${-96 + breath + slowSipBob}`}
+            fill="none"
+            stroke={INK}
+            strokeWidth="6.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         ) : pose === 'SIT' ? (
           <path
             d={`M0 ${-84 + breath} L26 ${-38 + breath} L52 ${-20 + breath}`}
@@ -352,6 +638,24 @@ export const SharedStickman: React.FC<{
             strokeLinecap="round"
             strokeLinejoin="round"
           />
+        ) : pose === 'RELIEF_SIGH' ? (
+          <path
+            d={`M0 ${-82 + breath + reliefDrop} L28 ${-46 + breath + reliefDrop} L20 ${-12 + breath + reliefDrop}`}
+            fill="none"
+            stroke={INK}
+            strokeWidth="6.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        ) : pose === 'CUP_BREATH' ? (
+          <path
+            d={`M0 ${-84 + breath} L18 ${-72 + breath} L36 ${-120 + breath}`}
+            fill="none"
+            stroke={INK}
+            strokeWidth="6.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         ) : (
           <path
             d={`M0 ${-84 + breath} L28 ${-52 + breath} L20 ${-14 + breath}`}
@@ -364,10 +668,9 @@ export const SharedStickman: React.FC<{
         )}
 
         {/* Head */}
-        <g transform={`translate(${painShiverX * 0.6}, ${-142 + breath + painShiverY * 0.5}) rotate(${headTiltDeg})`}>
+        <g transform={`translate(${painShiverX * 0.6}, ${-142 + breath + reliefDrop + painShiverY * 0.5}) rotate(${headTiltDeg})`}>
           <circle cx="0" cy="0" r="38" fill="#ffffff" stroke={INK} strokeWidth="5.5" />
 
-          {/* Subtle forehead pain flush when in PAIN */}
           {expression === 'PAIN' ? (
             <ellipse cx="8" cy="-16" rx="18" ry="8" fill="#fecaca" opacity="0.65" />
           ) : null}
@@ -380,27 +683,27 @@ export const SharedStickman: React.FC<{
             />
           ) : role === 'GRANDPA' ? (
             <g>
-              {/* Bald top with two gray/white side hair tufts */}
               <path d="M-38 -12 C-48 -14 -48 6 -36 6 Z" fill="#e2e8f0" stroke={INK} strokeWidth="3.5" />
               <path d="M38 -12 C48 -14 48 6 36 6 Z" fill="#e2e8f0" stroke={INK} strokeWidth="3.5" />
-              {/* Subtle forehead line */}
               <path d="M-8 -24 Q4 -27 16 -24" fill="none" stroke="#cbd5e1" strokeWidth="2.5" strokeLinecap="round" />
             </g>
           ) : (
-            <g>
-              {/* DOCTOR: neat short black hair */}
-              <path
-                d="M-36 -8 C-37 -34 -16 -43 2 -42 C22 -41 37 -28 36 -8 C25 -18 14 -22 4 -18 C-8 -22 -24 -18 -36 -8 Z"
-                fill="#0f172a"
-              />
-            </g>
+            <path
+              d="M-36 -8 C-37 -34 -16 -43 2 -42 C22 -41 37 -28 36 -8 C25 -18 14 -22 4 -18 C-8 -22 -24 -18 -36 -8 Z"
+              fill="#0f172a"
+            />
           )}
 
-          {/* Eyes — normal 2D eyes (no anime sparkles!), pinched wince for PAIN, droopy lids for TIRED */}
+          {/* Eyes */}
           {expression === 'PAIN' ? (
             <g fill="none" stroke={INK} strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round">
               <path d="M-10 -6 L2 -2 L-10 3" />
               <path d="M25 -6 L13 -2 L25 3" />
+            </g>
+          ) : expression === 'RELIEF' ? (
+            <g fill="none" stroke={INK} strokeWidth="3.2" strokeLinecap="round">
+              <path d="M-11 -2 Q-4 -8 3 -2" />
+              <path d="M12 -2 Q19 -8 26 -2" />
             </g>
           ) : expression === 'TIRED' ? (
             <g>
@@ -439,12 +742,17 @@ export const SharedStickman: React.FC<{
             <path d="M-3 11 Q8 6 19 11" fill="none" stroke="#94a3b8" strokeWidth="4.5" strokeLinecap="round" />
           ) : null}
 
-          {/* Expressions: Eyebrows, Mouth, and Subtle Cheek/Sweat/Pain Accents */}
-          {expression === 'PAIN' ? (
+          {/* Expressions */}
+          {pose === 'DRINK_FAST' || pose === 'SIP_GLASS' || pose === 'SIP_WARM' || pose === 'SIT_HOLD_DRINK' ? (
+            <g>
+              <path d="M-10 -14 Q-4 -17 2 -14" fill="none" stroke={INK} strokeWidth="2.8" strokeLinecap="round" />
+              <path d="M13 -14 Q19 -17 25 -14" fill="none" stroke={INK} strokeWidth="2.8" strokeLinecap="round" />
+              <circle cx="14" cy="18" r="4.5" fill="#fca5a5" stroke={INK} strokeWidth="2.8" />
+            </g>
+          ) : expression === 'PAIN' ? (
             <g>
               <line x1="-12" y1="-15" x2="2" y2="-10" stroke={INK} strokeWidth="3.2" strokeLinecap="round" />
               <line x1="27" y1="-15" x2="13" y2="-10" stroke={INK} strokeWidth="3.2" strokeLinecap="round" />
-              {/* Wavy grimace mouth */}
               <path
                 d="M-3 20 Q2 13 8 18 Q14 13 19 20 Q14 25 8 23 Q2 25 -3 20 Z"
                 fill="#fca5a5"
@@ -452,13 +760,7 @@ export const SharedStickman: React.FC<{
                 strokeWidth="3"
                 strokeLinejoin="round"
               />
-              {/* Pain zing ticks near forehead */}
-              <path
-                d="M28 -36 L38 -46 M36 -24 L48 -28"
-                stroke="#ef4444"
-                strokeWidth="3.2"
-                strokeLinecap="round"
-              />
+              <path d="M28 -36 L38 -46 M36 -24 L48 -28" stroke="#ef4444" strokeWidth="3.2" strokeLinecap="round" />
             </g>
           ) : expression === 'SURPRISED' ? (
             <g>
@@ -472,7 +774,7 @@ export const SharedStickman: React.FC<{
               <path d="M13 -16 Q19 -21 26 -15" fill="none" stroke={INK} strokeWidth="3" strokeLinecap="round" />
               <path d="M2 18 Q9 15 15 18" fill="none" stroke={INK} strokeWidth="3.5" strokeLinecap="round" />
             </g>
-          ) : expression === 'PROUD' ? (
+          ) : expression === 'PROUD' || expression === 'RELIEF' ? (
             <g>
               <path d="M-11 -14 Q-4 -18 3 -14" fill="none" stroke={INK} strokeWidth="3" strokeLinecap="round" />
               <path d="M12 -14 Q19 -18 26 -14" fill="none" stroke={INK} strokeWidth="3" strokeLinecap="round" />
@@ -484,7 +786,6 @@ export const SharedStickman: React.FC<{
             <g>
               <line x1="-12" y1="-11" x2="1" y2="-14" stroke={INK} strokeWidth="2.8" strokeLinecap="round" />
               <line x1="27" y1="-11" x2="14" y2="-14" stroke={INK} strokeWidth="2.8" strokeLinecap="round" />
-              {/* Tired panting mouth */}
               <path
                 d="M1 19 Q9 13 17 19 Q9 24 1 19 Z"
                 fill="#fca5a5"
@@ -492,7 +793,6 @@ export const SharedStickman: React.FC<{
                 strokeWidth="2.8"
                 strokeLinejoin="round"
               />
-              {/* Summer heat sweat drop */}
               <path
                 d="M-27 -16 C-32 -7 -32 2 -27 2 C-22 2 -22 -7 -27 -16 Z"
                 fill="#38bdf8"
@@ -514,10 +814,8 @@ export const SharedStickman: React.FC<{
 };
 
 /**
- * Crisp 2D cartoon-realistic tall glass of Vietnamese iced tea / ice water:
- * - Translucent bobbing ice cubes, condensation droplets, striped straw
- * - Dynamic liquid fill level (fillPct 0..1)
- * - Optional chilly blue frost aura lines
+ * Crisp 2D cartoon-realistic tall glass of Vietnamese iced tea / ice water
+ * with unique per-instance `<defs>` IDs so multiple glasses in one SVG never collide!
  */
 export const IcedDrinkGlass: React.FC<{
   x: number;
@@ -526,10 +824,22 @@ export const IcedDrinkGlass: React.FC<{
   fillPct?: number;
   showFrost?: boolean;
   frame?: number;
-}> = ({ x, y, scale = 1, fillPct = 0.82, showFrost = true, frame = 0 }) => {
+  uid?: string;
+  showShadow?: boolean;
+}> = ({
+  x,
+  y,
+  scale = 1,
+  fillPct = 0.82,
+  showFrost = true,
+  frame = 0,
+  uid,
+  showShadow = true,
+}) => {
   const fill = clamp01(fillPct);
   const liquidTopY = lerp(68, -58, fill);
   const halfWidthAtTop = lerp(34, 47, (68 - liquidTopY) / 126);
+  const idKey = (uid || `${Math.round(x)}_${Math.round(y)}_${Math.round(scale * 100)}`).replace(/[^a-zA-Z0-9_]/g, '_');
 
   const iceCubes = [
     { cx: -16, cy: liquidTopY + 18, rot: -14, size: 24, phase: 0 },
@@ -553,86 +863,65 @@ export const IcedDrinkGlass: React.FC<{
   return (
     <g transform={`translate(${x}, ${y}) scale(${scale})`}>
       <defs>
-        <linearGradient id="nd_sa_glass_liquid" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={`nd_gl_liq_${idKey}`} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#bae6fd" stopOpacity="0.88" />
           <stop offset="45%" stopColor="#38bdf8" stopOpacity="0.82" />
           <stop offset="100%" stopColor="#0284c7" stopOpacity="0.9" />
         </linearGradient>
-        <linearGradient id="nd_sa_glass_body" x1="0" y1="0" x2="1" y2="0">
+        <linearGradient id={`nd_gl_body_${idKey}`} x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stopColor="#ffffff" stopOpacity="0.55" />
           <stop offset="28%" stopColor="#e0f2fe" stopOpacity="0.22" />
           <stop offset="75%" stopColor="#bae6fd" stopOpacity="0.18" />
           <stop offset="100%" stopColor="#ffffff" stopOpacity="0.48" />
         </linearGradient>
-        <radialGradient id="nd_sa_glass_frost_aura" cx="50%" cy="50%" r="50%">
+        <radialGradient id={`nd_gl_frost_${idKey}`} cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="#7dd3fc" stopOpacity="0.42" />
           <stop offset="65%" stopColor="#38bdf8" stopOpacity="0.14" />
           <stop offset="100%" stopColor="#38bdf8" stopOpacity="0" />
         </radialGradient>
-        <clipPath id="nd_sa_glass_inner_clip">
+        <clipPath id={`nd_gl_clip_${idKey}`}>
           <path d="M-48 -78 L48 -78 L36 74 Q35 80 28 80 L-28 80 Q-35 80 -36 74 Z" />
         </clipPath>
       </defs>
 
-      {/* Soft table shadow under glass */}
-      <ellipse cx="0" cy="86" rx="44" ry="9" fill="#0f172a" opacity="0.18" />
+      {showShadow ? <ellipse cx="0" cy="86" rx="44" ry="9" fill="#0f172a" opacity="0.18" /> : null}
 
-      {/* Optional chilly blue frost aura & cold-air wisps */}
       {showFrost ? (
         <g opacity={frostPulse}>
-          <ellipse cx="0" cy="4" rx="88" ry="104" fill="url(#nd_sa_glass_frost_aura)" />
+          <ellipse cx="0" cy="4" rx="88" ry="104" fill={`url(#nd_gl_frost_${idKey})`} />
           <g fill="none" stroke="#38bdf8" strokeWidth="3" strokeLinecap="round">
             <path d={`M-68 ${-36 + Math.sin(frame * 0.1) * 4} Q-80 -18 -68 0 Q-58 18 -68 36`} />
             <path d={`M68 ${-28 + Math.cos(frame * 0.1) * 4} Q80 -10 68 8 Q58 26 68 44`} />
-            <path d={`M-56 ${-64 + Math.sin(frame * 0.12) * 3} Q-64 -52 -56 -40`} strokeWidth="2.4" />
-            <path d={`M58 ${-58 + Math.cos(frame * 0.12) * 3} Q66 -46 58 -34`} strokeWidth="2.4" />
           </g>
-          {/* Crisp tiny frost stars */}
-          {[
-            [-74, -52],
-            [76, -42],
-            [-78, 22],
-            [74, 34],
-          ].map(([fx, fy], idx) => (
-            <g key={`frost-star-${idx}`} transform={`translate(${fx}, ${fy + Math.sin(frame * 0.11 + idx) * 3})`}>
-              <line x1="-6" y1="0" x2="6" y2="0" stroke="#0ea5e9" strokeWidth="2.2" strokeLinecap="round" />
-              <line x1="0" y1="-6" x2="0" y2="6" stroke="#0ea5e9" strokeWidth="2.2" strokeLinecap="round" />
-            </g>
-          ))}
         </g>
       ) : null}
 
-      {/* Drinking straw (back portion above rim + angled through glass) */}
+      {/* Drinking straw angled toward the left (towards drinker's mouth!) */}
       <g>
         <path
-          d="M22 -128 L34 -132 L38 -124 L26 -116 L2 68 L-8 68 L16 -122 Z"
+          d="M-24 -126 L-36 -130 L-40 -122 L-28 -114 L-2 68 L8 68 L-18 -120 Z"
           fill="#f43f5e"
           stroke={INK}
           strokeWidth="3.2"
           strokeLinejoin="round"
         />
-        {/* Crisp white straw stripes */}
         <path
-          d="M17 -106 L25 -103 M13 -84 L21 -81 M9 -62 L17 -59"
+          d="M-19 -104 L-27 -101 M-15 -82 L-23 -79 M-11 -60 L-19 -57"
           stroke="#ffffff"
           strokeWidth="4"
           strokeLinecap="round"
         />
       </g>
 
-      {/* Glass back fill */}
       <path
         d="M-50 -80 L50 -80 L38 76 Q37 84 29 84 L-29 84 Q-37 84 -38 76 Z"
-        fill="url(#nd_sa_glass_body)"
+        fill={`url(#nd_gl_body_${idKey})`}
       />
 
-      {/* Clipped liquid & bobbing translucent ice cubes */}
-      <g clipPath="url(#nd_sa_glass_inner_clip)">
+      <g clipPath={`url(#nd_gl_clip_${idKey})`}>
         {fill > 0.02 ? (
           <g>
-            {/* Liquid body */}
-            <rect x="-56" y={liquidTopY} width="112" height={150} fill="url(#nd_sa_glass_liquid)" />
-            {/* Liquid surface meniscus */}
+            <rect x="-56" y={liquidTopY} width="112" height={150} fill={`url(#nd_gl_liq_${idKey})`} />
             <ellipse
               cx="0"
               cy={liquidTopY}
@@ -643,18 +932,13 @@ export const IcedDrinkGlass: React.FC<{
               stroke="#0284c7"
               strokeWidth="2"
             />
-
-            {/* Gently bobbing translucent ice cubes */}
             {iceCubes.map((cube, idx) => {
               if (cube.cy > 64) return null;
               const bobY = Math.sin(frame * 0.09 + cube.phase) * 2.8;
               const bobRot = cube.rot + Math.cos(frame * 0.07 + cube.phase) * 3;
               const half = cube.size / 2;
               return (
-                <g
-                  key={`ice-${idx}`}
-                  transform={`translate(${cube.cx}, ${cube.cy + bobY}) rotate(${bobRot})`}
-                >
+                <g key={`ice-${idx}`} transform={`translate(${cube.cx}, ${cube.cy + bobY}) rotate(${bobRot})`}>
                   <rect
                     x={-half}
                     y={-half}
@@ -677,7 +961,6 @@ export const IcedDrinkGlass: React.FC<{
           </g>
         ) : null}
 
-        {/* Thick glass bottom */}
         <path
           d="M-40 68 L40 68 L38 82 L-38 82 Z"
           fill="#e0f2fe"
@@ -687,7 +970,6 @@ export const IcedDrinkGlass: React.FC<{
         />
       </g>
 
-      {/* Glass outer silhouette & rim */}
       <path
         d="M-50 -80 L-38 76 Q-37 84 -29 84 L29 84 Q37 84 38 76 L50 -80"
         fill="none"
@@ -698,25 +980,9 @@ export const IcedDrinkGlass: React.FC<{
       />
       <ellipse cx="0" cy="-80" rx="50" ry="9" fill="#e0f2fe" fillOpacity="0.35" stroke={INK} strokeWidth="4" />
 
-      {/* Glossy vertical specular highlight */}
-      <path
-        d="M-36 -60 L-28 58"
-        fill="none"
-        stroke="#ffffff"
-        strokeWidth="6.5"
-        strokeLinecap="round"
-        opacity="0.68"
-      />
-      <path
-        d="M-24 -54 L-19 20"
-        fill="none"
-        stroke="#ffffff"
-        strokeWidth="2.6"
-        strokeLinecap="round"
-        opacity="0.5"
-      />
+      <path d="M-36 -60 L-28 58" fill="none" stroke="#ffffff" strokeWidth="6.5" strokeLinecap="round" opacity="0.68" />
+      <path d="M-24 -54 L-19 20" fill="none" stroke="#ffffff" strokeWidth="2.6" strokeLinecap="round" opacity="0.5" />
 
-      {/* Crisp condensation droplets on outer glass */}
       {droplets.map((d, idx) => (
         <g key={`drop-${idx}`} transform={`translate(${d.cx}, ${d.cy})`}>
           <path
@@ -733,13 +999,8 @@ export const IcedDrinkGlass: React.FC<{
 };
 
 /**
- * Clean, scientifically accurate side-profile 2D anatomical cutaway of a head (~520x520 local space centered at 0,0):
- * - Crisp head silhouette facing right, skull rim, pink brain with warm 37°C glow
- * - Oral cavity with upper palate (vòm miệng) and movable warm pink tongue (tongueUp presses flat to palate)
- * - Anterior cerebral artery that constricts (showVesselDilate < 0) or widens & pulses (showVesselDilate > 0)
- * - 3-branch trigeminal nerve (V1 forehead, V2 palate, V3 jaw) with animated impulse pulses when showTrigeminal
- * - Icy cyan frost highlight on palate (coldPalatePct 0..1)
- * - Pulsing red pain starburst on forehead (foreheadPainPct 0..1)
+ * Clean, scientifically accurate side-profile 2D anatomical cutaway of a head (~520x520 local space centered at 0,0)
+ * facing RIGHT (oral opening on RIGHT side at local x=+160, y=+68; upper palate at local x=+100, y=+44).
  */
 export const HeadCutawayDiagram: React.FC<{
   x: number;
@@ -751,6 +1012,7 @@ export const HeadCutawayDiagram: React.FC<{
   showVesselDilate?: number;
   tongueUp?: boolean;
   frame: number;
+  uid?: string;
 }> = ({
   x,
   y,
@@ -761,10 +1023,12 @@ export const HeadCutawayDiagram: React.FC<{
   showVesselDilate = 0,
   tongueUp = false,
   frame,
+  uid,
 }) => {
   const cold = clamp01(coldPalatePct);
   const pain = clamp01(foreheadPainPct);
   const dilate = Math.max(-1, Math.min(1, showVesselDilate));
+  const idKey = (uid || `${Math.round(x)}_${Math.round(y)}`).replace(/[^a-zA-Z0-9_]/g, '_');
 
   const brainWarmPulse = 0.55 + Math.sin(frame * 0.08) * 0.14;
   const vesselPulse = dilate > 0 ? Math.sin(frame * 0.34) * (2.6 * dilate) : Math.sin(frame * 0.12) * 0.7;
@@ -781,75 +1045,47 @@ export const HeadCutawayDiagram: React.FC<{
   return (
     <g transform={`translate(${x}, ${y}) scale(${scale})`}>
       <defs>
-        <radialGradient id="nd_sa_head_brain_glow" cx="46%" cy="42%" r="52%">
+        <radialGradient id={`nd_hd_bglow_${idKey}`} cx="46%" cy="42%" r="52%">
           <stop offset="0%" stopColor="#fb923c" stopOpacity="0.46" />
           <stop offset="55%" stopColor="#f472b6" stopOpacity="0.22" />
           <stop offset="100%" stopColor="#f472b6" stopOpacity="0" />
         </radialGradient>
-        <radialGradient id="nd_sa_head_cold_palate" cx="50%" cy="50%" r="50%">
+        <radialGradient id={`nd_hd_cpal_${idKey}`} cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.88" />
           <stop offset="55%" stopColor="#0ea5e9" stopOpacity="0.42" />
           <stop offset="100%" stopColor="#0284c7" stopOpacity="0" />
         </radialGradient>
-        <radialGradient id="nd_sa_head_pain_burst" cx="50%" cy="50%" r="50%">
+        <radialGradient id={`nd_hd_pburst_${idKey}`} cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="#fef08a" stopOpacity="0.95" />
           <stop offset="35%" stopColor="#ef4444" stopOpacity="0.72" />
           <stop offset="75%" stopColor="#dc2626" stopOpacity="0.28" />
           <stop offset="100%" stopColor="#dc2626" stopOpacity="0" />
         </radialGradient>
-        <linearGradient id="nd_sa_head_skin" x1="0" y1="0" x2="1" y2="1">
+        <linearGradient id={`nd_hd_skin_${idKey}`} x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="#ffedd5" />
           <stop offset="100%" stopColor="#fed7aa" />
         </linearGradient>
       </defs>
 
-      {/* Head & Neck Side-Profile Silhouette (centered in ~520x520 local space) */}
       <path
-        d="M-78 242
-           L-82 162
-           C-156 136 -212 68 -212 -24
-           C-212 -148 -124 -232 4 -232
-           C94 -232 154 -182 162 -106
-           C164 -84 162 -64 166 -48
-           L202 -6
-           C207 0 204 10 194 12
-           L174 16
-           C178 26 176 36 168 42
-           L146 46
-           L146 84
-           L172 90
-           C177 98 175 112 164 124
-           C154 136 132 146 106 146
-           L78 148
-           L78 242 Z"
-        fill="url(#nd_sa_head_skin)"
+        d="M-78 242 L-82 162 C-156 136 -212 68 -212 -24 C-212 -148 -124 -232 4 -232 C94 -232 154 -182 162 -106 C164 -84 162 -64 166 -48 L202 -6 C207 0 204 10 194 12 L174 16 C178 26 176 36 168 42 L146 46 L146 84 L172 90 C177 98 175 112 164 124 C154 136 132 146 106 146 L78 148 L78 242 Z"
+        fill={`url(#nd_hd_skin_${idKey})`}
         stroke={INK}
         strokeWidth="5"
         strokeLinejoin="round"
       />
 
-      {/* Cranial Skull Cutaway Rim */}
       <path
-        d="M-66 128
-           C-138 106 -184 44 -184 -32
-           C-184 -134 -108 -206 4 -206
-           C82 -206 134 -162 140 -94
-           C142 -72 132 -48 112 -36
-           L56 -22
-           C24 -12 4 14 2 52
-           L2 128 Z"
+        d="M-66 128 C-138 106 -184 44 -184 -32 C-184 -134 -108 -206 4 -206 C82 -206 134 -162 140 -94 C142 -72 132 -48 112 -36 L56 -22 C24 -12 4 14 2 52 L2 128 Z"
         fill="#f8fafc"
         stroke="#94a3b8"
         strokeWidth="4"
         strokeLinejoin="round"
       />
 
-      {/* Warm 37°C Brain Ambient Glow */}
-      <ellipse cx="-26" cy="-74" rx="148" ry="118" fill="url(#nd_sa_head_brain_glow)" opacity={brainWarmPulse} />
+      <ellipse cx="-26" cy="-74" rx="148" ry="118" fill={`url(#nd_hd_bglow_${idKey})`} opacity={brainWarmPulse} />
 
-      {/* Pink Brain (Cerebrum + Cerebellum + Brainstem) */}
       <g>
-        {/* Brainstem descending into neck */}
         <path
           d="M-24 22 C-22 68 -30 124 -36 196 L-6 196 C0 124 8 68 12 22 Z"
           fill="#fbcfe8"
@@ -857,7 +1093,6 @@ export const HeadCutawayDiagram: React.FC<{
           strokeWidth="3.5"
           strokeLinejoin="round"
         />
-        {/* Cerebellum at lower back of skull */}
         <path
           d="M-112 30 C-138 44 -138 90 -96 102 C-66 110 -34 94 -26 66 C-22 44 -54 24 -112 30 Z"
           fill="#f472b6"
@@ -873,21 +1108,13 @@ export const HeadCutawayDiagram: React.FC<{
           strokeLinecap="round"
           opacity="0.7"
         />
-        {/* Main Pink Cerebrum */}
         <path
-          d="M-158 -24
-             C-166 -110 -98 -182 4 -182
-             C74 -182 124 -140 126 -80
-             C128 -34 98 -10 52 -6
-             C18 -4 -2 18 -16 32
-             C-56 44 -118 46 -144 18
-             C-154 6 -156 -8 -158 -24 Z"
+          d="M-158 -24 C-166 -110 -98 -182 4 -182 C74 -182 124 -140 126 -80 C128 -34 98 -10 52 -6 C18 -4 -2 18 -16 32 C-56 44 -118 46 -144 18 C-154 6 -156 -8 -158 -24 Z"
           fill="#f9a8d4"
           stroke={INK}
           strokeWidth="4"
           strokeLinejoin="round"
         />
-        {/* Clean stylized gyri/sulci brain folds */}
         <g fill="none" stroke="#be185d" strokeWidth="3.2" strokeLinecap="round" opacity="0.65">
           <path d="M-118 -64 C-92 -92 -42 -96 -14 -72" />
           <path d="M-98 -124 C-60 -148 4 -146 38 -118" />
@@ -899,9 +1126,7 @@ export const HeadCutawayDiagram: React.FC<{
         </g>
       </g>
 
-      {/* Nasal Cavity + Pharynx + Oral Cavity */}
       <g>
-        {/* Nasal passage above palate */}
         <path
           d="M42 -12 C78 -18 134 -12 162 4 C164 16 154 24 134 26 L56 26 C42 26 34 12 42 -12 Z"
           fill="#fda4af"
@@ -909,54 +1134,32 @@ export const HeadCutawayDiagram: React.FC<{
           strokeWidth="3.2"
           strokeLinejoin="round"
         />
-        {/* Oral cavity & throat interior */}
         <path
-          d="M150 44
-             C118 36 74 36 44 50
-             C24 62 18 98 18 148
-             L18 226
-             L48 226
-             L48 134
-             C52 114 72 108 106 108
-             L152 104
-             L152 44 Z"
+          d="M150 44 C118 36 74 36 44 50 C24 62 18 98 18 148 L18 226 L48 226 L48 134 C52 114 72 108 106 108 L152 104 L152 44 Z"
           fill="#9f1239"
           stroke={INK}
           strokeWidth="3.5"
           strokeLinejoin="round"
         />
-        {/* Upper Palate (Vòm miệng — hard & soft palate roof) */}
         <path
-          d="M164 42
-             C130 30 80 30 46 46
-             C36 52 30 62 28 70
-             C40 62 56 54 84 52
-             C114 50 144 52 164 52 Z"
+          d="M164 42 C130 30 80 30 46 46 C36 52 30 62 28 70 C40 62 56 54 84 52 C114 50 144 52 164 52 Z"
           fill="#fecdd3"
           stroke={INK}
           strokeWidth="3.4"
           strokeLinejoin="round"
         />
-        {/* Upper & Lower Front Teeth accents */}
         <rect x="148" y="48" width="11" height="13" rx="3" fill="#ffffff" stroke={INK} strokeWidth="2.4" />
         <rect x="148" y="86" width="11" height="13" rx="3" fill="#ffffff" stroke={INK} strokeWidth="2.4" />
 
-        {/* Movable Warm Pink Tongue */}
         {tongueUp ? (
           <g>
-            {/* Tongue pressed flat against the upper palate (vòm miệng) */}
             <path
-              d="M48 106
-                 C54 74 74 54 110 52
-                 C132 51 146 54 148 64
-                 C148 76 122 86 92 94
-                 C72 100 58 106 48 106 Z"
+              d="M48 106 C54 74 74 54 110 52 C132 51 146 54 148 64 C148 76 122 86 92 94 C72 100 58 106 48 106 Z"
               fill="#fb7185"
               stroke={INK}
               strokeWidth="3.4"
               strokeLinejoin="round"
             />
-            {/* Warm golden-orange heat waves transferring from tongue to palate */}
             <g fill="none" stroke="#fb923c" strokeWidth="3.2" strokeLinecap="round" opacity={0.7 + Math.sin(frame * 0.2) * 0.25}>
               <path d={`M82 ${50 - (frame % 12) * 0.6} Q88 42 82 34`} />
               <path d={`M106 ${48 - ((frame + 4) % 12) * 0.6} Q112 40 106 32`} />
@@ -964,12 +1167,8 @@ export const HeadCutawayDiagram: React.FC<{
             </g>
           </g>
         ) : (
-          /* Tongue resting naturally on the floor of the mouth */
           <path
-            d="M46 108
-               C56 84 82 76 116 78
-               C136 80 146 86 144 96
-               C136 106 96 108 46 108 Z"
+            d="M46 108 C56 84 82 76 116 78 C136 80 146 86 144 96 C136 106 96 108 46 108 Z"
             fill="#fb7185"
             stroke={INK}
             strokeWidth="3.4"
@@ -978,26 +1177,11 @@ export const HeadCutawayDiagram: React.FC<{
         )}
       </g>
 
-      {/* Icy Cyan Frost Highlight on Upper Palate (coldPalatePct 0..1) */}
       {cold > 0.01 ? (
         <g opacity={cold}>
-          <ellipse cx="104" cy="46" rx="64" ry="26" fill="url(#nd_sa_head_cold_palate)" />
-          <path
-            d="M52 50 C82 36 124 36 154 46"
-            fill="none"
-            stroke="#e0f2fe"
-            strokeWidth="6"
-            strokeLinecap="round"
-          />
-          <path
-            d="M58 50 C86 38 122 38 148 46"
-            fill="none"
-            stroke="#38bdf8"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeDasharray="6 6"
-          />
-          {/* Tiny frost crystals along palate */}
+          <ellipse cx="104" cy="46" rx="64" ry="26" fill={`url(#nd_hd_cpal_${idKey})`} />
+          <path d="M52 50 C82 36 124 36 154 46" fill="none" stroke="#e0f2fe" strokeWidth="6" strokeLinecap="round" />
+          <path d="M58 50 C86 38 122 38 148 46" fill="none" stroke="#38bdf8" strokeWidth="3" strokeLinecap="round" strokeDasharray="6 6" />
           {[
             [74, 44],
             [102, 40],
@@ -1011,9 +1195,7 @@ export const HeadCutawayDiagram: React.FC<{
         </g>
       ) : null}
 
-      {/* Anterior Cerebral Artery (constricts when showVesselDilate < 0, dilates & pulses when > 0) */}
       <g>
-        {/* Outer artery glow when dilating */}
         {dilate > 0.1 ? (
           <path
             d="M22 44 C26 6 36 -38 64 -76 C84 -102 74 -138 28 -154"
@@ -1024,22 +1206,8 @@ export const HeadCutawayDiagram: React.FC<{
             opacity={0.45 * dilate}
           />
         ) : null}
-        {/* Main anterior cerebral artery trunk */}
-        <path
-          d="M22 44 C26 6 36 -38 64 -76 C84 -102 74 -138 28 -154"
-          fill="none"
-          stroke={INK}
-          strokeWidth={arteryWidth + 4}
-          strokeLinecap="round"
-        />
-        <path
-          d="M22 44 C26 6 36 -38 64 -76 C84 -102 74 -138 28 -154"
-          fill="none"
-          stroke={arteryColor}
-          strokeWidth={arteryWidth}
-          strokeLinecap="round"
-        />
-        {/* Inner specular blood-flow highlight */}
+        <path d="M22 44 C26 6 36 -38 64 -76 C84 -102 74 -138 28 -154" fill="none" stroke={INK} strokeWidth={arteryWidth + 4} strokeLinecap="round" />
+        <path d="M22 44 C26 6 36 -38 64 -76 C84 -102 74 -138 28 -154" fill="none" stroke={arteryColor} strokeWidth={arteryWidth} strokeLinecap="round" />
         <path
           d="M22 44 C26 6 36 -38 64 -76 C84 -102 74 -138 28 -154"
           fill="none"
@@ -1049,7 +1217,6 @@ export const HeadCutawayDiagram: React.FC<{
           strokeDasharray="12 16"
           strokeDashoffset={-(frame * (dilate > 0 ? 4.2 : 1.8))}
         />
-        {/* Small arterial branches */}
         <path
           d="M62 -74 C82 -82 100 -88 114 -84 M56 -124 C36 -134 12 -132 -12 -122"
           fill="none"
@@ -1058,7 +1225,6 @@ export const HeadCutawayDiagram: React.FC<{
           strokeLinecap="round"
         />
 
-        {/* Visual constriction chevrons when showVesselDilate < -0.15 */}
         {dilate < -0.15 ? (
           <g fill="none" stroke="#0284c7" strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" opacity={-dilate}>
             <path d="M30 -54 L44 -48 L32 -40" />
@@ -1066,7 +1232,6 @@ export const HeadCutawayDiagram: React.FC<{
           </g>
         ) : null}
 
-        {/* Visual dilation outward pulse rings when showVesselDilate > 0.15 */}
         {dilate > 0.15 ? (
           <g fill="none" stroke="#ef4444" strokeWidth="3" opacity={0.75 * dilate}>
             <circle cx="64" cy="-76" r={16 + (frame % 18) * 1.4} opacity={1 - (frame % 18) / 18} />
@@ -1075,44 +1240,33 @@ export const HeadCutawayDiagram: React.FC<{
         ) : null}
       </g>
 
-      {/* 3-Branch Trigeminal Nerve (Dây thần kinh sinh ba: V1 Forehead, V2 Palate, V3 Jaw) */}
       {showTrigeminal ? (
         <g>
-          {/* Soft glowing yellow-cyan nerve halo */}
           <g fill="none" stroke="#38bdf8" strokeWidth="9" strokeLinecap="round" opacity="0.32">
             <path d="M10 4 C44 -34 92 -72 138 -96" />
             <path d="M10 4 C54 18 96 36 138 44" />
             <path d="M10 4 C46 44 82 82 126 108" />
           </g>
-          {/* Crisp golden-yellow nerve lines */}
           <g fill="none" stroke="#facc15" strokeWidth="4.4" strokeLinecap="round">
-            {/* V1: Ophthalmic branch -> forehead / temples */}
             <path d="M10 4 C44 -34 92 -72 138 -96" />
-            {/* V2: Maxillary branch -> upper palate */}
             <path d="M10 4 C54 18 96 36 138 44" />
-            {/* V3: Mandibular branch -> lower jaw */}
             <path d="M10 4 C46 44 82 82 126 108" />
           </g>
-          {/* Animated electric nerve impulses traveling palate -> ganglion -> forehead */}
           <g fill="none" stroke="#ffffff" strokeWidth="3.2" strokeLinecap="round" strokeDasharray="7 18">
             <path d="M138 44 C96 36 54 18 10 4" strokeDashoffset={nerveDashOffset} />
             <path d="M10 4 C44 -34 92 -72 138 -96" strokeDashoffset={nerveDashOffset} />
           </g>
-          {/* Trigeminal Ganglion Hub */}
           <circle cx="10" cy="4" r="11" fill="#fde047" stroke={INK} strokeWidth="3" />
           <circle cx="10" cy="4" r="4.5" fill="#0ea5e9" />
-          {/* Branch endpoint nodes */}
           <circle cx="138" cy="-96" r="6" fill="#fde047" stroke={INK} strokeWidth="2.4" />
           <circle cx="138" cy="44" r="6" fill="#38bdf8" stroke={INK} strokeWidth="2.4" />
           <circle cx="126" cy="108" r="5.5" fill="#fde047" stroke={INK} strokeWidth="2.4" />
         </g>
       ) : null}
 
-      {/* Pulsing Red Pain Starburst on Forehead (foreheadPainPct 0..1) */}
       {pain > 0.01 ? (
         <g transform={`translate(138, -96) scale(${lerp(0.65, 1.12, pain) * painPulse})`} opacity={pain}>
-          <circle cx="0" cy="0" r="62" fill="url(#nd_sa_head_pain_burst)" />
-          {/* Pulsing shockwave ring */}
+          <circle cx="0" cy="0" r="62" fill={`url(#nd_hd_pburst_${idKey})`} />
           <circle
             cx="0"
             cy="0"
@@ -1122,7 +1276,6 @@ export const HeadCutawayDiagram: React.FC<{
             strokeWidth="3.5"
             opacity={1 - (frame % 20) / 20}
           />
-          {/* Sharp 8-point comic-scientific pain starburst */}
           <path
             d="M0 -42 L9 -15 L36 -26 L16 -4 L44 6 L15 14 L28 38 L4 18 L-10 42 L-11 14 L-38 22 L-16 0 L-40 -14 L-12 -14 L-22 -38 L-2 -18 Z"
             fill="#ef4444"
@@ -1138,18 +1291,15 @@ export const HeadCutawayDiagram: React.FC<{
 };
 
 /**
- * Full 1920x1080 warm Vietnamese countryside summer porch backdrop:
- * - Bright sunny summer sky (NOON) or golden pleasant afternoon (AFTERNOON)
- * - Radiant sun with rotating rays, drifting clouds, lush green countryside trees
- * - House wall with open wooden-shuttered window, wooden porch pillar, tiled floor, wooden table
- * - Optional rising heat shimmer waves when heatIntensity > 0
- * - Bottom y = 900..1080 kept clear of critical labels for subtitles
+ * Full 1920x1080 warm Vietnamese countryside summer porch backdrop.
+ * Supports `showTable` (default false when scene places its own custom table/chairs cleanly!).
  */
 export const SummerPorchBackdrop: React.FC<{
   frame: number;
   heatIntensity?: number;
   timeOfDay?: 'NOON' | 'AFTERNOON';
-}> = ({ frame, heatIntensity = 0, timeOfDay = 'NOON' }) => {
+  showTable?: boolean;
+}> = ({ frame, heatIntensity = 0, timeOfDay = 'NOON', showTable = true }) => {
   const isAfternoon = timeOfDay === 'AFTERNOON';
   const heat = clamp01(heatIntensity);
   const cloudDrift = (frame * 0.38) % 1920;
@@ -1169,35 +1319,29 @@ export const SummerPorchBackdrop: React.FC<{
           <stop offset="52%" stopColor="#38bdf8" />
           <stop offset="100%" stopColor="#fef9c3" />
         </linearGradient>
-
         <linearGradient id="nd_sa_porch_sky_afternoon" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#f97316" />
           <stop offset="48%" stopColor="#fbbf24" />
           <stop offset="100%" stopColor="#fef3c7" />
         </linearGradient>
-
         <radialGradient id="nd_sa_porch_sun_glow" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="#fef9c3" stopOpacity="0.98" />
           <stop offset="38%" stopColor="#fde047" stopOpacity="0.58" />
           <stop offset="72%" stopColor="#fb923c" stopOpacity="0.18" />
           <stop offset="100%" stopColor="#fb923c" stopOpacity="0" />
         </radialGradient>
-
         <linearGradient id="nd_sa_porch_floor_shade" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#78350f" stopOpacity="0.06" />
           <stop offset="100%" stopColor="#451a03" stopOpacity="0.28" />
         </linearGradient>
-
         <linearGradient id="nd_sa_porch_sunbeam" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="#fef9c3" stopOpacity="0.34" />
           <stop offset="100%" stopColor="#fef9c3" stopOpacity="0" />
         </linearGradient>
       </defs>
 
-      {/* Summer Sky */}
       <rect x="0" y="0" width="1920" height="780" fill={`url(#${skyGradId})`} />
 
-      {/* Radiant Sun & Slowly Rotating Rays */}
       <g transform={`translate(${sunCx}, ${sunCy})`}>
         <circle cx="0" cy="0" r="195" fill="url(#nd_sa_porch_sun_glow)" />
         <g transform={`rotate(${sunSpin})`} stroke="#fef08a" strokeWidth="6" strokeLinecap="round" opacity="0.78">
@@ -1209,7 +1353,6 @@ export const SummerPorchBackdrop: React.FC<{
         <circle cx="-12" cy="-12" r="22" fill="#ffffff" opacity="0.45" />
       </g>
 
-      {/* Soft Drifting Summer Clouds */}
       <g opacity={isAfternoon ? '0.82' : '0.92'}>
         {[0, 1920].map((offset) => (
           <g key={`cloud-set-${offset}`} transform={`translate(${offset - cloudDrift}, 0)`}>
@@ -1225,14 +1368,8 @@ export const SummerPorchBackdrop: React.FC<{
         ))}
       </g>
 
-      {/* Distant Green Countryside Hills */}
-      <path
-        d="M0 615 Q260 535 550 585 T1080 570 L1080 770 L0 770 Z"
-        fill={isAfternoon ? '#4d7c0f' : '#22c55e'}
-        opacity="0.72"
-      />
+      <path d="M0 615 Q260 535 550 585 T1080 570 L1080 770 L0 770 Z" fill={isAfternoon ? '#4d7c0f' : '#22c55e'} opacity="0.72" />
 
-      {/* Lush Green Trees along the Yard */}
       {[
         { tx: 105, ty: 545, r: 72, c: '#15803d', hi: '#22c55e' },
         { tx: 270, ty: 575, r: 64, c: '#166534', hi: '#16a34a' },
@@ -1249,18 +1386,10 @@ export const SummerPorchBackdrop: React.FC<{
         </g>
       ))}
 
-      {/* Warm Sunlight Wash Diagonal Across Yard */}
       <polygon points="180,155 760,155 1120,765 260,765" fill="url(#nd_sa_porch_sunbeam)" />
 
-      {/* Optional Rising Heat Shimmer Waves in Sunny Yard (heatIntensity > 0) */}
       {heat > 0.01 ? (
-        <g
-          fill="none"
-          stroke={isAfternoon ? '#fb923c' : '#fef08a'}
-          strokeWidth="4.5"
-          strokeLinecap="round"
-          opacity={heat * 0.62}
-        >
+        <g fill="none" stroke={isAfternoon ? '#fb923c' : '#fef08a'} strokeWidth="4.5" strokeLinecap="round" opacity={heat * 0.62}>
           {[140, 340, 540, 740, 860].map((hx, idx) => {
             const rise = (frame * 1.8 + idx * 34) % 140;
             const yBase = 685 - rise;
@@ -1276,18 +1405,13 @@ export const SummerPorchBackdrop: React.FC<{
         </g>
       ) : null}
 
-      {/* Vietnamese Countryside House Wall (right & center-right) */}
       <rect x="920" y="140" width="1000" height="625" fill={wallFill} stroke={INK} strokeWidth="5" />
-      {/* Lower wall dado trim */}
       <rect x="920" y="612" width="1000" height="153" fill="#d97706" opacity="0.22" />
       <line x1="920" y1="612" x2="1920" y2="612" stroke={INK} strokeWidth="4" />
 
-      {/* Open Wooden-Shuttered Countryside Window */}
       <g transform="translate(1070, 305)">
-        {/* Window frame & cool shaded interior */}
         <rect x="0" y="0" width="268" height="216" rx="6" fill="#78350f" stroke={INK} strokeWidth="5" />
         <rect x="14" y="14" width="240" height="188" rx="3" fill="#334155" stroke={INK} strokeWidth="3.5" />
-        {/* Soft sunlit curtain inside open window */}
         <path
           d={`M16 16 L84 16 Q${70 + Math.sin(frame * 0.08) * 6} 104 54 198 L16 198 Z`}
           fill="#fef9c3"
@@ -1295,10 +1419,8 @@ export const SummerPorchBackdrop: React.FC<{
           stroke={INK}
           strokeWidth="2.5"
         />
-        {/* Wooden window bars */}
         <line x1="134" y1="14" x2="134" y2="202" stroke="#78350f" strokeWidth="6" />
         <line x1="14" y1="108" x2="254" y2="108" stroke="#78350f" strokeWidth="6" />
-        {/* Open side shutters with slats */}
         <rect x="-48" y="4" width="44" height="208" rx="4" fill="#15803d" stroke={INK} strokeWidth="4" />
         <rect x="272" y="4" width="44" height="208" rx="4" fill="#15803d" stroke={INK} strokeWidth="4" />
         {[36, 70, 104, 138, 172].map((sy) => (
@@ -1309,7 +1431,6 @@ export const SummerPorchBackdrop: React.FC<{
         ))}
       </g>
 
-      {/* Traditional Wooden Paneled Door */}
       <g transform="translate(1540, 285)">
         <rect x="0" y="0" width="210" height="475" rx="6" fill="#92400e" stroke={INK} strokeWidth="5" />
         <rect x="18" y="20" width="174" height="195" rx="4" fill="#b45309" stroke={INK} strokeWidth="3.5" />
@@ -1317,11 +1438,9 @@ export const SummerPorchBackdrop: React.FC<{
         <circle cx="32" cy="250" r="9" fill="#fde047" stroke={INK} strokeWidth="3" />
       </g>
 
-      {/* Porch Roof Overhang (terracotta tile edge + wooden beam) */}
       <path d="M160 0 L1920 0 L1920 142 L205 142 L160 105 Z" fill="#9a3412" stroke={INK} strokeWidth="5" />
       <rect x="205" y="132" width="1715" height="28" fill="#78350f" stroke={INK} strokeWidth="4.5" />
 
-      {/* Wooden Porch Pillar (left framing column) */}
       <g>
         <rect x="240" y="160" width="48" height="605" fill="#92400e" stroke={INK} strokeWidth="5" />
         <rect x="248" y="164" width="10" height="595" fill="#b45309" opacity="0.55" />
@@ -1329,39 +1448,31 @@ export const SummerPorchBackdrop: React.FC<{
         <rect x="232" y="158" width="64" height="22" rx="3" fill="#78350f" stroke={INK} strokeWidth="4" />
       </g>
 
-      {/* Tiled Porch Floor (y = 760..1080) */}
       <rect x="0" y="760" width="1920" height="320" fill={floorFill} stroke={INK} strokeWidth="5" />
-      {/* Horizontal tile grout lines */}
       <g stroke="#78350f" strokeWidth="2.5" opacity="0.38">
         <line x1="0" y1="815" x2="1920" y2="815" />
         <line x1="0" y1="885" x2="1920" y2="885" />
         <line x1="0" y1="975" x2="1920" y2="975" />
       </g>
-      {/* Perspective tile grout lines */}
       <g stroke="#78350f" strokeWidth="2.5" opacity="0.32">
         {[120, 320, 520, 720, 920, 1120, 1320, 1520, 1720].map((gx) => (
           <line key={`ptile-${gx}`} x1={gx} y1="760" x2={gx + (gx - 960) * 0.32} y2="1080" />
         ))}
       </g>
-      {/* Floor shading gradient */}
       <rect x="0" y="760" width="1920" height="320" fill="url(#nd_sa_porch_floor_shade)" />
 
-      {/* Sturdy Wooden Porch Table (centered at x = 960, tabletop y = 696) */}
-      <g>
-        {/* Floor shadow under table */}
-        <ellipse cx="960" cy="836" rx="220" ry="22" fill="#451a03" opacity="0.22" />
-        {/* Back table legs */}
-        <rect x="815" y="718" width="20" height="106" rx="3" fill="#78350f" stroke={INK} strokeWidth="4" />
-        <rect x="1085" y="718" width="20" height="106" rx="3" fill="#78350f" stroke={INK} strokeWidth="4" />
-        {/* Front table legs */}
-        <rect x="780" y="720" width="24" height="118" rx="3" fill="#92400e" stroke={INK} strokeWidth="4.2" />
-        <rect x="1116" y="720" width="24" height="118" rx="3" fill="#92400e" stroke={INK} strokeWidth="4.2" />
-        {/* Table apron bar */}
-        <rect x="784" y="718" width="352" height="22" fill="#78350f" stroke={INK} strokeWidth="4" />
-        {/* Tabletop surface */}
-        <rect x="752" y="692" width="416" height="30" rx="8" fill="#b45309" stroke={INK} strokeWidth="4.5" />
-        <line x1="770" y1="704" x2="1150" y2="704" stroke="#d97706" strokeWidth="4" strokeLinecap="round" opacity="0.7" />
-      </g>
+      {showTable ? (
+        <g>
+          <ellipse cx="960" cy="832" rx="220" ry="20" fill="#451a03" opacity="0.22" />
+          <rect x="815" y="718" width="20" height="104" rx="3" fill="#78350f" stroke={INK} strokeWidth="4" />
+          <rect x="1085" y="718" width="20" height="104" rx="3" fill="#78350f" stroke={INK} strokeWidth="4" />
+          <rect x="780" y="720" width="24" height="114" rx="3" fill="#92400e" stroke={INK} strokeWidth="4.2" />
+          <rect x="1116" y="720" width="24" height="114" rx="3" fill="#92400e" stroke={INK} strokeWidth="4.2" />
+          <rect x="784" y="718" width="352" height="22" fill="#78350f" stroke={INK} strokeWidth="4" />
+          <rect x="752" y="692" width="416" height="30" rx="8" fill="#b45309" stroke={INK} strokeWidth="4.5" />
+          <line x1="770" y1="704" x2="1150" y2="704" stroke="#d97706" strokeWidth="4" strokeLinecap="round" opacity="0.7" />
+        </g>
+      ) : null}
     </g>
   );
 };

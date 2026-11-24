@@ -7,6 +7,8 @@ import {
   lerp,
   CleanLabel,
   ShortSpeechBubble,
+  WoodenSideTable,
+  IceCreamCone,
   SharedStickman,
   IcedDrinkGlass,
   HeadCutawayDiagram,
@@ -15,6 +17,10 @@ import {
 
 /* ============================================================================
  * 1. NUOCDA_HOT_NOON_GULP — NuocDaHotNoonGulpVisual
+ *    - Clean storytelling porch scene (NO % UI card, NO redundant pills!)
+ *    - Expanded 38°C badge with generous right padding (>= 24px)
+ *    - Properly proportioned iced glass (~1/3 boy height) on wooden table
+ *    - Step 1: BOY stands clearly on left holding glass directly to mouth with both hands
  * ========================================================================== */
 export const NuocDaHotNoonGulpVisual: React.FC<EpisodeVisualProps> = ({
   frame = 0,
@@ -25,13 +31,12 @@ export const NuocDaHotNoonGulpVisual: React.FC<EpisodeVisualProps> = ({
   const activeStep = step ?? visualStep ?? 0;
   const p = clamp01(progress);
 
-  const heatPulse = 1 + Math.sin(frame * 0.08) * 0.04;
+  const heatPulse = 1 + Math.sin(frame * 0.08) * 0.03;
   const sweatOffset = (frame * 1.6) % 48;
-  const gulpFill = activeStep === 0 ? 0.92 : activeStep === 1 ? lerp(0.9, 0.25, p) : 0.25;
-  const tiltDeg = lerp(-14, -40, p);
+  const gulpFill = activeStep === 0 ? 0.92 : activeStep === 1 ? lerp(0.92, 0.14, p) : 0.14;
+  const tiltDeg = lerp(-12, -32, p);
   const shiverX = activeStep === 2 ? Math.sin(frame * 0.95) * 3.2 : 0;
   const boltPulse = 0.85 + Math.sin(frame * 0.35) * 0.18;
-  const flowDashOffset = -(frame * 5.5);
 
   return (
     <svg width={1920} height={1080} viewBox="0 0 1920 1080">
@@ -44,10 +49,6 @@ export const NuocDaHotNoonGulpVisual: React.FC<EpisodeVisualProps> = ({
           <stop offset="0%" stopColor="#8C5225" />
           <stop offset="100%" stopColor="#A66533" />
         </linearGradient>
-        <linearGradient id="nd1_coldFlowGrad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#38BDF8" />
-          <stop offset="100%" stopColor="#E0F2FE" />
-        </linearGradient>
         <radialGradient id="nd1_freezeGlow" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.45" />
           <stop offset="60%" stopColor="#EF4444" stopOpacity="0.2" />
@@ -59,96 +60,56 @@ export const NuocDaHotNoonGulpVisual: React.FC<EpisodeVisualProps> = ({
         </linearGradient>
       </defs>
 
-      {/* Porch Backdrop */}
+      {/* Porch Backdrop (single custom table below — no duplicate overlapping table!) */}
       <SummerPorchBackdrop
         frame={frame}
-        heatIntensity={activeStep === 2 ? 0.7 : 1}
+        heatIntensity={activeStep === 2 ? 0.65 : 1}
         timeOfDay="NOON"
+        showTable={false}
       />
 
-      {/* Top-Left 38°C Thermometer Badge */}
-      <g transform={`translate(110, 72) scale(${heatPulse})`}>
+      {/* Top-Left 38°C Thermometer Badge — widened to 292px so "Trưa nắng gắt" has >= 28px right padding */}
+      <g transform={`translate(96, 68) scale(${heatPulse})`}>
         <rect
           x={0}
           y={0}
-          width={236}
+          width={292}
           height={118}
           rx={24}
           fill="#FFF7ED"
           stroke="#EA580C"
           strokeWidth={4}
         />
-        {/* Thermometer Icon */}
-        <g transform="translate(36, 18)">
+        <g transform="translate(34, 18)">
           <rect x={11} y={4} width={16} height={54} rx={8} fill="#FED7AA" stroke={INK} strokeWidth={3} />
           <rect x={15} y={12} width={8} height={46} rx={4} fill="url(#nd1_thermoFill)" />
           <circle cx={19} cy={66} r={14} fill="#EF4444" stroke={INK} strokeWidth={3} />
           <circle cx={15} cy={62} r={4} fill="#FCA5A5" />
         </g>
-        <text
-          x={92}
-          y={58}
-          fontFamily={FONT}
-          fontSize={40}
-          fontWeight={900}
-          fill="#C2410C"
-        >
+        <text x={94} y={58} fontFamily={FONT} fontSize={40} fontWeight={900} fill="#C2410C">
           38°C
         </text>
-        <text
-          x={92}
-          y={94}
-          fontFamily={FONT}
-          fontSize={21}
-          fontWeight={700}
-          fill="#9A3412"
-        >
+        <text x={94} y={94} fontFamily={FONT} fontSize={22} fontWeight={700} fill="#9A3412">
           Trưa nắng gắt
         </text>
       </g>
 
-      {/* Wooden Porch Table (kept at y <= 820) */}
+      {/* Single Wooden Porch Table on the right (feet firmly on tiled porch floor at y = 815) */}
       <g>
-        <rect
-          x={1140}
-          y={660}
-          width={34}
-          height={160}
-          rx={6}
-          fill="url(#nd1_tableLegGrad)"
-          stroke={INK}
-          strokeWidth={4}
-        />
-        <rect
-          x={1490}
-          y={660}
-          width={34}
-          height={160}
-          rx={6}
-          fill="url(#nd1_tableLegGrad)"
-          stroke={INK}
-          strokeWidth={4}
-        />
-        <rect
-          x={1085}
-          y={626}
-          width={490}
-          height={42}
-          rx={12}
-          fill="url(#nd1_tableTopGrad)"
-          stroke={INK}
-          strokeWidth={4}
-        />
-        <line x1={1110} y1={646} x2={1550} y2={646} stroke="#8C5225" strokeWidth={3} opacity={0.45} />
+        <ellipse cx={1360} cy={818} rx={210} ry={16} fill="#451a03" opacity={0.2} />
+        <rect x={1185} y={666} width={28} height={150} rx={5} fill="url(#nd1_tableLegGrad)" stroke={INK} strokeWidth={4} />
+        <rect x={1508} y={666} width={28} height={150} rx={5} fill="url(#nd1_tableLegGrad)" stroke={INK} strokeWidth={4} />
+        <rect x={1135} y={634} width={450} height={38} rx={12} fill="url(#nd1_tableTopGrad)" stroke={INK} strokeWidth={4} />
+        <line x1={1158} y1={652} x2={1560} y2={652} stroke="#8C5225" strokeWidth={3} opacity={0.45} />
       </g>
 
-      {/* STEP 0: Tired BOY arrives, eyeing frosty iced drink */}
+      {/* STEP 0: Tired BOY arrives on left, eyeing proportioned frosty iced tea glass on table */}
       {activeStep === 0 && (
         <g>
           <SharedStickman
-            x={710}
-            y={765}
-            scale={1.12}
+            x={720}
+            y={700}
+            scale={1.06}
             role="BOY"
             facing="RIGHT"
             pose="IDLE"
@@ -163,7 +124,7 @@ export const NuocDaHotNoonGulpVisual: React.FC<EpisodeVisualProps> = ({
             return (
               <path
                 key={i}
-                d={`M ${648 - i * 24} ${462 + dy} q -6 12 0 18 a 7 7 0 1 0 10 -10 z`}
+                d={`M ${660 - i * 22} ${508 + dy} q -5 10 0 15 a 6 6 0 1 0 9 -9 z`}
                 fill="#38BDF8"
                 stroke="#0284C7"
                 strokeWidth={2}
@@ -172,197 +133,74 @@ export const NuocDaHotNoonGulpVisual: React.FC<EpisodeVisualProps> = ({
             );
           })}
 
-          {/* Frosty glass on wooden table */}
+          {/* Properly proportioned frosty glass (~1/3 of BOY height) resting flush on tabletop y = 634 */}
           <IcedDrinkGlass
-            x={1325}
-            y={542}
-            scale={1.12}
+            x={1355}
+            y={584}
+            scale={0.62}
             fillPct={0.92}
             showFrost={true}
             frame={frame}
+            uid="nd1_s0"
           />
 
-          {/* Subtle cool mist curls */}
-          <path
-            d={`M 1295 ${418 - Math.sin(frame * 0.08) * 6} Q 1280 392 1300 370`}
-            fill="none"
-            stroke="#BAE6FD"
-            strokeWidth={5}
-            strokeLinecap="round"
-            opacity={0.75}
-          />
-          <path
-            d={`M 1352 ${422 - Math.cos(frame * 0.08) * 6} Q 1370 396 1348 372`}
-            fill="none"
-            stroke="#BAE6FD"
-            strokeWidth={5}
-            strokeLinecap="round"
-            opacity={0.75}
-          />
-
-          <ShortSpeechBubble x={710} y={295} text="Nóng quá trời!" tailDir="CENTER" />
-
-          <CleanLabel
-            x={1330}
-            y={765}
-            text="Ly nước đá lạnh 0°C"
-            bg="#E0F2FE"
-            color="#0369A1"
-            border="#0284C7"
-            fontSize={26}
-          />
+          <ShortSpeechBubble x={720} y={445} text="Nóng quá trời!" tailDir="CENTER" />
         </g>
       )}
 
-      {/* STEP 1: BOY drinking fast, liquid level dropping smoothly */}
+      {/* STEP 1: BOY stands cleanly on left holding glass DIRECTLY with both bent arms to his mouth! */}
       {activeStep === 1 && (
         <g>
-          <CleanLabel
-            x={960}
-            y={112}
-            text="Uống một hơi thật nhanh!"
-            bg="#DBEAFE"
-            color="#1D4ED8"
-            border="#3B82F6"
-            fontSize={30}
-          />
-
           <SharedStickman
-            x={820}
-            y={765}
-            scale={1.12}
+            x={790}
+            y={700}
+            scale={1.08}
             role="BOY"
             facing="RIGHT"
             pose="DRINK_FAST"
             expression="HAPPY"
             frame={frame}
+            drinkFillPct={gulpFill}
+            drinkTiltDeg={tiltDeg}
+            uid="nd1_s1"
           />
-
-          {/* Tilted IcedDrinkGlass near BOY's mouth */}
-          <g transform={`translate(995, 500) rotate(${tiltDeg})`}>
-            <IcedDrinkGlass
-              x={0}
-              y={0}
-              scale={0.95}
-              fillPct={gulpFill}
-              showFrost={true}
-              frame={frame}
-            />
-          </g>
-
-          {/* Cold blue flow lines streaming into mouth */}
-          <g>
-            <path
-              d="M 960 492 Q 915 480 868 504"
-              fill="none"
-              stroke="url(#nd1_coldFlowGrad)"
-              strokeWidth={11}
-              strokeLinecap="round"
-              strokeDasharray="18 14"
-              strokeDashoffset={flowDashOffset}
-            />
-            <path
-              d="M 966 512 Q 918 505 872 522"
-              fill="none"
-              stroke="#7DD3FC"
-              strokeWidth={6}
-              strokeLinecap="round"
-              strokeDasharray="12 12"
-              strokeDashoffset={flowDashOffset * 1.2}
-            />
-          </g>
-
-          {/* Fill Level Progress Card on right */}
-          <g transform="translate(1390, 270)">
-            <rect
-              x={0}
-              y={0}
-              width={320}
-              height={255}
-              rx={24}
-              fill="#FFFFFF"
-              fillOpacity={0.94}
-              stroke="#0284C7"
-              strokeWidth={4}
-            />
-            <text
-              x={160}
-              y={46}
-              textAnchor="middle"
-              fontFamily={FONT}
-              fontSize={24}
-              fontWeight={800}
-              fill="#0F172A"
-            >
-              Lượng nước trong ly
-            </text>
-            <rect x={44} y={76} width={232} height={36} rx={18} fill="#E2E8F0" stroke={INK} strokeWidth={3} />
-            <rect
-              x={47}
-              y={79}
-              width={Math.max(12, 226 * gulpFill)}
-              height={30}
-              rx={15}
-              fill="#0EA5E9"
-            />
-            <text
-              x={160}
-              y={160}
-              textAnchor="middle"
-              fontFamily={FONT}
-              fontSize={44}
-              fontWeight={900}
-              fill="#0369A1"
-            >
-              {Math.round(gulpFill * 100)}%
-            </text>
-            <text
-              x={160}
-              y={212}
-              textAnchor="middle"
-              fontFamily={FONT}
-              fontSize={22}
-              fontWeight={700}
-              fill="#475569"
-            >
-              Uống cạn liên tục
-            </text>
-          </g>
+          <ShortSpeechBubble x={760} y={435} text="Ực ực! Đã quá!" tailDir="CENTER" />
         </g>
       )}
 
-      {/* STEP 2: 5 seconds later — brain freeze pain */}
+      {/* STEP 2: 5 seconds later — glass set back on table, BOY clutching forehead in brain-freeze pain */}
       {activeStep === 2 && (
         <g>
           <CleanLabel
             x={960}
-            y={112}
+            y={104}
             text="5 giây sau..."
             bg="#FEF2F2"
             color="#DC2626"
             border="#EF4444"
-            fontSize={32}
+            fontSize={30}
           />
 
-          {/* Glass dropped back onto table with small splash */}
+          {/* Nearly empty iced glass back on table with small condensation ring */}
           <IcedDrinkGlass
-            x={1330}
-            y={542}
-            scale={1.08}
-            fillPct={0.25}
+            x={1355}
+            y={584}
+            scale={0.62}
+            fillPct={0.14}
             showFrost={true}
             frame={frame}
+            uid="nd1_s2"
           />
-          <ellipse cx={1330} cy={632} rx={72} ry={10} fill="#38BDF8" opacity={0.45} />
+          <ellipse cx={1355} cy={638} rx={44} ry={7} fill="#38BDF8" opacity={0.45} />
 
-          {/* BOY clutching forehead in pain */}
+          {/* BOY clutching forehead in sudden pain */}
           <g transform={`translate(${shiverX}, 0)`}>
-            <circle cx={855} cy={455} r={145 * boltPulse} fill="url(#nd1_freezeGlow)" />
+            <circle cx={810} cy={538} r={130 * boltPulse} fill="url(#nd1_freezeGlow)" />
 
             <SharedStickman
-              x={855}
-              y={765}
-              scale={1.12}
+              x={810}
+              y={700}
+              scale={1.08}
               role="BOY"
               facing="RIGHT"
               pose="HOLD_HEAD_PAIN"
@@ -370,8 +208,7 @@ export const NuocDaHotNoonGulpVisual: React.FC<EpisodeVisualProps> = ({
               frame={frame}
             />
 
-            {/* Jagged electric blue & red freeze-bolt spikes radiating from forehead */}
-            <g transform={`translate(855, 445) scale(${boltPulse})`}>
+            <g transform={`translate(810, 530) scale(${boltPulse})`}>
               {[
                 { rot: -135, color: '#38BDF8' },
                 { rot: -95, color: '#EF4444' },
@@ -380,12 +217,12 @@ export const NuocDaHotNoonGulpVisual: React.FC<EpisodeVisualProps> = ({
                 { rot: -165, color: '#EF4444' },
                 { rot: 15, color: '#38BDF8' },
               ].map((b, idx) => (
-                <g key={idx} transform={`rotate(${b.rot}) translate(86, 0)`}>
+                <g key={idx} transform={`rotate(${b.rot}) translate(76, 0)`}>
                   <polyline
-                    points="0,0 24,-10 18,8 48,-6 38,10 68,0"
+                    points="0,0 22,-9 16,7 44,-5 34,9 60,0"
                     fill="none"
                     stroke={b.color}
-                    strokeWidth={7}
+                    strokeWidth={6.5}
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
@@ -394,17 +231,7 @@ export const NuocDaHotNoonGulpVisual: React.FC<EpisodeVisualProps> = ({
             </g>
           </g>
 
-          <ShortSpeechBubble x={520} y={295} text="Á! Buốt tận óc!" tailDir="RIGHT" />
-
-          <CleanLabel
-            x={1330}
-            y={765}
-            text="Cơn buốt nhói dữ dội ở trán!"
-            bg="#FEE2E2"
-            color="#B91C1C"
-            border="#EF4444"
-            fontSize={26}
-          />
+          <ShortSpeechBubble x={535} y={420} text="Á! Buốt tận óc!" tailDir="RIGHT" />
         </g>
       )}
     </svg>
@@ -413,6 +240,7 @@ export const NuocDaHotNoonGulpVisual: React.FC<EpisodeVisualProps> = ({
 
 /* ============================================================================
  * 2. NUOCDA_BRAIN_NOT_FROZEN — NuocDaBrainNotFrozenVisual
+ *    - Stripped ALL duplicate bottom pills! Only 1 crisp top title per step.
  * ========================================================================== */
 export const NuocDaBrainNotFrozenVisual: React.FC<EpisodeVisualProps> = ({
   frame = 0,
@@ -446,13 +274,11 @@ export const NuocDaBrainNotFrozenVisual: React.FC<EpisodeVisualProps> = ({
           <stop offset="100%" stopColor="#0284C7" />
         </linearGradient>
         <clipPath id="nd2_tissueClip">
-          <circle cx={1360} cy={435} r={185} />
+          <circle cx={1360} cy={455} r={185} />
         </clipPath>
       </defs>
 
-      {/* Dark-Slate Science Explainer Background */}
       <rect width={1920} height={1080} fill="url(#nd2_bgGrad)" />
-      {/* Subtle scientific grid dots */}
       <g opacity={0.14}>
         {Array.from({ length: 12 }).map((_, r) =>
           Array.from({ length: 20 }).map((__, c) => (
@@ -461,22 +287,22 @@ export const NuocDaBrainNotFrozenVisual: React.FC<EpisodeVisualProps> = ({
         )}
       </g>
 
-      {/* Top Section Title */}
+      {/* Single Top Section Title (NO duplicate bottom pills!) */}
       {activeStep === 0 && (
         <CleanLabel
           x={960}
-          y={94}
-          text="Đóng băng não?"
+          y={102}
+          text="Đóng băng não? — Hiểu lầm phổ biến!"
           bg="#1E293B"
           color="#F8FAFC"
           border="#38BDF8"
-          fontSize={36}
+          fontSize={34}
         />
       )}
       {activeStep === 1 && (
         <CleanLabel
           x={960}
-          y={94}
+          y={102}
           text="Sự thật: Não KHÔNG hề bị đóng băng!"
           bg="#064E3B"
           color="#ECFDF5"
@@ -487,7 +313,7 @@ export const NuocDaBrainNotFrozenVisual: React.FC<EpisodeVisualProps> = ({
       {activeStep === 2 && (
         <CleanLabel
           x={960}
-          y={94}
+          y={102}
           text="Mô não không có dây thần kinh đau"
           bg="#312E81"
           color="#EEF2FF"
@@ -498,245 +324,130 @@ export const NuocDaBrainNotFrozenVisual: React.FC<EpisodeVisualProps> = ({
 
       {/* STEP 0: Humorous crossed-out ice cube inside cartoon brain */}
       {activeStep === 0 && (
-        <g>
-          {/* Cartoon Brain Silhouette */}
-          <g transform={`translate(960, 445) translate(0, ${tissueFloat})`}>
-            <path
-              d="M -210 40 C -255 -40 -215 -165 -110 -185 C -55 -220 55 -220 110 -185 C 215 -165 255 -40 210 40 C 215 115 140 165 65 145 C 25 170 -25 170 -65 145 C -140 165 -215 115 -210 40 Z"
-              fill="#FDA4AF"
-              stroke="#FFF1F2"
-              strokeWidth={8}
-            />
-            {/* Brain folds */}
-            <path
-              d="M -145 -65 Q -105 -125 -45 -90 M 145 -65 Q 105 -125 45 -90 M -150 35 Q -95 75 -40 45 M 150 35 Q 95 75 40 45"
-              fill="none"
-              stroke="#E11D48"
-              strokeWidth={7}
-              strokeLinecap="round"
-              opacity={0.55}
-            />
+        <g transform={`translate(960, 480) translate(0, ${tissueFloat})`}>
+          <path
+            d="M -225 42 C -272 -42 -230 -175 -118 -196 C -58 -232 58 -232 118 -196 C 230 -175 272 -42 225 42 C 230 122 150 175 70 154 C 28 180 -28 180 -70 154 C -150 175 -230 122 -225 42 Z"
+            fill="#FDA4AF"
+            stroke="#FFF1F2"
+            strokeWidth={8}
+          />
+          <path
+            d="M -155 -68 Q -112 -132 -48 -95 M 155 -68 Q 112 -132 48 -95 M -160 38 Q -102 80 -42 48 M 160 38 Q 102 80 42 48"
+            fill="none"
+            stroke="#E11D48"
+            strokeWidth={7}
+            strokeLinecap="round"
+            opacity={0.55}
+          />
 
-            {/* Humorous Ice Cube Inside Brain */}
-            <g transform="translate(-85, -92)">
-              <rect
-                x={0}
-                y={0}
-                width={170}
-                height={170}
-                rx={26}
-                fill="url(#nd2_iceCubeGrad)"
-                fillOpacity={0.9}
-                stroke="#E0F2FE"
-                strokeWidth={6}
-              />
-              <path d="M 28 32 L 72 32 L 28 78 Z" fill="#FFFFFF" opacity={0.65} />
-              <circle cx={125} cy={125} r={12} fill="#FFFFFF" opacity={0.45} />
-              <circle cx={102} cy={142} r={7} fill="#FFFFFF" opacity={0.4} />
-            </g>
-
-            {/* Bold Red X Slashing Across */}
-            <line
-              x1={-135}
-              y1={-135}
-              x2={135}
-              y2={135}
-              stroke="#EF4444"
-              strokeWidth={24}
-              strokeLinecap="round"
-              strokeDasharray={crossLen}
-              strokeDashoffset={crossLen * (1 - crossDraw)}
+          <g transform="translate(-88, -96)">
+            <rect
+              x={0}
+              y={0}
+              width={176}
+              height={176}
+              rx={26}
+              fill="url(#nd2_iceCubeGrad)"
+              fillOpacity={0.9}
+              stroke="#E0F2FE"
+              strokeWidth={6}
             />
-            <line
-              x1={135}
-              y1={-135}
-              x2={-135}
-              y2={135}
-              stroke="#EF4444"
-              strokeWidth={24}
-              strokeLinecap="round"
-              strokeDasharray={crossLen}
-              strokeDashoffset={crossLen * (1 - clamp01((p - 0.25) * 1.8))}
-            />
+            <path d="M 28 32 L 74 32 L 28 78 Z" fill="#FFFFFF" opacity={0.65} />
+            <circle cx={128} cy={128} r={12} fill="#FFFFFF" opacity={0.45} />
+            <circle cx={104} cy={145} r={7} fill="#FFFFFF" opacity={0.4} />
           </g>
 
-          <CleanLabel
-            x={960}
-            y={750}
-            text="Đóng băng não? — Hoàn toàn là hiểu lầm!"
-            bg="#FEF2F2"
-            color="#DC2626"
-            border="#EF4444"
-            fontSize={30}
+          <line
+            x1={-145}
+            y1={-145}
+            x2={145}
+            y2={145}
+            stroke="#EF4444"
+            strokeWidth={24}
+            strokeLinecap="round"
+            strokeDasharray={crossLen}
+            strokeDashoffset={crossLen * (1 - crossDraw)}
+          />
+          <line
+            x1={145}
+            y1={-145}
+            x2={-145}
+            y2={145}
+            stroke="#EF4444"
+            strokeWidth={24}
+            strokeLinecap="round"
+            strokeDasharray={crossLen}
+            strokeDashoffset={crossLen * (1 - clamp01((p - 0.25) * 1.8))}
           />
         </g>
       )}
 
-      {/* STEP 1: Warm coral-pink brain + digital thermometer locked at 37.0°C */}
+      {/* STEP 1: Warm coral-pink brain + digital thermometer locked at 37.0°C (NO duplicate bottom pill!) */}
       {activeStep === 1 && (
         <g>
-          {/* Warm coral-pink glow behind brain */}
-          <circle cx={675} cy={410} r={195 * warmPulse} fill="url(#nd2_warmBrainGlow)" />
+          <circle cx={675} cy={430} r={195 * warmPulse} fill="url(#nd2_warmBrainGlow)" />
 
           <HeadCutawayDiagram
             x={675}
-            y={490}
+            y={505}
             scale={1.12}
             coldPalatePct={0.1}
             foreheadPainPct={0}
             showTrigeminal={false}
             showVesselDilate={0}
             frame={frame}
+            uid="nd2_s1"
           />
 
-          {/* Connector line to digital thermometer */}
-          <line
-            x1={845}
-            y1={400}
-            x2={1125}
-            y2={400}
-            stroke="#FB7185"
-            strokeWidth={5}
-            strokeDasharray="12 10"
-          />
-          <circle cx={845} cy={400} r={9} fill="#FB7185" />
+          <line x1={845} y1={420} x2={1125} y2={420} stroke="#FB7185" strokeWidth={5} strokeDasharray="12 10" />
+          <circle cx={845} cy={420} r={9} fill="#FB7185" />
 
-          {/* Digital Thermometer Card */}
-          <g transform="translate(1130, 245)">
-            <rect
-              x={0}
-              y={0}
-              width={530}
-              height={340}
-              rx={28}
-              fill="#0F172A"
-              stroke="#FB7185"
-              strokeWidth={5}
-            />
-            <text
-              x={265}
-              y={54}
-              textAnchor="middle"
-              fontFamily={FONT}
-              fontSize={24}
-              fontWeight={800}
-              fill="#FDA4AF"
-            >
+          <g transform="translate(1130, 265)">
+            <rect x={0} y={0} width={530} height={340} rx={28} fill="#0F172A" stroke="#FB7185" strokeWidth={5} />
+            <text x={265} y={54} textAnchor="middle" fontFamily={FONT} fontSize={24} fontWeight={800} fill="#FDA4AF">
               NHIỆT ĐỘ BÊN TRONG NÃO
             </text>
-
-            {/* Digital Display Screen */}
             <rect x={45} y={80} width={440} height={126} rx={18} fill="#1E293B" stroke="#475569" strokeWidth={3} />
-            <text
-              x={265}
-              y={166}
-              textAnchor="middle"
-              fontFamily={FONT}
-              fontSize={74}
-              fontWeight={900}
-              fill="#FB7185"
-            >
+            <text x={265} y={166} textAnchor="middle" fontFamily={FONT} fontSize={74} fontWeight={900} fill="#FB7185">
               37.0°C
             </text>
-
-            {/* Flat steady temperature trace */}
             <line x1={55} y1={264} x2={475} y2={264} stroke="#334155" strokeWidth={3} />
-            <path
-              d="M 55 264 L 475 264"
-              stroke="#34D399"
-              strokeWidth={6}
-              strokeLinecap="round"
-            />
-            <circle
-              cx={55 + ((frame * 4.5) % 420)}
-              cy={264}
-              r={8}
-              fill="#34D399"
-            />
-            <text
-              x={265}
-              y={308}
-              textAnchor="middle"
-              fontFamily={FONT}
-              fontSize={22}
-              fontWeight={700}
-              fill="#A7F3D0"
-            >
+            <path d="M 55 264 L 475 264" stroke="#34D399" strokeWidth={6} strokeLinecap="round" />
+            <circle cx={55 + ((frame * 4.5) % 420)} cy={264} r={8} fill="#34D399" />
+            <text x={265} y={308} textAnchor="middle" fontFamily={FONT} fontSize={22} fontWeight={700} fill="#A7F3D0">
               Ổn định tuyệt đối nhờ hộp sọ bảo vệ
             </text>
           </g>
-
-          <CleanLabel
-            x={1395}
-            y={735}
-            text="Não vẫn ấm ổn định 37°C"
-            bg="#FFF1F2"
-            color="#BE123C"
-            border="#FB7185"
-            fontSize={30}
-          />
         </g>
       )}
 
-      {/* STEP 2: Zoomed brain tissue badge with "0 thụ thể đau" */}
+      {/* STEP 2: Zoomed brain tissue badge with "0 thụ thể đau" (NO duplicate bottom pill!) */}
       {activeStep === 2 && (
         <g>
           <HeadCutawayDiagram
             x={625}
-            y={490}
+            y={505}
             scale={1.08}
             coldPalatePct={0.15}
             foreheadPainPct={0}
             showTrigeminal={false}
             showVesselDilate={0}
             frame={frame}
+            uid="nd2_s2"
           />
 
-          {/* Magnifying focus circle on cortex */}
-          <circle cx={630} cy={380} r={44} fill="none" stroke="#F59E0B" strokeWidth={5} strokeDasharray="8 6" />
-          <line x1={674} y1={380} x2={1175} y2={420} stroke="#F59E0B" strokeWidth={4} strokeDasharray="10 8" />
+          <circle cx={630} cy={395} r={44} fill="none" stroke="#F59E0B" strokeWidth={5} strokeDasharray="8 6" />
+          <line x1={674} y1={395} x2={1175} y2={440} stroke="#F59E0B" strokeWidth={4} strokeDasharray="10 8" />
 
-          {/* Zoomed Brain Tissue Circle */}
           <g>
-            <circle cx={1360} cy={435} r={192} fill="#1E293B" stroke="#818CF8" strokeWidth={7} />
+            <circle cx={1360} cy={455} r={192} fill="#1E293B" stroke="#818CF8" strokeWidth={7} />
             <g clipPath="url(#nd2_tissueClip)">
-              <rect x={1160} y={240} width={400} height={400} fill="#4C1D95" opacity={0.35} />
-              {/* Soft stylized brain cortex folds */}
-              <path
-                d="M 1150 360 Q 1240 290 1335 350 T 1560 340"
-                fill="none"
-                stroke="#F9A8D4"
-                strokeWidth={26}
-                strokeLinecap="round"
-                opacity={0.75}
-              />
-              <path
-                d="M 1150 455 Q 1260 390 1370 450 T 1565 445"
-                fill="none"
-                stroke="#F472B6"
-                strokeWidth={26}
-                strokeLinecap="round"
-                opacity={0.75}
-              />
-              <path
-                d="M 1150 545 Q 1255 490 1365 545 T 1565 540"
-                fill="none"
-                stroke="#F9A8D4"
-                strokeWidth={24}
-                strokeLinecap="round"
-                opacity={0.7}
-              />
-              {/* Clean central 0-receptor emblem */}
-              <circle cx={1360} cy={435} r={76} fill="#0F172A" fillOpacity={0.86} stroke="#F59E0B" strokeWidth={5} />
-              <text
-                x={1360}
-                y={458}
-                textAnchor="middle"
-                fontFamily={FONT}
-                fontSize={72}
-                fontWeight={900}
-                fill="#FBBF24"
-              >
+              <rect x={1160} y={260} width={400} height={400} fill="#4C1D95" opacity={0.35} />
+              <path d="M 1150 380 Q 1240 310 1335 370 T 1560 360" fill="none" stroke="#F9A8D4" strokeWidth={26} strokeLinecap="round" opacity={0.75} />
+              <path d="M 1150 475 Q 1260 410 1370 470 T 1565 465" fill="none" stroke="#F472B6" strokeWidth={26} strokeLinecap="round" opacity={0.75} />
+              <path d="M 1150 565 Q 1255 510 1365 565 T 1565 560" fill="none" stroke="#F9A8D4" strokeWidth={24} strokeLinecap="round" opacity={0.7} />
+              <circle cx={1360} cy={455} r={76} fill="#0F172A" fillOpacity={0.86} stroke="#F59E0B" strokeWidth={5} />
+              <text x={1360} y={478} textAnchor="middle" fontFamily={FONT} fontSize={72} fontWeight={900} fill="#FBBF24">
                 0
               </text>
             </g>
@@ -744,21 +455,12 @@ export const NuocDaBrainNotFrozenVisual: React.FC<EpisodeVisualProps> = ({
 
           <CleanLabel
             x={1360}
-            y={678}
+            y={705}
             text="0 thụ thể đau"
             bg="#FEF3C7"
             color="#B45309"
             border="#F59E0B"
             fontSize={32}
-          />
-          <CleanLabel
-            x={1360}
-            y={765}
-            text="Mô não không có dây thần kinh đau"
-            bg="#1E293B"
-            color="#E2E8F0"
-            border="#64748B"
-            fontSize={26}
           />
         </g>
       )}
@@ -768,6 +470,9 @@ export const NuocDaBrainNotFrozenVisual: React.FC<EpisodeVisualProps> = ({
 
 /* ============================================================================
  * 3. NUOCDA_PALATE_TARGET — NuocDaPalateTargetVisual
+ *    - FIXED CRITICAL ANATOMY BUG: Cold blue stream now enters from OUTSIDE the
+ *      mouth opening on the RIGHT, travels RIGHT -> LEFT into the oral cavity,
+ *      and curves UP to hit the upper palate! ZERO blue lines behind neck/spine!
  * ========================================================================== */
 export const NuocDaPalateTargetVisual: React.FC<EpisodeVisualProps> = ({
   frame = 0,
@@ -782,7 +487,15 @@ export const NuocDaPalateTargetVisual: React.FC<EpisodeVisualProps> = ({
   const streamOffset = -(frame * 6);
   const dropTemp = lerp(37, 8, clamp01(p * 1.3));
   const tempPct = clamp01((dropTemp - 0) / 40);
-  const warnPulse = 1 + Math.sin(frame * 0.22) * 0.05;
+  const warnPulse = 1 + Math.sin(frame * 0.22) * 0.04;
+
+  // HeadCutawayDiagram placed at x = 600, y = 495, scale = 1.12 (facing RIGHT):
+  // -> Open mouth entrance is on the RIGHT at world (780, 574)
+  // -> Upper palate (vòm miệng trên) is at world (716, 546)
+  const headX = 600;
+  const headY = 495;
+  const palateWorldX = 716;
+  const palateWorldY = 546;
 
   return (
     <svg width={1920} height={1080} viewBox="0 0 1920 1080">
@@ -791,12 +504,12 @@ export const NuocDaPalateTargetVisual: React.FC<EpisodeVisualProps> = ({
           <stop offset="0%" stopColor="#F0F9FF" />
           <stop offset="100%" stopColor="#E0F2FE" />
         </linearGradient>
-        <linearGradient id="nd3_coldStreamGrad" x1="0" y1="0" x2="1" y2="0">
+        <linearGradient id="nd3_coldStreamGrad" x1="1" y1="0" x2="0" y2="0">
           <stop offset="0%" stopColor="#0284C7" />
           <stop offset="100%" stopColor="#7DD3FC" />
         </linearGradient>
         <clipPath id="nd3_insetClip">
-          <circle cx={1420} cy={460} r={182} />
+          <circle cx={1435} cy={465} r={182} />
         </clipPath>
         <linearGradient id="nd3_gaugeGrad" x1="0" y1="1" x2="0" y2="0">
           <stop offset="0%" stopColor="#0284C7" />
@@ -807,10 +520,10 @@ export const NuocDaPalateTargetVisual: React.FC<EpisodeVisualProps> = ({
 
       <rect width={1920} height={1080} fill="url(#nd3_bgGrad)" />
 
-      {/* Top Banner */}
+      {/* Single Top Banner */}
       <CleanLabel
         x={960}
-        y={88}
+        y={92}
         text="Điểm chịu lạnh trực tiếp: Vòm miệng trên"
         bg="#FFFFFF"
         color="#0F172A"
@@ -818,30 +531,31 @@ export const NuocDaPalateTargetVisual: React.FC<EpisodeVisualProps> = ({
         fontSize={32}
       />
 
-      {/* Head Cutaway Diagram centered left */}
+      {/* Head Cutaway Diagram facing RIGHT */}
       <HeadCutawayDiagram
-        x={760}
-        y={500}
+        x={headX}
+        y={headY}
         scale={1.12}
         coldPalatePct={palateCold}
         foreheadPainPct={activeStep === 2 ? 0.35 : 0}
         showTrigeminal={activeStep >= 1}
         showVesselDilate={0}
         frame={frame}
+        uid="nd3_head"
       />
 
-      {/* Animated Icy Blue Liquid Stream entering mouth & hitting upper palate */}
+      {/* Anatomically CORRECT icy blue stream entering from OUTSIDE mouth on RIGHT -> curving UP onto upper palate */}
       <g>
         <path
-          d="M 415 588 Q 545 578 688 538"
+          d="M 975 596 Q 868 594 786 575 Q 748 566 716 546"
           fill="none"
           stroke="url(#nd3_coldStreamGrad)"
           strokeWidth={18}
           strokeLinecap="round"
-          opacity={0.85}
+          opacity={0.88}
         />
         <path
-          d="M 415 588 Q 545 578 688 538"
+          d="M 975 596 Q 868 594 786 575 Q 748 566 716 546"
           fill="none"
           stroke="#E0F2FE"
           strokeWidth={7}
@@ -849,51 +563,44 @@ export const NuocDaPalateTargetVisual: React.FC<EpisodeVisualProps> = ({
           strokeDasharray="16 14"
           strokeDashoffset={streamOffset}
         />
-        {/* Cold splash droplets at upper palate */}
+        {/* Crisp arrow head entering from outside right */}
+        <polygon points="895,591 916,580 916,602" fill="#0284C7" />
+
+        {/* Cold splash droplets right on upper palate roof */}
         {[0, 1, 2].map((i) => {
           const r = 6 + ((frame * 0.6 + i * 7) % 16);
           return (
             <circle
               key={i}
-              cx={695 + i * 16}
-              cy={530 - i * 5}
-              r={r * 0.45}
+              cx={704 + i * 15}
+              cy={542 - i * 2}
+              r={r * 0.42}
               fill="#38BDF8"
-              opacity={0.75}
+              opacity={0.78}
             />
           );
         })}
       </g>
 
-      {/* STEP 0: Crisp arrow + CleanLabel on right */}
+      {/* STEP 0: Crisp label pointing from palate */}
       {activeStep === 0 && (
         <g>
           <path
-            d="M 855 525 Q 1005 470 1130 470"
+            d="M 745 530 Q 930 430 1135 430"
             fill="none"
             stroke="#0284C7"
-            strokeWidth={6}
+            strokeWidth={5}
             strokeDasharray="12 8"
           />
-          <polygon points="1145,470 1122,456 1122,484" fill="#0284C7" />
-
+          <polygon points="1150,430 1126,416 1126,444" fill="#0284C7" />
           <CleanLabel
-            x={1420}
-            y={470}
-            text="Lạnh 0°C chạm vòm miệng"
+            x={1435}
+            y={430}
+            text="Luồng lạnh 0°C chạm vòm miệng"
             bg="#FFFFFF"
             color="#0369A1"
             border="#0284C7"
-            fontSize={30}
-          />
-          <CleanLabel
-            x={1420}
-            y={575}
-            text="Lớp niêm mạc phía trên rất mỏng"
-            bg="#E0F2FE"
-            color="#0C4A6E"
-            border="#38BDF8"
-            fontSize={24}
+            fontSize={29}
           />
         </g>
       )}
@@ -901,37 +608,34 @@ export const NuocDaPalateTargetVisual: React.FC<EpisodeVisualProps> = ({
       {/* STEP 1: Zoomed inset circle on right showing blood vessels + nerve endings */}
       {activeStep === 1 && (
         <g>
-          <circle cx={755} cy={525} r={34} fill="none" stroke="#0284C7" strokeWidth={4} strokeDasharray="7 5" />
-          <line x1={789} y1={520} x2={1235} y2={460} stroke="#0284C7" strokeWidth={4} strokeDasharray="10 8" />
+          <circle cx={palateWorldX} cy={palateWorldY} r={34} fill="none" stroke="#0284C7" strokeWidth={4} strokeDasharray="7 5" />
+          <line x1={palateWorldX + 34} y1={palateWorldY - 12} x2={1245} y2={465} stroke="#0284C7" strokeWidth={4} strokeDasharray="10 8" />
 
-          <circle cx={1420} cy={460} r={190} fill="#FFFFFF" stroke="#0284C7" strokeWidth={7} />
+          <circle cx={1435} cy={465} r={190} fill="#FFFFFF" stroke="#0284C7" strokeWidth={7} />
           <g clipPath="url(#nd3_insetClip)">
-            {/* Palate lining background */}
-            <rect x={1230} y={270} width={380} height={380} fill="#FFF1F2" />
-            <rect x={1230} y={565} width={380} height={95} fill="#FECDD3" />
-            <line x1={1230} y1={565} x2={1610} y2={565} stroke="#FB7185" strokeWidth={5} />
+            <rect x={1245} y={275} width={380} height={380} fill="#FFF1F2" />
+            <rect x={1245} y={570} width={380} height={95} fill="#FECDD3" />
+            <line x1={1245} y1={570} x2={1625} y2={570} stroke="#FB7185" strokeWidth={5} />
 
-            {/* Dense tiny red blood vessels */}
             <g stroke="#DC2626" strokeLinecap="round" fill="none">
-              <path d="M 1245 430 Q 1345 405 1445 445 T 1600 420" strokeWidth={11} />
-              <path d="M 1255 495 Q 1355 520 1465 485 T 1595 510" strokeWidth={9} />
-              <path d="M 1340 422 Q 1365 360 1410 325" strokeWidth={6} />
-              <path d="M 1450 442 Q 1490 370 1535 335" strokeWidth={6} />
-              <path d="M 1390 500 Q 1420 538 1455 556" strokeWidth={5} />
+              <path d="M 1260 435 Q 1360 410 1460 450 T 1615 425" strokeWidth={11} />
+              <path d="M 1270 500 Q 1370 525 1480 490 T 1610 515" strokeWidth={9} />
+              <path d="M 1355 427 Q 1380 365 1425 330" strokeWidth={6} />
+              <path d="M 1465 447 Q 1505 375 1550 340" strokeWidth={6} />
+              <path d="M 1405 505 Q 1435 543 1470 561" strokeWidth={5} />
             </g>
 
-            {/* Yellow nerve endings right behind lining */}
             <g stroke="#EAB308" strokeLinecap="round" fill="none">
-              <path d="M 1265 340 Q 1350 380 1415 470 L 1410 548" strokeWidth={7} />
-              <path d="M 1415 470 L 1468 545" strokeWidth={5} />
-              <path d="M 1415 470 L 1352 548" strokeWidth={5} />
-              <path d="M 1545 355 Q 1500 420 1495 544" strokeWidth={6} />
+              <path d="M 1280 345 Q 1365 385 1430 475 L 1425 553" strokeWidth={7} />
+              <path d="M 1430 475 L 1483 550" strokeWidth={5} />
+              <path d="M 1430 475 L 1367 553" strokeWidth={5} />
+              <path d="M 1560 360 Q 1515 425 1510 549" strokeWidth={6} />
             </g>
             {[
-              [1410, 548],
-              [1468, 545],
-              [1352, 548],
-              [1495, 544],
+              [1425, 553],
+              [1483, 550],
+              [1367, 553],
+              [1510, 549],
             ].map(([nx, ny], idx) => (
               <circle
                 key={idx}
@@ -946,8 +650,8 @@ export const NuocDaPalateTargetVisual: React.FC<EpisodeVisualProps> = ({
           </g>
 
           <CleanLabel
-            x={1420}
-            y={735}
+            x={1435}
+            y={728}
             text="Mạng lưới mạch máu & dây thần kinh"
             bg="#FEFCE8"
             color="#854D0E"
@@ -957,13 +661,12 @@ export const NuocDaPalateTargetVisual: React.FC<EpisodeVisualProps> = ({
         </g>
       )}
 
-      {/* STEP 2: Temperature gauge dropping sharply 37°C -> 8°C + pulsing amber warning ring */}
+      {/* STEP 2: Temperature gauge dropping sharply 37°C -> 8°C */}
       {activeStep === 2 && (
         <g>
-          {/* Pulsing amber warning ring */}
           <rect
-            x={1205}
-            y={220}
+            x={1215}
+            y={235}
             width={430}
             height={420}
             rx={34}
@@ -971,34 +674,15 @@ export const NuocDaPalateTargetVisual: React.FC<EpisodeVisualProps> = ({
             stroke="#F59E0B"
             strokeWidth={8}
             opacity={0.55 + Math.sin(frame * 0.22) * 0.35}
-            transform={`translate(${1420 * (1 - warnPulse)}, ${430 * (1 - warnPulse)}) scale(${warnPulse})`}
+            transform={`translate(${1430 * (1 - warnPulse)}, ${445 * (1 - warnPulse)}) scale(${warnPulse})`}
           />
 
-          {/* Gauge Card */}
-          <g transform="translate(1225, 240)">
-            <rect
-              x={0}
-              y={0}
-              width={390}
-              height={380}
-              rx={28}
-              fill="#FFFFFF"
-              stroke="#F59E0B"
-              strokeWidth={5}
-            />
-            <text
-              x={195}
-              y={48}
-              textAnchor="middle"
-              fontFamily={FONT}
-              fontSize={24}
-              fontWeight={800}
-              fill="#92400E"
-            >
+          <g transform="translate(1235, 255)">
+            <rect x={0} y={0} width={390} height={380} rx={28} fill="#FFFFFF" stroke="#F59E0B" strokeWidth={5} />
+            <text x={195} y={48} textAnchor="middle" fontFamily={FONT} fontSize={24} fontWeight={800} fill="#92400E">
               NHIỆT ĐỘ VÒM MIỆNG
             </text>
 
-            {/* Vertical thermometer bar */}
             <rect x={64} y={82} width={44} height={240} rx={22} fill="#E2E8F0" stroke={INK} strokeWidth={3} />
             <rect
               x={70}
@@ -1009,7 +693,6 @@ export const NuocDaPalateTargetVisual: React.FC<EpisodeVisualProps> = ({
               fill="url(#nd3_gaugeGrad)"
             />
 
-            {/* Numeric readout & drop indicator */}
             <text
               x={245}
               y={175}
@@ -1021,40 +704,14 @@ export const NuocDaPalateTargetVisual: React.FC<EpisodeVisualProps> = ({
             >
               {Math.round(dropTemp)}°C
             </text>
-            <text
-              x={245}
-              y={236}
-              textAnchor="middle"
-              fontFamily={FONT}
-              fontSize={28}
-              fontWeight={800}
-              fill="#B45309"
-            >
+            <text x={245} y={236} textAnchor="middle" fontFamily={FONT} fontSize={28} fontWeight={800} fill="#B45309">
               37°C ↓ 8°C
             </text>
             <rect x={152} y={268} width={186} height={46} rx={14} fill="#FEF3C7" stroke="#F59E0B" strokeWidth={3} />
-            <text
-              x={245}
-              y={299}
-              textAnchor="middle"
-              fontFamily={FONT}
-              fontSize={22}
-              fontWeight={800}
-              fill="#92400E"
-            >
+            <text x={245} y={299} textAnchor="middle" fontFamily={FONT} fontSize={22} fontWeight={800} fill="#92400E">
               SỐC NHIỆT!
             </text>
           </g>
-
-          <CleanLabel
-            x={1420}
-            y={745}
-            text="Tụt nhiệt đột ngột → Báo động!"
-            bg="#FEF3C7"
-            color="#B45309"
-            border="#F59E0B"
-            fontSize={28}
-          />
         </g>
       )}
     </svg>
@@ -1063,6 +720,10 @@ export const NuocDaPalateTargetVisual: React.FC<EpisodeVisualProps> = ({
 
 /* ============================================================================
  * 4. NUOCDA_SPEED_VS_SLOW — NuocDaSpeedVsSlowVisual
+ *    - Grounded floor + wooden side tables on BOTH halves (ZERO floating glasses!)
+ *    - Left side matches narration 1-1 ("người ăn kem vèo trong chưa đầy 5 giây"):
+ *      BOY holds ice cream cone eating fast, plus iced glass resting on small table!
+ *    - Right side: BOY directly holds iced glass sipping slowly beside small table!
  * ========================================================================== */
 export const NuocDaSpeedVsSlowVisual: React.FC<EpisodeVisualProps> = ({
   frame = 0,
@@ -1073,10 +734,6 @@ export const NuocDaSpeedVsSlowVisual: React.FC<EpisodeVisualProps> = ({
   const activeStep = step ?? visualStep ?? 0;
   const p = clamp01(progress);
 
-  // CRITICAL SPLIT-SCREEN RULE:
-  // step 0: Left active & animated; Right dimmed (0.32) & COMPLETELY FROZEN (frame=0)
-  // step 1: Right active & animated; Left dimmed (0.32) & COMPLETELY FROZEN (frame=0)
-  // step 2: Both panels active at full brightness side-by-side
   const leftActive = activeStep === 0 || activeStep === 2;
   const rightActive = activeStep === 1 || activeStep === 2;
   const leftOpacity = leftActive ? 1 : 0.32;
@@ -1084,10 +741,12 @@ export const NuocDaSpeedVsSlowVisual: React.FC<EpisodeVisualProps> = ({
   const leftFrame = leftActive ? frame : 0;
   const rightFrame = rightActive ? frame : 0;
 
-  const leftPain = activeStep === 0 ? p >= 0.5 : true;
+  const leftPain = activeStep === 0 ? p >= 0.52 : true;
   const leftThermoLevel = activeStep === 0 ? lerp(0.85, 0.2, p) : 0.2;
-  const leftPulse = leftActive ? 1 + Math.sin(leftFrame * 0.2) * 0.05 : 1;
-  const rightPulse = rightActive ? 1 + Math.sin(rightFrame * 0.08) * 0.03 : 1;
+  const leftPulse = leftActive ? 1 + Math.sin(leftFrame * 0.2) * 0.04 : 1;
+  const rightPulse = rightActive ? 1 + Math.sin(rightFrame * 0.08) * 0.025 : 1;
+
+  const floorY = 790;
 
   return (
     <svg width={1920} height={1080} viewBox="0 0 1920 1080">
@@ -1102,228 +761,151 @@ export const NuocDaSpeedVsSlowVisual: React.FC<EpisodeVisualProps> = ({
         </linearGradient>
       </defs>
 
-      {/* LEFT PANEL (x = 0..960, center x = 480) */}
+      {/* LEFT PANEL (x = 0..960) */}
       <g opacity={leftOpacity}>
         <rect x={0} y={0} width={960} height={1080} fill="url(#nd4_leftBg)" />
+        <rect x={0} y={floorY} width={960} height={290} fill="#FECACA" opacity={0.55} />
+        <line x1={0} y1={floorY} x2={960} y2={floorY} stroke="#FCA5A5" strokeWidth={4} />
 
         <CleanLabel
           x={480}
           y={202}
-          text="Uống vèo < 5 giây"
+          text="Ăn kem / uống vèo < 5 giây"
           bg="#FEE2E2"
           color="#B91C1C"
           border="#EF4444"
-          fontSize={30}
+          fontSize={29}
         />
 
-        <SharedStickman
-          x={365}
-          y={675}
-          scale={1.06}
-          role="BOY"
-          facing="RIGHT"
-          pose={leftPain ? 'HOLD_HEAD_PAIN' : 'DRINK_FAST'}
-          expression={leftPain ? 'PAIN' : 'SURPRISED'}
-          frame={leftFrame}
-        />
+        {/* Small wooden side table resting solidly on floorY */}
+        <WoodenSideTable x={525} topY={670} floorY={floorY} width={165} />
 
-        {/* Iced glass beside BOY on left */}
+        {/* Iced glass sitting solidly on tabletop y=670 (plus extra cone when clutching head in pain) */}
         <IcedDrinkGlass
-          x={525}
-          y={580}
-          scale={0.82}
-          fillPct={leftPain ? 0.2 : 0.72}
+          x={502}
+          y={626}
+          scale={0.54}
+          fillPct={leftPain ? 0.22 : 0.72}
           showFrost={true}
           frame={leftFrame}
+          uid="nd4_left_gl"
+        />
+        {leftPain ? (
+          <g>
+            <ellipse cx={566} cy={670} rx={36} ry={6.5} fill="#ffffff" stroke={INK} strokeWidth={2.5} />
+            <IceCreamCone x={574} y={657} scale={0.52} rotateDeg={82} />
+          </g>
+        ) : null}
+
+        {/* BOY eating ice cream fast -> clutching forehead in pain, feet firmly on floorY */}
+        <SharedStickman
+          x={315}
+          y={672}
+          scale={1.04}
+          role="BOY"
+          facing="RIGHT"
+          pose={leftPain ? 'HOLD_HEAD_PAIN' : 'EAT_CONE_FAST'}
+          expression={leftPain ? 'PAIN' : 'SURPRISED'}
+          frame={leftFrame}
+          uid="nd4_left_boy"
         />
 
         {/* Red Warning Thermometer Card */}
-        <g transform={`translate(645, 315) scale(${leftPulse})`}>
-          <rect x={0} y={0} width={225} height={295} rx={24} fill="#FFFFFF" stroke="#EF4444" strokeWidth={4} />
-          <text
-            x={112}
-            y={42}
-            textAnchor="middle"
-            fontFamily={FONT}
-            fontSize={22}
-            fontWeight={800}
-            fill="#B91C1C"
-          >
+        <g transform={`translate(668, 318) scale(${leftPulse})`}>
+          <rect x={0} y={0} width={220} height={295} rx={24} fill="#FFFFFF" stroke="#EF4444" strokeWidth={4} />
+          <text x={110} y={42} textAnchor="middle" fontFamily={FONT} fontSize={22} fontWeight={800} fill="#B91C1C">
             SỐC LẠNH
           </text>
-          <rect x={44} y={66} width={34} height={156} rx={17} fill="#FEE2E2" stroke={INK} strokeWidth={3} />
+          <rect x={40} y={66} width={34} height={156} rx={17} fill="#FEE2E2" stroke={INK} strokeWidth={3} />
           <rect
-            x={49}
+            x={45}
             y={71 + 146 * (1 - leftThermoLevel)}
             width={24}
             height={Math.max(18, 146 * leftThermoLevel)}
             rx={12}
             fill="#EF4444"
           />
-          <text
-            x={145}
-            y={140}
-            textAnchor="middle"
-            fontFamily={FONT}
-            fontSize={36}
-            fontWeight={900}
-            fill="#DC2626"
-          >
+          <text x={144} y={142} textAnchor="middle" fontFamily={FONT} fontSize={36} fontWeight={900} fill="#DC2626">
             &lt; 5s
           </text>
-          <text
-            x={145}
-            y={184}
-            textAnchor="middle"
-            fontFamily={FONT}
-            fontSize={22}
-            fontWeight={800}
-            fill="#991B1B"
-          >
-            CẢNH BÁO
+          <text x={144} y={184} textAnchor="middle" fontFamily={FONT} fontSize={21} fontWeight={800} fill="#991B1B">
+            NGUY CƠ X2
           </text>
-          <rect x={28} y={238} width={169} height={38} rx={12} fill="#FEF2F2" stroke="#EF4444" strokeWidth={2.5} />
-          <text
-            x={112}
-            y={264}
-            textAnchor="middle"
-            fontFamily={FONT}
-            fontSize={20}
-            fontWeight={800}
-            fill="#B91C1C"
-          >
+          <rect x={24} y={238} width={172} height={38} rx={12} fill="#FEF2F2" stroke="#EF4444" strokeWidth={2.5} />
+          <text x={110} y={264} textAnchor="middle" fontFamily={FONT} fontSize={20} fontWeight={800} fill="#B91C1C">
             Tụt nhiệt gắt
           </text>
         </g>
-
-        <CleanLabel
-          x={480}
-          y={768}
-          text="Nguy cơ buốt gấp 2 lần"
-          bg="#DC2626"
-          color="#FFFFFF"
-          border="#991B1B"
-          fontSize={28}
-        />
       </g>
 
-      {/* RIGHT PANEL (x = 960..1920, center x = 1440) */}
+      {/* RIGHT PANEL (x = 960..1920) */}
       <g opacity={rightOpacity}>
         <rect x={960} y={0} width={960} height={1080} fill="url(#nd4_rightBg)" />
+        <rect x={960} y={floorY} width={960} height={290} fill="#A7F3D0" opacity={0.48} />
+        <line x1={960} y1={floorY} x2={1920} y2={floorY} stroke="#6EE7B7" strokeWidth={4} />
 
         <CleanLabel
           x={1440}
           y={202}
-          text="Nhấp từng ngụm nhỏ"
+          text="Nhấp từng ngụm nhỏ chậm rãi"
           bg="#D1FAE5"
           color="#047857"
           border="#10B981"
-          fontSize={30}
+          fontSize={29}
         />
 
+        {/* Small wooden table on right panel */}
+        <WoodenSideTable x={1155} topY={670} floorY={floorY} width={150} />
+        <ellipse cx={1155} cy={670} rx={38} ry={6.5} fill="#ffffff" stroke={INK} strokeWidth={2.5} />
+        <IceCreamCone x={1163} y={657} scale={0.52} rotateDeg={82} />
+
+        {/* BOY directly holding IcedDrinkGlass in hand sipping slowly! */}
         <SharedStickman
-          x={1375}
-          y={675}
-          scale={1.06}
+          x={1360}
+          y={672}
+          scale={1.04}
           role="BOY"
           facing="LEFT"
-          pose="EAT_SLOW"
+          pose="SIP_GLASS"
           expression="HAPPY"
           frame={rightFrame}
-        />
-
-        <IcedDrinkGlass
-          x={1210}
-          y={580}
-          scale={0.82}
-          fillPct={0.78}
-          showFrost={true}
-          frame={rightFrame}
+          drinkFillPct={0.78}
+          uid="nd4_right_boy"
         />
 
         {/* Green Steady Comfort Gauge */}
-        <g transform={`translate(1590, 315) scale(${rightPulse})`}>
-          <rect x={0} y={0} width={225} height={295} rx={24} fill="#FFFFFF" stroke="#10B981" strokeWidth={4} />
-          <text
-            x={112}
-            y={42}
-            textAnchor="middle"
-            fontFamily={FONT}
-            fontSize={22}
-            fontWeight={800}
-            fill="#047857"
-          >
+        <g transform={`translate(1600, 318) scale(${rightPulse})`}>
+          <rect x={0} y={0} width={220} height={295} rx={24} fill="#FFFFFF" stroke="#10B981" strokeWidth={4} />
+          <text x={110} y={42} textAnchor="middle" fontFamily={FONT} fontSize={22} fontWeight={800} fill="#047857">
             ỔN ĐỊNH
           </text>
-          <rect x={44} y={66} width={34} height={156} rx={17} fill="#D1FAE5" stroke={INK} strokeWidth={3} />
-          <rect x={49} y={96} width={24} height={121} rx={12} fill="#10B981" />
-          <text
-            x={145}
-            y={140}
-            textAnchor="middle"
-            fontFamily={FONT}
-            fontSize={34}
-            fontWeight={900}
-            fill="#059669"
-          >
+          <rect x={40} y={66} width={34} height={156} rx={17} fill="#D1FAE5" stroke={INK} strokeWidth={3} />
+          <rect x={45} y={96} width={24} height={121} rx={12} fill="#10B981" />
+          <text x={144} y={142} textAnchor="middle" fontFamily={FONT} fontSize={34} fontWeight={900} fill="#059669">
             34°C
           </text>
-          <text
-            x={145}
-            y={184}
-            textAnchor="middle"
-            fontFamily={FONT}
-            fontSize={22}
-            fontWeight={800}
-            fill="#065F46"
-          >
-            AN TOÀN
+          <text x={144} y={184} textAnchor="middle" fontFamily={FONT} fontSize={21} fontWeight={800} fill="#065F46">
+            KỊP LÀM ẤM
           </text>
-          <rect x={28} y={238} width={169} height={38} rx={12} fill="#ECFDF5" stroke="#10B981" strokeWidth={2.5} />
-          <text
-            x={112}
-            y={264}
-            textAnchor="middle"
-            fontFamily={FONT}
-            fontSize={20}
-            fontWeight={800}
-            fill="#047857"
-          >
+          <rect x={24} y={238} width={172} height={38} rx={12} fill="#ECFDF5" stroke="#10B981" strokeWidth={2.5} />
+          <text x={110} y={264} textAnchor="middle" fontFamily={FONT} fontSize={20} fontWeight={800} fill="#047857">
             Êm dịu dễ chịu
           </text>
         </g>
-
-        <CleanLabel
-          x={1440}
-          y={768}
-          text="Vòm miệng kịp làm ấm"
-          bg="#059669"
-          color="#FFFFFF"
-          border="#065F46"
-          fontSize={28}
-        />
       </g>
 
-      {/* Center Vertical Divider at x = 960 */}
+      {/* Center Vertical Divider */}
       <line x1={960} y1={165} x2={960} y2={825} stroke={INK} strokeWidth={6} />
       <circle cx={960} cy={480} r={38} fill="#0F172A" stroke="#FFFFFF" strokeWidth={5} />
-      <text
-        x={960}
-        y={491}
-        textAnchor="middle"
-        fontFamily={FONT}
-        fontSize={28}
-        fontWeight={900}
-        fill="#FACC15"
-      >
+      <text x={960} y={491} textAnchor="middle" fontFamily={FONT} fontSize={28} fontWeight={900} fill="#FACC15">
         VS
       </text>
 
-      {/* Top Comparison Header */}
+      {/* Single Top Header */}
       {activeStep === 2 ? (
         <CleanLabel
           x={960}
-          y={110}
+          y={104}
           text="Tốc độ mới là thủ phạm chính!"
           bg="#0F172A"
           color="#FACC15"
@@ -1333,8 +915,8 @@ export const NuocDaSpeedVsSlowVisual: React.FC<EpisodeVisualProps> = ({
       ) : (
         <CleanLabel
           x={960}
-          y={110}
-          text="So sánh tốc độ uống nước lạnh"
+          y={104}
+          text="So sánh tốc độ ăn uống đồ lạnh"
           bg="#FFFFFF"
           color="#0F172A"
           border="#94A3B8"
@@ -1347,6 +929,9 @@ export const NuocDaSpeedVsSlowVisual: React.FC<EpisodeVisualProps> = ({
 
 /* ============================================================================
  * 5. NUOCDA_VESSEL_CONSTRICT_DILATE — NuocDaVesselConstrictDilateVisual
+ *    - FIXED Bug #7: Red blood cell speed lines separated by 10-12px into 2 short
+ *      crisp dashes behind each RBC (never attached like a tail!)
+ *    - Stripped duplicate bottom pills! Only 1 concise top title per step.
  * ========================================================================== */
 export const NuocDaVesselConstrictDilateVisual: React.FC<EpisodeVisualProps> = ({
   frame = 0,
@@ -1357,7 +942,6 @@ export const NuocDaVesselConstrictDilateVisual: React.FC<EpisodeVisualProps> = (
   const activeStep = step ?? visualStep ?? 0;
   const p = clamp01(progress);
 
-  // Step 0 constriction amplitude; Step 1 dilation amplitude
   const squeeze = lerp(16, 72, clamp01(p * 1.4));
   const expand = lerp(-18, 56, clamp01(p * 1.4));
   const needleAngle = lerp(-68, 60, clamp01(p * 1.35)) + Math.sin(frame * 0.4) * 2.5;
@@ -1383,37 +967,35 @@ export const NuocDaVesselConstrictDilateVisual: React.FC<EpisodeVisualProps> = (
 
       <rect width={1920} height={1080} fill="url(#nd5_bgGrad)" />
 
-      {/* STEP 0: Blood vessel cross-section squeezing narrow */}
+      {/* STEP 0: Blood vessel constricting on cold shock */}
       {activeStep === 0 && (
         <g>
           <CleanLabel
             x={960}
-            y={94}
-            text="Nhịp 1: Co thắt giữ nhiệt"
+            y={100}
+            text="Nhịp 1: Mạch máu co thắt giữ nhiệt"
             bg="#1E3A8A"
             color="#E0F2FE"
             border="#38BDF8"
             fontSize={34}
           />
 
-          {/* Horizontal Blood Vessel Cross-Section (centered at y = 480) */}
           <path
-            d={`M 220 355 Q 580 355 960 ${355 + squeeze} Q 1340 355 1700 355 L 1700 605 Q 1340 605 960 ${605 - squeeze} Q 580 605 220 605 Z`}
+            d={`M 220 375 Q 580 375 960 ${375 + squeeze} Q 1340 375 1700 375 L 1700 625 Q 1340 625 960 ${625 - squeeze} Q 580 625 220 625 Z`}
             fill="url(#nd5_lumenCold)"
             stroke="#FCA5A5"
             strokeWidth={16}
           />
 
-          {/* Slowed red blood cells squeezing through center */}
           {[0, 1, 2, 3, 4, 5].map((i) => {
             const cx = 260 + ((frame * 2.4 + i * 240) % 1400);
             const distFromCenter = Math.abs(cx - 960);
-            const yJitter = distFromCenter < 260 ? 0 : (i % 2 === 0 ? -24 : 24);
+            const yJitter = distFromCenter < 260 ? 0 : i % 2 === 0 ? -24 : 24;
             return (
               <ellipse
                 key={i}
                 cx={cx}
-                cy={480 + yJitter}
+                cy={500 + yJitter}
                 rx={28}
                 ry={16}
                 fill="#EF4444"
@@ -1423,13 +1005,11 @@ export const NuocDaVesselConstrictDilateVisual: React.FC<EpisodeVisualProps> = (
             );
           })}
 
-          {/* Icy blue snowflakes touching vessel walls + inward squeeze arrows */}
           {[780, 960, 1140].map((sx, idx) => {
             const bob = Math.sin(frame * 0.12 + idx) * 6;
             return (
               <g key={idx}>
-                {/* Top snowflake */}
-                <g transform={`translate(${sx}, ${265 + bob})`}>
+                <g transform={`translate(${sx}, ${285 + bob})`}>
                   <circle cx={0} cy={0} r={22} fill="#0284C7" fillOpacity={0.35} />
                   <path
                     d="M -14 0 L 14 0 M 0 -14 L 0 14 M -10 -10 L 10 10 M 10 -10 L -10 10"
@@ -1438,114 +1018,103 @@ export const NuocDaVesselConstrictDilateVisual: React.FC<EpisodeVisualProps> = (
                     strokeLinecap="round"
                   />
                 </g>
-                {/* Downward constriction arrow */}
-                <line x1={sx} y1={302} x2={sx} y2={352 + squeeze * 0.65} stroke="#38BDF8" strokeWidth={6} />
+                <line x1={sx} y1={322} x2={sx} y2={372 + squeeze * 0.65} stroke="#38BDF8" strokeWidth={6} />
                 <polygon
-                  points={`${sx},${364 + squeeze * 0.65} ${sx - 12},${344 + squeeze * 0.65} ${sx + 12},${344 + squeeze * 0.65}`}
+                  points={`${sx},${384 + squeeze * 0.65} ${sx - 12},${364 + squeeze * 0.65} ${sx + 12},${364 + squeeze * 0.65}`}
                   fill="#38BDF8"
                 />
 
-                {/* Upward constriction arrow from bottom */}
-                <line x1={sx} y1={658} x2={sx} y2={608 - squeeze * 0.65} stroke="#38BDF8" strokeWidth={6} />
+                <line x1={sx} y1={678} x2={sx} y2={628 - squeeze * 0.65} stroke="#38BDF8" strokeWidth={6} />
                 <polygon
-                  points={`${sx},${596 - squeeze * 0.65} ${sx - 12},${616 - squeeze * 0.65} ${sx + 12},${616 - squeeze * 0.65}`}
+                  points={`${sx},${616 - squeeze * 0.65} ${sx - 12},${636 - squeeze * 0.65} ${sx + 12},${636 - squeeze * 0.65}`}
                   fill="#38BDF8"
                 />
               </g>
             );
           })}
-
-          <CleanLabel
-            x={960}
-            y={758}
-            text="Mạch máu co hẹp ngay khi gặp lạnh"
-            bg="#0C4A6E"
-            color="#E0F2FE"
-            border="#38BDF8"
-            fontSize={28}
-          />
         </g>
       )}
 
-      {/* STEP 1: Blood vessel rebounding wide open with rushing warm blood cells */}
+      {/* STEP 1: Blood vessel dilating wide with rushing RBCs + 2 detached speed dashes (10–12px behind!) */}
       {activeStep === 1 && (
         <g>
           <CleanLabel
             x={960}
-            y={94}
-            text="Nhịp 2: Giãn phồng bơm máu ấm"
+            y={100}
+            text="Nhịp 2: Giãn phồng bơm máu ấm ồ ạt"
             bg="#7F1D1D"
             color="#FEF2F2"
             border="#F87171"
             fontSize={34}
           />
 
-          {/* Expanded Blood Vessel Cross-Section */}
           <path
-            d={`M 220 355 Q 580 355 960 ${355 - expand} Q 1340 355 1700 355 L 1700 605 Q 1340 605 960 ${605 + expand} Q 580 605 220 605 Z`}
+            d={`M 220 375 Q 580 375 960 ${375 - expand} Q 1340 375 1700 375 L 1700 625 Q 1340 625 960 ${625 + expand} Q 580 625 220 625 Z`}
             fill="url(#nd5_lumenWarm)"
             stroke="#FDBA74"
             strokeWidth={16}
           />
 
-          {/* Rapid rushing warm red blood cells */}
           {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => {
-            const cx = 245 + ((frame * 7.5 + i * 145) % 1420);
-            const lane = (i % 3 - 1) * 58;
+            const cx = 250 + ((frame * 7.5 + i * 145) % 1410);
+            const lane = ((i % 3) - 1) * 58;
+            const cy = 500 + lane;
             return (
               <g key={i}>
+                {/* 2 clean detached white speed dashes 10–12px behind left edge (cx - 26) */}
                 <line
-                  x1={cx - 52}
-                  y1={480 + lane}
-                  x2={cx - 24}
-                  y2={480 + lane}
-                  stroke="#FEF08A"
-                  strokeWidth={4}
+                  x1={cx - 56}
+                  y1={cy - 6}
+                  x2={cx - 38}
+                  y2={cy - 6}
+                  stroke="#FFFFFF"
+                  strokeWidth={3.2}
                   strokeLinecap="round"
-                  opacity={0.7}
+                  opacity={0.72}
                 />
+                <line
+                  x1={cx - 49}
+                  y1={cy + 6}
+                  x2={cx - 36}
+                  y2={cy + 6}
+                  stroke="#FFFFFF"
+                  strokeWidth={2.8}
+                  strokeLinecap="round"
+                  opacity={0.58}
+                />
+                {/* Classic biconcave red blood cell oval */}
                 <ellipse
                   cx={cx}
-                  cy={480 + lane}
+                  cy={cy}
                   rx={26}
                   ry={15}
                   fill="#B91C1C"
                   stroke="#FEF2F2"
                   strokeWidth={3}
                 />
+                <ellipse cx={cx} cy={cy} rx={11} ry={5} fill="#991B1B" opacity={0.65} />
               </g>
             );
           })}
 
-          {/* Outward dilation arrows */}
           {[780, 960, 1140].map((ax, idx) => (
             <g key={idx}>
-              <line x1={ax} y1={350} x2={ax} y2={265} stroke="#FB923C" strokeWidth={7} />
-              <polygon points={`${ax},250 ${ax - 13},274 ${ax + 13},274`} fill="#FB923C" />
-              <line x1={ax} y1={610} x2={ax} y2={690} stroke="#FB923C" strokeWidth={7} />
-              <polygon points={`${ax},705 ${ax - 13},681 ${ax + 13},681`} fill="#FB923C" />
+              <line x1={ax} y1={370} x2={ax} y2={285} stroke="#FB923C" strokeWidth={7} />
+              <polygon points={`${ax},270 ${ax - 13},294 ${ax + 13},294`} fill="#FB923C" />
+              <line x1={ax} y1={630} x2={ax} y2={710} stroke="#FB923C" strokeWidth={7} />
+              <polygon points={`${ax},725 ${ax - 13},701 ${ax + 13},701`} fill="#FB923C" />
             </g>
           ))}
-
-          <CleanLabel
-            x={960}
-            y={768}
-            text="Máu ấm ùa về làm thành mạch giãn phồng đột ngột"
-            bg="#991B1B"
-            color="#FEF2F2"
-            border="#FCA5A5"
-            fontSize={28}
-          />
         </g>
       )}
 
-      {/* STEP 2: HeadCutawayDiagram with showVesselDilate=1 + Pressure Gauge */}
+      {/* STEP 2: HeadCutawayDiagram + Pressure Gauge */}
       {activeStep === 2 && (
         <g>
           <CleanLabel
             x={960}
-            y={94}
-            text="Áp lực tăng vọt lên thành mạch"
+            y={100}
+            text="Áp lực tăng vọt lên thành mạch máu"
             bg="#7C2D12"
             color="#FFF7ED"
             border="#FB923C"
@@ -1554,67 +1123,27 @@ export const NuocDaVesselConstrictDilateVisual: React.FC<EpisodeVisualProps> = (
 
           <HeadCutawayDiagram
             x={690}
-            y={495}
+            y={505}
             scale={1.12}
             coldPalatePct={0.85}
             foreheadPainPct={0.65}
             showTrigeminal={false}
             showVesselDilate={1}
             frame={frame}
+            uid="nd5_s2"
           />
 
-          {/* Clean Pressure Gauge Card on Right */}
-          <g transform="translate(1155, 225)">
-            <rect
-              x={0}
-              y={0}
-              width={510}
-              height={420}
-              rx={30}
-              fill="#0F172A"
-              stroke="#FB923C"
-              strokeWidth={5}
-            />
-            <text
-              x={255}
-              y={52}
-              textAnchor="middle"
-              fontFamily={FONT}
-              fontSize={25}
-              fontWeight={800}
-              fill="#FED7AA"
-            >
+          <g transform="translate(1155, 255)">
+            <rect x={0} y={0} width={510} height={420} rx={30} fill="#0F172A" stroke="#FB923C" strokeWidth={5} />
+            <text x={255} y={52} textAnchor="middle" fontFamily={FONT} fontSize={25} fontWeight={800} fill="#FED7AA">
               ĐỒNG HỒ ÁP LỰC MẠCH MÁU
             </text>
 
-            {/* Semicircular Gauge Arcs */}
             <g transform="translate(255, 280)">
-              {/* Green zone */}
-              <path
-                d="M -155 0 A 155 155 0 0 1 -77 -134"
-                fill="none"
-                stroke="#22C55E"
-                strokeWidth={28}
-                strokeLinecap="butt"
-              />
-              {/* Yellow zone */}
-              <path
-                d="M -77 -134 A 155 155 0 0 1 77 -134"
-                fill="none"
-                stroke="#FACC15"
-                strokeWidth={28}
-                strokeLinecap="butt"
-              />
-              {/* Orange-Red Danger zone */}
-              <path
-                d="M 77 -134 A 155 155 0 0 1 155 0"
-                fill="none"
-                stroke="#F97316"
-                strokeWidth={28}
-                strokeLinecap="butt"
-              />
+              <path d="M -155 0 A 155 155 0 0 1 -77 -134" fill="none" stroke="#22C55E" strokeWidth={28} strokeLinecap="butt" />
+              <path d="M -77 -134 A 155 155 0 0 1 77 -134" fill="none" stroke="#FACC15" strokeWidth={28} strokeLinecap="butt" />
+              <path d="M 77 -134 A 155 155 0 0 1 155 0" fill="none" stroke="#F97316" strokeWidth={28} strokeLinecap="butt" />
 
-              {/* Animated Needle */}
               <g transform={`rotate(${needleAngle})`}>
                 <line x1={0} y1={14} x2={0} y2={-132} stroke="#F8FAFC" strokeWidth={9} strokeLinecap="round" />
                 <polygon points="0,-144 -10,-122 10,-122" fill="#EF4444" />
@@ -1623,28 +1152,10 @@ export const NuocDaVesselConstrictDilateVisual: React.FC<EpisodeVisualProps> = (
             </g>
 
             <rect x={145} y={332} width={220} height={54} rx={16} fill="#9A3412" stroke="#FB923C" strokeWidth={3} />
-            <text
-              x={255}
-              y={368}
-              textAnchor="middle"
-              fontFamily={FONT}
-              fontSize={28}
-              fontWeight={900}
-              fill="#FFF7ED"
-            >
+            <text x={255} y={368} textAnchor="middle" fontFamily={FONT} fontSize={28} fontWeight={900} fill="#FFF7ED">
               MỨC BÁO ĐỘNG
             </text>
           </g>
-
-          <CleanLabel
-            x={1410}
-            y={745}
-            text="Thành mạch căng tức kích hoạt dây thần kinh"
-            bg="#FFF7ED"
-            color="#C2410C"
-            border="#F97316"
-            fontSize={25}
-          />
         </g>
       )}
     </svg>
@@ -1653,6 +1164,7 @@ export const NuocDaVesselConstrictDilateVisual: React.FC<EpisodeVisualProps> = (
 
 /* ============================================================================
  * 6. NUOCDA_TRIGEMINAL_WIRE — NuocDaTrigeminalWireVisual
+ *    - Stripped duplicate bottom pill in Step 2!
  * ========================================================================== */
 export const NuocDaTrigeminalWireVisual: React.FC<EpisodeVisualProps> = ({
   frame = 0,
@@ -1667,33 +1179,11 @@ export const NuocDaTrigeminalWireVisual: React.FC<EpisodeVisualProps> = ({
   const signalPhase = (frame * 0.045) % 1;
 
   const branches = [
-    {
-      y: 310,
-      title: 'Nhánh 1: Trán & Thái dương',
-      accent: '#FACC15',
-      bg: '#422006',
-      anchorX: 785,
-      anchorY: 365,
-    },
-    {
-      y: 470,
-      title: 'Nhánh 2: Vòm miệng & Mũi',
-      accent: '#38BDF8',
-      bg: '#0C4A6E',
-      anchorX: 775,
-      anchorY: 515,
-    },
-    {
-      y: 630,
-      title: 'Nhánh 3: Hàm dưới',
-      accent: '#CBD5E1',
-      bg: '#1E293B',
-      anchorX: 760,
-      anchorY: 600,
-    },
+    { y: 310, title: 'Nhánh 1: Trán & Thái dương', accent: '#FACC15', bg: '#422006', anchorX: 785, anchorY: 365 },
+    { y: 470, title: 'Nhánh 2: Vòm miệng & Mũi', accent: '#38BDF8', bg: '#0C4A6E', anchorX: 775, anchorY: 515 },
+    { y: 630, title: 'Nhánh 3: Hàm dưới', accent: '#CBD5E1', bg: '#1E293B', anchorX: 760, anchorY: 600 },
   ];
 
-  // Electric signal interpolation along palate -> ganglion -> brain
   const pulsePts = [
     { x: 778, y: 535 },
     { x: 735, y: 465 },
@@ -1704,16 +1194,10 @@ export const NuocDaTrigeminalWireVisual: React.FC<EpisodeVisualProps> = ({
     const ct = clamp01(t);
     if (ct < 0.5) {
       const k = ct * 2;
-      return {
-        x: lerp(pulsePts[0].x, pulsePts[1].x, k),
-        y: lerp(pulsePts[0].y, pulsePts[1].y, k),
-      };
+      return { x: lerp(pulsePts[0].x, pulsePts[1].x, k), y: lerp(pulsePts[0].y, pulsePts[1].y, k) };
     }
     const k = (ct - 0.5) * 2;
-    return {
-      x: lerp(pulsePts[1].x, pulsePts[2].x, k),
-      y: lerp(pulsePts[1].y, pulsePts[2].y, k),
-    };
+    return { x: lerp(pulsePts[1].x, pulsePts[2].x, k), y: lerp(pulsePts[1].y, pulsePts[2].y, k) };
   };
 
   return (
@@ -1732,153 +1216,59 @@ export const NuocDaTrigeminalWireVisual: React.FC<EpisodeVisualProps> = ({
 
       <rect width={1920} height={1080} fill="url(#nd6_bgGrad)" />
 
-      {/* Top Header */}
       {activeStep === 0 && (
-        <CleanLabel
-          x={960}
-          y={90}
-          text="Dây thần kinh sinh ba"
-          bg="#422006"
-          color="#FEF08A"
-          border="#FACC15"
-          fontSize={34}
-        />
+        <CleanLabel x={960} y={96} text="Dây thần kinh sinh ba" bg="#422006" color="#FEF08A" border="#FACC15" fontSize={34} />
       )}
       {activeStep === 1 && (
-        <CleanLabel
-          x={960}
-          y={90}
-          text="3 nhánh chính của dây thần kinh sinh ba"
-          bg="#1E293B"
-          color="#F8FAFC"
-          border="#FACC15"
-          fontSize={32}
-        />
+        <CleanLabel x={960} y={96} text="3 nhánh chính của dây thần kinh sinh ba" bg="#1E293B" color="#F8FAFC" border="#FACC15" fontSize={32} />
       )}
       {activeStep === 2 && (
-        <CleanLabel
-          x={960}
-          y={90}
-          text="Tín hiệu đau phóng thẳng lên não"
-          bg="#7F1D1D"
-          color="#FEF08A"
-          border="#EF4444"
-          fontSize={34}
-        />
+        <CleanLabel x={960} y={96} text="Tín hiệu đau phóng thẳng lên não" bg="#7F1D1D" color="#FEF08A" border="#EF4444" fontSize={34} />
       )}
 
-      {/* Head Cutaway Diagram on Left */}
       <HeadCutawayDiagram
         x={720}
-        y={500}
+        y={505}
         scale={1.12}
         coldPalatePct={activeStep === 2 ? 0.95 : 0.7}
         foreheadPainPct={activeStep === 2 ? clamp01(p * 1.2) : 0}
         showTrigeminal={true}
         showVesselDilate={activeStep === 2 ? 0.55 : 0}
         frame={frame}
+        uid="nd6_head"
       />
 
-      {/* Glowing Yellow Trigeminal Hub Highlight */}
-      <circle cx={735} cy={465} r={54 * hubPulse} fill="url(#nd6_nerveGlow)" />
-      <circle cx={735} cy={465} r={14} fill="#FEF08A" stroke="#CA8A04" strokeWidth={4} />
+      <circle cx={735} cy={470} r={54 * hubPulse} fill="url(#nd6_nerveGlow)" />
+      <circle cx={735} cy={470} r={14} fill="#FEF08A" stroke="#CA8A04" strokeWidth={4} />
 
-      {/* STEP 0: Highlighted Trigeminal Nerve Hub Card */}
       {activeStep === 0 && (
         <g>
-          <line
-            x1={752}
-            y1={465}
-            x2={1165}
-            y2={465}
-            stroke="#FACC15"
-            strokeWidth={5}
-            strokeDasharray="12 8"
-          />
-          <g transform="translate(1170, 345)">
-            <rect
-              x={0}
-              y={0}
-              width={520}
-              height={240}
-              rx={28}
-              fill="#1E293B"
-              stroke="#FACC15"
-              strokeWidth={5}
-            />
-            <text
-              x={260}
-              y={66}
-              textAnchor="middle"
-              fontFamily={FONT}
-              fontSize={30}
-              fontWeight={900}
-              fill="#FEF08A"
-            >
+          <line x1={752} y1={470} x2={1165} y2={470} stroke="#FACC15" strokeWidth={5} strokeDasharray="12 8" />
+          <g transform="translate(1170, 350)">
+            <rect x={0} y={0} width={520} height={240} rx={28} fill="#1E293B" stroke="#FACC15" strokeWidth={5} />
+            <text x={260} y={66} textAnchor="middle" fontFamily={FONT} fontSize={30} fontWeight={900} fill="#FEF08A">
               Dây thần kinh sinh ba
             </text>
-            <text
-              x={260}
-              y={120}
-              textAnchor="middle"
-              fontFamily={FONT}
-              fontSize={24}
-              fontWeight={700}
-              fill="#E2E8F0"
-            >
+            <text x={260} y={120} textAnchor="middle" fontFamily={FONT} fontSize={24} fontWeight={700} fill="#E2E8F0">
               &quot;Cáp truyền tín hiệu&quot; cảm giác
             </text>
-            <text
-              x={260}
-              y={162}
-              textAnchor="middle"
-              fontFamily={FONT}
-              fontSize={24}
-              fontWeight={700}
-              fill="#E2E8F0"
-            >
+            <text x={260} y={162} textAnchor="middle" fontFamily={FONT} fontSize={24} fontWeight={700} fill="#E2E8F0">
               lớn nhất vùng đầu &amp; khuôn mặt
             </text>
           </g>
         </g>
       )}
 
-      {/* STEP 1: Three non-overlapping callout cards stacked neatly at x=1430, y=310, 470, 630 */}
       {activeStep === 1 && (
         <g>
           {branches.map((br, idx) => {
             const reveal = clamp01(p * 2.6 - idx * 0.45);
             return (
               <g key={idx} opacity={0.25 + 0.75 * reveal}>
-                <path
-                  d={`M ${br.anchorX} ${br.anchorY} L 1120 ${br.y} L 1200 ${br.y}`}
-                  fill="none"
-                  stroke={br.accent}
-                  strokeWidth={4.5}
-                  strokeDasharray="10 8"
-                />
+                <path d={`M ${br.anchorX} ${br.anchorY} L 1120 ${br.y} L 1200 ${br.y}`} fill="none" stroke={br.accent} strokeWidth={4.5} strokeDasharray="10 8" />
                 <circle cx={br.anchorX} cy={br.anchorY} r={8} fill={br.accent} />
-
-                {/* Callout Card centered at x=1430, y=br.y (height=104, gap=56) */}
-                <rect
-                  x={1200}
-                  y={br.y - 52}
-                  width={460}
-                  height={104}
-                  rx={22}
-                  fill={br.bg}
-                  stroke={br.accent}
-                  strokeWidth={4}
-                />
-                <text
-                  x={1430}
-                  y={br.y + 10}
-                  textAnchor="middle"
-                  fontFamily={FONT}
-                  fontSize={27}
-                  fontWeight={800}
-                  fill="#F8FAFC"
-                >
+                <rect x={1200} y={br.y - 52} width={460} height={104} rx={22} fill={br.bg} stroke={br.accent} strokeWidth={4} />
+                <text x={1430} y={br.y + 10} textAnchor="middle" fontFamily={FONT} fontSize={27} fontWeight={800} fill="#F8FAFC">
                   {br.title}
                 </text>
               </g>
@@ -1887,29 +1277,11 @@ export const NuocDaTrigeminalWireVisual: React.FC<EpisodeVisualProps> = ({
         </g>
       )}
 
-      {/* STEP 2: Bright electric signal pulses traveling rapidly upward into brain */}
       {activeStep === 2 && (
         <g>
-          {/* Glowing electric highway from palate -> ganglion -> brain */}
-          <polyline
-            points="778,535 735,465 682,362"
-            fill="none"
-            stroke="#FACC15"
-            strokeWidth={11}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            opacity={0.85}
-          />
-          <polyline
-            points="778,535 735,465 682,362"
-            fill="none"
-            stroke="#FFFFFF"
-            strokeWidth={4}
-            strokeDasharray="16 14"
-            strokeDashoffset={-(frame * 8)}
-          />
+          <polyline points="778,535 735,465 682,362" fill="none" stroke="#FACC15" strokeWidth={11} strokeLinecap="round" strokeLinejoin="round" opacity={0.85} />
+          <polyline points="778,535 735,465 682,362" fill="none" stroke="#FFFFFF" strokeWidth={4} strokeDasharray="16 14" strokeDashoffset={-(frame * 8)} />
 
-          {/* 3 rapid electric pulse orbs */}
           {[0, 0.33, 0.66].map((offset, idx) => {
             const pos = getSignalPos((signalPhase + offset) % 1);
             return (
@@ -1920,27 +1292,9 @@ export const NuocDaTrigeminalWireVisual: React.FC<EpisodeVisualProps> = ({
             );
           })}
 
-          {/* Signal Oscilloscope Card on Right */}
-          <g transform="translate(1170, 290)">
-            <rect
-              x={0}
-              y={0}
-              width={520}
-              height={310}
-              rx={28}
-              fill="#0F172A"
-              stroke="#EF4444"
-              strokeWidth={5}
-            />
-            <text
-              x={260}
-              y={54}
-              textAnchor="middle"
-              fontFamily={FONT}
-              fontSize={25}
-              fontWeight={800}
-              fill="#FEF08A"
-            >
+          <g transform="translate(1170, 315)">
+            <rect x={0} y={0} width={520} height={310} rx={28} fill="#0F172A" stroke="#EF4444" strokeWidth={5} />
+            <text x={260} y={54} textAnchor="middle" fontFamily={FONT} fontSize={25} fontWeight={800} fill="#FEF08A">
               XUNG ĐIỆN BÁO ĐAU
             </text>
             <rect x={40} y={80} width={440} height={138} rx={18} fill="#1E293B" stroke="#475569" strokeWidth={3} />
@@ -1952,28 +1306,10 @@ export const NuocDaTrigeminalWireVisual: React.FC<EpisodeVisualProps> = ({
               strokeLinecap="round"
               strokeLinejoin="round"
             />
-            <text
-              x={260}
-              y={268}
-              textAnchor="middle"
-              fontFamily={FONT}
-              fontSize={24}
-              fontWeight={800}
-              fill="#FCA5A5"
-            >
+            <text x={260} y={268} textAnchor="middle" fontFamily={FONT} fontSize={24} fontWeight={800} fill="#FCA5A5">
               Truyền tốc độ cao lên trung khu não
             </text>
           </g>
-
-          <CleanLabel
-            x={1430}
-            y={735}
-            text="Tín hiệu đau phóng thẳng lên não"
-            bg="#FEF08A"
-            color="#713F12"
-            border="#EAB308"
-            fontSize={27}
-          />
         </g>
       )}
     </svg>
@@ -1982,15 +1318,14 @@ export const NuocDaTrigeminalWireVisual: React.FC<EpisodeVisualProps> = ({
 
 /* ============================================================================
  * 7. NUOCDA_REFERRED_PAIN_MAP — NuocDaReferredPainMapVisual
+ *    - Stripped duplicate bottom pills ("Lạnh ở miệng → Nhói ở trán!", etc.)!
  * ========================================================================== */
 export const NuocDaReferredPainMapVisual: React.FC<EpisodeVisualProps> = ({
   frame = 0,
   step,
   visualStep,
-  progress = 0,
 }) => {
   const activeStep = step ?? visualStep ?? 0;
-  const p = clamp01(progress);
 
   const cableDash = -(frame * 5.5);
   const burstScale = 0.92 + Math.sin(frame * 0.25) * 0.14;
@@ -2012,11 +1347,11 @@ export const NuocDaReferredPainMapVisual: React.FC<EpisodeVisualProps> = ({
 
       <rect width={1920} height={1080} fill="url(#nd7_bgGrad)" />
 
-      {/* Top Header */}
+      {/* Single Top Header per step — ZERO duplicate bottom pills! */}
       {activeStep === 0 && (
         <CleanLabel
           x={960}
-          y={90}
+          y={96}
           text="Vì sao lạnh ở miệng lại nhói ở trán?"
           bg="#1E293B"
           color="#F8FAFC"
@@ -2027,7 +1362,7 @@ export const NuocDaReferredPainMapVisual: React.FC<EpisodeVisualProps> = ({
       {activeStep === 1 && (
         <CleanLabel
           x={960}
-          y={90}
+          y={96}
           text="Lạnh ở miệng → Nhói ở trán!"
           bg="#7F1D1D"
           color="#FEF2F2"
@@ -2038,8 +1373,8 @@ export const NuocDaReferredPainMapVisual: React.FC<EpisodeVisualProps> = ({
       {activeStep === 2 && (
         <CleanLabel
           x={960}
-          y={90}
-          text="Lạnh ở miệng → Nhói ở trán!"
+          y={96}
+          text="Cơ chế Đau quy chiếu (Referred Pain)"
           bg="#312E81"
           color="#EEF2FF"
           border="#818CF8"
@@ -2047,53 +1382,21 @@ export const NuocDaReferredPainMapVisual: React.FC<EpisodeVisualProps> = ({
         />
       )}
 
-      {/* STEP 0: Clean Switchboard Metaphor — 2 cables merging into 1 shared cable */}
+      {/* STEP 0: Clean Switchboard Metaphor */}
       {activeStep === 0 && (
-        <g>
-          {/* Input 1: Forehead */}
+        <g transform="translate(0, 35)">
           <rect x={165} y={248} width={310} height={110} rx={24} fill="#7F1D1D" stroke="#F87171" strokeWidth={5} />
-          <text
-            x={320}
-            y={314}
-            textAnchor="middle"
-            fontFamily={FONT}
-            fontSize={34}
-            fontWeight={900}
-            fill="#FEF2F2"
-          >
+          <text x={320} y={314} textAnchor="middle" fontFamily={FONT} fontSize={34} fontWeight={900} fill="#FEF2F2">
             Trán
           </text>
 
-          {/* Input 2: Palate */}
           <rect x={165} y={502} width={310} height={110} rx={24} fill="#0C4A6E" stroke="#38BDF8" strokeWidth={5} />
-          <text
-            x={320}
-            y={568}
-            textAnchor="middle"
-            fontFamily={FONT}
-            fontSize={34}
-            fontWeight={900}
-            fill="#E0F2FE"
-          >
+          <text x={320} y={568} textAnchor="middle" fontFamily={FONT} fontSize={34} fontWeight={900} fill="#E0F2FE">
             Vòm miệng
           </text>
 
-          {/* Merging Cables */}
-          <path
-            d="M 475 303 C 660 303 690 415 845 425"
-            fill="none"
-            stroke="#F87171"
-            strokeWidth={14}
-            strokeLinecap="round"
-          />
-          <path
-            d="M 475 557 C 660 557 690 445 845 435"
-            fill="none"
-            stroke="#38BDF8"
-            strokeWidth={14}
-            strokeLinecap="round"
-          />
-          {/* Animated pulses on palate cable */}
+          <path d="M 475 303 C 660 303 690 415 845 425" fill="none" stroke="#F87171" strokeWidth={14} strokeLinecap="round" />
+          <path d="M 475 557 C 660 557 690 445 845 435" fill="none" stroke="#38BDF8" strokeWidth={14} strokeLinecap="round" />
           <path
             d="M 475 557 C 660 557 690 445 845 435"
             fill="none"
@@ -2103,32 +1406,14 @@ export const NuocDaReferredPainMapVisual: React.FC<EpisodeVisualProps> = ({
             strokeDashoffset={cableDash}
           />
 
-          {/* Central Switchboard Hub */}
           <rect x={830} y={350} width={280} height={160} rx={28} fill="#422006" stroke="#FACC15" strokeWidth={6} />
-          <text
-            x={970}
-            y={418}
-            textAnchor="middle"
-            fontFamily={FONT}
-            fontSize={28}
-            fontWeight={900}
-            fill="#FEF08A"
-          >
+          <text x={970} y={418} textAnchor="middle" fontFamily={FONT} fontSize={28} fontWeight={900} fill="#FEF08A">
             TỔNG ĐÀI
           </text>
-          <text
-            x={970}
-            y={462}
-            textAnchor="middle"
-            fontFamily={FONT}
-            fontSize={25}
-            fontWeight={800}
-            fill="#FDE047"
-          >
+          <text x={970} y={462} textAnchor="middle" fontFamily={FONT} fontSize={25} fontWeight={800} fill="#FDE047">
             Dây sinh ba
           </text>
 
-          {/* Single Shared Output Cable */}
           <line x1={1110} y1={430} x2={1470} y2={430} stroke="#FACC15" strokeWidth={20} strokeLinecap="round" />
           <line
             x1={1110}
@@ -2142,40 +1427,13 @@ export const NuocDaReferredPainMapVisual: React.FC<EpisodeVisualProps> = ({
           />
           <polygon points="1485,430 1455,412 1455,448" fill="#FACC15" />
 
-          {/* Brain Receiver Box */}
           <rect x={1490} y={350} width={275} height={160} rx={28} fill="#312E81" stroke="#818CF8" strokeWidth={6} />
-          <text
-            x={1628}
-            y={422}
-            textAnchor="middle"
-            fontFamily={FONT}
-            fontSize={34}
-            fontWeight={900}
-            fill="#EEF2FF"
-          >
+          <text x={1628} y={422} textAnchor="middle" fontFamily={FONT} fontSize={34} fontWeight={900} fill="#EEF2FF">
             NÃO BỘ
           </text>
-          <text
-            x={1628}
-            y={466}
-            textAnchor="middle"
-            fontFamily={FONT}
-            fontSize={22}
-            fontWeight={700}
-            fill="#C7D2FE"
-          >
+          <text x={1628} y={466} textAnchor="middle" fontFamily={FONT} fontSize={22} fontWeight={700} fill="#C7D2FE">
             Dễ hiểu nhầm vị trí!
           </text>
-
-          <CleanLabel
-            x={960}
-            y={755}
-            text="Chung tổng đài dây sinh ba"
-            bg="#FEF9C3"
-            color="#854D0E"
-            border="#EAB308"
-            fontSize={32}
-          />
         </g>
       )}
 
@@ -2184,23 +1442,22 @@ export const NuocDaReferredPainMapVisual: React.FC<EpisodeVisualProps> = ({
         <g>
           <HeadCutawayDiagram
             x={720}
-            y={455}
-            scale={1.06}
+            y={495}
+            scale={1.08}
             coldPalatePct={0.9}
             foreheadPainPct={1}
             showTrigeminal={true}
             showVesselDilate={0.5}
             frame={frame}
+            uid="nd7_head"
           />
 
-          {/* Blue Cold Origin Dot at Palate */}
           <g>
-            <circle cx={780} cy={512} r={rippleR} fill="none" stroke="#38BDF8" strokeWidth={4} opacity={0.75} />
-            <circle cx={780} cy={512} r={14} fill="#0284C7" stroke="#E0F2FE" strokeWidth={4} />
+            <circle cx={832} cy={545} r={rippleR} fill="none" stroke="#38BDF8" strokeWidth={4} opacity={0.75} />
+            <circle cx={832} cy={545} r={14} fill="#0284C7" stroke="#E0F2FE" strokeWidth={4} />
           </g>
 
-          {/* Red Perceived Pain Burst on Forehead */}
-          <g transform={`translate(815, 345) scale(${burstScale})`}>
+          <g transform={`translate(868, 392) scale(${burstScale})`}>
             <circle cx={0} cy={0} r={66} fill="url(#nd7_painBurstGrad)" />
             <polygon
               points="0,-42 10,-14 38,-22 18,2 40,22 12,16 4,44 -8,16 -38,24 -16,2 -36,-22 -10,-14"
@@ -2210,59 +1467,15 @@ export const NuocDaReferredPainMapVisual: React.FC<EpisodeVisualProps> = ({
             />
           </g>
 
-          {/* Connectors to Right Callout Labels */}
-          <line x1={865} y1={345} x2={1165} y2={345} stroke="#EF4444" strokeWidth={5} strokeDasharray="10 8" />
-          <line x1={805} y1={512} x2={1165} y2={545} stroke="#38BDF8" strokeWidth={5} strokeDasharray="10 8" />
+          <line x1={920} y1={392} x2={1180} y2={392} stroke="#EF4444" strokeWidth={5} strokeDasharray="10 8" />
+          <line x1={860} y1={545} x2={1180} y2={585} stroke="#38BDF8" strokeWidth={5} strokeDasharray="10 8" />
 
-          {/* Right-side Mapped Explanation Labels */}
-          <CleanLabel
-            x={1435}
-            y={345}
-            text="Nơi cảm nhận đau: Trán!"
-            bg="#FEE2E2"
-            color="#B91C1C"
-            border="#EF4444"
-            fontSize={28}
-          />
+          <CleanLabel x={1445} y={392} text="Nơi cảm nhận đau: Trán!" bg="#FEE2E2" color="#B91C1C" border="#EF4444" fontSize={28} />
 
-          {/* Upward Misrouting Arrow between labels */}
-          <line x1={1435} y1={492} x2={1435} y2={406} stroke="#FACC15" strokeWidth={7} />
-          <polygon points="1435,392 1421,416 1449,416" fill="#FACC15" />
+          <line x1={1445} y1={532} x2={1445} y2={450} stroke="#FACC15" strokeWidth={7} />
+          <polygon points="1445,436 1431,460 1459,460" fill="#FACC15" />
 
-          <CleanLabel
-            x={1435}
-            y={545}
-            text="Nguồn lạnh thật: Vòm miệng"
-            bg="#E0F2FE"
-            color="#0369A1"
-            border="#38BDF8"
-            fontSize={28}
-          />
-
-          {/* Bottom Badge at y=760 */}
-          {activeStep === 1 ? (
-            <CleanLabel
-              x={960}
-              y={760}
-              text="Lạnh ở miệng → Nhói ở trán!"
-              bg="#FEF2F2"
-              color="#DC2626"
-              border="#EF4444"
-              fontSize={32}
-            />
-          ) : (
-            <g opacity={0.4 + 0.6 * clamp01(p * 1.5)}>
-              <CleanLabel
-                x={960}
-                y={760}
-                text="Cơ chế Đau quy chiếu (Referred Pain)"
-                bg="#EEF2FF"
-                color="#3730A3"
-                border="#6366F1"
-                fontSize={32}
-              />
-            </g>
-          )}
+          <CleanLabel x={1445} y={585} text="Nguồn lạnh thật: Vòm miệng" bg="#E0F2FE" color="#0369A1" border="#38BDF8" fontSize={28} />
         </g>
       )}
     </svg>
