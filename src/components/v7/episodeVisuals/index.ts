@@ -72,6 +72,7 @@ import {
 import {
   GiatMinhBedroomFallJerkVisual,
   GiatMinhSleepBorderN1Visual,
+  GiatMinhBodyWindDownVisual,
   GiatMinhBrainstemHandoffVisual,
   GiatMinhPrimateTreeBranchVisual,
   GiatMinhBrainTestPingVisual,
@@ -164,6 +165,7 @@ export const EPISODE_VISUAL_REGISTRY: Record<string, React.FC<EpisodeVisualProps
   // Episode: Tại Sao Đang Sắp Ngủ Lại Giật Mình Như Rơi Từ Trên Cao Xuống? (V21.0)
   GIATMINH_BEDROOM_FALL_JERK: GiatMinhBedroomFallJerkVisual,
   GIATMINH_SLEEP_BORDER_N1: GiatMinhSleepBorderN1Visual,
+  GIATMINH_BODY_WIND_DOWN: GiatMinhBodyWindDownVisual,
   GIATMINH_BRAINSTEM_HANDOFF: GiatMinhBrainstemHandoffVisual,
   GIATMINH_PRIMATE_TREE_BRANCH: GiatMinhPrimateTreeBranchVisual,
   GIATMINH_BRAIN_TEST_PING: GiatMinhBrainTestPingVisual,

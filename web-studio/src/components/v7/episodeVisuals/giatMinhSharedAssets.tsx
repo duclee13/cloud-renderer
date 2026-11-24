@@ -95,11 +95,76 @@ export type GiatMinhStickmanExpression =
   | 'NEUTRAL';
 
 /**
+ * Soft curved quilt/blanket draped naturally over torso & upper legs on the bed
+ * (never a harsh rectangle cutting across feet; leaves head, neck, pillow & ankles natural).
+ */
+export const CozyBedBlanket: React.FC<{
+  x: number;
+  y: number;
+  width?: number;
+  height?: number;
+  fill?: string;
+  accentFill?: string;
+  kickLift?: number;
+  breathOffset?: number;
+}> = ({
+  x,
+  y,
+  width = 360,
+  height = 76,
+  fill = '#2563eb',
+  accentFill = '#60a5fa',
+  kickLift = 0,
+  breathOffset = 0,
+}) => {
+  const topArch = -24 - breathOffset - kickLift * 0.55;
+  const footLift = -kickLift * 0.35;
+  return (
+    <g transform={`translate(${x}, ${y})`}>
+      {/* Main rounded soft duvet */}
+      <path
+        d={`M0 8 C18 ${topArch} ${width * 0.55} ${topArch - 6} ${width} ${10 + footLift} C${width + 12} ${height * 0.55 + footLift} ${width + 4} ${height} ${width - 14} ${height} L14 ${height} C-4 ${height} -8 ${height * 0.45} 0 8 Z`}
+        fill={fill}
+        stroke={INK}
+        strokeWidth="4.5"
+        strokeLinejoin="round"
+      />
+      {/* Folded top collar trim near chest/shoulders */}
+      <path
+        d={`M4 12 C12 ${topArch + 6} 34 ${topArch + 4} 46 8 L38 ${height - 4} L12 ${height - 4} Z`}
+        fill={accentFill}
+        stroke={INK}
+        strokeWidth="3.5"
+        strokeLinejoin="round"
+      />
+      {/* Subtle soft quilt seam curves */}
+      <path
+        d={`M${width * 0.36} ${topArch * 0.45 + 10} Q${width * 0.4} ${height * 0.55} ${width * 0.34} ${height - 8}`}
+        fill="none"
+        stroke="#1e3a8a"
+        strokeWidth="3"
+        strokeLinecap="round"
+        opacity="0.45"
+      />
+      <path
+        d={`M${width * 0.68} ${topArch * 0.35 + 12} Q${width * 0.72} ${height * 0.55} ${width * 0.66} ${height - 8}`}
+        fill="none"
+        stroke="#1e3a8a"
+        strokeWidth="3"
+        strokeLinecap="round"
+        opacity="0.45"
+      />
+    </g>
+  );
+};
+
+/**
  * Consistent full-body V21.0 Stickman matching StickmanRig.tsx:
  * - BOY: black wavy hair dome on top, normal 2D eyes
  * - GRANDPA: bald top with two gray/white side hair tufts, gray mustache, brown buttoned vest
  * - DOCTOR: neat short black hair, round glasses, white lab coat with stethoscope
- * - Natural bent elbows & bent knees across standing, sleeping, jolting, desk, stretching, and waving poses
+ * - SLEEP_BED / JERK_AWAKE: Head rests naturally propped on pillow at a gentle -12°..0° angle
+ *   (face upright/slightly angled up, neck smoothly joined to shoulders, zero blocky rectangles!)
  */
 export const SharedStickman: React.FC<{
   x: number;
@@ -111,6 +176,7 @@ export const SharedStickman: React.FC<{
   expression?: GiatMinhStickmanExpression;
   frame?: number;
   rotationDeg?: number;
+  limbColor?: string;
 }> = ({
   x,
   y,
@@ -121,108 +187,102 @@ export const SharedStickman: React.FC<{
   expression = 'HAPPY',
   frame = 0,
   rotationDeg = 0,
+  limbColor = INK,
 }) => {
   const dir = facing === 'RIGHT' ? 1 : -1;
   const breath = Math.sin(frame * 0.075) * 1.6;
   const waveOffset = Math.sin(frame * 0.22) * 13;
   const stretchBreath = Math.sin(frame * 0.1) * 4;
   const fallFlail = Math.sin(frame * 0.34) * 10;
-  const jerkTremor = pose === 'JERK_AWAKE' ? Math.sin(frame * 0.42) * 2.4 : 0;
+  const jerkTremor = pose === 'JERK_AWAKE' ? Math.sin(frame * 0.42) * 2.2 : 0;
 
-  // Horizontal sleeping / bed-jolt poses render in horizontal local layout around hip (0, 0)
+  // Bed poses: hip at (0, 0) on mattress, legs extending right (+X) with natural bent knees,
+  // torso & neck reclining gently up-left onto pillow, head at natural -12° (or -4° when jolting awake)
   if (pose === 'SLEEP_BED' || pose === 'JERK_AWAKE') {
     const isJerking = pose === 'JERK_AWAKE';
-    const torsoLiftDeg = isJerking ? -26 : -4;
-    const sleepChestRise = Math.sin(frame * 0.07) * 2.2;
+    const sleepChestRise = Math.sin(frame * 0.07) * 2;
+
+    const shoulderX = isJerking ? -66 : -88;
+    const shoulderY = isJerking ? -58 : -24 - sleepChestRise;
+    const neckX = isJerking ? -74 : -104;
+    const neckY = isJerking ? -74 : -34 - sleepChestRise;
+    const headX = isJerking ? -84 : -128;
+    const headY = isJerking ? -108 : -56 - sleepChestRise;
+    const bedHeadDeg = isJerking ? -4 : -12;
 
     return (
       <g transform={`translate(${x}, ${y}) rotate(${rotationDeg})`}>
         <g transform={`scale(${scale * dir}, ${scale})`}>
-          {/* Legs on bed — bent knees, kicking high when JERK_AWAKE */}
+          {/* Legs on bed — pure stickman lines with natural bent knees */}
           {isJerking ? (
-            <g stroke={INK} strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" fill="none">
-              {/* Back leg slightly bent on mattress */}
-              <path d="M0 4 L58 -12 L114 8" />
-              {/* Front leg kicking sharply upward! */}
-              <path d={`M0 0 L52 ${-54 + jerkTremor} L112 ${-88 - jerkTremor}`} />
+            <g stroke={limbColor} strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" fill="none">
+              {/* Back leg bent on mattress */}
+              <path d="M0 4 L58 -10 L116 8" />
+              {/* Front leg kicking upward in reflex */}
+              <path d={`M0 0 L52 ${-50 + jerkTremor} L110 ${-80 - jerkTremor}`} />
             </g>
           ) : (
-            <g stroke={INK} strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" fill="none">
-              <path d="M0 4 L58 -8 L112 8" />
-              <path d="M0 -2 L54 -18 L108 -2" />
+            <g stroke={limbColor} strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" fill="none">
+              <path d="M0 4 L60 -10 L118 6" />
+              <path d="M-2 -2 L56 -18 L112 -2" />
             </g>
           )}
 
-          {/* Upper body + Head rotated slightly upward from hip */}
-          <g transform={`rotate(${torsoLiftDeg})`}>
-            {/* Back arm */}
-            {isJerking ? (
-              <path
-                d={`M-78 -4 L-52 ${-48 + jerkTremor} L-18 ${-72 - jerkTremor}`}
-                fill="none"
-                stroke={INK}
-                strokeWidth="6.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            ) : (
-              <path
-                d={`M-78 -2 L-48 ${-20 - sleepChestRise} L-22 -8`}
-                fill="none"
-                stroke={INK}
-                strokeWidth="6.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            )}
-
-            {/* Torso */}
-            <line
-              x1="0"
-              y1="0"
-              x2="-102"
-              y2={-sleepChestRise}
-              stroke={INK}
-              strokeWidth="7.5"
+          {/* Back Arm (natural bent elbow) */}
+          {isJerking ? (
+            <path
+              d={`M${shoulderX} ${shoulderY} L${shoulderX + 36} ${shoulderY - 34 + jerkTremor} L${shoulderX + 76} ${shoulderY - 22 - jerkTremor}`}
+              fill="none"
+              stroke={limbColor}
+              strokeWidth="6.5"
               strokeLinecap="round"
+              strokeLinejoin="round"
             />
+          ) : (
+            <path
+              d={`M${shoulderX} ${shoulderY} L${shoulderX + 32} ${shoulderY - 12} L${shoulderX + 64} ${shoulderY - 2}`}
+              fill="none"
+              stroke={limbColor}
+              strokeWidth="6.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          )}
 
-            {/* Pajama shirt accent for BOY in bed */}
-            {role === 'BOY' ? (
-              <path
-                d={`M-92 ${-16 - sleepChestRise} L-12 -14 L-12 14 L-92 ${14 - sleepChestRise} Z`}
-                fill="#38bdf8"
-                stroke={INK}
-                strokeWidth="3.8"
-                strokeLinejoin="round"
-              />
-            ) : null}
+          {/* Spine + Neck smoothly connecting hip -> shoulder -> head */}
+          <path
+            d={`M0 0 L${shoulderX} ${shoulderY} L${neckX} ${neckY}`}
+            fill="none"
+            stroke={limbColor}
+            strokeWidth="7.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
 
-            {/* Front arm */}
-            {isJerking ? (
-              <path
-                d={`M-78 4 L-40 ${-42 - jerkTremor} L4 ${-58 + jerkTremor}`}
-                fill="none"
-                stroke={INK}
-                strokeWidth="6.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            ) : (
-              <path
-                d={`M-76 6 L-44 ${18 - sleepChestRise} L-16 ${4 - sleepChestRise}`}
-                fill="none"
-                stroke={INK}
-                strokeWidth="6.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            )}
+          {/* Front Arm resting gently on chest/abdomen (or reflexively raised in JERK_AWAKE) */}
+          {isJerking ? (
+            <path
+              d={`M${shoulderX} ${shoulderY + 4} L${shoulderX + 42} ${shoulderY - 16 - jerkTremor} L${shoulderX + 82} ${shoulderY - 4 + jerkTremor}`}
+              fill="none"
+              stroke={limbColor}
+              strokeWidth="6.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          ) : (
+            <path
+              d={`M${shoulderX + 2} ${shoulderY + 4} L${shoulderX + 34} ${shoulderY + 22} L${shoulderX + 68} ${shoulderY + 12}`}
+              fill="none"
+              stroke={limbColor}
+              strokeWidth="6.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          )}
 
-            {/* Head resting on pillow (tilted upright enough so face is clearly readable) */}
-            <g transform={`translate(-140, ${-8 - sleepChestRise}) rotate(${isJerking ? 22 : 68})`}>
-              <StickmanHead role={role} expression={expression} frame={frame} />
-            </g>
+          {/* Head resting naturally on pillow at gentle -12°..0° angle (NEVER face-down!) */}
+          <g transform={`translate(${headX}, ${headY}) rotate(${bedHeadDeg})`}>
+            <StickmanHead role={role} expression={expression} frame={frame} />
           </g>
         </g>
       </g>
@@ -231,13 +291,13 @@ export const SharedStickman: React.FC<{
 
   const headTiltDeg =
     pose === 'SLUMP_DESK'
-      ? 32
+      ? 26
       : pose === 'SIT_DESK'
-        ? 9
+        ? 8
         : pose === 'STRETCH_MORNING'
           ? -8 + Math.sin(frame * 0.08) * 3
           : pose === 'FALLING'
-            ? -14 + Math.sin(frame * 0.25) * 6
+            ? -12 + Math.sin(frame * 0.25) * 6
             : pose === 'HAPPY_WAVE'
               ? Math.sin(frame * 0.12) * 4
               : Math.sin(frame * 0.06) * 1.5;
@@ -250,17 +310,17 @@ export const SharedStickman: React.FC<{
       <g transform={`scale(${scale * dir}, ${scale})`}>
         {/* Legs — ALWAYS natural bent knees */}
         {pose === 'SIT_DESK' || pose === 'SLUMP_DESK' ? (
-          <g stroke={INK} strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" fill="none">
+          <g stroke={limbColor} strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" fill="none">
             <path d="M0 0 L66 2 L74 94" />
             <path d="M-4 6 L52 10 L58 94" />
           </g>
         ) : pose === 'FALLING' ? (
-          <g stroke={INK} strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" fill="none">
+          <g stroke={limbColor} strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" fill="none">
             <path d={`M0 0 L${-34 - fallFlail * 0.5} 44 L${-58 - fallFlail} 96`} />
             <path d={`M0 0 L${36 + fallFlail * 0.5} 38 L${54 + fallFlail} 92`} />
           </g>
         ) : (
-          <g stroke={INK} strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" fill="none">
+          <g stroke={limbColor} strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" fill="none">
             <path d="M0 0 L-17 58 L-26 114" />
             <path d="M0 0 L19 58 L28 114" />
           </g>
@@ -271,7 +331,7 @@ export const SharedStickman: React.FC<{
           <path
             d={`M0 ${-84 + breath} L-38 ${-124 + breath - stretchBreath} L-24 ${-172 + breath - stretchBreath}`}
             fill="none"
-            stroke={INK}
+            stroke={limbColor}
             strokeWidth="6.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -280,7 +340,7 @@ export const SharedStickman: React.FC<{
           <path
             d={`M0 ${-84 + breath} L-44 ${-116 - fallFlail} L-68 ${-160 - fallFlail}`}
             fill="none"
-            stroke={INK}
+            stroke={limbColor}
             strokeWidth="6.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -289,7 +349,7 @@ export const SharedStickman: React.FC<{
           <path
             d={`M6 ${-80 + breath} L28 ${-44 + breath} L60 ${-36 + breath}`}
             fill="none"
-            stroke={INK}
+            stroke={limbColor}
             strokeWidth="6.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -298,7 +358,7 @@ export const SharedStickman: React.FC<{
           <path
             d="M20 -68 L48 -42 L82 -36"
             fill="none"
-            stroke={INK}
+            stroke={limbColor}
             strokeWidth="6.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -307,7 +367,7 @@ export const SharedStickman: React.FC<{
           <path
             d={`M0 ${-84 + breath} L-26 ${-50 + breath} L-18 ${-14 + breath}`}
             fill="none"
-            stroke={INK}
+            stroke={limbColor}
             strokeWidth="6.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -320,7 +380,7 @@ export const SharedStickman: React.FC<{
           y1="0"
           x2={torsoTopX}
           y2={torsoTopY}
-          stroke={INK}
+          stroke={limbColor}
           strokeWidth="7"
           strokeLinecap="round"
         />
@@ -390,7 +450,7 @@ export const SharedStickman: React.FC<{
           <path
             d={`M0 ${-84 + breath} L38 ${-104 + breath} L${54 + waveOffset} ${-154 + breath}`}
             fill="none"
-            stroke={INK}
+            stroke={limbColor}
             strokeWidth="6.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -399,7 +459,7 @@ export const SharedStickman: React.FC<{
           <path
             d={`M0 ${-84 + breath} L42 ${-122 + breath - stretchBreath} L30 ${-172 + breath - stretchBreath}`}
             fill="none"
-            stroke={INK}
+            stroke={limbColor}
             strokeWidth="6.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -408,7 +468,7 @@ export const SharedStickman: React.FC<{
           <path
             d={`M0 ${-84 + breath} L42 ${-74 + breath} L82 ${-68 + Math.sin(frame * 0.16) * 4}`}
             fill="none"
-            stroke={INK}
+            stroke={limbColor}
             strokeWidth="6.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -417,7 +477,7 @@ export const SharedStickman: React.FC<{
           <path
             d={`M0 ${-84 + breath} L46 ${-112 + fallFlail} L72 ${-154 + fallFlail}`}
             fill="none"
-            stroke={INK}
+            stroke={limbColor}
             strokeWidth="6.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -426,7 +486,7 @@ export const SharedStickman: React.FC<{
           <path
             d={`M8 ${-80 + breath} L36 ${-42 + breath} L74 ${-34 + breath}`}
             fill="none"
-            stroke={INK}
+            stroke={limbColor}
             strokeWidth="6.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -435,7 +495,7 @@ export const SharedStickman: React.FC<{
           <path
             d="M22 -66 L54 -38 L92 -32"
             fill="none"
-            stroke={INK}
+            stroke={limbColor}
             strokeWidth="6.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -444,7 +504,7 @@ export const SharedStickman: React.FC<{
           <path
             d={`M0 ${-84 + breath} L28 ${-52 + breath} L20 ${-14 + breath}`}
             fill="none"
-            stroke={INK}
+            stroke={limbColor}
             strokeWidth="6.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -469,7 +529,6 @@ const StickmanHead: React.FC<{
   expression: GiatMinhStickmanExpression;
   frame: number;
 }> = ({ role, expression, frame }) => {
-  // Natural V21 blink every ~4s when eyes are open
   const blinkCycle = (frame + (role === 'BOY' ? 17 : role === 'GRANDPA' ? 53 : 91)) % 240;
   const isBlinking = blinkCycle < 5;
   const eyesClosed = expression === 'SLEEPING' || isBlinking;
@@ -511,11 +570,13 @@ const StickmanHead: React.FC<{
           <circle cx="19" cy="-2" r="6.5" fill="#ffffff" stroke={INK} strokeWidth="2.5" />
           <circle cx="21" cy="-2" r={expression === 'SHOCKED' ? 3.8 : 3.2} fill={INK} />
 
-          {/* Heavy eyelids when sleepy / exhausted */}
+          {/* Heavy half-closed upper lids when sleepy / exhausted */}
           {eyesHalfDroop ? (
             <g>
-              <path d="M-11 -4 L3 -4" stroke={INK} strokeWidth="3.5" strokeLinecap="round" />
-              <path d="M12 -4 L26 -4" stroke={INK} strokeWidth="3.5" strokeLinecap="round" />
+              <path d="M-11 -6 L3 -6 L3 -1 L-11 -1 Z" fill="#ffffff" />
+              <path d="M12 -6 L26 -6 L26 -1 L12 -1 Z" fill="#ffffff" />
+              <line x1="-11" y1="-1" x2="3" y2="-1" stroke={INK} strokeWidth="3.2" strokeLinecap="round" />
+              <line x1="12" y1="-1" x2="26" y2="-1" stroke={INK} strokeWidth="3.2" strokeLinecap="round" />
             </g>
           ) : null}
 
@@ -551,7 +612,6 @@ const StickmanHead: React.FC<{
           <path d="M-12 -16 Q-4 -22 4 -16" fill="none" stroke={INK} strokeWidth="3.2" strokeLinecap="round" />
           <path d="M11 -16 Q19 -22 27 -16" fill="none" stroke={INK} strokeWidth="3.2" strokeLinecap="round" />
           <ellipse cx="9" cy="19" rx="7" ry="9" fill="#fca5a5" stroke={INK} strokeWidth="3.2" />
-          {/* Sweat drop */}
           <path
             d="M-28 -18 C-34 -8 -34 2 -28 2 C-22 2 -22 -8 -28 -18 Z"
             fill="#38bdf8"
@@ -572,7 +632,7 @@ const StickmanHead: React.FC<{
           {expression === 'SLEEPING' ? (
             <path d="M2 16 Q9 20 16 16" fill="none" stroke={INK} strokeWidth="3" strokeLinecap="round" />
           ) : (
-            <ellipse cx="9" cy="18" rx="4.5" ry="5.5" fill="#cbd5e1" stroke={INK} strokeWidth="2.8" />
+            <ellipse cx="9" cy="18" rx="4.2" ry="5" fill="#cbd5e1" stroke={INK} strokeWidth="2.6" />
           )}
         </g>
       ) : expression === 'PROUD' ? (
@@ -602,10 +662,10 @@ const StickmanHead: React.FC<{
 
 /**
  * Cozy 1920x1080 Bedroom Backdrop (supports NIGHT moonlight & MORNING golden sunlight):
- * - Wooden bed with headboard, pillow, mattress (optionally renders boy + blanket separately on top)
+ * - Wooden bed with headboard, angled fluffy pillow, and mattress
  * - Window with curtains, crescent moon & twinkling stars (or warm morning sun)
  * - Nightstand with digital clock & warm lamp, wall bookshelf
- * - Keeps y >= 870 clean of text for subtitles
+ * - Keeps y >= 830 clean of text for subtitles
  */
 export const BedroomNightBackdrop: React.FC<{
   frame: number;
@@ -688,7 +748,6 @@ export const BedroomNightBackdrop: React.FC<{
         stroke={INK}
         strokeWidth="4"
       />
-      {/* Floor plank lines */}
       <g stroke={INK} strokeWidth="2.5" opacity="0.32">
         <line x1="0" y1="825" x2="1920" y2="825" />
         <line x1="0" y1="895" x2="1920" y2="895" />
@@ -698,9 +757,9 @@ export const BedroomNightBackdrop: React.FC<{
       {/* Soft bedside rug */}
       <ellipse
         cx="860"
-        cy="835"
+        cy="830"
         rx="440"
-        ry="46"
+        ry="44"
         fill={isMorning ? '#fde68a' : '#1e3a5f'}
         stroke={INK}
         strokeWidth="4"
@@ -708,18 +767,22 @@ export const BedroomNightBackdrop: React.FC<{
       />
 
       {/* Wall Bookshelf (upper-left) */}
-      <g transform="translate(180, 210)">
+      <g transform="translate(170, 175)">
         <rect x="0" y="72" width="280" height="18" rx="6" fill="#78350f" stroke={INK} strokeWidth="4" />
         <rect x="24" y="16" width="26" height="56" rx="4" fill="#ef4444" stroke={INK} strokeWidth="3.5" />
         <rect x="54" y="8" width="30" height="64" rx="4" fill="#3b82f6" stroke={INK} strokeWidth="3.5" />
         <rect x="88" y="20" width="24" height="52" rx="4" fill="#10b981" stroke={INK} strokeWidth="3.5" />
-        {/* Small potted plant */}
         <path d="M198 44 L236 44 L230 72 L204 72 Z" fill="#d97706" stroke={INK} strokeWidth="3.5" />
-        <path d="M217 44 C202 22 194 26 205 14 C214 26 218 20 217 8 C224 22 236 20 229 44 Z" fill="#22c55e" stroke={INK} strokeWidth="3" />
+        <path
+          d="M217 44 C202 22 194 26 205 14 C214 26 218 20 217 8 C224 22 236 20 229 44 Z"
+          fill="#22c55e"
+          stroke={INK}
+          strokeWidth="3"
+        />
       </g>
 
       {/* Bedroom Window with Moonlight or Morning Sun */}
-      <g transform="translate(1280, 150)">
+      <g transform="translate(1280, 145)">
         <rect
           x="0"
           y="0"
@@ -738,14 +801,12 @@ export const BedroomNightBackdrop: React.FC<{
           </g>
         ) : (
           <g>
-            {/* Crescent Moon */}
             <path
               d="M285 58 A38 38 0 1 0 322 114 A30 30 0 1 1 285 58 Z"
               fill="#fef08a"
               stroke="#eab308"
               strokeWidth="2.5"
             />
-            {/* Twinkling Stars */}
             {[
               [78, 72],
               [148, 52],
@@ -766,12 +827,10 @@ export const BedroomNightBackdrop: React.FC<{
           </g>
         )}
 
-        {/* Window Mullions */}
         <line x1="190" y1="0" x2="190" y2="320" stroke={INK} strokeWidth="6" />
         <line x1="0" y1="165" x2="380" y2="165" stroke={INK} strokeWidth="6" />
         <rect x="-18" y="316" width="416" height="20" rx="6" fill="#78350f" stroke={INK} strokeWidth="4.5" />
 
-        {/* Soft Fabric Curtains */}
         <path
           d="M-12 -8 L64 -8 C52 110 46 210 26 334 L-16 334 Z"
           fill={isMorning ? '#38bdf8' : '#334155'}
@@ -791,19 +850,18 @@ export const BedroomNightBackdrop: React.FC<{
 
       {/* Soft Moonbeam / Sunbeam across bedroom */}
       {isMorning ? (
-        <polygon points="1310,170 1640,170 1120,760 560,760" fill="url(#gmSunBeam)" />
+        <polygon points="1310,165 1640,165 1120,760 560,760" fill="url(#gmSunBeam)" />
       ) : (
-        <polygon points="1310,170 1630,170 1180,760 660,760" fill="url(#gmMoonBeam)" />
+        <polygon points="1310,165 1630,165 1180,760 660,760" fill="url(#gmMoonBeam)" />
       )}
 
       {/* Bedside Nightstand + Digital Clock + Warm Lamp */}
-      <g transform="translate(1150, 585)">
+      <g transform="translate(1160, 580)">
         {lampOn ? <circle cx="55" cy="-58" r="160" fill="url(#gmNightLampGlow)" /> : null}
         <rect x="0" y="0" width="136" height="175" rx="8" fill="#78350f" stroke={INK} strokeWidth="4.5" />
         <rect x="14" y="18" width="108" height="52" rx="4" fill="#92400e" stroke={INK} strokeWidth="3.5" />
         <circle cx="68" cy="44" r="6" fill="#fbbf24" stroke={INK} strokeWidth="2.5" />
 
-        {/* Digital Bedside Clock */}
         <rect x="10" y="-42" width="92" height="40" rx="8" fill="#0f172a" stroke={INK} strokeWidth="3.8" />
         <text
           x="56"
@@ -817,7 +875,6 @@ export const BedroomNightBackdrop: React.FC<{
           {clockText}
         </text>
 
-        {/* Small Bedside Lamp */}
         <line x1="114" y1="0" x2="114" y2="-38" stroke={INK} strokeWidth="5" />
         <path
           d="M92 -38 L136 -38 L126 -72 L102 -72 Z"
@@ -828,16 +885,22 @@ export const BedroomNightBackdrop: React.FC<{
         />
       </g>
 
-      {/* Cozy Wooden Bed Frame + Pillow + Mattress */}
+      {/* Cozy Wooden Bed Frame + Angled Fluffy Pillow + Mattress */}
       {showBed ? (
-        <g transform="translate(340, 490)">
-          {/* Headboard */}
+        <g transform="translate(340, 480)">
           <rect x="0" y="-45" width="38" height="335" rx="10" fill="#78350f" stroke={INK} strokeWidth="5" />
-          {/* Mattress */}
           <rect x="34" y="108" width="680" height="96" rx="22" fill="#f8fafc" stroke={INK} strokeWidth="4.5" />
-          {/* Fluffy Pillow */}
-          <ellipse cx="118" cy="96" rx="68" ry="26" fill="#e0f2fe" stroke={INK} strokeWidth="4" />
-          {/* Wooden bed rail & footboard */}
+          {/* Fluffy angled pillow supporting head naturally at ~ -12° */}
+          <ellipse
+            cx="126"
+            cy="78"
+            rx="78"
+            ry="32"
+            transform="rotate(14 126 78)"
+            fill="#e0f2fe"
+            stroke={INK}
+            strokeWidth="4"
+          />
           <rect x="28" y="182" width="696" height="46" rx="8" fill="#92400e" stroke={INK} strokeWidth="5" />
           <rect x="716" y="76" width="32" height="214" rx="8" fill="#78350f" stroke={INK} strokeWidth="5" />
           <rect x="44" y="228" width="26" height="62" rx="4" fill="#5c2d0c" stroke={INK} strokeWidth="4" />

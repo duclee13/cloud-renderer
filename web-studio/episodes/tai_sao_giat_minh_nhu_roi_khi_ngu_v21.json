@@ -1533,7 +1533,10 @@
         "toScale": 1.03,
         "focusX": 1000,
         "focusY": 540
-      }
+      },
+      "fullScreenVisual": true,
+      "customVisual": "GIATMINH_BODY_WIND_DOWN",
+      "visualStep": 0
     },
     {
       "id": "b18",
@@ -1646,7 +1649,10 @@
         "toScale": 1.03,
         "focusX": 1000,
         "focusY": 540
-      }
+      },
+      "fullScreenVisual": true,
+      "customVisual": "GIATMINH_BODY_WIND_DOWN",
+      "visualStep": 1
     },
     {
       "id": "b19",
@@ -1759,7 +1765,10 @@
         "toScale": 1.03,
         "focusX": 1000,
         "focusY": 540
-      }
+      },
+      "fullScreenVisual": true,
+      "customVisual": "GIATMINH_BODY_WIND_DOWN",
+      "visualStep": 2
     },
     {
       "id": "b20",
