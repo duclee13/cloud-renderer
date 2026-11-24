@@ -119,18 +119,24 @@ jobs:
           if [ "$SRC_FILE" != "episodes/current_episode.json" ]; then
             cp "$SRC_FILE" episodes/current_episode.json
           fi
-          node -e "
-            import fs from 'fs';
-            import crypto from 'crypto';
-            import { sanitizeAndValidateEpisode } from './src/lib/v7/episodeJsonSchema.ts';
-            const raw = JSON.parse(fs.readFileSync('episodes/current_episode.json', 'utf8'));
-            const clean = sanitizeAndValidateEpisode(raw);
-            const ttsList = clean.beats.map((b) => String(b.ttsText || b.text || '').trim());
-            const hash = crypto.createHash('sha256').update(JSON.stringify({ voice: 'Hải Đăng', atempo: 1.10, ttsList })).digest('hex').slice(0, 24);
-            const safeSlug = String(clean.slug || 'episode').replace(/[^a-zA-Z0-9_-]/g, '_');
-            fs.appendFileSync(process.env.GITHUB_OUTPUT, 'slug=' + safeSlug + '\nhash=' + hash + '\n');
-            console.log('✅ Loaded & Validated:', clean.title, '| Slug:', safeSlug, '| Beats:', clean.beats.length, '| TTS SHA-256:', hash);
-          "
+          node --input-type=module - << 'EOF'
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+          import { sanitizeAndValidateEpisode } from './src/lib/v7/episodeJsonSchema.ts';
+          const raw = JSON.parse(fs.readFileSync('episodes/current_episode.json', 'utf8'));
+          const clean = sanitizeAndValidateEpisode(raw);
+          const ttsList = clean.beats.map((b) => String(b.ttsText || b.text || '').trim());
+          const hash = crypto
+            .createHash('sha256')
+            .update(JSON.stringify({ voice: 'Hải Đăng', atempo: 1.10, ttsList }))
+            .digest('hex')
+            .slice(0, 24);
+          const safeSlug = String(clean.slug || 'episode').replace(/[^a-zA-Z0-9_-]/g, '_');
+          if (process.env.GITHUB_OUTPUT) {
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, `slug=${safeSlug}\nhash=${hash}\n`);
+          }
+          console.log('✅ Loaded & Validated:', clean.title, '| Slug:', safeSlug, '| Beats:', clean.beats.length, '| TTS SHA-256:', hash);
+          EOF
 
       - name: Preview-Only Mode — Render 4 Representative Act Stills
         if: ${{ inputs.preview_only }}
