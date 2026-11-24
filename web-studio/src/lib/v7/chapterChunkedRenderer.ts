@@ -507,8 +507,11 @@ async function buildChapterAudioBundle<TBeat extends Record<string, any>>(params
     if (ttsRes.fromCache) cacheHits++;
 
     const durationFrames = computeBeatDurationFrames(rawBeat, ttsRes, fps);
-    const beatTargetSec = durationFrames / fps;
-    const padTailSec = Math.max(0.01, beatTargetSec - ttsRes.actualDurationSec);
+    // Căn chính xác từng sample ở 44100 Hz (44100/45 = 980, 44100/30 = 1470, 44100/60 = 735)
+    // Dùng hiệu tổng lồng nhau (telescoping sum) để độ trôi tích lũy qua 64+ beats luôn = 0.000000s!
+    const startSample44k = Math.round((localStartFrame * 44100) / fps);
+    const endSample44k = Math.round(((localStartFrame + durationFrames) * 44100) / fps);
+    const exactBeatSamples44k = Math.max(1, endSample44k - startSample44k);
 
     const mp3TempPath = path.join(tempDir, `ch${chapter.chapterNumber}_b${String(i + 1).padStart(2, "0")}.mp3`);
     const paddedWavPath = path.join(
@@ -521,11 +524,7 @@ async function buildChapterAudioBundle<TBeat extends Record<string, any>>(params
       `ffmpeg -y -v error -i "${mp3TempPath.replace(
         /\\/g,
         "/"
-      )}" -filter_complex "[0:a]aresample=24000,aformat=sample_fmts=fltp:channel_layouts=mono[a0];anullsrc=r=24000:cl=mono,atrim=duration=${padTailSec.toFixed(
-        4
-      )}[sil];[a0][sil]concat=n=2:v=0:a=1,atrim=0:${beatTargetSec.toFixed(
-        4
-      )}[outa]" -map "[outa]" -ar 24000 -ac 1 "${paddedWavPath.replace(/\\/g, "/")}"`
+      )}" -filter_complex "[0:a]aresample=44100,aformat=sample_fmts=fltp:channel_layouts=mono[a0];anullsrc=r=44100:cl=mono,atrim=end_sample=${exactBeatSamples44k}[sil];[a0][sil]concat=n=2:v=0:a=1,atrim=end_sample=${exactBeatSamples44k}[outa]" -map "[outa]" -ar 44100 -ac 1 -c:a pcm_s16le "${paddedWavPath.replace(/\\/g, "/")}"`
     );
     paddedBeatWavFiles.push(paddedWavPath);
 
@@ -585,7 +584,7 @@ async function buildChapterAudioBundle<TBeat extends Record<string, any>>(params
     "utf8"
   );
   execSync(
-    `ffmpeg -y -v error -f concat -safe 0 -i "${listPath.replace(/\\/g, "/")}" -ar 24000 -ac 1 "${voiceOnlyPath.replace(
+    `ffmpeg -y -v error -f concat -safe 0 -i "${listPath.replace(/\\/g, "/")}" -c copy "${voiceOnlyPath.replace(
       /\\/g,
       "/"
     )}"`

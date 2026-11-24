@@ -1,4 +1,4 @@
-name: Render Handcrafted JSON Movie (Cloud VieNeu-TTS + 20 VMs @ 40fps)
+name: Render Handcrafted JSON Movie (Cloud VieNeu-TTS + 20 VMs @ 45fps)
 
 on:
   workflow_dispatch:
@@ -13,10 +13,15 @@ on:
         required: true
         default: '20'
         type: string
-      fps:
-        description: 'Tốc độ khung hình xuất video 1080p (hỗ trợ 30, 40, 60 — mặc định 40fps tối ưu tốc độ & độ mượt)'
+      quality:
+        description: 'Chất lượng độ phân giải video đầu ra (hỗ trợ 720p, 1080p, 1440p, 4k — mặc định 1080p)'
         required: false
-        default: '40'
+        default: '1080p'
+        type: string
+      fps:
+        description: 'Tốc độ khung hình xuất video (hỗ trợ 30, 45, 60 — mặc định 45fps tối ưu độ mượt & tốc độ)'
+        required: false
+        default: '45'
         type: string
       output_name:
         description: 'Tên file video MP4 thành phẩm trong out/'
@@ -52,7 +57,16 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-          cache: 'pip'
+
+      - name: Cache Python Pip Packages (VieNeu-TTS)
+        if: ${{ !inputs.preview_only }}
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-vieneu-${{ runner.os }}-py312-${{ hashFiles('web-studio/scripts/cloud_vieneu_tts.py') }}
+          restore-keys: |
+            pip-vieneu-${{ runner.os }}-py312-
+            pip-vieneu-
 
       - name: Cache web-studio/node_modules
         id: cache-node-modules
@@ -122,11 +136,13 @@ jobs:
         if: ${{ inputs.preview_only }}
         working-directory: web-studio
         env:
-          REMOTION_FPS: ${{ inputs.fps || '40' }}
+          REMOTION_FPS: ${{ inputs.fps || '45' }}
+          RENDER_QUALITY: ${{ inputs.quality || '1080p' }}
         run: |
           node scripts/render_from_episode_json.mjs \
             --episode=episodes/current_episode.json \
-            --fps="${{ inputs.fps || '40' }}" \
+            --fps="${{ inputs.fps || '45' }}" \
+            --quality="${{ inputs.quality || '1080p' }}" \
             --preview-only
 
       - name: Upload Preview Stills & Script Artifact (Preview-Only)
@@ -166,21 +182,21 @@ jobs:
           python3 -m pip install --upgrade pip
           pip install vieneu edge-tts soundfile numpy
 
-      - name: Synthesize Episode Micro-Beats via VieNeu-TTS (@ ${{ inputs.fps || '40' }}fps)
+      - name: Synthesize Episode Micro-Beats via VieNeu-TTS (@ ${{ inputs.fps || '45' }}fps)
         if: ${{ !inputs.preview_only }}
         working-directory: web-studio
         env:
           VIENEU_PRECISION: 'int8'
           VIENEU_TTS_VOICE: 'Hải Đăng'
           VIENEU_TTS_ATEMPO: '1.10'
-          REMOTION_FPS: ${{ inputs.fps || '40' }}
+          REMOTION_FPS: ${{ inputs.fps || '45' }}
         run: |
           python3 scripts/cloud_vieneu_tts.py \
             --episode=episodes/current_episode.json \
             --cache-dir=../.tts-cache/auto_episode \
             --voice="Hải Đăng" \
             --atempo=1.10 \
-            --fps="${{ inputs.fps || '40' }}"
+            --fps="${{ inputs.fps || '45' }}"
           ls -lh ../.tts-cache/auto_episode/episode_audio_index.json
           echo "Total MP3 files in TTS cache: $(ls -1 ../.tts-cache/auto_episode/*.mp3 | wc -l)"
 
@@ -188,7 +204,8 @@ jobs:
         if: ${{ !inputs.preview_only }}
         working-directory: web-studio
         env:
-          REMOTION_FPS: ${{ inputs.fps || '40' }}
+          REMOTION_FPS: ${{ inputs.fps || '45' }}
+          RENDER_QUALITY: ${{ inputs.quality || '1080p' }}
           TOTAL_CHAPTERS: ${{ inputs.total_chapters || '20' }}
         run: |
           npx remotion bundle src/remotion/index.ts --out-dir build
@@ -196,7 +213,8 @@ jobs:
           node scripts/render_from_episode_json.mjs \
             --episode=episodes/current_episode.json \
             --prepare-cloud \
-            --fps="${{ inputs.fps || '40' }}" \
+            --quality="${{ inputs.quality || '1080p' }}" \
+            --fps="${{ inputs.fps || '45' }}" \
             --total-chapters="${{ inputs.total_chapters || '20' }}"
           ls -lh build/index.html episodes/cloud_input_props.json ../out/cloud_plan/
 
@@ -214,15 +232,15 @@ jobs:
           retention-days: 2
 
   # ===========================================================================
-  # JOB 2: Tối Đa 20 Máy Ảo Render Song Song Cân Bằng Frame (1080p @ 40fps)
-  #        Dùng trực tiếp `./build` (0s re-bundle) + JPEG q92 + veryfast crf=18 + concurrency=4
+  # JOB 2: Tối Đa 20 Máy Ảo Render Song Song Cân Bằng Frame (Mặc định 1080p @ 45fps)
+  #        Dùng trực tiếp `./build` (0s re-bundle) + --scale theo quality + JPEG q92 + veryfast crf=18 + concurrency=4
   # ===========================================================================
   render_chunks:
     name: Job 2 — Render Chunk ${{ matrix.chapter }}/${{ inputs.total_chapters }}
     needs: plan_and_voice
     if: ${{ !inputs.preview_only }}
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     strategy:
       fail-fast: false
       max-parallel: 20
@@ -286,11 +304,12 @@ jobs:
           fi
           npx remotion browser ensure
 
-      - name: Render Balanced Frame Chunk ${{ matrix.chapter }}/${{ inputs.total_chapters }} (1080p @ ${{ inputs.fps || '40' }}fps)
+      - name: Render Balanced Frame Chunk ${{ matrix.chapter }}/${{ inputs.total_chapters }} (${{ inputs.quality || '1080p' }} @ ${{ inputs.fps || '45' }}fps)
         working-directory: web-studio
         env:
           CONCURRENCY: '4'
-          REMOTION_FPS: ${{ inputs.fps || '40' }}
+          REMOTION_FPS: ${{ inputs.fps || '45' }}
+          RENDER_QUALITY: ${{ inputs.quality || '1080p' }}
           TOTAL_CHAPTERS: ${{ inputs.total_chapters || '20' }}
           VM_INDEX: ${{ matrix.chapter }}
           DASHBOARD_PROGRESS_URL: ${{ secrets.DASHBOARD_PROGRESS_URL }}
@@ -301,7 +320,8 @@ jobs:
             --bundle-dir=./build \
             --chapter=${{ matrix.chapter }} \
             --total-chapters=${{ inputs.total_chapters || '20' }} \
-            --fps="${{ inputs.fps || '40' }}"
+            --quality="${{ inputs.quality || '1080p' }}" \
+            --fps="${{ inputs.fps || '45' }}"
 
       - name: Upload Chapter Chunk MP4
         uses: actions/upload-artifact@v4
@@ -362,14 +382,16 @@ jobs:
       - name: Stitch All ${{ inputs.total_chapters }} Chunks Losslessly (-c copy +faststart)
         working-directory: web-studio
         env:
-          REMOTION_FPS: ${{ inputs.fps || '40' }}
+          REMOTION_FPS: ${{ inputs.fps || '45' }}
+          RENDER_QUALITY: ${{ inputs.quality || '1080p' }}
           TOTAL_CHAPTERS: ${{ inputs.total_chapters || '20' }}
         run: |
           ls -lah ../out/chunks/
           node scripts/render_from_episode_json.mjs \
             --episode=episodes/current_episode.json \
             --concat-only \
-            --fps="${{ inputs.fps || '40' }}" \
+            --quality="${{ inputs.quality || '1080p' }}" \
+            --fps="${{ inputs.fps || '45' }}" \
             --total-chapters="${{ inputs.total_chapters || '20' }}" \
             --output="../out/${{ inputs.output_name }}"
           ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate -show_entries format=duration,size -of default=noprint_wrappers=1 "../out/${{ inputs.output_name }}"

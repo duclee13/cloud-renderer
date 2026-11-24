@@ -3,8 +3,10 @@ import {
   getRepoConfig,
   githubFetch,
   readGitHubError,
+  RENDER_QUALITY_OPTIONS,
   verifyDashboardPin,
   WORKFLOW_FILE,
+  type RenderQualityOption,
 } from "@/lib/github";
 
 export const dynamic = "force-dynamic";
@@ -12,9 +14,17 @@ export const dynamic = "force-dynamic";
 interface DispatchBody {
   episode_file?: string;
   total_chapters?: string | number;
+  quality?: string;
+  fps?: string | number;
   output_name?: string;
   preview_only?: boolean;
 }
+
+const ALLOWED_VMS = new Set([
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+]);
+const ALLOWED_QUALITIES = new Set<string>(RENDER_QUALITY_OPTIONS);
+const ALLOWED_FPS = new Set([30, 40, 45, 60]);
 
 export async function POST(req: Request) {
   const pinCheck = verifyDashboardPin(req);
@@ -57,15 +67,36 @@ export async function POST(req: Request) {
     ? rawEpisode
     : `episodes/${rawEpisode}`;
 
-  const chaptersNum = Number(body.total_chapters ?? 16);
-  const allowedVms = new Set([
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 20,
-  ]);
-  if (!Number.isInteger(chaptersNum) || !allowedVms.has(chaptersNum)) {
+  const chaptersNum = Number(body.total_chapters ?? 20);
+  if (!Number.isInteger(chaptersNum) || !ALLOWED_VMS.has(chaptersNum)) {
     return NextResponse.json(
       {
         error:
-          "Số lượng máy ảo (total_chapters) không hợp lệ với matrix của render-json-movie.yml (hỗ trợ 8, 12, 16, 20).",
+          "Số lượng máy ảo (total_chapters) không hợp lệ với matrix của render-json-movie.yml (hỗ trợ 1–20).",
+      },
+      { status: 400 }
+    );
+  }
+
+  const normalizedQuality = String(body.quality || "1080p")
+    .trim()
+    .toLowerCase();
+  if (!ALLOWED_QUALITIES.has(normalizedQuality)) {
+    return NextResponse.json(
+      {
+        error:
+          "Tham số quality không hợp lệ (chỉ hỗ trợ 720p, 1080p, 1440p, 4k).",
+      },
+      { status: 400 }
+    );
+  }
+  const quality = normalizedQuality as RenderQualityOption;
+
+  const fpsNum = Number(body.fps ?? 45);
+  if (!Number.isInteger(fpsNum) || !ALLOWED_FPS.has(fpsNum)) {
+    return NextResponse.json(
+      {
+        error: "Tham số fps không hợp lệ (hỗ trợ 30, 45, 60).",
       },
       { status: 400 }
     );
@@ -96,6 +127,8 @@ export async function POST(req: Request) {
           inputs: {
             episode_file: episodeFile,
             total_chapters: String(chaptersNum),
+            quality,
+            fps: String(fpsNum),
             output_name: outputName,
             preview_only: previewOnly,
           },
@@ -112,11 +145,13 @@ export async function POST(req: Request) {
       ok: true,
       message: previewOnly
         ? `Đã kích hoạt Preview Render (4 ảnh đại diện) cho ${episodeFile}!`
-        : `Đã kích hoạt Cloud Render (${chaptersNum} VMs) cho ${episodeFile} -> ${outputName}!`,
+        : `Đã kích hoạt Cloud Render (${chaptersNum} VMs • ${quality.toUpperCase()} @ ${fpsNum}fps) cho ${episodeFile} -> ${outputName}!`,
       dispatched: {
         ref: branch,
         episode_file: episodeFile,
         total_chapters: String(chaptersNum),
+        quality,
+        fps: String(fpsNum),
         output_name: outputName,
         preview_only: previewOnly,
       },

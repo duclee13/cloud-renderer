@@ -2,7 +2,13 @@ import crypto from "node:crypto";
 
 export const WORKFLOW_FILE = "render-json-movie.yml";
 export const WORKFLOW_NAME =
-  "Render Handcrafted JSON Movie (Cloud VieNeu-TTS + 16 VMs)";
+  "Render Handcrafted JSON Movie (Cloud VieNeu-TTS + 20 VMs @ 45fps)";
+
+export const RENDER_QUALITY_OPTIONS = ["720p", "1080p", "1440p", "4k"] as const;
+export type RenderQualityOption = (typeof RENDER_QUALITY_OPTIONS)[number];
+
+export const RENDER_FPS_OPTIONS = [30, 45, 60] as const;
+export type RenderFpsOption = (typeof RENDER_FPS_OPTIONS)[number];
 
 export interface RepoConfig {
   owner: string;

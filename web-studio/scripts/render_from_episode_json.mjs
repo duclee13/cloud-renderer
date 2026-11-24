@@ -1,16 +1,16 @@
 /**
- * RENDER FROM EPISODE JSON V21.1 — Bộ Kết Xuất Phim Từ Kịch Bản JSON Phổ Quát (1080p 40fps Cloud-Accelerated)
+ * RENDER FROM EPISODE JSON V21.2 — Bộ Kết Xuất Phim Từ Kịch Bản JSON Phổ Quát (Mặc định 1080p @ 45fps Cloud-Accelerated)
  * Hỗ trợ đầy đủ các chế độ CLI (tương thích ngược 100% với local test):
  *   --episode=episodes/current_episode.json (mặc định)
- *   --fps=40                                : tốc độ khung hình linh hoạt (30 | 40 | 60; mặc định 40 trên Cloud, 60 trên Local)
- *   --prepare-cloud                         : [Stage 1] Tính timeline toàn tập @ fps, trộn Master Audio (Voice + BGM + SFX) 1 lần,
- *                                             ghi cloud_input_props.json + cloud_render_plan.json cân bằng frame cho N VM
- *   --render-frame-chunk                    : [Stage 2] Gọi trực tiếp `npx remotion render ./build V7MovieComposition ... --frames=start-end`
+ *   --quality=1080p                         : chất lượng đầu ra linh hoạt (720p | 1080p | 1440p | 4k — giữ nguyên hệ tọa độ gốc 1920x1080 qua `--scale`)
+ *   --fps=45                                : tốc độ khung hình linh hoạt (30 | 45 | 60; mặc định 45 trên Cloud, 60 trên Local)
+ *   --prepare-cloud                         : [Stage 1] Tính timeline toàn tập @ fps, căn mẫu chính xác 44.1kHz (0.000s trôi qua 64+ beats),
+ *                                             trộn Master Audio 1 lần, ghi cloud_input_props.json + cloud_render_plan.json cân bằng frame cho N VM
+ *   --render-frame-chunk                    : [Stage 2] Gọi trực tiếp `remotion render ./build V7MovieComposition ... --frames=start-end --scale=...`
  *                                             trên bundle dựng sẵn với `--concurrency=4 --crf=18 --x264-preset=veryfast --jpeg-quality=92`
  *                                             kèm gửi telemetry thời gian thực về `DASHBOARD_PROGRESS_URL`
  *   --concat-only                           : [Stage 3] Ghép nối không re-encode (`-f concat -safe 0 -i list.txt -c copy -movflags +faststart`)
  *   --preview-only                          : xuất nhanh 4 ảnh đại diện 4 Hồi (out/preview_act1.jpg..preview_act4.jpg)
- *   --audio-only / --chapter=k              : các chế độ render chia chương local truyền thống
  */
 
 import path from 'path';
@@ -67,8 +67,32 @@ function resolveEffectiveFps(explicitFps) {
   if (Number.isFinite(envParsed) && envParsed >= 15 && envParsed <= 120) {
     return envParsed;
   }
-  // Mặc định 40fps trên Cloud/CI, giữ fallback 60fps trên Local nếu không truyền --fps
-  return isLinuxOrCiEnvironment() ? 40 : 60;
+  // Mặc định 45fps trên Cloud/CI, giữ fallback 60fps trên Local nếu không truyền --fps
+  return isLinuxOrCiEnvironment() ? 45 : 60;
+}
+
+/**
+ * Ánh xạ `quality` sang hệ số `--scale` chính xác tuyệt đối theo IEEE-754 trên nền gốc 1920x1080:
+ * - '720p'  -> scale = 2/3 (0.6666666666666666) -> 1920 * scale === 1280, 1080 * scale === 720 (chẵn % 2 === 0!)
+ * - '1080p' -> scale = 1                        -> 1920x1080 (mặc định)
+ * - '1440p' -> scale = 4/3 (1.3333333333333333) -> 1920 * scale === 2560, 1080 * scale === 1440 (chẵn % 2 === 0!)
+ * - '4k'    -> scale = 2                        -> 3840x2160 (chẵn % 2 === 0!)
+ * Giữ nguyên 100% hệ tọa độ thiết kế 1920x1080 trong Root.tsx để mọi SVG/phụ đề/bong bóng sắc nét tuyệt đối.
+ */
+export function resolveQualityPreset(rawQuality) {
+  const norm = String(rawQuality || process.env.RENDER_QUALITY || '1080p')
+    .trim()
+    .toLowerCase();
+  if (norm === '720p' || norm === '720') {
+    return { quality: '720p', scale: 2 / 3, width: 1280, height: 720 };
+  }
+  if (norm === '1440p' || norm === '2k' || norm === '1440') {
+    return { quality: '1440p', scale: 4 / 3, width: 2560, height: 1440 };
+  }
+  if (norm === '4k' || norm === '2160p' || norm === '2160') {
+    return { quality: '4k', scale: 2, width: 3840, height: 2160 };
+  }
+  return { quality: '1080p', scale: 1, width: 1920, height: 1080 };
 }
 
 function parseEpisodeArgs(argv) {
@@ -76,6 +100,7 @@ function parseEpisodeArgs(argv) {
   let cacheDirOverride = null;
   let bundleDirOverride = null;
   let fpsArg = null;
+  let qualityArg = null;
   const isPreviewOnly = argv.includes('--preview-only');
   const isPrepareCloud = argv.includes('--prepare-cloud');
   const isRenderFrameChunk = argv.includes('--render-frame-chunk');
@@ -90,6 +115,8 @@ function parseEpisodeArgs(argv) {
     else if (a === '--bundle-dir' && argv[i + 1]) bundleDirOverride = argv[++i].trim();
     else if (a.startsWith('--fps=')) fpsArg = parseInt(a.slice('--fps='.length).trim(), 10);
     else if (a === '--fps' && argv[i + 1]) fpsArg = parseInt(argv[++i].trim(), 10);
+    else if (a.startsWith('--quality=')) qualityArg = a.slice('--quality='.length).trim();
+    else if (a === '--quality' && argv[i + 1]) qualityArg = argv[++i].trim();
   }
 
   const resolvedEpisode = path.isAbsolute(episodePath)
@@ -103,6 +130,7 @@ function parseEpisodeArgs(argv) {
     cacheDirOverride,
     bundleDirOverride,
     fpsArg,
+    qualityArg,
     isPreviewOnly,
     isPrepareCloud,
     isRenderFrameChunk,
@@ -112,8 +140,6 @@ function parseEpisodeArgs(argv) {
 /**
  * Hook báo tiến độ an toàn tuyệt đối lên Cloud Render Dashboard Mức 2 (`/api/vm-progress`).
  * - Giữ nguyên 100% cấu trúc JSON payload mà `cloud-dashboard/` đang đọc từ Upstash Redis.
- * - Throttle tối đa 1 gói tin mỗi 4 giây (trừ gói `starting` 0% và `completed` 100%).
- * - Timeout cứng 2000ms + try/catch nuốt 100% lỗi mạng/HTTP để KHÔNG BAO GIỜ ảnh hưởng tiến trình render.
  */
 function createSafeVmProgressReporter({ vmIndex, totalVms }) {
   const rawUrl = (process.env.DASHBOARD_PROGRESS_URL || '').trim();
@@ -319,28 +345,31 @@ async function renderFourActPreviewStills(episode, scriptBeats, fps, bundleDirOv
 /**
  * [STAGE 1 — --prepare-cloud]:
  * - Đọc toàn bộ file MP3 từ VieNeu-TTS cache, tính `durationFrames = Math.ceil(actualDurationSec * fps) + Math.round(pauseAfterSec * fps)`.
- * - Trộn 1 lần duy nhất Master Audio toàn tập (`Voice + BGM 3 hồi + 6 SFX`) đúng chuẩn `fps` rồi xuất `out/cloud_plan/master_episode_audio.m4a`.
- * - Ghi `web-studio/episodes/cloud_input_props.json` (~40KB gọn nhẹ, không nhúng base64 audio) cho Remotion CLI `--props`.
- * - Cân bằng tải chính xác từng frame (`computeBalancedFrameChunks`) cho `totalChapters` VM (mặc định 20 VM) vào `out/cloud_plan/cloud_render_plan.json`.
+ * - Căn mẫu chính xác tuyệt đối ở 44.100 Hz (`44100 / 45 = 980` mẫu/frame nguyên chẵn, telescoping sum = 0 mẫu trôi qua mọi số lượng beat!).
+ * - Trộn 1 lần duy nhất Master Audio toàn tập (`Voice + BGM 3 hồi + 6 SFX`) rồi xuất `out/cloud_plan/master_episode_audio.m4a`.
+ * - Ghi `web-studio/episodes/cloud_input_props.json` (~40KB) + `out/cloud_plan/cloud_render_plan.json` (kèm `quality`, `scale`, `fps`, 20 dải frame cân bằng).
  */
 async function prepareCloudEpisodePlan({
   episode,
   scriptBeats,
   fps,
+  qualitySpec,
   totalChapters,
-  ttsCacheDir,
   synthesizeBeatAudio,
 }) {
   const planDir = path.join(workspaceRoot, 'out', 'cloud_plan');
   fs.mkdirSync(planDir, { recursive: true });
   const workTmp = fs.mkdtempSync(path.join(os.tmpdir(), `cloud_prep_${episode.slug}_`));
+  const AUDIO_SR = 44100;
 
   try {
     const paddedWavFiles = [];
     const compiledBeats = [];
     let cursorFrame = 0;
 
-    console.log(`\n-> [--prepare-cloud] Đang tính timeline ${fps}fps & chuẩn bị Master Audio toàn tập (${scriptBeats.length} beats)...`);
+    console.log(
+      `\n-> [--prepare-cloud] Đang tính timeline ${qualitySpec.quality} (${qualitySpec.width}x${qualitySpec.height}) @ ${fps}fps & chuẩn bị Master Audio mẫu-chính-xác 44.1kHz (${scriptBeats.length} beats)...`
+    );
 
     for (let i = 0; i < scriptBeats.length; i++) {
       const rawBeat = scriptBeats[i];
@@ -352,8 +381,12 @@ async function prepareCloudEpisodePlan({
       };
       const ttsRes = await synthesizeBeatAudio(beatForTts, i);
       const durationFrames = computeBeatDurationFrames(rawBeat, ttsRes, fps);
-      const beatTargetSec = durationFrames / fps;
-      const padTailSec = Math.max(0.01, beatTargetSec - ttsRes.actualDurationSec);
+
+      // Hiệu tổng lồng nhau (telescoping sum) trên trục sample 44.1kHz:
+      // Tổng sample của tất cả N beats = endSample(N-1) - 0 = Math.round((totalFrames * 44100) / fps) -> 0.000000s trôi!
+      const startSample = Math.round((cursorFrame * AUDIO_SR) / fps);
+      const endSample = Math.round(((cursorFrame + durationFrames) * AUDIO_SR) / fps);
+      const exactBeatSamples = Math.max(1, endSample - startSample);
 
       const mp3Tmp = path.join(workTmp, `b${String(i + 1).padStart(3, '0')}.mp3`);
       const wavPadded = path.join(workTmp, `b${String(i + 1).padStart(3, '0')}_pad.wav`);
@@ -361,10 +394,10 @@ async function prepareCloudEpisodePlan({
 
       execSync(
         `ffmpeg -y -v error -i "${mp3Tmp.replace(/\\/g, '/')}" ` +
-          `-filter_complex "[0:a]aresample=24000,aformat=sample_fmts=fltp:channel_layouts=mono[a0];` +
-          `anullsrc=r=24000:cl=mono,atrim=duration=${padTailSec.toFixed(4)}[sil];` +
-          `[a0][sil]concat=n=2:v=0:a=1,atrim=0:${beatTargetSec.toFixed(4)}[outa]" ` +
-          `-map "[outa]" -ar 24000 -ac 1 "${wavPadded.replace(/\\/g, '/')}"`
+          `-filter_complex "[0:a]aresample=${AUDIO_SR},aformat=sample_fmts=fltp:channel_layouts=mono[a0];` +
+          `anullsrc=r=${AUDIO_SR}:cl=mono,atrim=end_sample=${exactBeatSamples}[sil];` +
+          `[a0][sil]concat=n=2:v=0:a=1,atrim=end_sample=${exactBeatSamples}[outa]" ` +
+          `-map "[outa]" -ar ${AUDIO_SR} -ac 1 -c:a pcm_s16le "${wavPadded.replace(/\\/g, '/')}"`
       );
       paddedWavFiles.push(wavPadded);
 
@@ -393,9 +426,10 @@ async function prepareCloudEpisodePlan({
     }
 
     const totalFrames = cursorFrame;
-    const totalDurationSec = Number((totalFrames / fps).toFixed(3));
+    const totalExactSamples = Math.round((totalFrames * AUDIO_SR) / fps);
+    const totalDurationSec = Number((totalFrames / fps).toFixed(6));
 
-    // Ghép toàn bộ giọng đọc -> trộn BGM 3 hồi + 6 SFX chuẩn phòng thu -> xuất AAC M4A 192kbps khớp đúng độ dài totalDurationSec
+    // Ghép lossless các WAV 44.1kHz PCM 16-bit -> trộn BGM 3 hồi + 6 SFX -> xuất AAC M4A 192kbps khớp chính xác sample!
     const voiceAllWav = path.join(workTmp, 'episode_voice_all.wav');
     const mixedAllWav = path.join(workTmp, 'episode_master_mixed.wav');
     const wavListTxt = path.join(workTmp, 'wav_list.txt');
@@ -405,7 +439,7 @@ async function prepareCloudEpisodePlan({
       'utf8'
     );
     execSync(
-      `ffmpeg -y -v error -f concat -safe 0 -i "${wavListTxt.replace(/\\/g, '/')}" -ar 24000 -ac 1 "${voiceAllWav.replace(/\\/g, '/')}"`
+      `ffmpeg -y -v error -f concat -safe 0 -i "${wavListTxt.replace(/\\/g, '/')}" -c copy "${voiceAllWav.replace(/\\/g, '/')}"`
     );
 
     const mixRes = mixMasterAudioWithSoundDesign({
@@ -419,11 +453,12 @@ async function prepareCloudEpisodePlan({
 
     const masterAudioM4aPath = path.join(planDir, 'master_episode_audio.m4a');
     execSync(
-      `ffmpeg -y -v error -i "${mixedAllWav.replace(/\\/g, '/')}" -c:a aac -b:a 192k -ar 44100 -ac 1 ` +
-        `-t ${totalDurationSec.toFixed(4)} -movflags +faststart "${masterAudioM4aPath.replace(/\\/g, '/')}"`
+      `ffmpeg -y -v error -i "${mixedAllWav.replace(/\\/g, '/')}" ` +
+        `-af "atrim=end_sample=${totalExactSamples}" ` +
+        `-c:a aac -b:a 192k -ar ${AUDIO_SR} -ac 1 -movflags +faststart "${masterAudioM4aPath.replace(/\\/g, '/')}"`
     );
 
-    // Ghi file inputProps gọn nhẹ (~40KB) để 20 VM truyền thẳng qua `--props`
+    // Ghi file inputProps gọn nhẹ (~40KB, giữ nguyên hệ tọa độ thiết kế 1920x1080)
     const payload = {
       title: episode.title,
       totalDurationFrames: totalFrames,
@@ -443,14 +478,19 @@ async function prepareCloudEpisodePlan({
     const chunks = computeBalancedFrameChunks(totalFrames, totalChapters);
     const movieId = `v17_${episode.slug}`;
     const planPayload = {
-      version: 'v21.1',
+      version: 'v21.2',
       movieId,
       slug: episode.slug,
       title: episode.title,
+      quality: qualitySpec.quality,
+      scale: qualitySpec.scale,
+      outputWidth: qualitySpec.width,
+      outputHeight: qualitySpec.height,
       fps,
       totalBeats: compiledBeats.length,
       totalFrames,
-      totalDurationSec,
+      totalExactSamples,
+      totalDurationSec: Number((totalFrames / fps).toFixed(3)),
       requestedTotalChapters: totalChapters,
       effectiveTotalChapters: chunks.length,
       bgmSegments: mixRes.plan.bgmSegments.length,
@@ -462,7 +502,7 @@ async function prepareCloudEpisodePlan({
     fs.writeFileSync(planJsonPath, JSON.stringify(planPayload, null, 2) + '\n', 'utf8');
 
     console.log(
-      `✅ [--prepare-cloud] Hoàn tất! Tổng: ${totalFrames} frames @ ${fps}fps (${totalDurationSec}s) | ` +
+      `✅ [--prepare-cloud] Hoàn tất! Tổng: ${totalFrames} frames @ ${fps}fps (${(totalFrames / fps).toFixed(3)}s | ${qualitySpec.width}x${qualitySpec.height}) | ` +
         `BGM: ${mixRes.plan.bgmSegments.length} segments | SFX: ${mixRes.plan.sfxCues.length} cues`
     );
     console.log(
@@ -478,11 +518,11 @@ async function prepareCloudEpisodePlan({
 
 /**
  * [STAGE 2 — --render-frame-chunk]:
- * Chạy trực tiếp `npx remotion render ./build V7MovieComposition ... --frames=start-end`
+ * Chạy trực tiếp `remotion render ./build V7MovieComposition ... --frames=start-end --scale=...`
  * từ thư mục pre-bundle của Stage 1 (0s bundling!) với cờ tối ưu cho runner 4 vCPU,
  * đồng thời bắt tiến độ `Rendered X/Y` gửi thẳng về `DASHBOARD_PROGRESS_URL`.
  */
-async function renderCloudBalancedFrameChunk({ chapterIndex, totalChapters, bundleDirOverride }) {
+async function renderCloudBalancedFrameChunk({ chapterIndex, totalChapters, bundleDirOverride, qualityArg }) {
   const planPath = path.join(workspaceRoot, 'out', 'cloud_plan', 'cloud_render_plan.json');
   if (!fs.existsSync(planPath)) {
     throw new Error(`Không tìm thấy kế hoạch render Cloud: ${planPath} (hãy chạy --prepare-cloud ở Stage 1 trước).`);
@@ -491,6 +531,7 @@ async function renderCloudBalancedFrameChunk({ chapterIndex, totalChapters, bund
   const chunks = Array.isArray(plan.chunks) ? plan.chunks : [];
   const totalVms = Number(process.env.TOTAL_CHAPTERS) || totalChapters || chunks.length || 20;
   const vmIndex = Number(process.env.VM_INDEX) || chapterIndex || 1;
+  const qualitySpec = resolveQualityPreset(qualityArg || plan.quality);
 
   const chunkSpec = chunks.find((c) => c.chapter === vmIndex);
   const chunksDir = path.join(workspaceRoot, 'out', 'chunks');
@@ -523,7 +564,7 @@ async function renderCloudBalancedFrameChunk({ chapterIndex, totalChapters, bund
 
   console.log('====================================================================');
   console.log(
-    `[Cloud Frame-Balanced VM ${vmIndex}/${chunks.length}] Frames ${startFrame}–${endFrame} (${frameCount} frames @ ${plan.fps}fps)`
+    `[Cloud Frame-Balanced VM ${vmIndex}/${chunks.length}] Frames ${startFrame}–${endFrame} (${frameCount}f) | ${qualitySpec.quality} (${qualitySpec.width}x${qualitySpec.height} @ ${plan.fps}fps, scale=${qualitySpec.scale})`
   );
   console.log(
     `-> Pre-Bundle: ${bundleDir} | Concurrency: ${concurrency} | GL: ${glBackend} | JPEG q=92 | x264 veryfast crf=18`
@@ -547,6 +588,7 @@ async function renderCloudBalancedFrameChunk({ chapterIndex, totalChapters, bund
     chunkOutPath,
     `--props=${propsPath}`,
     `--frames=${startFrame}-${endFrame}`,
+    `--scale=${qualitySpec.scale}`,
     '--muted',
     '--codec=h264',
     '--pixel-format=yuv420p',
@@ -684,7 +726,7 @@ function stitchCloudBalancedMovie({ outputPath }) {
   const safeOut = path.resolve(outputPath).replace(/\\/g, '/');
 
   console.log(
-    `-> [--concat-only] Đang ghép lossless ${chunkPaths.length} đoạn video (${plan.fps}fps) + Master Studio Audio (-c copy)...`
+    `-> [--concat-only] Đang ghép lossless ${chunkPaths.length} đoạn video (${plan.quality || '1080p'} @ ${plan.fps}fps) + Master Studio Audio (-c copy)...`
   );
   execSync(
     `ffmpeg -y -v error -f concat -safe 0 -i "${safeList}" -i "${safeAudio}" ` +
@@ -696,7 +738,7 @@ function stitchCloudBalancedMovie({ outputPath }) {
   const sizeBytes = fs.statSync(outputPath).size;
   console.log(
     `✅ [--concat-only] Ghép hoàn tất trong ${elapsedSec}s -> ${outputPath} ` +
-      `(${durationSec.toFixed(3)}s @ ${plan.fps}fps | ${(sizeBytes / 1024 / 1024).toFixed(2)} MB)`
+      `(${durationSec.toFixed(3)}s | ${plan.quality || '1080p'} @ ${plan.fps}fps | ${(sizeBytes / 1024 / 1024).toFixed(2)} MB)`
   );
   return { elapsedSec, durationSec, sizeBytes };
 }
@@ -707,12 +749,14 @@ async function main() {
     cacheDirOverride,
     bundleDirOverride,
     fpsArg,
+    qualityArg,
     isPreviewOnly,
     isPrepareCloud,
     isRenderFrameChunk,
   } = parseEpisodeArgs(process.argv.slice(2));
   const cliArgs = parseChapterRenderCliArgs(process.argv);
   const effectiveFps = resolveEffectiveFps(fpsArg ?? cliArgs.fpsOverride);
+  const qualitySpec = resolveQualityPreset(qualityArg);
 
   // Stage 2 Frame-Balanced Chunk Render chạy trực tiếp từ cloud_render_plan.json + ./build
   if (isRenderFrameChunk) {
@@ -720,6 +764,7 @@ async function main() {
       chapterIndex: cliArgs.chapterIndex || Number(process.env.VM_INDEX) || 1,
       totalChapters: cliArgs.totalChaptersOverride || Number(process.env.TOTAL_CHAPTERS) || 20,
       bundleDirOverride,
+      qualityArg,
     });
     return;
   }
@@ -758,9 +803,11 @@ async function main() {
   }));
 
   console.log('====================================================================');
-  console.log(`V21.1 UNIVERSAL JSON RENDERER: "${episode.title}"`);
+  console.log(`V21.2 UNIVERSAL JSON RENDERER: "${episode.title}"`);
   console.log(`-> File JSON: ${resolvedEpisode}`);
-  console.log(`-> Slug: ${episode.slug} | Micro-Beats: ${episode.beats.length} | Target FPS: ${effectiveFps}`);
+  console.log(
+    `-> Slug: ${episode.slug} | Beats: ${episode.beats.length} | Quality: ${qualitySpec.quality} (${qualitySpec.width}x${qualitySpec.height}) | FPS: ${effectiveFps}`
+  );
   console.log('====================================================================');
 
   if (isPreviewOnly) {
@@ -856,8 +903,8 @@ async function main() {
       episode,
       scriptBeats,
       fps: effectiveFps,
+      qualitySpec,
       totalChapters: cliArgs.totalChaptersOverride || Number(process.env.TOTAL_CHAPTERS) || 20,
-      ttsCacheDir,
       synthesizeBeatAudio,
     });
     return;
@@ -876,7 +923,7 @@ async function main() {
     ttsCacheDir,
     fps: effectiveFps,
     cliArgs,
-    renderEngineVersionTag: `v21_1_universal_${effectiveFps}fps`,
+    renderEngineVersionTag: `v21_2_universal_${qualitySpec.quality}_${effectiveFps}fps`,
 
     synthesizeBeatAudio,
 
@@ -1045,7 +1092,12 @@ async function main() {
   }
 }
 
-main().catch((err) => {
-  console.error('Fatal V21.1 Auto-Factory render error:', err);
-  process.exit(1);
-});
+const isDirectCliExecution =
+  process.argv[1] && path.resolve(process.argv[1]) === path.resolve(__filename);
+
+if (isDirectCliExecution) {
+  main().catch((err) => {
+    console.error('Fatal V21.2 Auto-Factory render error:', err);
+    process.exit(1);
+  });
+}

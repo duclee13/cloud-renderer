@@ -7,7 +7,7 @@ CLOUD VIENEU-TTS V21.1 — Tổng hợp giọng đọc tiếng Việt "Hải Đ�
 - Tối ưu Cache SHA-256 theo `ttsText`:
   Lưu tên file content-addressed `tts_<sha256>.mp3` (và tương thích ngược cả `beat_*_<sha256>.mp3`),
   giúp tái sử dụng tức thì các câu thoại không đổi khi re-render sửa đồ họa hoặc thêm/bớt beat!
-- Đồng bộ `fps` linh hoạt (mặc định 40fps trên Cloud, hỗ trợ 30/40/60fps):
+- Đồng bộ `fps` linh hoạt (mặc định 45fps trên Cloud, hỗ trợ 30/45/60fps):
   `dur_frames = math.ceil(dur_sec * fps) + round(pause_sec * fps)`
 """
 
@@ -331,7 +331,7 @@ def main() -> None:
     parser.add_argument("--cache-dir", type=str, default="../.tts-cache/auto_episode")
     parser.add_argument("--voice", type=str, default=os.environ.get("VIENEU_TTS_VOICE", "Hải Đăng"))
     parser.add_argument("--atempo", type=float, default=float(os.environ.get("VIENEU_TTS_ATEMPO", "1.10")))
-    parser.add_argument("--fps", type=int, default=int(os.environ.get("REMOTION_FPS") or os.environ.get("FPS") or "40"))
+    parser.add_argument("--fps", type=int, default=int(os.environ.get("REMOTION_FPS") or os.environ.get("FPS") or "45"))
     parser.add_argument("--serve", action="store_true")
     parser.add_argument("--host", type=str, default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8000)

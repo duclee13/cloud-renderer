@@ -34,16 +34,26 @@ import {
   X,
   XCircle,
 } from "lucide-react";
-import type {
-  EpisodeFileItem,
-  RunDetailPayload,
-  StageJobSummary,
-  StageVisualState,
-  VmChunkStatus,
-  WorkflowRunSummary,
+import {
+  RENDER_FPS_OPTIONS,
+  RENDER_QUALITY_OPTIONS,
+  type EpisodeFileItem,
+  type RenderFpsOption,
+  type RenderQualityOption,
+  type RunDetailPayload,
+  type StageJobSummary,
+  type StageVisualState,
+  type VmChunkStatus,
+  type WorkflowRunSummary,
 } from "@/lib/github";
 
 const VM_COUNT_OPTIONS = [8, 12, 16, 20] as const;
+const QUALITY_DISPLAY_LABELS: Record<RenderQualityOption, string> = {
+  "720p": "720p",
+  "1080p": "1080p",
+  "1440p": "1440p",
+  "4k": "4K",
+};
 const PIN_STORAGE_KEY = "cloud_dashboard_pin_v1";
 const POLL_INTERVAL_MS = 4000; // Auto-poll 4 giây/lần khi run đang chạy
 const SAFE_EPISODE_FILENAME_RE = /^[a-zA-Z0-9._-]+$/;
@@ -267,7 +277,9 @@ export default function CloudDashboardPage() {
   } | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const [vmCount, setVmCount] = useState<number>(16);
+  const [vmCount, setVmCount] = useState<number>(20);
+  const [quality, setQuality] = useState<RenderQualityOption>("1080p");
+  const [fps, setFps] = useState<RenderFpsOption>(45);
   const [outputName, setOutputName] = useState("");
   const [outputTouched, setOutputTouched] = useState(false);
   const [previewOnly, setPreviewOnly] = useState(false);
@@ -677,6 +689,8 @@ export default function CloudDashboardPage() {
             content: localDraft.content,
             autoDispatch: true,
             totalChapters: vmCount,
+            quality,
+            fps,
             outputName: outputName.trim(),
             previewOnly,
           }),
@@ -771,7 +785,10 @@ export default function CloudDashboardPage() {
         body: JSON.stringify({
           episode_file: selectedEpisode,
           total_chapters: String(vmCount),
+          quality,
+          fps: String(fps),
           output_name: outputName.trim(),
+          previewOnly: previewOnly,
           preview_only: previewOnly,
         }),
       });
@@ -1368,7 +1385,7 @@ export default function CloudDashboardPage() {
                         aria-checked={active}
                         disabled={previewOnly}
                         onClick={() => setVmCount(count)}
-                        className={`min-h-[44px] cursor-pointer rounded-xl border font-mono text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 disabled:cursor-not-allowed disabled:opacity-40 ${
+                        className={`min-h-[42px] cursor-pointer rounded-xl border font-mono text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 disabled:cursor-not-allowed disabled:opacity-40 ${
                           active
                             ? "border-sky-400 bg-sky-500/20 text-sky-200 shadow-[0_0_14px_rgba(56,189,248,0.2)]"
                             : "border-white/10 bg-[#0b1120] text-slate-400 hover:border-white/25 hover:text-slate-200"
@@ -1378,6 +1395,82 @@ export default function CloudDashboardPage() {
                       </button>
                     );
                   })}
+                </div>
+              </div>
+
+              {/* Quality (720p / 1080p / 1440p / 4k) & FPS (30 / 45 / 60) Selectors */}
+              <div className="space-y-3 rounded-xl border border-white/10 bg-[#0b1120]/75 p-3">
+                <div>
+                  <div className="mb-1.5 flex items-center justify-between">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+                      Chất lượng đầu ra (Quality)
+                    </span>
+                    <span className="font-mono text-[11px] text-slate-400">
+                      Mặc định 1080p
+                    </span>
+                  </div>
+                  <div
+                    role="radiogroup"
+                    aria-label="Chất lượng độ phân giải video"
+                    className="grid grid-cols-4 gap-1.5"
+                  >
+                    {RENDER_QUALITY_OPTIONS.map((q) => {
+                      const active = quality === q;
+                      return (
+                        <button
+                          key={q}
+                          type="button"
+                          role="radio"
+                          aria-checked={active}
+                          disabled={previewOnly}
+                          onClick={() => setQuality(q)}
+                          className={`min-h-[38px] cursor-pointer rounded-lg border font-mono text-xs font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 disabled:cursor-not-allowed disabled:opacity-40 ${
+                            active
+                              ? "border-emerald-400 bg-emerald-500/20 text-emerald-200 shadow-[0_0_12px_rgba(52,211,153,0.18)]"
+                              : "border-white/10 bg-[#090d16] text-slate-400 hover:border-white/25 hover:text-slate-200"
+                          }`}
+                        >
+                          {QUALITY_DISPLAY_LABELS[q]}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div>
+                  <div className="mb-1.5 flex items-center justify-between">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+                      Tốc độ khung hình (FPS)
+                    </span>
+                    <span className="font-mono text-[11px] text-slate-400">
+                      Mặc định 45fps
+                    </span>
+                  </div>
+                  <div
+                    role="radiogroup"
+                    aria-label="Tốc độ khung hình FPS"
+                    className="grid grid-cols-3 gap-2"
+                  >
+                    {RENDER_FPS_OPTIONS.map((f) => {
+                      const active = fps === f;
+                      return (
+                        <button
+                          key={f}
+                          type="button"
+                          role="radio"
+                          aria-checked={active}
+                          onClick={() => setFps(f)}
+                          className={`min-h-[38px] cursor-pointer rounded-lg border font-mono text-xs font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 ${
+                            active
+                              ? "border-sky-400 bg-sky-500/20 text-sky-200 shadow-[0_0_12px_rgba(56,189,248,0.18)]"
+                              : "border-white/10 bg-[#090d16] text-slate-400 hover:border-white/25 hover:text-slate-200"
+                          }`}
+                        >
+                          {f} fps
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
 
@@ -1542,7 +1635,7 @@ export default function CloudDashboardPage() {
                     <span>
                       {previewOnly
                         ? "Upload & Run Cloud Render (Preview)"
-                        : `Upload & Run Cloud Render (${vmCount} VMs)`}
+                        : `Upload & Run (${vmCount} VMs • ${QUALITY_DISPLAY_LABELS[quality]} @ ${fps}fps)`}
                     </span>
                   </>
                 ) : (
@@ -1551,7 +1644,7 @@ export default function CloudDashboardPage() {
                     <span>
                       {previewOnly
                         ? "Run Preview Render (4 Stills)"
-                        : `Run Cloud Render (${vmCount} VMs)`}
+                        : `Run Cloud Render (${vmCount} VMs • ${QUALITY_DISPLAY_LABELS[quality]} @ ${fps}fps)`}
                     </span>
                   </>
                 )}
