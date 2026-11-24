@@ -69,6 +69,22 @@ import {
   MoiCanhPeacefulRainyNightVisual,
   MoiCanhSummary3RulesVisual,
 } from './moiCanhVisualsPart2';
+import {
+  GiatMinhBedroomFallJerkVisual,
+  GiatMinhSleepBorderN1Visual,
+  GiatMinhBrainstemHandoffVisual,
+  GiatMinhPrimateTreeBranchVisual,
+  GiatMinhBrainTestPingVisual,
+  GiatMinhCulpritFatigueVisual,
+} from './giatMinhVisualsPart1';
+import {
+  GiatMinhCulpritCaffeineVisual,
+  GiatMinhCulpritStressScreenVisual,
+  GiatMinhVsSleepParalysisVisual,
+  GiatMinhTipScheduleCaffeineVisual,
+  GiatMinhTipWindDownRoomVisual,
+  GiatMinhPeacefulSummaryVisual,
+} from './giatMinhVisualsPart2';
 
 export type EpisodeVisualProps = {
   progress: number;
@@ -144,4 +160,18 @@ export const EPISODE_VISUAL_REGISTRY: Record<string, React.FC<EpisodeVisualProps
   MOICANH_TIP_WOOD_MOISTURE: MoiCanhTipWoodMoistureVisual,
   MOICANH_PEACEFUL_RAINY_NIGHT: MoiCanhPeacefulRainyNightVisual,
   MOICANH_SUMMARY_3_RULES: MoiCanhSummary3RulesVisual,
+
+  // Episode: Tại Sao Đang Sắp Ngủ Lại Giật Mình Như Rơi Từ Trên Cao Xuống? (V21.0)
+  GIATMINH_BEDROOM_FALL_JERK: GiatMinhBedroomFallJerkVisual,
+  GIATMINH_SLEEP_BORDER_N1: GiatMinhSleepBorderN1Visual,
+  GIATMINH_BRAINSTEM_HANDOFF: GiatMinhBrainstemHandoffVisual,
+  GIATMINH_PRIMATE_TREE_BRANCH: GiatMinhPrimateTreeBranchVisual,
+  GIATMINH_BRAIN_TEST_PING: GiatMinhBrainTestPingVisual,
+  GIATMINH_CULPRIT_FATIGUE: GiatMinhCulpritFatigueVisual,
+  GIATMINH_CULPRIT_CAFFEINE: GiatMinhCulpritCaffeineVisual,
+  GIATMINH_CULPRIT_STRESS_SCREEN: GiatMinhCulpritStressScreenVisual,
+  GIATMINH_VS_SLEEP_PARALYSIS: GiatMinhVsSleepParalysisVisual,
+  GIATMINH_TIP_SCHEDULE_CAFFEINE: GiatMinhTipScheduleCaffeineVisual,
+  GIATMINH_TIP_WINDDOWN_ROOM: GiatMinhTipWindDownRoomVisual,
+  GIATMINH_PEACEFUL_SUMMARY: GiatMinhPeacefulSummaryVisual,
 };
