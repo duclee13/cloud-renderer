@@ -35,20 +35,35 @@ export interface RemotionProps {
   ir?: any;
 }
 
+function resolveCompositionFps(rawFps: unknown, fallback = 60): number {
+  const n = Math.round(Number(rawFps));
+  if (Number.isFinite(n) && n >= 15 && n <= 120) {
+    return n;
+  }
+  return fallback;
+}
+
 const calculateMetadata: CalculateMetadataFunction<any> = async ({ props }) => {
-  // 0a. Nếu có V7/V8 Movie Payload, tính toán độ dài trực tiếp theo totalDurationFrames của Movie Payload
+  // 0a. Nếu có V7/V8 Movie Payload, tính toán độ dài & fps trực tiếp theo Movie Payload (hỗ trợ 30/40/60fps đồng bộ 100% audio-video)
   const v7Payload = props?.v7MoviePayload || props?.payload || (props?.sceneGraph as any)?.v7MoviePayload;
   if (v7Payload && (v7Payload.totalDurationFrames || (Array.isArray(v7Payload.beats) && v7Payload.beats.length > 0))) {
     const movieDuration = Number(v7Payload.totalDurationFrames) || 1080;
+    const resolvedFps = resolveCompositionFps(v7Payload.fps ?? props?.fps, 60);
     return {
       durationInFrames: movieDuration,
+      fps: resolvedFps,
+      width: 1920,
+      height: 1080,
       props: {
         ...props,
-        v7MoviePayload: v7Payload,
+        v7MoviePayload: {
+          ...v7Payload,
+          fps: resolvedFps,
+        },
         totalFrames: movieDuration,
         width: 1920,
         height: 1080,
-        fps: 60,
+        fps: resolvedFps,
       },
     };
   }
@@ -57,15 +72,19 @@ const calculateMetadata: CalculateMetadataFunction<any> = async ({ props }) => {
   const animScriptIR = props?.ir || props?.animScriptIR || (props?.sceneGraph as any)?.ir;
   if (animScriptIR) {
     const irDuration = Number(animScriptIR.totalDurationFrames) || Number(props?.totalFrames) || 480;
+    const resolvedFps = resolveCompositionFps(animScriptIR.fps ?? props?.fps, 60);
     return {
       durationInFrames: irDuration,
+      fps: resolvedFps,
+      width: 1920,
+      height: 1080,
       props: {
         ...props,
         ir: animScriptIR,
         totalFrames: irDuration,
         width: 1920,
         height: 1080,
-        fps: 60,
+        fps: resolvedFps,
       },
     };
   }
@@ -83,7 +102,7 @@ const calculateMetadata: CalculateMetadataFunction<any> = async ({ props }) => {
       title: (props.title as string) || "Stickman 2D Explainer Video",
       width: Number(props.width) || 2560,
       height: Number(props.height) || 1440,
-      fps: Number(props.fps) || 60,
+      fps: resolveCompositionFps(props.fps, 60),
       totalDurationInFrames: Number(props.totalDurationInFrames) || Number(props.totalFrames) || 480,
       scenes: props.scenes,
     };
@@ -105,9 +124,13 @@ const calculateMetadata: CalculateMetadataFunction<any> = async ({ props }) => {
   const requestedTotal = Number(props?.totalFrames) || 0;
   const sceneDuration = scenesEnd || Number(graph?.totalDurationInFrames) || 480;
   const actualDuration = Math.max(60, sceneDuration, requestedTotal);
+  const resolvedFps = resolveCompositionFps(props?.fps ?? graph?.fps, 60);
 
   return {
     durationInFrames: actualDuration,
+    fps: resolvedFps,
+    width: 1920,
+    height: 1080,
     props: {
       ...props,
       sceneGraph: graph,
@@ -115,7 +138,7 @@ const calculateMetadata: CalculateMetadataFunction<any> = async ({ props }) => {
       totalFrames: actualDuration,
       width: 1920,
       height: 1080,
-      fps: 60,
+      fps: resolvedFps,
     },
   };
 };

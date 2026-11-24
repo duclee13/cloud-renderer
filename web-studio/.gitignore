@@ -3,9 +3,13 @@ node_modules/
 .pnp
 .pnp.js
 
-# Next.js production build output
+# Next.js & Remotion build output
 .next/
 out/
+build/
+.remotion/
+episodes/current_episode.json
+episodes/cloud_input_props.json
 
 # Debug and Logs
 *.log

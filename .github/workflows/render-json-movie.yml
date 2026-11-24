@@ -1,17 +1,22 @@
-name: Render Handcrafted JSON Movie (Cloud VieNeu-TTS + 16 VMs)
+name: Render Handcrafted JSON Movie (Cloud VieNeu-TTS + 20 VMs @ 40fps)
 
 on:
   workflow_dispatch:
     inputs:
       episode_file:
-        description: 'Đường dẫn file kịch bản JSON trong web-studio/ (vd: episodes/khong_ngu_7_ngay_v16.json)'
+        description: 'Đường dẫn file kịch bản JSON trong web-studio/ (vd: episodes/tai_sao_uong_nuoc_da_buot_oc_v21.json)'
         required: true
         default: 'episodes/khong_ngu_7_ngay_v16.json'
         type: string
       total_chapters:
-        description: 'Số máy ảo render song song (mặc định 16 máy ảo × 4 micro-beats/máy ≈ 12-15 phút)'
+        description: 'Số máy ảo render song song cân bằng theo tổng frame (mặc định tối đa 20 VM trên GitHub Public Repo)'
         required: true
-        default: '16'
+        default: '20'
+        type: string
+      fps:
+        description: 'Tốc độ khung hình xuất video 1080p (hỗ trợ 30, 40, 60 — mặc định 40fps tối ưu tốc độ & độ mượt)'
+        required: false
+        default: '40'
         type: string
       output_name:
         description: 'Tên file video MP4 thành phẩm trong out/'
@@ -19,15 +24,14 @@ on:
         default: 'khong_ngu_7_ngay_v16.mp4'
         type: string
       preview_only:
-        description: 'Tick nếu chỉ muốn xuất 4 ảnh đại diện + kiểm tra kịch bản JSON trong ~3 phút'
+        description: 'Tick nếu chỉ muốn xuất 4 ảnh đại diện + kiểm tra kịch bản JSON trong ~2 phút'
         required: false
         default: false
         type: boolean
 
 jobs:
   # ===========================================================================
-  # JOB 1: Nạp Kịch Bản JSON Thủ Công + VieNeu-TTS Giọng Hải Đăng Trên Ubuntu
-  #        (BỎ QUA hoàn toàn bước gọi Groq/Gemini AI)
+  # JOB 1: Nạp Kịch Bản JSON + Cache VieNeu-TTS SHA-256 + Pre-Bundle Remotion 1 Lần
   # ===========================================================================
   plan_and_voice:
     name: Job 1 — Load JSON Script + VieNeu-TTS (Hải Đăng)
@@ -48,6 +52,23 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+          cache: 'pip'
+
+      - name: Cache web-studio/node_modules
+        id: cache-node-modules
+        uses: actions/cache@v4
+        with:
+          path: web-studio/node_modules
+          key: web-studio-nm-${{ runner.os }}-node24-${{ hashFiles('web-studio/package-lock.json') }}
+
+      - name: Cache Remotion Chromium Headless Shell
+        id: cache-remotion-browser
+        uses: actions/cache@v4
+        with:
+          path: |
+            web-studio/node_modules/.remotion
+            ~/.cache/remotion
+          key: remotion-chromium-${{ runner.os }}-${{ hashFiles('web-studio/package-lock.json') }}
 
       - name: Install FFmpeg (and Chromium libs when preview_only)
         run: |
@@ -62,7 +83,16 @@ jobs:
             sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends libasound2t64 || sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends libasound2 || true
           fi
 
-      - name: Load & Validate Handcrafted JSON Script -> episodes/current_episode.json
+      - name: Install Web-Studio Dependencies & Warm Remotion Chromium Cache
+        working-directory: web-studio
+        run: |
+          if [ "${{ steps.cache-node-modules.outputs.cache-hit }}" != "true" ]; then
+            npm ci --prefer-offline || npm install --prefer-offline
+          fi
+          npx remotion browser ensure
+
+      - name: Load & Validate Handcrafted JSON + Compute SHA-256 TTS Cache Key
+        id: tts-key
         working-directory: web-studio
         run: |
           SRC_FILE="${{ inputs.episode_file }}"
@@ -75,15 +105,29 @@ jobs:
           if [ "$SRC_FILE" != "episodes/current_episode.json" ]; then
             cp "$SRC_FILE" episodes/current_episode.json
           fi
-          node -e "import fs from 'fs'; import { sanitizeAndValidateEpisode } from './src/lib/v7/episodeJsonSchema.ts'; const raw = JSON.parse(fs.readFileSync('episodes/current_episode.json', 'utf8')); const clean = sanitizeAndValidateEpisode(raw); console.log('✅ Loaded & Validated:', clean.title, '| Slug:', clean.slug, '| Beats:', clean.beats.length);"
+          node -e "
+            import fs from 'fs';
+            import crypto from 'crypto';
+            import { sanitizeAndValidateEpisode } from './src/lib/v7/episodeJsonSchema.ts';
+            const raw = JSON.parse(fs.readFileSync('episodes/current_episode.json', 'utf8'));
+            const clean = sanitizeAndValidateEpisode(raw);
+            const ttsList = clean.beats.map((b) => String(b.ttsText || b.text || '').trim());
+            const hash = crypto.createHash('sha256').update(JSON.stringify({ voice: 'Hải Đăng', atempo: 1.10, ttsList })).digest('hex').slice(0, 24);
+            const safeSlug = String(clean.slug || 'episode').replace(/[^a-zA-Z0-9_-]/g, '_');
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, 'slug=' + safeSlug + '\nhash=' + hash + '\n');
+            console.log('✅ Loaded & Validated:', clean.title, '| Slug:', safeSlug, '| Beats:', clean.beats.length, '| TTS SHA-256:', hash);
+          "
 
       - name: Preview-Only Mode — Render 4 Representative Act Stills
         if: ${{ inputs.preview_only }}
         working-directory: web-studio
+        env:
+          REMOTION_FPS: ${{ inputs.fps || '40' }}
         run: |
-          npm ci --prefer-offline || npm install --prefer-offline
-          npx remotion browser ensure
-          node scripts/render_from_episode_json.mjs --episode=episodes/current_episode.json --preview-only
+          node scripts/render_from_episode_json.mjs \
+            --episode=episodes/current_episode.json \
+            --fps="${{ inputs.fps || '40' }}" \
+            --preview-only
 
       - name: Upload Preview Stills & Script Artifact (Preview-Only)
         if: ${{ inputs.preview_only }}
@@ -105,70 +149,101 @@ jobs:
             ~/.cache/vieneu
           key: vieneu-v3-turbo-onnx-v1
 
+      - name: Cache VieNeu-TTS Synthesized Audio by SHA-256 of ttsText
+        if: ${{ !inputs.preview_only }}
+        uses: actions/cache@v4
+        with:
+          path: .tts-cache/auto_episode
+          key: vieneu-tts-audio-v2-${{ steps.tts-key.outputs.slug }}-${{ steps.tts-key.outputs.hash }}
+          restore-keys: |
+            vieneu-tts-audio-v2-${{ steps.tts-key.outputs.slug }}-
+            vieneu-tts-audio-v2-
+
       - name: Install VieNeu-TTS (Torch-Free ONNX CPU) + Edge-TTS Fallback
         if: ${{ !inputs.preview_only }}
         run: |
           sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends espeak-ng || true
           python3 -m pip install --upgrade pip
-          pip install --no-cache-dir vieneu edge-tts soundfile numpy
+          pip install vieneu edge-tts soundfile numpy
 
-      - name: Synthesize All Episode Micro-Beats via VieNeu-TTS (Hải Đăng, int8 CPU)
+      - name: Synthesize Episode Micro-Beats via VieNeu-TTS (@ ${{ inputs.fps || '40' }}fps)
         if: ${{ !inputs.preview_only }}
         working-directory: web-studio
         env:
           VIENEU_PRECISION: 'int8'
           VIENEU_TTS_VOICE: 'Hải Đăng'
           VIENEU_TTS_ATEMPO: '1.10'
+          REMOTION_FPS: ${{ inputs.fps || '40' }}
         run: |
           python3 scripts/cloud_vieneu_tts.py \
             --episode=episodes/current_episode.json \
             --cache-dir=../.tts-cache/auto_episode \
             --voice="Hải Đăng" \
-            --atempo=1.10
+            --atempo=1.10 \
+            --fps="${{ inputs.fps || '40' }}"
           ls -lh ../.tts-cache/auto_episode/episode_audio_index.json
-          echo "Total MP3 files synthesized: $(ls -1 ../.tts-cache/auto_episode/*.mp3 | wc -l)"
+          echo "Total MP3 files in TTS cache: $(ls -1 ../.tts-cache/auto_episode/*.mp3 | wc -l)"
 
-      - name: Upload Episode Bundle (JSON Script + Full TTS Audio Cache)
+      - name: Pre-Bundle Remotion Once & Build Frame-Balanced 20-VM Plan + Master Audio
+        if: ${{ !inputs.preview_only }}
+        working-directory: web-studio
+        env:
+          REMOTION_FPS: ${{ inputs.fps || '40' }}
+          TOTAL_CHAPTERS: ${{ inputs.total_chapters || '20' }}
+        run: |
+          npx remotion bundle src/remotion/index.ts --out-dir build
+          test -f build/index.html
+          node scripts/render_from_episode_json.mjs \
+            --episode=episodes/current_episode.json \
+            --prepare-cloud \
+            --fps="${{ inputs.fps || '40' }}" \
+            --total-chapters="${{ inputs.total_chapters || '20' }}"
+          ls -lh build/index.html episodes/cloud_input_props.json ../out/cloud_plan/
+
+      - name: Upload Pre-Bundled Episode & Master Audio Plan Artifact
         if: ${{ !inputs.preview_only }}
         uses: actions/upload-artifact@v4
         with:
           name: episode-bundle
           path: |
+            web-studio/build/**
             web-studio/episodes/current_episode.json
-            .tts-cache/auto_episode/**
-          include-hidden-files: true
+            web-studio/episodes/cloud_input_props.json
+            out/cloud_plan/**
           if-no-files-found: error
           retention-days: 2
 
   # ===========================================================================
-  # JOB 2: 16 Máy Ảo Render Song Song (SwANGLE + JPEG q92 + Concurrency=2)
+  # JOB 2: Tối Đa 20 Máy Ảo Render Song Song Cân Bằng Frame (1080p @ 40fps)
+  #        Dùng trực tiếp `./build` (0s re-bundle) + JPEG q92 + veryfast crf=18 + concurrency=4
   # ===========================================================================
   render_chunks:
     name: Job 2 — Render Chunk ${{ matrix.chapter }}/${{ inputs.total_chapters }}
     needs: plan_and_voice
     if: ${{ !inputs.preview_only }}
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 30
     strategy:
       fail-fast: false
-      max-parallel: 16
+      max-parallel: 20
       matrix:
-        chapter: ${{ fromJson(format('[{0}]', inputs.total_chapters == '1' && '1' || inputs.total_chapters == '2' && '1,2' || inputs.total_chapters == '3' && '1,2,3' || inputs.total_chapters == '4' && '1,2,3,4' || inputs.total_chapters == '5' && '1,2,3,4,5' || inputs.total_chapters == '6' && '1,2,3,4,5,6' || inputs.total_chapters == '7' && '1,2,3,4,5,6,7' || inputs.total_chapters == '8' && '1,2,3,4,5,6,7,8' || inputs.total_chapters == '9' && '1,2,3,4,5,6,7,8,9' || inputs.total_chapters == '10' && '1,2,3,4,5,6,7,8,9,10' || inputs.total_chapters == '11' && '1,2,3,4,5,6,7,8,9,10,11' || inputs.total_chapters == '12' && '1,2,3,4,5,6,7,8,9,10,11,12' || inputs.total_chapters == '13' && '1,2,3,4,5,6,7,8,9,10,11,12,13' || inputs.total_chapters == '14' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14' || inputs.total_chapters == '15' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15' || inputs.total_chapters == '16' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16' || inputs.total_chapters == '18' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18' || '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20')) }}
+        chapter: ${{ fromJson(format('[{0}]', inputs.total_chapters == '1' && '1' || inputs.total_chapters == '2' && '1,2' || inputs.total_chapters == '3' && '1,2,3' || inputs.total_chapters == '4' && '1,2,3,4' || inputs.total_chapters == '5' && '1,2,3,4,5' || inputs.total_chapters == '6' && '1,2,3,4,5,6' || inputs.total_chapters == '7' && '1,2,3,4,5,6,7' || inputs.total_chapters == '8' && '1,2,3,4,5,6,7,8' || inputs.total_chapters == '9' && '1,2,3,4,5,6,7,8,9' || inputs.total_chapters == '10' && '1,2,3,4,5,6,7,8,9,10' || inputs.total_chapters == '11' && '1,2,3,4,5,6,7,8,9,10,11' || inputs.total_chapters == '12' && '1,2,3,4,5,6,7,8,9,10,11,12' || inputs.total_chapters == '13' && '1,2,3,4,5,6,7,8,9,10,11,12,13' || inputs.total_chapters == '14' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14' || inputs.total_chapters == '15' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15' || inputs.total_chapters == '16' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16' || inputs.total_chapters == '17' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17' || inputs.total_chapters == '18' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18' || inputs.total_chapters == '19' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19' || '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20')) }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Download Episode Bundle (JSON + TTS Cache)
+      - name: Download Pre-Bundled Episode & Render Plan
         uses: actions/download-artifact@v4
         with:
           name: episode-bundle
           path: .
 
-      - name: Verify Downloaded Bundle (JSON + Audio Index)
+      - name: Verify Pre-Bundled Assets
         run: |
-          test -f web-studio/episodes/current_episode.json
-          test -f .tts-cache/auto_episode/episode_audio_index.json
-          echo "✅ Verified JSON + TTS cache ($(ls -1 .tts-cache/auto_episode/*.mp3 | wc -l) mp3 files)"
+          test -f web-studio/build/index.html
+          test -f web-studio/episodes/cloud_input_props.json
+          test -f out/cloud_plan/cloud_render_plan.json
+          echo "✅ Verified pre-bundled build/ + cloud_input_props.json + cloud_render_plan.json"
 
       - name: Setup Node.js 24
         uses: actions/setup-node@v4
@@ -177,7 +252,23 @@ jobs:
           cache: 'npm'
           cache-dependency-path: web-studio/package-lock.json
 
-      - name: Install FFmpeg & Headless Chromium Libraries (Ubuntu 24.04 Safe)
+      - name: Restore Cached web-studio/node_modules
+        id: cache-node-modules
+        uses: actions/cache@v4
+        with:
+          path: web-studio/node_modules
+          key: web-studio-nm-${{ runner.os }}-node24-${{ hashFiles('web-studio/package-lock.json') }}
+
+      - name: Restore Cached Remotion Chromium Headless Shell
+        id: cache-remotion-browser
+        uses: actions/cache@v4
+        with:
+          path: |
+            web-studio/node_modules/.remotion
+            ~/.cache/remotion
+          key: remotion-chromium-${{ runner.os }}-${{ hashFiles('web-studio/package-lock.json') }}
+
+      - name: Install FFmpeg & Headless Chromium Shared Libraries (Ubuntu 24.04 Safe)
         run: |
           sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 update
           sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends \
@@ -187,26 +278,30 @@ jobs:
             libpango-1.0-0 libcairo2 fonts-noto fonts-noto-color-emoji || true
           sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends libasound2t64 || sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends libasound2 || true
 
-      - name: Install Web-Studio Dependencies & Chromium Browser
+      - name: Ensure Web-Studio Dependencies & Chromium Headless Shell
         working-directory: web-studio
         run: |
-          npm ci --prefer-offline || npm install --prefer-offline
+          if [ "${{ steps.cache-node-modules.outputs.cache-hit }}" != "true" ]; then
+            npm ci --prefer-offline || npm install --prefer-offline
+          fi
           npx remotion browser ensure
 
-      - name: Render Chunk ${{ matrix.chapter }}/${{ inputs.total_chapters }} (SwANGLE + JPEG q92)
+      - name: Render Balanced Frame Chunk ${{ matrix.chapter }}/${{ inputs.total_chapters }} (1080p @ ${{ inputs.fps || '40' }}fps)
         working-directory: web-studio
         env:
-          CONCURRENCY: '2'
-          TOTAL_CHAPTERS: ${{ inputs.total_chapters }}
+          CONCURRENCY: '4'
+          REMOTION_FPS: ${{ inputs.fps || '40' }}
+          TOTAL_CHAPTERS: ${{ inputs.total_chapters || '20' }}
           VM_INDEX: ${{ matrix.chapter }}
-          TTS_PROVIDER: 'VIENEU_LOCAL'
           DASHBOARD_PROGRESS_URL: ${{ secrets.DASHBOARD_PROGRESS_URL }}
           DASHBOARD_PROGRESS_SECRET: ${{ secrets.DASHBOARD_PROGRESS_SECRET }}
         run: |
           node scripts/render_from_episode_json.mjs \
-            --episode=episodes/current_episode.json \
+            --render-frame-chunk \
+            --bundle-dir=./build \
             --chapter=${{ matrix.chapter }} \
-            --total-chapters=${{ inputs.total_chapters }}
+            --total-chapters=${{ inputs.total_chapters || '20' }} \
+            --fps="${{ inputs.fps || '40' }}"
 
       - name: Upload Chapter Chunk MP4
         uses: actions/upload-artifact@v4
@@ -217,7 +312,7 @@ jobs:
           retention-days: 2
 
   # ===========================================================================
-  # JOB 3: Ghép Nối Lossless (-c copy) & Xuất Artifact Phim Hoàn Chỉnh + Kịch Bản
+  # JOB 3: Ghép Nối Không Re-Encode (-f concat -safe 0 -i list.txt -c copy -movflags +faststart)
   # ===========================================================================
   stitch_final_movie:
     name: Job 3 — Stitch Final Handcrafted Movie (FFmpeg Lossless)
@@ -229,7 +324,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Download Episode Bundle
+      - name: Download Episode Plan & Master Audio
         uses: actions/download-artifact@v4
         with:
           name: episode-bundle
@@ -246,22 +341,38 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
+          cache: 'npm'
+          cache-dependency-path: web-studio/package-lock.json
+
+      - name: Restore Cached web-studio/node_modules
+        id: cache-node-modules
+        uses: actions/cache@v4
+        with:
+          path: web-studio/node_modules
+          key: web-studio-nm-${{ runner.os }}-node24-${{ hashFiles('web-studio/package-lock.json') }}
 
       - name: Install FFmpeg
         run: sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 update && sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends ffmpeg
 
-      - name: Stitch All ${{ inputs.total_chapters }} Chunks via --concat-only
+      - name: Ensure Web-Studio Dependencies (Fallback)
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        working-directory: web-studio
+        run: npm ci --prefer-offline || npm install --prefer-offline
+
+      - name: Stitch All ${{ inputs.total_chapters }} Chunks Losslessly (-c copy +faststart)
         working-directory: web-studio
         env:
-          TOTAL_CHAPTERS: ${{ inputs.total_chapters }}
+          REMOTION_FPS: ${{ inputs.fps || '40' }}
+          TOTAL_CHAPTERS: ${{ inputs.total_chapters || '20' }}
         run: |
           ls -lah ../out/chunks/
           node scripts/render_from_episode_json.mjs \
             --episode=episodes/current_episode.json \
             --concat-only \
-            --total-chapters=${{ inputs.total_chapters }} \
+            --fps="${{ inputs.fps || '40' }}" \
+            --total-chapters="${{ inputs.total_chapters || '20' }}" \
             --output="../out/${{ inputs.output_name }}"
-          ffprobe -v error -show_entries format=duration,size -of default=noprint_wrappers=1 "../out/${{ inputs.output_name }}"
+          ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate -show_entries format=duration,size -of default=noprint_wrappers=1 "../out/${{ inputs.output_name }}"
 
       - name: Upload Final Handcrafted Movie + Episode Script JSON
         uses: actions/upload-artifact@v4

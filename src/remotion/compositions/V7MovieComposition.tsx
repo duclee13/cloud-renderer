@@ -138,10 +138,11 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
   //   => pixel = (1 - t) * SceneA + t * SceneB (tuyệt đối không ló nền đen ở giữa!)
   // =========================================================================
   const transitionInMode = currentBeat.transitionIn ?? "CROSSFADE";
+  const defaultCrossfadeFrames = Math.max(1, Math.round(0.5 * fps));
   const requestedTransitionFrames =
     typeof currentBeat.transitionFrames === "number" && Number.isFinite(currentBeat.transitionFrames)
       ? Math.max(0, Math.round(currentBeat.transitionFrames))
-      : 30;
+      : defaultCrossfadeFrames;
   const effectiveTransitionFrames =
     prevBeat && transitionInMode === "CROSSFADE"
       ? Math.min(
@@ -159,12 +160,14 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
     ? Math.min(1, Math.max(0, activeBeatLocalF / Math.max(1, effectiveTransitionFrames)))
     : 1;
 
-  // Phụ đề êm dịu qua điểm nối Crossfade (không bao giờ đè 2 câu chữ lên nhau)
+  // Phụ đề êm dịu qua điểm nối Crossfade (tỷ lệ theo fps để đồng bộ ở cả 30/40/60fps)
+  const subFadeInFrames = Math.max(4, Math.round((10 / 60) * fps));
+  const subFadeOutFrames = Math.max(3, Math.round((8 / 60) * fps));
   let subtitleOpacity = 1;
-  if (isCrossfading && activeBeatLocalF < 10) {
-    subtitleOpacity = Math.min(1, Math.max(0, activeBeatLocalF / 10));
-  } else if (nextBeat && (nextBeat.transitionIn ?? "CROSSFADE") === "CROSSFADE" && remainingFrames < 8) {
-    subtitleOpacity = Math.min(1, Math.max(0, remainingFrames / 8));
+  if (isCrossfading && activeBeatLocalF < subFadeInFrames) {
+    subtitleOpacity = Math.min(1, Math.max(0, activeBeatLocalF / subFadeInFrames));
+  } else if (nextBeat && (nextBeat.transitionIn ?? "CROSSFADE") === "CROSSFADE" && remainingFrames < subFadeOutFrames) {
+    subtitleOpacity = Math.min(1, Math.max(0, remainingFrames / subFadeOutFrames));
   }
 
   const shouldShowHud = Boolean(

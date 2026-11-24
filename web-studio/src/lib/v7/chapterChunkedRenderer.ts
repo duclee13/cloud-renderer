@@ -27,7 +27,15 @@ export interface ChapterRenderCliArgs {
   clearTtsCache: boolean;
   concurrency: number;
   totalChaptersOverride: number | null;
+  fpsOverride: number | null;
   outputOverride: string | null;
+}
+
+export interface BalancedFrameChunk {
+  chapter: number; // 1-indexed (1..N)
+  startFrame: number; // 0-indexed inclusive
+  endFrame: number; // 0-indexed inclusive
+  frameCount: number; // endFrame - startFrame + 1
 }
 
 export interface ChapterDefinition<TBeat = Record<string, any>> {
@@ -202,19 +210,20 @@ export function resolveDefaultConcurrency(): number {
   const envVal = Number(process.env.CONCURRENCY || process.env.RENDER_CONCURRENCY || "");
   if (Number.isFinite(envVal) && envVal >= 1) {
     const clean = Math.floor(envVal);
-    return isLinuxOrCi ? Math.min(3, Math.max(1, clean)) : Math.min(8, Math.max(1, clean));
+    return isLinuxOrCi ? Math.min(4, Math.max(1, clean)) : Math.min(8, Math.max(1, clean));
   }
-  return 2;
+  return isLinuxOrCi ? 4 : 2;
 }
 
 /**
- * Đọc toàn bộ cờ dòng lệnh chuẩn V14.1:
- * --chapter=<k> | --concat-only | --audio-only | --preview | --stills-only | --force | --clear-cache | --output=<path>
+ * Đọc toàn bộ cờ dòng lệnh chuẩn V14.1+:
+ * --chapter=<k> | --concat-only | --audio-only | --preview | --stills-only | --force | --clear-cache | --fps=<N> | --output=<path>
  */
 export function parseChapterRenderCliArgs(argv: string[] = process.argv): ChapterRenderCliArgs {
   let chapterIndex: number | null = null;
   let outputOverride: string | null = null;
   let totalChaptersOverride: number | null = null;
+  let fpsOverride: number | null = null;
 
   const isConcatOnly = argv.includes("--concat-only");
   const isAudioOnly = argv.includes("--audio-only");
@@ -241,6 +250,12 @@ export function parseChapterRenderCliArgs(argv: string[] = process.argv): Chapte
     } else if (arg === "--total-chapters" && argv[i + 1]) {
       const n = parseInt(argv[i + 1], 10);
       if (Number.isFinite(n) && n >= 1) totalChaptersOverride = n;
+    } else if (arg.startsWith("--fps=")) {
+      const n = parseInt(arg.slice("--fps=".length), 10);
+      if (Number.isFinite(n) && n >= 15 && n <= 120) fpsOverride = n;
+    } else if (arg === "--fps" && argv[i + 1]) {
+      const n = parseInt(argv[i + 1], 10);
+      if (Number.isFinite(n) && n >= 15 && n <= 120) fpsOverride = n;
     }
   }
 
@@ -248,6 +263,13 @@ export function parseChapterRenderCliArgs(argv: string[] = process.argv): Chapte
     const envTotal = parseInt(process.env.TOTAL_CHAPTERS, 10);
     if (Number.isFinite(envTotal) && envTotal >= 1) {
       totalChaptersOverride = envTotal;
+    }
+  }
+
+  if (fpsOverride === null && (process.env.REMOTION_FPS || process.env.FPS)) {
+    const envFps = parseInt(String(process.env.REMOTION_FPS || process.env.FPS), 10);
+    if (Number.isFinite(envFps) && envFps >= 15 && envFps <= 120) {
+      fpsOverride = envFps;
     }
   }
 
@@ -269,8 +291,35 @@ export function parseChapterRenderCliArgs(argv: string[] = process.argv): Chapte
     clearTtsCache,
     concurrency: resolveDefaultConcurrency(),
     totalChaptersOverride,
+    fpsOverride,
     outputOverride,
   };
+}
+
+/**
+ * Chia đều dải [0 .. totalFrames - 1] thành N đoạn frame liên tiếp không bỏ sót, không trùng lặp:
+ * - Chênh lệch tối đa giữa bất kỳ 2 VM nào chỉ <= 1 frame!
+ * - Đảm bảo mỗi chunk có >= 2 frames khi totalFrames >= 2 để cờ `--frames=start-end` của Remotion luôn xuất video.
+ */
+export function computeBalancedFrameChunks(
+  totalFrames: number,
+  requestedChapters: number
+): BalancedFrameChunk[] {
+  const safeTotalFrames = Math.max(1, Math.floor(totalFrames));
+  const maxValidChapters = safeTotalFrames >= 2 ? Math.floor(safeTotalFrames / 2) : 1;
+  const safeChapters = Math.max(1, Math.min(maxValidChapters, Math.floor(requestedChapters || 1)));
+  const chunks: BalancedFrameChunk[] = [];
+  for (let i = 0; i < safeChapters; i++) {
+    const startFrame = Math.floor((i * safeTotalFrames) / safeChapters);
+    const endFrame = Math.floor(((i + 1) * safeTotalFrames) / safeChapters) - 1;
+    chunks.push({
+      chapter: i + 1,
+      startFrame,
+      endFrame,
+      frameCount: endFrame - startFrame + 1,
+    });
+  }
+  return chunks;
 }
 
 /**
@@ -400,7 +449,7 @@ export function concatChapterChunksWithFfmpeg(
   }
 
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-  const concatListPath = path.join(chunksDir, "concat_list.txt");
+  const concatListPath = path.join(chunksDir, "list.txt");
   const lines = chunkPaths.map((p) => `file '${path.resolve(p).replace(/\\/g, "/")}'`).join("\n");
   fs.writeFileSync(concatListPath, lines + "\n", "utf8");
 
@@ -481,10 +530,11 @@ async function buildChapterAudioBundle<TBeat extends Record<string, any>>(params
     paddedBeatWavFiles.push(paddedWavPath);
 
     const resolvedTransitionIn = rawBeat.transitionIn ?? DEFAULT_V16_TRANSITION_IN;
-    const resolvedTransitionFrames =
+    const rawTransFrames =
       typeof rawBeat.transitionFrames === "number" && Number.isFinite(rawBeat.transitionFrames)
-        ? Math.max(0, Math.round(rawBeat.transitionFrames))
+        ? Math.max(0, rawBeat.transitionFrames)
         : DEFAULT_V16_TRANSITION_FRAMES;
+    const resolvedTransitionFrames = Math.max(0, Math.round(rawTransFrames * (fps / 60)));
 
     console.log(
       `  -> [Hồi ${chapter.chapterNumber} | Beat #${String(globalIdx + 1).padStart(2, "0")}] [${
@@ -591,7 +641,7 @@ export async function renderLongMovieByChapters<TBeat extends Record<string, any
   );
   console.log(
     `-> Mode: ${cli.mode}${cli.chapterIndex ? ` (Chunk ${cli.chapterIndex}/${chapters.length})` : ""} | ` +
-      `Concurrency: ${cli.concurrency} | ${cli.isPreview ? "PREVIEW 720p@30" : "PRODUCTION 1080p@60"}`
+      `Concurrency: ${cli.concurrency} | ${cli.isPreview ? `PREVIEW 720p@${Math.round(fps / 2)}` : `PRODUCTION 1080p@${fps}`}`
   );
   console.log(`-> Chunks Dir: ${chunksDir}`);
   console.log("====================================================================");
