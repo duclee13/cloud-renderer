@@ -1,0 +1,4159 @@
+{
+  "title": "Tại Sao Uống Nước Đá Lạnh Quá Nhanh Lại Đau Buốt Lên Tận Óc?",
+  "slug": "tai_sao_uong_nuoc_da_buot_oc_v21",
+  "version": "v21.0",
+  "beats": [
+    {
+      "id": "b01",
+      "text": "Trưa hè nắng gắt gần ba mươi tám độ, tôi vừa đi học về mồ hôi nhễ nhại liền thấy ly trà đá mát lạnh đầy đá viên trên bàn.",
+      "ttsText": "Trưa hè nắng gắt gần ba mươi tám độ, tôi vừa đi học về mồ hôi nhễ nhại liền thấy ly trà đá mát lạnh đầy đá viên trên bàn.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_HOT_NOON_GULP",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b02",
+      "text": "Quá khát nước, tôi vội cầm ly lên tu ực một hơi thật dài cho đã cơn nóng bức.",
+      "ttsText": "Quá khát nước, tôi vội cầm ly lên tu ực một hơi thật dài cho đã cơn nóng bức.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_HOT_NOON_GULP",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b03",
+      "text": "Chưa đầy năm giây sau, một cơn đau buốt nhói bất ngờ xộc thẳng lên giữa trán khiến tôi phải ôm đầu nhăn mặt đứng hình tại chỗ.",
+      "ttsText": "Chưa đầy năm giây sau, một cơn đau buốt nhói bất ngờ xộc thẳng lên giữa trán khiến tôi phải ôm đầu nhăn mặt đứng hình tại chỗ.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_HOT_NOON_GULP",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b04",
+      "text": "Ông ơi, cháu chỉ mới uống nước đá lạnh ở trong miệng thôi, mà sao lại đau buốt nhói thẳng lên tận giữa trán thế này ạ?",
+      "ttsText": "Ông ơi, cháu chỉ mới uống nước đá lạnh ở trong miệng thôi, mà sao lại đau buốt nhói thẳng lên tận giữa trán thế này ạ?",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 520,
+              "endX": 520,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.8,
+              "startX": 520,
+              "endX": 520,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.8,
+              "toPct": 1.0,
+              "startX": 520,
+              "endX": 520,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Sao buốt tận trán?",
+          "bubbleStartPct": 0.2,
+          "bubbleEndPct": 0.88
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "STATIC",
+          "expression": "THINKING",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1220,
+              "endX": 1220,
+              "facing": "LEFT",
+              "pose": "IDLE",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1220,
+              "endX": 1220,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b05",
+      "text": "À, cái này thú vị lắm đấy cháu, mình ghé sang phòng khám gần đây hỏi bác sĩ giải thích khoa học cơ thể cho rõ ràng luôn nhé!",
+      "ttsText": "À, cái này thú vị lắm đấy cháu, mình ghé sang phòng khám gần đây hỏi bác sĩ giải thích khoa học cơ thể cho rõ ràng luôn nhé!",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_PLAYFUL",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 520,
+              "endX": 520,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 520,
+              "endX": 520,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "STATIC",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 1220,
+              "endX": 1220,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.8,
+              "startX": 1220,
+              "endX": 1220,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.8,
+              "toPct": 1.0,
+              "startX": 1220,
+              "endX": 1220,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Hỏi bác sĩ luôn!",
+          "bubbleStartPct": 0.2,
+          "bubbleEndPct": 0.88
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b06",
+      "text": "Nhiều người hay gọi vui hiện tượng này là đóng băng não, nghe cứ như nước đá vừa chạy thẳng lên làm đông cứng bộ não vậy.",
+      "ttsText": "Nhiều người hay gọi vui hiện tượng này là đóng băng não, nghe cứ như nước đá vừa chạy thẳng lên làm đông cứng bộ não vậy.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_BRAIN_NOT_FROZEN",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b07",
+      "text": "Nhưng sự thật là não bộ nằm sâu trong hộp sọ luôn được giữ ấm ổn định quanh ba mươi bảy độ, chẳng hề bị lạnh đi chút nào cả.",
+      "ttsText": "Nhưng sự thật là não bộ nằm sâu trong hộp sọ luôn được giữ ấm ổn định quanh ba mươi bảy độ, chẳng hề bị lạnh đi chút nào cả.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_BRAIN_NOT_FROZEN",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b08",
+      "text": "Thậm chí bản thân mô não hoàn toàn không có dây thần kinh cảm giác đau, nên cảm giác buốt nhói đó thực ra xuất phát từ một nơi khác!",
+      "ttsText": "Thậm chí bản thân mô não hoàn toàn không có dây thần kinh cảm giác đau, nên cảm giác buốt nhói đó thực ra xuất phát từ một nơi khác!",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_BRAIN_NOT_FROZEN",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b09",
+      "text": "Ủa bác sĩ ơi, mô não không biết đau thật sao ạ? Vậy cơn đau buốt nhói lúc nãy thực ra bắt đầu từ chỗ nào vậy ạ?",
+      "ttsText": "Ủa bác sĩ ơi, mô não không biết đau thật sao ạ? Vậy cơn đau buốt nhói lúc nãy thực ra bắt đầu từ chỗ nào vậy ạ?",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "SURPRISED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.8,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.8,
+              "toPct": 1.0,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Não không biết đau ạ?",
+          "bubbleStartPct": 0.2,
+          "bubbleEndPct": 0.88
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "STATIC",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "IDLE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b10",
+      "text": "Câu hỏi hay lắm cháu! Thủ phạm thực sự gây ra cơn đau buốt đó không ở trên não mà nằm ngay tại phần vòm miệng của chúng ta.",
+      "ttsText": "Câu hỏi hay lắm cháu! Thủ phạm thực sự gây ra cơn đau buốt đó không ở trên não mà nằm ngay tại phần vòm miệng của chúng ta.",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_PLAYFUL",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "SURPRISED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "STATIC",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 0.8,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.8,
+              "toPct": 1.0,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            }
+          ],
+          "bubble": "Chính là vòm miệng!",
+          "bubbleStartPct": 0.2,
+          "bubbleEndPct": 0.88
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b11",
+      "text": "Khi bạn nuốt vội một ngụm nước đá hay miếng kem lạnh buốt, luồng lạnh không độ sẽ áp thẳng lên phần vòm miệng nằm ở trần khoang miệng.",
+      "ttsText": "Khi bạn nuốt vội một ngụm nước đá hay miếng kem lạnh buốt, luồng lạnh không độ sẽ áp thẳng lên phần vòm miệng nằm ở trần khoang miệng.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_PALATE_TARGET",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b12",
+      "text": "Ngay phía sau lớp niêm mạc mỏng của vòm miệng là cả một mạng lưới mạch máu nhỏ và nút dây thần kinh cực kỳ nhạy cảm với nhiệt độ.",
+      "ttsText": "Ngay phía sau lớp niêm mạc mỏng của vòm miệng là cả một mạng lưới mạch máu nhỏ và nút dây thần kinh cực kỳ nhạy cảm với nhiệt độ.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_PALATE_TARGET",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b13",
+      "text": "Chỉ cần nhiệt độ ở vòm miệng tụt đột ngột trong vài giây, hệ thống cảnh báo nhiệt của cơ thể lập tức bật còi phản ứng dữ dội.",
+      "ttsText": "Chỉ cần nhiệt độ ở vòm miệng tụt đột ngột trong vài giây, hệ thống cảnh báo nhiệt của cơ thể lập tức bật còi phản ứng dữ dội.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_PALATE_TARGET",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b14",
+      "text": "Một nghiên cứu y khoa cho thấy người ăn kem vèo trong chưa đầy năm giây có nguy cơ bị buốt óc cao gần gấp đôi bình thường.",
+      "ttsText": "Một nghiên cứu y khoa cho thấy người ăn kem vèo trong chưa đầy năm giây có nguy cơ bị buốt óc cao gần gấp đôi bình thường.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_SPEED_VS_SLOW",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b15",
+      "text": "Ngược lại, nếu bạn nhấp từng ngụm nhỏ chậm rãi, vòm miệng có đủ thời gian làm ấm đồ lạnh nên chẳng hề xuất hiện cơn đau nào.",
+      "ttsText": "Ngược lại, nếu bạn nhấp từng ngụm nhỏ chậm rãi, vòm miệng có đủ thời gian làm ấm đồ lạnh nên chẳng hề xuất hiện cơn đau nào.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_SPEED_VS_SLOW",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b16",
+      "text": "Hóa ra tốc độ ăn uống quá nhanh, chứ không chỉ riêng độ lạnh của ly nước đá, mới là ngòi nổ chính kích hoạt cơn buốt đầu!",
+      "ttsText": "Hóa ra tốc độ ăn uống quá nhanh, chứ không chỉ riêng độ lạnh của ly nước đá, mới là ngòi nổ chính kích hoạt cơn buốt đầu!",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_SPEED_VS_SLOW",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b17",
+      "text": "Cậu bé gãi đầu tò mò hỏi bác sĩ rằng các mạch máu sẽ phản ứng ra sao khi nước đá lạnh bất ngờ chạm vào vòm miệng.",
+      "ttsText": "Cậu bé gãi đầu tò mò hỏi bác sĩ rằng các mạch máu sẽ phản ứng ra sao khi nước đá lạnh bất ngờ chạm vào vòm miệng.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Mạch máu phản ứng sao ạ?",
+          "bubbleStartPct": 0.2,
+          "bubbleEndPct": 0.88
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "STATIC",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "IDLE",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 880,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b18",
+      "text": "Bác sĩ giơ ngón tay giải thích ngay rằng mạch máu lập tức kích hoạt một chuỗi phản xạ nhiệt hai nhịp diễn ra siêu nhanh.",
+      "ttsText": "Bác sĩ giơ ngón tay giải thích ngay rằng mạch máu lập tức kích hoạt một chuỗi phản xạ nhiệt hai nhịp diễn ra siêu nhanh.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "STATIC",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            }
+          ],
+          "bubble": "Phản xạ hai nhịp!",
+          "bubbleStartPct": 0.2,
+          "bubbleEndPct": 0.88
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 1000,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b19",
+      "text": "Nhịp thứ nhất: vừa chạm lạnh đột ngột, các mạch máu quanh vòm miệng lập tức co thắt chặt lại để ngăn cơ thể bị thất thoát nhiệt.",
+      "ttsText": "Nhịp thứ nhất: vừa chạm lạnh đột ngột, các mạch máu quanh vòm miệng lập tức co thắt chặt lại để ngăn cơ thể bị thất thoát nhiệt.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_VESSEL_CONSTRICT_DILATE",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b20",
+      "text": "Nhịp thứ hai ngay sau đó: động mạch não trước giãn phồng bật ngược thật nhanh để bơm ồ ạt dòng máu ấm lên sưởi ấm vùng đầu.",
+      "ttsText": "Nhịp thứ hai ngay sau đó: động mạch não trước giãn phồng bật ngược thật nhanh để bơm ồ ạt dòng máu ấm lên sưởi ấm vùng đầu.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_VESSEL_CONSTRICT_DILATE",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b21",
+      "text": "Chính cú co thắt rồi giãn phồng đột ngột ấy làm lưu lượng máu tăng vọt, tạo nên một luồng áp lực mạnh ép lên thành mạch máu.",
+      "ttsText": "Chính cú co thắt rồi giãn phồng đột ngột ấy làm lưu lượng máu tăng vọt, tạo nên một luồng áp lực mạnh ép lên thành mạch máu.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_VESSEL_CONSTRICT_DILATE",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b22",
+      "text": "Bao quanh các mạch máu vùng đầu và vòm miệng là các nhánh của dây thần kinh sinh ba, đường dây cảm giác lớn nhất trên khuôn mặt.",
+      "ttsText": "Bao quanh các mạch máu vùng đầu và vòm miệng là các nhánh của dây thần kinh sinh ba, đường dây cảm giác lớn nhất trên khuôn mặt.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_TRIGEMINAL_WIRE",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b23",
+      "text": "Dây thần kinh sinh ba chia làm ba nhánh lớn, phụ trách truyền cảm giác từ cả hàm dưới, vòm miệng lẫn vùng trán và hai bên thái dương.",
+      "ttsText": "Dây thần kinh sinh ba chia làm ba nhánh lớn, phụ trách truyền cảm giác từ cả hàm dưới, vòm miệng lẫn vùng trán và hai bên thái dương.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_TRIGEMINAL_WIRE",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b24",
+      "text": "Khi mạch máu giãn phồng đột ngột, các thụ thể đau quanh mạch liền bắn tín hiệu điện khẩn cấp chạy dọc theo dây thần kinh sinh ba lên não.",
+      "ttsText": "Khi mạch máu giãn phồng đột ngột, các thụ thể đau quanh mạch liền bắn tín hiệu điện khẩn cấp chạy dọc theo dây thần kinh sinh ba lên não.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_TRIGEMINAL_WIRE",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b25",
+      "text": "Điều kỳ lạ là vì vòm miệng và vùng trán dùng chung một đường dây tổng đài, nên bộ não rất dễ đọc nhầm địa chỉ phát tín hiệu.",
+      "ttsText": "Điều kỳ lạ là vì vòm miệng và vùng trán dùng chung một đường dây tổng đài, nên bộ não rất dễ đọc nhầm địa chỉ phát tín hiệu.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_REFERRED_PAIN_MAP",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b26",
+      "text": "Thay vì báo đau ở trần khoang miệng nơi nước đá chạm vào, não lại quy chiếu cơn đau lên thẳng giữa trán và sau hai hốc mắt.",
+      "ttsText": "Thay vì báo đau ở trần khoang miệng nơi nước đá chạm vào, não lại quy chiếu cơn đau lên thẳng giữa trán và sau hai hốc mắt.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_REFERRED_PAIN_MAP",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b27",
+      "text": "Trong y học, hiện tượng đau chỗ này nhưng lại cảm thấy nhói ở chỗ khác như vậy được gọi là cơ chế đau quy chiếu!",
+      "ttsText": "Trong y học, hiện tượng đau chỗ này nhưng lại cảm thấy nhói ở chỗ khác như vậy được gọi là cơ chế đau quy chiếu!",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_REFERRED_PAIN_MAP",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b28",
+      "text": "Nhiều người thắc mắc tại sao cơ thể lại tự làm mình đau buốt khó chịu đến thế chỉ vì một ngụm trà đá mát lạnh.",
+      "ttsText": "Nhiều người thắc mắc tại sao cơ thể lại tự làm mình đau buốt khó chịu đến thế chỉ vì một ngụm trà đá mát lạnh.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_THERMOSTAT_ALARM",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b29",
+      "text": "Thực ra bộ não giống như chiếc máy tính trung tâm siêu nhạy cảm, chỉ cần nhiệt độ giảm nhanh là hoạt động thần kinh bị ảnh hưởng ngay.",
+      "ttsText": "Thực ra bộ não giống như chiếc máy tính trung tâm siêu nhạy cảm, chỉ cần nhiệt độ giảm nhanh là hoạt động thần kinh bị ảnh hưởng ngay.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_THERMOSTAT_ALARM",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b30",
+      "text": "Vì vậy cơn đau buốt chói lọi ấy chính là chiếc còi báo động thông minh, ép bạn phải dừng ngay việc uống đồ lạnh quá nhanh lại!",
+      "ttsText": "Vì vậy cơn đau buốt chói lọi ấy chính là chiếc còi báo động thông minh, ép bạn phải dừng ngay việc uống đồ lạnh quá nhanh lại!",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_THERMOSTAT_ALARM",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b31",
+      "text": "Cậu bé tròn mắt ngạc nhiên kêu lên khi cuối cùng đã hiểu vì sao đá lạnh nằm trong miệng mà vùng trán lại đau buốt.",
+      "ttsText": "Cậu bé tròn mắt ngạc nhiên kêu lên khi cuối cùng đã hiểu vì sao đá lạnh nằm trong miệng mà vùng trán lại đau buốt.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_PLAYFUL",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "SURPRISED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "SURPRISED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Hóa ra báo nhầm chỗ!",
+          "bubbleStartPct": 0.2,
+          "bubbleEndPct": 0.88
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "STATIC",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "IDLE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 880,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b32",
+      "text": "Ông nội bỗng nhíu mày lo lắng hỏi bác sĩ xem nếu thường xuyên bị buốt óc như vậy thì có gây tổn thương não lâu dài không.",
+      "ttsText": "Ông nội bỗng nhíu mày lo lắng hỏi bác sĩ xem nếu thường xuyên bị buốt óc như vậy thì có gây tổn thương não lâu dài không.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "WORRIED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Có hại não không bác sĩ?",
+          "bubbleStartPct": 0.2,
+          "bubbleEndPct": 0.88
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "WORRIED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "STATIC",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "IDLE",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 760,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b33",
+      "text": "Tin vui là cơn buốt óc tuy nhói dữ dội nhưng hoàn toàn lành tính: nó thường bùng lên sau mười giây và đạt đỉnh ở giây thứ ba mươi.",
+      "ttsText": "Tin vui là cơn buốt óc tuy nhói dữ dội nhưng hoàn toàn lành tính: nó thường bùng lên sau mười giây và đạt đỉnh ở giây thứ ba mươi.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_TIMELINE_60SEC",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b34",
+      "text": "Ngay khi vòm miệng ấm trở lại, động mạch não trước co về kích thước bình thường và cơn đau biến mất hoàn toàn chỉ sau một đến hai phút.",
+      "ttsText": "Ngay khi vòm miệng ấm trở lại, động mạch não trước co về kích thước bình thường và cơn đau biến mất hoàn toàn chỉ sau một đến hai phút.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_TIMELINE_60SEC",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b35",
+      "text": "Quá trình này không gây tổn thương mô não, không làm vỡ mạch máu và cũng chẳng để lại bất kỳ di chứng lâu dài nào cho sức khỏe.",
+      "ttsText": "Quá trình này không gây tổn thương mô não, không làm vỡ mạch máu và cũng chẳng để lại bất kỳ di chứng lâu dài nào cho sức khỏe.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_TIMELINE_60SEC",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b36",
+      "text": "Một phát hiện rất thú vị là những người hay bị đau nửa đầu thường dễ bị buốt óc hơn khi ăn kem hay uống nước đá lạnh.",
+      "ttsText": "Một phát hiện rất thú vị là những người hay bị đau nửa đầu thường dễ bị buốt óc hơn khi ăn kem hay uống nước đá lạnh.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_MIGRAINE_LINK",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b37",
+      "text": "Lý do là cả cơn đau nửa đầu lẫn cơn buốt óc đều đi chung trên cùng một tuyến đường của dây thần kinh sinh ba và mạch máu não.",
+      "ttsText": "Lý do là cả cơn đau nửa đầu lẫn cơn buốt óc đều đi chung trên cùng một tuyến đường của dây thần kinh sinh ba và mạch máu não.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_MIGRAINE_LINK",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b38",
+      "text": "Nhờ điểm chung này, các nhà khoa học còn dùng nước đá trong phòng thí nghiệm để quan sát lưu lượng máu và nghiên cứu cách chữa đau đầu!",
+      "ttsText": "Nhờ điểm chung này, các nhà khoa học còn dùng nước đá trong phòng thí nghiệm để quan sát lưu lượng máu và nghiên cứu cách chữa đau đầu!",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_MIGRAINE_LINK",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b39",
+      "text": "Tôi gãi đầu hỏi bác sĩ, cơn buốt óc này có giống cảnh ê buốt răng mỗi khi uống nước lạnh hay khác nhau ạ?",
+      "ttsText": "Tôi gãi đầu hỏi bác sĩ, cơn buốt óc này có giống cảnh ê buốt răng mỗi khi uống nước lạnh hay khác nhau ạ?",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.55,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.55,
+              "toPct": 1.0,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.65,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.65,
+              "toPct": 1.0,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Khác ê buốt răng chứ ạ?",
+          "bubbleStartPct": 0.2,
+          "bubbleEndPct": 0.88
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "STATIC",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 920,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b40",
+      "text": "Bác sĩ mỉm cười gật đầu giải thích rằng buốt óc và ê buốt răng thực chất là hai cơ chế hoàn toàn khác biệt nhau đấy cháu ạ.",
+      "ttsText": "Bác sĩ mỉm cười gật đầu giải thích rằng buốt óc và ê buốt răng thực chất là hai cơ chế hoàn toàn khác biệt nhau đấy cháu ạ.",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.6,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.6,
+              "toPct": 1.0,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "STATIC",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.6,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.6,
+              "toPct": 1.0,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ],
+          "bubble": "Khác hẳn nhau đấy!",
+          "bubbleStartPct": 0.18,
+          "bubbleEndPct": 0.88
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b41",
+      "text": "Nhiều bạn hay nhầm giữa buốt óc và ê buốt răng, nhưng chỉ cần chú ý vị trí đau là phân biệt rạch ròi ngay lập tức.",
+      "ttsText": "Nhiều bạn hay nhầm giữa buốt óc và ê buốt răng, nhưng chỉ cần chú ý vị trí đau là phân biệt rạch ròi ngay lập tức.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_BRAIN_VS_TOOTH",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b42",
+      "text": "Buốt óc xảy ra khi đồ lạnh chạm vòm miệng, làm co giãn mạch máu và gây nhói ở giữa trán, nhưng hoàn toàn vô hại và tự hết nhanh.",
+      "ttsText": "Buốt óc xảy ra khi đồ lạnh chạm vòm miệng, làm co giãn mạch máu và gây nhói ở giữa trán, nhưng hoàn toàn vô hại và tự hết nhanh.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_BRAIN_VS_TOOTH",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b43",
+      "text": "Còn ê buốt răng là do men răng bị mòn làm lộ ngà răng nhạy cảm, gây nhói trực tiếp tại chân răng và cần đi kiểm tra nha khoa.",
+      "ttsText": "Còn ê buốt răng là do men răng bị mòn làm lộ ngà răng nhạy cảm, gây nhói trực tiếp tại chân răng và cần đi kiểm tra nha khoa.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_BRAIN_VS_TOOTH",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b44",
+      "text": "À, không chỉ kem hay trà đá mới gây buốt óc đâu, mà mọi kích thích lạnh đột ngột vào vùng đầu mặt đều có thể tạo ra nó.",
+      "ttsText": "À, không chỉ kem hay trà đá mới gây buốt óc đâu, mà mọi kích thích lạnh đột ngột vào vùng đầu mặt đều có thể tạo ra nó.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_COLD_AIR_TRIGGER",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b45",
+      "text": "Chẳng hạn khi bạn chạy xe ngược gió lạnh buốt mùa đông mà há miệng thở mạnh, luồng khí lạnh tràn qua vòm họng cũng dễ làm nhói trán.",
+      "ttsText": "Chẳng hạn khi bạn chạy xe ngược gió lạnh buốt mùa đông mà há miệng thở mạnh, luồng khí lạnh tràn qua vòm họng cũng dễ làm nhói trán.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_COLD_AIR_TRIGGER",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b46",
+      "text": "Ngay cả việc nhảy ùm xuống hồ nước quá lạnh mà không làm quen nhiệt độ trước cũng có thể kích hoạt phản xạ mạch máu tương tự!",
+      "ttsText": "Ngay cả việc nhảy ùm xuống hồ nước quá lạnh mà không làm quen nhiệt độ trước cũng có thể kích hoạt phản xạ mạch máu tương tự!",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_COLD_AIR_TRIGGER",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b47",
+      "text": "Tôi vội giơ tay hỏi tiếp bác sĩ, lúc cơn buốt óc ập tới thì mình làm gì để cắt cơn ngay mà khỏi chịu đau cả phút ạ?",
+      "ttsText": "Tôi vội giơ tay hỏi tiếp bác sĩ, lúc cơn buốt óc ập tới thì mình làm gì để cắt cơn ngay mà khỏi chịu đau cả phút ạ?",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_CURIOUS",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.65,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.65,
+              "toPct": 1.0,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Cắt cơn nhanh thế nào ạ?",
+          "bubbleStartPct": 0.18,
+          "bubbleEndPct": 0.88
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "STATIC",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.55,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.55,
+              "toPct": 1.0,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 920,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b48",
+      "text": "Bác sĩ giơ ngón tay mỉm cười tự hào, bật mí ngay ba mẹo làm ấm tức thì cực đơn giản giúp ai cũng cắt cơn nhanh chóng.",
+      "ttsText": "Bác sĩ giơ ngón tay mỉm cười tự hào, bật mí ngay ba mẹo làm ấm tức thì cực đơn giản giúp ai cũng cắt cơn nhanh chóng.",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.55,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.55,
+              "toPct": 1.0,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "STATIC",
+          "expression": "PROUD",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.65,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.65,
+              "toPct": 1.0,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ],
+          "bubble": "Có mẹo hết sau 5 giây!",
+          "bubbleStartPct": 0.18,
+          "bubbleEndPct": 0.9
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b49",
+      "text": "Mẹo số một nhanh và hiệu quả nhất thế giới: vừa thấy nhói trán là áp chặt ngay toàn bộ mặt lưỡi ấm lên sát vòm miệng.",
+      "ttsText": "Mẹo số một nhanh và hiệu quả nhất thế giới: vừa thấy nhói trán là áp chặt ngay toàn bộ mặt lưỡi ấm lên sát vòm miệng.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_PLAYFUL",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_TIP_TONGUE_PALATE",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b50",
+      "text": "Lưỡi của chúng ta luôn ấm khoảng ba mươi bảy độ, hoạt động như một miếng sưởi tự nhiên truyền nhiệt trực tiếp làm ấm vòm miệng.",
+      "ttsText": "Lưỡi của chúng ta luôn ấm khoảng ba mươi bảy độ, hoạt động như một miếng sưởi tự nhiên truyền nhiệt trực tiếp làm ấm vòm miệng.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_PLAYFUL",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_TIP_TONGUE_PALATE",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b51",
+      "text": "Chỉ cần giữ yên mặt lưỡi áp vào trần miệng khoảng năm đến mười giây, mạch máu ổn định lại là cơn buốt dịu đi rõ rệt ngay lập tức!",
+      "ttsText": "Chỉ cần giữ yên mặt lưỡi áp vào trần miệng khoảng năm đến mười giây, mạch máu ổn định lại là cơn buốt dịu đi rõ rệt ngay lập tức!",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_PLAYFUL",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_TIP_TONGUE_PALATE",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b52",
+      "text": "Mẹo số hai cũng cực kỳ đơn giản: nhấp ngay một ngụm nước lọc nhiệt độ phòng hoặc nước ấm để trung hòa cái lạnh trong khoang miệng.",
+      "ttsText": "Mẹo số hai cũng cực kỳ đơn giản: nhấp ngay một ngụm nước lọc nhiệt độ phòng hoặc nước ấm để trung hòa cái lạnh trong khoang miệng.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_PLAYFUL",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_TIP_WARM_WATER",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b53",
+      "text": "Còn nếu không có sẵn nước ấm bên cạnh, bạn hãy khum hai bàn tay che nhẹ mũi miệng rồi thở ra hơi ấm từ từ vài nhịp.",
+      "ttsText": "Còn nếu không có sẵn nước ấm bên cạnh, bạn hãy khum hai bàn tay che nhẹ mũi miệng rồi thở ra hơi ấm từ từ vài nhịp.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_PLAYFUL",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_TIP_WARM_WATER",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b54",
+      "text": "Luồng hơi thở ấm nóng sẽ nhanh chóng xua tan cái lạnh ở vòm họng mà chẳng cần dùng tới bất kỳ viên thuốc giảm đau nào cả.",
+      "ttsText": "Luồng hơi thở ấm nóng sẽ nhanh chóng xua tan cái lạnh ở vòm họng mà chẳng cần dùng tới bất kỳ viên thuốc giảm đau nào cả.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_PLAYFUL",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_TIP_WARM_WATER",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b55",
+      "text": "Tất nhiên cách tốt nhất vẫn là phòng từ đầu: hãy uống nước đá từng ngụm nhỏ thay vì ngửa cổ tu ực một hơi dài.",
+      "ttsText": "Tất nhiên cách tốt nhất vẫn là phòng từ đầu: hãy uống nước đá từng ngụm nhỏ thay vì ngửa cổ tu ực một hơi dài.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_PLAYFUL",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_TIP_SIP_SLOWLY",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b56",
+      "text": "Khi ăn kem, đừng vội nuốt miếng to ép sát lên trần miệng; cứ để kem tan nhẹ trên đầu lưỡi vài giây cho nhiệt độ dịu bớt.",
+      "ttsText": "Khi ăn kem, đừng vội nuốt miếng to ép sát lên trần miệng; cứ để kem tan nhẹ trên đầu lưỡi vài giây cho nhiệt độ dịu bớt.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_PLAYFUL",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_TIP_SIP_SLOWLY",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b57",
+      "text": "Làm chủ tốc độ thưởng thức như vậy, bạn vừa tận hưởng trọn vẹn vị mát lạnh mùa hè, vừa tạm biệt hẳn những cú nhói đầu bất ngờ.",
+      "ttsText": "Làm chủ tốc độ thưởng thức như vậy, bạn vừa tận hưởng trọn vẹn vị mát lạnh mùa hè, vừa tạm biệt hẳn những cú nhói đầu bất ngờ.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_PLAYFUL",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_TIP_SIP_SLOWLY",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b58",
+      "text": "Chiều hôm sau nắng dịu xuống sân quê, tôi vừa đi chơi về liền nhớ ngay lời bác sĩ, chỉ nhấp trà đá từng ngụm nhỏ thật khoan khoái.",
+      "ttsText": "Chiều hôm sau nắng dịu xuống sân quê, tôi vừa đi chơi về liền nhớ ngay lời bác sĩ, chỉ nhấp trà đá từng ngụm nhỏ thật khoan khoái.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 520,
+              "endX": 520,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 520,
+              "endX": 520,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Uống chậm mát quá!",
+          "bubbleStartPct": 0.2,
+          "bubbleEndPct": 0.88
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "STATIC",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 1220,
+              "endX": 1220,
+              "facing": "LEFT",
+              "pose": "IDLE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 1220,
+              "endX": 1220,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b59",
+      "text": "Ông nội bật cười hài lòng vỗ vai tôi, khen lần này biết cách thưởng thức đồ lạnh thông minh hơn hẳn hôm qua.",
+      "ttsText": "Ông nội bật cười hài lòng vỗ vai tôi, khen lần này biết cách thưởng thức đồ lạnh thông minh hơn hẳn hôm qua.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 520,
+              "endX": 520,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 520,
+              "endX": 520,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "STATIC",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.45,
+              "startX": 1220,
+              "endX": 1220,
+              "facing": "LEFT",
+              "pose": "IDLE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1.0,
+              "startX": 1220,
+              "endX": 1220,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Chuẩn bài luôn cháu!",
+          "bubbleStartPct": 0.2,
+          "bubbleEndPct": 0.88
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b60",
+      "text": "Ngồi dưới hiên nhà mát rượi, hai ông cháu cùng nhâm nhi ly trà đá và que kem ngọt lịm mà chẳng ai còn phải ôm đầu nhăn mặt nữa.",
+      "ttsText": "Ngồi dưới hiên nhà mát rượi, hai ông cháu cùng nhâm nhi ly trà đá và que kem ngọt lịm mà chẳng ai còn phải ôm đầu nhăn mặt nữa.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_HAPPY_SUMMER_ENJOY",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b61",
+      "text": "Thanh nhiệt độ vòm miệng giữ ở mức dịu êm, hệ mạch máu vận hành nhẹ nhàng giúp cái nóng mùa hè tan biến hoàn toàn.",
+      "ttsText": "Thanh nhiệt độ vòm miệng giữ ở mức dịu êm, hệ mạch máu vận hành nhẹ nhàng giúp cái nóng mùa hè tan biến hoàn toàn.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_HAPPY_SUMMER_ENJOY",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b62",
+      "text": "Hiểu rõ một phản xạ nhỏ bé của cơ thể, ta bỗng thấy những điều tưởng chừng khó chịu lại thú vị và dễ xử lý đến bất ngờ.",
+      "ttsText": "Hiểu rõ một phản xạ nhỏ bé của cơ thể, ta bỗng thấy những điều tưởng chừng khó chịu lại thú vị và dễ xử lý đến bất ngờ.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_HAPPY_SUMMER_ENJOY",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b63",
+      "text": "Tóm lại ba điều: uống nhanh làm co giãn mạch vòm miệng; dây thần kinh sinh ba báo nhầm lên trán; áp lưỡi lên vòm miệng là hết buốt ngay.",
+      "ttsText": "Tóm lại ba điều: uống nhanh làm co giãn mạch vòm miệng; dây thần kinh sinh ba báo nhầm lên trán; áp lưỡi lên vòm miệng là hết buốt ngay.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_SUMMARY_3_RULES",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b64",
+      "text": "Lần tới ăn kem hay uống trà đá bị buốt tận óc, bạn hãy thử ngay tuyệt chiêu áp lưỡi và chia sẻ mẹo hay này cho bạn bè nhé!",
+      "ttsText": "Lần tới ăn kem hay uống trà đá bị buốt tận óc, bạn hãy thử ngay tuyệt chiêu áp lưỡi và chia sẻ mẹo hay này cho bạn bè nhé!",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "fullScreenVisual": true,
+      "customVisual": "NUOCDA_SUMMARY_3_RULES",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "STATIC",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0.0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "IDLE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1.0,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1.0,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    }
+  ]
+}

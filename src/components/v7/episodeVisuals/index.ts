@@ -87,6 +87,28 @@ import {
   GiatMinhPeacefulSummaryVisual,
 } from './giatMinhVisualsPart2';
 
+import {
+  NuocDaHotNoonGulpVisual,
+  NuocDaBrainNotFrozenVisual,
+  NuocDaPalateTargetVisual,
+  NuocDaSpeedVsSlowVisual,
+  NuocDaVesselConstrictDilateVisual,
+  NuocDaTrigeminalWireVisual,
+  NuocDaReferredPainMapVisual,
+} from './nuocDaVisualsPart1';
+import {
+  NuocDaThermostatAlarmVisual,
+  NuocDaTimeline60SecVisual,
+  NuocDaMigraineLinkVisual,
+  NuocDaBrainVsToothVisual,
+  NuocDaColdAirTriggerVisual,
+  NuocDaTipTonguePalateVisual,
+  NuocDaTipWarmWaterVisual,
+  NuocDaTipSipSlowlyVisual,
+  NuocDaHappySummerEnjoyVisual,
+  NuocDaSummary3RulesVisual,
+} from './nuocDaVisualsPart2';
+
 export type EpisodeVisualProps = {
   progress: number;
   frame: number;
@@ -176,4 +198,23 @@ export const EPISODE_VISUAL_REGISTRY: Record<string, React.FC<EpisodeVisualProps
   GIATMINH_TIP_SCHEDULE_CAFFEINE: GiatMinhTipScheduleCaffeineVisual,
   GIATMINH_TIP_WINDDOWN_ROOM: GiatMinhTipWindDownRoomVisual,
   GIATMINH_PEACEFUL_SUMMARY: GiatMinhPeacefulSummaryVisual,
+
+  // Episode: Tại Sao Uống Nước Đá Lạnh Quá Nhanh Lại Đau Buốt Lên Tận Óc? (V21.0)
+  NUOCDA_HOT_NOON_GULP: NuocDaHotNoonGulpVisual,
+  NUOCDA_BRAIN_NOT_FROZEN: NuocDaBrainNotFrozenVisual,
+  NUOCDA_PALATE_TARGET: NuocDaPalateTargetVisual,
+  NUOCDA_SPEED_VS_SLOW: NuocDaSpeedVsSlowVisual,
+  NUOCDA_VESSEL_CONSTRICT_DILATE: NuocDaVesselConstrictDilateVisual,
+  NUOCDA_TRIGEMINAL_WIRE: NuocDaTrigeminalWireVisual,
+  NUOCDA_REFERRED_PAIN_MAP: NuocDaReferredPainMapVisual,
+  NUOCDA_THERMOSTAT_ALARM: NuocDaThermostatAlarmVisual,
+  NUOCDA_TIMELINE_60SEC: NuocDaTimeline60SecVisual,
+  NUOCDA_MIGRAINE_LINK: NuocDaMigraineLinkVisual,
+  NUOCDA_BRAIN_VS_TOOTH: NuocDaBrainVsToothVisual,
+  NUOCDA_COLD_AIR_TRIGGER: NuocDaColdAirTriggerVisual,
+  NUOCDA_TIP_TONGUE_PALATE: NuocDaTipTonguePalateVisual,
+  NUOCDA_TIP_WARM_WATER: NuocDaTipWarmWaterVisual,
+  NUOCDA_TIP_SIP_SLOWLY: NuocDaTipSipSlowlyVisual,
+  NUOCDA_HAPPY_SUMMER_ENJOY: NuocDaHappySummerEnjoyVisual,
+  NUOCDA_SUMMARY_3_RULES: NuocDaSummary3RulesVisual,
 };
