@@ -67,6 +67,100 @@ function parseEpisodeArgs(argv) {
 }
 
 /**
+ * Hook báo tiến độ an toàn tuyệt đối lên Cloud Render Dashboard Mức 2 (`/api/vm-progress`).
+ * - Nếu thiếu `DASHBOARD_PROGRESS_URL` hoặc `GITHUB_RUN_ID`: no-op 100%, không tạo bất kỳ request nào.
+ * - Throttle tối đa 1 gói tin mỗi 4 giây (trừ gói `starting` 0% và `completed` 100%).
+ * - Timeout cứng 2000ms + try/catch nuốt 100% lỗi mạng/HTTP để KHÔNG BAO GIỜ ảnh hưởng tiến trình render.
+ */
+function createSafeVmProgressReporter({ vmIndex, totalVms }) {
+  const rawUrl = (process.env.DASHBOARD_PROGRESS_URL || '').trim();
+  const secret = (process.env.DASHBOARD_PROGRESS_SECRET || '').trim();
+  const runId = (process.env.GITHUB_RUN_ID || '').trim();
+
+  if (!rawUrl || !runId) {
+    return {
+      report: async () => {},
+    };
+  }
+
+  const cleanBase = rawUrl.replace(/\/+$/, '');
+  const endpoint = cleanBase.endsWith('/api/vm-progress')
+    ? cleanBase
+    : `${cleanBase}/api/vm-progress`;
+
+  const renderStartMs = Date.now();
+  let lastSentAtMs = 0;
+
+  async function report({
+    phase = 'rendering',
+    renderedFrames = 0,
+    totalFrames = 0,
+    rawPercent,
+    force = false,
+  }) {
+    try {
+      const now = Date.now();
+      if (!force && now - lastSentAtMs < 4000) {
+        return;
+      }
+      lastSentAtMs = now;
+
+      const safeTotal = Math.max(0, Math.round(Number(totalFrames) || 0));
+      const safeRendered = Math.max(
+        0,
+        Math.min(safeTotal > 0 ? safeTotal : 1_000_000, Math.round(Number(renderedFrames) || 0))
+      );
+      const elapsedSec = Math.max(0.25, (now - renderStartMs) / 1000);
+      const fps = safeRendered > 0 ? Number((safeRendered / elapsedSec).toFixed(1)) : 0;
+
+      let pct = 0;
+      if (phase === 'completed') {
+        pct = 100;
+      } else if (safeTotal > 0 && safeRendered > 0) {
+        pct = Math.min(99.5, (safeRendered / safeTotal) * 100);
+      } else if (typeof rawPercent === 'number' && Number.isFinite(rawPercent)) {
+        pct = Math.max(0, Math.min(99.5, rawPercent));
+      }
+      const percent = Number(pct.toFixed(1));
+      const remainingFrames = Math.max(0, safeTotal - safeRendered);
+      const etaSec =
+        phase === 'completed'
+          ? 0
+          : fps > 0.05 && remainingFrames > 0
+          ? Math.max(0, Math.round(remainingFrames / fps))
+          : 0;
+
+      const headers = { 'Content-Type': 'application/json' };
+      if (secret) {
+        headers['x-progress-secret'] = secret;
+      }
+
+      await fetch(endpoint, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          runId,
+          vmIndex,
+          totalVms,
+          phase,
+          renderedFrames: phase === 'completed' && safeTotal > 0 ? safeTotal : safeRendered,
+          totalFrames: safeTotal,
+          percent,
+          fps,
+          etaSec,
+          updatedAt: new Date(now).toISOString(),
+        }),
+        signal: AbortSignal.timeout(2000),
+      });
+    } catch {
+      // Nuốt 100% lỗi mạng / timeout / HTTP để bảo vệ tuyệt đối pipeline render
+    }
+  }
+
+  return { report };
+}
+
+/**
  * Chế độ --preview-only: xuất nhanh 4 ảnh đại diện trải đều 4 Hồi (KHÔNG cần render video, không bắt buộc chạy TTS).
  */
 async function renderFourActPreviewStills(episode, scriptBeats) {
@@ -362,6 +456,30 @@ async function main() {
         chunkLabel: ctx.chunkLabel,
       });
 
+      const vmIndex =
+        Number(process.env.VM_INDEX) ||
+        ctx.chapter.chapterNumber ||
+        cliArgs.chapterIndex ||
+        1;
+      const totalVms =
+        Number(process.env.TOTAL_CHAPTERS) ||
+        cliArgs.totalChaptersOverride ||
+        chapters.length ||
+        16;
+      const expectedTotalFrames = Math.max(
+        1,
+        Math.ceil(composition.durationInFrames / (ctx.isPreview ? 2 : 1))
+      );
+      const vmReporter = createSafeVmProgressReporter({ vmIndex, totalVms });
+
+      void vmReporter.report({
+        phase: 'starting',
+        renderedFrames: 0,
+        totalFrames: expectedTotalFrames,
+        rawPercent: 0,
+        force: true,
+      });
+
       const res = await renderVideoHybridCpuGpu({
         composition,
         serveUrl: ctx.bundleLocation,
@@ -373,9 +491,45 @@ async function main() {
         jpegQuality: isLinuxOrCiEnvironment() ? 92 : 88,
         chunkLabel: ctx.chunkLabel,
         tempDirPrefix: `v17_auto_ch${ctx.chapter.chapterNumber}_frames_`,
-        renderFrames: remotionRendererMod.renderFrames,
-        renderMedia: remotionRendererMod.renderMedia,
+        renderFrames: (opts) =>
+          remotionRendererMod.renderFrames({
+            ...opts,
+            onFrameUpdate: (framesRendered) => {
+              if (typeof opts.onFrameUpdate === 'function') {
+                opts.onFrameUpdate(framesRendered);
+              }
+              void vmReporter.report({
+                phase: 'rendering',
+                renderedFrames: framesRendered,
+                totalFrames: expectedTotalFrames,
+              });
+            },
+          }),
+        renderMedia: (opts) =>
+          remotionRendererMod.renderMedia({
+            ...opts,
+            onProgress: (prog) => {
+              if (typeof opts.onProgress === 'function') {
+                opts.onProgress(prog);
+              }
+              void vmReporter.report({
+                phase: 'rendering',
+                renderedFrames: prog?.renderedFrames ?? 0,
+                totalFrames: expectedTotalFrames,
+                rawPercent:
+                  typeof prog?.progress === 'number' ? prog.progress * 100 : undefined,
+              });
+            },
+          }),
         puppeteerInstance: ctx.browserInstance,
+      });
+
+      await vmReporter.report({
+        phase: 'completed',
+        renderedFrames: expectedTotalFrames,
+        totalFrames: expectedTotalFrames,
+        rawPercent: 100,
+        force: true,
       });
 
       return {

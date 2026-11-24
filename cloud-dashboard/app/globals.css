@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --bg-obsidian: #090d16;
+  --bg-surface: #111827;
+  --bg-elevated: #172033;
+}
+
+html,
+body {
+  background-color: var(--bg-obsidian);
+  color: #f8fafc;
+  min-height: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes vmPulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.28),
+      inset 0 0 18px rgba(56, 189, 248, 0.08);
+    border-color: rgba(56, 189, 248, 0.65);
+  }
+  50% {
+    box-shadow: 0 0 16px 2px rgba(56, 189, 248, 0.22),
+      inset 0 0 24px rgba(56, 189, 248, 0.16);
+    border-color: rgba(125, 211, 252, 0.95);
+  }
+}
+
+.vm-card-rendering {
+  animation: vmPulseGlow 2.1s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vm-card-rendering,
+  .animate-pulse,
+  .animate-spin {
+    animation: none !important;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}

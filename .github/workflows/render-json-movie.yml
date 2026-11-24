@@ -198,7 +198,10 @@ jobs:
         env:
           CONCURRENCY: '2'
           TOTAL_CHAPTERS: ${{ inputs.total_chapters }}
+          VM_INDEX: ${{ matrix.chapter }}
           TTS_PROVIDER: 'VIENEU_LOCAL'
+          DASHBOARD_PROGRESS_URL: ${{ secrets.DASHBOARD_PROGRESS_URL }}
+          DASHBOARD_PROGRESS_SECRET: ${{ secrets.DASHBOARD_PROGRESS_SECRET }}
         run: |
           node scripts/render_from_episode_json.mjs \
             --episode=episodes/current_episode.json \
