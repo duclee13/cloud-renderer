@@ -35,8 +35,24 @@ body {
   animation: vmPulseGlow 2.1s ease-in-out infinite;
 }
 
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translate3d(24px, 12px, 0) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.toast-slide-in {
+  animation: toastSlideIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .vm-card-rendering,
+  .toast-slide-in,
   .animate-pulse,
   .animate-spin {
     animation: none !important;

@@ -5,6 +5,8 @@ import {
   Activity,
   AlertTriangle,
   ArrowRight,
+  Bell,
+  BellOff,
   CheckCircle2,
   Clock,
   Cloud,
@@ -34,6 +36,8 @@ import {
   X,
   XCircle,
 } from "lucide-react";
+import { RenderNotificationToastStack } from "@/components/RenderNotificationToast";
+import { useRenderNotifications } from "@/lib/useRenderNotifications";
 import {
   RENDER_FPS_OPTIONS,
   RENDER_QUALITY_OPTIONS,
@@ -55,7 +59,8 @@ const QUALITY_DISPLAY_LABELS: Record<RenderQualityOption, string> = {
   "4k": "4K",
 };
 const PIN_STORAGE_KEY = "cloud_dashboard_pin_v1";
-const POLL_INTERVAL_MS = 4000; // Auto-poll 4 giây/lần khi run đang chạy
+const POLL_INTERVAL_MS = 4000; // Auto-poll 4 giây/lần khi tab đang mở
+const HIDDEN_POLL_INTERVAL_MS = 10000; // Poll nhẹ 10 giây/lần khi chạy nền để kịp bắn OS Notification
 const SAFE_EPISODE_FILENAME_RE = /^[a-zA-Z0-9._-]+$/;
 
 interface LocalEpisodeDraft {
@@ -467,22 +472,55 @@ export default function CloudDashboardPage() {
     fetchRuns(true, true);
   }, [fetchEpisodes, fetchRuns]);
 
-  // Auto-poll every 4s when any run (or selected run) is active
+  // Auto-poll every 4s when visible (and gently every 10s when backgrounded so OS Notification triggers!)
   const hasAnyActiveRun = useMemo(
     () => runs.some((r) => isRunActive(r)) || isRunActive(runDetail?.run),
     [runs, runDetail]
   );
 
+  const handleSelectRunFromNotification = useCallback(
+    (runId: number) => {
+      setSelectedRunId(runId);
+      fetchRunDetail(runId, true);
+    },
+    [fetchRunDetail]
+  );
+
+  const {
+    notifyEnabled,
+    permission: notificationPermission,
+    toasts: renderToasts,
+    toggleNotifications,
+    dismissToast,
+    rememberDispatchedLabel,
+  } = useRenderNotifications({
+    runs,
+    runDetail,
+    loadingRuns,
+    hasAnyActiveRun,
+    onSelectRun: handleSelectRunFromNotification,
+  });
+
+  const lastPollAtRef = useRef<number>(0);
+
   useEffect(() => {
     if (!hasAnyActiveRun) return;
+    lastPollAtRef.current = Date.now();
 
     const pollInterval = window.setInterval(() => {
-      if (document.visibilityState === "hidden") return;
+      const now = Date.now();
+      const minGap =
+        document.visibilityState === "hidden"
+          ? HIDDEN_POLL_INTERVAL_MS
+          : POLL_INTERVAL_MS - 250;
+      if (now - lastPollAtRef.current < minGap) return;
+      lastPollAtRef.current = now;
       fetchRuns(false, false);
     }, POLL_INTERVAL_MS);
 
     const onVisibility = () => {
       if (document.visibilityState === "visible") {
+        lastPollAtRef.current = Date.now();
         fetchRuns(false, false);
       }
     };
@@ -740,6 +778,7 @@ export default function CloudDashboardPage() {
             data.message ||
             `Đã commit ${data.episodeFile} & kích hoạt Cloud Render thành công!`,
         });
+        rememberDispatchedLabel(outputName.trim() || fn);
 
         if (typeof data.episodeFile === "string") {
           setSelectedEpisode(data.episodeFile);
@@ -814,6 +853,7 @@ export default function CloudDashboardPage() {
           data.message ||
           "Đã gửi lệnh workflow_dispatch thành công! Đang đồng bộ Run mới...",
       });
+      rememberDispatchedLabel(outputName.trim() || selectedEpisode);
 
       window.setTimeout(() => fetchRuns(true, false), 2500);
       window.setTimeout(() => fetchRuns(true, false), 6000);
@@ -939,6 +979,49 @@ export default function CloudDashboardPage() {
                 <span>Auto-Poll 4s</span>
               </div>
             )}
+
+            <button
+              type="button"
+              onClick={() => {
+                void toggleNotifications();
+              }}
+              aria-pressed={notifyEnabled}
+              aria-label={
+                notifyEnabled
+                  ? "Tắt thông báo khi render xong"
+                  : "Bật thông báo khi render xong"
+              }
+              title={
+                notifyEnabled
+                  ? notificationPermission === "denied"
+                    ? "Trình duyệt đang chặn Desktop Notification — vẫn bật âm báo & Toast góc màn hình"
+                    : "Đang bật thông báo góc màn hình + âm báo khi render xong"
+                  : "Bấm để bật thông báo góc màn hình & âm báo khi render hoàn tất"
+              }
+              className={`inline-flex min-h-[40px] cursor-pointer items-center gap-2 rounded-xl border px-3 py-2 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 ${
+                notifyEnabled
+                  ? notificationPermission === "denied"
+                    ? "border-amber-400/40 bg-amber-500/15 text-amber-200 hover:bg-amber-500/20"
+                    : "border-emerald-400/45 bg-emerald-500/15 text-emerald-200 shadow-[0_0_14px_rgba(52,211,153,0.16)] hover:bg-emerald-500/20"
+                  : "border-white/10 bg-slate-900/80 text-slate-300 hover:border-sky-400/40 hover:bg-slate-800/90 hover:text-white"
+              }`}
+            >
+              {notifyEnabled ? (
+                <Bell className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+              ) : (
+                <BellOff className="h-3.5 w-3.5 shrink-0 text-slate-400" aria-hidden="true" />
+              )}
+              <span className="hidden sm:inline">Thông báo khi xong</span>
+              {notifyEnabled && (
+                <span
+                  className={`h-1.5 w-1.5 rounded-full ${
+                    notificationPermission === "denied"
+                      ? "bg-amber-400"
+                      : "bg-emerald-400"
+                  }`}
+                />
+              )}
+            </button>
 
             <button
               type="button"
@@ -2143,6 +2226,15 @@ export default function CloudDashboardPage() {
           onClose={() => setInspectedTarget(null)}
         />
       )}
+
+      {/* ====================================================================
+          BOTTOM-RIGHT IN-APP RENDER COMPLETION TOAST STACK
+         ==================================================================== */}
+      <RenderNotificationToastStack
+        toasts={renderToasts}
+        onDismiss={dismissToast}
+        onSelectRun={handleSelectRunFromNotification}
+      />
     </div>
   );
 }
