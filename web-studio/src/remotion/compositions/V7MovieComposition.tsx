@@ -20,7 +20,11 @@ import {
   HornetNightSceneMode,
 } from "../components/backgrounds/FlashlightNightStage";
 import { KassStorySceneLayer } from "../../components/v7/KassStageLibrary";
-import { UniversalAutoStage, isFullScreenCustomVisualBeat } from "../../components/v7/UniversalAutoStage";
+import {
+  UniversalAutoStage,
+  isFullScreenCustomVisualBeat,
+  shouldHideTopChapterBanner,
+} from "../../components/v7/UniversalAutoStage";
 import { GaugeMeter } from "../components/props/GaugeMeter";
 import { InsertHandShot } from "../components/vfx/InsertHandShot";
 import { SpeechBubble, calculateSafeSpeechBubble } from "../components/ui/SpeechBubble";
@@ -241,10 +245,16 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
         layerBeat.autoStageSpec &&
         isFullScreenCustomVisualBeat(layerBeat.autoStageSpec)
     );
-    const rawFloatingHeader =
-      layerBeat.floatingHeader ||
-      layerBeat.autoStageSpec?.chapterBanner ||
-      layerBeat.autoStageSpec?.headerTitle;
+    const hideTopChapterBanner = Boolean(
+      isAutoStageBeat &&
+        layerBeat.autoStageSpec &&
+        shouldHideTopChapterBanner(layerBeat.autoStageSpec)
+    );
+    const rawFloatingHeader = hideTopChapterBanner
+      ? undefined
+      : layerBeat.floatingHeader ||
+        layerBeat.autoStageSpec?.chapterBanner ||
+        layerBeat.autoStageSpec?.headerTitle;
     const resolvedFloatingHeader =
       typeof rawFloatingHeader === "string" && rawFloatingHeader.trim()
         ? rawFloatingHeader.trim()

@@ -2437,6 +2437,24 @@ export function isFullScreenCustomVisualBeat(spec: AutoEpisodeBeat): boolean {
 }
 
 /**
+ * V22.6: Xác định beat đang ở chế độ HOST_EXPLAIN_OVERLAY (Freeze-Frame Host kèm bảng trắng hoặc Solo Host).
+ */
+export function isHostExplainOverlayBeat(spec?: AutoEpisodeBeat | null): boolean {
+  if (!spec) return false;
+  return spec.stageType === "HOST_EXPLAIN_OVERLAY" || spec.overlayMode === "HOST_EXPLAIN";
+}
+
+/**
+ * V22.6: Tự động ẩn banner tiêu đề đầu Hồi (HỒI X) ở đỉnh khung hình khi beat đang dùng HOST_EXPLAIN_OVERLAY
+ * hoặc đang hiển thị Full-Screen SVG (tránh đè lên bảng trắng & pill tiêu đề của sơ đồ Full-Screen).
+ * Chỉ giữ banner trên các cảnh đời thường thoáng phía trên (như SCHOOL_CLASSROOM, COUNTRYSIDE_YARD, CITY_LIVING_ROOM...).
+ */
+export function shouldHideTopChapterBanner(spec?: AutoEpisodeBeat | null): boolean {
+  if (!spec) return false;
+  return isFullScreenCustomVisualBeat(spec) || isHostExplainOverlayBeat(spec);
+}
+
+/**
  * V19.0–V20.0: Khi beat có `customVisual` hợp lệ trong registry (chế độ khung bên phải V19, KHÔNG bật fullScreenVisual)
  * và chỉ có 1 nhân vật, tự động giữ nhân vật ở bên trái (`x ≈ 420`, quay mặt `RIGHT`) để không đè lên hình minh họa bên phải.
  */

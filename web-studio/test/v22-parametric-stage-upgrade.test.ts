@@ -11,7 +11,7 @@ import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { sanitizeAndValidateEpisode, sanitizeSpeechBubble } from "../src/lib/v7/episodeJsonSchema";
 import { StickmanRig, wrapSpeechBubbleLines } from "../src/remotion/components/character/StickmanRig";
-import { UniversalAutoStage } from "../src/components/v7/UniversalAutoStage";
+import { UniversalAutoStage, shouldHideTopChapterBanner } from "../src/components/v7/UniversalAutoStage";
 
 test("V22 #1: Parametric StickmanRig renders Dad, Mom, Teacher, Classmates & preset overrides directly from JSON appearance", () => {
   const ep = sanitizeAndValidateEpisode({
@@ -450,4 +450,16 @@ test("V22 #5: 10-word auto-wrapping speech bubbles and HOST_EXPLAIN_OVERLAY free
   assert.ok(svg.includes('id="hand-prop-pointer"'), "Renders POINTER stick");
   assert.ok(svg.includes("<tspan"), "Renders 2-line wrapped speech bubble");
   assert.ok(!svg.includes("feGaussianBlur") && !svg.includes("feDropShadow"), "Zero heavy SVG blur filters");
+  assert.equal(shouldHideTopChapterBanner(ep.beats[0]), true, "Auto-hides top chapterBanner on HOST_EXPLAIN_OVERLAY");
+
+  const fsAndLive = sanitizeAndValidateEpisode({
+    title: "Banner Visibility Guard",
+    slug: "banner_guard",
+    beats: [
+      { id: "b_live", text: "Cảnh lớp học.", ttsText: "Cảnh lớp học.", stageType: "SCHOOL_CLASSROOM", chapterBanner: "Hồi 1", actors: [] },
+      { id: "b_fs", text: "Sơ đồ toàn màn hình.", ttsText: "Sơ đồ toàn màn hình.", stageType: "EXPLAINER_POLKA_DOT", customVisual: "NGAP_SUMMARY_3_CARDS", fullScreenVisual: true, chapterBanner: "Hồi 6", actors: [] },
+    ],
+  });
+  assert.equal(shouldHideTopChapterBanner(fsAndLive.beats[0]), false, "Keeps chapterBanner on open-top daily-life scenes");
+  assert.equal(shouldHideTopChapterBanner(fsAndLive.beats[1]), true, "Auto-hides chapterBanner on Full-Screen SVG beats");
 });
