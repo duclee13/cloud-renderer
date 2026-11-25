@@ -2457,6 +2457,65 @@ export function pinSoloCustomVisualTimeline(timeline: ActorKeyframe[]): ActorKey
 }
 
 // =============================================================================
+// 3.9. V22.4: LỚP PHỦ HỒI TƯỞNG PHẲNG (FlashbackOverlayStatic — React.memo, 0 blur)
+// =============================================================================
+
+const FlashbackOverlayStatic: React.FC = React.memo(() => (
+  <g id="layer-flashback-overlay" pointerEvents="none">
+    {/* Lớp màu kem/sepia mờ phẳng lên toàn khung hình */}
+    <rect x={0} y={0} width={1920} height={1080} fill="#FEF3C7" opacity={0.28} />
+    {/* Khung viền trắng mờ mềm 4 cạnh */}
+    <rect
+      x={9}
+      y={9}
+      width={1902}
+      height={1062}
+      rx={28}
+      fill="none"
+      stroke="#FFFFFF"
+      strokeOpacity={0.6}
+      strokeWidth={18}
+    />
+    <rect
+      x={24}
+      y={24}
+      width={1872}
+      height={1032}
+      rx={22}
+      fill="none"
+      stroke="#F59E0B"
+      strokeOpacity={0.34}
+      strokeWidth={3}
+    />
+    {/* Tag nhỏ góc trên bên trái "Hồi tưởng" */}
+    <g transform="translate(52, 46)">
+      <rect
+        x={0}
+        y={0}
+        width={172}
+        height={46}
+        rx={23}
+        fill="#FFFBEB"
+        fillOpacity={0.94}
+        stroke="#D97706"
+        strokeWidth={2.8}
+      />
+      <circle cx={26} cy={23} r={7} fill="#F59E0B" />
+      <text
+        x={44}
+        y={30}
+        fill="#92400E"
+        fontSize={21}
+        fontWeight={800}
+        fontFamily="'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif"
+      >
+        Hồi tưởng
+      </text>
+    </g>
+  </g>
+));
+
+// =============================================================================
 // 4. COMPONENT CHÍNH: UniversalAutoStage (RENDER TOÀN BỘ AUTO EPISODE BEAT 60FPS)
 // =============================================================================
 
@@ -3340,9 +3399,11 @@ export const UniversalAutoStage: React.FC<{
             otherCandidates.find((o) => o.isSpeaking || o.isActivelyTalkingPose) ??
             [...otherCandidates].sort((a, b) => Math.abs(a.actorX - ra.actorX) - Math.abs(b.actorX - ra.actorX))[0];
 
-          // V18.2–V20.1: Tính hướng ánh mắt tự động (dx khóa cứng 0..+4px theo chiều facing, không bao giờ nhìn ngược sau gáy!)
+          // V18.2–V22.4: Tính hướng ánh mắt tự động (ưu tiên lookAtCamera -> dx=0, dy=0 nhìn thẳng khán giả; còn lại khóa cứng dx >= 0 cùng chiều facing!)
           let lookOffset: { dx: number; dy: number };
-          if (ra.v18ActionPose === "SWEEP_LIGHT") {
+          if (actor.lookAtCamera) {
+            lookOffset = { dx: 0, dy: 0 };
+          } else if (ra.v18ActionPose === "SWEEP_LIGHT") {
             lookOffset = { dx: 3.4, dy: Math.max(-3.6, Math.min(3.6, ra.sweepSin * 3.4)) };
           } else if (ra.v18ActionPose === "WRITE_NOTE") {
             lookOffset = { dx: 2.6, dy: 3.6 };
@@ -3731,6 +3792,9 @@ export const UniversalAutoStage: React.FC<{
           })}
         </g>
       </g>
+
+      {/* 4.5. V22.4: LỚP PHỦ HỒI TƯỞNG PHẲNG (React.memo, cố định 1920x1080 ngoài nhóm zoom camera) */}
+      {spec.flashback && <FlashbackOverlayStatic />}
 
       {/* 5. NHÃN CALLOUT VÀNG TỐI GIẢN — V18.2 AUTO-WIDTH THEO ĐỘ DÀI CHỮ; V19.1 TỰ ẨN KHI CÓ customVisual */}
       {spec.callout && !hasCustomVisual &&

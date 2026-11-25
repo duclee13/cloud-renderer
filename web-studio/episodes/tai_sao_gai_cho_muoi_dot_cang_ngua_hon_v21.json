@@ -2580,14 +2580,47 @@
       "stageType": "COUNTRYSIDE_YARD",
       "timeOfDay": "SUNSET",
       "weather": "CLEAR",
+      "yardDetail": "SWELL_BUMP",
+      "flashback": true,
       "transitionIn": "CROSSFADE",
       "transitionFrames": 30,
       "pauseAfterSec": 0.4,
       "bgmMood": "BGM_STORY_CALM",
       "actors": [
         {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "SURPRISED",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 735,
+              "endX": 735,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 735,
+              "endX": 735,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
           "preset": "GRANDPA",
-          "slot": "CENTER",
+          "slot": "RIGHT",
           "facing": "LEFT",
           "motion": "IDLE_TALK",
           "expression": "HAPPY",
@@ -2600,7 +2633,7 @@
               "startX": 1085,
               "endX": 1085,
               "facing": "LEFT",
-              "pose": "NOD_SMILE",
+              "pose": "POINT_FORWARD",
               "expression": "HAPPY",
               "handProp": "NONE"
             },
@@ -2654,7 +2687,7 @@
               "startX": 600,
               "endX": 600,
               "facing": "RIGHT",
-              "pose": "ARMS_UP_CHEER",
+              "pose": "POINT_FORWARD",
               "expression": "CURIOUS",
               "handProp": "NONE"
             },
@@ -3730,27 +3763,31 @@
       "actors": [
         {
           "preset": "BOY",
-          "slot": "LEFT",
+          "appearance": {
+            "scale": 0.9
+          },
+          "slot": "CENTER",
           "facing": "RIGHT",
           "motion": "IDLE_TALK",
           "expression": "HAPPY",
           "handProp": "NONE",
+          "lookAtCamera": true,
           "timeline": [
             {
               "fromPct": 0,
               "toPct": 0.5,
-              "startX": 520,
-              "endX": 520,
+              "startX": 960,
+              "endX": 960,
               "facing": "RIGHT",
-              "pose": "POINT_UP",
+              "pose": "TALK_GESTURE",
               "expression": "HAPPY",
               "handProp": "NONE"
             },
             {
               "fromPct": 0.5,
               "toPct": 1,
-              "startX": 520,
-              "endX": 520,
+              "startX": 960,
+              "endX": 960,
               "facing": "RIGHT",
               "pose": "TALK_GESTURE",
               "expression": "HAPPY",
@@ -3760,44 +3797,13 @@
           "bubble": "Đừng gãi nhé!",
           "bubbleStartPct": 0.08,
           "bubbleEndPct": 0.94
-        },
-        {
-          "preset": "GRANDPA",
-          "slot": "RIGHT",
-          "facing": "LEFT",
-          "motion": "IDLE_TALK",
-          "expression": "HAPPY",
-          "handProp": "NONE",
-          "seated": true,
-          "timeline": [
-            {
-              "fromPct": 0,
-              "toPct": 0.5,
-              "startX": 1085,
-              "endX": 1085,
-              "facing": "LEFT",
-              "pose": "NOD_SMILE",
-              "expression": "HAPPY",
-              "handProp": "NONE"
-            },
-            {
-              "fromPct": 0.5,
-              "toPct": 1,
-              "startX": 1085,
-              "endX": 1085,
-              "facing": "LEFT",
-              "pose": "NOD_SMILE",
-              "expression": "HAPPY",
-              "handProp": "NONE"
-            }
-          ]
         }
       ],
       "camera": {
         "fromScale": 1,
-        "toScale": 1.025,
+        "toScale": 1.03,
         "focusX": 960,
-        "focusY": 540
+        "focusY": 550
       }
     },
     {

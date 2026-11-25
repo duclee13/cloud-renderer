@@ -57,7 +57,7 @@ export const HYBRID_GPU_RENDER_DEFAULTS = {
   imageFormat: "jpeg" as const,
   jpegQuality: isLinuxOrCiEnvironment() ? 88 : 90,
   x264Preset: isLinuxOrCiEnvironment() ? ("superfast" as const) : ("veryfast" as const),
-  crf: isLinuxOrCiEnvironment() ? 20 : 18,
+  crf: isLinuxOrCiEnvironment() ? 23 : 18,
   timeoutInMilliseconds: REMOTION_RENDER_TIMEOUT_MS,
 } as const;
 
@@ -154,13 +154,13 @@ export function detectBestHardwareEncoder(): HardwareEncoderDetection {
     encodersOut = "";
   }
 
-  // Trên Linux CI không có GPU phần cứng -> chọn thẳng libx264 superfast crf 20 (JPEG q88) tối ưu dung lượng (~45-65MB) & tốc độ
+  // Trên Linux CI không có GPU phần cứng -> chọn thẳng libx264 superfast crf 23 (JPEG q88) tối ưu dung lượng (~95-115MB) & tốc độ
   if (isLinuxOrCiEnvironment()) {
     return {
       encoder: "libx264",
-      displayName: "Linux/CI SwANGLE + CPU libx264 superfast crf=20 (JPEG q88)",
+      displayName: "Linux/CI SwANGLE + CPU libx264 superfast crf=23 (JPEG q88)",
       usesGpuVideoEncode: false,
-      ffmpegVideoArgs: ["-c:v", "libx264", "-preset", "superfast", "-crf", "20", "-pix_fmt", "yuv420p"],
+      ffmpegVideoArgs: ["-c:v", "libx264", "-preset", "superfast", "-crf", "23", "-pix_fmt", "yuv420p"],
     };
   }
 

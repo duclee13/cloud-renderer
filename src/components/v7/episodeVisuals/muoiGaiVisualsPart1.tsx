@@ -369,18 +369,20 @@ export const MuoiHistamineSwellingVisual: React.FC<EpisodeVisualProps> = ({
 
       {/* Upward Dilation Arrows showing swelling push */}
       {activeStep === 0 && (
-        <g stroke="#DC2626" strokeWidth="5" strokeLinecap="round" fill="none">
-          {[855, 960, 1065].map((ax, i) => (
-            <g key={i} transform={`translate(${ax}, ${470 - Math.sin(frame * 0.16 + i) * 6})`}>
-              <line x1="0" y1="75" x2="0" y2="10" />
-              <polygon points="0,0 -11,18 11,18" fill="#DC2626" stroke="none" />
-            </g>
-          ))}
-          <rect x="1220" y="216" width="380" height="84" rx="20" fill="#FEE2E2" stroke="#DC2626" strokeWidth="3.8" />
-          <text x="1410" y="254" textAnchor="middle" fill="#991B1B" fontSize="24" fontWeight="900">
+        <g>
+          <g stroke="#DC2626" strokeWidth="5" strokeLinecap="round" fill="none">
+            {[855, 960, 1065].map((ax, i) => (
+              <g key={i} transform={`translate(${ax}, ${470 - Math.sin(frame * 0.16 + i) * 6})`}>
+                <line x1="0" y1="75" x2="0" y2="10" />
+                <polygon points="0,0 -11,18 11,18" fill="#DC2626" stroke="none" />
+              </g>
+            ))}
+          </g>
+          <rect x="1220" y="216" width="380" height="84" rx="20" fill="#FEF2F2" stroke="#EF4444" strokeWidth="2.5" />
+          <text x="1410" y="254" textAnchor="middle" fill="#B91C1C" stroke="none" fontSize="24" fontWeight="900">
             Mạch giãn + Bạch cầu tới
           </text>
-          <text x="1410" y="284" textAnchor="middle" fill="#7F1D1D" fontSize="19" fontWeight="700">
+          <text x="1410" y="284" textAnchor="middle" fill="#334155" stroke="none" fontSize="19" fontWeight="700">
             Đẩy mặt da đội lên sưng đỏ
           </text>
         </g>
@@ -747,8 +749,16 @@ export const MuoiPainOverridesItchVisual: React.FC<EpisodeVisualProps> = ({
       <g>
         <rect x="230" y="538" width="1125" height="80" rx="26" fill="#E0F2FE" stroke="#0284C7" strokeWidth="4" />
         {/* Open Green Gate Signal */}
-        <circle cx="824" cy="500" r="20" fill="#10B981" stroke={INK} strokeWidth="3.2" />
-        <text x="955" y="508" textAnchor="middle" fill="#065F46" fontSize="22" fontWeight="900">
+        <circle cx="786" cy="500" r="19" fill="#10B981" stroke={INK} strokeWidth="3.2" />
+        <path
+          d="M 778 500 L 784 506 L 795 494"
+          fill="none"
+          stroke="#FFFFFF"
+          strokeWidth="3.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <text x="824" y="508" textAnchor="start" fill="#065F46" fontSize="22" fontWeight="900">
           ƯU TIÊN CHẠY THẲNG ✓
         </text>
         <path

@@ -204,6 +204,8 @@ export interface AutoActorSpec {
   shiver?: boolean;
   /** V22.3: Khi true trên COUNTRYSIDE_YARD -> nhân vật ngồi gập gối đặt sát 0px lên mặt chõng tre */
   seated?: boolean;
+  /** V22.4: Khi true -> khóa đồng tử mắt ở chính giữa (dx=0, dy=0) nhìn thẳng trực diện vào camera */
+  lookAtCamera?: boolean;
   /** V18.0: Chuỗi Keyframe Action Timeline diễn xuất liên hoàn 60fps (nếu bỏ trống -> dùng motion/slot V17 cũ) */
   timeline?: ActorKeyframe[];
 }
@@ -236,6 +238,8 @@ export interface AutoEpisodeBeat {
   labBoard?: LabBoardId;
   /** V22.3: Chi tiết sân quê bổ trợ cho COUNTRYSIDE_YARD (muỗi bay, tia gãi, nốt sưng, khăn đá, quạt máy) */
   yardDetail?: CountrysideYardDetailId;
+  /** V22.4: Khi true -> phủ lớp hồi tưởng (Flashback Overlay SVG phẳng: kem/sepia mờ, khung viền trắng 4 cạnh, tag "Hồi tưởng") */
+  flashback?: boolean;
   timeOfDay: AutoTimeOfDay;
   weather: AutoWeather;
   transitionIn: AutoTransitionIn;
@@ -1029,6 +1033,7 @@ function sanitizeActor(raw: any, index: number, totalActors = 2): AutoActorSpec 
   const bubbleClean = sanitizeSpeechBubble(raw?.bubble);
   const shiver = Boolean(raw?.shiver);
   const seated = Boolean(raw?.seated);
+  const lookAtCamera = Boolean(raw?.lookAtCamera);
 
   const hasBubbleWindow = raw?.bubbleStartPct !== undefined || raw?.bubbleEndPct !== undefined;
   const bubbleStartPct = hasBubbleWindow
@@ -1060,6 +1065,7 @@ function sanitizeActor(raw: any, index: number, totalActors = 2): AutoActorSpec 
     ...(bubbleEndPct !== undefined ? { bubbleEndPct } : {}),
     ...(shiver ? { shiver: true } : {}),
     ...(seated ? { seated: true } : {}),
+    ...(lookAtCamera ? { lookAtCamera: true } : {}),
     ...(timeline ? { timeline } : {}),
   };
 }
@@ -1151,6 +1157,7 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
     const stageType = matchEnum(rb?.stageType, VALID_STAGE_TYPES, "SIMPLE_GRASS_FIELD", STAGE_ALIASES);
     const labBoard = sanitizeLabBoardId(rb?.labBoard) ?? episodeLabBoard;
     const yardDetail = sanitizeYardDetailId(rb?.yardDetail);
+    const flashback = rb?.flashback === true ? true : undefined;
     const timeOfDay = matchEnum(rb?.timeOfDay, VALID_TIME_OF_DAY, "DAY");
     const weather = matchEnum(rb?.weather, VALID_WEATHER, "CLEAR");
     const defaultTransition: AutoTransitionIn = idx === 0 ? "CUT" : "CROSSFADE";
@@ -1222,6 +1229,7 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       stageType,
       ...(labBoard ? { labBoard } : {}),
       ...(yardDetail ? { yardDetail } : {}),
+      ...(flashback ? { flashback: true } : {}),
       timeOfDay,
       weather,
       transitionIn,

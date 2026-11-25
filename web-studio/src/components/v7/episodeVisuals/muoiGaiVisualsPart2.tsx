@@ -92,7 +92,7 @@ export const MuoiSerotoninTrapVisual: React.FC<EpisodeVisualProps> = ({
       {/* Step 1 & 2: Serotonin branches right into GRPR Itch Neurons */}
       <g opacity={activeStep >= 1 ? 1 : 0.35}>
         <path
-          d="M 730 685 L 985 685"
+          d="M 730 685 L 1062 685"
           fill="none"
           stroke="#14B8A6"
           strokeWidth="11"
@@ -100,21 +100,22 @@ export const MuoiSerotoninTrapVisual: React.FC<EpisodeVisualProps> = ({
           strokeDasharray="16 10"
           strokeDashoffset={-(frame * 4.2)}
         />
-        <polygon points="1002,685 974,670 974,700" fill="#14B8A6" />
+        <polygon points="1080,685 1052,670 1052,700" fill="#14B8A6" />
 
-        {/* Glowing GRPR Itch Neuron Cluster */}
-        <g transform="translate(1165, 665)">
+        {/* Glowing GRPR Itch Neuron Cluster — Labels cleanly outside above & below circle */}
+        <g transform="translate(1155, 660)">
           {activeStep >= 1 && (
-            <circle cx="0" cy="0" r={96 + pulse * 14} fill="#FB923C" opacity="0.28" />
+            <circle cx="0" cy="0" r={72 + pulse * 8} fill="#FB923C" opacity="0.28" />
           )}
-          <circle cx="0" cy="0" r="82" fill="#FFEDD5" stroke="#EA580C" strokeWidth="5.5" />
-          <circle cx="-26" cy="-16" r="18" fill="#EA580C" />
-          <circle cx="26" cy="-14" r="18" fill="#F97316" />
-          <circle cx="0" cy="24" r="20" fill="#DC2626" />
-          <text x="0" y="-44" textAnchor="middle" fill="#9A3412" fontSize="22" fontWeight="900">
+          <circle cx="0" cy="0" r="60" fill="#FFEDD5" stroke="#EA580C" strokeWidth="5" />
+          <circle cx="-18" cy="-12" r="14" fill="#EA580C" />
+          <circle cx="18" cy="-10" r="14" fill="#F97316" />
+          <circle cx="0" cy="18" r="16" fill="#DC2626" />
+          <rect x="-98" y="-110" width="196" height="36" rx="14" fill="#FFF7ED" stroke="#EA580C" strokeWidth="2.8" />
+          <text x="0" y="-85" textAnchor="middle" fill="#9A3412" fontSize="22" fontWeight="900">
             Tế bào GRPR
           </text>
-          <text x="0" y="64" textAnchor="middle" fill="#C2410C" fontSize="19" fontWeight="800">
+          <text x="0" y="96" textAnchor="middle" fill="#C2410C" fontSize="20" fontWeight="800">
             (Chuyên truyền ngứa!)
           </text>
         </g>
@@ -124,7 +125,7 @@ export const MuoiSerotoninTrapVisual: React.FC<EpisodeVisualProps> = ({
       {activeStep === 2 && (
         <g>
           <path
-            d="M 1165 570 C 1165 360 995 270 720 295"
+            d="M 1155 538 C 1155 360 995 270 720 295"
             fill="none"
             stroke="#FB923C"
             strokeWidth="28"
@@ -132,7 +133,7 @@ export const MuoiSerotoninTrapVisual: React.FC<EpisodeVisualProps> = ({
             opacity="0.34"
           />
           <path
-            d="M 1165 570 C 1165 360 995 270 720 295"
+            d="M 1155 538 C 1155 360 995 270 720 295"
             fill="none"
             stroke="#DC2626"
             strokeWidth="13"
@@ -142,11 +143,11 @@ export const MuoiSerotoninTrapVisual: React.FC<EpisodeVisualProps> = ({
           />
           <polygon points="702,298 734,278 736,314" fill="#DC2626" />
 
-          <rect x="1195" y="255" width="445" height="122" rx="24" fill="#FEF2F2" stroke="#DC2626" strokeWidth="4.5" />
-          <text x="1418" y="305" textAnchor="middle" fill="#991B1B" fontSize="29" fontWeight="900">
+          <rect x="1205" y="255" width="445" height="122" rx="24" fill="#FEF2F2" stroke="#DC2626" strokeWidth="4.5" />
+          <text x="1428" y="305" textAnchor="middle" fill="#991B1B" fontSize="29" fontWeight="900">
             TÍN HIỆU NGỨA × 2!
           </text>
-          <text x="1418" y="346" textAnchor="middle" fill="#7F1D1D" fontSize="21" fontWeight="700">
+          <text x="1428" y="346" textAnchor="middle" fill="#7F1D1D" fontSize="21" fontWeight="700">
             Phóng lên não nhanh &amp; mạnh gấp đôi
           </text>
         </g>
