@@ -297,13 +297,15 @@ export const SharedStickman: React.FC<{
         ? 8 + Math.sin(frame * 0.4) * 2
         : pose === 'EAT_SLOW' || pose === 'SIP_GLASS' || pose === 'SIP_WARM' || pose === 'EAT_CONE_FAST'
           ? 2 + Math.sin(frame * 0.11) * 2
-          : pose === 'RELIEF_SIGH'
-            ? -5 + Math.sin(frame * 0.09) * 2
-            : pose === 'POINT_UP'
-              ? -9
-              : pose === 'HAPPY_WAVE'
-                ? Math.sin(frame * 0.12) * 4
-                : Math.sin(frame * 0.06) * 1.5;
+          : pose === 'SIT_HOLD_DRINK' && expression === 'PROUD'
+            ? Math.sin(frame * 0.1) * 4
+            : pose === 'RELIEF_SIGH'
+              ? -5 + Math.sin(frame * 0.09) * 2
+              : pose === 'POINT_UP'
+                ? -9
+                : pose === 'HAPPY_WAVE'
+                  ? Math.sin(frame * 0.12) * 4
+                  : Math.sin(frame * 0.06) * 1.5;
 
   const isSeated = pose === 'SIT' || pose === 'SIT_HOLD_DRINK' || pose === 'SIT_HOLD_CONE';
   const safeUid = uid || `${role}_${Math.round(x)}_${Math.round(y)}`;
@@ -489,7 +491,13 @@ export const SharedStickman: React.FC<{
         ) : null}
 
         {pose === 'SIP_GLASS' || pose === 'SIT_HOLD_DRINK' ? (
-          <g transform={`translate(52, ${-98 + breath + slowSipBob}) rotate(-10)`}>
+          <g
+            transform={
+              pose === 'SIT_HOLD_DRINK' && expression === 'PROUD'
+                ? `translate(54, ${-80 + breath + slowSipBob * 0.5}) rotate(-4)`
+                : `translate(52, ${-98 + breath + slowSipBob}) rotate(-10)`
+            }
+          >
             <IcedDrinkGlass
               x={0}
               y={0}
@@ -558,7 +566,11 @@ export const SharedStickman: React.FC<{
           />
         ) : pose === 'SIP_GLASS' || pose === 'SIP_WARM' || pose === 'SIT_HOLD_DRINK' ? (
           <path
-            d={`M0 ${-84 + breath} L28 ${-64 + breath} L50 ${-92 + breath + slowSipBob}`}
+            d={
+              pose === 'SIT_HOLD_DRINK' && expression === 'PROUD'
+                ? `M0 ${-84 + breath} L28 ${-56 + breath} L52 ${-74 + breath + slowSipBob * 0.5}`
+                : `M0 ${-84 + breath} L28 ${-64 + breath} L50 ${-92 + breath + slowSipBob}`
+            }
             fill="none"
             stroke={INK}
             strokeWidth="6.5"
@@ -743,7 +755,10 @@ export const SharedStickman: React.FC<{
           ) : null}
 
           {/* Expressions */}
-          {pose === 'DRINK_FAST' || pose === 'SIP_GLASS' || pose === 'SIP_WARM' || pose === 'SIT_HOLD_DRINK' ? (
+          {pose === 'DRINK_FAST' ||
+          pose === 'SIP_GLASS' ||
+          pose === 'SIP_WARM' ||
+          (pose === 'SIT_HOLD_DRINK' && expression !== 'PROUD') ? (
             <g>
               <path d="M-10 -14 Q-4 -17 2 -14" fill="none" stroke={INK} strokeWidth="2.8" strokeLinecap="round" />
               <path d="M13 -14 Q19 -17 25 -14" fill="none" stroke={INK} strokeWidth="2.8" strokeLinecap="round" />

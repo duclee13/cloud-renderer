@@ -1855,7 +1855,7 @@ export const NuocDaTipWarmWaterVisual: React.FC<EpisodeVisualProps> = ({
 // 15. NUOCDA_TIP_SIP_SLOWLY
 //     - Fixed Bug #12: ZERO floating glasses!
 //       * Step 0 (05:37): BOY directly holds & sips iced glass beside grounded wooden table
-//       * Step 2 (05:49): Iced glass sits solidly flush on grounded wooden table while BOY waves
+//       * Step 2 (05:48–05:53): BOY stands relaxed holding his iced glass smiling beside grounded wooden table
 //     - Single top title only (NO duplicate bottom pill)
 // ============================================================================
 export const NuocDaTipSipSlowlyVisual: React.FC<EpisodeVisualProps> = ({
@@ -1993,7 +1993,7 @@ export const NuocDaTipSipSlowlyVisual: React.FC<EpisodeVisualProps> = ({
         </g>
       )}
 
-      {/* STEP 2 (05:49): Iced glass resting solidly on wooden side table while BOY waves happily */}
+      {/* STEP 2 (05:48–05:53): BOY standing relaxed holding his iced tea glass & smiling beside wooden side table */}
       {activeStep === 2 && (
         <g>
           <g transform="translate(540, 445)">
@@ -2009,29 +2009,22 @@ export const NuocDaTipSipSlowlyVisual: React.FC<EpisodeVisualProps> = ({
             </text>
           </g>
 
-          {/* Wooden Side Table grounded on floor y = 790 */}
+          {/* Wooden Side Table with empty coaster grounded on floor y = 790 (glass is held in BOY's hand) */}
           <WoodenSideTable x={1445} topY={678} floorY={790} width={170} />
-          {/* IcedDrinkGlass bottom (84 * 0.58 = 49) sits flush at 629 + 49 = 678 */}
-          <IcedDrinkGlass
-            x={1445}
-            y={629}
-            scale={0.58}
-            fillPct={0.75}
-            showFrost={true}
-            frame={frame}
-            uid="nd15_s2_gl"
-          />
+          <ellipse cx={1445} cy={678} rx={36} ry={6} fill="#E0F2FE" stroke="#0284C7" strokeWidth="2.5" />
 
-          {/* Happy BOY standing squarely on floor y = 790 waving */}
+          {/* Happy BOY standing squarely on floor y = 790 holding his iced tea glass relaxedly */}
           <SharedStickman
             x={1210}
             y={674}
             scale={1.02}
             role="BOY"
             facing="LEFT"
-            pose="HAPPY_WAVE"
-            expression="HAPPY"
+            pose="HOLD_DRINK_PAUSE"
+            expression="PROUD"
+            drinkFillPct={0.75}
             frame={frame}
+            uid="nd15_s2_boy"
           />
         </g>
       )}
@@ -2268,45 +2261,19 @@ export const NuocDaHappySummerEnjoyVisual: React.FC<EpisodeVisualProps> = ({
         <ellipse cx="920" cy="668" rx="34" ry="5.5" fill="#E0F2FE" stroke="#0284C7" strokeWidth="2.5" />
       </g>
 
-      {/* Step 2: Boy sets his iced tea glass squarely onto the porch table while standing & waving */}
-      {activeStep === 2 && (
-        <IcedDrinkGlass
-          x={920}
-          y={621}
-          scale={0.56}
-          fillPct={0.72}
-          showFrost={true}
-          frame={frame}
-          uid="nd16_s2_tbl"
-        />
-      )}
-
-      {/* BOY: Seated solidly on left chair holding his iced tea glass (Step 0/1), or standing grounded on porch tiles waving (Step 2) */}
-      {activeStep === 2 ? (
-        <SharedStickman
-          x={692}
-          y={688}
-          scale={1.0}
-          role="BOY"
-          facing="RIGHT"
-          pose="HAPPY_WAVE"
-          expression="HAPPY"
-          frame={frame}
-        />
-      ) : (
-        <SharedStickman
-          x={682}
-          y={706}
-          scale={0.98}
-          role="BOY"
-          facing="RIGHT"
-          pose="SIT_HOLD_DRINK"
-          expression="HAPPY"
-          drinkFillPct={0.78}
-          frame={frame}
-          uid="nd16_boy_s0"
-        />
-      )}
+      {/* BOY: Seated solidly on left chair across Steps 0–2 holding his iced tea glass (sipping in Steps 0–1, smiling & nodding warmly with GRANDPA in Step 2) */}
+      <SharedStickman
+        x={682}
+        y={706}
+        scale={0.98}
+        role="BOY"
+        facing="RIGHT"
+        pose="SIT_HOLD_DRINK"
+        expression={activeStep === 2 ? 'PROUD' : 'HAPPY'}
+        drinkFillPct={activeStep === 2 ? 0.72 : 0.78}
+        frame={frame}
+        uid="nd16_boy_s0"
+      />
 
       {/* GRANDPA: Seated solidly on right wooden chair holding the colorful ice cream cone directly in hand! */}
       <SharedStickman
