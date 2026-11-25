@@ -379,7 +379,7 @@ export const DeskLamp: React.FC<{
   </g>
 );
 
-export type GhiAmStickmanRole = 'BOY' | 'DAD' | 'DOCTOR' | 'FRIEND_A' | 'FRIEND_B';
+export type GhiAmStickmanRole = 'BOY' | 'DAD' | 'SCIENTIST' | 'FRIEND_A' | 'FRIEND_B';
 
 export type GhiAmStickmanPose =
   | 'IDLE'
@@ -596,7 +596,7 @@ export const SharedStickman: React.FC<{
             <circle cx="0" cy="-72" r="2.3" fill="#ffffff" />
             <circle cx="0" cy="-62" r="2.3" fill="#ffffff" />
           </g>
-        ) : role === 'DOCTOR' ? (
+        ) : role === 'SCIENTIST' ? (
           <g transform={`translate(0, ${breath + reliefDrop})`}>
             <path
               d="M-23 -94 L-10 -100 L0 -68 L10 -100 L23 -94 L29 18 Q29 24 22 24 L-22 24 Q-29 24 -29 18 Z"
@@ -612,8 +612,8 @@ export const SharedStickman: React.FC<{
               strokeWidth="3"
               strokeLinejoin="round"
             />
-            <path d="M-13 -98 C-18 -72 -18 -54 -11 -44" fill="none" stroke="#334155" strokeWidth="4.2" strokeLinecap="round" />
-            <circle cx="-11" cy="-40" r="6" fill="#0ea5e9" stroke={INK} strokeWidth="2.5" />
+            <rect x="6" y="-50" width="14" height="14" rx="2.5" fill="#f1f5f9" stroke={INK} strokeWidth="2.4" />
+            <line x1="12" y1="-56" x2="12" y2="-48" stroke="#2563eb" strokeWidth="3" strokeLinecap="round" />
           </g>
         ) : role === 'FRIEND_A' ? (
           <g transform={`translate(0, ${breath})`}>
@@ -893,14 +893,14 @@ export const SharedStickman: React.FC<{
             </g>
           )}
 
-          {/* DOCTOR glasses */}
-          {role === 'DOCTOR' && (
+          {/* SCIENTIST rectangular glasses */}
+          {role === 'SCIENTIST' && (
             <g fill="none" stroke={INK} strokeWidth="3">
-              <circle cx="-4" cy="-2" r="10.5" />
-              <circle cx="19" cy="-2" r="10.5" />
-              <line x1="6.5" y1="-2" x2="8.5" y2="-2" />
-              <line x1="-14.5" y1="-3" x2="-35" y2="-6" strokeWidth="2.6" />
-              <line x1="29.5" y1="-3" x2="36" y2="-5" strokeWidth="2.6" />
+              <rect x="-15" y="-11" width="21" height="18" rx="4" />
+              <rect x="9" y="-11" width="21" height="18" rx="4" />
+              <line x1="6" y1="-2" x2="9" y2="-2" />
+              <line x1="-15" y1="-3" x2="-35" y2="-6" strokeWidth="2.6" />
+              <line x1="30" y1="-3" x2="36" y2="-5" strokeWidth="2.6" />
             </g>
           )}
 
@@ -1545,6 +1545,79 @@ export const CityLivingRoomEveningBackdrop: React.FC<{ frame: number; uid: strin
         <rect x="34" y="-18" width="84" height="18" rx="4" fill="#2563eb" stroke={INK} strokeWidth="2.8" />
         <rect x="44" y="-34" width="66" height="16" rx="4" fill="#10b981" stroke={INK} strokeWidth="2.8" />
       </g>
+    </g>
+  );
+};
+
+/** Soft, unobtrusive indoor study/living room architectural layer to add depth behind explainer scenes (flat shadows opacity=0.12, y <= 830) */
+export const CozyStudyRoomSoftBackdrop: React.FC<{
+  tone?: 'MINT' | 'WARM';
+  showSideDesk?: boolean;
+  showDeskPhone?: boolean;
+  showRightBookshelf?: boolean;
+  frame?: number;
+}> = ({
+  tone = 'MINT',
+  showSideDesk = true,
+  showDeskPhone = false,
+  showRightBookshelf = true,
+  frame = 0,
+}) => {
+  const isMint = tone === 'MINT';
+  const baseboardFill = isMint ? '#bbf7d0' : '#fde68a';
+  const floorFill = isMint ? '#dcfce7' : '#fef3c7';
+  const floorEdge = isMint ? '#86efac' : '#f59e0b';
+  const wallAccent = isMint ? '#d1fae5' : '#fef08a';
+
+  return (
+    <g>
+      {/* Subtle architectural wall baseboard & floor grounded at y = 795 <= 830 */}
+      <rect x="0" y="775" width="1920" height="20" fill={baseboardFill} opacity="0.72" />
+      <line x1="0" y1="775" x2="1920" y2="775" stroke={floorEdge} strokeWidth="2.5" opacity="0.6" />
+      <rect x="0" y="795" width="1920" height="285" fill={floorFill} opacity="0.75" />
+      <line x1="0" y1="795" x2="1920" y2="795" stroke={floorEdge} strokeWidth="4" />
+      {/* Subtle floorboard horizontal guide line */}
+      <line x1="0" y1="846" x2="1920" y2="846" stroke={floorEdge} strokeWidth="2" opacity="0.28" />
+
+      {/* Soft sunlit study window on far left (x=96..356, y=172..402) */}
+      <g transform="translate(96, 172)" opacity="0.78">
+        <polygon points="0,230 260,0 445,623 95,623" fill={wallAccent} opacity="0.24" />
+        <rect x="0" y="0" width="260" height="230" rx="12" fill="#bae6fd" stroke="#94a3b8" strokeWidth="7" />
+        <polygon points="12,12 126,12 68,218 12,218" fill="#ffffff" opacity="0.42" />
+        <line x1="130" y1="0" x2="130" y2="230" stroke="#94a3b8" strokeWidth="5.5" />
+        <line x1="0" y1="115" x2="260" y2="115" stroke="#94a3b8" strokeWidth="5.5" />
+        <rect x="0" y="0" width="260" height="230" rx="12" fill="none" stroke={INK} strokeWidth="3" opacity="0.65" />
+        <rect x="-16" y="226" width="292" height="16" rx="5" fill="#d97706" stroke={INK} strokeWidth="2.8" opacity="0.85" />
+      </g>
+
+      {/* Soft muted wall bookshelf on far right (optional so right cards stay clean) */}
+      {showRightBookshelf && (
+        <g transform="translate(1515, 195)" opacity="0.68">
+          <rect x="0" y="96" width="290" height="16" rx="5" fill="#b45309" stroke={INK} strokeWidth="2.8" />
+          <rect x="22" y="28" width="28" height="68" rx="4" fill="#60a5fa" stroke={INK} strokeWidth="2.4" />
+          <rect x="54" y="18" width="30" height="78" rx="4" fill="#34d399" stroke={INK} strokeWidth="2.4" />
+          <rect x="88" y="34" width="26" height="62" rx="4" fill="#fbbf24" stroke={INK} strokeWidth="2.4" />
+          <rect x="118" y="24" width="32" height="72" rx="4" fill="#f87171" stroke={INK} strokeWidth="2.4" />
+          {/* Tiny potted succulent on shelf */}
+          <path d="M 196 96 L 204 62 L 242 62 L 250 96 Z" fill="#f97316" stroke={INK} strokeWidth="2.4" />
+          <circle cx="223" cy="48" r="18" fill="#22c55e" stroke={INK} strokeWidth="2.4" />
+        </g>
+      )}
+
+      {/* Grounded compact wooden study side desk on far left (x=275, topY=672, floorY=795 <= 830) */}
+      {showSideDesk && (
+        <g opacity="0.92">
+          <WoodenTable x={285} topY={672} floorY={795} width={285} />
+          {/* Open study notebook resting solidly on tabletop */}
+          <g transform="translate(222, 672)">
+            <polygon points="-42,0 -6,-11 36,-11 50,0" fill="#ffffff" stroke={INK} strokeWidth="2.8" strokeLinejoin="round" />
+            <line x1="0" y1="-11" x2="2" y2="0" stroke="#94a3b8" strokeWidth="2.2" />
+          </g>
+          {showDeskPhone && (
+            <SmartphoneProp x={342} y={672} scale={0.96} mode="IDLE" flatOnTable={true} frame={frame} />
+          )}
+        </g>
+      )}
     </g>
   );
 };

@@ -217,9 +217,179 @@ const CityStreetBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: number; gr
   );
 };
 
-const ScienceLabStaticLayer = React.memo<{ timeOfDay: AutoTimeOfDay }>(({ timeOfDay }) => {
+const ScienceLabAcousticsBoardStatic = React.memo(() => (
+  <g id="lab-board-acoustics-voice" transform="translate(560, 165)">
+    {/* Khung bảng nghiên cứu trắng/ghim gọn gàng (760x330) */}
+    <rect x={0} y={0} width={760} height={330} rx={14} fill="#FFFFFF" stroke="#64748B" strokeWidth={9} />
+    <rect x={0} y={0} width={760} height={330} rx={14} fill="none" stroke="#141414" strokeWidth={3} />
+    {/* 4 đinh ghim góc trên/dưới */}
+    <circle cx={20} cy={20} r={5.5} fill="#EF4444" stroke="#141414" strokeWidth={2} />
+    <circle cx={740} cy={20} r={5.5} fill="#EF4444" stroke="#141414" strokeWidth={2} />
+    <circle cx={20} cy={310} r={5.5} fill="#0284C7" stroke="#141414" strokeWidth={2} />
+    <circle cx={740} cy={310} r={5.5} fill="#0284C7" stroke="#141414" strokeWidth={2} />
+
+    {/* Thanh tiêu đề chuyên đề trên bảng */}
+    <rect x={36} y={14} width={688} height={36} rx={9} fill="#EFF6FF" stroke="#0284C7" strokeWidth={2.2} />
+    <text
+      x={380}
+      y={38}
+      textAnchor="middle"
+      fill="#0369A1"
+      stroke="none"
+      fontSize={19}
+      fontWeight={900}
+      fontFamily="'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif"
+    >
+      NGHIÊN CỨU ÂM HỌC • TRUYỀN ÂM KHÔNG KHÍ &amp; XƯƠNG SỌ
+    </text>
+
+    {/* Khung trái: Phác thảo mặt cắt Tai – Ốc tai mini */}
+    <g id="lab-board-ear-sketch" transform="translate(26, 64)">
+      <rect x={0} y={0} width={226} height={240} rx={12} fill="#FFF7ED" stroke="#EA580C" strokeWidth={2.6} />
+      {/* Phác thảo đầu + tai ngoài + ống tai + màng nhĩ + ốc tai xoắn */}
+      <g transform="translate(114, 108)">
+        <path
+          d="M -64,58 C -78,16 -72,-54 -16,-74 C 34,-90 76,-54 78,-4 L 90,14 L 78,24 L 74,56 C 68,72 48,80 22,80 L -64,80 Z"
+          fill="#FFEDD5"
+          stroke="#141414"
+          strokeWidth={2.8}
+          strokeLinejoin="round"
+        />
+        {/* Vành tai ngoài & ống tai */}
+        <path d="M -38,-14 C -54,-14 -58,8 -50,26 C -44,36 -34,38 -28,32" fill="#FED7AA" stroke="#141414" strokeWidth={2.6} />
+        <rect x={-38} y={2} width={34} height={14} rx={4} fill="#FDE68A" stroke="#141414" strokeWidth={2.2} />
+        {/* Màng nhĩ */}
+        <ellipse cx={-3} cy={9} rx={4} ry={10} fill="#38BDF8" stroke="#0284C7" strokeWidth={2.2} />
+        {/* Ốc tai xoắn */}
+        <path
+          d="M 12,11 C 12,-5 38,-7 40,9 C 42,23 20,27 16,15 C 14,5 28,3 30,11"
+          fill="none"
+          stroke="#4F46E5"
+          strokeWidth={3.6}
+          strokeLinecap="round"
+        />
+        {/* Đường xanh không khí đi vào ống tai */}
+        <path
+          d="M 78,34 C 98,-48 16,-96 -62,-44 C -84,-28 -78,10 -44,10"
+          fill="none"
+          stroke="#0284C7"
+          strokeWidth={3.2}
+          strokeDasharray="7 5"
+          strokeLinecap="round"
+        />
+        <polygon points="-40,10 -52,4 -50,16" fill="#0284C7" stroke="none" />
+        {/* Đường cam xuyên xương hàm/sọ trực tiếp vào ốc tai */}
+        <path
+          d="M 30,74 C 36,52 38,38 28,22"
+          fill="none"
+          stroke="#EA580C"
+          strokeWidth={4}
+          strokeDasharray="6 4"
+          strokeLinecap="round"
+        />
+        <polygon points="26,18 20,30 34,28" fill="#EA580C" stroke="none" />
+      </g>
+      <text
+        x={113}
+        y={224}
+        textAnchor="middle"
+        fill="#9A3412"
+        stroke="none"
+        fontSize={17}
+        fontWeight={800}
+        fontFamily="'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif"
+      >
+        Tai &amp; Ốc tai (2 đường)
+      </text>
+    </g>
+
+    {/* Khung giữa: 2 Đường sóng âm tần số trầm (xương sọ) vs cao (không khí) */}
+    <g id="lab-board-wave-comparison" transform="translate(268, 64)">
+      {/* Thẻ trên: Sóng cam gợn dài = Âm trầm xương sọ */}
+      <rect x={0} y={0} width={278} height={112} rx={12} fill="#FFF7ED" stroke="#EA580C" strokeWidth={2.6} />
+      <path
+        d="M 22,52 Q 62,16 102,52 T 182,52 T 256,52"
+        fill="none"
+        stroke="#EA580C"
+        strokeWidth={7.5}
+        strokeLinecap="round"
+      />
+      <text
+        x={139}
+        y={97}
+        textAnchor="middle"
+        fill="#C2410C"
+        stroke="none"
+        fontSize={16.5}
+        fontWeight={800}
+        fontFamily="'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif"
+      >
+        Sóng trầm • Xương sọ
+      </text>
+
+      {/* Thẻ dưới: Sóng xanh gợn dày = Âm cao không khí */}
+      <rect x={0} y={128} width={278} height={112} rx={12} fill="#F0F9FF" stroke="#0284C7" strokeWidth={2.6} />
+      <path
+        d="M 22,180 Q 35,152 48,180 T 74,180 T 100,180 T 126,180 T 152,180 T 178,180 T 204,180 T 230,180 T 256,180"
+        fill="none"
+        stroke="#0284C7"
+        strokeWidth={4}
+        strokeLinecap="round"
+      />
+      <text
+        x={139}
+        y={225}
+        textAnchor="middle"
+        fill="#0369A1"
+        stroke="none"
+        fontSize={16.5}
+        fontWeight={800}
+        fontFamily="'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif"
+      >
+        Sóng cao • Không khí
+      </text>
+    </g>
+
+    {/* Khung phải: Hình vẽ Âm thoa cộng hưởng */}
+    <g id="lab-board-tuning-fork" transform="translate(562, 64)">
+      <rect x={0} y={0} width={172} height={240} rx={12} fill="#F8FAFC" stroke="#475569" strokeWidth={2.6} />
+      {/* Đế hộp cộng hưởng gỗ */}
+      <rect x={38} y={164} width={96} height={26} rx={5} fill="#B45309" stroke="#141414" strokeWidth={2.5} />
+      <rect x={54} y={172} width={64} height={10} rx={3} fill="#78350F" stroke="none" />
+      {/* Thân âm thoa hình chữ U bằng thép */}
+      <line x1={86} y1={164} x2={86} y2={116} stroke="#475569" strokeWidth={8} strokeLinecap="round" />
+      <path
+        d="M 62,38 L 62,92 Q 62,118 86,118 Q 110,118 110,92 L 110,38"
+        fill="none"
+        stroke="#64748B"
+        strokeWidth={9}
+        strokeLinecap="round"
+      />
+      {/* Cung sóng rung hai bên nhánh âm thoa */}
+      <path d="M 44,50 Q 34,66 44,82" fill="none" stroke="#0284C7" strokeWidth={3} strokeLinecap="round" />
+      <path d="M 32,42 Q 18,66 32,90" fill="none" stroke="#38BDF8" strokeWidth={2.6} strokeLinecap="round" />
+      <path d="M 128,50 Q 138,66 128,82" fill="none" stroke="#EA580C" strokeWidth={3} strokeLinecap="round" />
+      <path d="M 140,42 Q 154,66 140,90" fill="none" stroke="#FB923C" strokeWidth={2.6} strokeLinecap="round" />
+      <text
+        x={86}
+        y={224}
+        textAnchor="middle"
+        fill="#334155"
+        stroke="none"
+        fontSize={17}
+        fontWeight={800}
+        fontFamily="'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif"
+      >
+        Âm thoa cộng hưởng
+      </text>
+    </g>
+  </g>
+));
+
+const ScienceLabStaticLayer = React.memo<{ timeOfDay: AutoTimeOfDay; labBoard?: string }>(({ timeOfDay, labBoard }) => {
   const isNight = timeOfDay === "NIGHT";
   const wallFill = isNight ? "#1E293B" : "#E0F2FE";
+  const isAcoustics = labBoard === "ACOUSTICS_VOICE";
 
   return (
     <g>
@@ -268,75 +438,121 @@ const ScienceLabStaticLayer = React.memo<{ timeOfDay: AutoTimeOfDay }>(({ timeOf
         <rect x={0} y={96} width={210} height={14} rx={4} fill={isNight ? "#64748B" : "#B45309"} stroke="#141414" strokeWidth={2.8} />
       </g>
 
-      {/* Bảng trắng khoa học chính giữa tường (khung & đồ thị tĩnh) */}
-      <g transform="translate(560, 165)">
-        <rect x={0} y={0} width={760} height={330} rx={14} fill="#FFFFFF" stroke="#64748B" strokeWidth={9} />
-        <rect x={0} y={0} width={760} height={330} rx={14} fill="none" stroke="#141414" strokeWidth={3} />
-        <path d="M 310,210 Q 375,90 440,210 T 570,210 T 690,150" fill="none" stroke="#10B981" strokeWidth={6} strokeLinecap="round" />
-        <line x1={300} y1={260} x2={700} y2={260} stroke="#334155" strokeWidth={4} strokeLinecap="round" />
-        <line x1={300} y1={90} x2={300} y2={260} stroke="#334155" strokeWidth={4} strokeLinecap="round" />
-      </g>
+      {/* V22.2: Bảng nghiên cứu động theo chủ đề (ACOUSTICS_VOICE hoặc bảng mặc định tương thích 100% tập cũ) */}
+      {isAcoustics ? (
+        <ScienceLabAcousticsBoardStatic />
+      ) : (
+        <g transform="translate(560, 165)">
+          <rect x={0} y={0} width={760} height={330} rx={14} fill="#FFFFFF" stroke="#64748B" strokeWidth={9} />
+          <rect x={0} y={0} width={760} height={330} rx={14} fill="none" stroke="#141414" strokeWidth={3} />
+          <path d="M 310,210 Q 375,90 440,210 T 570,210 T 690,150" fill="none" stroke="#10B981" strokeWidth={6} strokeLinecap="round" />
+          <line x1={300} y1={260} x2={700} y2={260} stroke="#334155" strokeWidth={4} strokeLinecap="round" />
+          <line x1={300} y1={90} x2={300} y2={260} stroke="#334155" strokeWidth={4} strokeLinecap="round" />
+        </g>
+      )}
 
       {/* Khung mặt đồng hồ treo tường */}
       <circle cx={1530} cy={220} r={54} fill="#FFFFFF" stroke="#141414" strokeWidth={4} />
 
-      {/* Bàn thí nghiệm gọn bên phải + bình tĩnh + kính hiển vi */}
+      {/* Bàn thí nghiệm gọn bên phải (tự đổi dụng cụ theo labBoard, bóng phẳng opacity="0.12") */}
       <g transform="translate(1485, 560)">
         <ellipse
           id="lab-table-shadow"
           cx={200}
-          cy={279}
+          cy={isAcoustics ? 268 : 279}
           rx={210}
-          ry={14}
+          ry={12}
           fill="#0F172A"
-          opacity={isNight ? 0.34 : 0.16}
+          opacity={isNight ? 0.28 : 0.12}
           stroke="none"
         />
-        <ellipse cx={30} cy={279} rx={26} ry={6} fill="#0F172A" opacity={0.22} stroke="none" />
-        <ellipse cx={370} cy={279} rx={26} ry={6} fill="#0F172A" opacity={0.22} stroke="none" />
+        <ellipse cx={30} cy={isAcoustics ? 268 : 279} rx={26} ry={6} fill="#0F172A" opacity={0.12} stroke="none" />
+        <ellipse cx={370} cy={isAcoustics ? 268 : 279} rx={26} ry={6} fill="#0F172A" opacity={0.12} stroke="none" />
         <rect x={0} y={100} width={400} height={24} rx={6} fill="#64748B" />
-        <rect x={20} y={124} width={20} height={155} fill="#475569" />
-        <rect x={360} y={124} width={20} height={155} fill="#475569" />
-        <g transform="translate(90, 100)">
-          <path d="M -14,-84 L -14,-56 L -44,0 L 44,0 L 14,-56 L 14,-84 Z" fill="#DCFCE7" />
-          <path d="M -29,-28 L 29,-28 L 41,-2 L -41,-2 Z" fill="#22C55E" stroke="none" />
-          <path d="M -14,-84 L -14,-56 L -44,0 L 44,0 L 14,-56 L 14,-84 Z" fill="none" stroke="#141414" strokeWidth={3.2} />
-        </g>
-        <g transform="translate(200, 100)">
-          <circle cx={0} cy={-30} r={32} fill="#BAE6FD" />
-          <path d="M -29,-20 A 30,30 0 0,0 29,-20 Z" fill="#38BDF8" stroke="none" />
-          <rect x={-10} y={-88} width={20} height={30} fill="#E0F2FE" />
-          <circle cx={0} cy={-30} r={32} fill="none" stroke="#141414" strokeWidth={3.2} />
-        </g>
-        <g transform="translate(315, 100)">
-          <rect x={-36} y={-12} width={72} height={12} rx={4} fill="#334155" />
-          <path d="M 10,-12 Q 36,-54 10,-92" fill="none" stroke="#475569" strokeWidth={10} strokeLinecap="round" />
-          <rect x={-16} y={-108} width={20} height={62} rx={4} transform="rotate(18, -6, -77)" fill="#E2E8F0" />
-          <rect x={-28} y={-36} width={44} height={8} rx={2} fill="#1E293B" />
-        </g>
+        <rect x={20} y={124} width={20} height={isAcoustics ? 144 : 155} fill="#475569" />
+        <rect x={360} y={124} width={20} height={isAcoustics ? 144 : 155} fill="#475569" />
+
+        {isAcoustics ? (
+          <g id="lab-acoustics-table-props">
+            {/* 1. Âm thoa đặt trên hộp cộng hưởng gỗ gọn bên trái bàn */}
+            <g id="lab-table-tuning-fork" transform="translate(76, 100)">
+              <rect x={-36} y={-24} width={72} height={24} rx={5} fill="#B45309" stroke="#141414" strokeWidth={3} />
+              <rect x={-22} y={-16} width={44} height={9} rx={2} fill="#78350F" stroke="none" />
+              <line x1={0} y1={-24} x2={0} y2={-54} stroke="#475569" strokeWidth={6.5} strokeLinecap="round" />
+              <path
+                d="M -18,-112 L -18,-72 Q -18,-54 0,-54 Q 18,-54 18,-72 L 18,-112"
+                fill="none"
+                stroke="#64748B"
+                strokeWidth={7.5}
+                strokeLinecap="round"
+              />
+            </g>
+
+            {/* 2. Máy hiện sóng mini (Oscilloscope) chính giữa bàn */}
+            <g id="lab-acoustics-oscilloscope" transform="translate(226, 100)">
+              <rect x={-82} y={-92} width={164} height={92} rx={10} fill="#334155" stroke="#141414" strokeWidth={3.4} />
+              <rect x={-70} y={-80} width={104} height={68} rx={6} fill="#0F172A" stroke="#141414" strokeWidth={2.6} />
+              <line x1={-70} y1={-46} x2={34} y2={-46} stroke="#1E293B" strokeWidth={1.6} />
+              <line x1={-18} y1={-80} x2={-18} y2={-12} stroke="#1E293B" strokeWidth={1.6} />
+              {/* Núm xoay & đèn nguồn bên phải máy hiện sóng */}
+              <circle cx={56} cy={-64} r={10} fill="#94A3B8" stroke="#141414" strokeWidth={2.4} />
+              <circle cx={56} cy={-38} r={10} fill="#94A3B8" stroke="#141414" strokeWidth={2.4} />
+              <circle cx={56} cy={-18} r={4.5} fill="#22C55E" stroke="none" />
+            </g>
+
+            {/* 3. Chồng sổ đo âm học gọn góc phải bàn */}
+            <g transform="translate(348, 100)">
+              <rect x={-32} y={-16} width={64} height={16} rx={3} fill="#2563EB" stroke="#141414" strokeWidth={2.6} />
+              <rect x={-26} y={-30} width={54} height={14} rx={3} fill="#FEF08A" stroke="#141414" strokeWidth={2.6} />
+            </g>
+          </g>
+        ) : (
+          <>
+            <g transform="translate(90, 100)">
+              <path d="M -14,-84 L -14,-56 L -44,0 L 44,0 L 14,-56 L 14,-84 Z" fill="#DCFCE7" />
+              <path d="M -29,-28 L 29,-28 L 41,-2 L -41,-2 Z" fill="#22C55E" stroke="none" />
+              <path d="M -14,-84 L -14,-56 L -44,0 L 44,0 L 14,-56 L 14,-84 Z" fill="none" stroke="#141414" strokeWidth={3.2} />
+            </g>
+            <g transform="translate(200, 100)">
+              <circle cx={0} cy={-30} r={32} fill="#BAE6FD" />
+              <path d="M -29,-20 A 30,30 0 0,0 29,-20 Z" fill="#38BDF8" stroke="none" />
+              <rect x={-10} y={-88} width={20} height={30} fill="#E0F2FE" />
+              <circle cx={0} cy={-30} r={32} fill="none" stroke="#141414" strokeWidth={3.2} />
+            </g>
+            <g transform="translate(315, 100)">
+              <rect x={-36} y={-12} width={72} height={12} rx={4} fill="#334155" />
+              <path d="M 10,-12 Q 36,-54 10,-92" fill="none" stroke="#475569" strokeWidth={10} strokeLinecap="round" />
+              <rect x={-16} y={-108} width={20} height={62} rx={4} transform="rotate(18, -6, -77)" fill="#E2E8F0" />
+              <rect x={-28} y={-36} width={44} height={8} rx={2} fill="#1E293B" />
+            </g>
+          </>
+        )}
       </g>
     </g>
   );
 });
 
-const ScienceLabBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: number; groundY: number }> = ({
+const ScienceLabBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: number; groundY: number; labBoard?: string }> = ({
   timeOfDay,
   frame,
+  labBoard,
 }) => {
   const secDeg = (frame * 3) % 360;
   const minDeg = (frame * 0.15 + 45) % 360;
+  const isAcoustics = labBoard === "ACOUSTICS_VOICE";
+  const forkPulse = 0.4 + 0.55 * Math.abs(Math.sin(frame * 0.18));
+  const oscWavePts = isAcoustics
+    ? Array.from({ length: 18 }, (_, i) => {
+        const t = i / 17;
+        const px = -64 + t * 92;
+        const py = -46 + Math.sin(t * Math.PI * 4 - frame * 0.22) * 16;
+        return `${px.toFixed(1)},${py.toFixed(1)}`;
+      }).join(" ")
+    : "";
 
   return (
     <g id="stage-science-lab" stroke="#141414" strokeWidth={3} strokeLinejoin="round">
-      <ScienceLabStaticLayer timeOfDay={timeOfDay} />
-
-      {/* Biểu tượng nguyên tử xoay nhẹ 60fps trên bảng */}
-      <g transform={`translate(715, 330) rotate(${(frame * 0.5).toFixed(1)})`}>
-        <ellipse cx={0} cy={0} rx={72} ry={26} fill="none" stroke="#0284C7" strokeWidth={3.5} />
-        <ellipse cx={0} cy={0} rx={72} ry={26} transform="rotate(60)" fill="none" stroke="#0284C7" strokeWidth={3.5} />
-        <ellipse cx={0} cy={0} rx={72} ry={26} transform="rotate(-60)" fill="none" stroke="#0284C7" strokeWidth={3.5} />
-        <circle cx={0} cy={0} r={14} fill="#FACC15" stroke="#141414" strokeWidth={3} />
-      </g>
+      <ScienceLabStaticLayer timeOfDay={timeOfDay} labBoard={labBoard} />
 
       {/* Kim đồng hồ treo tường 60fps */}
       <g transform="translate(1530, 220)">
@@ -345,41 +561,65 @@ const ScienceLabBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: number; gr
         <circle cx={0} cy={0} r={4.5} fill="#141414" />
       </g>
 
-      {/* Bọt khí sủi động 60fps trong 2 bình thí nghiệm */}
-      <g transform="translate(1575, 660)">
-        {[0, 1, 2].map((bi) => {
-          const p = (frame * 0.025 + bi * 0.33) % 1;
-          return (
-            <circle
-              key={`fb_${bi}`}
-              cx={-10 + bi * 10}
-              cy={lerpNum(-12, -108, p)}
-              r={5 + (bi % 2) * 2}
-              fill="#86EFAC"
-              stroke="#141414"
-              strokeWidth={1.8}
-              opacity={Math.sin(p * Math.PI)}
-            />
-          );
-        })}
-      </g>
-      <g transform="translate(1685, 660)">
-        {[0, 1].map((bi) => {
-          const p = (frame * 0.022 + bi * 0.5) % 1;
-          return (
-            <circle
-              key={`fb2_${bi}`}
-              cx={-5 + bi * 10}
-              cy={lerpNum(-22, -112, p)}
-              r={5.5}
-              fill="#7DD3FC"
-              stroke="#141414"
-              strokeWidth={1.8}
-              opacity={Math.sin(p * Math.PI)}
-            />
-          );
-        })}
-      </g>
+      {isAcoustics ? (
+        <g id="lab-acoustics-dynamic">
+          {/* Sóng rung động nhẹ quanh âm thoa trên bàn */}
+          <g transform="translate(1561, 574)" fill="none" strokeLinecap="round" opacity={forkPulse}>
+            <path d="M -28,-14 Q -36,0 -28,14" stroke="#0284C7" strokeWidth={3} />
+            <path d="M 28,-14 Q 36,0 28,14" stroke="#EA580C" strokeWidth={3} />
+          </g>
+          {/* Sóng sống động trên màn hình máy hiện sóng mini */}
+          <g transform="translate(1711, 660)">
+            <polyline points={oscWavePts} fill="none" stroke="#38BDF8" strokeWidth={3.2} strokeLinecap="round" strokeLinejoin="round" />
+          </g>
+        </g>
+      ) : (
+        <>
+          {/* Biểu tượng nguyên tử xoay nhẹ 60fps trên bảng mặc định */}
+          <g transform={`translate(715, 330) rotate(${(frame * 0.5).toFixed(1)})`}>
+            <ellipse cx={0} cy={0} rx={72} ry={26} fill="none" stroke="#0284C7" strokeWidth={3.5} />
+            <ellipse cx={0} cy={0} rx={72} ry={26} transform="rotate(60)" fill="none" stroke="#0284C7" strokeWidth={3.5} />
+            <ellipse cx={0} cy={0} rx={72} ry={26} transform="rotate(-60)" fill="none" stroke="#0284C7" strokeWidth={3.5} />
+            <circle cx={0} cy={0} r={14} fill="#FACC15" stroke="#141414" strokeWidth={3} />
+          </g>
+
+          {/* Bọt khí sủi động 60fps trong 2 bình thí nghiệm mặc định */}
+          <g transform="translate(1575, 660)">
+            {[0, 1, 2].map((bi) => {
+              const p = (frame * 0.025 + bi * 0.33) % 1;
+              return (
+                <circle
+                  key={`fb_${bi}`}
+                  cx={-10 + bi * 10}
+                  cy={lerpNum(-12, -108, p)}
+                  r={5 + (bi % 2) * 2}
+                  fill="#86EFAC"
+                  stroke="#141414"
+                  strokeWidth={1.8}
+                  opacity={Math.sin(p * Math.PI)}
+                />
+              );
+            })}
+          </g>
+          <g transform="translate(1685, 660)">
+            {[0, 1].map((bi) => {
+              const p = (frame * 0.022 + bi * 0.5) % 1;
+              return (
+                <circle
+                  key={`fb2_${bi}`}
+                  cx={-5 + bi * 10}
+                  cy={lerpNum(-22, -112, p)}
+                  r={5.5}
+                  fill="#7DD3FC"
+                  stroke="#141414"
+                  strokeWidth={1.8}
+                  opacity={Math.sin(p * Math.PI)}
+                />
+              );
+            })}
+          </g>
+        </>
+      )}
     </g>
   );
 };
@@ -2666,7 +2906,12 @@ export const UniversalAutoStage: React.FC<{
           <HomeKitchenBackdrop timeOfDay={spec.timeOfDay} frame={frame} />
         )}
         {spec.stageType === "SCIENCE_LAB_ROOM" && (
-          <ScienceLabBackdrop timeOfDay={spec.timeOfDay} frame={frame} groundY={groundY} />
+          <ScienceLabBackdrop
+            timeOfDay={spec.timeOfDay}
+            frame={frame}
+            groundY={groundY}
+            labBoard={spec.labBoard}
+          />
         )}
         {spec.stageType === "DOCTOR_CLINIC" && (
           <DoctorClinicBackdrop timeOfDay={spec.timeOfDay} frame={frame} groundY={groundY} />

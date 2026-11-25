@@ -702,7 +702,7 @@ export function validateEpisodeData(episode, registeredVisuals) {
       }
     }
 
-    // 2. Kiểm tra stageType hợp lệ & EXPLAINER_POLKA_DOT không trống
+    // 2. Kiểm tra stageType hợp lệ, labBoard (nếu có) & EXPLAINER_POLKA_DOT không trống
     const stageType = String(beat?.stageType ?? '')
       .trim()
       .toUpperCase()
@@ -714,6 +714,16 @@ export function validateEpisodeData(episode, registeredVisuals) {
         beatIndex: bIdx,
         message: `stageType "${beat?.stageType}" không nằm trong danh sách sân khấu hợp lệ V22.0.`,
       });
+    }
+    if (beat?.labBoard !== undefined && beat?.labBoard !== null) {
+      if (typeof beat.labBoard !== 'string' || !/^[A-Za-z0-9_\-\s]{1,48}$/.test(beat.labBoard.trim())) {
+        errors.push({
+          code: 'INVALID_LAB_BOARD',
+          beatId,
+          beatIndex: bIdx,
+          message: `labBoard không hợp lệ "${beat.labBoard}" (cần chuỗi mã chủ đề hợp lệ vd: "ACOUSTICS_VOICE").`,
+        });
+      }
     }
     const rawCustomVisual = typeof beat?.customVisual === 'string' ? beat.customVisual.trim() : '';
     const hasCustomVisual = rawCustomVisual.length > 0;

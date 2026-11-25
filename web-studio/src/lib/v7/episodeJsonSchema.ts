@@ -171,6 +171,15 @@ export type AutoHandProp =
 
 export type AutoPropAnimation = "FLOAT" | "PULSE" | "BOUNCE" | "SPIN" | "SHAKE" | "NONE";
 
+/** V22.2: Khóa bảng nghiên cứu động theo chủ đề cho bối cảnh SCIENCE_LAB_ROOM (tương thích mở rộng mọi tập sau) */
+export type KnownLabBoardId =
+  | "DEFAULT"
+  | "ACOUSTICS_VOICE"
+  | "WATER_SKIN"
+  | "ONION_CHEM"
+  | "SLEEP_BRAIN";
+export type LabBoardId = KnownLabBoardId | (string & {});
+
 export interface AutoActorSpec {
   preset: AutoActorPreset;
   appearance?: ActorAppearanceSpec;
@@ -212,6 +221,8 @@ export interface AutoEpisodeBeat {
   text: string;
   ttsText: string;
   stageType: AutoStageType;
+  /** V22.2: Bảng nghiên cứu động theo chủ đề cho SCIENCE_LAB_ROOM (vd: "ACOUSTICS_VOICE", "WATER_SKIN", "ONION_CHEM", "SLEEP_BRAIN") */
+  labBoard?: LabBoardId;
   timeOfDay: AutoTimeOfDay;
   weather: AutoWeather;
   transitionIn: AutoTransitionIn;
@@ -238,6 +249,8 @@ export interface AutoEpisodeSpec {
   title: string;
   slug: string;
   topic?: string;
+  /** V22.2: Bảng nghiên cứu mặc định cấp tập cho các cảnh SCIENCE_LAB_ROOM (beat có thể ghi đè riêng) */
+  labBoard?: LabBoardId;
   beats: AutoEpisodeBeat[];
 }
 
@@ -1057,6 +1070,17 @@ function sanitizeCustomProp(raw: any): AutoCustomPropSpec | null {
   };
 }
 
+function sanitizeLabBoardId(raw: unknown): LabBoardId | undefined {
+  if (typeof raw !== "string") return undefined;
+  const norm = raw
+    .trim()
+    .toUpperCase()
+    .replace(/[\s-]+/g, "_")
+    .replace(/[^A-Z0-9_]/g, "")
+    .slice(0, 48);
+  return norm ? (norm as LabBoardId) : undefined;
+}
+
 /**
  * Chuẩn hóa, tự sửa enum sai lệch và làm sạch tuyệt đối kịch bản JSON từ AI thành AutoEpisodeSpec hợp lệ 100%.
  */
@@ -1068,6 +1092,7 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
 
   const rawTitle = typeof root.title === "string" && root.title.trim() ? root.title.trim() : fallbackTopic;
   const rawSlug = typeof root.slug === "string" && root.slug.trim() ? slugifyVietnamese(root.slug) : slugifyVietnamese(rawTitle);
+  const episodeLabBoard = sanitizeLabBoardId(root.labBoard);
   const rawBeats: any[] = Array.isArray(root.beats) ? root.beats : [];
   if (rawBeats.length === 0) {
     throw new Error("Episode JSON phải chứa ít nhất 1 beat trong mảng beats[].");
@@ -1093,6 +1118,7 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
     const headerTitle = explicitlyBlankBanner ? undefined : rawHeaderTitle ?? rawChapterBanner;
 
     const stageType = matchEnum(rb?.stageType, VALID_STAGE_TYPES, "SIMPLE_GRASS_FIELD", STAGE_ALIASES);
+    const labBoard = sanitizeLabBoardId(rb?.labBoard) ?? episodeLabBoard;
     const timeOfDay = matchEnum(rb?.timeOfDay, VALID_TIME_OF_DAY, "DAY");
     const weather = matchEnum(rb?.weather, VALID_WEATHER, "CLEAR");
     const defaultTransition: AutoTransitionIn = idx === 0 ? "CUT" : "CROSSFADE";
@@ -1162,6 +1188,7 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       text,
       ttsText,
       stageType,
+      ...(labBoard ? { labBoard } : {}),
       timeOfDay,
       weather,
       transitionIn,
@@ -1184,6 +1211,7 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
     title: rawTitle,
     slug: rawSlug,
     ...(typeof root.topic === "string" && root.topic.trim() ? { topic: root.topic.trim() } : { topic: fallbackTopic }),
+    ...(episodeLabBoard ? { labBoard: episodeLabBoard } : {}),
     beats: sanitizedBeats,
   };
 }

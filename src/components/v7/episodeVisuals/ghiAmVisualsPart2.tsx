@@ -14,6 +14,7 @@ import {
   SharedStickman,
   CityParkPracticeBackdrop,
   CityLivingRoomEveningBackdrop,
+  CozyStudyRoomSoftBackdrop,
 } from './ghiAmSharedAssets';
 
 /* ============================================================================
@@ -45,9 +46,21 @@ export const GhiAmSelfImageExpectationVisual: React.FC<EpisodeVisualProps> = ({
 
       <rect width="1920" height="1080" fill="url(#ga9_bg)" />
 
-      {/* Grounded Floor at y = 795 <= 830 */}
-      <rect x="0" y="795" width="1920" height="285" fill="#bbf7d0" opacity="0.45" />
-      <line x1="0" y1="795" x2="1920" y2="795" stroke="#86efac" strokeWidth="4" />
+      {/* Steps 0 & 3: Soft cozy study room depth (window, desk + phone, muted bookshelf); Steps 1-2: crisp floor */}
+      {activeStep === 0 || activeStep === 3 ? (
+        <CozyStudyRoomSoftBackdrop
+          tone="MINT"
+          showSideDesk={true}
+          showDeskPhone={true}
+          showRightBookshelf={activeStep === 3}
+          frame={frame}
+        />
+      ) : (
+        <>
+          <rect x="0" y="795" width="1920" height="285" fill="#bbf7d0" opacity="0.45" />
+          <line x1="0" y1="795" x2="1920" y2="795" stroke="#86efac" strokeWidth="4" />
+        </>
+      )}
 
       {/* Single Top Header */}
       <CleanLabel
@@ -395,8 +408,14 @@ export const GhiAmExperimentHandsVisual: React.FC<EpisodeVisualProps> = ({
       </defs>
 
       <rect width="1920" height="1080" fill="url(#ga11_bg)" />
-      <rect x="0" y="795" width="1920" height="285" fill="#fde68a" opacity="0.55" />
-      <line x1="0" y1="795" x2="1920" y2="795" stroke="#f59e0b" strokeWidth="4" />
+      {/* Warm tidy study/living room depth behind the 5-second hands-on experiments */}
+      <CozyStudyRoomSoftBackdrop
+        tone="WARM"
+        showSideDesk={true}
+        showDeskPhone={false}
+        showRightBookshelf={false}
+        frame={frame}
+      />
 
       {/* Single Top Header */}
       <CleanLabel
@@ -676,56 +695,171 @@ export const GhiAmBoneHeadphonesVisual: React.FC<EpisodeVisualProps> = ({
         </g>
       )}
 
-      {/* STEP 3: Medical Bone-Conduction Hearing Aid Diagram */}
+      {/* STEP 3: Medical Bone-Conduction Hearing Aid — Clean Anatomical Head/Ear Cutaway (y <= 820) */}
       {activeStep === 3 && (
-        <g transform="translate(960, 485)">
-          <rect x="-580" y="-265" width="1160" height="530" rx="38" fill="#ffffff" stroke="#0891b2" strokeWidth="5" />
+        <g>
+          <defs>
+            <linearGradient id="ga12_s3_skin" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#ffedd5" />
+              <stop offset="100%" stopColor="#fed7aa" />
+            </linearGradient>
+            <radialGradient id="ga12_s3_cochlea" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#86efac" stopOpacity="0.95" />
+              <stop offset="55%" stopColor="#10b981" stopOpacity="0.45" />
+              <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
+            </radialGradient>
+          </defs>
 
-          {/* Cross-section of Ear Canal (blocked/damaged) vs Temporal Bone Direct Bypass */}
-          <g transform="translate(-80, 10)">
-            {/* Damaged/Blocked Outer Ear Canal marked with soft red barrier */}
-            <path d="M -320 -24 L -110 -24 L -110 24 L -320 24 Z" fill="#fee2e2" stroke="#ef4444" strokeWidth="4" />
-            <line x1="-225" y1="-34" x2="-185" y2="34" stroke="#ef4444" strokeWidth="6" strokeLinecap="round" />
-            <line x1="-185" y1="-34" x2="-225" y2="34" stroke="#ef4444" strokeWidth="6" strokeLinecap="round" />
-            <text x="-215" y="78" textAnchor="middle" fill="#b91c1c" fontSize="22" fontWeight="800">
-              Ống tai / Màng nhĩ tổn thương
-            </text>
+          {/* Clean Circular Anatomical Zoom Frame centered at (960, 488) */}
+          <ellipse cx="960" cy="806" rx="280" ry="12" fill="#0f172a" opacity="0.12" />
+          <g transform="translate(960, 488)">
+            <circle cx="0" cy="0" r="304" fill="#ffffff" stroke="#0891b2" strokeWidth="6" />
 
-            {/* Bone-Anchored Hearing Aid Unit Behind/Above Ear */}
-            <rect x="-255" y="-168" width="94" height="52" rx="18" fill="#0ea5e9" stroke={INK} strokeWidth="4" />
-            <text x="-208" y="-186" textAnchor="middle" fill="#0369a1" fontSize="22" fontWeight="800">
-              Máy trợ thính xương
-            </text>
-
-            {/* Temporal Bone Block */}
-            <rect x="-145" y="-148" width="300" height="96" rx="18" fill="#fef3c7" stroke="#d97706" strokeWidth="4" />
-
-            {/* Warm Orange Vibrations passing straight through bone into Cochlea */}
-            <path
-              d="M -155 -140 C -55 -130 65 -105 165 -28"
-              fill="none"
-              stroke="#ea580c"
-              strokeWidth="8"
-              strokeLinecap="round"
-              strokeDasharray="16 10"
-              strokeDashoffset={-(frame * 3.4)}
-            />
-            <polygon points="175,-20 152,-22 166,-40" fill="#ea580c" />
-
-            {/* Healthy Cochlea Spiral */}
-            <g transform="translate(245, 0)">
-              <circle cx="0" cy="0" r="78" fill="#dcfce7" stroke="#10b981" strokeWidth="4.5" />
+            {/* Side-Profile Anatomical Head & Cranium facing RIGHT */}
+            <g transform="translate(18, 12) scale(1.02)">
+              {/* Outer Head & Neck Silhouette */}
               <path
-                d="M -48 10 C -48 -42 42 -48 48 0 C 52 42 -16 50 -26 14 C -30 -12 12 -18 16 6"
-                fill="none"
-                stroke="#059669"
-                strokeWidth="9"
+                d="M-86 210 L-90 144 C-162 120 -208 56 -208 -28 C-208 -142 -124 -218 -2 -218 C82 -218 138 -172 146 -100 C148 -78 146 -60 150 -44 L182 -6 C186 0 183 10 174 12 L156 16 C160 25 158 34 150 40 L132 44 L132 80 L152 86 C158 94 156 106 146 118 C136 128 116 138 90 138 L68 140 L68 210 Z"
+                fill="url(#ga12_s3_skin)"
+                stroke={INK}
+                strokeWidth="4.8"
+                strokeLinejoin="round"
+              />
+
+              {/* Temporal Skull Bone Layer (warm ivory) */}
+              <path
+                d="M-74 118 C-142 98 -182 40 -182 -32 C-182 -128 -110 -194 -2 -194 C72 -194 120 -154 126 -88 C128 -64 116 -42 98 -30 L44 -18 C18 -10 2 12 0 42 L4 118 Z"
+                fill="#fef9c3"
+                stroke="#d97706"
+                strokeWidth="4.2"
+                strokeLinejoin="round"
+              />
+
+              {/* Soft Pink Brain inside Cranium */}
+              <path
+                d="M-152 -24 C-158 -102 -94 -168 -2 -168 C62 -168 108 -130 110 -74 C112 -34 84 -12 42 -8 C10 -6 -12 14 -30 22 C-66 32 -118 32 -140 10 C-148 0 -150 -10 -152 -24 Z"
+                fill="#fbcfe8"
+                stroke="#db2777"
+                strokeWidth="3"
+                strokeLinejoin="round"
+                opacity="0.78"
+              />
+
+              {/* Outer Ear Pinna */}
+              <path
+                d="M -110 -16 C -134 -16 -142 12 -132 40 C -126 56 -112 62 -100 54"
+                fill="#fed7aa"
+                stroke={INK}
+                strokeWidth="4.2"
                 strokeLinecap="round"
               />
-              <text x="0" y="116" textAnchor="middle" fill="#065f46" fontSize="24" fontWeight="800">
-                Ốc tai nghe rõ!
-              </text>
+
+              {/* Damaged / Blocked Outer Ear Canal & Eardrum highlighted clearly in Red */}
+              <path
+                d="M -110 8 L -52 10 L -52 32 L -110 34 Z"
+                fill="#fee2e2"
+                stroke="#ef4444"
+                strokeWidth="3.5"
+              />
+              <ellipse cx="-50" cy="21" rx="6.5" ry="15" fill="#fecaca" stroke="#ef4444" strokeWidth="3.5" />
+              {/* Crisp Red X over damaged outer canal/eardrum */}
+              <line x1="-90" y1="4" x2="-66" y2="38" stroke="#dc2626" strokeWidth="5.5" strokeLinecap="round" />
+              <line x1="-66" y1="4" x2="-90" y2="38" stroke="#dc2626" strokeWidth="5.5" strokeLinecap="round" />
+
+              {/* Bone-Anchored Hearing Aid Unit clipped cleanly behind & above outer ear on temporal bone */}
+              <g transform="translate(-156, -54) rotate(-14)">
+                {/* Titanium contact abutment touching skull bone */}
+                <rect x="26" y="-8" width="16" height="16" rx="4" fill="#94a3b8" stroke={INK} strokeWidth="3" />
+                {/* Sleek processor body */}
+                <rect x="-26" y="-20" width="56" height="40" rx="16" fill="#0ea5e9" stroke={INK} strokeWidth="4" />
+                <circle cx="-6" cy="0" r="6" fill="#e0f2fe" stroke={INK} strokeWidth="2.2" />
+                <circle cx="14" cy="-6" r="3.5" fill="#22c55e" />
+              </g>
+
+              {/* Animated Curved Warm Orange Bone-Conduction Wave passing through temporal skull STRAIGHT into Cochlea */}
+              <path
+                d="M -116 -46 C -84 -54 -40 -42 -10 -4"
+                fill="none"
+                stroke="#fb923c"
+                strokeWidth="16"
+                strokeLinecap="round"
+                opacity="0.34"
+              />
+              <path
+                d="M -116 -46 C -84 -54 -40 -42 -10 -4"
+                fill="none"
+                stroke="#ea580c"
+                strokeWidth="7"
+                strokeLinecap="round"
+                strokeDasharray="14 9"
+                strokeDashoffset={-(frame * 3.2)}
+              />
+              <polygon points="-2,4 -20,-2 -8,-16" fill="#ea580c" />
+
+              {/* Glowing Healthy Emerald Cochlea receiving vibrations directly! */}
+              <circle
+                cx="6"
+                cy="18"
+                r={36 + Math.sin(frame * 0.22) * 5}
+                fill="url(#ga12_s3_cochlea)"
+                opacity="0.9"
+              />
+              <circle cx="6" cy="18" r="28" fill="#dcfce7" stroke="#10b981" strokeWidth="4" />
+              <g transform="translate(6, 18)">
+                <path
+                  d="M -16 3 C -16 -16 15 -18 17 0 C 19 16 -5 20 -9 6 C -11 -5 5 -7 7 2"
+                  fill="none"
+                  stroke="#059669"
+                  strokeWidth="5"
+                  strokeLinecap="round"
+                />
+              </g>
+              <circle
+                cx="6"
+                cy="18"
+                r={26 + (frame % 22) * 1.1}
+                fill="none"
+                stroke="#10b981"
+                strokeWidth="3.5"
+                opacity={1 - (frame % 22) / 22}
+              />
             </g>
+          </g>
+
+          {/* Left Callout 1: Bone-Conduction Hearing Aid behind ear */}
+          <g transform="translate(110, 268)">
+            <rect x="0" y="0" width="420" height="104" rx="22" fill="#e0f2fe" stroke="#0284c7" strokeWidth="4" />
+            <text x="210" y="44" textAnchor="middle" fill="#0369a1" fontSize="25" fontWeight="800">
+              Máy trợ thính gắn sau tai
+            </text>
+            <text x="210" y="80" textAnchor="middle" fill="#475569" fontSize="20" fontWeight="600">
+              Áp sát truyền rung vào xương thái dương
+            </text>
+            <line x1="420" y1="56" x2="682" y2="174" stroke="#0284c7" strokeWidth="4" strokeDasharray="8 6" />
+          </g>
+
+          {/* Left Callout 2: Damaged Outer Ear Canal / Eardrum bypassed */}
+          <g transform="translate(110, 540)">
+            <rect x="0" y="0" width="420" height="104" rx="22" fill="#fef2f2" stroke="#ef4444" strokeWidth="4" />
+            <text x="210" y="44" textAnchor="middle" fill="#b91c1c" fontSize="25" fontWeight="800">
+              Ống tai / Màng nhĩ tổn thương
+            </text>
+            <text x="210" y="80" textAnchor="middle" fill="#64748b" fontSize="20" fontWeight="600">
+              Được bỏ qua hoàn toàn!
+            </text>
+            <line x1="420" y1="50" x2="778" y2="-16" stroke="#ef4444" strokeWidth="4" strokeDasharray="8 6" />
+          </g>
+
+          {/* Right Callout: Direct Bone Wave → Healthy Cochlea */}
+          <g transform="translate(1390, 425)">
+            <rect x="0" y="0" width="420" height="114" rx="22" fill="#ecfdf5" stroke="#10b981" strokeWidth="4.5" />
+            <text x="210" y="48" textAnchor="middle" fill="#065f46" fontSize="26" fontWeight="800">
+              Ốc tai nghe rõ âm thanh!
+            </text>
+            <text x="210" y="86" textAnchor="middle" fill="#047857" fontSize="20" fontWeight="700">
+              Nhận sóng cam trực tiếp xuyên xương sọ
+            </text>
+            <line x1="0" y1="58" x2="-376" y2="92" stroke="#10b981" strokeWidth="4" strokeDasharray="8 6" />
           </g>
         </g>
       )}

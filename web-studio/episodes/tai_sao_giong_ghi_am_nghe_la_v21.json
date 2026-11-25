@@ -256,8 +256,8 @@
     },
     {
       "id": "b05",
-      "text": "Bố bật cười bảo hồi nãy bố đi ngang cửa phòng nghe rõ giọng trong máy giống hệt ngoài đời, rồi rủ sang phòng khám gần nhà hỏi bác sĩ cho rõ ngọn ngành.",
-      "ttsText": "Bố bật cười bảo hồi nãy bố đi ngang cửa phòng nghe rõ giọng trong máy giống hệt ngoài đời, rồi rủ sang phòng khám gần nhà hỏi bác sĩ cho rõ ngọn ngành.",
+      "text": "Bố bật cười bảo hồi nãy bố đi ngang cửa phòng nghe rõ giọng trong máy giống hệt ngoài đời, rồi rủ sang phòng nghiên cứu của chú nhà khoa học gần nhà hỏi cho rõ ngọn ngành.",
+      "ttsText": "Bố bật cười bảo hồi nãy bố đi ngang cửa phòng nghe rõ giọng trong máy giống hệt ngoài đời, rồi rủ sang phòng nghiên cứu của chú nhà khoa học gần nhà hỏi cho rõ ngọn ngành.",
       "stageType": "CITY_LIVING_ROOM",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
@@ -507,9 +507,9 @@
     },
     {
       "id": "b09",
-      "text": "Sang tới phòng khám, tôi gãi đầu hỏi bác sĩ vì sao cùng một câu nói phát ra mà tôi nghe một kiểu, còn bố lại nghe một kiểu khác hẳn.",
-      "ttsText": "Sang tới phòng khám, tôi gãi đầu hỏi bác sĩ vì sao cùng một câu nói phát ra mà tôi nghe một kiểu, còn bố lại nghe một kiểu khác hẳn.",
-      "stageType": "DOCTOR_CLINIC",
+      "text": "Sang tới phòng thí nghiệm, tôi gãi đầu hỏi chú nhà khoa học vì sao cùng một câu nói phát ra mà tôi nghe một kiểu, còn bố lại nghe một kiểu khác hẳn.",
+      "ttsText": "Sang tới phòng thí nghiệm, tôi gãi đầu hỏi chú nhà khoa học vì sao cùng một câu nói phát ra mà tôi nghe một kiểu, còn bố lại nghe một kiểu khác hẳn.",
+      "stageType": "SCIENCE_LAB_ROOM",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
       "transitionIn": "CROSSFADE",
@@ -585,12 +585,22 @@
               "handProp": "NONE"
             }
           ],
-          "bubble": "Sao lạ thế ạ?",
+          "bubble": "Sao lạ thế chú?",
           "bubbleStartPct": 0.08,
           "bubbleEndPct": 0.94
         },
         {
-          "preset": "DOCTOR",
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#334155",
+            "outfitStyle": "LAB_COAT",
+            "outfitColor": "#FFFFFF",
+            "glasses": "RECT",
+            "mustache": false,
+            "prop": "NOTEBOOK"
+          },
           "slot": "RIGHT",
           "facing": "LEFT",
           "motion": "IDLE_TALK",
@@ -625,13 +635,14 @@
         "toScale": 1.03,
         "focusX": 880,
         "focusY": 540
-      }
+      },
+      "labBoard": "ACOUSTICS_VOICE"
     },
     {
       "id": "b10",
-      "text": "Bác sĩ mỉm cười giải thích rằng bí mật không nằm ở chiếc điện thoại, mà nằm ở việc tai bạn nghe giọng chính mình qua tới hai con đường cùng lúc.",
-      "ttsText": "Bác sĩ mỉm cười giải thích rằng bí mật không nằm ở chiếc điện thoại, mà nằm ở việc tai bạn nghe giọng chính mình qua tới hai con đường cùng lúc.",
-      "stageType": "DOCTOR_CLINIC",
+      "text": "Chú nhà khoa học mỉm cười giải thích rằng bí mật không nằm ở chiếc điện thoại, mà nằm ở việc tai bạn nghe giọng chính mình qua tới hai con đường cùng lúc.",
+      "ttsText": "Chú nhà khoa học mỉm cười giải thích rằng bí mật không nằm ở chiếc điện thoại, mà nằm ở việc tai bạn nghe giọng chính mình qua tới hai con đường cùng lúc.",
+      "stageType": "SCIENCE_LAB_ROOM",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
       "transitionIn": "CROSSFADE",
@@ -709,7 +720,17 @@
           ]
         },
         {
-          "preset": "DOCTOR",
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#334155",
+            "outfitStyle": "LAB_COAT",
+            "outfitColor": "#FFFFFF",
+            "glasses": "RECT",
+            "mustache": false,
+            "prop": "NOTEBOOK"
+          },
           "slot": "RIGHT",
           "facing": "LEFT",
           "motion": "IDLE_TALK",
@@ -747,7 +768,8 @@
         "toScale": 1.03,
         "focusX": 980,
         "focusY": 540
-      }
+      },
+      "labBoard": "ACOUSTICS_VOICE"
     },
     {
       "id": "b11",
@@ -1281,9 +1303,9 @@
     },
     {
       "id": "b21",
-      "text": "Tôi tròn mắt hỏi tiếp bác sĩ, vậy cộng thêm đường truyền qua xương sọ thì làm giọng nói của mình thay đổi cụ thể ra sao ạ?",
-      "ttsText": "Tôi tròn mắt hỏi tiếp bác sĩ, vậy cộng thêm đường truyền qua xương sọ thì làm giọng nói của mình thay đổi cụ thể ra sao ạ?",
-      "stageType": "DOCTOR_CLINIC",
+      "text": "Tôi tròn mắt hỏi tiếp nhà khoa học, vậy cộng thêm đường truyền qua xương sọ thì làm giọng nói của mình thay đổi cụ thể ra sao ạ?",
+      "ttsText": "Tôi tròn mắt hỏi tiếp nhà khoa học, vậy cộng thêm đường truyền qua xương sọ thì làm giọng nói của mình thay đổi cụ thể ra sao ạ?",
+      "stageType": "SCIENCE_LAB_ROOM",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
       "transitionIn": "CROSSFADE",
@@ -1364,7 +1386,17 @@
           "bubbleEndPct": 0.94
         },
         {
-          "preset": "DOCTOR",
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#334155",
+            "outfitStyle": "LAB_COAT",
+            "outfitColor": "#FFFFFF",
+            "glasses": "RECT",
+            "mustache": false,
+            "prop": "NOTEBOOK"
+          },
           "slot": "RIGHT",
           "facing": "LEFT",
           "motion": "IDLE_TALK",
@@ -1399,13 +1431,14 @@
         "toScale": 1.03,
         "focusX": 880,
         "focusY": 540
-      }
+      },
+      "labBoard": "ACOUSTICS_VOICE"
     },
     {
       "id": "b22",
-      "text": "Bác sĩ giơ tay giải thích rằng hộp sọ và các mô mềm trong đầu hoạt động y hệt một chiếc thùng đàn gỗ giúp khuếch đại âm trầm.",
-      "ttsText": "Bác sĩ giơ tay giải thích rằng hộp sọ và các mô mềm trong đầu hoạt động y hệt một chiếc thùng đàn gỗ giúp khuếch đại âm trầm.",
-      "stageType": "DOCTOR_CLINIC",
+      "text": "Chú giơ tay giải thích rằng hộp sọ và các mô mềm trong đầu hoạt động y hệt một chiếc thùng đàn gỗ giúp khuếch đại âm trầm.",
+      "ttsText": "Chú giơ tay giải thích rằng hộp sọ và các mô mềm trong đầu hoạt động y hệt một chiếc thùng đàn gỗ giúp khuếch đại âm trầm.",
+      "stageType": "SCIENCE_LAB_ROOM",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
       "transitionIn": "CROSSFADE",
@@ -1483,7 +1516,17 @@
           ]
         },
         {
-          "preset": "DOCTOR",
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#334155",
+            "outfitStyle": "LAB_COAT",
+            "outfitColor": "#FFFFFF",
+            "glasses": "RECT",
+            "mustache": false,
+            "prop": "NOTEBOOK"
+          },
           "slot": "RIGHT",
           "facing": "LEFT",
           "motion": "IDLE_TALK",
@@ -1521,7 +1564,8 @@
         "toScale": 1.03,
         "focusX": 980,
         "focusY": 540
-      }
+      },
+      "labBoard": "ACOUSTICS_VOICE"
     },
     {
       "id": "b23",
@@ -1949,9 +1993,9 @@
     },
     {
       "id": "b31",
-      "text": "Bố gật gù rồi hỏi thêm, nhưng tại sao nghe giọng mình lạ lại khiến người ta dễ thấy khó chịu và ngượng chín mặt thế bác sĩ?",
-      "ttsText": "Bố gật gù rồi hỏi thêm, nhưng tại sao nghe giọng mình lạ lại khiến người ta dễ thấy khó chịu và ngượng chín mặt thế bác sĩ?",
-      "stageType": "DOCTOR_CLINIC",
+      "text": "Bố gật gù rồi hỏi thêm, nhưng tại sao nghe giọng mình lạ lại khiến người ta dễ thấy khó chịu và ngượng chín mặt thế anh?",
+      "ttsText": "Bố gật gù rồi hỏi thêm, nhưng tại sao nghe giọng mình lạ lại khiến người ta dễ thấy khó chịu và ngượng chín mặt thế anh?",
+      "stageType": "SCIENCE_LAB_ROOM",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
       "transitionIn": "CROSSFADE",
@@ -2032,7 +2076,17 @@
           ]
         },
         {
-          "preset": "DOCTOR",
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#334155",
+            "outfitStyle": "LAB_COAT",
+            "outfitColor": "#FFFFFF",
+            "glasses": "RECT",
+            "mustache": false,
+            "prop": "NOTEBOOK"
+          },
           "slot": "RIGHT",
           "facing": "LEFT",
           "motion": "IDLE_TALK",
@@ -2067,13 +2121,14 @@
         "toScale": 1.03,
         "focusX": 780,
         "focusY": 540
-      }
+      },
+      "labBoard": "ACOUSTICS_VOICE"
     },
     {
       "id": "b32",
-      "text": "Bác sĩ mỉm cười bảo ngoài chuyện vật lý âm thanh, cảm giác ngại ngùng ấy còn bắt nguồn từ một phản ứng tâm lý cực kỳ thú vị của bộ não.",
-      "ttsText": "Bác sĩ mỉm cười bảo ngoài chuyện vật lý âm thanh, cảm giác ngại ngùng ấy còn bắt nguồn từ một phản ứng tâm lý cực kỳ thú vị của bộ não.",
-      "stageType": "DOCTOR_CLINIC",
+      "text": "Nhà khoa học mỉm cười bảo ngoài chuyện vật lý âm thanh, cảm giác ngại ngùng ấy còn bắt nguồn từ một phản ứng tâm lý cực kỳ thú vị của bộ não.",
+      "ttsText": "Nhà khoa học mỉm cười bảo ngoài chuyện vật lý âm thanh, cảm giác ngại ngùng ấy còn bắt nguồn từ một phản ứng tâm lý cực kỳ thú vị của bộ não.",
+      "stageType": "SCIENCE_LAB_ROOM",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
       "transitionIn": "CROSSFADE",
@@ -2151,7 +2206,17 @@
           ]
         },
         {
-          "preset": "DOCTOR",
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#334155",
+            "outfitStyle": "LAB_COAT",
+            "outfitColor": "#FFFFFF",
+            "glasses": "RECT",
+            "mustache": false,
+            "prop": "NOTEBOOK"
+          },
           "slot": "RIGHT",
           "facing": "LEFT",
           "motion": "IDLE_TALK",
@@ -2189,7 +2254,8 @@
         "toScale": 1.03,
         "focusX": 980,
         "focusY": 540
-      }
+      },
+      "labBoard": "ACOUSTICS_VOICE"
     },
     {
       "id": "b33",
@@ -2829,9 +2895,9 @@
     },
     {
       "id": "b45",
-      "text": "Tôi hào hứng hỏi bác sĩ xem có cách nào tự kiểm chứng ngay hai con đường âm thanh này mà không cần tới điện thoại hay máy móc không ạ?",
-      "ttsText": "Tôi hào hứng hỏi bác sĩ xem có cách nào tự kiểm chứng ngay hai con đường âm thanh này mà không cần tới điện thoại hay máy móc không ạ?",
-      "stageType": "DOCTOR_CLINIC",
+      "text": "Tôi hào hứng hỏi chú nhà khoa học xem có cách nào tự kiểm chứng ngay hai con đường âm thanh này mà không cần tới điện thoại hay máy móc không ạ?",
+      "ttsText": "Tôi hào hứng hỏi chú nhà khoa học xem có cách nào tự kiểm chứng ngay hai con đường âm thanh này mà không cần tới điện thoại hay máy móc không ạ?",
+      "stageType": "SCIENCE_LAB_ROOM",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
       "transitionIn": "CROSSFADE",
@@ -2912,7 +2978,17 @@
           "bubbleEndPct": 0.94
         },
         {
-          "preset": "DOCTOR",
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#334155",
+            "outfitStyle": "LAB_COAT",
+            "outfitColor": "#FFFFFF",
+            "glasses": "RECT",
+            "mustache": false,
+            "prop": "NOTEBOOK"
+          },
           "slot": "RIGHT",
           "facing": "LEFT",
           "motion": "IDLE_TALK",
@@ -2947,13 +3023,14 @@
         "toScale": 1.03,
         "focusX": 880,
         "focusY": 540
-      }
+      },
+      "labBoard": "ACOUSTICS_VOICE"
     },
     {
       "id": "b46",
-      "text": "Bác sĩ bật mí ngay hai thí nghiệm chỉ mất đúng năm giây mà ai đang ngồi tại chỗ cũng có thể làm thử và cảm nhận rõ rệt tức thì.",
-      "ttsText": "Bác sĩ bật mí ngay hai thí nghiệm chỉ mất đúng năm giây mà ai đang ngồi tại chỗ cũng có thể làm thử và cảm nhận rõ rệt tức thì.",
-      "stageType": "DOCTOR_CLINIC",
+      "text": "Chú bật mí ngay hai thí nghiệm chỉ mất đúng năm giây mà ai đang ngồi tại chỗ cũng có thể làm thử và cảm nhận rõ rệt tức thì.",
+      "ttsText": "Chú bật mí ngay hai thí nghiệm chỉ mất đúng năm giây mà ai đang ngồi tại chỗ cũng có thể làm thử và cảm nhận rõ rệt tức thì.",
+      "stageType": "SCIENCE_LAB_ROOM",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
       "transitionIn": "CROSSFADE",
@@ -3031,7 +3108,17 @@
           ]
         },
         {
-          "preset": "DOCTOR",
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#334155",
+            "outfitStyle": "LAB_COAT",
+            "outfitColor": "#FFFFFF",
+            "glasses": "RECT",
+            "mustache": false,
+            "prop": "NOTEBOOK"
+          },
           "slot": "RIGHT",
           "facing": "LEFT",
           "motion": "IDLE_TALK",
@@ -3069,7 +3156,8 @@
         "toScale": 1.03,
         "focusX": 980,
         "focusY": 540
-      }
+      },
+      "labBoard": "ACOUSTICS_VOICE"
     },
     {
       "id": "b47",
