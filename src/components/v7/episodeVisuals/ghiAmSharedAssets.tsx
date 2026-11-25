@@ -379,7 +379,7 @@ export const DeskLamp: React.FC<{
   </g>
 );
 
-export type GhiAmStickmanRole = 'BOY' | 'GRANDPA' | 'DOCTOR' | 'FRIEND_A' | 'FRIEND_B';
+export type GhiAmStickmanRole = 'BOY' | 'DAD' | 'DOCTOR' | 'FRIEND_A' | 'FRIEND_B';
 
 export type GhiAmStickmanPose =
   | 'IDLE'
@@ -579,26 +579,22 @@ export const SharedStickman: React.FC<{
         />
 
         {/* Role-specific attire */}
-        {role === 'GRANDPA' ? (
+        {role === 'DAD' ? (
           <g transform={`translate(0, ${breath + reliefDrop})`}>
+            {/* Crisp Blue Polo (#2563EB) matching parametric StickmanRig POLO */}
             <path
-              d="M-21 -94 L-9 -98 L0 -74 L9 -98 L21 -94 L24 -10 Q24 -4 16 -4 L-16 -4 Q-24 -4 -24 -10 Z"
-              fill="#92400e"
+              d="M-21 -92 Q0 -98 21 -92 L25 -8 Q0 -2 -25 -8 Z"
+              fill="#2563eb"
               stroke={INK}
-              strokeWidth="4"
+              strokeWidth="3.8"
               strokeLinejoin="round"
             />
-            <path
-              d="M-9 -98 L0 -74 L9 -98 Z"
-              fill="#fef3c7"
-              stroke={INK}
-              strokeWidth="3"
-              strokeLinejoin="round"
-            />
-            <line x1="0" y1="-74" x2="0" y2="-4" stroke="#78350f" strokeWidth="2.8" />
-            <circle cx="5" cy="-58" r="2.8" fill="#fde68a" stroke={INK} strokeWidth="1.8" />
-            <circle cx="5" cy="-39" r="2.8" fill="#fde68a" stroke={INK} strokeWidth="1.8" />
-            <circle cx="5" cy="-20" r="2.8" fill="#fde68a" stroke={INK} strokeWidth="1.8" />
+            {/* Crisp White Polo Collar & Placket */}
+            <polygon points="-14,-93 -3,-81 -16,-78" fill="#f8fafc" stroke={INK} strokeWidth="2.4" strokeLinejoin="round" />
+            <polygon points="14,-93 3,-81 16,-78" fill="#f8fafc" stroke={INK} strokeWidth="2.4" strokeLinejoin="round" />
+            <line x1="0" y1="-82" x2="0" y2="-56" stroke={INK} strokeWidth="2.6" strokeLinecap="round" />
+            <circle cx="0" cy="-72" r="2.3" fill="#ffffff" />
+            <circle cx="0" cy="-62" r="2.3" fill="#ffffff" />
           </g>
         ) : role === 'DOCTOR' ? (
           <g transform={`translate(0, ${breath + reliefDrop})`}>
@@ -835,12 +831,15 @@ export const SharedStickman: React.FC<{
                 fill="#0f172a"
               />
             )
-          ) : role === 'GRANDPA' ? (
-            <g>
-              <path d="M-38 -12 C-48 -14 -48 6 -36 6 Z" fill="#e2e8f0" stroke={INK} strokeWidth="3.5" />
-              <path d="M38 -12 C48 -14 48 6 36 6 Z" fill="#e2e8f0" stroke={INK} strokeWidth="3.5" />
-              <path d="M-8 -24 Q4 -27 16 -24" fill="none" stroke="#cbd5e1" strokeWidth="2.5" strokeLinecap="round" />
-            </g>
+          ) : role === 'DAD' ? (
+            /* NEAT_SHORT dark hair (#1E293B) matching parametric StickmanRig */
+            <path
+              d="M-34 -16 C-34 -42 8 -46 33 -20 Q14 -30 -7 -25 Q-22 -27 -34 -16 Z"
+              fill="#1e293b"
+              stroke="#141414"
+              strokeWidth="3"
+              strokeLinejoin="round"
+            />
           ) : role === 'FRIEND_A' ? (
             <path
               d="M-36 -10 C-36 -34 -18 -44 0 -44 C20 -44 37 -32 36 -10 L24 -22 L10 -16 L-4 -24 L-20 -16 Z"
@@ -903,11 +902,6 @@ export const SharedStickman: React.FC<{
               <line x1="-14.5" y1="-3" x2="-35" y2="-6" strokeWidth="2.6" />
               <line x1="29.5" y1="-3" x2="36" y2="-5" strokeWidth="2.6" />
             </g>
-          )}
-
-          {/* GRANDPA mustache */}
-          {role === 'GRANDPA' && (
-            <path d="M-3 11 Q8 6 19 11" fill="none" stroke="#94a3b8" strokeWidth="4.5" strokeLinecap="round" />
           )}
 
           {/* Expressions */}
@@ -1297,136 +1291,259 @@ export const VocalEarCutawayDiagram: React.FC<{
   );
 };
 
-/** Warm Vietnamese countryside afternoon yard backdrop (unique ga_ IDs, flat shadows, floor at y = 800) */
-export const CountrysideYardBackdrop: React.FC<{ frame: number; uid: string }> = ({ frame, uid }) => {
+/** Sunny late-afternoon city neighborhood park backdrop (unique ga_ IDs, flat shadows opacity=0.12, paved walkway <= 830) */
+export const CityParkPracticeBackdrop: React.FC<{ frame: number; uid: string }> = ({ frame, uid }) => {
   const idKey = uid.replace(/[^a-zA-Z0-9_]/g, '_');
-  const cloudShift = (frame * 0.3) % 1920;
+  const cloudShift = (frame * 0.28) % 1920;
+  const breeze = Math.sin(frame * 0.04) * 1.8;
+
+  const buildings = [
+    { x: 52, w: 155, h: 245, fill: '#cbd5e1', roof: '#64748b' },
+    { x: 222, w: 175, h: 295, fill: '#dbeafe', roof: '#3b82f6' },
+    { x: 412, w: 148, h: 215, fill: '#fef3c7', roof: '#d97706' },
+    { x: 575, w: 165, h: 255, fill: '#e0e7ff', roof: '#6366f1' },
+    { x: 1185, w: 168, h: 270, fill: '#e0f2fe', roof: '#0284c7' },
+    { x: 1368, w: 158, h: 225, fill: '#ffedd5', roof: '#ea580c' },
+    { x: 1542, w: 180, h: 305, fill: '#cbd5e1', roof: '#475569' },
+    { x: 1738, w: 145, h: 240, fill: '#dcfce7', roof: '#16a34a' },
+  ];
+
   return (
     <g>
       <defs>
-        <linearGradient id={`ga_yard_sky_${idKey}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#38bdf8" />
+        <linearGradient id={`ga_park_sky_${idKey}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#60a5fa" />
           <stop offset="56%" stopColor="#bae6fd" />
           <stop offset="100%" stopColor="#fef3c7" />
         </linearGradient>
-        <linearGradient id={`ga_yard_gnd_${idKey}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#fde68a" />
-          <stop offset="100%" stopColor="#d97706" />
+        <linearGradient id={`ga_park_walk_${idKey}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#e2e8f0" />
+          <stop offset="100%" stopColor="#cbd5e1" />
         </linearGradient>
       </defs>
-      <rect x="0" y="0" width="1920" height="720" fill={`url(#ga_yard_sky_${idKey})`} />
-      <circle cx="290" cy="175" r="115" fill="#fef08a" opacity="0.34" />
-      <circle cx="290" cy="175" r="54" fill="#fde047" stroke="#f59e0b" strokeWidth="4" />
-      <g opacity="0.88" transform={`translate(${-cloudShift * 0.18}, 0)`}>
-        <path d="M 520 195 C 550 155 620 150 665 175 C 705 142 780 148 815 182 C 855 170 895 186 905 208 L 520 208 Z" fill="#ffffff" />
-        <path d="M 1180 160 C 1210 125 1275 122 1318 144 C 1358 115 1430 120 1465 150 C 1500 138 1538 154 1546 174 L 1180 174 Z" fill="#ffffff" />
+
+      {/* Sunny Afternoon Sky */}
+      <rect x="0" y="0" width="1920" height="685" fill={`url(#ga_park_sky_${idKey})`} />
+      <circle cx="290" cy="168" r="108" fill="#fef08a" opacity="0.34" />
+      <circle cx="290" cy="168" r="52" fill="#fde047" stroke="#f59e0b" strokeWidth="4" />
+
+      {/* Drifting Clouds */}
+      <g opacity="0.9" transform={`translate(${-cloudShift * 0.16}, 0)`}>
+        <path d="M 520 185 C 550 148 618 142 662 166 C 702 135 776 140 812 174 C 852 162 892 178 902 200 L 520 200 Z" fill="#ffffff" />
+        <path d="M 1180 156 C 1210 122 1275 118 1318 140 C 1358 112 1430 118 1465 148 C 1500 136 1538 152 1546 172 L 1180 172 Z" fill="#ffffff" />
       </g>
-      <path d="M 0 605 Q 420 520 880 580 T 1920 555 L 1920 720 L 0 720 Z" fill="#4ade80" />
-      <path d="M 0 640 Q 520 580 1040 630 T 1920 615 L 1920 720 L 0 720 Z" fill="#22c55e" />
+
+      {/* Distant City Townhouses & Apartments Silhouette (y = 355..670) */}
+      <g opacity="0.88">
+        {buildings.map((b, idx) => {
+          const topY = 665 - b.h;
+          return (
+            <g key={`city_b_${idx}`}>
+              <rect x={b.x} y={topY} width={b.w} height={b.h} rx="6" fill={b.fill} stroke={INK} strokeWidth="3.2" />
+              <rect x={b.x - 6} y={topY - 12} width={b.w + 12} height="16" rx="4" fill={b.roof} stroke={INK} strokeWidth="2.8" />
+              {[0, 1, 2].map((r) =>
+                [0, 1].map((c) => {
+                  const wy = topY + 28 + r * 58;
+                  if (wy + 34 > 635) return null;
+                  return (
+                    <rect
+                      key={`bw_${r}_${c}`}
+                      x={b.x + 24 + c * (b.w * 0.44)}
+                      y={wy}
+                      width="34"
+                      height="34"
+                      rx="4"
+                      fill="#ffffff"
+                      stroke="#64748b"
+                      strokeWidth="2.2"
+                      opacity="0.9"
+                    />
+                  );
+                })
+              )}
+            </g>
+          );
+        })}
+      </g>
+
+      {/* Park Lawn Strip (y = 635..735) */}
+      <path d="M 0 658 Q 480 622 960 650 T 1920 644 L 1920 735 L 0 735 Z" fill="#4ade80" stroke={INK} strokeWidth="3.2" />
+      <path d="M 0 692 Q 520 668 1040 692 T 1920 682 L 1920 735 L 0 735 Z" fill="#22c55e" />
+
+      {/* Row of Park Trees (grounded at y = 730, gentle breeze sway, flat shadow opacity=0.12) */}
       {[
-        { x: 165, y: 525, r: 66 },
-        { x: 385, y: 548, r: 58 },
-        { x: 1740, y: 515, r: 72 },
+        { x: 140, y: 545, r: 64 },
+        { x: 465, y: 558, r: 56 },
+        { x: 1410, y: 552, r: 60 },
+        { x: 1775, y: 538, r: 68 },
       ].map((t, idx) => (
-        <g key={idx}>
-          <rect x={t.x - 12} y={t.y + 18} width="24" height="165" fill="#78350f" stroke={INK} strokeWidth="3.5" />
-          <circle cx={t.x} cy={t.y} r={t.r} fill="#15803d" stroke={INK} strokeWidth="4" />
-          <circle cx={t.x - t.r * 0.52} cy={t.y + 18} r={t.r * 0.64} fill="#16a34a" stroke={INK} strokeWidth="3.5" />
-          <circle cx={t.x + t.r * 0.52} cy={t.y + 18} r={t.r * 0.62} fill="#15803d" stroke={INK} strokeWidth="3.5" />
+        <g key={`pk_tree_${idx}`}>
+          <ellipse cx={t.x} cy="730" rx="52" ry="9" fill="#0f172a" opacity="0.12" />
+          <rect x={t.x - 12} y={t.y + 18} width="24" height={730 - (t.y + 18)} fill="#78350f" stroke={INK} strokeWidth="3.4" />
+          <g transform={`rotate(${(breeze * (idx % 2 === 0 ? 1 : -1)).toFixed(2)}, ${t.x}, ${t.y + 18})`}>
+            <circle cx={t.x} cy={t.y} r={t.r} fill="#15803d" stroke={INK} strokeWidth="3.8" />
+            <circle cx={t.x - t.r * 0.52} cy={t.y + 18} r={t.r * 0.62} fill="#16a34a" stroke={INK} strokeWidth="3.4" />
+            <circle cx={t.x + t.r * 0.52} cy={t.y + 18} r={t.r * 0.6} fill="#22c55e" stroke={INK} strokeWidth="3.4" />
+          </g>
         </g>
       ))}
-      <g>
-        <rect x="0" y="640" width="1920" height="14" fill="#b45309" stroke={INK} strokeWidth="3" />
-        <rect x="0" y="676" width="1920" height="14" fill="#b45309" stroke={INK} strokeWidth="3" />
-        {[90, 210, 330, 450, 570, 690, 810, 930, 1050, 1170, 1290, 1410, 1530, 1650, 1770].map((fx) => (
-          <rect key={fx} x={fx} y="622" width="22" height="90" rx="4" fill="#d97706" stroke={INK} strokeWidth="3" />
+
+      {/* Bright Brick-Paved City Park Sidewalk (curb at y = 735, inner line at y = 824 <= 830) */}
+      <rect x="0" y="735" width="1920" height="345" fill={`url(#ga_park_walk_${idKey})`} stroke={INK} strokeWidth="4" />
+      <line x1="0" y1="824" x2="1920" y2="824" stroke="#94a3b8" strokeWidth="3" opacity="0.55" />
+      <g stroke="#94a3b8" strokeWidth="2.2" opacity="0.34">
+        {[120, 260, 400, 540, 680, 820, 960, 1100, 1240, 1380, 1520, 1660, 1800].map((bx) => (
+          <line key={`pave_${bx}`} x1={bx} y1="735" x2={bx - 24} y2="824" />
         ))}
       </g>
-      <g transform="translate(1320, 405)">
-        <rect x="26" y="108" width="335" height="202" fill="#fef3c7" stroke={INK} strokeWidth="4.5" />
-        <polygon points="0,115 194,10 388,115" fill="#dc2626" stroke={INK} strokeWidth="5" strokeLinejoin="round" />
-        <rect x="72" y="155" width="76" height="76" rx="4" fill="#38bdf8" stroke="#78350f" strokeWidth="5" />
-        <line x1="110" y1="155" x2="110" y2="231" stroke="#78350f" strokeWidth="4" />
-        <line x1="72" y1="193" x2="148" y2="193" stroke="#78350f" strokeWidth="4" />
-        <rect x="218" y="168" width="84" height="142" rx="4" fill="#92400e" stroke={INK} strokeWidth="4.5" />
-        <circle cx="234" cy="242" r="6" fill="#fde047" />
-      </g>
-      <rect x="0" y="710" width="1920" height="370" fill={`url(#ga_yard_gnd_${idKey})`} stroke={INK} strokeWidth="4.5" />
+
+      {/* Two City Park Benches on Far Left & Far Right (grounded at y = 772 <= 830, flat shadow opacity=0.12) */}
+      {[295, 1620].map((bx, idx) => (
+        <g key={`pk_bench_${idx}`} transform={`translate(${bx}, 700)`}>
+          <ellipse cx="0" cy="74" rx="116" ry="10" fill="#0f172a" opacity="0.12" />
+          <rect x="-88" y="38" width="16" height="34" rx="3" fill="#64748b" stroke={INK} strokeWidth="3.2" />
+          <rect x="72" y="38" width="16" height="34" rx="3" fill="#64748b" stroke={INK} strokeWidth="3.2" />
+          <rect x="-102" y="-10" width="204" height="24" rx="6" fill="#d97706" stroke={INK} strokeWidth="3.4" />
+          <rect x="-108" y="22" width="216" height="18" rx="6" fill="#b45309" stroke={INK} strokeWidth="3.4" />
+        </g>
+      ))}
     </g>
   );
 };
 
-/** Breezy afternoon Vietnamese porch backdrop (tiled floor at y = 805, unique ga_ IDs) */
-export const CountrysidePorchBackdrop: React.FC<{ frame: number; uid: string }> = ({ frame, uid }) => {
+/** Warm late-afternoon urban townhouse living room backdrop with sunset skyline window (unique ga_ IDs, flat shadows opacity=0.12) */
+export const CityLivingRoomEveningBackdrop: React.FC<{ frame: number; uid: string }> = ({ frame, uid }) => {
   const idKey = uid.replace(/[^a-zA-Z0-9_]/g, '_');
-  const cloudDrift = (frame * 0.34) % 1920;
+  const cloudDrift = (frame * 0.22) % 380;
+  const plantSway = Math.sin(frame * 0.036) * 1.5;
+
   return (
     <g>
       <defs>
-        <linearGradient id={`ga_porch_sky_${idKey}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#f97316" />
-          <stop offset="48%" stopColor="#fbbf24" />
+        <linearGradient id={`ga_lr_wall_${idKey}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#fffbeb" />
           <stop offset="100%" stopColor="#fef3c7" />
         </linearGradient>
-        <linearGradient id={`ga_porch_floor_${idKey}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#e7c39c" />
-          <stop offset="100%" stopColor="#c28e5c" />
+        <linearGradient id={`ga_lr_sunset_${idKey}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#fb923c" />
+          <stop offset="52%" stopColor="#fbbf24" />
+          <stop offset="100%" stopColor="#fef3c7" />
+        </linearGradient>
+        <linearGradient id={`ga_lr_floor_${idKey}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#e5c7a3" />
+          <stop offset="100%" stopColor="#cfa476" />
         </linearGradient>
       </defs>
-      <rect x="0" y="0" width="1920" height="770" fill={`url(#ga_porch_sky_${idKey})`} />
-      <circle cx="310" cy="220" r="145" fill="#fef08a" opacity="0.34" />
-      <circle cx="310" cy="220" r="56" fill="#fef08a" stroke="#f59e0b" strokeWidth="4" />
-      <g opacity="0.82" transform={`translate(${-cloudDrift * 0.16}, 0)`}>
-        <path d="M 110 250 C 145 205 215 198 265 222 C 305 182 390 186 430 224 C 475 208 530 225 545 255 Z" fill="#ffedd5" />
-        <path d="M 650 190 C 685 148 760 144 815 170 C 865 130 960 135 1005 176 L 650 205 Z" fill="#fed7aa" />
-      </g>
-      <path d="M 0 615 Q 260 535 550 585 T 1080 570 L 1080 770 L 0 770 Z" fill="#4d7c0f" opacity="0.72" />
-      {[
-        { tx: 105, ty: 545, r: 72 },
-        { tx: 300, ty: 565, r: 64 },
-        { tx: 520, ty: 545, r: 74 },
-        { tx: 760, ty: 560, r: 68 },
-      ].map((t, idx) => (
-        <g key={idx}>
-          <rect x={t.tx - 12} y={t.ty + 22} width="24" height="190" fill="#78350f" stroke={INK} strokeWidth="3.5" />
-          <circle cx={t.tx} cy={t.ty} r={t.r} fill="#15803d" stroke={INK} strokeWidth="4" />
-          <circle cx={t.tx - t.r * 0.55} cy={t.ty + 20} r={t.r * 0.65} fill="#166534" stroke={INK} strokeWidth="3.5" />
-          <circle cx={t.tx + t.r * 0.55} cy={t.ty + 22} r={t.r * 0.62} fill="#15803d" stroke={INK} strokeWidth="3.5" />
+
+      {/* Warm Living Room Wall & Baseboard */}
+      <rect x="0" y="0" width="1920" height="760" fill={`url(#ga_lr_wall_${idKey})`} />
+      <rect x="0" y="742" width="1920" height="18" fill="#d6b38e" stroke={INK} strokeWidth="3" />
+
+      {/* Large Glass City Window overlooking Golden Sunset Skyline (x = 420..1460, y = 128..458) */}
+      <g transform="translate(420, 128)">
+        <rect x="0" y="0" width="1040" height="330" rx="14" fill={`url(#ga_lr_sunset_${idKey})`} />
+        {/* Warm Setting Sun */}
+        <circle cx="845" cy="108" r="68" fill="#fef08a" opacity="0.34" />
+        <circle cx="845" cy="108" r="34" fill="#fef08a" stroke="#f59e0b" strokeWidth="3" />
+        {/* Soft Sunset Clouds */}
+        <g opacity="0.82" transform={`translate(${(cloudDrift * 0.25) % 90}, 0)`}>
+          <path d="M 110 92 C 138 66 196 62 232 82 C 266 56 330 62 358 88 L 110 96 Z" fill="#ffedd5" />
+          <path d="M 520 76 C 546 54 598 52 630 70 C 660 48 712 54 736 78 L 520 82 Z" fill="#fed7aa" />
         </g>
-      ))}
-      {/* House Wall on Right */}
-      <rect x="920" y="140" width="1000" height="625" fill="#fde68a" stroke={INK} strokeWidth="5" />
-      <rect x="920" y="612" width="1000" height="153" fill="#d97706" opacity="0.2" />
-      <line x1="920" y1="612" x2="1920" y2="612" stroke={INK} strokeWidth="4" />
-      {/* Cozy Window */}
-      <g transform="translate(1070, 305)">
-        <rect x="0" y="0" width="268" height="216" rx="6" fill="#78350f" stroke={INK} strokeWidth="5" />
-        <rect x="14" y="14" width="240" height="188" rx="3" fill="#334155" stroke={INK} strokeWidth="3.5" />
-        <line x1="134" y1="14" x2="134" y2="202" stroke="#78350f" strokeWidth="6" />
-        <line x1="14" y1="108" x2="254" y2="108" stroke="#78350f" strokeWidth="6" />
-        <rect x="-48" y="4" width="44" height="208" rx="4" fill="#15803d" stroke={INK} strokeWidth="4" />
-        <rect x="272" y="4" width="44" height="208" rx="4" fill="#15803d" stroke={INK} strokeWidth="4" />
-      </g>
-      {/* Door */}
-      <g transform="translate(1540, 285)">
-        <rect x="0" y="0" width="210" height="475" rx="6" fill="#92400e" stroke={INK} strokeWidth="5" />
-        <rect x="18" y="20" width="174" height="195" rx="4" fill="#b45309" stroke={INK} strokeWidth="3.5" />
-        <rect x="18" y="240" width="174" height="210" rx="4" fill="#b45309" stroke={INK} strokeWidth="3.5" />
-        <circle cx="32" cy="250" r="9" fill="#fde047" stroke={INK} strokeWidth="3" />
-      </g>
-      {/* Roof Eave & Wooden Pillar */}
-      <path d="M 160 0 L 1920 0 L 1920 142 L 205 142 L 160 105 Z" fill="#9a3412" stroke={INK} strokeWidth="5" />
-      <rect x="205" y="132" width="1715" height="28" fill="#78350f" stroke={INK} strokeWidth="4.5" />
-      <rect x="240" y="160" width="48" height="605" fill="#92400e" stroke={INK} strokeWidth="5" />
-      <rect x="228" y="742" width="72" height="26" rx="4" fill="#78350f" stroke={INK} strokeWidth="4" />
-      {/* Tiled Porch Floor */}
-      <rect x="0" y="760" width="1920" height="320" fill={`url(#ga_porch_floor_${idKey})`} stroke={INK} strokeWidth="5" />
-      <g stroke="#78350f" strokeWidth="2.4" opacity="0.34">
-        <line x1="0" y1="815" x2="1920" y2="815" />
-        <line x1="0" y1="890" x2="1920" y2="890" />
-        {[160, 400, 640, 880, 1120, 1360, 1600].map((gx) => (
-          <line key={gx} x1={gx} y1="760" x2={gx + (gx - 960) * 0.28} y2="1080" />
+        {/* City Apartment & Townhouse Skyline inside Window */}
+        {[
+          { x: 24, w: 112, h: 165, fill: '#94a3b8' },
+          { x: 148, w: 138, h: 210, fill: '#64748b' },
+          { x: 300, w: 120, h: 155, fill: '#94a3b8' },
+          { x: 434, w: 152, h: 225, fill: '#475569' },
+          { x: 602, w: 128, h: 175, fill: '#64748b' },
+          { x: 744, w: 146, h: 198, fill: '#94a3b8' },
+          { x: 904, w: 112, h: 150, fill: '#64748b' },
+        ].map((sb, idx) => (
+          <g key={`sky_b_${idx}`}>
+            <rect x={sb.x} y={330 - sb.h} width={sb.w} height={sb.h} fill={sb.fill} stroke="#334155" strokeWidth="2.5" />
+            {[0, 1, 2].map((r) =>
+              [0, 1].map((c) => {
+                const wy = 330 - sb.h + 22 + r * 42;
+                if (wy + 20 > 318) return null;
+                return (
+                  <rect
+                    key={`sw_${r}_${c}`}
+                    x={sb.x + 22 + c * (sb.w * 0.44)}
+                    y={wy}
+                    width="22"
+                    height="20"
+                    rx="3"
+                    fill="#fef08a"
+                    opacity={0.78}
+                  />
+                );
+              })
+            )}
+          </g>
         ))}
+        {/* Crisp Window Mullions & Frame */}
+        <line x1="346" y1="0" x2="346" y2="330" stroke="#475569" strokeWidth="6" />
+        <line x1="694" y1="0" x2="694" y2="330" stroke="#475569" strokeWidth="6" />
+        <rect x="0" y="0" width="1040" height="330" rx="14" fill="none" stroke="#475569" strokeWidth="10" />
+        <rect x="0" y="0" width="1040" height="330" rx="14" fill="none" stroke={INK} strokeWidth="3.8" />
+        {/* Warm Side Curtains */}
+        <rect x="-24" y="-10" width="52" height="350" rx="10" fill="#fdba74" stroke={INK} strokeWidth="3.6" />
+        <rect x="1012" y="-10" width="52" height="350" rx="10" fill="#fdba74" stroke={INK} strokeWidth="3.6" />
+        {/* Window Sill */}
+        <rect x="-32" y="328" width="1104" height="20" rx="6" fill="#b45309" stroke={INK} strokeWidth="3.5" />
+      </g>
+
+      {/* Wall Clock on Left Wall */}
+      <g transform="translate(215, 225)">
+        <circle cx="0" cy="0" r="52" fill="#ffffff" stroke={INK} strokeWidth="4.2" />
+        <line x1="0" y1="0" x2="0" y2="-28" stroke={INK} strokeWidth="4.2" strokeLinecap="round" />
+        <line x1="0" y1="0" x2="22" y2="12" stroke="#ea580c" strokeWidth="3.4" strokeLinecap="round" />
+        <circle cx="0" cy="0" r="5" fill={INK} />
+      </g>
+
+      {/* Framed Minimalist Landscape Art on Right Wall */}
+      <g transform="translate(1595, 195)">
+        <rect x="0" y="0" width="185" height="132" rx="10" fill="#ffffff" stroke={INK} strokeWidth="4" />
+        <rect x="14" y="14" width="157" height="104" rx="4" fill="#e0f2fe" stroke="#94a3b8" strokeWidth="2.5" />
+        <path d="M 22 108 L 72 56 L 114 94 L 142 68 L 166 108 Z" fill="#86efac" stroke={INK} strokeWidth="2.5" />
+        <circle cx="136" cy="40" r="13" fill="#fde047" stroke="#f59e0b" strokeWidth="2.4" />
+      </g>
+
+      {/* Warm Wood Floor (y = 760..1080) */}
+      <rect x="0" y="760" width="1920" height="320" fill={`url(#ga_lr_floor_${idKey})`} stroke={INK} strokeWidth="4.5" />
+      <g stroke="#92400e" strokeWidth="2.2" opacity="0.22">
+        <line x1="0" y1="812" x2="1920" y2="812" />
+        <line x1="0" y1="876" x2="1920" y2="876" />
+        {[240, 560, 880, 1200, 1520].map((fx) => (
+          <line key={`fl_${fx}`} x1={fx} y1="760" x2={fx} y2="812" />
+        ))}
+      </g>
+
+      {/* Potted Indoor Plant on Far Left (grounded at y = 786 <= 830, flat shadow opacity=0.12) */}
+      <g transform="translate(195, 786)">
+        <ellipse cx="0" cy="4" rx="52" ry="10" fill="#0f172a" opacity="0.12" />
+        <g transform={`rotate(${plantSway.toFixed(2)}, 0, -82)`}>
+          <path d="M -4 -80 C -44 -118 -58 -164 -28 -180 C -6 -164 -2 -124 0 -80 Z" fill="#16a34a" stroke={INK} strokeWidth="3.2" />
+          <path d="M 4 -80 C 44 -118 58 -164 28 -180 C 6 -164 2 -124 0 -80 Z" fill="#22c55e" stroke={INK} strokeWidth="3.2" />
+          <path d="M 0 -80 C -18 -134 -16 -186 0 -204 C 16 -186 18 -134 0 -80 Z" fill="#4ade80" stroke={INK} strokeWidth="3.2" />
+        </g>
+        <path d="M -38 -80 L -28 0 L 28 0 L 38 -80 Z" fill="#f97316" stroke={INK} strokeWidth="3.6" />
+        <rect x="-44" y="-92" width="88" height="16" rx="5" fill="#ea580c" stroke={INK} strokeWidth="3.6" />
+      </g>
+
+      {/* Tidy Low Wooden Sideboard on Far Right (grounded at y = 786 <= 830, flat shadow opacity=0.12) */}
+      <g transform="translate(1545, 650)">
+        <ellipse cx="125" cy="138" rx="132" ry="10" fill="#0f172a" opacity="0.12" />
+        <rect x="20" y="106" width="16" height="30" rx="3" fill="#78350f" stroke={INK} strokeWidth="3.2" />
+        <rect x="214" y="106" width="16" height="30" rx="3" fill="#78350f" stroke={INK} strokeWidth="3.2" />
+        <rect x="0" y="0" width="250" height="110" rx="10" fill="#b45309" stroke={INK} strokeWidth="3.8" />
+        <line x1="125" y1="12" x2="125" y2="98" stroke={INK} strokeWidth="3" />
+        <circle cx="106" cy="54" r="5" fill="#fde047" stroke={INK} strokeWidth="2.2" />
+        <circle cx="144" cy="54" r="5" fill="#fde047" stroke={INK} strokeWidth="2.2" />
+        {/* Small stack of books resting on sideboard */}
+        <rect x="34" y="-18" width="84" height="18" rx="4" fill="#2563eb" stroke={INK} strokeWidth="2.8" />
+        <rect x="44" y="-34" width="66" height="16" rx="4" fill="#10b981" stroke={INK} strokeWidth="2.8" />
       </g>
     </g>
   );

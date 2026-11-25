@@ -164,9 +164,9 @@
     },
     {
       "id": "b04",
-      "text": "Tôi chạy vội ra sân kể ngay với ông nội, cứ tưởng rằng bộ thu âm hay loa điện thoại nhà mình đã bị rè hỏng mất rồi.",
-      "ttsText": "Tôi chạy vội ra sân kể ngay với ông nội, cứ tưởng rằng bộ thu âm hay loa điện thoại nhà mình đã bị rè hỏng mất rồi.",
-      "stageType": "COUNTRYSIDE_YARD",
+      "text": "Tôi chạy vội ra phòng khách kể ngay với bố, cứ tưởng rằng bộ thu âm hay loa điện thoại nhà mình đã bị rè hỏng mất rồi.",
+      "ttsText": "Tôi chạy vội ra phòng khách kể ngay với bố, cứ tưởng rằng bộ thu âm hay loa điện thoại nhà mình đã bị rè hỏng mất rồi.",
+      "stageType": "CITY_LIVING_ROOM",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
       "transitionIn": "CROSSFADE",
@@ -203,12 +203,21 @@
               "handProp": "NONE"
             }
           ],
-          "bubble": "Loa hỏng à ông?",
+          "bubble": "Loa hỏng à bố?",
           "bubbleStartPct": 0.08,
           "bubbleEndPct": 0.94
         },
         {
-          "preset": "GRANDPA",
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#2563EB",
+            "glasses": "NONE",
+            "mustache": false
+          },
           "slot": "RIGHT",
           "facing": "LEFT",
           "motion": "IDLE_TALK",
@@ -247,9 +256,9 @@
     },
     {
       "id": "b05",
-      "text": "Ông nội bật cười bảo hồi nãy ông đi ngang cửa phòng nghe rõ giọng trong máy giống hệt ngoài đời, rồi rủ sang phòng khám hỏi bác sĩ cho rõ ngọn ngành.",
-      "ttsText": "Ông nội bật cười bảo hồi nãy ông đi ngang cửa phòng nghe rõ giọng trong máy giống hệt ngoài đời, rồi rủ sang phòng khám hỏi bác sĩ cho rõ ngọn ngành.",
-      "stageType": "COUNTRYSIDE_YARD",
+      "text": "Bố bật cười bảo hồi nãy bố đi ngang cửa phòng nghe rõ giọng trong máy giống hệt ngoài đời, rồi rủ sang phòng khám gần nhà hỏi bác sĩ cho rõ ngọn ngành.",
+      "ttsText": "Bố bật cười bảo hồi nãy bố đi ngang cửa phòng nghe rõ giọng trong máy giống hệt ngoài đời, rồi rủ sang phòng khám gần nhà hỏi bác sĩ cho rõ ngọn ngành.",
+      "stageType": "CITY_LIVING_ROOM",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
       "transitionIn": "CROSSFADE",
@@ -288,7 +297,16 @@
           ]
         },
         {
-          "preset": "GRANDPA",
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#2563EB",
+            "glasses": "NONE",
+            "mustache": false
+          },
           "slot": "RIGHT",
           "facing": "LEFT",
           "motion": "IDLE_TALK",
@@ -489,8 +507,8 @@
     },
     {
       "id": "b09",
-      "text": "Sang tới phòng khám, tôi gãi đầu hỏi bác sĩ vì sao cùng một câu nói phát ra mà tôi nghe một kiểu, còn ông nội lại nghe một kiểu khác hẳn.",
-      "ttsText": "Sang tới phòng khám, tôi gãi đầu hỏi bác sĩ vì sao cùng một câu nói phát ra mà tôi nghe một kiểu, còn ông nội lại nghe một kiểu khác hẳn.",
+      "text": "Sang tới phòng khám, tôi gãi đầu hỏi bác sĩ vì sao cùng một câu nói phát ra mà tôi nghe một kiểu, còn bố lại nghe một kiểu khác hẳn.",
+      "ttsText": "Sang tới phòng khám, tôi gãi đầu hỏi bác sĩ vì sao cùng một câu nói phát ra mà tôi nghe một kiểu, còn bố lại nghe một kiểu khác hẳn.",
       "stageType": "DOCTOR_CLINIC",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
@@ -500,7 +518,16 @@
       "bgmMood": "BGM_STORY_CALM",
       "actors": [
         {
-          "preset": "GRANDPA",
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#2563EB",
+            "glasses": "NONE",
+            "mustache": false
+          },
           "slot": "LEFT",
           "facing": "RIGHT",
           "motion": "IDLE_TALK",
@@ -613,7 +640,16 @@
       "bgmMood": "BGM_STORY_CALM",
       "actors": [
         {
-          "preset": "GRANDPA",
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#2563EB",
+            "glasses": "NONE",
+            "mustache": false
+          },
           "slot": "LEFT",
           "facing": "RIGHT",
           "motion": "IDLE_TALK",
@@ -1256,7 +1292,16 @@
       "bgmMood": "BGM_STORY_CALM",
       "actors": [
         {
-          "preset": "GRANDPA",
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#2563EB",
+            "glasses": "NONE",
+            "mustache": false
+          },
           "slot": "LEFT",
           "facing": "RIGHT",
           "motion": "IDLE_TALK",
@@ -1369,7 +1414,16 @@
       "bgmMood": "BGM_STORY_CALM",
       "actors": [
         {
-          "preset": "GRANDPA",
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#2563EB",
+            "glasses": "NONE",
+            "mustache": false
+          },
           "slot": "LEFT",
           "facing": "RIGHT",
           "motion": "IDLE_TALK",
@@ -1895,8 +1949,8 @@
     },
     {
       "id": "b31",
-      "text": "Ông nội gật gù rồi hỏi thêm, nhưng tại sao nghe giọng mình lạ lại khiến người ta dễ thấy khó chịu và ngượng chín mặt thế bác sĩ?",
-      "ttsText": "Ông nội gật gù rồi hỏi thêm, nhưng tại sao nghe giọng mình lạ lại khiến người ta dễ thấy khó chịu và ngượng chín mặt thế bác sĩ?",
+      "text": "Bố gật gù rồi hỏi thêm, nhưng tại sao nghe giọng mình lạ lại khiến người ta dễ thấy khó chịu và ngượng chín mặt thế bác sĩ?",
+      "ttsText": "Bố gật gù rồi hỏi thêm, nhưng tại sao nghe giọng mình lạ lại khiến người ta dễ thấy khó chịu và ngượng chín mặt thế bác sĩ?",
       "stageType": "DOCTOR_CLINIC",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
@@ -1906,7 +1960,16 @@
       "bgmMood": "BGM_STORY_CALM",
       "actors": [
         {
-          "preset": "GRANDPA",
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#2563EB",
+            "glasses": "NONE",
+            "mustache": false
+          },
           "slot": "LEFT",
           "facing": "RIGHT",
           "motion": "IDLE_TALK",
@@ -2019,7 +2082,16 @@
       "bgmMood": "BGM_STORY_CALM",
       "actors": [
         {
-          "preset": "GRANDPA",
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#2563EB",
+            "glasses": "NONE",
+            "mustache": false
+          },
           "slot": "LEFT",
           "facing": "RIGHT",
           "motion": "IDLE_TALK",
@@ -2768,7 +2840,16 @@
       "bgmMood": "BGM_STORY_CALM",
       "actors": [
         {
-          "preset": "GRANDPA",
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#2563EB",
+            "glasses": "NONE",
+            "mustache": false
+          },
           "slot": "LEFT",
           "facing": "RIGHT",
           "motion": "IDLE_TALK",
@@ -2881,7 +2962,16 @@
       "bgmMood": "BGM_STORY_CALM",
       "actors": [
         {
-          "preset": "GRANDPA",
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#2563EB",
+            "glasses": "NONE",
+            "mustache": false
+          },
           "slot": "LEFT",
           "facing": "RIGHT",
           "motion": "IDLE_TALK",
@@ -3513,9 +3603,9 @@
     },
     {
       "id": "b57",
-      "text": "Chiều hôm sau nắng dịu ngoài sân quê, tôi dựng hai tấm bìa nhỏ ngay trước vành tai thử đọc lại bài thuyết trình rồi bật cười thích thú.",
-      "ttsText": "Chiều hôm sau nắng dịu ngoài sân quê, tôi dựng hai tấm bìa nhỏ ngay trước vành tai thử đọc lại bài thuyết trình rồi bật cười thích thú.",
-      "stageType": "COUNTRYSIDE_YARD",
+      "text": "Chiều hôm sau nắng dịu ngoài công viên gần nhà, tôi dựng hai tấm bìa nhỏ ngay trước vành tai thử đọc lại bài thuyết trình rồi bật cười thích thú.",
+      "ttsText": "Chiều hôm sau nắng dịu ngoài công viên gần nhà, tôi dựng hai tấm bìa nhỏ ngay trước vành tai thử đọc lại bài thuyết trình rồi bật cười thích thú.",
+      "stageType": "CITY_STREET_PARK",
       "timeOfDay": "SUNSET",
       "weather": "CLEAR",
       "transitionIn": "CROSSFADE",
@@ -3566,9 +3656,9 @@
     },
     {
       "id": "b58",
-      "text": "Ông nội bước lại gần vỗ vai tôi khen rằng hiểu rõ cơ chế rồi thì chẳng còn lý do gì phải ngại giọng thật của mình nữa.",
-      "ttsText": "Ông nội bước lại gần vỗ vai tôi khen rằng hiểu rõ cơ chế rồi thì chẳng còn lý do gì phải ngại giọng thật của mình nữa.",
-      "stageType": "COUNTRYSIDE_YARD",
+      "text": "Bố bước lại gần vỗ vai tôi khen rằng hiểu rõ cơ chế rồi thì chẳng còn lý do gì phải ngại giọng thật của mình nữa.",
+      "ttsText": "Bố bước lại gần vỗ vai tôi khen rằng hiểu rõ cơ chế rồi thì chẳng còn lý do gì phải ngại giọng thật của mình nữa.",
+      "stageType": "CITY_STREET_PARK",
       "timeOfDay": "SUNSET",
       "weather": "CLEAR",
       "transitionIn": "CROSSFADE",
@@ -3619,9 +3709,9 @@
     },
     {
       "id": "b59",
-      "text": "Ngồi dưới hiên nhà mát rượi, tôi cầm điện thoại cùng ông nội thu thử một đoạn trò chuyện thật tự nhiên và vui vẻ.",
-      "ttsText": "Ngồi dưới hiên nhà mát rượi, tôi cầm điện thoại cùng ông nội thu thử một đoạn trò chuyện thật tự nhiên và vui vẻ.",
-      "stageType": "EXPLAINER_POLKA_DOT",
+      "text": "Ngồi trong phòng khách mát rượi, tôi cầm điện thoại cùng bố thu thử một đoạn trò chuyện thật tự nhiên và vui vẻ.",
+      "ttsText": "Ngồi trong phòng khách mát rượi, tôi cầm điện thoại cùng bố thu thử một đoạn trò chuyện thật tự nhiên và vui vẻ.",
+      "stageType": "CITY_LIVING_ROOM",
       "timeOfDay": "SUNSET",
       "weather": "CLEAR",
       "transitionIn": "CROSSFADE",
@@ -3672,9 +3762,9 @@
     },
     {
       "id": "b60",
-      "text": "Khi đặt điện thoại lên bàn bấm phát lại, hai ông cháu cùng ngồi nghe thoải mái mà tôi chẳng còn giật mình bịt tai như hôm trước nữa.",
-      "ttsText": "Khi đặt điện thoại lên bàn bấm phát lại, hai ông cháu cùng ngồi nghe thoải mái mà tôi chẳng còn giật mình bịt tai như hôm trước nữa.",
-      "stageType": "EXPLAINER_POLKA_DOT",
+      "text": "Khi đặt điện thoại lên bàn bấm phát lại, hai bố con cùng ngồi nghe thoải mái mà tôi chẳng còn giật mình bịt tai như hôm trước nữa.",
+      "ttsText": "Khi đặt điện thoại lên bàn bấm phát lại, hai bố con cùng ngồi nghe thoải mái mà tôi chẳng còn giật mình bịt tai như hôm trước nữa.",
+      "stageType": "CITY_LIVING_ROOM",
       "timeOfDay": "SUNSET",
       "weather": "CLEAR",
       "transitionIn": "CROSSFADE",
@@ -3727,7 +3817,7 @@
       "id": "b61",
       "text": "Hóa ra những điều tưởng chừng kỳ quặc nhất của cơ thể đôi khi chỉ là cách tự nhiên tạo ra thêm một góc nghe thú vị cho riêng chúng ta.",
       "ttsText": "Hóa ra những điều tưởng chừng kỳ quặc nhất của cơ thể đôi khi chỉ là cách tự nhiên tạo ra thêm một góc nghe thú vị cho riêng chúng ta.",
-      "stageType": "EXPLAINER_POLKA_DOT",
+      "stageType": "CITY_LIVING_ROOM",
       "timeOfDay": "SUNSET",
       "weather": "CLEAR",
       "transitionIn": "CROSSFADE",

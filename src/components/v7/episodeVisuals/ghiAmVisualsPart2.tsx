@@ -12,8 +12,8 @@ import {
   SmartphoneProp,
   StudioMicOnStand,
   SharedStickman,
-  CountrysideYardBackdrop,
-  CountrysidePorchBackdrop,
+  CityParkPracticeBackdrop,
+  CityLivingRoomEveningBackdrop,
 } from './ghiAmSharedAssets';
 
 /* ============================================================================
@@ -159,7 +159,7 @@ export const GhiAmSelfImageExpectationVisual: React.FC<EpisodeVisualProps> = ({
  * 10. GHIAM_MIRROR_ANALOGY (b41–b44, steps 0, 1, 2, 3) — 1-1 synced with b41..b44
  *     - Step 0 (b41): Mirror vs camera photo comparison ("xem ảnh thấy mặt hơi lệch so với soi gương").
  *     - Step 1 (b42): 2 cards ("Quen trong gương" ↔ "Chiều thật hơi lạ") + BOY slightly puzzled.
- *     - Step 2 (b43): Friends & Grandpa seeing BOY directly ("Hài hòa, tự nhiên!").
+ *     - Step 2 (b43): Friend & Dad seeing BOY directly ("Hài hòa, tự nhiên!").
  *     - Step 3 (b44): Confident smiling BOY holding smartphone beside a "Sound Mirror" with harmonic waves.
  * ========================================================================== */
 export const GhiAmMirrorAnalogyVisual: React.FC<EpisodeVisualProps> = ({
@@ -287,12 +287,12 @@ export const GhiAmMirrorAnalogyVisual: React.FC<EpisodeVisualProps> = ({
         </g>
       )}
 
-      {/* STEP 2 (b43): Friends & Grandpa looking at BOY directly — completely natural! */}
+      {/* STEP 2 (b43): Friend & Dad looking at BOY directly — completely natural! */}
       {activeStep === 2 && (
         <g>
           <SharedStickman x={580} y={679} scale={1.04} role="BOY" facing="RIGHT" pose="NOD_SMILE" expression="HAPPY" frame={frame} />
           <SharedStickman x={1120} y={679} scale={1.04} role="FRIEND_A" facing="LEFT" pose="NOD_SMILE" expression="PROUD" frame={frame} />
-          <SharedStickman x={1420} y={675} scale={1.08} role="GRANDPA" facing="LEFT" pose="NOD_SMILE" expression="PROUD" frame={frame + 10} />
+          <SharedStickman x={1420} y={675} scale={1.08} role="DAD" facing="LEFT" pose="NOD_SMILE" expression="PROUD" frame={frame + 10} />
           <ShortSpeechBubble x={1265} y={435} text="Hài hòa, tự nhiên!" tailDir="CENTER" />
         </g>
       )}
@@ -862,9 +862,9 @@ export const GhiAmGetUsedToVoiceVisual: React.FC<EpisodeVisualProps> = ({
 
 /* ============================================================================
  * 14. GHIAM_YARD_PRACTICE (b57–b58, steps 0, 1)
- *     - Storytelling afternoon countryside yard (NO header pill, NO bottom pill!).
+ *     - Sunny late-afternoon city neighborhood park (NO header pill, NO bottom pill!).
  *     - Step 0 (b57): BOY holds 2 small cardboard panels in front of ears testing his voice ("Nghe rõ hẳn!").
- *     - Step 1 (b58): GRANDPA stands right beside BOY physically patting BOY's shoulder ("Giỏi lắm cháu!").
+ *     - Step 1 (b58): DAD stands right beside BOY physically patting BOY's shoulder ("Giỏi lắm con!").
  * ========================================================================== */
 export const GhiAmYardPracticeVisual: React.FC<EpisodeVisualProps> = ({
   frame = 0,
@@ -875,8 +875,8 @@ export const GhiAmYardPracticeVisual: React.FC<EpisodeVisualProps> = ({
 
   return (
     <svg viewBox="0 0 1920 1080" width="100%" height="100%" style={{ display: 'block', fontFamily: FONT }}>
-      <CountrysideYardBackdrop frame={frame} uid="ga14_yard" />
-      <ellipse cx="920" cy="804" rx="285" ry="18" fill="#78350f" opacity="0.16" />
+      <CityParkPracticeBackdrop frame={frame} uid="ga14_park" />
+      <ellipse cx="920" cy="804" rx="285" ry="18" fill="#0f172a" opacity="0.12" />
 
       {/* STEP 0 (b57): BOY holding 2 cardboard walls in front of ears smiling */}
       {activeStep === 0 && (
@@ -897,7 +897,7 @@ export const GhiAmYardPracticeVisual: React.FC<EpisodeVisualProps> = ({
             x={1145}
             y={678}
             scale={1.08}
-            role="GRANDPA"
+            role="DAD"
             facing="LEFT"
             pose="NOD_SMILE"
             expression="HAPPY"
@@ -906,7 +906,7 @@ export const GhiAmYardPracticeVisual: React.FC<EpisodeVisualProps> = ({
         </g>
       )}
 
-      {/* STEP 1 (b58): GRANDPA stands close beside BOY physically patting BOY's shoulder! */}
+      {/* STEP 1 (b58): DAD stands close beside BOY physically patting BOY's shoulder! */}
       {activeStep === 1 && (
         <g>
           <SharedStickman
@@ -919,12 +919,12 @@ export const GhiAmYardPracticeVisual: React.FC<EpisodeVisualProps> = ({
             expression="PROUD"
             frame={frame}
           />
-          {/* Rendered AFTER BOY so Grandpa's patting hand lands squarely ON Boy's shoulder (x=847, y≈600)! */}
+          {/* Rendered AFTER BOY so Dad's patting hand lands squarely ON Boy's shoulder (x=847, y≈600)! */}
           <SharedStickman
             x={968}
             y={678}
             scale={1.08}
-            role="GRANDPA"
+            role="DAD"
             facing="LEFT"
             pose="PAT_SHOULDER"
             expression="PROUD"
@@ -936,7 +936,7 @@ export const GhiAmYardPracticeVisual: React.FC<EpisodeVisualProps> = ({
             <line x1="0" y1="-10" x2="0" y2="-22" />
             <line x1="14" y1="-6" x2="24" y2="-16" />
           </g>
-          <ShortSpeechBubble x={1075} y={432} text="Giỏi lắm cháu!" tailDir="LEFT" />
+          <ShortSpeechBubble x={1075} y={432} text="Giỏi lắm con!" tailDir="LEFT" />
         </g>
       )}
     </svg>
@@ -945,12 +945,12 @@ export const GhiAmYardPracticeVisual: React.FC<EpisodeVisualProps> = ({
 
 /* ============================================================================
  * 15. GHIAM_PORCH_HAPPY_END (b59–b61, steps 0, 1, 2)
- *     - Breezy Afternoon Porch with 2 real wooden chairs + 1 wooden table (legs grounded at y=804).
+ *     - Warm sunset urban living room with 2 real wooden chairs + 1 wooden tea table (legs grounded at y=804).
  *     - Storytelling scene: ZERO header/bottom pills!
- *     - Step 0 (b59): BOY seated holding phone recording with GRANDPA ("Thu thử nhé ông!").
- *     - Step 1 (b60): Phone placed solidly ON wooden table playing gentle sound waves; both seated laughing;
- *                     GRANDPA has bubble "Nghe hay phết!".
- *     - Step 2 (b61): Both BOY & GRANDPA stay seated comfortably chatting & smiling warmly
+ *     - Step 0 (b59): BOY seated holding phone recording with DAD ("Thu thử nhé bố!").
+ *     - Step 1 (b60): Phone placed solidly ON wooden tea table playing gentle sound waves; both seated laughing;
+ *                     DAD has bubble "Nghe hay phết!".
+ *     - Step 2 (b61): Both BOY & DAD stay seated comfortably chatting & smiling warmly
  *                     (ZERO standing up, ZERO waving into empty air!).
  * ========================================================================== */
 export const GhiAmPorchHappyEndVisual: React.FC<EpisodeVisualProps> = ({
@@ -972,14 +972,14 @@ export const GhiAmPorchHappyEndVisual: React.FC<EpisodeVisualProps> = ({
         </radialGradient>
       </defs>
 
-      <CountrysidePorchBackdrop frame={frame} uid="ga15_porch" />
+      <CityLivingRoomEveningBackdrop frame={frame} uid="ga15_livingroom" />
 
-      {/* Two Real Wooden Porch Chairs & One Wooden Table between them (all legs grounded at y = 804 <= 830) */}
+      {/* Two Real Wooden Chairs & One Wooden Coffee Table between them (all legs grounded at y = 804 <= 830) */}
       <WoodenChair x={682} seatY={708} floorY={804} facing="RIGHT" />
       <WoodenChair x={1238} seatY={708} floorY={804} facing="LEFT" />
       <WoodenTable x={960} topY={668} floorY={804} width={272} />
 
-      {/* Steps 1 & 2: Smartphone resting solidly ON wooden porch table */}
+      {/* Steps 1 & 2: Smartphone resting solidly ON wooden living-room table */}
       {activeStep >= 1 && (
         <g>
           <SmartphoneProp
@@ -1022,12 +1022,12 @@ export const GhiAmPorchHappyEndVisual: React.FC<EpisodeVisualProps> = ({
         frame={frame}
       />
 
-      {/* GRANDPA: Seated solidly on right wooden chair across ALL 3 steps! */}
+      {/* DAD: Seated solidly on right wooden chair across ALL 3 steps! */}
       <SharedStickman
         x={1238}
         y={708}
         scale={1.0}
-        role="GRANDPA"
+        role="DAD"
         facing="LEFT"
         pose="SIT_RELAX_CHAT"
         expression={activeStep >= 1 ? 'PROUD' : 'HAPPY'}
@@ -1036,7 +1036,7 @@ export const GhiAmPorchHappyEndVisual: React.FC<EpisodeVisualProps> = ({
 
       {/* Step 0 & Step 1 Speech Bubbles */}
       {activeStep === 0 && (
-        <ShortSpeechBubble x={605} y={472} text="Thu thử nhé ông!" tailDir="RIGHT" />
+        <ShortSpeechBubble x={605} y={472} text="Thu thử nhé bố!" tailDir="RIGHT" />
       )}
       {activeStep === 1 && (
         <ShortSpeechBubble x={1315} y={472} text="Nghe hay phết!" tailDir="LEFT" />
