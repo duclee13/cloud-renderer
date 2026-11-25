@@ -156,11 +156,11 @@ export const GhiAmSelfImageExpectationVisual: React.FC<EpisodeVisualProps> = ({
 };
 
 /* ============================================================================
- * 10. GHIAM_MIRROR_ANALOGY (b41–b44, steps 0, 1, 2, 3)
- *     - Step 0: BOY looking in wall mirror (hair parted RIGHT in reflection).
- *     - Step 1: BOY holding phone taking non-flipped photo (hair parted LEFT).
- *     - Step 2: BOY comparing mirror vs photo looking slightly unfamiliar.
- *     - Step 3: Friends & Grandpa seeing BOY directly — completely natural!
+ * 10. GHIAM_MIRROR_ANALOGY (b41–b44, steps 0, 1, 2, 3) — 1-1 synced with b41..b44
+ *     - Step 0 (b41): Mirror vs camera photo comparison ("xem ảnh thấy mặt hơi lệch so với soi gương").
+ *     - Step 1 (b42): 2 cards ("Quen trong gương" ↔ "Chiều thật hơi lạ") + BOY slightly puzzled.
+ *     - Step 2 (b43): Friends & Grandpa seeing BOY directly ("Hài hòa, tự nhiên!").
+ *     - Step 3 (b44): Confident smiling BOY holding smartphone beside a "Sound Mirror" with harmonic waves.
  * ========================================================================== */
 export const GhiAmMirrorAnalogyVisual: React.FC<EpisodeVisualProps> = ({
   frame = 0,
@@ -182,77 +182,78 @@ export const GhiAmMirrorAnalogyVisual: React.FC<EpisodeVisualProps> = ({
       <rect x="0" y="795" width="1920" height="285" fill="#cbd5e1" opacity="0.6" />
       <line x1="0" y1="795" x2="1920" y2="795" stroke="#94a3b8" strokeWidth="4" />
 
-      {/* Single Top Header */}
+      {/* Single Top Header — matched 1-1 with b41..b44 */}
       <CleanLabel
         x={960}
         y={84}
         text={
           activeStep === 0
-            ? 'Soi gương mỗi ngày: Hình ảnh đã bị lật trái – phải'
+            ? 'Ảnh chụp thường trông hơi lệch so với lúc soi gương'
             : activeStep === 1
-              ? 'Ảnh chụp thường giữ nguyên chiều thật'
+              ? 'Quen soi gương lật trái – phải nên chiều thật thấy lạ'
               : activeStep === 2
-                ? 'Mắt chưa quen nên bạn thấy ảnh mình hơi lạ'
-                : 'Người ngoài nhìn trực tiếp lại thấy rất tự nhiên'
+                ? 'Người ngoài nhìn thấy rất tự nhiên'
+                : 'Ghi âm là chiếc gương âm thanh của bạn'
         }
         bg="#ffffff"
-        color="#1e40af"
-        border="#3b82f6"
+        color={activeStep === 3 ? '#065f46' : '#1e40af'}
+        border={activeStep === 3 ? '#10b981' : '#3b82f6'}
         fontSize={31}
       />
 
-      {/* STEP 0: Wall Mirror with RIGHT-parted familiar reflection */}
+      {/* STEP 0 (b41): BOY holding camera phone comparing wall mirror vs real camera photo */}
       {activeStep === 0 && (
         <g>
-          <SharedStickman x={650} y={679} scale={1.04} role="BOY" facing="RIGHT" pose="IDLE" expression="HAPPY" hairPartSide="LEFT" frame={frame} />
+          <SharedStickman
+            x={470}
+            y={679}
+            scale={1.04}
+            role="BOY"
+            facing="RIGHT"
+            pose="HOLD_PHONE_SELFIE"
+            phoneMode="CAMERA"
+            expression="CURIOUS"
+            hairPartSide="LEFT"
+            frame={frame}
+          />
 
-          {/* Framed Wall Mirror */}
-          <g transform="translate(1220, 445)">
-            <rect x="-155" y="-245" width="310" height="445" rx="28" fill="#b45309" stroke={INK} strokeWidth="6" />
-            <rect x="-134" y="-224" width="268" height="403" rx="18" fill="#e0f2fe" stroke="#0284c7" strokeWidth="4" />
-            {/* Mirror glass sheen */}
-            <polygon points="-120,-210 -45,-210 -120,-65" fill="#ffffff" opacity="0.45" />
-            {/* Flipped portrait inside mirror: hair parted clearly on RIGHT */}
-            <g transform="translate(0, -10)">
-              <circle cx="0" cy="-42" r="58" fill="#ffffff" stroke={INK} strokeWidth="5" />
-              <path d="M -54 -54 C -56 -96 -14 -110 18 -104 C 42 -100 58 -80 56 -54 C 44 -66 30 -76 22 -76 C 8 -60 -22 -58 -54 -54 Z" fill="#0f172a" />
-              {/* Little part arrow showing right side */}
-              <circle cx="-18" cy="-42" r="6" fill={INK} />
-              <circle cx="18" cy="-42" r="6" fill={INK} />
-              <path d="M -14 -14 Q 0 -2 14 -14" fill="none" stroke={INK} strokeWidth="4" strokeLinecap="round" />
+          {/* Framed Wall Mirror (hair parted RIGHT) */}
+          <g transform="translate(1015, 455)">
+            <rect x="-145" y="-215" width="290" height="395" rx="26" fill="#b45309" stroke={INK} strokeWidth="5.5" />
+            <rect x="-126" y="-196" width="252" height="357" rx="18" fill="#e0f2fe" stroke="#0284c7" strokeWidth="4" />
+            <polygon points="-112,-182 -42,-182 -112,-55" fill="#ffffff" opacity="0.45" />
+            <g transform="translate(0, -14)">
+              <circle cx="0" cy="-32" r="54" fill="#ffffff" stroke={INK} strokeWidth="4.8" />
+              <path d="M -50 -42 C -52 -82 -12 -94 16 -90 C 38 -86 52 -68 50 -42 C 38 -54 26 -62 20 -62 C 8 -48 -20 -46 -50 -42 Z" fill="#0f172a" />
+              <circle cx="-16" cy="-32" r="5.5" fill={INK} />
+              <circle cx="16" cy="-32" r="5.5" fill={INK} />
+              <path d="M -12 -8 Q 0 4 12 -8" fill="none" stroke={INK} strokeWidth="3.8" strokeLinecap="round" />
             </g>
-            <text x="0" y="138" textAnchor="middle" fill="#0369a1" fontSize="24" fontWeight="800">
+            <text x="0" y="124" textAnchor="middle" fill="#0369a1" fontSize="23" fontWeight="800">
               Gương soi (đã lật)
             </text>
           </g>
-        </g>
-      )}
 
-      {/* STEP 1: BOY holding phone taking non-flipped photo */}
-      {activeStep === 1 && (
-        <g>
-          <SharedStickman x={620} y={679} scale={1.04} role="BOY" facing="RIGHT" pose="HOLD_PHONE_SELFIE" expression="CURIOUS" hairPartSide="LEFT" frame={frame} />
-
-          {/* Crisp Photo Card showing unflipped LEFT-parted true view */}
-          <g transform="translate(1240, 445)">
-            <rect x="-165" y="-225" width="330" height="425" rx="22" fill="#ffffff" stroke={INK} strokeWidth="5" />
-            <rect x="-138" y="-198" width="276" height="310" rx="12" fill="#fef3c7" stroke="#f59e0b" strokeWidth="3.5" />
-            <g transform="translate(0, -40)">
-              <circle cx="0" cy="-22" r="58" fill="#ffffff" stroke={INK} strokeWidth="5" />
-              <path d="M -56 -34 C -58 -60 -42 -80 -18 -84 C 14 -90 56 -76 54 -34 C 22 -38 -8 -40 -22 -56 C -30 -56 -44 -46 -56 -34 Z" fill="#0f172a" />
-              <circle cx="-18" cy="-22" r="6" fill={INK} />
-              <circle cx="18" cy="-22" r="6" fill={INK} />
-              <path d="M -14 6 Q 0 18 14 6" fill="none" stroke={INK} strokeWidth="4" strokeLinecap="round" />
+          {/* Crisp Photo Print Card (hair parted LEFT — unflipped) */}
+          <g transform="translate(1455, 455)">
+            <rect x="-152" y="-205" width="304" height="385" rx="22" fill="#ffffff" stroke={INK} strokeWidth="5" />
+            <rect x="-128" y="-180" width="256" height="275" rx="12" fill="#fef3c7" stroke="#f59e0b" strokeWidth="3.5" />
+            <g transform="translate(0, -36)">
+              <circle cx="0" cy="-16" r="54" fill="#ffffff" stroke={INK} strokeWidth="4.8" />
+              <path d="M -50 -26 C -52 -52 -38 -70 -16 -74 C 12 -78 52 -66 50 -26 C 20 -30 -8 -32 -20 -46 C -26 -46 -38 -38 -50 -26 Z" fill="#0f172a" />
+              <circle cx="-16" cy="-16" r="5.5" fill={INK} />
+              <circle cx="16" cy="-16" r="5.5" fill={INK} />
+              <path d="M -12 8 Q 0 20 12 8" fill="none" stroke={INK} strokeWidth="3.8" strokeLinecap="round" />
             </g>
-            <text x="0" y="160" textAnchor="middle" fill="#b45309" fontSize="25" fontWeight="800">
+            <text x="0" y="144" textAnchor="middle" fill="#b45309" fontSize="23" fontWeight="800">
               Ảnh chụp (chiều thật)
             </text>
           </g>
         </g>
       )}
 
-      {/* STEP 2: Side-by-side comparison — BOY slightly embarrassed */}
-      {activeStep === 2 && (
+      {/* STEP 1 (b42): 2-card side-by-side comparison + BOY slightly puzzled/awkward */}
+      {activeStep === 1 && (
         <g>
           <SharedStickman x={540} y={679} scale={1.04} role="BOY" facing="RIGHT" pose="IDLE" expression="EMBARRASSED" frame={frame} />
 
@@ -286,13 +287,85 @@ export const GhiAmMirrorAnalogyVisual: React.FC<EpisodeVisualProps> = ({
         </g>
       )}
 
-      {/* STEP 3: Friends & Grandpa looking at BOY directly — completely natural! */}
-      {activeStep === 3 && (
+      {/* STEP 2 (b43): Friends & Grandpa looking at BOY directly — completely natural! */}
+      {activeStep === 2 && (
         <g>
           <SharedStickman x={580} y={679} scale={1.04} role="BOY" facing="RIGHT" pose="NOD_SMILE" expression="HAPPY" frame={frame} />
           <SharedStickman x={1120} y={679} scale={1.04} role="FRIEND_A" facing="LEFT" pose="NOD_SMILE" expression="PROUD" frame={frame} />
           <SharedStickman x={1420} y={675} scale={1.08} role="GRANDPA" facing="LEFT" pose="NOD_SMILE" expression="PROUD" frame={frame + 10} />
           <ShortSpeechBubble x={1265} y={435} text="Hài hòa, tự nhiên!" tailDir="CENTER" />
+        </g>
+      )}
+
+      {/* STEP 3 (b44): Confident smiling BOY holding smartphone beside "Chiếc gương âm thanh" */}
+      {activeStep === 3 && (
+        <g>
+          <SharedStickman
+            x={645}
+            y={679}
+            scale={1.05}
+            role="BOY"
+            facing="RIGHT"
+            pose="HOLD_PHONE_SELFIE"
+            phoneMode="PLAYING"
+            expression="PROUD"
+            frame={frame}
+          />
+
+          {/* Harmonic waves traveling gently from held phone to the Sound Mirror */}
+          {[0, 1, 2].map((i) => {
+            const dx = 28 + ((frame * 2.8 + i * 62) % 185);
+            return (
+              <path
+                key={i}
+                d={`M ${765 + dx} ${522 - dx * 0.1} Q ${788 + dx} 546 ${765 + dx} ${570 + dx * 0.1}`}
+                fill="none"
+                stroke="#10b981"
+                strokeWidth="5"
+                strokeLinecap="round"
+                opacity={1 - dx / 215}
+              />
+            );
+          })}
+
+          {/* Framed "Chiếc gương âm thanh" reflecting smooth true-voice waveform */}
+          <g transform="translate(1285, 455)">
+            <rect x="-200" y="-225" width="400" height="415" rx="34" fill="#0f766e" stroke={INK} strokeWidth="6" />
+            <rect x="-178" y="-203" width="356" height="371" rx="24" fill="#ecfdf5" stroke="#10b981" strokeWidth="4" />
+            <polygon points="-162,-188 -62,-188 -162,-32" fill="#ffffff" opacity="0.52" />
+
+            {/* Balanced harmonic sound wave emblem centered in the sound mirror */}
+            <g transform="translate(0, -34)">
+              <circle cx="0" cy="0" r="88" fill="#d1fae5" stroke="#10b981" strokeWidth="4" />
+              {[-56, -34, -12, 10, 32, 54].map((bx, idx) => {
+                const h = 30 + Math.abs(Math.sin(frame * 0.16 + idx * 0.9)) * 46;
+                return (
+                  <rect
+                    key={idx}
+                    x={bx - 7}
+                    y={-h / 2}
+                    width="14"
+                    height={h}
+                    rx="7"
+                    fill={idx % 2 === 0 ? '#059669' : '#0284c7'}
+                  />
+                );
+              })}
+            </g>
+
+            {/* Clean check badge on corner */}
+            <g transform="translate(126, -148)">
+              <circle cx="0" cy="0" r="24" fill="#10b981" />
+              <path d="M -10 1 L -3 8 L 11 -8" fill="none" stroke="#ffffff" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+            </g>
+
+            <text x="0" y="102" textAnchor="middle" fill="#065f46" fontSize="27" fontWeight="900">
+              Chiếc gương âm thanh
+            </text>
+            <text x="0" y="140" textAnchor="middle" fill="#047857" fontSize="22" fontWeight="700">
+              Phản chiếu giọng thật của bạn
+            </text>
+          </g>
         </g>
       )}
     </svg>

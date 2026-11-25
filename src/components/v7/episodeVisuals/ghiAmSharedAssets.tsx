@@ -658,7 +658,7 @@ export const SharedStickman: React.FC<{
             y={-124 + breath}
             scale={0.98}
             rotateDeg={-6}
-            mode="CAMERA"
+            mode={phoneMode}
             frame={frame}
           />
         )}

@@ -195,9 +195,9 @@ export const GhiAmPhoneShockVisual: React.FC<EpisodeVisualProps> = ({
 
 /* ============================================================================
  * 2. GHIAM_MYTH_BROKEN_MIC (b06–b08, steps 0, 1, 2)
- *    - Soft dark studio backdrop, max 1 clean top header.
- *    - Step 0: Studio condenser mic on real stand + crisp red X myth-busting mark.
- *    - Step 1: Wooden table + smartphone playing; 2 friends nodding normally.
+ *    - Soft light blue-slate studio backdrop (#EEF2F7) so 100% of stickman limbs stay crisp!
+ *    - Step 0: Studio condenser mic on real table + crisp red X myth-busting mark.
+ *    - Step 1: Wooden table + smartphone playing; 2 friends nodding normally (non-overlapping check badge).
  *    - Step 2: Same table + smartphone playing; BOY alone recoils covering ears.
  * ========================================================================== */
 export const GhiAmMythBrokenMicVisual: React.FC<EpisodeVisualProps> = ({
@@ -214,23 +214,24 @@ export const GhiAmMythBrokenMicVisual: React.FC<EpisodeVisualProps> = ({
     <svg viewBox="0 0 1920 1080" width="100%" height="100%" style={{ display: 'block', fontFamily: FONT }}>
       <defs>
         <linearGradient id="ga2_bg" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#0f172a" />
-          <stop offset="100%" stopColor="#1e293b" />
+          <stop offset="0%" stopColor="#f1f5f9" />
+          <stop offset="55%" stopColor="#eef2f7" />
+          <stop offset="100%" stopColor="#e2e8f0" />
         </linearGradient>
       </defs>
 
       <rect width="1920" height="1080" fill="url(#ga2_bg)" />
 
       {/* Subtle studio acoustic wall pattern */}
-      <g opacity="0.12" stroke="#94a3b8" strokeWidth="2.5">
+      <g opacity="0.24" stroke="#94a3b8" strokeWidth="2.5">
         {[220, 420, 620, 820, 1020, 1220, 1420, 1620].map((gx) => (
           <line key={gx} x1={gx} y1="150" x2={gx} y2="795" />
         ))}
       </g>
 
       {/* Studio Floor grounded at y = 795 <= 830 */}
-      <rect x="0" y="795" width="1920" height="285" fill="#334155" />
-      <line x1="0" y1="795" x2="1920" y2="795" stroke="#64748b" strokeWidth="4" />
+      <rect x="0" y="795" width="1920" height="285" fill="#cbd5e1" />
+      <line x1="0" y1="795" x2="1920" y2="795" stroke="#94a3b8" strokeWidth="4" />
 
       {/* Single Top Header */}
       <CleanLabel
@@ -243,9 +244,9 @@ export const GhiAmMythBrokenMicVisual: React.FC<EpisodeVisualProps> = ({
               ? 'Người ngoài nghe thấy giống hệt giọng thật'
               : 'Chỉ duy nhất bạn mới thấy giọng mình lạ'
         }
-        bg="#1e293b"
-        color="#f8fafc"
-        border={activeStep === 0 ? '#ef4444' : activeStep === 1 ? '#10b981' : '#38bdf8'}
+        bg="#ffffff"
+        color="#0f172a"
+        border={activeStep === 0 ? '#ef4444' : activeStep === 1 ? '#10b981' : '#0284c7'}
         fontSize={32}
       />
 
@@ -255,16 +256,16 @@ export const GhiAmMythBrokenMicVisual: React.FC<EpisodeVisualProps> = ({
           <WoodenTable x={960} topY={640} floorY={795} width={440} />
           <StudioMicOnStand x={960} y={640} scale={1.45} />
 
-          {/* Clean glowing studio sound rings around mic */}
-          <circle cx="960" cy="365" r={105 + pulse * 14} fill="none" stroke="#38bdf8" strokeWidth="4" opacity="0.35" />
+          {/* Clean studio sound rings around mic */}
+          <circle cx="960" cy="365" r={105 + pulse * 14} fill="none" stroke="#0284c7" strokeWidth="4" opacity="0.32" />
 
           {/* Clean Red X Myth Badge overlaid lightly on "Lỗi thiết bị" */}
-          <g transform="translate(1320, 390)" opacity={clamp01(p * 2)}>
-            <rect x="-185" y="-92" width="370" height="184" rx="28" fill="#1e293b" stroke="#ef4444" strokeWidth="5" />
-            <circle cx="0" cy="-22" r="38" fill="#450a0a" stroke="#ef4444" strokeWidth="5" />
-            <line x1="-16" y1="-38" x2="16" y2="-6" stroke="#ef4444" strokeWidth="7" strokeLinecap="round" />
-            <line x1="16" y1="-38" x2="-16" y2="-6" stroke="#ef4444" strokeWidth="7" strokeLinecap="round" />
-            <text x="0" y="56" textAnchor="middle" fill="#fecaca" fontSize="26" fontWeight="800">
+          <g transform="translate(1325, 390)" opacity={clamp01(p * 2)}>
+            <rect x="-185" y="-92" width="370" height="184" rx="28" fill="#ffffff" stroke="#ef4444" strokeWidth="5" />
+            <circle cx="0" cy="-22" r="38" fill="#fee2e2" stroke="#ef4444" strokeWidth="5" />
+            <line x1="-16" y1="-38" x2="16" y2="-6" stroke="#dc2626" strokeWidth="7" strokeLinecap="round" />
+            <line x1="16" y1="-38" x2="-16" y2="-6" stroke="#dc2626" strokeWidth="7" strokeLinecap="round" />
+            <text x="0" y="56" textAnchor="middle" fill="#b91c1c" fontSize="26" fontWeight="800">
               Không phải do máy thu!
             </text>
           </g>
@@ -277,7 +278,7 @@ export const GhiAmMythBrokenMicVisual: React.FC<EpisodeVisualProps> = ({
           <WoodenTable x={560} topY={665} floorY={795} width={260} />
           <SmartphoneProp x={560} y={665} scale={1.18} mode="PLAYING" flatOnTable={true} frame={frame} />
 
-          {/* Smooth green-blue waves traveling right toward 2 friends */}
+          {/* Smooth emerald sound waves traveling right toward 2 friends */}
           {[0, 1, 2].map((i) => {
             const dx = 40 + ((frame * 3 + i * 52) % 160);
             return (
@@ -285,7 +286,7 @@ export const GhiAmMythBrokenMicVisual: React.FC<EpisodeVisualProps> = ({
                 key={i}
                 d={`M ${620 + dx} ${600 - dx * 0.12} Q ${642 + dx} 618 ${620 + dx} ${638 + dx * 0.12}`}
                 fill="none"
-                stroke="#34d399"
+                stroke="#059669"
                 strokeWidth="5"
                 strokeLinecap="round"
                 opacity={1 - dx / 185}
@@ -314,12 +315,12 @@ export const GhiAmMythBrokenMicVisual: React.FC<EpisodeVisualProps> = ({
             frame={frame + 14}
           />
 
-          {/* Clean green approval check above friends */}
+          {/* Clean green approval check above friends — generous 16px+ spacing between icon and "G" */}
           <g transform="translate(1210, 415)">
-            <rect x="-150" y="-36" width="300" height="72" rx="36" fill="#064e3b" stroke="#10b981" strokeWidth="4" />
-            <circle cx="-106" cy="0" r="18" fill="#10b981" />
-            <path d="M -114 0 L -108 6 L -97 -6" fill="none" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-            <text x="16" y="9" textAnchor="middle" fill="#d1fae5" fontSize="24" fontWeight="800">
+            <rect x="-182" y="-36" width="364" height="72" rx="36" fill="#ecfdf5" stroke="#10b981" strokeWidth="4" />
+            <circle cx="-142" cy="0" r="18" fill="#10b981" />
+            <path d="M -150 0 L -144 6 L -133 -6" fill="none" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+            <text x="-106" y="9" textAnchor="start" fill="#065f46" fontSize="24" fontWeight="800">
               Giống hệt ngoài đời!
             </text>
           </g>
@@ -339,7 +340,7 @@ export const GhiAmMythBrokenMicVisual: React.FC<EpisodeVisualProps> = ({
                 key={i}
                 d={`M ${620 + dx} ${595 - dx * 0.14} Q ${642 + dx} 618 ${620 + dx} ${642 + dx * 0.14}`}
                 fill="none"
-                stroke="#38bdf8"
+                stroke="#0284c7"
                 strokeWidth="5"
                 strokeLinecap="round"
                 opacity={1 - dx / 185}
@@ -467,20 +468,20 @@ export const GhiAmAirConductionVisual: React.FC<EpisodeVisualProps> = ({
 
       {/* STEP 3: Magnified Zoom Circle of Eardrum → 3 Ossicles → Cochlea */}
       {activeStep === 3 && (
-        <g opacity={clamp01(p * 1.8)}>
+        <g opacity={clamp01(0.4 + p * 3)}>
           {/* Dotted connector lines from middle ear to zoom lens */}
-          <line x1="650" y1="522" x2="1125" y2="275" stroke="#0284c7" strokeWidth="3.5" strokeDasharray="8 8" opacity="0.65" />
-          <line x1="650" y1="528" x2="1125" y2="715" stroke="#0284c7" strokeWidth="3.5" strokeDasharray="8 8" opacity="0.65" />
+          <line x1="650" y1="522" x2="1125" y2="275" stroke="#0284c7" strokeWidth="3.5" strokeDasharray="8 8" opacity="0.72" />
+          <line x1="650" y1="528" x2="1125" y2="715" stroke="#0284c7" strokeWidth="3.5" strokeDasharray="8 8" opacity="0.72" />
 
           <g transform="translate(1395, 495)">
             <circle cx="0" cy="0" r="245" fill="#ffffff" stroke="#0284c7" strokeWidth="6" />
-            <text x="0" y="-182" textAnchor="middle" fill="#0369a1" fontSize="26" fontWeight="800">
+            <text x="0" y="-176" textAnchor="middle" fill="#0f172a" fontSize="25" fontWeight="900">
               PHÓNG ĐẠI TAI GIỮA &amp; ỐC TAI
             </text>
 
             {/* Eardrum on left of zoom */}
             <ellipse cx={-160 + ossicleRock * 0.4} cy="10" rx="14" ry="72" fill="#bae6fd" stroke="#0284c7" strokeWidth="5" />
-            <text x="-160" y="114" textAnchor="middle" fill="#0369a1" fontSize="20" fontWeight="700">
+            <text x="-160" y="116" textAnchor="middle" fill="#0f172a" fontSize="22" fontWeight="800">
               Màng nhĩ
             </text>
 
@@ -494,22 +495,22 @@ export const GhiAmAirConductionVisual: React.FC<EpisodeVisualProps> = ({
               <path d="M -26 6 L 26 -14 L 26 26 Z" fill="none" stroke="#d97706" strokeWidth="7" strokeLinejoin="round" />
               <line x1="28" y1="-18" x2="28" y2="30" stroke={INK} strokeWidth="5" strokeLinecap="round" />
             </g>
-            <text x="-46" y="-66" textAnchor="middle" fill="#92400e" fontSize="21" fontWeight="800">
+            <text x="-46" y="-66" textAnchor="middle" fill="#0f172a" fontSize="22" fontWeight="800">
               3 xương con
             </text>
 
             {/* Cochlea spiral on right of zoom */}
             <g transform="translate(116, 6)">
-              <circle cx="0" cy="0" r="72" fill="#eef2ff" stroke="#6366f1" strokeWidth="4" />
+              <circle cx="0" cy="0" r="72" fill="#eef2ff" stroke="#4f46e5" strokeWidth="4.5" />
               <path
                 d="M -52 10 C -52 -46 46 -52 52 0 C 56 46 -18 54 -28 16 C -34 -14 14 -20 18 6 C 20 20 0 22 -4 12"
                 fill="none"
-                stroke="#4f46e5"
+                stroke="#4338ca"
                 strokeWidth="9"
                 strokeLinecap="round"
               />
             </g>
-            <text x="116" y="114" textAnchor="middle" fill="#4338ca" fontSize="22" fontWeight="800">
+            <text x="116" y="116" textAnchor="middle" fill="#0f172a" fontSize="22" fontWeight="800">
               Ốc tai → Não
             </text>
           </g>
