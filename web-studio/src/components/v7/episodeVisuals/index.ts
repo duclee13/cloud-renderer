@@ -108,6 +108,26 @@ import {
   NuocDaHappySummerEnjoyVisual,
   NuocDaSummary3RulesVisual,
 } from './nuocDaVisualsPart2';
+import {
+  GhiAmPhoneShockVisual,
+  GhiAmMythBrokenMicVisual,
+  GhiAmAirConductionVisual,
+  GhiAmBoneConductionVisual,
+  GhiAmDualPathSplitVisual,
+  GhiAmSkullBassFilterVisual,
+  GhiAmRecordingStripBassVisual,
+  GhiAmVoiceConfrontationVisual,
+} from './ghiAmVisualsPart1';
+import {
+  GhiAmSelfImageExpectationVisual,
+  GhiAmMirrorAnalogyVisual,
+  GhiAmExperimentHandsVisual,
+  GhiAmBoneHeadphonesVisual,
+  GhiAmGetUsedToVoiceVisual,
+  GhiAmYardPracticeVisual,
+  GhiAmPorchHappyEndVisual,
+  GhiAmSummaryOutroVisual,
+} from './ghiAmVisualsPart2';
 
 export type EpisodeVisualProps = {
   progress: number;
@@ -217,4 +237,22 @@ export const EPISODE_VISUAL_REGISTRY: Record<string, React.FC<EpisodeVisualProps
   NUOCDA_TIP_SIP_SLOWLY: NuocDaTipSipSlowlyVisual,
   NUOCDA_HAPPY_SUMMER_ENJOY: NuocDaHappySummerEnjoyVisual,
   NUOCDA_SUMMARY_3_RULES: NuocDaSummary3RulesVisual,
+
+  // Episode: Tại Sao Nghe Giọng Mình Trong Ghi Âm Lại Thấy Lạ Hoắc? (V21.0)
+  GHIAM_PHONE_SHOCK: GhiAmPhoneShockVisual,
+  GHIAM_MYTH_BROKEN_MIC: GhiAmMythBrokenMicVisual,
+  GHIAM_AIR_CONDUCTION: GhiAmAirConductionVisual,
+  GHIAM_BONE_CONDUCTION: GhiAmBoneConductionVisual,
+  GHIAM_DUAL_PATH_SPLIT: GhiAmDualPathSplitVisual,
+  GHIAM_SKULL_BASS_FILTER: GhiAmSkullBassFilterVisual,
+  GHIAM_RECORDING_STRIP_BASS: GhiAmRecordingStripBassVisual,
+  GHIAM_VOICE_CONFRONTATION: GhiAmVoiceConfrontationVisual,
+  GHIAM_SELF_IMAGE_EXPECTATION: GhiAmSelfImageExpectationVisual,
+  GHIAM_MIRROR_ANALOGY: GhiAmMirrorAnalogyVisual,
+  GHIAM_EXPERIMENT_HANDS: GhiAmExperimentHandsVisual,
+  GHIAM_BONE_HEADPHONES: GhiAmBoneHeadphonesVisual,
+  GHIAM_GET_USED_TO_VOICE: GhiAmGetUsedToVoiceVisual,
+  GHIAM_YARD_PRACTICE: GhiAmYardPracticeVisual,
+  GHIAM_PORCH_HAPPY_END: GhiAmPorchHappyEndVisual,
+  GHIAM_SUMMARY_OUTRO: GhiAmSummaryOutroVisual,
 };

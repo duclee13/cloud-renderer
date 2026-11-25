@@ -1,0 +1,3939 @@
+{
+  "title": "Tại Sao Nghe Giọng Mình Trong Ghi Âm Lại Thấy Lạ Hoắc?",
+  "slug": "tai_sao_giong_ghi_am_nghe_la_v21",
+  "version": "v21.0",
+  "beats": [
+    {
+      "id": "b01",
+      "text": "Chiều hôm ấy, tôi ngồi vào bàn học bấm điện thoại thu âm thử bài thuyết trình môn sinh học cho thật trôi chảy.",
+      "ttsText": "Chiều hôm ấy, tôi ngồi vào bàn học bấm điện thoại thu âm thử bài thuyết trình môn sinh học cho thật trôi chảy.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_PHONE_SHOCK",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b02",
+      "text": "Thu xong một lèo nghe có vẻ khá tự tin, tôi đặt điện thoại xuống bàn rồi háo hức bấm nút phát lại kiểm tra.",
+      "ttsText": "Thu xong một lèo nghe có vẻ khá tự tin, tôi đặt điện thoại xuống bàn rồi háo hức bấm nút phát lại kiểm tra.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_PHONE_SHOCK",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b03",
+      "text": "Vừa nghe câu đầu tiên vang lên, tôi giật bắn mình phải vội ôm hai tai vì giọng trong máy nghe mỏng dính, cao vút và lạ hoắc.",
+      "ttsText": "Vừa nghe câu đầu tiên vang lên, tôi giật bắn mình phải vội ôm hai tai vì giọng trong máy nghe mỏng dính, cao vút và lạ hoắc.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_PHONE_SHOCK",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b04",
+      "text": "Tôi chạy vội ra sân kể ngay với ông nội, cứ tưởng rằng bộ thu âm hay loa điện thoại nhà mình đã bị rè hỏng mất rồi.",
+      "ttsText": "Tôi chạy vội ra sân kể ngay với ông nội, cứ tưởng rằng bộ thu âm hay loa điện thoại nhà mình đã bị rè hỏng mất rồi.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "WORRIED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.45,
+              "startX": 520,
+              "endX": 520,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1,
+              "startX": 520,
+              "endX": 520,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Loa hỏng à ông?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "THINKING",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1220,
+              "endX": 1220,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1220,
+              "endX": 1220,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 880,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b05",
+      "text": "Ông nội bật cười bảo hồi nãy ông đi ngang cửa phòng nghe rõ giọng trong máy giống hệt ngoài đời, rồi rủ sang phòng khám hỏi bác sĩ cho rõ ngọn ngành.",
+      "ttsText": "Ông nội bật cười bảo hồi nãy ông đi ngang cửa phòng nghe rõ giọng trong máy giống hệt ngoài đời, rồi rủ sang phòng khám hỏi bác sĩ cho rõ ngọn ngành.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 520,
+              "endX": 520,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 520,
+              "endX": 520,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.45,
+              "startX": 1220,
+              "endX": 1220,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1,
+              "startX": 1220,
+              "endX": 1220,
+              "facing": "LEFT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Giống hệt mà!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 880,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b06",
+      "text": "Nhiều người cũng từng đổ lỗi cho điện thoại rẻ tiền hay bộ thu âm bị méo tiếng mỗi lần nghe lại bản ghi âm của chính mình.",
+      "ttsText": "Nhiều người cũng từng đổ lỗi cho điện thoại rẻ tiền hay bộ thu âm bị méo tiếng mỗi lần nghe lại bản ghi âm của chính mình.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_MYTH_BROKEN_MIC",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b07",
+      "text": "Nhưng sự thật là ngay cả khi bạn vào phòng thu chuyên nghiệp dùng thiết bị xịn nhất, người xung quanh nghe lại vẫn thấy giống hệt giọng thật của bạn.",
+      "ttsText": "Nhưng sự thật là ngay cả khi bạn vào phòng thu chuyên nghiệp dùng thiết bị xịn nhất, người xung quanh nghe lại vẫn thấy giống hệt giọng thật của bạn.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_MYTH_BROKEN_MIC",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b08",
+      "text": "Chỉ có duy nhất chính chủ nhân của giọng nói đó mới cảm thấy xa lạ, ngại ngùng và tự hỏi tại sao giọng mình lại kỳ cục đến vậy.",
+      "ttsText": "Chỉ có duy nhất chính chủ nhân của giọng nói đó mới cảm thấy xa lạ, ngại ngùng và tự hỏi tại sao giọng mình lại kỳ cục đến vậy.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_MYTH_BROKEN_MIC",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b09",
+      "text": "Sang tới phòng khám, tôi gãi đầu hỏi bác sĩ vì sao cùng một câu nói phát ra mà tôi nghe một kiểu, còn ông nội lại nghe một kiểu khác hẳn.",
+      "ttsText": "Sang tới phòng khám, tôi gãi đầu hỏi bác sĩ vì sao cùng một câu nói phát ra mà tôi nghe một kiểu, còn ông nội lại nghe một kiểu khác hẳn.",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.48,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.48,
+              "toPct": 1,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Sao lạ thế ạ?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 880,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b10",
+      "text": "Bác sĩ mỉm cười giải thích rằng bí mật không nằm ở chiếc điện thoại, mà nằm ở việc tai bạn nghe giọng chính mình qua tới hai con đường cùng lúc.",
+      "ttsText": "Bác sĩ mỉm cười giải thích rằng bí mật không nằm ở chiếc điện thoại, mà nằm ở việc tai bạn nghe giọng chính mình qua tới hai con đường cùng lúc.",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.45,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ],
+          "bubble": "Có hai đường!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 980,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b11",
+      "text": "Con đường thứ nhất gọi là truyền âm qua không khí, bắt đầu từ lúc dây thanh quản trong cổ họng rung lên khi bạn cất tiếng nói.",
+      "ttsText": "Con đường thứ nhất gọi là truyền âm qua không khí, bắt đầu từ lúc dây thanh quản trong cổ họng rung lên khi bạn cất tiếng nói.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_AIR_CONDUCTION",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b12",
+      "text": "Những làn sóng âm ấy thoát ra khỏi khoang miệng, lan truyền trong không khí xung quanh rồi vòng ngược trở lại vành tai bên ngoài.",
+      "ttsText": "Những làn sóng âm ấy thoát ra khỏi khoang miệng, lan truyền trong không khí xung quanh rồi vòng ngược trở lại vành tai bên ngoài.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_AIR_CONDUCTION",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b13",
+      "text": "Khi sóng âm chui vào ống tai, chúng đập vào màng nhĩ mỏng manh khiến màng nhĩ rung động theo đúng từng nhịp cao thấp của lời nói.",
+      "ttsText": "Khi sóng âm chui vào ống tai, chúng đập vào màng nhĩ mỏng manh khiến màng nhĩ rung động theo đúng từng nhịp cao thấp của lời nói.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_AIR_CONDUCTION",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b14",
+      "text": "Rung động từ màng nhĩ đi qua chuỗi ba xương nhỏ trong tai giữa rồi truyền vào ốc tai, nơi tín hiệu âm thanh được gửi lên não xử lý.",
+      "ttsText": "Rung động từ màng nhĩ đi qua chuỗi ba xương nhỏ trong tai giữa rồi truyền vào ốc tai, nơi tín hiệu âm thanh được gửi lên não xử lý.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_AIR_CONDUCTION",
+      "visualStep": 3,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b15",
+      "text": "Nhưng khi chính bạn đang nói, cơ thể còn mở thêm một lối đi bí mật thứ hai mang tên truyền âm qua xương sọ.",
+      "ttsText": "Nhưng khi chính bạn đang nói, cơ thể còn mở thêm một lối đi bí mật thứ hai mang tên truyền âm qua xương sọ.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_BONE_CONDUCTION",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b16",
+      "text": "Toàn bộ rung động từ dây thanh quản không chỉ bay ra ngoài miệng mà còn dội thẳng ngược lên qua xương hàm, mô mềm và hộp sọ của bạn.",
+      "ttsText": "Toàn bộ rung động từ dây thanh quản không chỉ bay ra ngoài miệng mà còn dội thẳng ngược lên qua xương hàm, mô mềm và hộp sọ của bạn.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_BONE_CONDUCTION",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b17",
+      "text": "Luồng rung động nội bộ này chạy xuyên qua xương rồi đập trực tiếp vào ốc tai bên trong, bỏ qua hoàn toàn vành tai ngoài lẫn màng nhĩ.",
+      "ttsText": "Luồng rung động nội bộ này chạy xuyên qua xương rồi đập trực tiếp vào ốc tai bên trong, bỏ qua hoàn toàn vành tai ngoài lẫn màng nhĩ.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_BONE_CONDUCTION",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b18",
+      "text": "Thế là mỗi lần bạn mở miệng nói, ốc tai của bạn luôn nhận một bản hòa trộn đặc biệt giữa cả đường không khí lẫn đường xương sọ.",
+      "ttsText": "Thế là mỗi lần bạn mở miệng nói, ốc tai của bạn luôn nhận một bản hòa trộn đặc biệt giữa cả đường không khí lẫn đường xương sọ.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_BONE_CONDUCTION",
+      "visualStep": 3,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b19",
+      "text": "Trong khi đó, bạn bè đứng đối diện hay chiếc máy thu âm trên bàn không dính liền vào xương đầu của bạn nên chỉ nhận duy nhất đường không khí.",
+      "ttsText": "Trong khi đó, bạn bè đứng đối diện hay chiếc máy thu âm trên bàn không dính liền vào xương đầu của bạn nên chỉ nhận duy nhất đường không khí.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_DUAL_PATH_SPLIT",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b20",
+      "text": "Nghĩa là từ lúc biết nói đến giờ, bạn chưa từng nghe giọng mình giống hệt cách cả thế giới vẫn nghe bạn nói mỗi ngày.",
+      "ttsText": "Nghĩa là từ lúc biết nói đến giờ, bạn chưa từng nghe giọng mình giống hệt cách cả thế giới vẫn nghe bạn nói mỗi ngày.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_DUAL_PATH_SPLIT",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b21",
+      "text": "Tôi tròn mắt hỏi tiếp bác sĩ, vậy cộng thêm đường truyền qua xương sọ thì làm giọng nói của mình thay đổi cụ thể ra sao ạ?",
+      "ttsText": "Tôi tròn mắt hỏi tiếp bác sĩ, vậy cộng thêm đường truyền qua xương sọ thì làm giọng nói của mình thay đổi cụ thể ra sao ạ?",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.48,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.48,
+              "toPct": 1,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Khác nhau gì ạ?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 880,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b22",
+      "text": "Bác sĩ giơ tay giải thích rằng hộp sọ và các mô mềm trong đầu hoạt động y hệt một chiếc thùng đàn gỗ giúp khuếch đại âm trầm.",
+      "ttsText": "Bác sĩ giơ tay giải thích rằng hộp sọ và các mô mềm trong đầu hoạt động y hệt một chiếc thùng đàn gỗ giúp khuếch đại âm trầm.",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.45,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ],
+          "bubble": "Tăng âm trầm!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 980,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b23",
+      "text": "Xương và mô thịt trong đầu có cấu trúc đặc và đàn hồi nên truyền dẫn sóng âm rất khác so với khoảng không khí loãng bên ngoài.",
+      "ttsText": "Xương và mô thịt trong đầu có cấu trúc đặc và đàn hồi nên truyền dẫn sóng âm rất khác so với khoảng không khí loãng bên ngoài.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_SKULL_BASS_FILTER",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b24",
+      "text": "Cụ thể, xương sọ cực kỳ ưu ái những làn sóng âm trầm có tần số thấp, giúp chúng cộng hưởng dày lên, ấm áp và đầy đặn hơn hẳn.",
+      "ttsText": "Cụ thể, xương sọ cực kỳ ưu ái những làn sóng âm trầm có tần số thấp, giúp chúng cộng hưởng dày lên, ấm áp và đầy đặn hơn hẳn.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_SKULL_BASS_FILTER",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b25",
+      "text": "Ngược lại, những dải âm cao chói tai lại truyền kém hơn qua xương, nên phần lớn chỉ thoát ra ngoài không khí phía trước miệng.",
+      "ttsText": "Ngược lại, những dải âm cao chói tai lại truyền kém hơn qua xương, nên phần lớn chỉ thoát ra ngoài không khí phía trước miệng.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_SKULL_BASS_FILTER",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b26",
+      "text": "Nhờ bộ lọc tự nhiên đó, giọng nói bạn tự nghe trong đầu mình lúc nào cũng có cảm giác trầm hơn, vang hơn và giàu nội lực hơn thực tế.",
+      "ttsText": "Nhờ bộ lọc tự nhiên đó, giọng nói bạn tự nghe trong đầu mình lúc nào cũng có cảm giác trầm hơn, vang hơn và giàu nội lực hơn thực tế.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_SKULL_BASS_FILTER",
+      "visualStep": 3,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b27",
+      "text": "Đến khi bạn bấm nút phát lại đoạn ghi âm trên điện thoại, toàn bộ đường truyền bí mật qua xương sọ đột ngột biến mất không còn dấu vết.",
+      "ttsText": "Đến khi bạn bấm nút phát lại đoạn ghi âm trên điện thoại, toàn bộ đường truyền bí mật qua xương sọ đột ngột biến mất không còn dấu vết.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_RECORDING_STRIP_BASS",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b28",
+      "text": "Âm thanh từ loa điện thoại chỉ đi qua không khí vào màng nhĩ, giống hệt cách người ngoài nghe bạn nói hàng ngày.",
+      "ttsText": "Âm thanh từ loa điện thoại chỉ đi qua không khí vào màng nhĩ, giống hệt cách người ngoài nghe bạn nói hàng ngày.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_RECORDING_STRIP_BASS",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b29",
+      "text": "Vì bị tước sạch lớp âm trầm ấm áp quen thuộc từ hộp sọ, giọng nói của bạn bỗng nhiên nghe mỏng đi, cao vút lên và hơi chói tai.",
+      "ttsText": "Vì bị tước sạch lớp âm trầm ấm áp quen thuộc từ hộp sọ, giọng nói của bạn bỗng nhiên nghe mỏng đi, cao vút lên và hơi chói tai.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_RECORDING_STRIP_BASS",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b30",
+      "text": "Thực ra giọng trong bản ghi âm mới chính là phiên bản gần nhất với giọng thật mà bạn bè, thầy cô và gia đình vẫn nghe suốt bấy lâu nay.",
+      "ttsText": "Thực ra giọng trong bản ghi âm mới chính là phiên bản gần nhất với giọng thật mà bạn bè, thầy cô và gia đình vẫn nghe suốt bấy lâu nay.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_RECORDING_STRIP_BASS",
+      "visualStep": 3,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b31",
+      "text": "Ông nội gật gù rồi hỏi thêm, nhưng tại sao nghe giọng mình lạ lại khiến người ta dễ thấy khó chịu và ngượng chín mặt thế bác sĩ?",
+      "ttsText": "Ông nội gật gù rồi hỏi thêm, nhưng tại sao nghe giọng mình lạ lại khiến người ta dễ thấy khó chịu và ngượng chín mặt thế bác sĩ?",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Sao lại thấy ngại?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 780,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b32",
+      "text": "Bác sĩ mỉm cười bảo ngoài chuyện vật lý âm thanh, cảm giác ngại ngùng ấy còn bắt nguồn từ một phản ứng tâm lý cực kỳ thú vị của bộ não.",
+      "ttsText": "Bác sĩ mỉm cười bảo ngoài chuyện vật lý âm thanh, cảm giác ngại ngùng ấy còn bắt nguồn từ một phản ứng tâm lý cực kỳ thú vị của bộ não.",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.45,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ],
+          "bubble": "Do tâm lý đấy!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 980,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b33",
+      "text": "Trong tâm lý học, cảm giác khó chịu khi nghe lại giọng ghi âm của chính mình có hẳn một tên gọi là phản ứng đối đầu giọng nói.",
+      "ttsText": "Trong tâm lý học, cảm giác khó chịu khi nghe lại giọng ghi âm của chính mình có hẳn một tên gọi là phản ứng đối đầu giọng nói.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_VOICE_CONFRONTATION",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b34",
+      "text": "Suốt nhiều năm lớn lên, bộ não của bạn đã lưu chặt một bản mẫu giọng trầm ấm như một dấu hiệu nhận diện quen thuộc của bản thân.",
+      "ttsText": "Suốt nhiều năm lớn lên, bộ não của bạn đã lưu chặt một bản mẫu giọng trầm ấm như một dấu hiệu nhận diện quen thuộc của bản thân.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_VOICE_CONFRONTATION",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b35",
+      "text": "Khi đoạn ghi âm vang lên với tông giọng cao và mỏng hơn bản mẫu ấy, não lập tức báo lệch pha và sinh ra cảm giác bất an, khó chấp nhận.",
+      "ttsText": "Khi đoạn ghi âm vang lên với tông giọng cao và mỏng hơn bản mẫu ấy, não lập tức báo lệch pha và sinh ra cảm giác bất an, khó chấp nhận.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_VOICE_CONFRONTATION",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b36",
+      "text": "Cảm giác ấy giống như khi bạn nhìn vào một đồ vật rất thân quen nhưng ai đó lại lén thay đổi nhẹ màu sắc hay hình dáng của nó vậy.",
+      "ttsText": "Cảm giác ấy giống như khi bạn nhìn vào một đồ vật rất thân quen nhưng ai đó lại lén thay đổi nhẹ màu sắc hay hình dáng của nó vậy.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_VOICE_CONFRONTATION",
+      "visualStep": 3,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b37",
+      "text": "Không chỉ vậy, ta còn vô thức gắn giọng nói với tính cách, nên khi nghe giọng mình cao và mỏng hơn tưởng tượng ta dễ tự ti rằng nghe hơi trẻ con.",
+      "ttsText": "Không chỉ vậy, ta còn vô thức gắn giọng nói với tính cách, nên khi nghe giọng mình cao và mỏng hơn tưởng tượng ta dễ tự ti rằng nghe hơi trẻ con.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_SELF_IMAGE_EXPECTATION",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b38",
+      "text": "Nhưng nhiều thí nghiệm tâm lý đã chứng minh một sự thật rất nhẹ nhõm, người ngoài không hề thấy giọng bạn khó nghe như bạn tự lo lắng.",
+      "ttsText": "Nhưng nhiều thí nghiệm tâm lý đã chứng minh một sự thật rất nhẹ nhõm, người ngoài không hề thấy giọng bạn khó nghe như bạn tự lo lắng.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_SELF_IMAGE_EXPECTATION",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b39",
+      "text": "Thậm chí khi nhà nghiên cứu trộn giọng ghi âm của người tham gia vào loạt giọng lạ mà không báo trước, nhiều người lại tự khen giọng mình rất dễ nghe.",
+      "ttsText": "Thậm chí khi nhà nghiên cứu trộn giọng ghi âm của người tham gia vào loạt giọng lạ mà không báo trước, nhiều người lại tự khen giọng mình rất dễ nghe.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_SELF_IMAGE_EXPECTATION",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b40",
+      "text": "Điều đó chứng tỏ giọng thật của bạn chẳng hề tệ chút nào, chỉ là bộ não đang quá khắt khe vì nó chưa quen với góc nhìn từ bên ngoài mà thôi.",
+      "ttsText": "Điều đó chứng tỏ giọng thật của bạn chẳng hề tệ chút nào, chỉ là bộ não đang quá khắt khe vì nó chưa quen với góc nhìn từ bên ngoài mà thôi.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_SELF_IMAGE_EXPECTATION",
+      "visualStep": 3,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b41",
+      "text": "Hiện tượng này giống hệt cảm giác kỳ kỳ mỗi khi bạn xem ảnh chụp bằng máy ảnh thường rồi thấy mặt mình trông hơi lệch so với lúc soi gương.",
+      "ttsText": "Hiện tượng này giống hệt cảm giác kỳ kỳ mỗi khi bạn xem ảnh chụp bằng máy ảnh thường rồi thấy mặt mình trông hơi lệch so với lúc soi gương.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_MIRROR_ANALOGY",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b42",
+      "text": "Ngày nào soi gương bạn cũng quen với hình ảnh đã lật ngược trái phải, nên khi máy ảnh giữ nguyên chiều thật thì mắt bạn lập tức thấy lạ lẫm.",
+      "ttsText": "Ngày nào soi gương bạn cũng quen với hình ảnh đã lật ngược trái phải, nên khi máy ảnh giữ nguyên chiều thật thì mắt bạn lập tức thấy lạ lẫm.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_MIRROR_ANALOGY",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b43",
+      "text": "Còn bạn bè và người thân nhìn khuôn mặt thật cùng giọng nói thật của bạn mỗi ngày nên họ thấy mọi thứ hoàn toàn hài hòa và tự nhiên.",
+      "ttsText": "Còn bạn bè và người thân nhìn khuôn mặt thật cùng giọng nói thật của bạn mỗi ngày nên họ thấy mọi thứ hoàn toàn hài hòa và tự nhiên.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_MIRROR_ANALOGY",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b44",
+      "text": "Vậy nên lần sau nghe lại giọng ghi âm, đừng vội bấm tắt ngay vì ngại, bởi đó đơn giản chỉ là chiếc gương âm thanh phản chiếu giọng thật của bạn.",
+      "ttsText": "Vậy nên lần sau nghe lại giọng ghi âm, đừng vội bấm tắt ngay vì ngại, bởi đó đơn giản chỉ là chiếc gương âm thanh phản chiếu giọng thật của bạn.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_MIRROR_ANALOGY",
+      "visualStep": 3,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b45",
+      "text": "Tôi hào hứng hỏi bác sĩ xem có cách nào tự kiểm chứng ngay hai con đường âm thanh này mà không cần tới điện thoại hay máy móc không ạ?",
+      "ttsText": "Tôi hào hứng hỏi bác sĩ xem có cách nào tự kiểm chứng ngay hai con đường âm thanh này mà không cần tới điện thoại hay máy móc không ạ?",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.48,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.48,
+              "toPct": 1,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Thử ngay được không?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 880,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b46",
+      "text": "Bác sĩ bật mí ngay hai thí nghiệm chỉ mất đúng năm giây mà ai đang ngồi tại chỗ cũng có thể làm thử và cảm nhận rõ rệt tức thì.",
+      "ttsText": "Bác sĩ bật mí ngay hai thí nghiệm chỉ mất đúng năm giây mà ai đang ngồi tại chỗ cũng có thể làm thử và cảm nhận rõ rệt tức thì.",
+      "stageType": "DOCTOR_CLINIC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 360,
+              "endX": 360,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 760,
+              "endX": 760,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "DOCTOR",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.45,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.45,
+              "toPct": 1,
+              "startX": 1280,
+              "endX": 1280,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ],
+          "bubble": "Dễ lắm cháu!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 980,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b47",
+      "text": "Thí nghiệm thứ nhất, bạn hãy lấy hai ngón tay bịt kín nhẹ hai lỗ tai rồi đọc thử một câu ngắn bằng giọng nói bình thường.",
+      "ttsText": "Thí nghiệm thứ nhất, bạn hãy lấy hai ngón tay bịt kín nhẹ hai lỗ tai rồi đọc thử một câu ngắn bằng giọng nói bình thường.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_EXPERIMENT_HANDS",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b48",
+      "text": "Khi đường không khí bị chặn lại, bạn sẽ nghe thấy giọng mình bỗng ù vang và trầm đặc hẳn lên trong đầu, đó chính là âm thanh chạy qua xương sọ.",
+      "ttsText": "Khi đường không khí bị chặn lại, bạn sẽ nghe thấy giọng mình bỗng ù vang và trầm đặc hẳn lên trong đầu, đó chính là âm thanh chạy qua xương sọ.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_EXPERIMENT_HANDS",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b49",
+      "text": "Thí nghiệm thứ hai, hãy dựng thẳng hai tấm bìa cứng hoặc hai bàn tay áp ngay phía trước vành tai như hai bức tường chắn nhỏ rồi nói thử.",
+      "ttsText": "Thí nghiệm thứ hai, hãy dựng thẳng hai tấm bìa cứng hoặc hai bàn tay áp ngay phía trước vành tai như hai bức tường chắn nhỏ rồi nói thử.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_EXPERIMENT_HANDS",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b50",
+      "text": "Bức tường này chắn bớt âm đi thẳng từ miệng vào tai và buộc bạn nghe sóng phản xạ từ không khí, nên tông giọng nghe ra sẽ rất giống bản ghi âm.",
+      "ttsText": "Bức tường này chắn bớt âm đi thẳng từ miệng vào tai và buộc bạn nghe sóng phản xạ từ không khí, nên tông giọng nghe ra sẽ rất giống bản ghi âm.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_EXPERIMENT_HANDS",
+      "visualStep": 3,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b51",
+      "text": "Hiểu rõ cơ chế truyền âm qua xương, các kỹ sư còn chế tạo ra một món công nghệ cực kỳ độc đáo là tai nghe truyền âm qua xương.",
+      "ttsText": "Hiểu rõ cơ chế truyền âm qua xương, các kỹ sư còn chế tạo ra một món công nghệ cực kỳ độc đáo là tai nghe truyền âm qua xương.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_BONE_HEADPHONES",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b52",
+      "text": "Thay vì nhét vào trong lỗ tai, cặp loa nhỏ này áp sát ngay trước xương gò má để gửi rung động âm nhạc đi thẳng xuyên qua xương vào ốc tai.",
+      "ttsText": "Thay vì nhét vào trong lỗ tai, cặp loa nhỏ này áp sát ngay trước xương gò má để gửi rung động âm nhạc đi thẳng xuyên qua xương vào ốc tai.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_BONE_HEADPHONES",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b53",
+      "text": "Nhờ lỗ tai vẫn mở thoáng hoàn toàn, người chạy bộ hay đạp xe ngoài đường vừa nghe được nhạc vừa nghe rõ tiếng còi xe xung quanh rất an toàn.",
+      "ttsText": "Nhờ lỗ tai vẫn mở thoáng hoàn toàn, người chạy bộ hay đạp xe ngoài đường vừa nghe được nhạc vừa nghe rõ tiếng còi xe xung quanh rất an toàn.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_BONE_HEADPHONES",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b54",
+      "text": "Trong y học, nguyên lý này còn giúp chế tạo máy trợ thính dẫn truyền xương, hỗ trợ những người bị tổn thương ống tai hay màng nhĩ vẫn nghe rõ âm thanh.",
+      "ttsText": "Trong y học, nguyên lý này còn giúp chế tạo máy trợ thính dẫn truyền xương, hỗ trợ những người bị tổn thương ống tai hay màng nhĩ vẫn nghe rõ âm thanh.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_BONE_HEADPHONES",
+      "visualStep": 3,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b55",
+      "text": "Còn nếu bạn muốn hết ngại mỗi lần nghe giọng ghi âm của mình, bí quyết của các phát thanh viên và người làm nội dung thực ra cực kỳ đơn giản.",
+      "ttsText": "Còn nếu bạn muốn hết ngại mỗi lần nghe giọng ghi âm của mình, bí quyết của các phát thanh viên và người làm nội dung thực ra cực kỳ đơn giản.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_GET_USED_TO_VOICE",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b56",
+      "text": "Bạn chỉ cần tập thu âm và nghe lại vài chục lần để bộ não cập nhật thêm bản mẫu mới, chỉ sau vài ngày cảm giác lạ tai sẽ tự động biến mất.",
+      "ttsText": "Bạn chỉ cần tập thu âm và nghe lại vài chục lần để bộ não cập nhật thêm bản mẫu mới, chỉ sau vài ngày cảm giác lạ tai sẽ tự động biến mất.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_GET_USED_TO_VOICE",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b57",
+      "text": "Chiều hôm sau nắng dịu ngoài sân quê, tôi dựng hai tấm bìa nhỏ ngay trước vành tai thử đọc lại bài thuyết trình rồi bật cười thích thú.",
+      "ttsText": "Chiều hôm sau nắng dịu ngoài sân quê, tôi dựng hai tấm bìa nhỏ ngay trước vành tai thử đọc lại bài thuyết trình rồi bật cười thích thú.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_YARD_PRACTICE",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b58",
+      "text": "Ông nội bước lại gần vỗ vai tôi khen rằng hiểu rõ cơ chế rồi thì chẳng còn lý do gì phải ngại giọng thật của mình nữa.",
+      "ttsText": "Ông nội bước lại gần vỗ vai tôi khen rằng hiểu rõ cơ chế rồi thì chẳng còn lý do gì phải ngại giọng thật của mình nữa.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_YARD_PRACTICE",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b59",
+      "text": "Ngồi dưới hiên nhà mát rượi, tôi cầm điện thoại cùng ông nội thu thử một đoạn trò chuyện thật tự nhiên và vui vẻ.",
+      "ttsText": "Ngồi dưới hiên nhà mát rượi, tôi cầm điện thoại cùng ông nội thu thử một đoạn trò chuyện thật tự nhiên và vui vẻ.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_PORCH_HAPPY_END",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b60",
+      "text": "Khi đặt điện thoại lên bàn bấm phát lại, hai ông cháu cùng ngồi nghe thoải mái mà tôi chẳng còn giật mình bịt tai như hôm trước nữa.",
+      "ttsText": "Khi đặt điện thoại lên bàn bấm phát lại, hai ông cháu cùng ngồi nghe thoải mái mà tôi chẳng còn giật mình bịt tai như hôm trước nữa.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_PORCH_HAPPY_END",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b61",
+      "text": "Hóa ra những điều tưởng chừng kỳ quặc nhất của cơ thể đôi khi chỉ là cách tự nhiên tạo ra thêm một góc nghe thú vị cho riêng chúng ta.",
+      "ttsText": "Hóa ra những điều tưởng chừng kỳ quặc nhất của cơ thể đôi khi chỉ là cách tự nhiên tạo ra thêm một góc nghe thú vị cho riêng chúng ta.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_PORCH_HAPPY_END",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b62",
+      "text": "Tóm lại ba điều cần nhớ, khi nói bạn nghe giọng mình qua cả không khí lẫn xương sọ, còn bản ghi âm chỉ thu duy nhất phần không khí.",
+      "ttsText": "Tóm lại ba điều cần nhớ, khi nói bạn nghe giọng mình qua cả không khí lẫn xương sọ, còn bản ghi âm chỉ thu duy nhất phần không khí.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_SUMMARY_OUTRO",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b63",
+      "text": "Xương sọ cộng hưởng âm trầm nên khi thiếu nó giọng ghi âm nghe mỏng và cao hơn, nhưng trong tai người ngoài thì giọng bạn hoàn toàn bình thường.",
+      "ttsText": "Xương sọ cộng hưởng âm trầm nên khi thiếu nó giọng ghi âm nghe mỏng và cao hơn, nhưng trong tai người ngoài thì giọng bạn hoàn toàn bình thường.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_SUMMARY_OUTRO",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b64",
+      "text": "Ngay lúc này, bạn hãy thử bịt nhẹ hai tai rồi nói một câu bất kỳ để tự nghe chiếc thùng đàn xương sọ của mình hoạt động thế nào nhé!",
+      "ttsText": "Ngay lúc này, bạn hãy thử bịt nhẹ hai tai rồi nói một câu bất kỳ để tự nghe chiếc thùng đàn xương sọ của mình hoạt động thế nào nhé!",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "fullScreenVisual": true,
+      "customVisual": "GHIAM_SUMMARY_OUTRO",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    }
+  ]
+}
