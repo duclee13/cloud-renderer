@@ -1,0 +1,4100 @@
+{
+  "title": "Tại Sao Gãi Chỗ Muỗi Đốt Lại Càng Ngứa Hơn?",
+  "slug": "tai_sao_gai_cho_muoi_dot_cang_ngua_hon_v21",
+  "version": "v21.5",
+  "labBoard": "ITCH_NEUROLOGY",
+  "beats": [
+    {
+      "id": "b01",
+      "text": "Chiều hè về quê, tôi ngồi hóng gió ngoài sân gạch cùng ông nội dưới rặng cau râm mát.",
+      "ttsText": "Chiều hè về quê, tôi ngồi hóng gió ngoài sân gạch cùng ông nội dưới rặng cau râm mát.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 735,
+              "endX": 735,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 735,
+              "endX": 735,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Mát quá ông ơi!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b02",
+      "text": "Đang mải nghe ông kể chuyện, tôi bỗng thấy nhói nhẹ ở cánh tay vì bị một con muỗi cái chích trúng.",
+      "ttsText": "Đang mải nghe ông kể chuyện, tôi bỗng thấy nhói nhẹ ở cánh tay vì bị một con muỗi cái chích trúng.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "yardDetail": "MOSQUITO_FLY",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "SURPRISED",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 735,
+              "endX": 735,
+              "facing": "RIGHT",
+              "pose": "JUMP_BACK",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 735,
+              "endX": 735,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Á, muỗi đốt!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b03",
+      "text": "Lúc đầu chỉ hơi râm ran, tôi đưa tay gãi sồn sột vài cái thấy dịu hẳn đi, khoan khoái vô cùng.",
+      "ttsText": "Lúc đầu chỉ hơi râm ran, tôi đưa tay gãi sồn sột vài cái thấy dịu hẳn đi, khoan khoái vô cùng.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "yardDetail": "SCRATCH_SPARK",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 735,
+              "endX": 735,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 735,
+              "endX": 735,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Đã quá đi!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "THINKING",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b04",
+      "text": "Nhưng chỉ mười giây sau khi buông tay ra, nốt muỗi đốt bỗng sưng vù lên và ngứa điên đảo gấp đôi lúc nãy.",
+      "ttsText": "Nhưng chỉ mười giây sau khi buông tay ra, nốt muỗi đốt bỗng sưng vù lên và ngứa điên đảo gấp đôi lúc nãy.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "yardDetail": "SWELL_BUMP",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "WORRIED",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 735,
+              "endX": 735,
+              "facing": "RIGHT",
+              "pose": "SHIVER_PANIC",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 735,
+              "endX": 735,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "ANGRY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Sao ngứa hơn thế?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "WORRIED",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b05",
+      "text": "Ông nội vội giữ tay tôi lại bảo càng gãi thì nốt muỗi đốt càng sưng tấy và ngứa dữ hơn đấy.",
+      "ttsText": "Ông nội vội giữ tay tôi lại bảo càng gãi thì nốt muỗi đốt càng sưng tấy và ngứa dữ hơn đấy.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "yardDetail": "SWELL_BUMP",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "SURPRISED",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 735,
+              "endX": 735,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 735,
+              "endX": 735,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "WORRIED",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "POINT_FORWARD",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Đừng gãi nữa cháu!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b06",
+      "text": "Tôi thắc mắc rõ ràng lúc gãi thấy dễ chịu ngay lập tức, sao cứ dừng tay là cơn ngứa lại ập về nặng hơn.",
+      "ttsText": "Tôi thắc mắc rõ ràng lúc gãi thấy dễ chịu ngay lập tức, sao cứ dừng tay là cơn ngứa lại ập về nặng hơn.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 735,
+              "endX": 735,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 735,
+              "endX": 735,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Sao lại thế ạ?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "THINKING",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b07",
+      "text": "Ông cười bảo cháu chạy sang phòng nghiên cứu của chú nhà khoa học đầu ngõ hỏi cho rõ, ông ngồi ngoài sân đợi.",
+      "ttsText": "Ông cười bảo cháu chạy sang phòng nghiên cứu của chú nhà khoa học đầu ngõ hỏi cho rõ, ông ngồi ngoài sân đợi.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.55,
+              "startX": 460,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "RUN",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.55,
+              "toPct": 1,
+              "startX": 740,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Sang hỏi chú nhé!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b08",
+      "text": "Thực ra hầu như ai cũng từng mắc kẹt trong cái bẫy kỳ lạ này: càng ngứa càng gãi, mà càng gãi lại càng ngứa.",
+      "ttsText": "Thực ra hầu như ai cũng từng mắc kẹt trong cái bẫy kỳ lạ này: càng ngứa càng gãi, mà càng gãi lại càng ngứa.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_INTRO_VICIOUS_CYCLE",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b09",
+      "text": "Điều trớ trêu là chính phản xạ gãi ấy lại vô tình kích hoạt một chuỗi phản ứng hóa học từ da lên tận não.",
+      "ttsText": "Điều trớ trêu là chính phản xạ gãi ấy lại vô tình kích hoạt một chuỗi phản ứng hóa học từ da lên tận não.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_INTRO_VICIOUS_CYCLE",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b10",
+      "text": "Vừa bước vào phòng thí nghiệm, tôi giơ cánh tay đỏ ửng hỏi chú nhà khoa học vì sao gãi chỗ muỗi đốt lại phản tác dụng.",
+      "ttsText": "Vừa bước vào phòng thí nghiệm, tôi giơ cánh tay đỏ ửng hỏi chú nhà khoa học vì sao gãi chỗ muỗi đốt lại phản tác dụng.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "labBoard": "ITCH_NEUROLOGY",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Cháu chào chú ạ!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#334155",
+            "outfitStyle": "LAB_COAT",
+            "outfitColor": "#FFFFFF",
+            "glasses": "RECT",
+            "mustache": false,
+            "prop": "NOTEBOOK"
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 920,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b11",
+      "text": "Chú nhà khoa học mỉm cười bảo trước khi hiểu vì sao gãi làm ngứa thêm, ta cần xem con muỗi đã để lại gì dưới da.",
+      "ttsText": "Chú nhà khoa học mỉm cười bảo trước khi hiểu vì sao gãi làm ngứa thêm, ta cần xem con muỗi đã để lại gì dưới da.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "labBoard": "ITCH_NEUROLOGY",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#334155",
+            "outfitStyle": "LAB_COAT",
+            "outfitColor": "#FFFFFF",
+            "glasses": "RECT",
+            "mustache": false,
+            "prop": "NOTEBOOK"
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ],
+          "bubble": "Do miễn dịch đấy!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 920,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b12",
+      "text": "Khi muỗi cái cắm vòi hút máu, nó không chỉ rút máu đi mà còn bơm vào da một ít nước bọt chống đông máu.",
+      "ttsText": "Khi muỗi cái cắm vòi hút máu, nó không chỉ rút máu đi mà còn bơm vào da một ít nước bọt chống đông máu.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_SALIVA_SKIN",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b13",
+      "text": "Ngay lập tức, hệ miễn dịch của cơ thể nhận diện lượng nước bọt lạ này như một kẻ xâm nhập cần xử lý gấp.",
+      "ttsText": "Ngay lập tức, hệ miễn dịch của cơ thể nhận diện lượng nước bọt lạ này như một kẻ xâm nhập cần xử lý gấp.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_SALIVA_SKIN",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b14",
+      "text": "Các tế bào miễn dịch gọi là dưỡng bào liền vỡ ra, xả ồ ạt chất truyền tin hóa học tên là histamin vào vùng da đó.",
+      "ttsText": "Các tế bào miễn dịch gọi là dưỡng bào liền vỡ ra, xả ồ ạt chất truyền tin hóa học tên là histamin vào vùng da đó.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_SALIVA_SKIN",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b15",
+      "text": "Chất histamin làm các mạch máu nhỏ tại chỗ giãn nở để đưa bạch cầu tới dọn dẹp, khiến vùng da sưng phồng và tấy đỏ.",
+      "ttsText": "Chất histamin làm các mạch máu nhỏ tại chỗ giãn nở để đưa bạch cầu tới dọn dẹp, khiến vùng da sưng phồng và tấy đỏ.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_HISTAMINE_SWELLING",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b16",
+      "text": "Đồng thời, các phân tử histamin bám thẳng vào đầu dây thần kinh cảm giác ngứa nằm dày đặc ngay dưới bề mặt da.",
+      "ttsText": "Đồng thời, các phân tử histamin bám thẳng vào đầu dây thần kinh cảm giác ngứa nằm dày đặc ngay dưới bề mặt da.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_HISTAMINE_SWELLING",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b17",
+      "text": "Đầu dây thần kinh lập tức phát ra xung điện truyền dọc theo cánh tay đi vào tủy sống rồi chạy thẳng lên vỏ não.",
+      "ttsText": "Đầu dây thần kinh lập tức phát ra xung điện truyền dọc theo cánh tay đi vào tủy sống rồi chạy thẳng lên vỏ não.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_NERVE_SIGNAL_UP",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b18",
+      "text": "Khi nhận được tín hiệu báo động ấy, não bộ dịch thành cảm giác ngứa ngáy khó chịu và ra lệnh cho bàn tay phải gãi ngay.",
+      "ttsText": "Khi nhận được tín hiệu báo động ấy, não bộ dịch thành cảm giác ngứa ngáy khó chịu và ra lệnh cho bàn tay phải gãi ngay.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_NERVE_SIGNAL_UP",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b19",
+      "text": "Tôi gật gù hóa ra cục sưng đỏ và cơn ngứa ban đầu chính là tác phẩm phòng vệ của histamin chứ không phải do vết chích.",
+      "ttsText": "Tôi gật gù hóa ra cục sưng đỏ và cơn ngứa ban đầu chính là tác phẩm phòng vệ của histamin chứ không phải do vết chích.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "labBoard": "ITCH_NEUROLOGY",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "À, hóa ra vậy!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#334155",
+            "outfitStyle": "LAB_COAT",
+            "outfitColor": "#FFFFFF",
+            "glasses": "RECT",
+            "mustache": false,
+            "prop": "NOTEBOOK"
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 920,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b20",
+      "text": "Chú nhà khoa học bảo đúng rồi, nhưng điều thú vị nhất lại xảy ra vào đúng lúc móng tay bạn cào lên mặt da.",
+      "ttsText": "Chú nhà khoa học bảo đúng rồi, nhưng điều thú vị nhất lại xảy ra vào đúng lúc móng tay bạn cào lên mặt da.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "labBoard": "ITCH_NEUROLOGY",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#334155",
+            "outfitStyle": "LAB_COAT",
+            "outfitColor": "#FFFFFF",
+            "glasses": "RECT",
+            "mustache": false,
+            "prop": "NOTEBOOK"
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "CURIOUS",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "NOTEBOOK"
+            }
+          ],
+          "bubble": "Nhưng gãi thì sao?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 920,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b21",
+      "text": "Khi bạn dùng móng tay gãi lên nốt muỗi đốt, lực ma sát mạnh tạo ra một cảm giác đau nhẹ và rát trên bề mặt da.",
+      "ttsText": "Khi bạn dùng móng tay gãi lên nốt muỗi đốt, lực ma sát mạnh tạo ra một cảm giác đau nhẹ và rát trên bề mặt da.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_PAIN_GATE_THEORY",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b22",
+      "text": "Cả đường dây truyền tín hiệu ngứa lẫn đường dây truyền tín hiệu đau nhẹ đều phải đi qua cùng một trạm trung chuyển ở tủy sống.",
+      "ttsText": "Cả đường dây truyền tín hiệu ngứa lẫn đường dây truyền tín hiệu đau nhẹ đều phải đi qua cùng một trạm trung chuyển ở tủy sống.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_PAIN_GATE_THEORY",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b23",
+      "text": "Trong hệ thần kinh, tín hiệu đau luôn được não bộ xếp hạng ưu tiên cao hơn nhiều so với tín hiệu ngứa thông thường.",
+      "ttsText": "Trong hệ thần kinh, tín hiệu đau luôn được não bộ xếp hạng ưu tiên cao hơn nhiều so với tín hiệu ngứa thông thường.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_PAIN_OVERRIDES_ITCH",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b24",
+      "text": "Khi cơn đau nhẹ từ việc gãi ập vào tủy sống, nó tạm thời chặn đứng và át luôn tín hiệu ngứa đang chạy lên não.",
+      "ttsText": "Khi cơn đau nhẹ từ việc gãi ập vào tủy sống, nó tạm thời chặn đứng và át luôn tín hiệu ngứa đang chạy lên não.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_PAIN_OVERRIDES_ITCH",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b25",
+      "text": "Bị đánh lạc hướng bởi cảm giác đau rát nhẹ ấy, não bộ tạm quên cơn ngứa và còn thưởng thêm chút chất dopamin tạo cảm giác sảng khoái.",
+      "ttsText": "Bị đánh lạc hướng bởi cảm giác đau rát nhẹ ấy, não bộ tạm quên cơn ngứa và còn thưởng thêm chút chất dopamin tạo cảm giác sảng khoái.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_DOPAMINE_REWARD",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b26",
+      "text": "Tôi vỗ tay bảo thảo nào mỗi lần gãi rát một chút là thấy cơn ngứa biến mất ngay, cảm giác nhẹ cả người.",
+      "ttsText": "Tôi vỗ tay bảo thảo nào mỗi lần gãi rát một chút là thấy cơn ngứa biến mất ngay, cảm giác nhẹ cả người.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "labBoard": "ITCH_NEUROLOGY",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Thảo nào thấy sướng!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#334155",
+            "outfitStyle": "LAB_COAT",
+            "outfitColor": "#FFFFFF",
+            "glasses": "RECT",
+            "mustache": false,
+            "prop": "NOTEBOOK"
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "WORRIED",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "WORRIED",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "WORRIED",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 920,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b27",
+      "text": "Nhưng chú nhà khoa học lắc đầu nhắc rằng cảm giác sảng khoái đó chỉ là một cú lừa ngắn ngủi kéo dài vài giây.",
+      "ttsText": "Nhưng chú nhà khoa học lắc đầu nhắc rằng cảm giác sảng khoái đó chỉ là một cú lừa ngắn ngủi kéo dài vài giây.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "labBoard": "ITCH_NEUROLOGY",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#334155",
+            "outfitStyle": "LAB_COAT",
+            "outfitColor": "#FFFFFF",
+            "glasses": "RECT",
+            "mustache": false,
+            "prop": "NOTEBOOK"
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "WORRIED",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "WORRIED",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "WORRIED",
+              "handProp": "NOTEBOOK"
+            }
+          ],
+          "bubble": "Chỉ tạm thời thôi!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 920,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b28",
+      "text": "Ngay khi bạn dừng tay, hai phản ứng phản chủ cùng lúc bùng lên khiến cơn ngứa quay lại dữ dội hơn gấp bội.",
+      "ttsText": "Ngay khi bạn dừng tay, hai phản ứng phản chủ cùng lúc bùng lên khiến cơn ngứa quay lại dữ dội hơn gấp bội.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_DOUBLE_BACKFIRE",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b29",
+      "text": "Thứ nhất, lực gãi làm tổn thương da mỏng và kích thích các dưỡng bào xung quanh vỡ thêm, xả càng nhiều histamin hơn trước.",
+      "ttsText": "Thứ nhất, lực gãi làm tổn thương da mỏng và kích thích các dưỡng bào xung quanh vỡ thêm, xả càng nhiều histamin hơn trước.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_DOUBLE_BACKFIRE",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b30",
+      "text": "Thứ hai, và đây mới là thủ phạm lớn nhất: bộ não vừa tự tiết ra một chất làm cơn ngứa bùng cháy mạnh hơn.",
+      "ttsText": "Thứ hai, và đây mới là thủ phạm lớn nhất: bộ não vừa tự tiết ra một chất làm cơn ngứa bùng cháy mạnh hơn.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_DOUBLE_BACKFIRE",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b31",
+      "text": "Khi nhận tín hiệu đau rát do bạn vừa gãi, não bộ vội vã tiết ra chất dẫn truyền serotonin chạy xuống để giảm đau.",
+      "ttsText": "Khi nhận tín hiệu đau rát do bạn vừa gãi, não bộ vội vã tiết ra chất dẫn truyền serotonin chạy xuống để giảm đau.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_SEROTONIN_TRAP",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b32",
+      "text": "Trớ trêu thay, khi serotonin tràn xuống tủy sống, nó lại nhảy nhầm sang kích hoạt đúng các tế bào chuyên truyền cảm giác ngứa.",
+      "ttsText": "Trớ trêu thay, khi serotonin tràn xuống tủy sống, nó lại nhảy nhầm sang kích hoạt đúng các tế bào chuyên truyền cảm giác ngứa.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_SEROTONIN_TRAP",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b33",
+      "text": "Thế là chất giảm đau của não lại biến thành xăng đổ vào lửa, khuếch đại tín hiệu ngứa phóng lên đầu mạnh hơn hẳn ban đầu.",
+      "ttsText": "Thế là chất giảm đau của não lại biến thành xăng đổ vào lửa, khuếch đại tín hiệu ngứa phóng lên đầu mạnh hơn hẳn ban đầu.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_SEROTONIN_TRAP",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b34",
+      "text": "Vòng lặp ác nghiệt khép kín: ngứa thì gãi, gãi tạo đau nhẹ, não tiết serotonin giảm đau, và serotonin lại thổi bùng cơn ngứa mới.",
+      "ttsText": "Vòng lặp ác nghiệt khép kín: ngứa thì gãi, gãi tạo đau nhẹ, não tiết serotonin giảm đau, và serotonin lại thổi bùng cơn ngứa mới.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_VICIOUS_SPIRAL",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b35",
+      "text": "Tôi tròn mắt ngạc nhiên khi biết chính chất giảm đau tự nhiên của cơ thể lại tiếp tay cho nốt muỗi đốt ngứa dai dẳng hơn.",
+      "ttsText": "Tôi tròn mắt ngạc nhiên khi biết chính chất giảm đau tự nhiên của cơ thể lại tiếp tay cho nốt muỗi đốt ngứa dai dẳng hơn.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "labBoard": "ITCH_NEUROLOGY",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "SURPRISED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Não tự bẫy mình?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#334155",
+            "outfitStyle": "LAB_COAT",
+            "outfitColor": "#FFFFFF",
+            "glasses": "RECT",
+            "mustache": false,
+            "prop": "NOTEBOOK"
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "THINKING",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "THINKING",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 920,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b36",
+      "text": "Chưa hết, nếu bạn gãi đến rách da, vi khuẩn dưới kẽ móng tay sẽ chui vào vết thương gây viêm nhiễm và để lại sẹo thâm.",
+      "ttsText": "Chưa hết, nếu bạn gãi đến rách da, vi khuẩn dưới kẽ móng tay sẽ chui vào vết thương gây viêm nhiễm và để lại sẹo thâm.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "labBoard": "ITCH_NEUROLOGY",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "WORRIED",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#334155",
+            "outfitStyle": "LAB_COAT",
+            "outfitColor": "#FFFFFF",
+            "glasses": "RECT",
+            "mustache": false,
+            "prop": "NOTEBOOK"
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "WORRIED",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "WORRIED",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "WORRIED",
+              "handProp": "NOTEBOOK"
+            }
+          ],
+          "bubble": "Dễ nhiễm trùng đấy!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 920,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b37",
+      "text": "Dưới kính hiển vi, vết gãi mạnh làm trầy xước hàng rào biểu bì bảo vệ của da, mở toang cửa cho vi khuẩn xâm nhập.",
+      "ttsText": "Dưới kính hiển vi, vết gãi mạnh làm trầy xước hàng rào biểu bì bảo vệ của da, mở toang cửa cho vi khuẩn xâm nhập.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_SKIN_DAMAGE",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b38",
+      "text": "Hệ miễn dịch lại phải dồn lực đánh nhau với vi khuẩn, khiến nốt đốt sưng cứng lâu ngày, thậm chí thâm đen suốt nhiều tuần.",
+      "ttsText": "Hệ miễn dịch lại phải dồn lực đánh nhau với vi khuẩn, khiến nốt đốt sưng cứng lâu ngày, thậm chí thâm đen suốt nhiều tuần.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_SKIN_DAMAGE",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b39",
+      "text": "Chợt nhớ lại lời ông dặn ngoài sân hồi nãy, hóa ra kinh nghiệm dân gian lại hoàn toàn trùng khớp với khoa học thần kinh hiện đại.",
+      "ttsText": "Chợt nhớ lại lời ông dặn ngoài sân hồi nãy, hóa ra kinh nghiệm dân gian lại hoàn toàn trùng khớp với khoa học thần kinh hiện đại.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "GRANDPA",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Không gãi mới tốt!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b40",
+      "text": "Tôi hỏi ngay chú nhà khoa học vậy những lúc ngứa điên người mà không được gãi thì phải làm cách nào cho nhanh dịu ạ.",
+      "ttsText": "Tôi hỏi ngay chú nhà khoa học vậy những lúc ngứa điên người mà không được gãi thì phải làm cách nào cho nhanh dịu ạ.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "labBoard": "ITCH_NEUROLOGY",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Làm sao hết ngứa?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#334155",
+            "outfitStyle": "LAB_COAT",
+            "outfitColor": "#FFFFFF",
+            "glasses": "RECT",
+            "mustache": false,
+            "prop": "NOTEBOOK"
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 920,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b41",
+      "text": "Chú nhà khoa học cười bảo bí quyết là vẫn đánh lạc hướng tủy sống, nhưng bằng cách an toàn không làm tổn thương da.",
+      "ttsText": "Chú nhà khoa học cười bảo bí quyết là vẫn đánh lạc hướng tủy sống, nhưng bằng cách an toàn không làm tổn thương da.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "labBoard": "ITCH_NEUROLOGY",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#334155",
+            "outfitStyle": "LAB_COAT",
+            "outfitColor": "#FFFFFF",
+            "glasses": "RECT",
+            "mustache": false,
+            "prop": "NOTEBOOK"
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "PROUD",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            }
+          ],
+          "bubble": "Đánh lạc hướng!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 920,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b42",
+      "text": "Cách hiệu quả và đơn giản nhất tại nhà là chườm một viên đá bọc khăn sạch hoặc khăn lạnh lên nốt đốt vài phút.",
+      "ttsText": "Cách hiệu quả và đơn giản nhất tại nhà là chườm một viên đá bọc khăn sạch hoặc khăn lạnh lên nốt đốt vài phút.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_COOLING_METHOD",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b43",
+      "text": "Đầu tiên, hơi lạnh làm các mạch máu đang giãn nở dưới da co nhỏ lại, giúp nốt sưng đỏ nhanh chóng dịu xuống.",
+      "ttsText": "Đầu tiên, hơi lạnh làm các mạch máu đang giãn nở dưới da co nhỏ lại, giúp nốt sưng đỏ nhanh chóng dịu xuống.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_COOLING_METHOD",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b44",
+      "text": "Đồng thời, tín hiệu mát lạnh chạy qua cùng cổng tủy sống để chặn đứng tín hiệu ngứa mà không gây đau rát hay kích hoạt serotonin.",
+      "ttsText": "Đồng thời, tín hiệu mát lạnh chạy qua cùng cổng tủy sống để chặn đứng tín hiệu ngứa mà không gây đau rát hay kích hoạt serotonin.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_COOLING_METHOD",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b45",
+      "text": "Nếu không có sẵn đá lạnh, bạn hãy dùng đầu ngón tay ấn giữ nhẹ lên nốt đốt hoặc vỗ nhẹ xung quanh thay vì cào móng tay.",
+      "ttsText": "Nếu không có sẵn đá lạnh, bạn hãy dùng đầu ngón tay ấn giữ nhẹ lên nốt đốt hoặc vỗ nhẹ xung quanh thay vì cào móng tay.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_PRESS_OR_CREAM",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b46",
+      "text": "Ngoài ra, rửa sạch bằng nước mát rồi bôi kem làm dịu hoặc thuốc mỡ kháng histamin sẽ khóa thẳng phản ứng ngứa ngay tại gốc.",
+      "ttsText": "Ngoài ra, rửa sạch bằng nước mát rồi bôi kem làm dịu hoặc thuốc mỡ kháng histamin sẽ khóa thẳng phản ứng ngứa ngay tại gốc.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_PRESS_OR_CREAM",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b47",
+      "text": "Đặt lên bàn cân, gãi chỉ êm được mười giây rồi trả giá bằng cơn ngứa gấp đôi, còn chườm lạnh dập tắt ngứa an toàn.",
+      "ttsText": "Đặt lên bàn cân, gãi chỉ êm được mười giây rồi trả giá bằng cơn ngứa gấp đôi, còn chườm lạnh dập tắt ngứa an toàn.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_COMPARISON_SCRATCH_VS_ICE",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b48",
+      "text": "Tôi gật gù ghi nhớ ngay bí kíp chườm lạnh và ấn nhẹ thay vì đưa tay lên gãi theo phản xạ.",
+      "ttsText": "Tôi gật gù ghi nhớ ngay bí kíp chườm lạnh và ấn nhẹ thay vì đưa tay lên gãi theo phản xạ.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "labBoard": "ITCH_NEUROLOGY",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Cháu nhớ rồi ạ!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#334155",
+            "outfitStyle": "LAB_COAT",
+            "outfitColor": "#FFFFFF",
+            "glasses": "RECT",
+            "mustache": false,
+            "prop": "NOTEBOOK"
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "PROUD",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "PROUD",
+              "handProp": "NOTEBOOK"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 920,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b49",
+      "text": "Chú nhà khoa học còn nhắc buổi chiều ngoài sân vườn nhiều cây, bật quạt gió nhẹ sẽ khiến muỗi rất khó đậu lại hút máu.",
+      "ttsText": "Chú nhà khoa học còn nhắc buổi chiều ngoài sân vườn nhiều cây, bật quạt gió nhẹ sẽ khiến muỗi rất khó đậu lại hút máu.",
+      "stageType": "SCIENCE_LAB_ROOM",
+      "labBoard": "ITCH_NEUROLOGY",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 600,
+              "endX": 600,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#334155",
+            "outfitStyle": "LAB_COAT",
+            "outfitColor": "#FFFFFF",
+            "glasses": "RECT",
+            "mustache": false,
+            "prop": "NOTEBOOK"
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NOTEBOOK",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1180,
+              "endX": 1180,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NOTEBOOK"
+            }
+          ],
+          "bubble": "Phòng đốt vẫn hơn!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 920,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b50",
+      "text": "Chạy về tới sân nhà, tôi hớn hở khoe ông nội vừa hiểu tường tận bí mật histamin và cú lừa serotonin của bộ não.",
+      "ttsText": "Chạy về tới sân nhà, tôi hớn hở khoe ông nội vừa hiểu tường tận bí mật histamin và cú lừa serotonin của bộ não.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.55,
+              "startX": 320,
+              "endX": 580,
+              "facing": "RIGHT",
+              "pose": "RUN",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.55,
+              "toPct": 1,
+              "startX": 580,
+              "endX": 580,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Cháu về rồi ông!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b51",
+      "text": "Tôi lấy ngay viên đá bọc chiếc khăn sạch áp lên nốt muỗi đốt ở cánh tay, cảm giác mát rượi làm cơn ngứa dịu xuống tức thì.",
+      "ttsText": "Tôi lấy ngay viên đá bọc chiếc khăn sạch áp lên nốt muỗi đốt ở cánh tay, cảm giác mát rượi làm cơn ngứa dịu xuống tức thì.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "yardDetail": "ICE_TOWEL",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 735,
+              "endX": 735,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 735,
+              "endX": 735,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Chườm đá mát quá!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b52",
+      "text": "Ông nội bật cười gật gù khen tôi lần này vừa hết ngứa nhanh lại chẳng lo trầy da sưng tấy như mọi hôm.",
+      "ttsText": "Ông nội bật cười gật gù khen tôi lần này vừa hết ngứa nhanh lại chẳng lo trầy da sưng tấy như mọi hôm.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "yardDetail": "ICE_TOWEL",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 735,
+              "endX": 735,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 735,
+              "endX": 735,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "PROUD",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Giỏi lắm cháu!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b53",
+      "text": "Ông bật thêm chiếc quạt máy nhỏ cạnh hiên cho gió thổi đều, hai ông cháu ngồi uống trà mà chẳng còn con muỗi nào lại gần.",
+      "ttsText": "Ông bật thêm chiếc quạt máy nhỏ cạnh hiên cho gió thổi đều, hai ông cháu ngồi uống trà mà chẳng còn con muỗi nào lại gần.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "yardDetail": "PORCH_FAN",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 735,
+              "endX": 735,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 735,
+              "endX": 735,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Mát hẳn tay luôn!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b54",
+      "text": "Khi không bị móng tay cào xước thêm, lượng histamin tự phân hủy dần trong vài giờ và làn da sẽ nhanh chóng lành sạch.",
+      "ttsText": "Khi không bị móng tay cào xước thêm, lượng histamin tự phân hủy dần trong vài giờ và làn da sẽ nhanh chóng lành sạch.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_SKIN_RECOVERY",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b55",
+      "text": "Vậy nên lần tới bị muỗi chích, bạn nhớ kìm tay lại vài giây kẻo lại rơi vào cái bẫy ngứa của chính bộ não nhé.",
+      "ttsText": "Vậy nên lần tới bị muỗi chích, bạn nhớ kìm tay lại vài giây kẻo lại rơi vào cái bẫy ngứa của chính bộ não nhé.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 520,
+              "endX": 520,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 520,
+              "endX": 520,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Đừng gãi nhé!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1085,
+              "endX": 1085,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b56",
+      "text": "Tóm lại ba điều cần nhớ: thứ nhất, muỗi đốt gây ngứa là do hệ miễn dịch xả histamin làm giãn mạch và kích thích dây thần kinh.",
+      "ttsText": "Tóm lại ba điều cần nhớ: thứ nhất, muỗi đốt gây ngứa là do hệ miễn dịch xả histamin làm giãn mạch và kích thích dây thần kinh.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_SUMMARY_3_CARDS",
+      "visualStep": 0,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b57",
+      "text": "Thứ hai, gãi chỉ át ngứa vài giây, sau đó não tiết serotonin giảm đau lại kích hoạt tế bào ngứa khiến bạn ngứa gấp đôi.",
+      "ttsText": "Thứ hai, gãi chỉ át ngứa vài giây, sau đó não tiết serotonin giảm đau lại kích hoạt tế bào ngứa khiến bạn ngứa gấp đôi.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_SUMMARY_3_CARDS",
+      "visualStep": 1,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b58",
+      "text": "Thứ ba, thay vì gãi dễ nhiễm trùng, hãy chườm lạnh hoặc ấn nhẹ để co mạch và khóa cổng ngứa an toàn tại tủy sống.",
+      "ttsText": "Thứ ba, thay vì gãi dễ nhiễm trùng, hãy chườm lạnh hoặc ấn nhẹ để co mạch và khóa cổng ngứa an toàn tại tủy sống.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "fullScreenVisual": true,
+      "customVisual": "MUOI_SUMMARY_3_CARDS",
+      "visualStep": 2,
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 420,
+              "endX": 420,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b59",
+      "text": "Nếu lúc này bạn cũng có nốt muỗi đốt đang ngứa, đừng vội gãi mà hãy thử chườm viên đá bọc khăn xem hiệu quả thế nào nhé.",
+      "ttsText": "Nếu lúc này bạn cũng có nốt muỗi đốt đang ngứa, đừng vội gãi mà hãy thử chườm viên đá bọc khăn xem hiệu quả thế nào nhé.",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "yardDetail": "ICE_TOWEL",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 740,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 740,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Thử chườm lạnh nhé!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b60",
+      "text": "Hóa ra ngay cả vết muỗi đốt bé xíu ngoài sân quê cũng ẩn chứa màn đánh lừa thú vị của bộ não, hẹn gặp lại bạn ở tập sau nhé!",
+      "ttsText": "Hóa ra ngay cả vết muỗi đốt bé xíu ngoài sân quê cũng ẩn chứa màn đánh lừa thú vị của bộ não, hẹn gặp lại bạn ở tập sau nhé!",
+      "stageType": "COUNTRYSIDE_YARD",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 30,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 640,
+              "endX": 640,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 640,
+              "endX": 640,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Hẹn gặp lại!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "GRANDPA",
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "PROUD",
+          "handProp": "NONE",
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1040,
+              "endX": 1040,
+              "facing": "LEFT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1040,
+              "endX": 1040,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    }
+  ]
+}

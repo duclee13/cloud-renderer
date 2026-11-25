@@ -9,6 +9,7 @@
  */
 
 import React from "react";
+import { GroundShadow } from "../SceneBackdropKit";
 import { StickmanRig, ComicSpeechBubble, isComicBubbleActive } from "./StickmanRig";
 import { smoothstep, lerpNum } from "../../lib/v7/universalAnimationStandard";
 import { FireAntV15SceneLayer, type FireAntV15SceneMode } from "./FireAntMovieStages";
@@ -53,39 +54,43 @@ function easeOutBack(t: number): number {
   return 1 + c3 * Math.pow(c - 1, 3) + c1 * Math.pow(c - 1, 2);
 }
 
-/**
- * 1. COUNTRYSIDE_YARD: Sân nhà quê Việt Nam (sân đất vàng + sỏi nhỏ + nhà mái ngói đỏ + hàng rào gỗ + đồng lúa vàng)
- */
-export const CountrysideYardBackdrop: React.FC<{
-  timeOfDay?: KassTimeOfDay;
-  frame?: number;
-  groundY?: number;
-}> = ({ timeOfDay = "DAY", frame = 0, groundY = 840 }) => {
+const CountrysideYardStaticLayer = React.memo<{
+  timeOfDay: KassTimeOfDay;
+  groundY: number;
+  chongTreCentered: boolean;
+}>(({ timeOfDay, groundY, chongTreCentered }) => {
   const isSunset = timeOfDay === "SUNSET";
   const isNight = timeOfDay === "NIGHT";
-  // V21.0 Living Scene Rule: Mây trôi cực chậm mượt theo frame (cloudX += frame * 0.055) & gió đung đưa êm 1.5°
-  const cloudDriftPx = frame * 0.055;
-  const breezeDeg = Math.sin(frame * 0.04) * 1.5;
 
-  const skyTop = isNight ? "#1E293B" : isSunset ? "#FB923C" : "#60A5FA";
-  const skyMid = isNight ? "#0F172A" : isSunset ? "#FDBA74" : "#BAE6FD";
-  const skyBot = isNight ? "#090E1A" : isSunset ? "#FEF3C7" : "#F0F9FF";
+  // BẮT BUỘC: Cảnh chiều muộn SUNSET dùng tông trời hoàng hôn ấm sáng (#FDE68A / #FED7AA / #FFFBEB), không dùng nền tối đen!
+  const skyTop = isNight ? "#1E293B" : isSunset ? "#FED7AA" : "#60A5FA";
+  const skyMid = isNight ? "#0F172A" : isSunset ? "#FDE68A" : "#BAE6FD";
+  const skyBot = isNight ? "#090E1A" : isSunset ? "#FFFBEB" : "#F0F9FF";
 
-  const riceFill = isNight ? "#4D4618" : isSunset ? "#D97706" : "#FACC15";
-  const riceShade = isNight ? "#3A3512" : isSunset ? "#B45309" : "#EAB308";
-  const yardTop = isNight ? "#4B3F28" : isSunset ? "#DFB36B" : "#F3D393";
-  const yardBot = isNight ? "#352C1B" : isSunset ? "#C6934A" : "#E5BC70";
-  const houseWall = isNight ? "#94A3B8" : isSunset ? "#FDE68A" : "#FEF9C3";
-  const roofFill = isNight ? "#7F1D1D" : isSunset ? "#B91C1C" : "#DC2626";
-  const treeFill = isNight ? "#14532D" : isSunset ? "#15803D" : "#22C55E";
-  const treeDark = isNight ? "#052E16" : isSunset ? "#166534" : "#16A34A";
+  const riceFill = isNight ? "#4D4618" : isSunset ? "#EAB308" : "#FACC15";
+  const riceShade = isNight ? "#3A3512" : isSunset ? "#CA8A04" : "#EAB308";
+  const yardTop = isNight ? "#4B3F28" : isSunset ? "#E8B97E" : "#F3D393";
+  const yardBot = isNight ? "#352C1B" : isSunset ? "#D29A5B" : "#E5BC70";
+  const houseWall = isNight ? "#94A3B8" : isSunset ? "#FEF3C7" : "#FEF9C3";
+  const roofFill = isNight ? "#7F1D1D" : isSunset ? "#C2410C" : "#DC2626";
+  const treeFill = isNight ? "#14532D" : isSunset ? "#16A34A" : "#22C55E";
+  const treeDark = isNight ? "#052E16" : isSunset ? "#15803D" : "#16A34A";
+  const distantGrove = isNight ? "#0F291E" : isSunset ? "#86EFAC" : "#86EFAC";
+  const distantPalm = isNight ? "#14532D" : isSunset ? "#4ADE80" : "#4ADE80";
+
+  // Chõng tre đặt chính giữa-trái thoáng tán cây (x=610..1210) khi có nhân vật ngồi, hoặc gọn sát hiên phải cho tập cũ
+  const benchX = chongTreCentered ? 610 : 1320;
+  const benchW = chongTreCentered ? 600 : 320;
+  const seatY = groundY - 108;
+  const legH = groundY - (seatY + 18);
+  const teaTrayX = chongTreCentered ? 910 : 1480;
 
   return (
-    <g id="stage-countryside-yard">
+    <g>
       <defs>
         <linearGradient id={`yard-sky-${timeOfDay}`} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor={skyTop} />
-          <stop offset="55%" stopColor={skyMid} />
+          <stop offset="56%" stopColor={skyMid} />
           <stop offset="100%" stopColor={skyBot} />
         </linearGradient>
         <linearGradient id={`yard-ground-${timeOfDay}`} x1="0" y1="0" x2="0" y2="1">
@@ -94,10 +99,9 @@ export const CountrysideYardBackdrop: React.FC<{
         </linearGradient>
       </defs>
 
-      {/* Bầu trời */}
+      {/* LỚP 1 — HẬU CẢNH: Bầu trời hoàng hôn ấm sáng, mặt trời dịu, rặng cau & lũy tre xa */}
       <rect x={0} y={0} width={1920} height={groundY} fill={`url(#yard-sky-${timeOfDay})`} />
 
-      {/* Mặt trời (DAY / SUNSET) hoặc Trăng (NIGHT) */}
       {isNight ? (
         <g transform="translate(260, 175)">
           <path
@@ -108,79 +112,73 @@ export const CountrysideYardBackdrop: React.FC<{
           />
         </g>
       ) : (
-        <g transform={`translate(${isSunset ? 340 : 280}, ${isSunset ? 440 : 165})`}>
-          <circle cx={0} cy={0} r={isSunset ? 92 : 76} fill="#FEF08A" opacity={0.35} />
+        <g transform={`translate(${isSunset ? 340 : 280}, ${isSunset ? 285 : 165})`}>
+          <circle cx={0} cy={0} r={isSunset ? 115 : 82} fill="#FEF08A" opacity={0.22} />
+          <circle cx={0} cy={0} r={isSunset ? 78 : 58} fill="#FEF08A" opacity={0.35} />
           <circle
             cx={0}
             cy={0}
-            r={isSunset ? 56 : 46}
-            fill={isSunset ? "#F97316" : "#FDE047"}
+            r={isSunset ? 48 : 42}
+            fill={isSunset ? "#FBBF24" : "#FDE047"}
             stroke="#141414"
-            strokeWidth={3}
+            strokeWidth={2.8}
           />
         </g>
       )}
 
-      {/* Mây trắng/vàng trôi chậm đều sang phải (cloudX += frame * 0.18, y>=195 thoáng tiêu đề nổi) */}
-      {!isNight &&
-        [
-          { bx: 180, y: 205, s: 1.0 },
-          { bx: 780, y: 198, s: 1.08 },
-          { bx: 1380, y: 215, s: 0.9 },
-        ].map((c, idx) => {
-          const cx = ((c.bx + cloudDriftPx * (0.9 + idx * 0.12) + 120) % 2160) - 120;
+      {/* Rặng cau & lũy tre xa lớp hậu cảnh mềm (y=365..565) */}
+      <g opacity={isNight ? 0.65 : 0.72}>
+        <path
+          d="M -20,560 Q 150,475 330,525 Q 520,455 720,515 Q 920,460 1120,520 Q 1290,465 1440,540 L 1440,620 L -20,620 Z"
+          fill={distantGrove}
+        />
+        {/* 5 cây cau mảnh mai đặc trưng làng quê Việt Nam */}
+        {[175, 245, 595, 650, 965].map((px, idx) => {
+          const topY = 390 + (idx % 3) * 26;
           return (
-            <g key={`yard_cloud_${idx}`} transform={`translate(${cx.toFixed(1)}, ${c.y}) scale(${c.s})`}>
+            <g key={`areca_${idx}`} transform={`translate(${px}, ${topY})`}>
               <path
-                d="M -68,18 C -86,18 -92,-6 -68,-12 C -62,-38 -22,-44 -6,-24 C 12,-44 54,-36 58,-10 C 82,-6 80,18 58,18 Z"
-                fill={isSunset ? "#FFEDD5" : "#FFFFFF"}
-                stroke="#141414"
-                strokeWidth={3}
-                strokeLinejoin="round"
+                d={`M 0,0 Q ${idx % 2 === 0 ? -8 : 8},85 0,175`}
+                fill="none"
+                stroke={isNight ? "#1E3A2F" : "#65A30D"}
+                strokeWidth={5.5}
+                strokeLinecap="round"
+              />
+              <path
+                d="M 0,0 Q -32,-16 -52,6 M 0,0 Q -26,-26 -36,-38 M 0,0 Q 28,-22 48,4 M 0,0 Q 22,-28 34,-36 M 0,0 Q 0,-28 -4,-44"
+                fill="none"
+                stroke={distantPalm}
+                strokeWidth={5}
+                strokeLinecap="round"
               />
             </g>
           );
         })}
+      </g>
 
-      {/* Lũy tre & hàng cây xanh xa */}
+      {/* Lũy tre xanh trung-hậu cảnh */}
       <path
-        d="M -20,560 Q 120,445 280,520 Q 450,425 650,515 Q 840,455 1040,520 Q 1220,450 1420,540 L 1420,660 L -20,660 Z"
+        d="M -20,568 Q 120,465 280,528 Q 450,445 650,522 Q 840,468 1040,528 Q 1220,462 1420,545 L 1420,660 L -20,660 Z"
         fill={treeDark}
         stroke="#141414"
-        strokeWidth={3}
+        strokeWidth={2.8}
       />
 
-      {/* Cánh đồng lúa vàng ươm trải dài bên trái - giữa */}
+      {/* LỚP 2 — TRUNG CẢNH: Cánh đồng lúa vàng, hàng rào gỗ, nhà mái ngói đỏ, đèn hiên vàng dịu, sân gạch & chõng tre */}
       <path
-        d={`M -20,565 Q 340,545 700,565 T 1340,575 L 1340,${groundY - 120} L -20,${groundY - 120} Z`}
+        d={`M -20,572 Q 340,552 700,572 T 1340,582 L 1340,${groundY - 110} L -20,${groundY - 110} Z`}
         fill={riceFill}
         stroke="#141414"
-        strokeWidth={3}
+        strokeWidth={2.8}
       />
       <path
-        d={`M -20,630 Q 380,612 760,636 T 1340,645 L 1340,${groundY - 120} L -20,${groundY - 120} Z`}
+        d={`M -20,635 Q 380,618 760,640 T 1340,650 L 1340,${groundY - 110} L -20,${groundY - 110} Z`}
         fill={riceShade}
-        opacity={0.55}
+        opacity={0.48}
       />
-      {/* Những nét bông lúa đung đưa nhẹ theo gió 60fps (Math.sin(frame * 0.04) * 1.5°) */}
-      {[110, 240, 390, 520, 680, 830, 980, 1120].map((rx, idx) => {
-        const stalkDeg = Math.sin(frame * 0.04 + idx * 0.55) * 1.5 * 2.5;
-        return (
-          <g key={`rice_${idx}`} transform={`translate(${rx}, 615) rotate(${stalkDeg.toFixed(2)})`}>
-            <path
-              d="M 0,0 Q 2,-25 9,-37"
-              fill="none"
-              stroke="#92400E"
-              strokeWidth={2.4}
-              strokeLinecap="round"
-              opacity={0.58}
-            />
-          </g>
-        );
-      })}
 
       {/* Hàng rào gỗ mộc ngăn sân và ruộng lúa */}
-      <g id="wooden-fence" stroke="#141414" strokeWidth={3} strokeLinejoin="round">
+      <g id="wooden-fence" stroke="#141414" strokeWidth={2.8} strokeLinejoin="round">
         <rect x={-10} y={668} width={1320} height={14} fill="#B45309" />
         <rect x={-10} y={712} width={1320} height={14} fill="#92400E" />
         {[40, 145, 250, 355, 460, 565, 670, 775, 880, 985, 1090, 1195].map((fx) => (
@@ -192,37 +190,23 @@ export const CountrysideYardBackdrop: React.FC<{
         ))}
       </g>
 
-      {/* Cây xanh vườn quê rợp bóng sát hông nhà — tán lá đung đưa nhẹ theo gió (Math.sin(frame * 0.04) * 1.5°) */}
-      <g transform="translate(1225, 520)">
-        <rect x={-18} y={40} width={36} height={210} fill="#78350F" stroke="#141414" strokeWidth={3} />
-        <g transform={`rotate(${breezeDeg.toFixed(2)}, 0, 40)`}>
-          <circle cx={-48} cy={10} r={62} fill={treeDark} stroke="#141414" strokeWidth={3} />
-          <circle cx={45} cy={18} r={58} fill={treeDark} stroke="#141414" strokeWidth={3} />
-          <circle cx={0} cy={-38} r={74} fill={treeFill} stroke="#141414" strokeWidth={3} />
-        </g>
-      </g>
+      {/* Thân cây xanh hông nhà (tán lá đung đưa nằm ở lớp động) */}
+      <rect x={1207} y={560} width={36} height={210} fill="#78350F" stroke="#141414" strokeWidth={3} />
 
       {/* Ngôi nhà quê mái ngói đỏ ấm cúng bên phải */}
       <g id="countryside-red-roof-house" stroke="#141414" strokeWidth={3} strokeLinejoin="round">
-        {/* Tường kem mặt tiền */}
         <rect x={1285} y={465} width={580} height={315} fill={houseWall} />
-        {/* Bóng mái hiên hắt nhẹ lên tường */}
         <rect x={1285} y={465} width={580} height={26} fill="#0F172A" opacity={0.14} stroke="none" />
-        {/* Bậc thềm hiên nhà */}
         <rect x={1265} y={752} width={620} height={30} rx={4} fill="#D6D3D1" />
-        {/* Cửa chính gỗ mở ấm cúng */}
         <rect x={1380} y={555} width={145} height={198} rx={4} fill="#451A03" />
         <rect x={1380} y={555} width={22} height={198} fill="#92400E" />
         <rect x={1503} y={555} width={22} height={198} fill="#92400E" />
-        {/* Cửa sổ gỗ xanh có song */}
-        <rect x={1610} y={568} width={150} height={116} rx={6} fill={isNight ? "#FEF08A" : "#38BDF8"} />
+        <rect x={1610} y={568} width={150} height={116} rx={6} fill={isNight || isSunset ? "#FEF08A" : "#38BDF8"} />
         <line x1={1685} y1={568} x2={1685} y2={684} stroke="#141414" strokeWidth={3} />
         <line x1={1610} y1={626} x2={1760} y2={626} stroke="#141414" strokeWidth={3} />
         <rect x={1584} y={568} width={26} height={116} rx={3} fill="#15803D" />
         <rect x={1760} y={568} width={26} height={116} rx={3} fill="#15803D" />
-        {/* Mái ngói đỏ lớn đặc trưng nhà quê */}
         <polygon points="1225,478 1345,322 1890,322 1925,478" fill={roofFill} />
-        {/* Đường sóng ngói ngang tạo chiều sâu */}
         {[360, 400, 440].map((ry) => (
           <line
             key={`tile_row_${ry}`}
@@ -234,13 +218,183 @@ export const CountrysideYardBackdrop: React.FC<{
             strokeWidth={3}
           />
         ))}
-        {/* Đỉnh nóc ngói */}
         <rect x={1335} y={310} width={565} height={18} rx={6} fill="#991B1B" />
+
+        {/* Đèn hiên vàng dịu treo dưới mái ngói (bật sáng ấm áp vào cảnh chiều tà SUNSET / NIGHT, không blur) */}
+        <g id="yard-porch-lamp" transform="translate(1452, 478)">
+          <line x1={0} y1={0} x2={0} y2={24} stroke="#334155" strokeWidth={3.5} />
+          <path d="M -18,24 Q 0,14 18,24 Z" fill="#475569" stroke="#141414" strokeWidth={2.4} />
+          {(isSunset || isNight) && (
+            <polygon
+              points="-14,34 14,34 125,274 -125,274"
+              fill="#FEF08A"
+              opacity={isNight ? 0.24 : 0.18}
+              stroke="none"
+            />
+          )}
+          <circle
+            cx={0}
+            cy={31}
+            r={10}
+            fill={isSunset || isNight ? "#FEF08A" : "#E2E8F0"}
+            stroke="#141414"
+            strokeWidth={2.4}
+          />
+        </g>
       </g>
 
-      {/* V21.0: Tán cây xanh nhỏ phía góc phải cạnh nhà tạo chiều sâu lớp cảnh */}
+      {/* Thân cây góc phải cạnh nhà */}
+      <rect x={1860} y={599} width={24} height={165} fill="#78350F" stroke="#141414" strokeWidth={3} />
+
+      {/* Mặt sân gạch quê ấm áp + đường mạch gạch mảnh nhẹ (vùng y > 830 dịu sạch cho phụ đề) */}
+      <rect x={0} y={760} width={1920} height={1080 - 760} fill={`url(#yard-ground-${timeOfDay})`} />
+      <line x1={0} y1={760} x2={1920} y2={760} stroke="#141414" strokeWidth={3} />
+      <g stroke="#9A3412" strokeWidth={1.8} opacity={0.16}>
+        {[796, 836, 882, 934, 992].map((by, rowIdx) => (
+          <g key={`brick_r_${by}`}>
+            <line x1={0} y1={by} x2={1920} y2={by} />
+            {[120, 320, 520, 720, 920, 1120, 1320, 1520, 1720].map((bx) => (
+              <line
+                key={`brick_v_${bx}`}
+                x1={bx + (rowIdx % 2) * 100}
+                y1={by - 36}
+                x2={bx + (rowIdx % 2) * 100}
+                y2={by}
+              />
+            ))}
+          </g>
+        ))}
+      </g>
+
+      {/* Chõng tre + khay ấm trà quê grounded 0px tại groundY với GroundShadow phẳng opacity="0.12" */}
+      <g id="yard-bamboo-chong-tre">
+        <GroundShadow cx={benchX + benchW / 2} cy={groundY + 4} rx={benchW * 0.52} ry={13} />
+        {/* 4 chân tre chống chắc xuống mặt sân gạch */}
+        <rect x={benchX + 28} y={seatY + 14} width={16} height={legH} rx={4} fill="#A16207" stroke="#141414" strokeWidth={2.8} />
+        <rect x={benchX + benchW - 44} y={seatY + 14} width={16} height={legH} rx={4} fill="#A16207" stroke="#141414" strokeWidth={2.8} />
+        <rect x={benchX + 86} y={seatY + 18} width={13} height={legH - 12} rx={3} fill="#854D0E" stroke="#141414" strokeWidth={2.4} />
+        <rect x={benchX + benchW - 99} y={seatY + 18} width={13} height={legH - 12} rx={3} fill="#854D0E" stroke="#141414" strokeWidth={2.4} />
+        {/* Thanh giằng ngang dưới gầm chõng */}
+        <rect x={benchX + 36} y={seatY + legH * 0.58} width={benchW - 72} height={10} rx={4} fill="#B45309" stroke="#141414" strokeWidth={2.4} />
+        {/* Mặt nan tre đan ấm áp (top edge nằm chính xác tại seatY = groundY - 108) */}
+        <rect x={benchX} y={seatY} width={benchW} height={22} rx={7} fill="#D97706" stroke="#141414" strokeWidth={3.2} />
+        <rect x={benchX + 8} y={seatY + 4} width={benchW - 16} height={6} rx={3} fill="#F59E0B" opacity={0.75} />
+        {/* Các đốt nan tre dọc tinh tế */}
+        {Array.from({ length: Math.floor(benchW / 44) }).map((_, si) => (
+          <line
+            key={`slat_${si}`}
+            x1={benchX + 26 + si * 44}
+            y1={seatY + 2}
+            x2={benchX + 26 + si * 44}
+            y2={seatY + 20}
+            stroke="#92400E"
+            strokeWidth={2}
+            opacity={0.55}
+          />
+        ))}
+
+        {/* Khay ấm trà gốm & 2 chén nhỏ đặt ngay trên mặt chõng tre */}
+        <g id="yard-teapot-set" transform={`translate(${teaTrayX}, ${seatY})`}>
+          <rect x={-56} y={-8} width={112} height={9} rx={4} fill="#78350F" stroke="#141414" strokeWidth={2.2} />
+          {/* Ấm trà đất nung */}
+          <path d="M -26,-8 C -30,-32 -14,-44 0,-44 C 14,-44 26,-32 22,-8 Z" fill="#B45309" stroke="#141414" strokeWidth={2.6} />
+          <path d="M 20,-26 Q 35,-30 33,-16 Q 31,-10 21,-12" fill="none" stroke="#92400E" strokeWidth={4} strokeLinecap="round" />
+          <path d="M -24,-22 L -36,-32" fill="none" stroke="#92400E" strokeWidth={4.5} strokeLinecap="round" />
+          <ellipse cx={-2} cy={-44} rx={12} ry={4.5} fill="#D97706" stroke="#141414" strokeWidth={2.2} />
+          <circle cx={-2} cy={-50} r={4} fill="#78350F" stroke="#141414" strokeWidth={2} />
+          {/* 2 chén trà nhỏ */}
+          <rect x={-48} y={-20} width={14} height={12} rx={3} fill="#FEF3C7" stroke="#141414" strokeWidth={2.2} />
+          <rect x={34} y={-20} width={14} height={12} rx={3} fill="#FEF3C7" stroke="#141414" strokeWidth={2.2} />
+        </g>
+      </g>
+    </g>
+  );
+});
+CountrysideYardStaticLayer.displayName = "CountrysideYardStaticLayer";
+
+/**
+ * 1. COUNTRYSIDE_YARD: Sân nhà quê Việt Nam 3 lớp chiều sâu (trời hoàng hôn ấm sáng, mây trôi, rặng cau/tre xa, sân gạch, chõng tre + ấm trà, đèn hiên, tùy chọn quạt máy nhỏ)
+ */
+export const CountrysideYardBackdrop: React.FC<{
+  timeOfDay?: KassTimeOfDay;
+  frame?: number;
+  groundY?: number;
+  chongTreCentered?: boolean;
+  showPorchFan?: boolean;
+}> = ({
+  timeOfDay = "DAY",
+  frame = 0,
+  groundY = 840,
+  chongTreCentered = false,
+  showPorchFan = false,
+}) => {
+  const isSunset = timeOfDay === "SUNSET";
+  const isNight = timeOfDay === "NIGHT";
+  const cloudDriftPx = frame * 0.14;
+  const breezeDeg = Math.sin(frame * 0.04) * 1.6;
+  const fanSpinDeg = (frame * 24) % 360;
+
+  const treeFill = isNight ? "#14532D" : isSunset ? "#16A34A" : "#22C55E";
+  const treeDark = isNight ? "#052E16" : isSunset ? "#15803D" : "#16A34A";
+
+  return (
+    <g id="stage-countryside-yard">
+      <CountrysideYardStaticLayer
+        timeOfDay={timeOfDay}
+        groundY={groundY}
+        chongTreCentered={chongTreCentered}
+      />
+
+      {/* Mây 2 tầng trôi chậm mượt theo frame (y >= 175 thoáng tiêu đề trên cùng) */}
+      {!isNight &&
+        [
+          { bx: 180, y: 185, s: 1.0 },
+          { bx: 740, y: 175, s: 1.06 },
+          { bx: 1290, y: 205, s: 0.92 },
+          { bx: 1790, y: 182, s: 0.96 },
+        ].map((c, idx) => {
+          const cx = ((c.bx + cloudDriftPx * (0.85 + idx * 0.12) + 140) % 2200) - 140;
+          return (
+            <g key={`yard_cloud_${idx}`} transform={`translate(${cx.toFixed(1)}, ${c.y}) scale(${c.s})`} opacity={0.9}>
+              <path
+                d="M -68,18 C -86,18 -92,-6 -68,-12 C -62,-38 -22,-44 -6,-24 C 12,-44 54,-36 58,-10 C 82,-6 80,18 58,18 Z"
+                fill={isSunset ? "#FFF7ED" : "#FFFFFF"}
+                stroke="#141414"
+                strokeWidth={2.6}
+                strokeLinejoin="round"
+              />
+            </g>
+          );
+        })}
+
+      {/* Bông lúa đung đưa nhẹ theo gió 45/60fps */}
+      {[110, 240, 390, 520, 680, 830, 980, 1120].map((rx, idx) => {
+        const stalkDeg = Math.sin(frame * 0.04 + idx * 0.55) * 3.5;
+        return (
+          <g key={`rice_${idx}`} transform={`translate(${rx}, 620) rotate(${stalkDeg.toFixed(2)})`}>
+            <path
+              d="M 0,0 Q 2,-25 9,-37"
+              fill="none"
+              stroke="#92400E"
+              strokeWidth={2.4}
+              strokeLinecap="round"
+              opacity={0.55}
+            />
+          </g>
+        );
+      })}
+
+      {/* Tán cây vườn quê hông nhà đung đưa nhẹ theo gió */}
+      <g transform="translate(1225, 520)">
+        <g transform={`rotate(${breezeDeg.toFixed(2)}, 0, 40)`}>
+          <circle cx={-48} cy={10} r={62} fill={treeDark} stroke="#141414" strokeWidth={3} />
+          <circle cx={45} cy={18} r={58} fill={treeDark} stroke="#141414" strokeWidth={3} />
+          <circle cx={0} cy={-38} r={74} fill={treeFill} stroke="#141414" strokeWidth={3} />
+        </g>
+      </g>
+
+      {/* Tán cây nhỏ góc phải cạnh nhà */}
       <g id="yard-right-corner-tree" transform="translate(1872, 575)">
-        <rect x={-12} y={24} width={24} height={165} fill="#78350F" stroke="#141414" strokeWidth={3} />
         <g transform={`rotate(${(-breezeDeg * 0.9).toFixed(2)}, 0, 28)`}>
           <circle cx={-28} cy={8} r={42} fill={treeDark} stroke="#141414" strokeWidth={3} />
           <circle cx={26} cy={12} r={38} fill={treeDark} stroke="#141414" strokeWidth={3} />
@@ -248,19 +402,12 @@ export const CountrysideYardBackdrop: React.FC<{
         </g>
       </g>
 
-      {/* Mặt sân đất vàng ấm cúng + đường viền ranh giới chân sân */}
-      <rect x={0} y={760} width={1920} height={1080 - 760} fill={`url(#yard-ground-${timeOfDay})`} />
-      <line x1={0} y1={760} x2={1920} y2={760} stroke="#141414" strokeWidth={3} />
-
-      {/* V21.0: Các cụm cỏ xanh rung rinh nhẹ ven chân hàng rào */}
+      {/* Cụm cỏ xanh rung rinh nhẹ ven chân hàng rào */}
       <g id="yard-fence-grass-tufts">
         {[85, 255, 430, 615, 810, 995, 1165].map((gx, idx) => {
           const grassSway = Math.sin(frame * 0.042 + idx * 0.85) * 2.4;
           return (
-            <g
-              key={`yard_grass_${idx}`}
-              transform={`rotate(${grassSway.toFixed(2)}, ${gx + 3}, 760)`}
-            >
+            <g key={`yard_grass_${idx}`} transform={`rotate(${grassSway.toFixed(2)}, ${gx + 3}, 760)`}>
               <path
                 d={`M ${gx},760 Q ${gx - 8},736 ${gx - 17},741 Q ${gx - 4},748 ${gx + 4},760 Q ${gx + 11},734 ${gx + 19},739 Q ${gx + 12},750 ${gx + 22},760 Z`}
                 fill={idx % 2 === 0 ? treeFill : treeDark}
@@ -272,28 +419,43 @@ export const CountrysideYardBackdrop: React.FC<{
         })}
       </g>
 
-      {/* Các viên sỏi nhỏ rải tự nhiên trên sân đất vàng */}
-      {[
-        { x: 210, y: 815, rx: 10, ry: 5 },
-        { x: 485, y: 865, rx: 12, ry: 6 },
-        { x: 640, y: 795, rx: 8, ry: 4 },
-        { x: 960, y: 878, rx: 13, ry: 5.5 },
-        { x: 1125, y: 822, rx: 9, ry: 4.5 },
-        { x: 1465, y: 858, rx: 11, ry: 5 },
-        { x: 1690, y: 810, rx: 10, ry: 4.5 },
-      ].map((p, idx) => (
-        <ellipse
-          key={`pebble_${idx}`}
-          cx={p.x}
-          cy={p.y}
-          rx={p.rx}
-          ry={p.ry}
-          fill="#B48C56"
-          stroke="#141414"
-          strokeWidth={2.2}
-          opacity={0.78}
-        />
-      ))}
+      {/* Quạt máy nhỏ cạnh hiên nhà quay nhẹ thổi gió đuổi muỗi (Beat 53) */}
+      {showPorchFan && (
+        <g id="yard-porch-small-fan" transform={`translate(1515, ${groundY})`}>
+          <GroundShadow cx={0} cy={3} rx={48} ry={9} />
+          {/* Đế & thân quạt máy 2D sạch */}
+          <ellipse cx={0} cy={-4} rx={36} ry={10} fill="#334155" stroke="#141414" strokeWidth={3} />
+          <rect x={-7} y={-118} width={14} height={114} rx={5} fill="#CBD5E1" stroke="#141414" strokeWidth={2.8} />
+          {/* Lồng quạt hướng sang trái về phía chõng tre */}
+          <g transform="translate(-8, -142)">
+            <circle cx={0} cy={0} r={48} fill="#E0F2FE" fillOpacity={0.62} stroke="#0284C7" strokeWidth={4} />
+            <g transform={`rotate(${fanSpinDeg.toFixed(1)})`}>
+              <ellipse cx={0} cy={-22} rx={9} ry={20} fill="#38BDF8" stroke="#0369A1" strokeWidth={2} />
+              <ellipse cx={19} cy={12} rx={9} ry={20} transform="rotate(120, 19, 12)" fill="#38BDF8" stroke="#0369A1" strokeWidth={2} />
+              <ellipse cx={-19} cy={12} rx={9} ry={20} transform="rotate(240, -19, 12)" fill="#38BDF8" stroke="#0369A1" strokeWidth={2} />
+            </g>
+            <circle cx={0} cy={0} r={10} fill="#0284C7" stroke="#141414" strokeWidth={2.4} />
+            <circle cx={0} cy={0} r={48} fill="none" stroke="#141414" strokeWidth={2.8} />
+            {/* Làn gió mát thổi sang trái */}
+            {[0, 1, 2].map((wi) => {
+              const t = (frame * 0.03 + wi * 0.33) % 1;
+              const wx = -62 - t * 145;
+              const wy = -24 + wi * 24 + Math.sin(frame * 0.14 + wi) * 5;
+              return (
+                <path
+                  key={`wind_${wi}`}
+                  d={`M ${wx.toFixed(1)},${wy.toFixed(1)} Q ${(wx - 28).toFixed(1)},${(wy - 9).toFixed(1)} ${(wx - 56).toFixed(1)},${wy.toFixed(1)}`}
+                  fill="none"
+                  stroke="#38BDF8"
+                  strokeWidth={3.5}
+                  strokeLinecap="round"
+                  opacity={(Math.sin(t * Math.PI) * 0.85).toFixed(2)}
+                />
+              );
+            })}
+          </g>
+        </g>
+      )}
     </g>
   );
 };

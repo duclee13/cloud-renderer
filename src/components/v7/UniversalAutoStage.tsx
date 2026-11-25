@@ -386,10 +386,195 @@ const ScienceLabAcousticsBoardStatic = React.memo(() => (
   </g>
 ));
 
+const ScienceLabItchNeurologyBoardStatic = React.memo(() => (
+  /* Vị trí bảng đặt gọn trong vùng y = 75..409 (thuộc y=75–430) để bóng thoại nhân vật phía dưới luôn thoáng sạch */
+  <g id="lab-board-itch-neurology" transform="translate(540, 75)">
+    <rect x={0} y={0} width={800} height={334} rx={14} fill="#FFFFFF" stroke="#64748B" strokeWidth={9} />
+    <rect x={0} y={0} width={800} height={334} rx={14} fill="none" stroke="#141414" strokeWidth={3} />
+    {/* 4 đinh ghim góc */}
+    <circle cx={20} cy={20} r={5.5} fill="#EF4444" stroke="#141414" strokeWidth={2} />
+    <circle cx={780} cy={20} r={5.5} fill="#EF4444" stroke="#141414" strokeWidth={2} />
+    <circle cx={20} cy={314} r={5.5} fill="#0284C7" stroke="#141414" strokeWidth={2} />
+    <circle cx={780} cy={314} r={5.5} fill="#0284C7" stroke="#141414" strokeWidth={2} />
+
+    {/* Tiêu đề bảng nghiên cứu */}
+    <rect x={34} y={14} width={732} height={36} rx={9} fill="#FEF2F2" stroke="#EA580C" strokeWidth={2.2} />
+    <text
+      x={400}
+      y={38}
+      textAnchor="middle"
+      fill="#9A3412"
+      stroke="none"
+      fontSize={17.5}
+      fontWeight={900}
+      fontFamily="'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif"
+    >
+      NGHIÊN CỨU DA &amp; THẦN KINH • HISTAMIN &amp; VÒNG LẶP NGỨA–GÃI
+    </text>
+
+    {/* Ô 1 (Trái): Mặt cắt da có nốt sưng đỏ + tế bào Mast xả hạt Histamin */}
+    <g id="lab-board-itch-skin" transform="translate(22, 60)">
+      <rect x={0} y={0} width={240} height={252} rx={12} fill="#FFF7ED" stroke="#EA580C" strokeWidth={2.4} />
+      {/* Lớp da biểu bì & hạ bì + nốt sưng đỏ */}
+      <path
+        d="M 14,114 Q 74,114 96,92 Q 120,70 144,92 Q 166,114 226,114 L 226,192 L 14,192 Z"
+        fill="#FED7AA"
+        stroke="#141414"
+        strokeWidth={2.4}
+      />
+      <path
+        d="M 94,94 Q 120,72 146,94 Q 120,106 94,94 Z"
+        fill="#EF4444"
+        opacity={0.72}
+        stroke="none"
+      />
+      <rect x={14} y={164} width={212} height={28} rx={6} fill="#FCA5A5" stroke="#DC2626" strokeWidth={2} />
+      {/* Tế bào Mast tròn màu cam + hạt Histamin đỏ */}
+      <circle cx={68} cy={142} r={20} fill="#F97316" stroke="#141414" strokeWidth={2.4} />
+      <text x={68} y={146} textAnchor="middle" fill="#FFFFFF" stroke="none" fontSize={11} fontWeight={900}>
+        Mast
+      </text>
+      {[
+        { cx: 108, cy: 126 },
+        { cx: 124, cy: 142 },
+        { cx: 146, cy: 120 },
+        { cx: 162, cy: 144 },
+        { cx: 184, cy: 130 },
+        { cx: 118, cy: 110 },
+      ].map((dot, idx) => (
+        <circle key={`hdot_${idx}`} cx={dot.cx} cy={dot.cy} r={5.5} fill="#DC2626" stroke="#FFFFFF" strokeWidth={1.2} />
+      ))}
+      <text
+        x={120}
+        y={217}
+        textAnchor="middle"
+        fill="#9A3412"
+        stroke="none"
+        fontSize={15}
+        fontWeight={800}
+        fontFamily="'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif"
+      >
+        Tế bào Mast xả Histamin
+      </text>
+      <text
+        x={120}
+        y={237}
+        textAnchor="middle"
+        fill="#64748B"
+        stroke="none"
+        fontSize={13}
+        fontWeight={700}
+        fontFamily="'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif"
+      >
+        Sưng đỏ &amp; kích ngứa
+      </text>
+    </g>
+
+    {/* Ô 2 (Giữa): Tủy sống với 2 đường tín hiệu Ngứa (cam) & Đau nhẹ (xanh dương) qua chung 1 cổng */}
+    <g id="lab-board-itch-spinal" transform="translate(278, 60)">
+      <rect x={0} y={0} width={244} height={252} rx={12} fill="#F0F9FF" stroke="#0284C7" strokeWidth={2.4} />
+      {/* Trụ tủy sống */}
+      <rect x={92} y={22} width={60} height={170} rx={24} fill="#E2E8F0" stroke="#475569" strokeWidth={2.6} />
+      {/* Luồng Cam = Ngứa */}
+      <path d="M 24,182 C 46,158 72,142 102,122" fill="none" stroke="#EA580C" strokeWidth={5.5} strokeLinecap="round" />
+      <text x={44} y={140} textAnchor="middle" fill="#C2410C" stroke="none" fontSize={13} fontWeight={800}>
+        Ngứa
+      </text>
+      {/* Luồng Xanh dương = Đau nhẹ vượt cổng lên não (vẽ dưới nhãn CỔNG TỦY để chữ sắc nét 100%) */}
+      <path d="M 220,182 C 192,156 156,140 136,122 L 136,40" fill="none" stroke="#0284C7" strokeWidth={5.5} strokeLinecap="round" />
+      <polygon points="136,28 128,44 144,44" fill="#0284C7" stroke="none" />
+      <text x={194} y={140} textAnchor="middle" fill="#0369A1" stroke="none" fontSize={13} fontWeight={800}>
+        Đau nhẹ
+      </text>
+      {/* Nhãn CỔNG TỦY đặt lớp trên cùng */}
+      <rect x={74} y={92} width={96} height={30} rx={8} fill="#FEF08A" stroke="#CA8A04" strokeWidth={2.4} />
+      <text x={122} y={112} textAnchor="middle" fill="#854D0E" stroke="none" fontSize={12.5} fontWeight={900}>
+        CỔNG TỦY
+      </text>
+      <text
+        x={122}
+        y={217}
+        textAnchor="middle"
+        fill="#0369A1"
+        stroke="none"
+        fontSize={15}
+        fontWeight={800}
+        fontFamily="'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif"
+      >
+        Chung cổng tủy sống
+      </text>
+      <text
+        x={122}
+        y={237}
+        textAnchor="middle"
+        fill="#64748B"
+        stroke="none"
+        fontSize={13}
+        fontWeight={700}
+        fontFamily="'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif"
+      >
+        Đau nhẹ tạm át Ngứa
+      </text>
+    </g>
+
+    {/* Ô 3 (Phải): Vòng xoáy mũi tên khép kín Ngứa -> Gãi -> Serotonin -> Càng ngứa! */}
+    <g id="lab-board-itch-spiral" transform="translate(538, 60)">
+      <rect x={0} y={0} width={240} height={252} rx={12} fill="#ECFDF5" stroke="#0D9488" strokeWidth={2.4} />
+      <circle cx={120} cy={110} r={65} fill="none" stroke="#0D9488" strokeWidth={4} strokeDasharray="10 6" />
+      {/* 4 nút nhãn trên vòng xoáy */}
+      <rect x={80} y={22} width={80} height={26} rx={8} fill="#FFEDD5" stroke="#EA580C" strokeWidth={2} />
+      <text x={120} y={40} textAnchor="middle" fill="#C2410C" stroke="none" fontSize={13} fontWeight={900}>
+        1. Ngứa
+      </text>
+      <rect x={156} y={96} width={72} height={26} rx={8} fill="#E0F2FE" stroke="#0284C7" strokeWidth={2} />
+      <text x={192} y={114} textAnchor="middle" fill="#0369A1" stroke="none" fontSize={13} fontWeight={900}>
+        2. Gãi
+      </text>
+      <rect x={68} y={168} width={104} height={26} rx={8} fill="#CCFBF1" stroke="#0D9488" strokeWidth={2} />
+      <text x={120} y={186} textAnchor="middle" fill="#0F766E" stroke="none" fontSize={12.5} fontWeight={900}>
+        3. Serotonin
+      </text>
+      <rect x={10} y={96} width={84} height={26} rx={8} fill="#FEE2E2" stroke="#DC2626" strokeWidth={2} />
+      <text x={52} y={114} textAnchor="middle" fill="#B91C1C" stroke="none" fontSize={12} fontWeight={900}>
+        Càng ngứa!
+      </text>
+      {/* Mũi tên đỏ quay ở tâm */}
+      <path d="M 102,110 A 18,18 0 1,1 124,128" fill="none" stroke="#DC2626" strokeWidth={4} strokeLinecap="round" />
+      <polygon points="100,116 96,102 110,106" fill="#DC2626" stroke="none" />
+      <text
+        x={120}
+        y={217}
+        textAnchor="middle"
+        fill="#0F766E"
+        stroke="none"
+        fontSize={15}
+        fontWeight={800}
+        fontFamily="'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif"
+      >
+        Vòng lặp Ngứa–Gãi
+      </text>
+      <text
+        x={120}
+        y={237}
+        textAnchor="middle"
+        fill="#64748B"
+        stroke="none"
+        fontSize={13}
+        fontWeight={700}
+        fontFamily="'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif"
+      >
+        Serotonin thổi bùng ngứa
+      </text>
+    </g>
+  </g>
+));
+
 const ScienceLabStaticLayer = React.memo<{ timeOfDay: AutoTimeOfDay; labBoard?: string }>(({ timeOfDay, labBoard }) => {
   const isNight = timeOfDay === "NIGHT";
   const wallFill = isNight ? "#1E293B" : "#E0F2FE";
   const isAcoustics = labBoard === "ACOUSTICS_VOICE";
+  const isItchNeurology = labBoard === "ITCH_NEUROLOGY";
+  const useCompactTable = isAcoustics || isItchNeurology;
 
   return (
     <g>
@@ -438,9 +623,11 @@ const ScienceLabStaticLayer = React.memo<{ timeOfDay: AutoTimeOfDay; labBoard?: 
         <rect x={0} y={96} width={210} height={14} rx={4} fill={isNight ? "#64748B" : "#B45309"} stroke="#141414" strokeWidth={2.8} />
       </g>
 
-      {/* V22.2: Bảng nghiên cứu động theo chủ đề (ACOUSTICS_VOICE hoặc bảng mặc định tương thích 100% tập cũ) */}
+      {/* V22.2–V22.3: Bảng nghiên cứu động theo chủ đề (ACOUSTICS_VOICE, ITCH_NEUROLOGY hoặc bảng mặc định) */}
       {isAcoustics ? (
         <ScienceLabAcousticsBoardStatic />
+      ) : isItchNeurology ? (
+        <ScienceLabItchNeurologyBoardStatic />
       ) : (
         <g transform="translate(560, 165)">
           <rect x={0} y={0} width={760} height={330} rx={14} fill="#FFFFFF" stroke="#64748B" strokeWidth={9} />
@@ -459,18 +646,18 @@ const ScienceLabStaticLayer = React.memo<{ timeOfDay: AutoTimeOfDay; labBoard?: 
         <ellipse
           id="lab-table-shadow"
           cx={200}
-          cy={isAcoustics ? 268 : 279}
+          cy={useCompactTable ? 268 : 279}
           rx={210}
           ry={12}
           fill="#0F172A"
           opacity={isNight ? 0.28 : 0.12}
           stroke="none"
         />
-        <ellipse cx={30} cy={isAcoustics ? 268 : 279} rx={26} ry={6} fill="#0F172A" opacity={0.12} stroke="none" />
-        <ellipse cx={370} cy={isAcoustics ? 268 : 279} rx={26} ry={6} fill="#0F172A" opacity={0.12} stroke="none" />
+        <ellipse cx={30} cy={useCompactTable ? 268 : 279} rx={26} ry={6} fill="#0F172A" opacity={0.12} stroke="none" />
+        <ellipse cx={370} cy={useCompactTable ? 268 : 279} rx={26} ry={6} fill="#0F172A" opacity={0.12} stroke="none" />
         <rect x={0} y={100} width={400} height={24} rx={6} fill="#64748B" />
-        <rect x={20} y={124} width={20} height={isAcoustics ? 144 : 155} fill="#475569" />
-        <rect x={360} y={124} width={20} height={isAcoustics ? 144 : 155} fill="#475569" />
+        <rect x={20} y={124} width={20} height={useCompactTable ? 144 : 155} fill="#475569" />
+        <rect x={360} y={124} width={20} height={useCompactTable ? 144 : 155} fill="#475569" />
 
         {isAcoustics ? (
           <g id="lab-acoustics-table-props">
@@ -504,6 +691,36 @@ const ScienceLabStaticLayer = React.memo<{ timeOfDay: AutoTimeOfDay; labBoard?: 
             <g transform="translate(348, 100)">
               <rect x={-32} y={-16} width={64} height={16} rx={3} fill="#2563EB" stroke="#141414" strokeWidth={2.6} />
               <rect x={-26} y={-30} width={54} height={14} rx={3} fill="#FEF08A" stroke="#141414" strokeWidth={2.6} />
+            </g>
+          </g>
+        ) : isItchNeurology ? (
+          <g id="lab-itch-neurology-table-props">
+            {/* 1. Kính hiển vi 2D tối giản bên trái bàn */}
+            <g id="lab-itch-microscope" transform="translate(88, 100)">
+              <rect x={-40} y={-14} width={80} height={14} rx={4} fill="#334155" stroke="#141414" strokeWidth={3} />
+              <path d="M 12,-14 C 42,-44 42,-88 10,-112" fill="none" stroke="#475569" strokeWidth={10} strokeLinecap="round" />
+              <rect x={-18} y={-126} width={22} height={68} rx={5} transform="rotate(18, -7, -92)" fill="#F8FAFC" stroke="#141414" strokeWidth={3} />
+              <rect x={-8} y={-136} width={16} height={12} rx={3} transform="rotate(18, -7, -92)" fill="#1E293B" stroke="#141414" strokeWidth={2.2} />
+              <rect x={-32} y={-40} width={50} height={8} rx={3} fill="#1E293B" stroke="#141414" strokeWidth={2.2} />
+              <circle cx={28} cy={-64} r={8} fill="#94A3B8" stroke="#141414" strokeWidth={2.2} />
+            </g>
+
+            {/* 2. Đĩa Petri có giọt mẫu hồng chính giữa bàn */}
+            <g id="lab-itch-petri-dish" transform="translate(222, 100)">
+              <ellipse cx={0} cy={-8} rx={46} ry={12} fill="#E0F2FE" stroke="#0284C7" strokeWidth={2.8} />
+              <ellipse cx={0} cy={-14} rx={44} ry={10} fill="#FFFFFF" fillOpacity={0.78} stroke="#141414" strokeWidth={2.4} />
+              <ellipse cx={-6} cy={-14} rx={18} ry={5} fill="#FB7185" stroke="#BE123C" strokeWidth={1.6} />
+              <circle cx={14} cy={-12} r={4} fill="#FDA4AF" stroke="none" />
+            </g>
+
+            {/* 3. Bảng kẹp hồ sơ nghiên cứu bên phải bàn */}
+            <g id="lab-itch-clipboard" transform="translate(334, 100)">
+              <rect x={-36} y={-80} width={72} height={80} rx={6} fill="#B45309" stroke="#141414" strokeWidth={2.8} />
+              <rect x={-28} y={-70} width={56} height={62} rx={3} fill="#FFFFFF" stroke="#141414" strokeWidth={2} />
+              <rect x={-16} y={-86} width={32} height={14} rx={4} fill="#94A3B8" stroke="#141414" strokeWidth={2.2} />
+              <line x1={-18} y1={-52} x2={18} y2={-52} stroke="#EA580C" strokeWidth={3} strokeLinecap="round" />
+              <line x1={-18} y1={-38} x2={16} y2={-38} stroke="#64748B" strokeWidth={2.4} strokeLinecap="round" />
+              <line x1={-18} y1={-24} x2={10} y2={-24} stroke="#64748B" strokeWidth={2.4} strokeLinecap="round" />
             </g>
           </g>
         ) : (
@@ -540,6 +757,7 @@ const ScienceLabBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: number; gr
   const secDeg = (frame * 3) % 360;
   const minDeg = (frame * 0.15 + 45) % 360;
   const isAcoustics = labBoard === "ACOUSTICS_VOICE";
+  const isItchNeurology = labBoard === "ITCH_NEUROLOGY";
   const forkPulse = 0.4 + 0.55 * Math.abs(Math.sin(frame * 0.18));
   const oscWavePts = isAcoustics
     ? Array.from({ length: 18 }, (_, i) => {
@@ -572,6 +790,18 @@ const ScienceLabBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: number; gr
           <g transform="translate(1711, 660)">
             <polyline points={oscWavePts} fill="none" stroke="#38BDF8" strokeWidth={3.2} strokeLinecap="round" strokeLinejoin="round" />
           </g>
+        </g>
+      ) : isItchNeurology ? (
+        <g id="lab-itch-neurology-dynamic">
+          {/* Nhịp phát sáng nhẹ của giọt mẫu hồng trong đĩa Petri trên bàn */}
+          <circle
+            cx={1701}
+            cy={646}
+            r={6 + Math.sin(frame * 0.12) * 1.5}
+            fill="#FB7185"
+            opacity={0.45}
+            stroke="none"
+          />
         </g>
       ) : (
         <>
@@ -2330,7 +2560,8 @@ export const UniversalAutoStage: React.FC<{
     activeHandProp: AutoHandProp;
     activeShiver: boolean;
     shiverOpacity: number;
-    pose: V18PoseSnapshot["pose"];
+    pose: V18PoseSnapshot["pose"] | "sittingBehindDesk";
+    seatedHipY?: number;
     walkWeight: number;
     walkCycle: number;
     torsoTiltDeg: number;
@@ -2452,7 +2683,7 @@ export const UniversalAutoStage: React.FC<{
     let activeExprEnum: AutoActorExpression = actor.expression;
     let activeHandProp: AutoHandProp = defaultActorHandProp;
     let activeShiver = Boolean(actor.shiver);
-    let pose: V18PoseSnapshot["pose"] = "standing";
+    let pose: V18PoseSnapshot["pose"] | "sittingBehindDesk" = "standing";
     let walkWeight = 0;
     let walkCycle = 0;
     let torsoTiltDeg = 0;
@@ -2728,6 +2959,14 @@ export const UniversalAutoStage: React.FC<{
       effectiveFacing = "RIGHT";
     }
 
+    const isSeatedActor = Boolean(actor.seated === true && pose !== "walking" && pose !== "running");
+    if (isSeatedActor) {
+      pose = "sittingBehindDesk";
+      flightLift = 0;
+      crouchDepth = 0;
+    }
+    const seatedHipYVal = isSeatedActor ? Math.max(-180, Math.min(-85, -108 / actorScale)) : undefined;
+
     const facingDir: 1 | -1 = effectiveFacing === "LEFT" ? -1 : 1;
     const isActorWalking = (pose === "walking" || pose === "running" || walkCycle > 0) && walkWeight > 0.02;
     const actorIdleBreathFactor = computeStickmanIdleBreathFactor(
@@ -2737,7 +2976,7 @@ export const UniversalAutoStage: React.FC<{
       isActorWalking ? walkWeight : 0
     );
     const actorEffectiveScaleY = actorScale * actorIdleBreathFactor * anticipationScaleY;
-    const estHipY = -173 + crouchDepth - flightLift;
+    const estHipY = seatedHipYVal !== undefined ? seatedHipYVal : -173 + crouchDepth - flightLift;
     const headWorldY = groundY + (estHipY - TORSO_LEN - 70) * actorEffectiveScaleY;
 
     // V18.3: Khóa cứng thời lượng nét run `shiver` chỉ nháy trong 30 frames đầu (0.5s) rồi tắt dần mượt mà!
@@ -2833,6 +3072,7 @@ export const UniversalAutoStage: React.FC<{
       activeShiver,
       shiverOpacity,
       pose,
+      seatedHipY: seatedHipYVal,
       walkWeight,
       walkCycle,
       torsoTiltDeg,
@@ -2866,7 +3106,13 @@ export const UniversalAutoStage: React.FC<{
       <g transform={`translate(${camFocusX}, ${camFocusY}) scale(${camZoom.toFixed(4)}) translate(${-camFocusX}, ${-camFocusY})`}>
         {/* 1. BỐI CẢNH (11 BỐI CẢNH SỐNG ĐỘNG 60FPS — BAO GỒM PHÒNG TIÊU ÂM ANECHOIC_CHAMBER V18.2) */}
         {spec.stageType === "COUNTRYSIDE_YARD" && (
-          <CountrysideYardBackdrop timeOfDay={spec.timeOfDay} frame={frame} groundY={groundY} />
+          <CountrysideYardBackdrop
+            timeOfDay={spec.timeOfDay}
+            frame={frame}
+            groundY={groundY}
+            chongTreCentered={spec.actors.some((a) => a.seated === true)}
+            showPorchFan={spec.yardDetail === "PORCH_FAN"}
+          />
         )}
         {spec.stageType === "SIMPLE_GRASS_FIELD" && (
           <SimpleGrassFieldBackdrop
@@ -3205,6 +3451,7 @@ export const UniversalAutoStage: React.FC<{
                   hideBuiltInAppearanceProp: true,
                   facing: ra.effectiveFacing === "LEFT" ? "left" : "right",
                   pose: ra.pose,
+                  ...(ra.seatedHipY !== undefined ? { seatedHipY: ra.seatedHipY } : {}),
                   torsoTiltDeg: ra.torsoTiltDeg,
                   headTiltDeg: effectiveHeadTiltDeg,
                   flightLift: ra.flightLift,
@@ -3335,6 +3582,104 @@ export const UniversalAutoStage: React.FC<{
             </g>
           );
         })}
+
+        {/* 3.5. V22.3: CHI TIẾT SÂN QUÊ NHỎ BÁM SÁT CẬU BÉ (MUỖI BAY, TIA GÃI, NỐT SƯNG, KHĂN ĐÁ) */}
+        {spec.stageType === "COUNTRYSIDE_YARD" &&
+          spec.yardDetail &&
+          spec.yardDetail !== "PORCH_FAN" &&
+          (() => {
+            const boyRa = resolvedActors.find((ra) => ra.actor.preset === "BOY") ?? resolvedActors[0];
+            if (!boyRa) return null;
+            const bDir: 1 | -1 = boyRa.effectiveFacing === "LEFT" ? -1 : 1;
+            const armX = boyRa.actorX + bDir * 44 * boyRa.actorScale;
+            const armY = boyRa.headWorldY + 112 * boyRa.actorScale;
+
+            if (spec.yardDetail === "MOSQUITO_FLY") {
+              const flyT = Math.min(1, sceneProgressP * 1.15);
+              const mx = armX - flyT * 145 * bDir;
+              const my = armY - 12 - flyT * 96 + Math.sin(frame * 0.45) * 8;
+              const wingFlap = Math.sin(frame * 1.4) * 26;
+              return (
+                <g id="yard-detail-mosquito-fly">
+                  {/* Chấm đỏ li ti đúng trên cẳng tay cậu bé */}
+                  <circle cx={armX} cy={armY} r={5.5} fill="#EF4444" stroke="#991B1B" strokeWidth={1.6} />
+                  {/* Đường bay nét đứt */}
+                  <path
+                    d={`M ${armX},${armY - 6} Q ${(armX + mx) * 0.5},${my + 36} ${mx.toFixed(1)},${my.toFixed(1)}`}
+                    fill="none"
+                    stroke="#64748B"
+                    strokeWidth={2}
+                    strokeDasharray="6 6"
+                    opacity={0.55}
+                  />
+                  {/* Con muỗi 2D nhỏ bay vù đi */}
+                  <g transform={`translate(${mx.toFixed(1)}, ${my.toFixed(1)}) scale(${-bDir}, 1)`}>
+                    <ellipse cx={-6} cy={-8} rx={12} ry={5} transform={`rotate(${(-24 + wingFlap).toFixed(1)}, -6, -8)`} fill="#E0F2FE" stroke="#334155" strokeWidth={1.6} />
+                    <ellipse cx={4} cy={-9} rx={11} ry={4.5} transform={`rotate(${(18 - wingFlap).toFixed(1)}, 4, -9)`} fill="#E0F2FE" stroke="#334155" strokeWidth={1.6} />
+                    <ellipse cx={-10} cy={2} rx={12} ry={4.5} fill="#334155" stroke="#141414" strokeWidth={1.8} />
+                    <circle cx={5} cy={0} r={4.5} fill="#1E293B" stroke="#141414" strokeWidth={1.6} />
+                    <line x1={9} y1={1} x2={22} y2={6} stroke="#141414" strokeWidth={2} strokeLinecap="round" />
+                  </g>
+                </g>
+              );
+            }
+
+            if (spec.yardDetail === "SCRATCH_SPARK") {
+              const pulse = 0.5 + 0.5 * Math.sin(frame * 0.4);
+              return (
+                <g id="yard-detail-scratch-spark" transform={`translate(${armX.toFixed(1)}, ${armY.toFixed(1)})`}>
+                  <circle cx={0} cy={0} r={7} fill="#FB7185" opacity={0.85} />
+                  {[-28, 28].map((dx, i) => (
+                    <path
+                      key={i}
+                      d={`M ${dx * 0.7},-14 Q ${dx},0 ${dx * 0.7},14`}
+                      fill="none"
+                      stroke="#F59E0B"
+                      strokeWidth={3.5}
+                      strokeLinecap="round"
+                      opacity={0.55 + pulse * 0.45}
+                    />
+                  ))}
+                </g>
+              );
+            }
+
+            if (spec.yardDetail === "SWELL_BUMP") {
+              const rPulse = 14 + Math.sin(frame * 0.28) * 3;
+              return (
+                <g id="yard-detail-swell-bump" transform={`translate(${armX.toFixed(1)}, ${armY.toFixed(1)})`}>
+                  <circle cx={0} cy={0} r={rPulse + 8} fill="#FCA5A5" opacity={0.42} />
+                  <circle cx={0} cy={0} r={rPulse * 0.65} fill="#EF4444" stroke="#991B1B" strokeWidth={2.2} />
+                  <path d="M -26,-12 Q -34,0 -26,12 M 26,-12 Q 34,0 26,12" fill="none" stroke="#DC2626" strokeWidth={3} strokeLinecap="round" />
+                </g>
+              );
+            }
+
+            if (spec.yardDetail === "ICE_TOWEL") {
+              const coolRise = (frame * 1.1) % 24;
+              return (
+                <g id="yard-detail-ice-towel" transform={`translate(${armX.toFixed(1)}, ${armY.toFixed(1)})`}>
+                  {/* Khăn sạch xanh mát bọc viên đá áp gọn trên tay */}
+                  <rect x={-26} y={-18} width={52} height={34} rx={11} fill="#BAE6FD" stroke="#0284C7" strokeWidth={3} />
+                  <path d="M -16,-6 L 16,-6 M -12,5 L 12,5" stroke="#FFFFFF" strokeWidth={3} strokeLinecap="round" opacity={0.85} />
+                  <rect x={-10} y={-12} width={18} height={18} rx={4} fill="#E0F2FE" stroke="#38BDF8" strokeWidth={2} opacity={0.9} />
+                  {/* Làn hơi mát bay nhẹ lên */}
+                  {[-12, 12].map((vx, vi) => (
+                    <path
+                      key={vi}
+                      d={`M ${vx},${(-24 - ((coolRise + vi * 12) % 24)).toFixed(1)} Q ${vx - 5},${(-32 - ((coolRise + vi * 12) % 24)).toFixed(1)} ${vx},${(-40 - ((coolRise + vi * 12) % 24)).toFixed(1)}`}
+                      fill="none"
+                      stroke="#38BDF8"
+                      strokeWidth={2.8}
+                      strokeLinecap="round"
+                      opacity={0.78}
+                    />
+                  ))}
+                </g>
+              );
+            }
+            return null;
+          })()}
 
         {/* 4. HIỆU ỨNG THỜI TIẾT ĐỘNG 60FPS */}
         <WeatherOverlayLayer weather={spec.weather} frame={frame} isOutdoor={isOutdoor} />

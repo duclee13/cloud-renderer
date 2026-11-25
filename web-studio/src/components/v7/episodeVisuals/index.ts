@@ -128,6 +128,26 @@ import {
   GhiAmPorchHappyEndVisual,
   GhiAmSummaryOutroVisual,
 } from './ghiAmVisualsPart2';
+import {
+  MuoiIntroViciousCycleVisual,
+  MuoiSalivaSkinVisual,
+  MuoiHistamineSwellingVisual,
+  MuoiNerveSignalUpVisual,
+  MuoiPainGateTheoryVisual,
+  MuoiPainOverridesItchVisual,
+  MuoiDopamineRewardVisual,
+  MuoiDoubleBackfireVisual,
+} from './muoiGaiVisualsPart1';
+import {
+  MuoiSerotoninTrapVisual,
+  MuoiViciousSpiralVisual,
+  MuoiSkinDamageVisual,
+  MuoiCoolingMethodVisual,
+  MuoiPressOrCreamVisual,
+  MuoiComparisonScratchVsIceVisual,
+  MuoiSkinRecoveryVisual,
+  MuoiSummary3CardsVisual,
+} from './muoiGaiVisualsPart2';
 
 export type EpisodeVisualProps = {
   progress: number;
@@ -255,4 +275,22 @@ export const EPISODE_VISUAL_REGISTRY: Record<string, React.FC<EpisodeVisualProps
   GHIAM_YARD_PRACTICE: GhiAmYardPracticeVisual,
   GHIAM_PORCH_HAPPY_END: GhiAmPorchHappyEndVisual,
   GHIAM_SUMMARY_OUTRO: GhiAmSummaryOutroVisual,
+
+  // Episode 6: Tại Sao Gãi Chỗ Muỗi Đốt Lại Càng Ngứa Hơn? (V21.5+)
+  MUOI_INTRO_VICIOUS_CYCLE: MuoiIntroViciousCycleVisual,
+  MUOI_SALIVA_SKIN: MuoiSalivaSkinVisual,
+  MUOI_HISTAMINE_SWELLING: MuoiHistamineSwellingVisual,
+  MUOI_NERVE_SIGNAL_UP: MuoiNerveSignalUpVisual,
+  MUOI_PAIN_GATE_THEORY: MuoiPainGateTheoryVisual,
+  MUOI_PAIN_OVERRIDES_ITCH: MuoiPainOverridesItchVisual,
+  MUOI_DOPAMINE_REWARD: MuoiDopamineRewardVisual,
+  MUOI_DOUBLE_BACKFIRE: MuoiDoubleBackfireVisual,
+  MUOI_SEROTONIN_TRAP: MuoiSerotoninTrapVisual,
+  MUOI_VICIOUS_SPIRAL: MuoiViciousSpiralVisual,
+  MUOI_SKIN_DAMAGE: MuoiSkinDamageVisual,
+  MUOI_COOLING_METHOD: MuoiCoolingMethodVisual,
+  MUOI_PRESS_OR_CREAM: MuoiPressOrCreamVisual,
+  MUOI_COMPARISON_SCRATCH_VS_ICE: MuoiComparisonScratchVsIceVisual,
+  MUOI_SKIN_RECOVERY: MuoiSkinRecoveryVisual,
+  MUOI_SUMMARY_3_CARDS: MuoiSummary3CardsVisual,
 };

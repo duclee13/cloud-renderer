@@ -175,10 +175,19 @@ export type AutoPropAnimation = "FLOAT" | "PULSE" | "BOUNCE" | "SPIN" | "SHAKE" 
 export type KnownLabBoardId =
   | "DEFAULT"
   | "ACOUSTICS_VOICE"
+  | "ITCH_NEUROLOGY"
   | "WATER_SKIN"
   | "ONION_CHEM"
   | "SLEEP_BRAIN";
 export type LabBoardId = KnownLabBoardId | (string & {});
+
+/** V22.3: Chi tiết sân quê bổ trợ cho cảnh đời sống COUNTRYSIDE_YARD (tùy chọn, tương thích ngược 100%) */
+export type CountrysideYardDetailId =
+  | "MOSQUITO_FLY"
+  | "SCRATCH_SPARK"
+  | "SWELL_BUMP"
+  | "ICE_TOWEL"
+  | "PORCH_FAN";
 
 export interface AutoActorSpec {
   preset: AutoActorPreset;
@@ -193,6 +202,8 @@ export interface AutoActorSpec {
   bubbleStartPct?: number;
   bubbleEndPct?: number;
   shiver?: boolean;
+  /** V22.3: Khi true trên COUNTRYSIDE_YARD -> nhân vật ngồi gập gối đặt sát 0px lên mặt chõng tre */
+  seated?: boolean;
   /** V18.0: Chuỗi Keyframe Action Timeline diễn xuất liên hoàn 60fps (nếu bỏ trống -> dùng motion/slot V17 cũ) */
   timeline?: ActorKeyframe[];
 }
@@ -221,8 +232,10 @@ export interface AutoEpisodeBeat {
   text: string;
   ttsText: string;
   stageType: AutoStageType;
-  /** V22.2: Bảng nghiên cứu động theo chủ đề cho SCIENCE_LAB_ROOM (vd: "ACOUSTICS_VOICE", "WATER_SKIN", "ONION_CHEM", "SLEEP_BRAIN") */
+  /** V22.2: Bảng nghiên cứu động theo chủ đề cho SCIENCE_LAB_ROOM (vd: "ACOUSTICS_VOICE", "ITCH_NEUROLOGY") */
   labBoard?: LabBoardId;
+  /** V22.3: Chi tiết sân quê bổ trợ cho COUNTRYSIDE_YARD (muỗi bay, tia gãi, nốt sưng, khăn đá, quạt máy) */
+  yardDetail?: CountrysideYardDetailId;
   timeOfDay: AutoTimeOfDay;
   weather: AutoWeather;
   transitionIn: AutoTransitionIn;
@@ -1015,6 +1028,7 @@ function sanitizeActor(raw: any, index: number, totalActors = 2): AutoActorSpec 
       : explicitHandProp ?? "NONE";
   const bubbleClean = sanitizeSpeechBubble(raw?.bubble);
   const shiver = Boolean(raw?.shiver);
+  const seated = Boolean(raw?.seated);
 
   const hasBubbleWindow = raw?.bubbleStartPct !== undefined || raw?.bubbleEndPct !== undefined;
   const bubbleStartPct = hasBubbleWindow
@@ -1045,6 +1059,7 @@ function sanitizeActor(raw: any, index: number, totalActors = 2): AutoActorSpec 
     ...(bubbleStartPct !== undefined ? { bubbleStartPct } : {}),
     ...(bubbleEndPct !== undefined ? { bubbleEndPct } : {}),
     ...(shiver ? { shiver: true } : {}),
+    ...(seated ? { seated: true } : {}),
     ...(timeline ? { timeline } : {}),
   };
 }
@@ -1079,6 +1094,22 @@ function sanitizeLabBoardId(raw: unknown): LabBoardId | undefined {
     .replace(/[^A-Z0-9_]/g, "")
     .slice(0, 48);
   return norm ? (norm as LabBoardId) : undefined;
+}
+
+const VALID_YARD_DETAILS: readonly CountrysideYardDetailId[] = [
+  "MOSQUITO_FLY",
+  "SCRATCH_SPARK",
+  "SWELL_BUMP",
+  "ICE_TOWEL",
+  "PORCH_FAN",
+];
+
+function sanitizeYardDetailId(raw: unknown): CountrysideYardDetailId | undefined {
+  if (typeof raw !== "string") return undefined;
+  const norm = raw.trim().toUpperCase().replace(/[\s-]+/g, "_");
+  return (VALID_YARD_DETAILS as readonly string[]).includes(norm)
+    ? (norm as CountrysideYardDetailId)
+    : undefined;
 }
 
 /**
@@ -1119,6 +1150,7 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
 
     const stageType = matchEnum(rb?.stageType, VALID_STAGE_TYPES, "SIMPLE_GRASS_FIELD", STAGE_ALIASES);
     const labBoard = sanitizeLabBoardId(rb?.labBoard) ?? episodeLabBoard;
+    const yardDetail = sanitizeYardDetailId(rb?.yardDetail);
     const timeOfDay = matchEnum(rb?.timeOfDay, VALID_TIME_OF_DAY, "DAY");
     const weather = matchEnum(rb?.weather, VALID_WEATHER, "CLEAR");
     const defaultTransition: AutoTransitionIn = idx === 0 ? "CUT" : "CROSSFADE";
@@ -1189,6 +1221,7 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       ttsText,
       stageType,
       ...(labBoard ? { labBoard } : {}),
+      ...(yardDetail ? { yardDetail } : {}),
       timeOfDay,
       weather,
       transitionIn,
