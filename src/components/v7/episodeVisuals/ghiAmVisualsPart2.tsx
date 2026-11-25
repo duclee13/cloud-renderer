@@ -1,6 +1,12 @@
 import React from 'react';
 import type { EpisodeVisualProps } from './index';
 import {
+  GroundShadow,
+  OutdoorCityRoadBackdrop,
+  DetailedSedanCar,
+  IndoorWarmRoomBackdrop,
+} from '../../SceneBackdropKit';
+import {
   INK,
   FONT,
   clamp01,
@@ -16,6 +22,40 @@ import {
   CityLivingRoomEveningBackdrop,
   CozyStudyRoomSoftBackdrop,
 } from './ghiAmSharedAssets';
+
+/** Subtle low-contrast upper-right wall accent for GHIAM_EXPERIMENT_HANDS (y=152..258, strictly above right card at y=290) */
+const ExperimentUpperRightWallAccent: React.FC = React.memo(() => (
+  <g opacity="0.65">
+    {/* Compact floating wooden wall shelf with 3 books & mini potted succulent (x=1480..1716, y=166..256) */}
+    <g transform="translate(1482, 168)">
+      <rect x="24" y="84" width="8" height="16" rx="2.5" fill="#78350F" />
+      <rect x="196" y="84" width="8" height="16" rx="2.5" fill="#78350F" />
+      <rect x="0" y="72" width="228" height="13" rx="4.5" fill="#B45309" stroke={INK} strokeWidth="2.4" />
+      <rect x="18" y="22" width="24" height="50" rx="3.5" fill="#60A5FA" stroke={INK} strokeWidth="2" />
+      <rect x="46" y="12" width="26" height="60" rx="3.5" fill="#34D399" stroke={INK} strokeWidth="2" />
+      <rect x="76" y="26" width="22" height="46" rx="3.5" fill="#FBBF24" stroke={INK} strokeWidth="2" />
+      {/* Mini potted succulent */}
+      <path d="M 152 72 L 158 46 L 188 46 L 194 72 Z" fill="#F97316" stroke={INK} strokeWidth="2.2" />
+      <circle cx="166" cy="36" r="11" fill="#16A34A" stroke={INK} strokeWidth="1.8" />
+      <circle cx="180" cy="37" r="10" fill="#22C55E" stroke={INK} strokeWidth="1.8" />
+      <circle cx="173" cy="28" r="11" fill="#4ADE80" stroke={INK} strokeWidth="1.8" />
+    </g>
+
+    {/* Minimalist round wall clock beside the shelf (cx=1794, cy=210, r=40 -> y=170..250) */}
+    <g transform="translate(1794, 210)">
+      <circle cx="0" cy="0" r="40" fill="#FFFFFF" stroke="#94A3B8" strokeWidth="5" />
+      <circle cx="0" cy="0" r="35" fill="none" stroke="#CBD5E1" strokeWidth="1.5" />
+      <line x1="0" y1="-29" x2="0" y2="-23" stroke="#64748B" strokeWidth="2.6" strokeLinecap="round" />
+      <line x1="29" y1="0" x2="23" y2="0" stroke="#64748B" strokeWidth="2.6" strokeLinecap="round" />
+      <line x1="0" y1="29" x2="0" y2="23" stroke="#64748B" strokeWidth="2.6" strokeLinecap="round" />
+      <line x1="-29" y1="0" x2="-23" y2="0" stroke="#64748B" strokeWidth="2.6" strokeLinecap="round" />
+      <line x1="0" y1="0" x2="0" y2="-18" stroke="#334155" strokeWidth="3.2" strokeLinecap="round" />
+      <line x1="0" y1="0" x2="15" y2="-6" stroke="#475569" strokeWidth="2.6" strokeLinecap="round" />
+      <circle cx="0" cy="0" r="3.5" fill="#EA580C" />
+    </g>
+  </g>
+));
+ExperimentUpperRightWallAccent.displayName = 'ExperimentUpperRightWallAccent';
 
 /* ============================================================================
  * 9. GHIAM_SELF_IMAGE_EXPECTATION (b37–b40, steps 0, 1, 2, 3)
@@ -191,9 +231,15 @@ export const GhiAmMirrorAnalogyVisual: React.FC<EpisodeVisualProps> = ({
         </linearGradient>
       </defs>
 
-      <rect width="1920" height="1080" fill="url(#ga10_bg)" />
-      <rect x="0" y="795" width="1920" height="285" fill="#cbd5e1" opacity="0.6" />
-      <line x1="0" y1="795" x2="1920" y2="795" stroke="#94a3b8" strokeWidth="4" />
+      {activeStep === 2 ? (
+        <IndoorWarmRoomBackdrop variant="living" uid="ga10_s2" />
+      ) : (
+        <>
+          <rect width="1920" height="1080" fill="url(#ga10_bg)" />
+          <rect x="0" y="795" width="1920" height="285" fill="#cbd5e1" opacity="0.6" />
+          <line x1="0" y1="795" x2="1920" y2="795" stroke="#94a3b8" strokeWidth="4" />
+        </>
+      )}
 
       {/* Single Top Header — matched 1-1 with b41..b44 */}
       <CleanLabel
@@ -303,6 +349,9 @@ export const GhiAmMirrorAnalogyVisual: React.FC<EpisodeVisualProps> = ({
       {/* STEP 2 (b43): Friend & Dad looking at BOY directly — completely natural! */}
       {activeStep === 2 && (
         <g>
+          <GroundShadow cx={580} cy={798} rx={58} ry={10} />
+          <GroundShadow cx={1120} cy={798} rx={58} ry={10} />
+          <GroundShadow cx={1420} cy={798} rx={62} ry={10} />
           <SharedStickman x={580} y={679} scale={1.04} role="BOY" facing="RIGHT" pose="NOD_SMILE" expression="HAPPY" frame={frame} />
           <SharedStickman x={1120} y={679} scale={1.04} role="FRIEND_A" facing="LEFT" pose="NOD_SMILE" expression="PROUD" frame={frame} />
           <SharedStickman x={1420} y={675} scale={1.08} role="DAD" facing="LEFT" pose="NOD_SMILE" expression="PROUD" frame={frame + 10} />
@@ -416,6 +465,10 @@ export const GhiAmExperimentHandsVisual: React.FC<EpisodeVisualProps> = ({
         showRightBookshelf={false}
         frame={frame}
       />
+      {/* Subtle low-contrast wall shelf + minimalist clock in upper-right wall zone (y=168..256, above right card) */}
+      <ExperimentUpperRightWallAccent />
+      {/* Grounding contact shadow beneath BOY (feet at y = 679 + 114*1.08 = 802 <= 830) */}
+      <GroundShadow cx={760} cy={802} rx={60} ry={10} />
 
       {/* Single Top Header */}
       <CleanLabel
@@ -545,7 +598,8 @@ export const GhiAmBoneHeadphonesVisual: React.FC<EpisodeVisualProps> = ({
   visualStep,
 }) => {
   const activeStep = step ?? visualStep ?? 0;
-  const roadDash = (frame * 9) % 140;
+  const isOutdoorJog = activeStep === 1 || activeStep === 2;
+  const jogShadowRx = 58 - Math.abs(Math.sin(frame * 0.24)) * 8;
 
   return (
     <svg viewBox="0 0 1920 1080" width="100%" height="100%" style={{ display: 'block', fontFamily: FONT }}>
@@ -554,9 +608,18 @@ export const GhiAmBoneHeadphonesVisual: React.FC<EpisodeVisualProps> = ({
           <stop offset="0%" stopColor="#ecfeff" />
           <stop offset="100%" stopColor="#cffafe" />
         </linearGradient>
+        <linearGradient id="ga12_headlight_beam" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#FEF08A" stopOpacity="0.46" />
+          <stop offset="55%" stopColor="#FEF08A" stopOpacity="0.22" />
+          <stop offset="100%" stopColor="#FEF08A" stopOpacity="0" />
+        </linearGradient>
       </defs>
 
-      <rect width="1920" height="1080" fill="url(#ga12_bg)" />
+      {isOutdoorJog ? (
+        <OutdoorCityRoadBackdrop frame={frame} scrollSpeed={3.2} timeOfDay="morning" uid="ga12" />
+      ) : (
+        <rect width="1920" height="1080" fill="url(#ga12_bg)" />
+      )}
 
       {/* Single Top Header */}
       <CleanLabel
@@ -626,27 +689,13 @@ export const GhiAmBoneHeadphonesVisual: React.FC<EpisodeVisualProps> = ({
       {/* STEPS 1 & 2: Outdoor Park Jogging with Bone Headphones (+ Car Horn Safety in Step 2) */}
       {(activeStep === 1 || activeStep === 2) && (
         <g>
-          {/* Park Hills & Trees */}
-          <path d="M 0 620 Q 480 530 960 600 T 1920 580 L 1920 755 L 0 755 Z" fill="#86efac" />
-          {/* Running Path grounded at y = 755..820 */}
-          <rect x="0" y="750" width="1920" height="330" fill="#64748b" />
-          <line x1="0" y1="750" x2="1920" y2="750" stroke="#334155" strokeWidth="5" />
-          <line
-            x1="-140"
-            y1="804"
-            x2="2060"
-            y2="804"
-            stroke="#f8fafc"
-            strokeWidth="8"
-            strokeDasharray="65 75"
-            strokeDashoffset={roadDash}
-            opacity="0.7"
-          />
+          {/* Grounding contact shadow beneath jogging BOY on the asphalt shoulder (cy = 798 <= 830) */}
+          <GroundShadow cx={1120} cy={798} rx={jogShadowRx} ry={10} />
 
-          {/* Jogging BOY wearing Bone-Conduction Headphones */}
+          {/* Jogging BOY wearing Bone-Conduction Headphones (feet touch y ≈ 794 <= 830) */}
           <SharedStickman
-            x={1060}
-            y={668}
+            x={1120}
+            y={682}
             scale={1.06}
             role="BOY"
             facing="RIGHT"
@@ -656,40 +705,54 @@ export const GhiAmBoneHeadphonesVisual: React.FC<EpisodeVisualProps> = ({
           />
 
           {/* Orange Music Notes near head */}
-          <g transform={`translate(1155, ${468 + Math.sin(frame * 0.2) * 8})`}>
+          <g transform={`translate(1215, ${472 + Math.sin(frame * 0.2) * 8})`}>
             <circle cx="0" cy="18" r="9" fill="#ea580c" />
             <path d="M 8 18 L 8 -20 L 34 -26 L 34 10" fill="none" stroke="#ea580c" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
             <circle cx="26" cy="12" r="9" fill="#ea580c" />
           </g>
 
-          {/* Step 2: Car behind BOY honking — Blue warning waves clearly reach open ear! */}
+          {/* Step 2: Detailed Sedan Car behind BOY honking — Headlight beam + Blue warning waves reach open ear! */}
           {activeStep === 2 && (
             <g>
-              {/* Clean 2D Cartoon Car on Left */}
-              <g transform="translate(320, 684)">
-                <path d="M -160 14 L -135 -46 L -45 -84 L 78 -84 L 138 -36 L 170 -20 L 170 42 L -160 42 Z" fill="#ef4444" stroke={INK} strokeWidth="5" strokeLinejoin="round" />
-                <path d="M -110 -38 L -42 -70 L 65 -70 L 108 -38 Z" fill="#bae6fd" stroke={INK} strokeWidth="3.5" />
-                <circle cx="-92" cy="48" r="34" fill="#1e293b" stroke={INK} strokeWidth="4" />
-                <circle cx="-92" cy="48" r="14" fill="#cbd5e1" />
-                <circle cx="96" cy="48" r="34" fill="#1e293b" stroke={INK} strokeWidth="4" />
-                <circle cx="96" cy="48" r="14" fill="#cbd5e1" />
-              </g>
-              {/* Blue Honk Waves traveling from car to BOY's open ear */}
+              {/* Soft Gradient Headlight Cone fading smoothly forward from front headlight (x=522, y=728, y <= 830) */}
+              <polygon points="522,718 810,686 810,776 522,742" fill="url(#ga12_headlight_beam)" />
+
+              {/* Crisp 2D Cartoon Sedan grounded solidly on asphalt (wheels at y=804, shadow bottom 823 <= 830) */}
+              <DetailedSedanCar
+                x={335}
+                y={804}
+                color="#EF4444"
+                scale={1.06}
+                wheelRotation={frame * 14}
+              />
+
+              {/* Blue Honk Waves originating directly from car front grille (548, 682) toward BOY's open ear (1055, 536) */}
               {[0, 1, 2].map((i) => {
-                const dx = 40 + ((frame * 4 + i * 70) % 240);
+                const t = ((frame * 0.022 + i * 0.333) % 1);
+                const wx = 548 + t * 445;
+                const wy = 682 - t * 142;
+                const arcH = 22 + t * 24;
+                const bulge = 18 + t * 14;
+                const opacity = Math.min(1, t * 4.5) * (1 - t * 0.52);
+                const d = `M ${wx.toFixed(1)} ${(wy - arcH).toFixed(1)} Q ${(wx + bulge).toFixed(1)} ${wy.toFixed(1)} ${wx.toFixed(1)} ${(wy + arcH).toFixed(1)}`;
                 return (
-                  <path
-                    key={i}
-                    d={`M ${515 + dx} ${545 - dx * 0.14} Q ${545 + dx} ${565 - dx * 0.14} ${515 + dx} ${595 - dx * 0.14}`}
-                    fill="none"
-                    stroke="#0284c7"
-                    strokeWidth="6.5"
-                    strokeLinecap="round"
-                    opacity={1 - dx / 270}
-                  />
+                  <g key={i} opacity={opacity.toFixed(2)}>
+                    <path d={d} fill="none" stroke="#FFFFFF" strokeWidth="11.5" strokeLinecap="round" opacity="0.72" />
+                    <path d={d} fill="none" stroke="#0284C7" strokeWidth="6.5" strokeLinecap="round" />
+                  </g>
                 );
               })}
-              <CleanLabel x={665} y={445} text="Tiếng còi xe (Lọt vào tai mở!)" bg="#e0f2fe" color="#0369a1" border="#0284c7" fontSize={23} />
+
+              {/* Clean, unobstructed callout pill positioned in open sky band (y = 355, clear of clouds <=271 and skyline/lamps >=406) */}
+              <CleanLabel
+                x={735}
+                y={355}
+                text="Tiếng còi xe (Lọt vào tai mở!)"
+                bg="#e0f2fe"
+                color="#0369a1"
+                border="#0284c7"
+                fontSize={23}
+              />
             </g>
           )}
         </g>
