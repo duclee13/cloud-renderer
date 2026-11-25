@@ -9,6 +9,10 @@ export type AutoStageType =
   | "SIMPLE_GRASS_FIELD"
   | "BEDROOM_INDOOR"
   | "CITY_STREET"
+  | "CITY_LIVING_ROOM"
+  | "CITY_STREET_PARK"
+  | "SCHOOL_CLASSROOM"
+  | "HOME_KITCHEN"
   | "SCIENCE_LAB_ROOM"
   | "DOCTOR_CLINIC"
   | "WATER_POND_OCEAN"
@@ -29,7 +33,40 @@ export type AutoVoiceTone =
   | "STEP_BY_STEP_SUSPENSE"
   | "CHAPTER_ANNOUNCE";
 
-export type AutoActorPreset = "BOY" | "GRANDPA" | "GRANDMA" | "DOCTOR" | "NEIGHBOR";
+export type AutoActorPreset = "BOY" | "GRANDPA" | "GRANDMA" | "DOCTOR" | "NEIGHBOR" | "CUSTOM";
+
+export type ActorHairStyle =
+  | "NONE"
+  | "CURLY_SHORT"
+  | "NEAT_SHORT"
+  | "BOB"
+  | "BUN"
+  | "PONYTAIL"
+  | "SIDE_GRAY";
+
+export type ActorOutfitStyle =
+  | "STICK"
+  | "TSHIRT"
+  | "POLO"
+  | "CARDIGAN"
+  | "VEST"
+  | "LAB_COAT"
+  | "SCHOOL_UNIFORM";
+
+export type ActorGlassesStyle = "NONE" | "ROUND" | "RECT";
+
+export type ActorAppearanceProp = "NONE" | "NOTEBOOK" | "BOOK" | "PHONE";
+
+export interface ActorAppearanceSpec {
+  scale?: number;
+  hairStyle?: ActorHairStyle;
+  hairColor?: string;
+  outfitStyle?: ActorOutfitStyle;
+  outfitColor?: string;
+  glasses?: ActorGlassesStyle;
+  mustache?: boolean;
+  prop?: ActorAppearanceProp;
+}
 export type AutoActorSlot = "LEFT" | "CENTER" | "RIGHT";
 export type AutoActorFacing = "LEFT" | "RIGHT";
 
@@ -126,6 +163,7 @@ export type AutoHandProp =
   | "MAGNIFYING_GLASS"
   | "BUCKET"
   | "NOTEBOOK"
+  | "BOOK"
   | "PHONE"
   | "FLASHLIGHT"
   | "CUP_SODA"
@@ -135,6 +173,7 @@ export type AutoPropAnimation = "FLOAT" | "PULSE" | "BOUNCE" | "SPIN" | "SHAKE" 
 
 export interface AutoActorSpec {
   preset: AutoActorPreset;
+  appearance?: ActorAppearanceSpec;
   slot: AutoActorSlot;
   facing: AutoActorFacing;
   motion: AutoActorMotion;
@@ -207,6 +246,10 @@ export const VALID_STAGE_TYPES: readonly AutoStageType[] = [
   "SIMPLE_GRASS_FIELD",
   "BEDROOM_INDOOR",
   "CITY_STREET",
+  "CITY_LIVING_ROOM",
+  "CITY_STREET_PARK",
+  "SCHOOL_CLASSROOM",
+  "HOME_KITCHEN",
   "SCIENCE_LAB_ROOM",
   "DOCTOR_CLINIC",
   "WATER_POND_OCEAN",
@@ -228,7 +271,34 @@ export const VALID_VOICE_TONE: readonly AutoVoiceTone[] = [
   "STEP_BY_STEP_SUSPENSE",
   "CHAPTER_ANNOUNCE",
 ];
-export const VALID_ACTOR_PRESETS: readonly AutoActorPreset[] = ["BOY", "GRANDPA", "GRANDMA", "DOCTOR", "NEIGHBOR"];
+export const VALID_ACTOR_PRESETS: readonly AutoActorPreset[] = [
+  "BOY",
+  "GRANDPA",
+  "GRANDMA",
+  "DOCTOR",
+  "NEIGHBOR",
+  "CUSTOM",
+];
+export const VALID_HAIR_STYLES: readonly ActorHairStyle[] = [
+  "NONE",
+  "CURLY_SHORT",
+  "NEAT_SHORT",
+  "BOB",
+  "BUN",
+  "PONYTAIL",
+  "SIDE_GRAY",
+];
+export const VALID_OUTFIT_STYLES: readonly ActorOutfitStyle[] = [
+  "STICK",
+  "TSHIRT",
+  "POLO",
+  "CARDIGAN",
+  "VEST",
+  "LAB_COAT",
+  "SCHOOL_UNIFORM",
+];
+export const VALID_GLASSES_STYLES: readonly ActorGlassesStyle[] = ["NONE", "ROUND", "RECT"];
+export const VALID_APPEARANCE_PROPS: readonly ActorAppearanceProp[] = ["NONE", "NOTEBOOK", "BOOK", "PHONE"];
 export const VALID_ACTOR_SLOTS: readonly AutoActorSlot[] = ["LEFT", "CENTER", "RIGHT"];
 export const VALID_ACTOR_FACING: readonly AutoActorFacing[] = ["LEFT", "RIGHT"];
 export const VALID_ACTOR_MOTIONS: readonly AutoActorMotion[] = [
@@ -306,6 +376,7 @@ export const VALID_HAND_PROPS: readonly AutoHandProp[] = [
   "MAGNIFYING_GLASS",
   "BUCKET",
   "NOTEBOOK",
+  "BOOK",
   "PHONE",
   "FLASHLIGHT",
   "CUP_SODA",
@@ -483,6 +554,19 @@ const STAGE_ALIASES: Record<string, AutoStageType> = {
   STREET: "CITY_STREET",
   ROAD: "CITY_STREET",
   TOWN: "CITY_STREET",
+  LIVING_ROOM: "CITY_LIVING_ROOM",
+  APARTMENT: "CITY_LIVING_ROOM",
+  LOUNGE: "CITY_LIVING_ROOM",
+  STREET_PARK: "CITY_STREET_PARK",
+  CITY_PARK: "CITY_STREET_PARK",
+  URBAN_PARK: "CITY_STREET_PARK",
+  SIDEWALK: "CITY_STREET_PARK",
+  CLASSROOM: "SCHOOL_CLASSROOM",
+  SCHOOL: "SCHOOL_CLASSROOM",
+  CLASS: "SCHOOL_CLASSROOM",
+  KITCHEN: "HOME_KITCHEN",
+  DINING_ROOM: "HOME_KITCHEN",
+  DINING: "HOME_KITCHEN",
   LAB: "SCIENCE_LAB_ROOM",
   LABORATORY: "SCIENCE_LAB_ROOM",
   SCIENCE_LAB: "SCIENCE_LAB_ROOM",
@@ -670,7 +754,7 @@ const HAND_PROP_ALIASES: Record<string, AutoHandProp> = {
   GLASS: "MAGNIFYING_GLASS",
   LOUPE: "MAGNIFYING_GLASS",
   PAIL: "BUCKET",
-  BOOK: "NOTEBOOK",
+  TEXTBOOK: "BOOK",
   DIARY: "NOTEBOOK",
   SMARTPHONE: "PHONE",
   MOBILE: "PHONE",
@@ -847,8 +931,50 @@ function sanitizeCamera(raw: any): AutoCameraSpec | undefined {
   };
 }
 
+export function isValidHexColor(raw: unknown): raw is string {
+  return typeof raw === "string" && /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(raw.trim());
+}
+
+export function sanitizeActorAppearance(raw: unknown): ActorAppearanceSpec | undefined {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return undefined;
+  const r = raw as Record<string, unknown>;
+  const out: ActorAppearanceSpec = {};
+
+  if (r.scale !== undefined && r.scale !== null && Number.isFinite(Number(r.scale))) {
+    out.scale = Number(clampNum(r.scale, 0.5, 1.4, 1.0).toFixed(3));
+  }
+  if (r.hairStyle !== undefined && r.hairStyle !== null && String(r.hairStyle).trim() !== "") {
+    out.hairStyle = matchEnum(r.hairStyle, VALID_HAIR_STYLES, "NEAT_SHORT");
+  }
+  if (r.hairColor !== undefined && r.hairColor !== null && String(r.hairColor).trim() !== "") {
+    out.hairColor = isValidHexColor(r.hairColor) ? r.hairColor.trim() : "#1E293B";
+  }
+  if (r.outfitStyle !== undefined && r.outfitStyle !== null && String(r.outfitStyle).trim() !== "") {
+    out.outfitStyle = matchEnum(r.outfitStyle, VALID_OUTFIT_STYLES, "STICK");
+  }
+  if (r.outfitColor !== undefined && r.outfitColor !== null && String(r.outfitColor).trim() !== "") {
+    if (isValidHexColor(r.outfitColor)) {
+      out.outfitColor = r.outfitColor.trim();
+    }
+  }
+  if (r.glasses !== undefined && r.glasses !== null && String(r.glasses).trim() !== "") {
+    out.glasses = matchEnum(r.glasses, VALID_GLASSES_STYLES, "NONE");
+  }
+  if (r.mustache !== undefined && r.mustache !== null) {
+    out.mustache = Boolean(r.mustache);
+  }
+  if (r.prop !== undefined && r.prop !== null && String(r.prop).trim() !== "") {
+    out.prop = matchEnum(r.prop, VALID_APPEARANCE_PROPS, "NONE");
+  }
+
+  return Object.keys(out).length > 0 ? out : undefined;
+}
+
 function sanitizeActor(raw: any, index: number, totalActors = 2): AutoActorSpec {
-  const preset = matchEnum(raw?.preset, VALID_ACTOR_PRESETS, "BOY", PRESET_ALIASES);
+  const appearance = sanitizeActorAppearance(raw?.appearance);
+  const rawPresetStr = typeof raw?.preset === "string" ? raw.preset.trim() : "";
+  const fallbackPreset: AutoActorPreset = appearance && !rawPresetStr ? "CUSTOM" : "BOY";
+  const preset = matchEnum(raw?.preset, VALID_ACTOR_PRESETS, fallbackPreset, PRESET_ALIASES);
   const defaultSlot: AutoActorSlot =
     totalActors >= 3
       ? index === 0
@@ -864,7 +990,16 @@ function sanitizeActor(raw: any, index: number, totalActors = 2): AutoActorSpec 
   const facing = matchEnum(raw?.facing, VALID_ACTOR_FACING, defaultFacing);
   const motion = matchEnum(raw?.motion, VALID_ACTOR_MOTIONS, "IDLE_TALK", MOTION_ALIASES);
   const expression = matchEnum(raw?.expression, VALID_ACTOR_EXPRESSIONS, "HAPPY", EXPRESSION_ALIASES);
-  const handProp = matchEnum(raw?.handProp, VALID_HAND_PROPS, "NONE", HAND_PROP_ALIASES);
+  const explicitHandProp =
+    raw?.handProp !== undefined && String(raw.handProp).trim() !== ""
+      ? matchEnum(raw.handProp, VALID_HAND_PROPS, "NONE", HAND_PROP_ALIASES)
+      : undefined;
+  const handProp: AutoHandProp =
+    explicitHandProp && explicitHandProp !== "NONE"
+      ? explicitHandProp
+      : appearance?.prop && appearance.prop !== "NONE"
+      ? appearance.prop
+      : explicitHandProp ?? "NONE";
   const bubbleClean = sanitizeSpeechBubble(raw?.bubble);
   const shiver = Boolean(raw?.shiver);
 
@@ -887,6 +1022,7 @@ function sanitizeActor(raw: any, index: number, totalActors = 2): AutoActorSpec 
 
   return {
     preset,
+    ...(appearance ? { appearance } : {}),
     slot,
     facing,
     motion,

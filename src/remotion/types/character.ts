@@ -1,6 +1,10 @@
-import type { CharacterArchetype, CharacterPreset } from "../components/character/StickmanArchetypes";
+import type {
+  CharacterArchetype,
+  CharacterPreset,
+  StickmanAppearance,
+} from "../components/character/StickmanArchetypes";
 
-export type { CharacterPreset };
+export type { CharacterPreset, StickmanAppearance };
 
 export type StickmanPoseType =
   | "standing"
@@ -112,8 +116,12 @@ export interface StickmanState {
   seatedHipY?: number; // Custom seated hip height
   hat?: boolean; // Mũ rơm vàng theo phong cách One Piece / Video Cua
   archetype?: CharacterArchetype; // Modular Character Archetypes (Storytime 2D)
-  /** V14.0: 5 Preset Người Que Thuần chuẩn kể chuyện đời sống (không viền sáng rỗng ruột, nét đen 6px đặc) */
+  /** V14.0: 5 Preset Người Que Thuần chuẩn kể chuyện đời sống + CUSTOM tham số hóa (nét đen 6px đặc) */
   characterPreset?: CharacterPreset;
+  /** V22.0: Cấu hình ngoại hình tham số hóa (tóc, trang phục, kính, râu, tỷ lệ, đạo cụ) ghi đè hoặc dùng với preset="CUSTOM" */
+  appearance?: StickmanAppearance;
+  /** Ẩn prop tích hợp sẵn của appearance khi UniversalAutoStage đã tự render HandPropGraphic theo cổ tay toàn cục */
+  hideBuiltInAppearanceProp?: boolean;
   /** Độ dày nét thân/tay/chân tùy chỉnh (mặc định 6px khi dùng characterPreset, 12px cho legacy) */
   limbStrokeWidth?: number;
   showDebugMarkers?: boolean; // Hiển thị khung xương và điểm neo kỹ thuật

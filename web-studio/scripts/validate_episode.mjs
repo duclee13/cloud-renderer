@@ -382,6 +382,70 @@ const WALK_RUN_POSE_ALIASES = {
   SPRINT: 'RUN',
 };
 
+export const VALID_STAGE_TYPE_SET = new Set([
+  'COUNTRYSIDE_YARD',
+  'SIMPLE_GRASS_FIELD',
+  'BEDROOM_INDOOR',
+  'CITY_STREET',
+  'CITY_LIVING_ROOM',
+  'CITY_STREET_PARK',
+  'SCHOOL_CLASSROOM',
+  'HOME_KITCHEN',
+  'SCIENCE_LAB_ROOM',
+  'DOCTOR_CLINIC',
+  'WATER_POND_OCEAN',
+  'UNDERGROUND_EARTH_CUTAWAY',
+  'SPACE_COSMOS',
+  'ANECHOIC_CHAMBER',
+  'EXPLAINER_POLKA_DOT',
+]);
+
+export const VALID_ACTOR_PRESET_SET = new Set([
+  'BOY',
+  'GRANDPA',
+  'GRANDMA',
+  'DOCTOR',
+  'NEIGHBOR',
+  'CUSTOM',
+  // Legacy aliases accepted by episodeJsonSchema.ts
+  'KID',
+  'CHILD',
+  'PROTAGONIST',
+  'NARRATOR',
+  'OLD_MAN',
+  'GRANDFATHER',
+  'OLD_WOMAN',
+  'GRANDMOTHER',
+  'SCIENTIST',
+  'MEDIC',
+  'FRIEND',
+  'MAN',
+]);
+
+export const VALID_HAIR_STYLE_SET = new Set([
+  'NONE',
+  'CURLY_SHORT',
+  'NEAT_SHORT',
+  'BOB',
+  'BUN',
+  'PONYTAIL',
+  'SIDE_GRAY',
+]);
+
+export const VALID_OUTFIT_STYLE_SET = new Set([
+  'STICK',
+  'TSHIRT',
+  'POLO',
+  'CARDIGAN',
+  'VEST',
+  'LAB_COAT',
+  'SCHOOL_UNIFORM',
+]);
+
+export const VALID_GLASSES_STYLE_SET = new Set(['NONE', 'ROUND', 'RECT']);
+export const VALID_APPEARANCE_PROP_SET = new Set(['NONE', 'NOTEBOOK', 'BOOK', 'PHONE']);
+const HEX_COLOR_RE = /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
+
 function normalizeWalkRunPose(rawPose) {
   const key = String(rawPose ?? '').trim().toUpperCase();
   return WALK_RUN_POSE_ALIASES[key] ?? null;
@@ -490,6 +554,111 @@ export function validateEpisodeData(episode, registeredVisuals) {
     for (let aIdx = 0; aIdx < actors.length; aIdx++) {
       const actor = actors[aIdx];
       const preset = String(actor?.preset ?? `actor#${aIdx + 1}`);
+      const normalizedPreset = String(actor?.preset ?? '')
+        .trim()
+        .toUpperCase()
+        .replace(/[\s-]+/g, '_');
+
+      if (normalizedPreset && !VALID_ACTOR_PRESET_SET.has(normalizedPreset)) {
+        errors.push({
+          code: 'INVALID_ACTOR_PRESET',
+          beatId,
+          beatIndex: bIdx,
+          message: `Nhân vật #${aIdx + 1} dùng preset không hợp lệ "${actor?.preset}". Hỗ trợ: BOY, GRANDPA, GRANDMA, DOCTOR, NEIGHBOR, CUSTOM.`,
+        });
+      }
+
+      if (actor?.appearance !== undefined && actor?.appearance !== null) {
+        if (typeof actor.appearance !== 'object' || Array.isArray(actor.appearance)) {
+          errors.push({
+            code: 'INVALID_APPEARANCE',
+            beatId,
+            beatIndex: bIdx,
+            message: `Nhân vật #${aIdx + 1} (${preset}) có thuộc tính appearance không phải object hợp lệ.`,
+          });
+        } else {
+          const app = actor.appearance;
+          if (app.scale !== undefined) {
+            const sc = parseFiniteNum(app.scale);
+            if (!Number.isFinite(sc) || sc < 0.5 || sc > 1.4) {
+              errors.push({
+                code: 'INVALID_APPEARANCE',
+                beatId,
+                beatIndex: bIdx,
+                message: `Nhân vật #${aIdx + 1} (${preset}) có appearance.scale = ${app.scale} nằm ngoài khoảng hợp lệ [0.5, 1.4].`,
+              });
+            }
+          }
+          if (app.hairStyle !== undefined) {
+            const hs = String(app.hairStyle).trim().toUpperCase();
+            if (!VALID_HAIR_STYLE_SET.has(hs)) {
+              errors.push({
+                code: 'INVALID_APPEARANCE',
+                beatId,
+                beatIndex: bIdx,
+                message: `Nhân vật #${aIdx + 1} (${preset}) có appearance.hairStyle không hợp lệ "${app.hairStyle}".`,
+              });
+            }
+          }
+          if (app.hairColor !== undefined && !HEX_COLOR_RE.test(String(app.hairColor).trim())) {
+            errors.push({
+              code: 'INVALID_APPEARANCE',
+              beatId,
+              beatIndex: bIdx,
+              message: `Nhân vật #${aIdx + 1} (${preset}) có appearance.hairColor không phải mã hex hợp lệ "${app.hairColor}".`,
+            });
+          }
+          if (app.outfitStyle !== undefined) {
+            const os = String(app.outfitStyle).trim().toUpperCase();
+            if (!VALID_OUTFIT_STYLE_SET.has(os)) {
+              errors.push({
+                code: 'INVALID_APPEARANCE',
+                beatId,
+                beatIndex: bIdx,
+                message: `Nhân vật #${aIdx + 1} (${preset}) có appearance.outfitStyle không hợp lệ "${app.outfitStyle}".`,
+              });
+            }
+          }
+          if (app.outfitColor !== undefined && !HEX_COLOR_RE.test(String(app.outfitColor).trim())) {
+            errors.push({
+              code: 'INVALID_APPEARANCE',
+              beatId,
+              beatIndex: bIdx,
+              message: `Nhân vật #${aIdx + 1} (${preset}) có appearance.outfitColor không phải mã hex hợp lệ "${app.outfitColor}".`,
+            });
+          }
+          if (app.glasses !== undefined) {
+            const gl = String(app.glasses).trim().toUpperCase();
+            if (!VALID_GLASSES_STYLE_SET.has(gl)) {
+              errors.push({
+                code: 'INVALID_APPEARANCE',
+                beatId,
+                beatIndex: bIdx,
+                message: `Nhân vật #${aIdx + 1} (${preset}) có appearance.glasses không hợp lệ "${app.glasses}".`,
+              });
+            }
+          }
+          if (app.mustache !== undefined && typeof app.mustache !== 'boolean') {
+            errors.push({
+              code: 'INVALID_APPEARANCE',
+              beatId,
+              beatIndex: bIdx,
+              message: `Nhân vật #${aIdx + 1} (${preset}) có appearance.mustache phải là boolean.`,
+            });
+          }
+          if (app.prop !== undefined) {
+            const pr = String(app.prop).trim().toUpperCase();
+            if (!VALID_APPEARANCE_PROP_SET.has(pr)) {
+              errors.push({
+                code: 'INVALID_APPEARANCE',
+                beatId,
+                beatIndex: bIdx,
+                message: `Nhân vật #${aIdx + 1} (${preset}) có appearance.prop không hợp lệ "${app.prop}".`,
+              });
+            }
+          }
+        }
+      }
       const actorFallbackX = resolveActorSlotDefaultX(actor, aIdx, actors.length);
       const hasTimeline = Array.isArray(actor?.timeline) && actor.timeline.length > 0;
 
@@ -533,8 +702,19 @@ export function validateEpisodeData(episode, registeredVisuals) {
       }
     }
 
-    // 2. Kiểm tra stageType === "EXPLAINER_POLKA_DOT" thiếu cả customVisual lẫn visualProp
-    const stageType = String(beat?.stageType ?? '').trim().toUpperCase();
+    // 2. Kiểm tra stageType hợp lệ & EXPLAINER_POLKA_DOT không trống
+    const stageType = String(beat?.stageType ?? '')
+      .trim()
+      .toUpperCase()
+      .replace(/[\s-]+/g, '_');
+    if (stageType && !VALID_STAGE_TYPE_SET.has(stageType)) {
+      errors.push({
+        code: 'INVALID_STAGE_TYPE',
+        beatId,
+        beatIndex: bIdx,
+        message: `stageType "${beat?.stageType}" không nằm trong danh sách sân khấu hợp lệ V22.0.`,
+      });
+    }
     const rawCustomVisual = typeof beat?.customVisual === 'string' ? beat.customVisual.trim() : '';
     const hasCustomVisual = rawCustomVisual.length > 0;
     const rawVisualProp = typeof beat?.visualProp === 'string' ? beat.visualProp.trim().toUpperCase() : '';

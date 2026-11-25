@@ -714,6 +714,433 @@ const AnechoicChamberBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: numbe
   );
 };
 
+// =============================================================================
+// 1B. V22.0: 4 SÂN KHẤU ĐỜI SỐNG THÀNH PHỐ & TRƯỜNG HỌC (100% 2D PHẲNG SẠCH, y <= 830)
+//     - Bóng phẳng opacity="0.12", KHÔNG feGaussianBlur / feDropShadow
+// =============================================================================
+
+const CityLivingRoomBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: number }> = ({ timeOfDay, frame }) => {
+  const isNight = timeOfDay === "NIGHT";
+  const isSunset = timeOfDay === "SUNSET";
+  const cloudX = ((40 + frame * 0.16) % 360) - 20;
+  const plantSway = Math.sin(frame * 0.035) * 1.6;
+  const secDeg = (frame * 3) % 360;
+  const minDeg = (frame * 0.15 + 60) % 360;
+
+  const wallFill = isNight ? "#1E293B" : isSunset ? "#FFEDD5" : "#FFFBEB";
+  const floorFill = isNight ? "#334155" : "#E5C7A3";
+  const skyFill = isNight ? "#0F172A" : isSunset ? "#FB923C" : "#7DD3FC";
+
+  return (
+    <g id="stage-city-living-room" stroke="#141414" strokeWidth={3} strokeLinejoin="round">
+      <rect x={0} y={0} width={1920} height={765} fill={wallFill} stroke="none" />
+      <rect x={0} y={765} width={1920} height={315} fill={floorFill} stroke="none" />
+      <line x1={0} y1={765} x2={1920} y2={765} stroke="#141414" strokeWidth={3.2} />
+      {/* Len chân tường gọn gàng */}
+      <rect x={0} y={749} width={1920} height={16} fill={isNight ? "#475569" : "#D6B38E"} stroke="#141414" strokeWidth={2.5} />
+
+      {/* Cửa sổ lớn chung cư / nhà phố nhìn ra tòa nhà & mây trôi (x=140..560, y=155..455) */}
+      <g id="living-room-city-window" transform="translate(140, 155)">
+        <rect x={0} y={0} width={420} height={300} rx={12} fill={skyFill} />
+        {isNight ? (
+          <circle cx={340} cy={62} r={24} fill="#FEF08A" stroke="#141414" strokeWidth={2.4} />
+        ) : (
+          <g transform={`translate(${Math.max(55, Math.min(355, cloudX)).toFixed(1)}, 68)`}>
+            <path
+              d="M -38,10 C -50,10 -52,-6 -36,-10 C -30,-26 -6,-28 4,-14 C 16,-26 42,-20 44,-6 C 58,-4 56,10 42,10 Z"
+              fill="#FFFFFF"
+              stroke="#141414"
+              strokeWidth={2.4}
+            />
+          </g>
+        )}
+        {/* Tòa nhà thành phố phía xa trong khung cửa sổ */}
+        <rect x={28} y={145} width={86} height={155} fill={isNight ? "#1E293B" : "#93C5FD"} stroke="#141414" strokeWidth={2.4} />
+        <rect x={126} y={108} width={104} height={192} fill={isNight ? "#334155" : "#BAE6FD"} stroke="#141414" strokeWidth={2.4} />
+        <rect x={244} y={132} width={92} height={168} fill={isNight ? "#1E293B" : "#DDD6FE"} stroke="#141414" strokeWidth={2.4} />
+        {[148, 188, 228].map((wy, idx) => (
+          <g key={`win_lt_${idx}`} stroke="none" fill={isNight ? "#FEF08A" : "#FFFFFF"} opacity={0.8}>
+            <rect x={146} y={wy} width={22} height={22} rx={3} />
+            <rect x={186} y={wy} width={22} height={22} rx={3} />
+          </g>
+        ))}
+        <line x1={210} y1={0} x2={210} y2={300} stroke="#141414" strokeWidth={4} />
+        <rect x={0} y={0} width={420} height={300} rx={12} fill="none" stroke="#94A3B8" strokeWidth={8} />
+        <rect x={0} y={0} width={420} height={300} rx={12} fill="none" stroke="#141414" strokeWidth={3} />
+        {/* Rèm cửa hai bên gọn gàng */}
+        <rect x={-18} y={-8} width={42} height={316} rx={8} fill={isNight ? "#475569" : "#FDBA74"} stroke="#141414" strokeWidth={2.8} />
+        <rect x={396} y={-8} width={42} height={316} rx={8} fill={isNight ? "#475569" : "#FDBA74"} stroke="#141414" strokeWidth={2.8} />
+      </g>
+
+      {/* Đồng hồ treo tường & khung tranh tối giản */}
+      <g id="living-room-clock" transform="translate(960, 205)">
+        <circle cx={0} cy={0} r={46} fill="#FFFFFF" stroke="#141414" strokeWidth={3.8} />
+        <line
+          x1={0}
+          y1={0}
+          x2={Math.sin((minDeg * Math.PI) / 180) * 24}
+          y2={-Math.cos((minDeg * Math.PI) / 180) * 24}
+          stroke="#141414"
+          strokeWidth={4}
+          strokeLinecap="round"
+        />
+        <line
+          x1={0}
+          y1={0}
+          x2={Math.sin((secDeg * Math.PI) / 180) * 32}
+          y2={-Math.cos((secDeg * Math.PI) / 180) * 32}
+          stroke="#EF4444"
+          strokeWidth={2.4}
+          strokeLinecap="round"
+        />
+        <circle cx={0} cy={0} r={4} fill="#141414" stroke="none" />
+      </g>
+      <g transform="translate(1150, 175)">
+        <rect x={0} y={0} width={165} height={118} rx={8} fill="#FFFFFF" stroke="#141414" strokeWidth={3.4} />
+        <path d="M 18,92 L 62,44 L 98,78 L 122,56 L 148,92 Z" fill="#86EFAC" stroke="#141414" strokeWidth={2.4} />
+        <circle cx={122} cy={34} r={12} fill="#FDE047" stroke="#141414" strokeWidth={2.2} />
+      </g>
+
+      {/* Ghế sofa êm ái đặt sát tường (y <= 792 <= 830, bóng phẳng opacity="0.12") */}
+      <g id="living-room-sofa" transform="translate(650, 565)">
+        <ellipse cx={260} cy={227} rx={275} ry={12} fill="#0F172A" opacity={0.12} stroke="none" />
+        <rect x={28} y={204} width={16} height={22} rx={3} fill="#78350F" />
+        <rect x={476} y={204} width={16} height={22} rx={3} fill="#78350F" />
+        <rect x={18} y={0} width={484} height={135} rx={24} fill={isNight ? "#0EA5E9" : "#38BDF8"} />
+        <line x1={260} y1={14} x2={260} y2={130} stroke="#141414" strokeWidth={2.8} />
+        <rect x={0} y={76} width={44} height={128} rx={16} fill={isNight ? "#0284C7" : "#0EA5E9"} />
+        <rect x={476} y={76} width={44} height={128} rx={16} fill={isNight ? "#0284C7" : "#0EA5E9"} />
+        <rect x={36} y={118} width={448} height={86} rx={16} fill={isNight ? "#0284C7" : "#0EA5E9"} />
+        {/* Gối tựa vàng ấm */}
+        <rect x={62} y={54} width={66} height={62} rx={14} transform="rotate(-8, 95, 85)" fill="#FDE047" />
+      </g>
+
+      {/* Bàn trà gỗ thấp bên phải sofa (y <= 804 <= 830, bóng phẳng opacity="0.12") */}
+      <g id="living-room-coffee-table" transform="translate(1245, 682)">
+        <ellipse cx={145} cy={118} rx={155} ry={10} fill="#0F172A" opacity={0.12} stroke="none" />
+        <rect x={24} y={26} width={16} height={90} rx={4} fill="#92400E" />
+        <rect x={250} y={26} width={16} height={90} rx={4} fill="#92400E" />
+        <rect x={0} y={4} width={290} height={24} rx={8} fill="#B45309" />
+        {/* Ấm & tách trà nhỏ gọn trên bàn */}
+        <path d="M 96,4 L 102,-24 L 136,-24 L 142,4 Z" fill="#FFFFFF" stroke="#141414" strokeWidth={2.6} />
+        <rect x={168} y={-14} width={26} height={18} rx={4} fill="#FEF08A" stroke="#141414" strokeWidth={2.4} />
+      </g>
+
+      {/* Chậu cây xanh góc phải phòng khách (y <= 795 <= 830, bóng phẳng opacity="0.12") */}
+      <g id="living-room-plant" transform="translate(1735, 792)">
+        <ellipse cx={0} cy={4} rx={48} ry={10} fill="#0F172A" opacity={0.12} stroke="none" />
+        <g transform={`rotate(${plantSway.toFixed(2)}, 0, -76)`}>
+          <path d="M -4,-74 C -40,-108 -54,-148 -26,-164 C -6,-150 -2,-114 0,-74 Z" fill="#16A34A" />
+          <path d="M 4,-74 C 40,-108 54,-148 26,-164 C 6,-150 2,-114 0,-74 Z" fill="#22C55E" />
+          <path d="M 0,-74 C -16,-124 -14,-170 0,-186 C 14,-170 16,-124 0,-74 Z" fill="#4ADE80" />
+        </g>
+        <path d="M -36,-74 L -26,0 L 26,0 L 36,-74 Z" fill="#F97316" />
+        <rect x={-42} y={-84} width={84} height={14} rx={5} fill="#EA580C" />
+      </g>
+    </g>
+  );
+};
+
+const CityStreetParkBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: number }> = ({ timeOfDay, frame }) => {
+  const isNight = timeOfDay === "NIGHT";
+  const isSunset = timeOfDay === "SUNSET";
+  const cloudDrift = frame * 0.16;
+  const breeze = Math.sin(frame * 0.038) * 1.8;
+
+  const skyTop = isNight ? "#0F172A" : isSunset ? "#FB923C" : "#60A5FA";
+  const skyBot = isNight ? "#1E293B" : isSunset ? "#FEF3C7" : "#E0F2FE";
+  const townhouses = [
+    { x: 70, w: 185, h: 235, fill: isNight ? "#334155" : "#FEF08A", roof: "#DC2626" },
+    { x: 270, w: 195, h: 275, fill: isNight ? "#1E293B" : "#BAE6FD", roof: "#0284C7" },
+    { x: 480, w: 175, h: 215, fill: isNight ? "#334155" : "#FBCFE8", roof: "#BE185D" },
+    { x: 1245, w: 190, h: 265, fill: isNight ? "#1E293B" : "#BBF7D0", roof: "#15803D" },
+    { x: 1450, w: 185, h: 225, fill: isNight ? "#334155" : "#FED7AA", roof: "#C2410C" },
+    { x: 1650, w: 195, h: 255, fill: isNight ? "#1E293B" : "#DDD6FE", roof: "#6D28D9" },
+  ];
+
+  return (
+    <g id="stage-city-street-park" stroke="#141414" strokeWidth={3} strokeLinejoin="round">
+      <defs>
+        <linearGradient id={`city-park-sky-${timeOfDay}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor={skyTop} />
+          <stop offset="100%" stopColor={skyBot} />
+        </linearGradient>
+      </defs>
+      <rect x={0} y={0} width={1920} height={685} fill={`url(#city-park-sky-${timeOfDay})`} stroke="none" />
+
+      {/* Mặt trời / Mặt trăng & mây trôi */}
+      {isNight ? (
+        <circle cx={310} cy={155} r={38} fill="#FEF08A" stroke="#141414" strokeWidth={2.8} />
+      ) : (
+        <circle cx={isSunset ? 1520 : 310} cy={isSunset ? 255 : 155} r={46} fill={isSunset ? "#F97316" : "#FDE047"} />
+      )}
+      {!isNight &&
+        [220, 880, 1460].map((bx, i) => {
+          const cx = ((bx + cloudDrift * (0.85 + i * 0.12) + 120) % 2160) - 120;
+          return (
+            <g key={`pk_cl_${i}`} transform={`translate(${cx.toFixed(1)}, ${165 + (i % 2) * 28})`}>
+              <path
+                d="M -58,14 C -76,14 -80,-6 -58,-12 C -50,-34 -16,-38 -2,-20 C 14,-36 50,-30 54,-8 C 74,-4 72,14 52,14 Z"
+                fill="#FFFFFF"
+              />
+            </g>
+          );
+        })}
+
+      {/* Dãy nhà phố thấp tầng phía xa (y = 410..685) */}
+      <g id="park-distant-townhouses" opacity={0.94}>
+        {townhouses.map((th, idx) => (
+          <g key={`th_${idx}`}>
+            <rect x={th.x} y={685 - th.h} width={th.w} height={th.h} rx={4} fill={th.fill} />
+            <polygon
+              points={`${th.x - 10},${685 - th.h} ${th.x + th.w / 2},${648 - th.h} ${th.x + th.w + 10},${685 - th.h}`}
+              fill={th.roof}
+            />
+            {[0, 1].map((r) =>
+              [0, 1].map((c) => (
+                <rect
+                  key={`thw_${r}_${c}`}
+                  x={th.x + 28 + c * 78}
+                  y={715 - th.h + r * 74}
+                  width={42}
+                  height={48}
+                  rx={4}
+                  fill={isNight ? "#FEF08A" : "#FFFFFF"}
+                  strokeWidth={2.4}
+                />
+              ))
+            )}
+          </g>
+        ))}
+      </g>
+
+      {/* Thảm cỏ xanh công viên (y = 665..755) */}
+      <path d="M 0,680 Q 480,645 960,672 T 1920,665 L 1920,758 L 0,758 Z" fill={isNight ? "#14532D" : "#4ADE80"} />
+
+      {/* Hàng cây công viên đung đưa (gốc chạm y = 752 <= 830, bóng phẳng opacity="0.12") */}
+      <g id="park-tree-row">
+        {[155, 685, 1185, 1765].map((tx, ti) => (
+          <g key={`pkt_${ti}`} transform={`translate(${tx}, 752)`}>
+            <ellipse cx={0} cy={4} rx={58} ry={9} fill="#0F172A" opacity={0.12} stroke="none" />
+            <rect x={-12} y={-112} width={24} height={112} fill="#78350F" />
+            <g transform={`rotate(${(breeze * (ti % 2 === 0 ? 1 : -1)).toFixed(2)}, 0, -110)`}>
+              <circle cx={0} cy={-152} r={62} fill={isNight ? "#166534" : "#22C55E"} />
+              <circle cx={-40} cy={-128} r={40} fill={isNight ? "#15803D" : "#4ADE80"} />
+              <circle cx={40} cy={-128} r={40} fill={isNight ? "#15803D" : "#16A34A"} />
+            </g>
+          </g>
+        ))}
+      </g>
+
+      {/* Đường gạch vỉa hè công viên sạch thoáng (viền vỉa y = 826 <= 830) */}
+      <rect x={0} y={755} width={1920} height={325} fill={isNight ? "#475569" : "#E2E8F0"} stroke="none" />
+      <line x1={0} y1={755} x2={1920} y2={755} stroke="#141414" strokeWidth={3.2} />
+      <line x1={0} y1={826} x2={1920} y2={826} stroke="#94A3B8" strokeWidth={2.5} opacity={0.45} />
+      <g stroke="#94A3B8" strokeWidth={2} opacity={0.25}>
+        {Array.from({ length: 16 }).map((_, bi) => (
+          <line key={`brk_${bi}`} x1={bi * 124} y1={755} x2={bi * 124 - 24} y2={826} />
+        ))}
+      </g>
+
+      {/* Hai ghế đá/gỗ công viên ở hai cánh (chân chạm y = 782 <= 830, bóng phẳng opacity="0.12") */}
+      {[330, 1560].map((bx, idx) => (
+        <g key={`bench_${idx}`} id={idx === 0 ? "park-stone-bench" : undefined} transform={`translate(${bx}, 712)`}>
+          <ellipse cx={0} cy={72} rx={118} ry={10} fill="#0F172A" opacity={0.12} stroke="none" />
+          <rect x={-92} y={40} width={16} height={30} rx={3} fill="#64748B" />
+          <rect x={76} y={40} width={16} height={30} rx={3} fill="#64748B" />
+          <rect x={-106} y={-8} width={212} height={24} rx={6} fill="#D97706" />
+          <rect x={-112} y={24} width={224} height={18} rx={6} fill="#B45309" />
+        </g>
+      ))}
+    </g>
+  );
+};
+
+const SchoolClassroomBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: number }> = ({ timeOfDay, frame }) => {
+  const isNight = timeOfDay === "NIGHT";
+  const cloudX = ((30 + frame * 0.15) % 240) - 10;
+  const secDeg = (frame * 3) % 360;
+  const minDeg = (frame * 0.15 + 120) % 360;
+
+  return (
+    <g id="stage-school-classroom" stroke="#141414" strokeWidth={3} strokeLinejoin="round">
+      <rect x={0} y={0} width={1920} height={540} fill={isNight ? "#1E293B" : "#FEFCE8"} stroke="none" />
+      <rect x={0} y={540} width={1920} height={225} fill={isNight ? "#334155" : "#DCFCE7"} stroke="none" />
+      <line x1={0} y1={540} x2={1920} y2={540} stroke="#141414" strokeWidth={3} />
+      <rect x={0} y={765} width={1920} height={315} fill={isNight ? "#475569" : "#E2E8F0"} stroke="none" />
+      <line x1={0} y1={765} x2={1920} y2={765} stroke="#141414" strokeWidth={3.2} />
+
+      {/* Cửa sổ lớp học sáng bên trái (x=88..358, y=165..435) */}
+      <g id="classroom-window" transform="translate(88, 165)">
+        <rect x={0} y={0} width={270} height={270} rx={10} fill={isNight ? "#0F172A" : "#7DD3FC"} />
+        {!isNight && (
+          <ellipse cx={Math.max(42, Math.min(228, cloudX))} cy={76} rx={36} ry={15} fill="#FFFFFF" stroke="none" opacity={0.88} />
+        )}
+        <line x1={135} y1={0} x2={135} y2={270} strokeWidth={3.5} />
+        <line x1={0} y1={135} x2={270} y2={135} strokeWidth={3.5} />
+        <rect x={0} y={0} width={270} height={270} rx={10} fill="none" stroke="#92400E" strokeWidth={8} />
+        <rect x={0} y={0} width={270} height={270} rx={10} fill="none" stroke="#141414" strokeWidth={3} />
+      </g>
+
+      {/* Bảng xanh lớp học chính giữa tường (x=500..1360, y=155..485) */}
+      <g id="classroom-chalkboard" transform="translate(500, 155)">
+        <rect x={0} y={0} width={860} height={330} rx={12} fill="#14532D" stroke="#92400E" strokeWidth={12} />
+        <rect x={0} y={0} width={860} height={330} rx={12} fill="none" stroke="#141414" strokeWidth={3} />
+        {/* Khay đựng phấn & khăn lau bảng */}
+        <rect x={-10} y={326} width={880} height={18} rx={5} fill="#B45309" stroke="#141414" strokeWidth={3} />
+        <rect x={140} y={316} width={48} height={12} rx={3} fill="#FDE047" stroke="#141414" strokeWidth={2.2} />
+        <rect x={210} y={320} width={28} height={7} rx={2} fill="#FFFFFF" stroke="none" />
+        {/* Hình học & đồ thị vẽ phấn trắng gọn gàng */}
+        <polygon points="120,245 220,95 310,245" fill="none" stroke="#FFFFFF" strokeWidth={4} opacity={0.88} />
+        <path d="M 430,220 Q 510,105 590,220 T 750,180" fill="none" stroke="#FEF08A" strokeWidth={4.5} strokeLinecap="round" opacity={0.9} />
+        <line x1={420} y1={255} x2={765} y2={255} stroke="#FFFFFF" strokeWidth={3.2} opacity={0.75} />
+      </g>
+
+      {/* Đồng hồ lớp học treo tường (cx=1545, cy=215) */}
+      <g id="classroom-wall-clock" transform="translate(1545, 215)">
+        <circle cx={0} cy={0} r={46} fill="#FFFFFF" stroke="#141414" strokeWidth={3.8} />
+        <line
+          x1={0}
+          y1={0}
+          x2={Math.sin((minDeg * Math.PI) / 180) * 24}
+          y2={-Math.cos((minDeg * Math.PI) / 180) * 24}
+          stroke="#141414"
+          strokeWidth={4}
+          strokeLinecap="round"
+        />
+        <line
+          x1={0}
+          y1={0}
+          x2={Math.sin((secDeg * Math.PI) / 180) * 32}
+          y2={-Math.cos((secDeg * Math.PI) / 180) * 32}
+          stroke="#EF4444"
+          strokeWidth={2.4}
+          strokeLinecap="round"
+        />
+        <circle cx={0} cy={0} r={4} fill="#141414" stroke="none" />
+      </g>
+
+      {/* Bảng tin học tập bên phải (x=1475..1795, y=305..475) */}
+      <g transform="translate(1475, 305)">
+        <rect x={0} y={0} width={320} height={170} rx={10} fill="#FDE68A" stroke="#92400E" strokeWidth={6} />
+        <rect x={26} y={24} width={78} height={96} rx={4} fill="#FFFFFF" strokeWidth={2.2} />
+        <rect x={122} y={28} width={78} height={92} rx={4} fill="#BAE6FD" strokeWidth={2.2} />
+        <rect x={218} y={22} width={76} height={98} rx={4} fill="#FBCFE8" strokeWidth={2.2} />
+      </g>
+
+      {/* Bàn ghế học sinh gọn ở hai cánh (chân bàn chạm y = 795 <= 830, bóng phẳng opacity="0.12") */}
+      {[125, 1515].map((dx, idx) => (
+        <g key={`desk_${idx}`} id={idx === 0 ? "classroom-student-desks" : undefined} transform={`translate(${dx}, 648)`}>
+          <ellipse cx={135} cy={150} rx={148} ry={10} fill="#0F172A" opacity={0.12} stroke="none" />
+          {/* Ghế gỗ học sinh phía sau bàn */}
+          <rect x={82} y={-24} width={106} height={18} rx={4} fill="#D97706" />
+          <rect x={92} y={-6} width={12} height={152} fill="#78350F" />
+          <rect x={166} y={-6} width={12} height={152} fill="#78350F" />
+          {/* Bàn gỗ học sinh */}
+          <rect x={22} y={22} width={16} height={125} fill="#64748B" />
+          <rect x={232} y={22} width={16} height={125} fill="#64748B" />
+          <rect x={14} y={22} width={242} height={34} rx={4} fill="#B45309" />
+          <rect x={0} y={4} width={270} height={20} rx={6} fill="#D97706" />
+        </g>
+      ))}
+    </g>
+  );
+};
+
+const HomeKitchenBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: number }> = ({ timeOfDay, frame }) => {
+  const isNight = timeOfDay === "NIGHT";
+  const cloudX = ((35 + frame * 0.16) % 250) - 10;
+  const steamRise = (frame * 1.4) % 36;
+
+  return (
+    <g id="stage-home-kitchen" stroke="#141414" strokeWidth={3} strokeLinejoin="round">
+      <rect x={0} y={0} width={1920} height={765} fill={isNight ? "#1E293B" : "#FFF7ED"} stroke="none" />
+      {/* Gạch ốp bếp sáng sạch vùng giữa tường */}
+      <rect x={660} y={365} width={680} height={175} fill={isNight ? "#334155" : "#E0F2FE"} stroke="#94A3B8" strokeWidth={2} />
+      <rect x={0} y={765} width={1920} height={315} fill={isNight ? "#334155" : "#E7C9A9"} stroke="none" />
+      <line x1={0} y1={765} x2={1920} y2={765} stroke="#141414" strokeWidth={3.2} />
+
+      {/* Cửa sổ sáng gian bếp bên trái (x=135..435, y=175..425) */}
+      <g id="kitchen-window" transform="translate(135, 175)">
+        <rect x={0} y={0} width={300} height={250} rx={12} fill={isNight ? "#0F172A" : "#7DD3FC"} />
+        {!isNight && (
+          <ellipse cx={Math.max(44, Math.min(256, cloudX))} cy={74} rx={36} ry={15} fill="#FFFFFF" stroke="none" opacity={0.88} />
+        )}
+        <line x1={150} y1={0} x2={150} y2={250} strokeWidth={3.5} />
+        <line x1={0} y1={125} x2={300} y2={125} strokeWidth={3.5} />
+        <rect x={0} y={0} width={300} height={250} rx={12} fill="none" stroke="#94A3B8" strokeWidth={8} />
+        <rect x={0} y={0} width={300} height={250} rx={12} fill="none" stroke="#141414" strokeWidth={3} />
+        {/* Bệ cửa sổ + chậu thảo mộc nhỏ */}
+        <rect x={-16} y={246} width={332} height={18} rx={5} fill="#D97706" />
+        <path d="M 222,246 L 228,216 L 258,216 L 264,246 Z" fill="#EF4444" strokeWidth={2.5} />
+        <circle cx={243} cy={204} r={16} fill="#22C55E" strokeWidth={2.5} />
+      </g>
+
+      {/* Tủ bếp treo trên & máy hút mùi gọn (x=680..1320, y=145..345) */}
+      <g id="kitchen-cabinets" transform="translate(680, 145)">
+        <rect x={0} y={0} width={350} height={185} rx={8} fill={isNight ? "#475569" : "#FDE68A"} />
+        <line x1={175} y1={0} x2={175} y2={185} strokeWidth={3} />
+        <line x1={155} y1={115} x2={155} y2={155} strokeWidth={4} strokeLinecap="round" />
+        <line x1={195} y1={115} x2={195} y2={155} strokeWidth={4} strokeLinecap="round" />
+        {/* Máy hút mùi trên bếp */}
+        <path d="M 455,0 L 515,0 L 515,115 L 595,165 L 375,165 L 455,115 Z" fill="#94A3B8" />
+      </g>
+
+      {/* Hệ bàn bếp dưới + bồn rửa + nồi súp bốc hơi nhẹ (đáy chạm y = 776 <= 830, bóng phẳng opacity="0.12") */}
+      <g transform="translate(670, 535)">
+        <ellipse cx={335} cy={244} rx={345} ry={11} fill="#0F172A" opacity={0.12} stroke="none" />
+        <rect x={0} y={18} width={670} height={222} rx={6} fill={isNight ? "#475569" : "#F59E0B"} />
+        <rect x={-8} y={0} width={686} height={22} rx={6} fill="#F8FAFC" />
+        <line x1={225} y1={22} x2={225} y2={240} strokeWidth={2.8} />
+        <line x1={445} y1={22} x2={445} y2={240} strokeWidth={2.8} />
+        {/* Vòi nước bồn rửa */}
+        <path d="M 115,0 L 115,-42 Q 115,-62 142,-62 L 154,-46" fill="none" stroke="#64748B" strokeWidth={7} strokeLinecap="round" />
+        {/* Nồi súp cam ấm cúng + làn hơi thơm bay nhẹ 60fps */}
+        <g transform="translate(495, 0)">
+          <rect x={-46} y={-52} width={92} height={52} rx={8} fill="#EA580C" />
+          <ellipse cx={0} cy={-52} rx={48} ry={9} fill="#F97316" />
+          <circle cx={0} cy={-62} r={6} fill="#1E293B" />
+          {[-16, 14].map((sx, si) => {
+            const sy = -76 - ((steamRise + si * 18) % 36);
+            return (
+              <path
+                key={`stm_${si}`}
+                d={`M ${sx},${sy} Q ${sx - 8},${sy - 14} ${sx},${sy - 28}`}
+                fill="none"
+                stroke="#94A3B8"
+                strokeWidth={3}
+                strokeLinecap="round"
+                opacity={0.65}
+              />
+            );
+          })}
+        </g>
+      </g>
+
+      {/* Tủ lạnh đứng gọn (x=1365..1525, đáy chạm y = 776 <= 830, bóng phẳng opacity="0.12") */}
+      <g transform="translate(1365, 275)">
+        <ellipse cx={80} cy={504} rx={88} ry={10} fill="#0F172A" opacity={0.12} stroke="none" />
+        <rect x={0} y={0} width={160} height={500} rx={14} fill={isNight ? "#64748B" : "#E0F2FE"} />
+        <line x1={0} y1={185} x2={160} y2={185} strokeWidth={3.2} />
+        <line x1={22} y1={95} x2={22} y2={155} strokeWidth={5} strokeLinecap="round" />
+        <line x1={22} y1={215} x2={22} y2={295} strokeWidth={5} strokeLinecap="round" />
+      </g>
+
+      {/* Bàn ăn gia đình bên cánh phải (chân chạm y = 796 <= 830, bóng phẳng opacity="0.12") */}
+      <g id="kitchen-dining-table" transform="translate(1565, 650)">
+        <ellipse cx={150} cy={148} rx={162} ry={10} fill="#0F172A" opacity={0.12} stroke="none" />
+        <rect x={24} y={24} width={16} height={122} rx={4} fill="#92400E" />
+        <rect x={260} y={24} width={16} height={122} rx={4} fill="#92400E" />
+        <rect x={0} y={0} width={300} height={24} rx={8} fill="#B45309" />
+        {/* Đĩa trái cây tươi trên bàn ăn */}
+        <path d="M 105,0 Q 150,16 195,0 Z" fill="#FFFFFF" />
+        <circle cx={136} cy={-10} r={12} fill="#EF4444" />
+        <circle cx={162} cy={-10} r={12} fill="#FACC15" />
+      </g>
+    </g>
+  );
+};
+
 /** Lớp thời tiết động 60fps phủ trên các cảnh ngoài trời (RAIN / STORM / FLOOD) */
 const WeatherOverlayLayer: React.FC<{ weather: AutoWeather; frame: number; isOutdoor: boolean }> = ({
   weather,
@@ -834,6 +1261,13 @@ const HandPropGraphic: React.FC<{
           <line x1={-13} y1={16} x2={10} y2={16} stroke="#64748B" strokeWidth={2.4} />
         </g>
       )}
+      {prop === "BOOK" && (
+        <g id="hand-prop-book" transform="translate(22, -8) rotate(-10)">
+          <rect x={-22} y={-28} width={44} height={56} rx={5} fill="#2563EB" stroke="#141414" strokeWidth={3.2} />
+          <rect x={-22} y={-28} width={9} height={56} rx={3} fill="#1E40AF" stroke="#141414" strokeWidth={2.8} />
+          <rect x={-7} y={-16} width={20} height={12} rx={2} fill="#FEF08A" stroke="#141414" strokeWidth={2} />
+        </g>
+      )}
       {prop === "PHONE" && (
         <g transform="translate(14, -14) rotate(-14)">
           <rect x={-14} y={-24} width={28} height={48} rx={5} fill="#1E293B" stroke="#141414" strokeWidth={3} />
@@ -918,7 +1352,8 @@ function resolveCuratedPropPlacement(spec: AutoEpisodeBeat): {
   const isOutdoorWithBuildingsOrTrees =
     spec.stageType === "COUNTRYSIDE_YARD" ||
     spec.stageType === "SIMPLE_GRASS_FIELD" ||
-    spec.stageType === "CITY_STREET";
+    spec.stageType === "CITY_STREET" ||
+    spec.stageType === "CITY_STREET_PARK";
   if (isOutdoorWithBuildingsOrTrees) {
     const firstSlot = spec.actors[0]?.slot;
     const tailSide: -1 | 0 | 1 = firstSlot === "LEFT" ? -1 : firstSlot === "RIGHT" ? 1 : 0;
@@ -1552,6 +1987,7 @@ export const UniversalAutoStage: React.FC<{
     spec.stageType === "COUNTRYSIDE_YARD" ||
     spec.stageType === "SIMPLE_GRASS_FIELD" ||
     spec.stageType === "CITY_STREET" ||
+    spec.stageType === "CITY_STREET_PARK" ||
     spec.stageType === "WATER_POND_OCEAN";
 
   const slotBaseX = (slot: AutoActorSpec["slot"]): number =>
@@ -1666,9 +2102,15 @@ export const UniversalAutoStage: React.FC<{
   }
 
   const resolvedActors: ResolvedActorRenderData[] = spec.actors.map((actor, aIdx) => {
-    const actorScale = resolvePresetDefaultScale(actor.preset); // V18.3: BOY=0.76, Người lớn=1.0
-    const presetHash = Array.from(actor.preset).reduce((acc, ch) => acc * 31 + ch.charCodeAt(0), 7);
-    const actorBlinkSeed = aIdx * 97 + presetHash; // V21.0: Lệch pha chớp mắt & nhịp thở rõ rệt theo actor index + preset
+    const actorScale = resolvePresetDefaultScale(actor.preset, actor.appearance); // V22.0: Hỗ trợ appearance.scale tùy chọn (BOY=0.76, Adult/CUSTOM=1.0)
+    const appearanceSeedKey = actor.appearance
+      ? `${actor.appearance.hairStyle || ""}_${actor.appearance.outfitStyle || ""}_${actor.appearance.outfitColor || ""}`
+      : "";
+    const presetHash = Array.from(`${actor.preset}:${appearanceSeedKey}`).reduce(
+      (acc, ch) => (acc * 31 + ch.charCodeAt(0)) % 100003,
+      7
+    );
+    const actorBlinkSeed = aIdx * 97 + presetHash; // V21.0: Lệch pha chớp mắt & nhịp thở rõ rệt theo actor index + preset/appearance
     const baseX = pinSoloActorLeft
       ? SOLO_CUSTOM_VISUAL_ACTOR_X
       : centerSoloExplainer
@@ -1742,10 +2184,16 @@ export const UniversalAutoStage: React.FC<{
       };
     }
 
+    const defaultActorHandProp: AutoHandProp =
+      actor.handProp && actor.handProp !== "NONE"
+        ? actor.handProp
+        : actor.appearance?.prop && actor.appearance.prop !== "NONE"
+        ? actor.appearance.prop
+        : "NONE";
     let actorX = baseX;
     let effectiveFacing: "LEFT" | "RIGHT" = pinSoloActorLeft ? "RIGHT" : actor.facing;
     let activeExprEnum: AutoActorExpression = actor.expression;
-    let activeHandProp: AutoHandProp = actor.handProp || "NONE";
+    let activeHandProp: AutoHandProp = defaultActorHandProp;
     let activeShiver = Boolean(actor.shiver);
     let pose: V18PoseSnapshot["pose"] = "standing";
     let walkWeight = 0;
@@ -1792,7 +2240,7 @@ export const UniversalAutoStage: React.FC<{
         segU,
         poseLocalFrame,
         frame,
-        actor.handProp || "NONE",
+        defaultActorHandProp,
         Boolean(actor.shiver)
       );
 
@@ -1809,7 +2257,7 @@ export const UniversalAutoStage: React.FC<{
           1.0,
           prevDurFrames,
           frame,
-          actor.handProp || "NONE",
+          defaultActorHandProp,
           Boolean(actor.shiver)
         );
         const blendT = segLocalFrame / V18_POSE_BLEND_FRAMES;
@@ -2188,6 +2636,18 @@ export const UniversalAutoStage: React.FC<{
         {spec.stageType === "CITY_STREET" && (
           <CityStreetBackdrop timeOfDay={spec.timeOfDay} frame={frame} groundY={groundY} />
         )}
+        {spec.stageType === "CITY_LIVING_ROOM" && (
+          <CityLivingRoomBackdrop timeOfDay={spec.timeOfDay} frame={frame} />
+        )}
+        {spec.stageType === "CITY_STREET_PARK" && (
+          <CityStreetParkBackdrop timeOfDay={spec.timeOfDay} frame={frame} />
+        )}
+        {spec.stageType === "SCHOOL_CLASSROOM" && (
+          <SchoolClassroomBackdrop timeOfDay={spec.timeOfDay} frame={frame} />
+        )}
+        {spec.stageType === "HOME_KITCHEN" && (
+          <HomeKitchenBackdrop timeOfDay={spec.timeOfDay} frame={frame} />
+        )}
         {spec.stageType === "SCIENCE_LAB_ROOM" && (
           <ScienceLabBackdrop timeOfDay={spec.timeOfDay} frame={frame} groundY={groundY} />
         )}
@@ -2323,7 +2783,10 @@ export const UniversalAutoStage: React.FC<{
                   <circle cx={0} cy={0} r={46} fill="#FFFFFF" stroke="#141414" strokeWidth={4} />
                   <path
                     d="M -39,-20 C -40,-50 -10,-56 12,-52 C 30,-48 40,-34 39,-20 Q 22,-32 10,-25 Q 0,-36 -12,-24 Q -26,-32 -39,-20 Z"
-                    fill={actor.preset === "GRANDPA" || actor.preset === "GRANDMA" ? "#CBD5E1" : "#1E293B"}
+                    fill={
+                      actor.appearance?.hairColor ??
+                      (actor.preset === "GRANDPA" || actor.preset === "GRANDMA" ? "#CBD5E1" : "#1E293B")
+                    }
                     stroke="#141414"
                     strokeWidth={3.2}
                   />
@@ -2403,7 +2866,11 @@ export const UniversalAutoStage: React.FC<{
             };
           } else if (hasCustomVisual) {
             lookOffset = { dx: 3.0, dy: -0.6 };
-          } else if (ra.activeHandProp === "PHONE" || ra.activeHandProp === "NOTEBOOK") {
+          } else if (
+            ra.activeHandProp === "PHONE" ||
+            ra.activeHandProp === "NOTEBOOK" ||
+            ra.activeHandProp === "BOOK"
+          ) {
             lookOffset = { dx: 2.8, dy: 2.8 };
           } else {
             lookOffset = {
@@ -2466,11 +2933,14 @@ export const UniversalAutoStage: React.FC<{
               )}
               <StickmanRig
                 characterPreset={actor.preset}
+                appearance={actor.appearance}
                 frame={frame}
                 state={{
                   x: ra.actorX,
                   y: groundY,
                   scale: ra.actorScale,
+                  appearance: actor.appearance,
+                  hideBuiltInAppearanceProp: true,
                   facing: ra.effectiveFacing === "LEFT" ? "left" : "right",
                   pose: ra.pose,
                   torsoTiltDeg: ra.torsoTiltDeg,

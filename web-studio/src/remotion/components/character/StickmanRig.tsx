@@ -13,12 +13,16 @@ import { solve2JointIK, resolvePendulumLegs, resolvePendulumArms } from "../../.
 import {
   CharacterArchetype,
   CharacterPreset,
+  StickmanAppearance,
   HeadBackAccessories,
   HeadFrontAccessories,
   TorsoOutfitRenderer,
+  BuiltInAppearancePropRenderer,
+  hasStickmanAppearanceOverrides,
+  resolveStickmanAppearance,
 } from "./StickmanArchetypes";
 
-export type { CharacterPreset };
+export type { CharacterPreset, StickmanAppearance };
 import {
   RigSockets,
   computeStickmanRigSockets,
@@ -44,11 +48,18 @@ export interface StickmanBodyParts {
 }
 
 /**
- * V18.3: Chuẩn hóa tỷ lệ chiều cao thực tế trẻ con / người lớn:
- * - BOY = 0.76 (nhỏ nhắn, đứng ngang vai người lớn, bàn chân vẫn chạm chuẩn groundY)
- * - Người lớn (GRANDPA, GRANDMA, DOCTOR, NEIGHBOR) = 1.0
+ * V18.3–V22.0: Chuẩn hóa tỷ lệ chiều cao thực tế trẻ con / người lớn + hỗ trợ appearance.scale tùy chọn:
+ * - Nếu appearance.scale hợp lệ -> kẹp an toàn trong [0.5, 1.4]
+ * - Mặc định BOY = 0.76 (nhỏ nhắn, đứng ngang vai người lớn, bàn chân vẫn chạm chuẩn groundY)
+ * - Người lớn / CUSTOM = 1.0
  */
-export function resolvePresetDefaultScale(preset?: CharacterPreset | CharacterArchetype): number {
+export function resolvePresetDefaultScale(
+  preset?: CharacterPreset | CharacterArchetype,
+  appearance?: StickmanAppearance | null
+): number {
+  if (appearance?.scale !== undefined && Number.isFinite(appearance.scale)) {
+    return Math.max(0.5, Math.min(1.4, appearance.scale));
+  }
   return preset === "BOY" ? 0.76 : 1.0;
 }
 
@@ -119,6 +130,7 @@ export interface StickmanRigProps {
   state: StickmanState;
   archetype?: CharacterArchetype;
   characterPreset?: CharacterPreset;
+  appearance?: StickmanAppearance;
   renderPart?: "all" | "bodyOnly" | "armsOnly" | "legsOnly" | "backArmOnly" | "frontArmOnly" | "frontArmsBoth" | "none";
   parts?: StickmanBodyParts;
   frame?: number;
@@ -1071,6 +1083,7 @@ export const StickmanRig: React.FC<StickmanRigProps> = ({
   state,
   archetype,
   characterPreset,
+  appearance,
   renderPart = "all",
   parts,
   frame = 0,
@@ -1079,7 +1092,10 @@ export const StickmanRig: React.FC<StickmanRigProps> = ({
   showDebugMarkers = false,
   onAnchorsComputed,
 }) => {
-  const resolvedPreset: CharacterPreset | undefined = characterPreset || state.characterPreset;
+  const effectiveAppearance: StickmanAppearance | undefined = appearance ?? state.appearance;
+  const hasAppearance = hasStickmanAppearanceOverrides(effectiveAppearance);
+  const resolvedPreset: CharacterPreset | undefined =
+    characterPreset || state.characterPreset || (hasAppearance ? "CUSTOM" : undefined);
   const activeArchetype: CharacterArchetype =
     resolvedPreset || archetype || state.archetype || (state.hat !== false ? "oldMan" : "default");
 
@@ -1093,7 +1109,8 @@ export const StickmanRig: React.FC<StickmanRigProps> = ({
     pointingTarget,
     limbAngles,
   } = state;
-  const scale = state.scale !== undefined ? state.scale : resolvePresetDefaultScale(activeArchetype);
+  const scale =
+    state.scale !== undefined ? state.scale : resolvePresetDefaultScale(activeArchetype, effectiveAppearance);
 
   // V18.3: Chuyển động run rẩy tiết chế theo shiverOpacity (tự tắt mượt sau 30 frames / 0.5s!)
   const shiverOpacity = state.shiverOpacity !== undefined ? Math.max(0, Math.min(1, state.shiverOpacity)) : 1.0;
@@ -1107,6 +1124,8 @@ export const StickmanRig: React.FC<StickmanRigProps> = ({
 
   const isPureStickmanPreset = Boolean(
     resolvedPreset ||
+      hasAppearance ||
+      activeArchetype === "CUSTOM" ||
       activeArchetype === "BOY" ||
       activeArchetype === "GRANDPA" ||
       activeArchetype === "GRANDMA" ||
@@ -1328,6 +1347,7 @@ export const StickmanRig: React.FC<StickmanRigProps> = ({
             <g id="layer-character-torso-head">
               <TorsoOutfitRenderer
                 archetype={activeArchetype}
+                appearance={effectiveAppearance}
                 neckX={0}
                 neckY={neckUpper.y}
                 hipX={0}
@@ -1343,6 +1363,7 @@ export const StickmanRig: React.FC<StickmanRigProps> = ({
                   <g id="default-stickman-head">
                     <HeadBackAccessories
                       archetype={activeArchetype}
+                      appearance={effectiveAppearance}
                       headCenterY={0}
                       headRadius={headRadius}
                       facingDir={flipSign}
@@ -1395,6 +1416,7 @@ export const StickmanRig: React.FC<StickmanRigProps> = ({
                     />
                     <HeadFrontAccessories
                       archetype={activeArchetype}
+                      appearance={effectiveAppearance}
                       headCenterY={0}
                       headRadius={headRadius}
                     />
@@ -1518,14 +1540,23 @@ export const StickmanRig: React.FC<StickmanRigProps> = ({
               )}
               {/* Tay phải (Front Arm in local space — V14.0 nét đen đặc không viền sáng rỗng ruột) */}
               {(renderPart === "all" || renderPart === "armsOnly" || renderPart === "frontArmOnly" || renderPart === "frontArmsBoth") && (
-                <path
-                  d={`M 0 ${shoulderUpper.y} L ${rightElbowUpper.x} ${rightElbowUpper.y} L ${rightWristUpper.x} ${rightWristUpper.y}`}
-                  fill="none"
-                  stroke="#141414"
-                  strokeWidth={limbStroke}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
+                <>
+                  {!state.hideBuiltInAppearanceProp && effectiveAppearance?.prop && effectiveAppearance.prop !== "NONE" && (
+                    <BuiltInAppearancePropRenderer
+                      prop={resolveStickmanAppearance(activeArchetype, effectiveAppearance).prop}
+                      wristX={rightWristUpper.x}
+                      wristY={rightWristUpper.y}
+                    />
+                  )}
+                  <path
+                    d={`M 0 ${shoulderUpper.y} L ${rightElbowUpper.x} ${rightElbowUpper.y} L ${rightWristUpper.x} ${rightWristUpper.y}`}
+                    fill="none"
+                    stroke="#141414"
+                    strokeWidth={limbStroke}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </>
               )}
             </g>
           )}

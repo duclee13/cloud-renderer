@@ -9,7 +9,7 @@
     "lint": "next lint",
     "remotion:preview": "remotion preview src/remotion/index.ts",
     "remotion:render": "remotion render src/remotion/index.ts MainScene out/video.mp4",
-    "test": "node --test test/api-fix.test.cjs",
+    "test": "node -r ./scripts/register-ts.cjs --test test/api-fix.test.cjs test/v22-parametric-stage-upgrade.test.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
