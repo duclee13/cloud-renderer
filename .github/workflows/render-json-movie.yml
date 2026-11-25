@@ -240,7 +240,7 @@ jobs:
   # ===========================================================================
   # JOB 2: Tối Đa 20 Máy Ảo Render Song Song Cân Bằng Frame (Mặc định 1080p @ 45fps)
   #        Chạy thẳng trong GHCR prebuilt container (0s setup Node/npm/apt/Chromium)
-  #        Dùng `./build` + --scale theo quality + JPEG q88 + ultrafast crf=16 + concurrency=6
+  #        Dùng `./build` + --scale theo quality + JPEG q88 + ultrafast crf=16 + concurrency=4 (<= CPU cores)
   # ===========================================================================
   render_chunks:
     name: Job 2 — Render Chunk ${{ matrix.chapter }}/${{ inputs.total_chapters }}
@@ -284,7 +284,7 @@ jobs:
       - name: Render Balanced Frame Chunk ${{ matrix.chapter }}/${{ inputs.total_chapters }} (${{ inputs.quality || '1080p' }} @ ${{ inputs.fps || '45' }}fps)
         working-directory: web-studio
         env:
-          CONCURRENCY: '6'
+          CONCURRENCY: '4'
           REMOTION_FPS: ${{ inputs.fps || '45' }}
           RENDER_QUALITY: ${{ inputs.quality || '1080p' }}
           TOTAL_CHAPTERS: ${{ inputs.total_chapters || '20' }}

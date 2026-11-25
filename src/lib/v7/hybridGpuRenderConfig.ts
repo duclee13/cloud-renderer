@@ -47,11 +47,13 @@ export const HYBRID_GPU_CHROMIUM_OPTIONS: HybridChromiumOptions = {
 
 export const REMOTION_RENDER_TIMEOUT_MS = 120000;
 
+const DETECTED_CPU_CORES = Math.max(1, os.cpus()?.length || 4);
+
 export const HYBRID_GPU_RENDER_DEFAULTS = {
   chromiumOptions: HYBRID_GPU_CHROMIUM_OPTIONS,
   extraChromiumFlags: HYBRID_GPU_CHROME_EXTRA_FLAGS,
   hardwareAcceleration: "if-possible" as const,
-  concurrency: isLinuxOrCiEnvironment() ? 6 : 3, // Linux/CI GHCR runner tối đa tốc độ với concurrency=6; Windows laptop mặc định 3
+  concurrency: isLinuxOrCiEnvironment() ? Math.min(4, DETECTED_CPU_CORES) : Math.min(3, DETECTED_CPU_CORES),
   imageFormat: "jpeg" as const,
   jpegQuality: isLinuxOrCiEnvironment() ? 88 : 90,
   x264Preset: isLinuxOrCiEnvironment() ? ("ultrafast" as const) : ("veryfast" as const),
@@ -61,21 +63,24 @@ export const HYBRID_GPU_RENDER_DEFAULTS = {
 
 /**
  * Chuẩn hóa concurrency an toàn theo phần cứng:
- * - Trên Linux/CI (runner 4 vCPU + Chromium/x264 pipeline): mặc định 6, cho phép tối đa 8 để bão hòa 100% CPU giữa Chrome & FFmpeg
- * - Trên Windows: giữ theo tham số truyền vào (mặc định 2-3)
+ * - Remotion khóa cứng `--concurrency <= os.cpus().length`, nên luôn kẹp tối đa theo số nhân CPU thực tế (tối đa 4 trên runner 4 vCPU)
+ * - Trên Linux/CI: mặc định `Math.min(4, cpuCores)`
+ * - Trên Windows: giữ theo tham số truyền vào (mặc định 2-3, kẹp theo số nhân CPU)
  */
 export function resolveSafeRenderConcurrency(requested?: number): number {
   const isCi = isLinuxOrCiEnvironment();
+  const cpuCores = Math.max(1, os.cpus()?.length || 4);
+  const maxAllowed = isCi ? Math.min(4, cpuCores) : cpuCores;
   if (typeof requested === "number" && Number.isFinite(requested) && requested >= 1) {
     const clean = Math.floor(requested);
-    return isCi ? Math.min(8, Math.max(1, clean)) : Math.min(8, Math.max(1, clean));
+    return Math.min(maxAllowed, Math.max(1, clean));
   }
   const envVal = Number(process.env.CONCURRENCY || process.env.RENDER_CONCURRENCY || "");
   if (Number.isFinite(envVal) && envVal >= 1) {
     const clean = Math.floor(envVal);
-    return isCi ? Math.min(8, Math.max(1, clean)) : Math.min(8, Math.max(1, clean));
+    return Math.min(maxAllowed, Math.max(1, clean));
   }
-  return isCi ? 6 : 2;
+  return isCi ? maxAllowed : Math.min(2, cpuCores);
 }
 
 /**

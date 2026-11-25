@@ -7,7 +7,7 @@
  *   --prepare-cloud                         : [Stage 1] Tính timeline toàn tập @ fps, căn mẫu chính xác 44.1kHz (0.000s trôi qua 64+ beats),
  *                                             trộn Master Audio 1 lần, ghi cloud_input_props.json + cloud_render_plan.json cân bằng frame cho N VM
  *   --render-frame-chunk                    : [Stage 2] Gọi trực tiếp `remotion render ./build V7MovieComposition ... --frames=start-end --scale=...`
- *                                             trên bundle dựng sẵn với `--concurrency=6 --crf=16 --x264-preset=ultrafast --jpeg-quality=88 --gl=swangle --muted`
+ *                                             trên bundle dựng sẵn với `--concurrency=4 (<= os.cpus().length) --crf=16 --x264-preset=ultrafast --jpeg-quality=88 --gl=swangle --muted`
  *                                             kèm gửi telemetry thời gian thực về `DASHBOARD_PROGRESS_URL`
  *   --concat-only                           : [Stage 3] Ghép nối không re-encode (`-f concat -safe 0 -i list.txt -c copy -movflags +faststart`)
  *   --preview-only                          : xuất nhanh 4 ảnh đại diện 4 Hồi (out/preview_act1.jpg..preview_act4.jpg)
@@ -559,7 +559,9 @@ async function renderCloudBalancedFrameChunk({ chapterIndex, totalChapters, bund
   }
 
   const { startFrame, endFrame, frameCount } = chunkSpec;
-  const concurrency = resolveSafeRenderConcurrency(Number(process.env.CONCURRENCY) || 6);
+  const cpuCores = Math.max(1, os.cpus()?.length || 4);
+  const requestedConcurrency = Number(process.env.CONCURRENCY) || cpuCores;
+  const concurrency = Math.min(cpuCores, resolveSafeRenderConcurrency(requestedConcurrency));
   const glBackend = isLinuxOrCiEnvironment() ? 'swangle' : 'angle';
   const chromeExecutable = (process.env.REMOTION_CHROME_EXECUTABLE || '').trim();
   const hasChromeExecutable = Boolean(chromeExecutable && fs.existsSync(chromeExecutable));
