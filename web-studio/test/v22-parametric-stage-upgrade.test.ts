@@ -9,8 +9,8 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { sanitizeAndValidateEpisode } from "../src/lib/v7/episodeJsonSchema";
-import { StickmanRig } from "../src/remotion/components/character/StickmanRig";
+import { sanitizeAndValidateEpisode, sanitizeSpeechBubble } from "../src/lib/v7/episodeJsonSchema";
+import { StickmanRig, wrapSpeechBubbleLines } from "../src/remotion/components/character/StickmanRig";
 import { UniversalAutoStage } from "../src/components/v7/UniversalAutoStage";
 
 test("V22 #1: Parametric StickmanRig renders Dad, Mom, Teacher, Classmates & preset overrides directly from JSON appearance", () => {
@@ -387,4 +387,67 @@ test("V22 #4: validate_episode.mjs accepts CUSTOM + appearance + 4 new stages an
   const codes = invalidRes.errors.map((e: { code: string }) => e.code);
   assert.ok(codes.includes("INVALID_STAGE_TYPE"));
   assert.equal(codes.filter((c: string) => c === "INVALID_APPEARANCE").length, 3);
+});
+
+test("V22 #5: 10-word auto-wrapping speech bubbles and HOST_EXPLAIN_OVERLAY freeze-frame mode work cleanly", () => {
+  const b40 = sanitizeSpeechBubble("Đang trong lớp hay họp, làm sao chặn cơn ngáp?");
+  assert.equal(b40, "Đang trong lớp hay họp, làm sao chặn cơn ngáp?");
+  assert.equal(sanitizeSpeechBubble("Đang suy nghĩ"), undefined, "Still filters robotic stage direction");
+  assert.equal(sanitizeSpeechBubble("Một hai ba bốn năm sáu bảy tám chín mười mười-một"), undefined, "Rejects > 10 words");
+
+  const wrapped = wrapSpeechBubbleLines("Khoan đã, sao cái ngáp lại lây nhanh vậy?", 26);
+  assert.equal(wrapped.length, 2);
+
+  const ep = sanitizeAndValidateEpisode({
+    title: "Host Explain Overlay Test",
+    slug: "host_test",
+    beats: [
+      {
+        id: "b_host",
+        text: "Khoan dừng lại một chút nhé.",
+        ttsText: "Khoan dừng lại một chút nhé.",
+        stageType: "HOST_EXPLAIN_OVERLAY",
+        overlayMode: "HOST_EXPLAIN",
+        freezeStage: "SCHOOL_CLASSROOM",
+        labBoard: "MIRROR_NEURONS_YAWN",
+        hostBoardHighlight: "OXYGEN_MYTH",
+        actors: [
+          {
+            preset: "BOY",
+            appearance: { scale: 1.18 },
+            slot: "LEFT",
+            facing: "RIGHT",
+            motion: "IDLE_TALK",
+            expression: "CURIOUS",
+            handProp: "POINTER",
+            groundY: 760,
+            lookAtCamera: true,
+            bubble: "Trước hết, bỏ qua một hiểu nhầm phổ biến nhé!",
+            timeline: [{ fromPct: 0, toPct: 1, startX: 330, endX: 330, facing: "RIGHT", pose: "POINT_FORWARD", expression: "CURIOUS" }],
+          },
+        ],
+      },
+    ],
+  });
+
+  const svg = renderToStaticMarkup(
+    React.createElement(
+      "svg",
+      { width: 1920, height: 1080 },
+      React.createElement(UniversalAutoStage, {
+        spec: ep.beats[0],
+        frame: 60,
+        localFrame: 60,
+        durationFrames: 225,
+        u: 0.3,
+        fps: 45,
+      })
+    )
+  );
+  assert.ok(svg.includes('id="stage-school-classroom"'), "Freezes underlying SCHOOL_CLASSROOM");
+  assert.ok(svg.includes('id="layer-host-explain-veil"'), "Renders flat milky-white veil");
+  assert.ok(svg.includes('id="host-board-mirror-neurons-static"'), "Renders MIRROR_NEURONS_YAWN whiteboard");
+  assert.ok(svg.includes('id="hand-prop-pointer"'), "Renders POINTER stick");
+  assert.ok(svg.includes("<tspan"), "Renders 2-line wrapped speech bubble");
+  assert.ok(!svg.includes("feGaussianBlur") && !svg.includes("feDropShadow"), "Zero heavy SVG blur filters");
 });

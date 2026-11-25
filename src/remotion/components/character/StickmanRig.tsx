@@ -1586,13 +1586,37 @@ export interface ComicSpeechBubbleProps {
   mouthY: number;
   /** V15.0: Đỉnh đầu/tóc nhân vật (HEAD_TOP); nếu bỏ trống tự suy mouthY - 88 để đáy bóng thoại luôn cao hơn HEAD_TOP >= 30px */
   headTopY?: number;
-  /** Câu thoại ngắn 2–5 từ ("Ủa, cái gì đây?", "ÁAA!", "Kiến lửa đó con!") */
+  /** Câu thoại ngắn tối đa 10 từ (tự động xuống tối đa 2 dòng gọn đẹp trong khung oval/pill) */
   text: string;
   /** Frame cục bộ của cảnh để chạy hiệu ứng nảy easeOutBack */
   localFrame: number;
   appearFrame?: number;
   disappearFrame?: number;
   accentColor?: string;
+  /** V22.5: Giới hạn chiều rộng tối đa của bóng thoại (px, mặc định 520px để không đè bảng trắng bên phải) */
+  maxWidth?: number;
+}
+
+/** V22.5: Tự động tách câu thoại dài (> ~26 ký tự) thành tối đa 2 dòng cân đối theo ranh giới từ */
+export function wrapSpeechBubbleLines(rawText: string, maxCharsPerLine = 26): string[] {
+  const clean = (rawText || "").trim().replace(/\s+/g, " ");
+  if (!clean) return [];
+  if (clean.length <= maxCharsPerLine) return [clean];
+  const words = clean.split(" ");
+  if (words.length <= 1) return [clean];
+
+  let bestIdx = Math.ceil(words.length / 2);
+  let bestDiff = Number.POSITIVE_INFINITY;
+  for (let i = 1; i < words.length; i++) {
+    const l1 = words.slice(0, i).join(" ");
+    const l2 = words.slice(i).join(" ");
+    const diff = Math.abs(l1.length - l2.length);
+    if (diff < bestDiff) {
+      bestDiff = diff;
+      bestIdx = i;
+    }
+  }
+  return [words.slice(0, bestIdx).join(" "), words.slice(bestIdx).join(" ")];
 }
 
 /** V15.0 Helper: Kiểm tra bóng thoại có đang hiển thị ở localFrame hay không để bật Lip-Sync Micro Talk */
@@ -1628,6 +1652,7 @@ export const ComicSpeechBubble: React.FC<ComicSpeechBubbleProps> = ({
   appearFrame = 18,
   disappearFrame = 9999,
   accentColor = "#141414",
+  maxWidth = 520,
 }) => {
   const cleanText = (text || "").trim();
   if (!cleanText || localFrame < appearFrame || localFrame > disappearFrame) return null;
@@ -1655,16 +1680,33 @@ export const ComicSpeechBubble: React.FC<ComicSpeechBubbleProps> = ({
       ? easeFadeOut
       : 1.0;
 
-  const rx = Math.max(92, Math.min(210, cleanText.length * 9.6 + 44));
-  const ry = 38;
+  // V22.5: Hỗ trợ câu thoại tối đa 10 từ tự động xuống tối đa 2 dòng cân đối + tự co giãn khung gọn đẹp
+  const lines = wrapSpeechBubbleLines(cleanText, 26);
+  const isTwoLine = lines.length >= 2;
+  const longestLen = Math.max(...lines.map((l) => l.length));
+  const isExclaim = cleanText.includes("!") || cleanText === cleanText.toUpperCase();
+  const fontSize = isTwoLine
+    ? longestLen > 24
+      ? 19.5
+      : 21
+    : isExclaim && cleanText.length <= 6
+    ? 28
+    : 23;
+  const maxHalfW = Math.max(150, Math.min(270, maxWidth / 2));
+  const rx = isTwoLine
+    ? Math.max(138, Math.min(maxHalfW, longestLen * (fontSize * 0.52) + 48))
+    : Math.max(92, Math.min(Math.min(220, maxHalfW), cleanText.length * 9.6 + 44));
+  const ry = isTwoLine ? 46 : 38;
 
-  // V15.0: Đáy bóng thoại (safeY + ry) LUÔN cao hơn HEAD_TOP tối thiểu 30px (chống đè chỏm tóc toàn cục!)
+  // V15.0–V22.5: Đáy bóng thoại (safeY + ry) LUÔN cao hơn HEAD_TOP tối thiểu 26–30px (chống đè chỏm tóc toàn cục!)
   const effectiveHeadTopY = headTopY ?? (mouthY - 88);
-  const maxSafeCenterY = effectiveHeadTopY - 30 - ry;
-  const safeY = Math.max(85 + ry, Math.min(y, maxSafeCenterY));
-  // V21.0: Clamp tọa độ X của bong bóng trong vùng an toàn [180, 1740] đồng thời bảo đảm biên trái/phải không tràn mép 1920px
-  const minSafeX = Math.max(180, rx + 36);
-  const maxSafeX = Math.min(1740, 1920 - rx - 36);
+  const headGap = isTwoLine ? 24 : 30;
+  const maxSafeCenterY = effectiveHeadTopY - headGap - ry;
+  const minCenterY = isTwoLine ? 56 + ry : 85 + ry;
+  const safeY = Math.max(minCenterY, Math.min(y, maxSafeCenterY));
+  // V21.0–V22.5: Clamp tọa độ X an toàn bảo đảm biên trái/phải không tràn mép 1920px
+  const minSafeX = Math.max(70 + rx, rx + 36);
+  const maxSafeX = Math.min(1850 - rx, 1920 - rx - 36);
   const safeX = Math.max(minSafeX, Math.min(maxSafeX, x));
 
   // Đuôi nhọn trỏ về phía miệng nhân vật (chừa khoảng thoáng >= 58px để không bao giờ chạm chỏm tóc/mắt!)
@@ -1676,12 +1718,12 @@ export const ComicSpeechBubble: React.FC<ComicSpeechBubbleProps> = ({
   const tipDist = Math.min(Math.max(ry + 16, dist - 58), Math.max(ry + 24, dist * 0.60));
   const tipX = ux * tipDist;
   const tipY = uy * tipDist;
-  const baseX = ux * (rx * 0.42);
+  const baseX = ux * (rx * 0.36);
   const baseY = uy * (ry * 0.65);
   const perpX = -uy * 13;
   const perpY = ux * 13;
 
-  const isExclaim = cleanText.includes("!") || cleanText === cleanText.toUpperCase();
+  const textFill = isExclaim && cleanText.length <= 6 ? "#DC2626" : accentColor;
 
   return (
     <g
@@ -1690,7 +1732,11 @@ export const ComicSpeechBubble: React.FC<ComicSpeechBubbleProps> = ({
       opacity={opacity.toFixed(2)}
     >
       {/* Bóng đổ nhẹ dưới bóng thoại */}
-      <ellipse cx={3} cy={5} rx={rx} ry={ry} fill="rgba(15, 23, 42, 0.16)" />
+      {isTwoLine ? (
+        <rect x={-rx + 3} y={-ry + 5} width={rx * 2} height={ry * 2} rx={36} ry={36} fill="rgba(15, 23, 42, 0.14)" />
+      ) : (
+        <ellipse cx={3} cy={5} rx={rx} ry={ry} fill="rgba(15, 23, 42, 0.16)" />
+      )}
       {/* Đuôi nhọn viền đen 3.5px */}
       <polygon
         points={`${(baseX + perpX).toFixed(1)},${(baseY + perpY).toFixed(1)} ${tipX.toFixed(
@@ -1701,34 +1747,66 @@ export const ComicSpeechBubble: React.FC<ComicSpeechBubbleProps> = ({
         strokeWidth={3.5}
         strokeLinejoin="round"
       />
-      {/* Thân bầu dục trắng viền đen 3.5px */}
-      <ellipse
-        cx={0}
-        cy={0}
-        rx={rx}
-        ry={ry}
-        fill="#FFFFFF"
-        stroke="#141414"
-        strokeWidth={3.5}
-      />
-      {/* Che mối nối trong giữa đuôi nhọn và thân bầu dục */}
+      {/* Thân bầu dục / pill trắng viền đen 3.5px */}
+      {isTwoLine ? (
+        <rect
+          x={-rx}
+          y={-ry}
+          width={rx * 2}
+          height={ry * 2}
+          rx={36}
+          ry={36}
+          fill="#FFFFFF"
+          stroke="#141414"
+          strokeWidth={3.5}
+        />
+      ) : (
+        <ellipse
+          cx={0}
+          cy={0}
+          rx={rx}
+          ry={ry}
+          fill="#FFFFFF"
+          stroke="#141414"
+          strokeWidth={3.5}
+        />
+      )}
+      {/* Che mối nối trong giữa đuôi nhọn và thân bóng thoại */}
       <polygon
         points={`${(baseX + perpX * 0.82).toFixed(1)},${(baseY + perpY * 0.82).toFixed(1)} ${(tipX * 0.88).toFixed(
           1
         )},${(tipY * 0.88).toFixed(1)} ${(baseX - perpX * 0.82).toFixed(1)},${(baseY - perpY * 0.82).toFixed(1)}`}
         fill="#FFFFFF"
       />
-      <text
-        x={0}
-        y={8}
-        textAnchor="middle"
-        fill={isExclaim && cleanText.length <= 6 ? "#DC2626" : accentColor}
-        fontSize={isExclaim && cleanText.length <= 6 ? 28 : 23}
-        fontWeight={900}
-        fontFamily="'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif"
-      >
-        {cleanText}
-      </text>
+      {isTwoLine ? (
+        <text
+          x={0}
+          textAnchor="middle"
+          fill={textFill}
+          fontSize={fontSize}
+          fontWeight={900}
+          fontFamily="'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif"
+        >
+          <tspan x={0} y={-7}>
+            {lines[0]}
+          </tspan>
+          <tspan x={0} y={20}>
+            {lines[1]}
+          </tspan>
+        </text>
+      ) : (
+        <text
+          x={0}
+          y={8}
+          textAnchor="middle"
+          fill={textFill}
+          fontSize={fontSize}
+          fontWeight={900}
+          fontFamily="'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif"
+        >
+          {cleanText}
+        </text>
+      )}
     </g>
   );
 };

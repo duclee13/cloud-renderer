@@ -19,7 +19,8 @@ export type AutoStageType =
   | "UNDERGROUND_EARTH_CUTAWAY"
   | "SPACE_COSMOS"
   | "ANECHOIC_CHAMBER"
-  | "EXPLAINER_POLKA_DOT";
+  | "EXPLAINER_POLKA_DOT"
+  | "HOST_EXPLAIN_OVERLAY";
 
 export type AutoTimeOfDay = "DAY" | "SUNSET" | "NIGHT";
 export type AutoWeather = "CLEAR" | "RAIN" | "STORM" | "FLOOD";
@@ -160,6 +161,7 @@ export type AutoActorExpression =
 export type AutoHandProp =
   | "NONE"
   | "STICK"
+  | "POINTER"
   | "MAGNIFYING_GLASS"
   | "BUCKET"
   | "NOTEBOOK"
@@ -171,11 +173,12 @@ export type AutoHandProp =
 
 export type AutoPropAnimation = "FLOAT" | "PULSE" | "BOUNCE" | "SPIN" | "SHAKE" | "NONE";
 
-/** V22.2: Khóa bảng nghiên cứu động theo chủ đề cho bối cảnh SCIENCE_LAB_ROOM (tương thích mở rộng mọi tập sau) */
+/** V22.2: Khóa bảng nghiên cứu động theo chủ đề cho bối cảnh SCIENCE_LAB_ROOM / HOST_EXPLAIN_OVERLAY */
 export type KnownLabBoardId =
   | "DEFAULT"
   | "ACOUSTICS_VOICE"
   | "ITCH_NEUROLOGY"
+  | "MIRROR_NEURONS_YAWN"
   | "WATER_SKIN"
   | "ONION_CHEM"
   | "SLEEP_BRAIN";
@@ -188,6 +191,33 @@ export type CountrysideYardDetailId =
   | "SWELL_BUMP"
   | "ICE_TOWEL"
   | "PORCH_FAN";
+
+/** V22.5: Chi tiết phụ trợ cho SCHOOL_CLASSROOM (chai nước bàn học, biểu cảm ngáp dây chuyền) */
+export type ClassroomDetailId =
+  | "NONE"
+  | "DESK_WATER_BOTTLE";
+
+/** V22.5: Chi tiết phụ trợ cho CITY_LIVING_ROOM (chú chó cưng 2D nằm trên thảm, ngáp theo, vẫy đuôi) */
+export type LivingRoomDetailId =
+  | "NONE"
+  | "DOG_REST"
+  | "DOG_YAWN"
+  | "DAD_PET_DOG"
+  | "DOG_WAG";
+
+/** V22.5: Điểm nhấn nổi bật trên bảng trắng HOST_EXPLAIN_OVERLAY */
+export type HostBoardHighlightId =
+  | "NONE"
+  | "LEFT"
+  | "CENTER"
+  | "RIGHT"
+  | "YAWN_TAG"
+  | "OXYGEN_MYTH"
+  | "TWO_TYPES"
+  | "LAUGH_YAWN"
+  | "NOT_COLD"
+  | "BRAKE"
+  | "SUMMARY";
 
 export interface AutoActorSpec {
   preset: AutoActorPreset;
@@ -202,10 +232,14 @@ export interface AutoActorSpec {
   bubbleStartPct?: number;
   bubbleEndPct?: number;
   shiver?: boolean;
-  /** V22.3: Khi true trên COUNTRYSIDE_YARD -> nhân vật ngồi gập gối đặt sát 0px lên mặt chõng tre */
+  /** V22.3: Khi true trên COUNTRYSIDE_YARD / SCHOOL_CLASSROOM / CITY_LIVING_ROOM -> nhân vật ngồi gập gối khít ghế/bàn/sofa */
   seated?: boolean;
   /** V22.4: Khi true -> khóa đồng tử mắt ở chính giữa (dx=0, dy=0) nhìn thẳng trực diện vào camera */
   lookAtCamera?: boolean;
+  /** V22.5: Khi true -> nhân vật há miệng ngáp rõ ràng kèm sóng ngáp mềm bay nhẹ */
+  yawning?: boolean;
+  /** V22.5: Ghi đè trục y mặt sàn cục bộ cho nhân vật (vd: Host tại y=760/770) */
+  groundY?: number;
   /** V18.0: Chuỗi Keyframe Action Timeline diễn xuất liên hoàn 60fps (nếu bỏ trống -> dùng motion/slot V17 cũ) */
   timeline?: ActorKeyframe[];
 }
@@ -238,6 +272,18 @@ export interface AutoEpisodeBeat {
   labBoard?: LabBoardId;
   /** V22.3: Chi tiết sân quê bổ trợ cho COUNTRYSIDE_YARD (muỗi bay, tia gãi, nốt sưng, khăn đá, quạt máy) */
   yardDetail?: CountrysideYardDetailId;
+  /** V22.5: Chi tiết lớp học bổ trợ cho SCHOOL_CLASSROOM (chai nước bàn học...) */
+  classroomDetail?: ClassroomDetailId;
+  /** V22.5: Chi tiết phòng khách bổ trợ cho CITY_LIVING_ROOM (chú chó cưng nằm/ngáp/vẫy đuôi) */
+  livingRoomDetail?: LivingRoomDetailId;
+  /** V22.5: Chế độ Freeze-Frame Host giải thích (phủ màn trắng sữa 0.84 phẳng lên nền freezeStage) */
+  overlayMode?: "HOST_EXPLAIN";
+  /** V22.5: Bối cảnh đời thường đứng yên làm nền cho HOST_EXPLAIN_OVERLAY (vd: SCHOOL_CLASSROOM, CITY_LIVING_ROOM) */
+  freezeStage?: AutoStageType;
+  /** V22.5: Frame tĩnh cố định cho bối cảnh freezeStage (mặc định 90) */
+  freezeFrame?: number;
+  /** V22.5: Điểm nhấn/huy hiệu ngữ cảnh trên bảng trắng trong HOST_EXPLAIN_OVERLAY */
+  hostBoardHighlight?: HostBoardHighlightId;
   /** V22.4: Khi true -> phủ lớp hồi tưởng (Flashback Overlay SVG phẳng: kem/sepia mờ, khung viền trắng 4 cạnh, tag "Hồi tưởng") */
   flashback?: boolean;
   timeOfDay: AutoTimeOfDay;
@@ -287,6 +333,7 @@ export const VALID_STAGE_TYPES: readonly AutoStageType[] = [
   "SPACE_COSMOS",
   "ANECHOIC_CHAMBER",
   "EXPLAINER_POLKA_DOT",
+  "HOST_EXPLAIN_OVERLAY",
 ];
 
 export const VALID_TIME_OF_DAY: readonly AutoTimeOfDay[] = ["DAY", "SUNSET", "NIGHT"];
@@ -403,6 +450,7 @@ export const VALID_ACTOR_EXPRESSIONS: readonly AutoActorExpression[] = [
 export const VALID_HAND_PROPS: readonly AutoHandProp[] = [
   "NONE",
   "STICK",
+  "POINTER",
   "MAGNIFYING_GLASS",
   "BUCKET",
   "NOTEBOOK",
@@ -816,7 +864,7 @@ const ANIM_ALIASES: Record<string, AutoPropAnimation> = {
 const ROBOTIC_BUBBLE_PATTERNS: readonly RegExp[] = [
   /^cười(?=$|[\s.!?,…:;])/i,
   /^khóc(?=$|[\s.!?,…:;])/i,
-  /^đang\s+/i,
+  /^đang\s+(đi|chạy|ngồi|đứng|nhìn|nghĩ|suy\s+nghĩ|cười|khóc|ngủ|ăn|uống)(?=$|[\s.!?,…:;])/i,
   /^suy\s+nghĩ(?=$|[\s.!?,…:;])/i,
   /^ngạc\s+nhiên(?=$|[\s.!?,…:;])/i,
   /^sợ\s+quá(?=$|[\s.!?,…:;])/i,
@@ -834,7 +882,7 @@ const ROBOTIC_BUBBLE_PATTERNS: readonly RegExp[] = [
 ];
 
 /**
- * V17.2: Lọc bỏ bóng thoại sáo rỗng / mô tả hành động / quá dài (> 5 từ) để chỉ giữ lời thốt đời thường ngắn gọn.
+ * V17.2–V22.5: Lọc bỏ bóng thoại sáo rỗng / mô tả hành động / quá dài (> 10 từ) để giữ lời thoại đời thường tự nhiên (hỗ trợ tự xuống 2 dòng).
  */
 export function sanitizeSpeechBubble(rawBubble: unknown): string | undefined {
   if (typeof rawBubble !== "string") return undefined;
@@ -846,13 +894,13 @@ export function sanitizeSpeechBubble(rawBubble: unknown): string | undefined {
   if (!cleaned) return undefined;
 
   const words = cleaned.split(/\s+/).filter(Boolean);
-  if (words.length > 5) return undefined;
+  if (words.length > 10) return undefined;
 
   for (const pattern of ROBOTIC_BUBBLE_PATTERNS) {
     if (pattern.test(cleaned)) return undefined;
   }
 
-  return cleaned.slice(0, 48);
+  return cleaned.slice(0, 84);
 }
 
 const ACTION_POSE_V18_ALIASES: Record<string, ActionPoseV18> = {
@@ -1034,6 +1082,11 @@ function sanitizeActor(raw: any, index: number, totalActors = 2): AutoActorSpec 
   const shiver = Boolean(raw?.shiver);
   const seated = Boolean(raw?.seated);
   const lookAtCamera = Boolean(raw?.lookAtCamera);
+  const yawning = Boolean(raw?.yawning);
+  const groundY =
+    raw?.groundY !== undefined && raw?.groundY !== null && Number.isFinite(Number(raw.groundY))
+      ? Math.round(clampNum(raw.groundY, 640, 920, 840))
+      : undefined;
 
   const hasBubbleWindow = raw?.bubbleStartPct !== undefined || raw?.bubbleEndPct !== undefined;
   const bubbleStartPct = hasBubbleWindow
@@ -1066,6 +1119,8 @@ function sanitizeActor(raw: any, index: number, totalActors = 2): AutoActorSpec 
     ...(shiver ? { shiver: true } : {}),
     ...(seated ? { seated: true } : {}),
     ...(lookAtCamera ? { lookAtCamera: true } : {}),
+    ...(yawning ? { yawning: true } : {}),
+    ...(groundY !== undefined ? { groundY } : {}),
     ...(timeline ? { timeline } : {}),
   };
 }
@@ -1118,6 +1173,52 @@ function sanitizeYardDetailId(raw: unknown): CountrysideYardDetailId | undefined
     : undefined;
 }
 
+const VALID_CLASSROOM_DETAILS: readonly ClassroomDetailId[] = ["NONE", "DESK_WATER_BOTTLE"];
+const VALID_LIVING_ROOM_DETAILS: readonly LivingRoomDetailId[] = [
+  "NONE",
+  "DOG_REST",
+  "DOG_YAWN",
+  "DAD_PET_DOG",
+  "DOG_WAG",
+];
+const VALID_HOST_HIGHLIGHTS: readonly HostBoardHighlightId[] = [
+  "NONE",
+  "LEFT",
+  "CENTER",
+  "RIGHT",
+  "YAWN_TAG",
+  "OXYGEN_MYTH",
+  "TWO_TYPES",
+  "LAUGH_YAWN",
+  "NOT_COLD",
+  "BRAKE",
+  "SUMMARY",
+];
+
+function sanitizeClassroomDetailId(raw: unknown): ClassroomDetailId | undefined {
+  if (typeof raw !== "string") return undefined;
+  const norm = raw.trim().toUpperCase().replace(/[\s-]+/g, "_");
+  return (VALID_CLASSROOM_DETAILS as readonly string[]).includes(norm)
+    ? (norm as ClassroomDetailId)
+    : undefined;
+}
+
+function sanitizeLivingRoomDetailId(raw: unknown): LivingRoomDetailId | undefined {
+  if (typeof raw !== "string") return undefined;
+  const norm = raw.trim().toUpperCase().replace(/[\s-]+/g, "_");
+  return (VALID_LIVING_ROOM_DETAILS as readonly string[]).includes(norm)
+    ? (norm as LivingRoomDetailId)
+    : undefined;
+}
+
+function sanitizeHostBoardHighlightId(raw: unknown): HostBoardHighlightId | undefined {
+  if (typeof raw !== "string") return undefined;
+  const norm = raw.trim().toUpperCase().replace(/[\s-]+/g, "_");
+  return (VALID_HOST_HIGHLIGHTS as readonly string[]).includes(norm)
+    ? (norm as HostBoardHighlightId)
+    : undefined;
+}
+
 /**
  * Chuẩn hóa, tự sửa enum sai lệch và làm sạch tuyệt đối kịch bản JSON từ AI thành AutoEpisodeSpec hợp lệ 100%.
  */
@@ -1155,8 +1256,23 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
     const headerTitle = explicitlyBlankBanner ? undefined : rawHeaderTitle ?? rawChapterBanner;
 
     const stageType = matchEnum(rb?.stageType, VALID_STAGE_TYPES, "SIMPLE_GRASS_FIELD", STAGE_ALIASES);
-    const labBoard = sanitizeLabBoardId(rb?.labBoard) ?? episodeLabBoard;
+    const labBoard = sanitizeLabBoardId(rb?.labBoard) ?? (stageType === "SCIENCE_LAB_ROOM" ? episodeLabBoard : undefined);
     const yardDetail = sanitizeYardDetailId(rb?.yardDetail);
+    const classroomDetail = sanitizeClassroomDetailId(rb?.classroomDetail);
+    const livingRoomDetail = sanitizeLivingRoomDetailId(rb?.livingRoomDetail);
+    const overlayMode =
+      normalizeUpperKey(rb?.overlayMode) === "HOST_EXPLAIN" || stageType === "HOST_EXPLAIN_OVERLAY"
+        ? ("HOST_EXPLAIN" as const)
+        : undefined;
+    const freezeStage =
+      typeof rb?.freezeStage === "string" && rb.freezeStage.trim()
+        ? matchEnum(rb.freezeStage, VALID_STAGE_TYPES, "SCHOOL_CLASSROOM", STAGE_ALIASES)
+        : undefined;
+    const freezeFrame =
+      rb?.freezeFrame !== undefined && rb?.freezeFrame !== null && Number.isFinite(Number(rb.freezeFrame))
+        ? Math.max(0, Math.round(Number(rb.freezeFrame)))
+        : undefined;
+    const hostBoardHighlight = sanitizeHostBoardHighlightId(rb?.hostBoardHighlight);
     const flashback = rb?.flashback === true ? true : undefined;
     const timeOfDay = matchEnum(rb?.timeOfDay, VALID_TIME_OF_DAY, "DAY");
     const weather = matchEnum(rb?.weather, VALID_WEATHER, "CLEAR");
@@ -1229,6 +1345,12 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       stageType,
       ...(labBoard ? { labBoard } : {}),
       ...(yardDetail ? { yardDetail } : {}),
+      ...(classroomDetail && classroomDetail !== "NONE" ? { classroomDetail } : {}),
+      ...(livingRoomDetail && livingRoomDetail !== "NONE" ? { livingRoomDetail } : {}),
+      ...(overlayMode ? { overlayMode } : {}),
+      ...(freezeStage ? { freezeStage } : {}),
+      ...(freezeFrame !== undefined ? { freezeFrame } : {}),
+      ...(hostBoardHighlight && hostBoardHighlight !== "NONE" ? { hostBoardHighlight } : {}),
       ...(flashback ? { flashback: true } : {}),
       timeOfDay,
       weather,

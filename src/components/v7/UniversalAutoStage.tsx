@@ -35,6 +35,14 @@ import {
 import { LotusPondBackdrop } from "./TadpoleMovieStages";
 import { CuratedAnimatedProp } from "./AutoPropLibrary";
 import { EPISODE_VISUAL_REGISTRY, type EpisodeVisualProps } from "./episodeVisuals";
+import { GroundShadow } from "../SceneBackdropKit";
+import {
+  HostMirrorNeuronsBoard,
+  ClassroomSeatedChairsBack,
+  ClassroomSeatedDesksForeground,
+  LivingRoomPetDog,
+  ActorYawnWavesOverlay,
+} from "./HostExplainAndStageKits";
 import { resolvePendulumArms } from "../../animscript/motionGraph";
 import { smoothstep, lerpNum } from "../../lib/v7/universalAnimationStandard";
 import {
@@ -1241,39 +1249,63 @@ const CityLivingRoomStaticWindowFrame = React.memo<{ timeOfDay: AutoTimeOfDay }>
   );
 });
 
-const CityLivingRoomStaticFurniture = React.memo<{ timeOfDay: AutoTimeOfDay }>(({ timeOfDay }) => {
-  const isNight = timeOfDay === "NIGHT";
-  return (
-    <g>
-      <g transform="translate(1150, 175)">
-        <rect x={0} y={0} width={165} height={118} rx={8} fill="#FFFFFF" stroke="#141414" strokeWidth={3.4} />
-        <path d="M 18,92 L 62,44 L 98,78 L 122,56 L 148,92 Z" fill="#86EFAC" stroke="#141414" strokeWidth={2.4} />
-        <circle cx={122} cy={34} r={12} fill="#FDE047" stroke="#141414" strokeWidth={2.2} />
-      </g>
-      <g id="living-room-sofa" transform="translate(650, 565)">
-        <ellipse cx={260} cy={227} rx={275} ry={12} fill="#0F172A" opacity={0.12} stroke="none" />
-        <rect x={28} y={204} width={16} height={22} rx={3} fill="#78350F" />
-        <rect x={476} y={204} width={16} height={22} rx={3} fill="#78350F" />
-        <rect x={18} y={0} width={484} height={135} rx={24} fill={isNight ? "#0EA5E9" : "#38BDF8"} />
-        <line x1={260} y1={14} x2={260} y2={130} stroke="#141414" strokeWidth={2.8} />
-        <rect x={0} y={76} width={44} height={128} rx={16} fill={isNight ? "#0284C7" : "#0EA5E9"} />
-        <rect x={476} y={76} width={44} height={128} rx={16} fill={isNight ? "#0284C7" : "#0EA5E9"} />
-        <rect x={36} y={118} width={448} height={86} rx={16} fill={isNight ? "#0284C7" : "#0EA5E9"} />
-        <rect x={62} y={54} width={66} height={62} rx={14} transform="rotate(-8, 95, 85)" fill="#FDE047" />
-      </g>
-      <g id="living-room-coffee-table" transform="translate(1245, 682)">
-        <ellipse cx={145} cy={118} rx={155} ry={10} fill="#0F172A" opacity={0.12} stroke="none" />
-        <rect x={24} y={26} width={16} height={90} rx={4} fill="#92400E" />
-        <rect x={250} y={26} width={16} height={90} rx={4} fill="#92400E" />
-        <rect x={0} y={4} width={290} height={24} rx={8} fill="#B45309" />
-        <path d="M 96,4 L 102,-24 L 136,-24 L 142,4 Z" fill="#FFFFFF" stroke="#141414" strokeWidth={2.6} />
-        <rect x={168} y={-14} width={26} height={18} rx={4} fill="#FEF08A" stroke="#141414" strokeWidth={2.4} />
-      </g>
-    </g>
-  );
-});
+const CityLivingRoomStaticFurniture = React.memo<{ timeOfDay: AutoTimeOfDay; hasPetDog?: boolean }>(
+  ({ timeOfDay, hasPetDog = false }) => {
+    const isNight = timeOfDay === "NIGHT";
+    const isSunset = timeOfDay === "SUNSET";
+    const sofaX = hasPetDog ? 540 : 650;
+    const tableX = hasPetDog ? 1425 : 1245;
+    return (
+      <g>
+        {/* Warm pendant ceiling lamp with soft flat cone glow in evening/sunset */}
+        <g id="living-room-warm-lamp" transform="translate(960, 0)">
+          <line x1={0} y1={0} x2={0} y2={92} stroke="#475569" strokeWidth={4} />
+          {(isSunset || isNight) && (
+            <polygon
+              points="-34,112 34,112 240,620 -240,620"
+              fill="#FEF08A"
+              opacity={isNight ? 0.16 : 0.14}
+              stroke="none"
+            />
+          )}
+          <path d="M -42,114 Q 0,80 42,114 Z" fill="#F59E0B" stroke="#141414" strokeWidth={3} />
+          <circle cx={0} cy={118} r={11} fill="#FEF9C3" stroke="#141414" strokeWidth={2.4} />
+        </g>
 
-const CityLivingRoomBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: number }> = ({ timeOfDay, frame }) => {
+        <g transform="translate(1150, 175)">
+          <rect x={0} y={0} width={165} height={118} rx={8} fill="#FFFFFF" stroke="#141414" strokeWidth={3.4} />
+          <path d="M 18,92 L 62,44 L 98,78 L 122,56 L 148,92 Z" fill="#86EFAC" stroke="#141414" strokeWidth={2.4} />
+          <circle cx={122} cy={34} r={12} fill="#FDE047" stroke="#141414" strokeWidth={2.2} />
+        </g>
+        <g id="living-room-sofa" transform={`translate(${sofaX}, ${hasPetDog ? 592 : 565})`}>
+          <ellipse cx={260} cy={227} rx={275} ry={12} fill="#0F172A" opacity={0.12} stroke="none" />
+          <rect x={28} y={204} width={16} height={22} rx={3} fill="#78350F" />
+          <rect x={476} y={204} width={16} height={22} rx={3} fill="#78350F" />
+          <rect x={18} y={0} width={484} height={135} rx={24} fill={isNight ? "#0EA5E9" : "#38BDF8"} />
+          <line x1={260} y1={14} x2={260} y2={130} stroke="#141414" strokeWidth={2.8} />
+          <rect x={0} y={76} width={44} height={128} rx={16} fill={isNight ? "#0284C7" : "#0EA5E9"} />
+          <rect x={476} y={76} width={44} height={128} rx={16} fill={isNight ? "#0284C7" : "#0EA5E9"} />
+          <rect x={36} y={118} width={448} height={86} rx={16} fill={isNight ? "#0284C7" : "#0EA5E9"} />
+          <rect x={62} y={54} width={66} height={62} rx={14} transform="rotate(-8, 95, 85)" fill="#FDE047" />
+        </g>
+        <g id="living-room-coffee-table" transform={`translate(${tableX}, 682)`}>
+          <ellipse cx={145} cy={118} rx={155} ry={10} fill="#0F172A" opacity={0.12} stroke="none" />
+          <rect x={24} y={26} width={16} height={90} rx={4} fill="#92400E" />
+          <rect x={250} y={26} width={16} height={90} rx={4} fill="#92400E" />
+          <rect x={0} y={4} width={290} height={24} rx={8} fill="#B45309" />
+          <path d="M 96,4 L 102,-24 L 136,-24 L 142,4 Z" fill="#FFFFFF" stroke="#141414" strokeWidth={2.6} />
+          <rect x={168} y={-14} width={26} height={18} rx={4} fill="#FEF08A" stroke="#141414" strokeWidth={2.4} />
+        </g>
+      </g>
+    );
+  }
+);
+
+const CityLivingRoomBackdrop: React.FC<{
+  timeOfDay: AutoTimeOfDay;
+  frame: number;
+  hasPetDog?: boolean;
+}> = ({ timeOfDay, frame, hasPetDog = false }) => {
   const isNight = timeOfDay === "NIGHT";
   const isSunset = timeOfDay === "SUNSET";
   const cloudX = ((40 + frame * 0.16) % 360) - 20;
@@ -1310,7 +1342,7 @@ const CityLivingRoomBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: number
         <circle cx={0} cy={0} r={4} fill="#141414" stroke="none" />
       </g>
 
-      <CityLivingRoomStaticFurniture timeOfDay={timeOfDay} />
+      <CityLivingRoomStaticFurniture timeOfDay={timeOfDay} hasPetDog={hasPetDog} />
 
       <g id="living-room-plant" transform="translate(1735, 792)">
         <ellipse cx={0} cy={4} rx={48} ry={10} fill="#0F172A" opacity={0.12} stroke="none" />
@@ -1457,64 +1489,97 @@ const CityStreetParkBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: number
   );
 };
 
-const SchoolClassroomStaticRoom = React.memo<{ timeOfDay: AutoTimeOfDay }>(({ timeOfDay }) => {
-  const isNight = timeOfDay === "NIGHT";
-  return (
-    <g>
-      <rect x={0} y={0} width={1920} height={540} fill={isNight ? "#1E293B" : "#FEFCE8"} stroke="none" />
-      <rect x={0} y={540} width={1920} height={225} fill={isNight ? "#334155" : "#DCFCE7"} stroke="none" />
-      <line x1={0} y1={540} x2={1920} y2={540} stroke="#141414" strokeWidth={3} />
-      <rect x={0} y={765} width={1920} height={315} fill={isNight ? "#475569" : "#E2E8F0"} stroke="none" />
-      <line x1={0} y1={765} x2={1920} y2={765} stroke="#141414" strokeWidth={3.2} />
-
-      <g id="classroom-chalkboard" transform="translate(500, 155)">
-        <rect x={0} y={0} width={860} height={330} rx={12} fill="#14532D" stroke="#92400E" strokeWidth={12} />
-        <rect x={0} y={0} width={860} height={330} rx={12} fill="none" stroke="#141414" strokeWidth={3} />
-        <rect x={-10} y={326} width={880} height={18} rx={5} fill="#B45309" stroke="#141414" strokeWidth={3} />
-        <rect x={140} y={316} width={48} height={12} rx={3} fill="#FDE047" stroke="#141414" strokeWidth={2.2} />
-        <rect x={210} y={320} width={28} height={7} rx={2} fill="#FFFFFF" stroke="none" />
-        <polygon points="120,245 220,95 310,245" fill="none" stroke="#FFFFFF" strokeWidth={4} opacity={0.88} />
-        <path d="M 430,220 Q 510,105 590,220 T 750,180" fill="none" stroke="#FEF08A" strokeWidth={4.5} strokeLinecap="round" opacity={0.9} />
-        <line x1={420} y1={255} x2={765} y2={255} stroke="#FFFFFF" strokeWidth={3.2} opacity={0.75} />
-      </g>
-
-      <g transform="translate(1475, 305)">
-        <rect x={0} y={0} width={320} height={170} rx={10} fill="#FDE68A" stroke="#92400E" strokeWidth={6} />
-        <rect x={26} y={24} width={78} height={96} rx={4} fill="#FFFFFF" strokeWidth={2.2} />
-        <rect x={122} y={28} width={78} height={92} rx={4} fill="#BAE6FD" strokeWidth={2.2} />
-        <rect x={218} y={22} width={76} height={98} rx={4} fill="#FBCFE8" strokeWidth={2.2} />
-      </g>
-
-      {[125, 1515].map((dx, idx) => (
-        <g key={`desk_${idx}`} id={idx === 0 ? "classroom-student-desks" : undefined} transform={`translate(${dx}, 648)`}>
-          <ellipse cx={135} cy={150} rx={148} ry={10} fill="#0F172A" opacity={0.12} stroke="none" />
-          <rect x={82} y={-24} width={106} height={18} rx={4} fill="#D97706" />
-          <rect x={92} y={-6} width={12} height={152} fill="#78350F" />
-          <rect x={166} y={-6} width={12} height={152} fill="#78350F" />
-          <rect x={22} y={22} width={16} height={125} fill="#64748B" />
-          <rect x={232} y={22} width={16} height={125} fill="#64748B" />
-          <rect x={14} y={22} width={242} height={34} rx={4} fill="#B45309" />
-          <rect x={0} y={4} width={270} height={20} rx={6} fill="#D97706" />
+const SchoolClassroomStaticRoom = React.memo<{ timeOfDay: AutoTimeOfDay; seatedMode?: boolean }>(
+  ({ timeOfDay, seatedMode = false }) => {
+    const isNight = timeOfDay === "NIGHT";
+    const isSunset = timeOfDay === "SUNSET";
+    return (
+      <g>
+        <rect x={0} y={0} width={1920} height={540} fill={isNight ? "#1E293B" : isSunset ? "#FEF3C7" : "#FEFCE8"} stroke="none" />
+        <rect x={0} y={540} width={1920} height={225} fill={isNight ? "#334155" : "#DCFCE7"} stroke="none" />
+        <line x1={0} y1={540} x2={1920} y2={540} stroke="#141414" strokeWidth={3} />
+        <rect x={0} y={765} width={1920} height={315} fill={isNight ? "#475569" : "#E2E8F0"} stroke="none" />
+        <line x1={0} y1={765} x2={1920} y2={765} stroke="#141414" strokeWidth={3.2} />
+        {/* Subtle tiled floor seams (3-layer indoor depth) */}
+        <g stroke="#94A3B8" strokeWidth={1.6} opacity={0.22}>
+          <line x1={0} y1={822} x2={1920} y2={822} />
+          {[240, 480, 720, 960, 1200, 1440, 1680].map((fx) => (
+            <line key={`cls_fl_${fx}`} x1={fx} y1={765} x2={fx - 26} y2={822} />
+          ))}
         </g>
-      ))}
-    </g>
-  );
-});
 
-const SchoolClassroomBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: number }> = ({ timeOfDay, frame }) => {
+        {/* Soft diagonal classroom sunbeam falling from left window (zero blur) */}
+        {!isNight && (
+          <polygon
+            points="88,435 358,165 690,765 250,765"
+            fill={isSunset ? "#FDE68A" : "#FEF9C3"}
+            opacity={isSunset ? 0.22 : 0.17}
+            stroke="none"
+          />
+        )}
+
+        <g id="classroom-chalkboard" transform="translate(500, 155)">
+          <rect x={0} y={0} width={860} height={330} rx={12} fill="#14532D" stroke="#92400E" strokeWidth={12} />
+          <rect x={0} y={0} width={860} height={330} rx={12} fill="none" stroke="#141414" strokeWidth={3} />
+          <rect x={-10} y={326} width={880} height={18} rx={5} fill="#B45309" stroke="#141414" strokeWidth={3} />
+          <rect x={140} y={316} width={48} height={12} rx={3} fill="#FDE047" stroke="#141414" strokeWidth={2.2} />
+          <rect x={210} y={320} width={28} height={7} rx={2} fill="#FFFFFF" stroke="none" />
+          <polygon points="120,245 220,95 310,245" fill="none" stroke="#FFFFFF" strokeWidth={4} opacity={0.88} />
+          <path d="M 430,220 Q 510,105 590,220 T 750,180" fill="none" stroke="#FEF08A" strokeWidth={4.5} strokeLinecap="round" opacity={0.9} />
+          <line x1={420} y1={255} x2={765} y2={255} stroke="#FFFFFF" strokeWidth={3.2} opacity={0.75} />
+        </g>
+
+        <g transform="translate(1475, 305)">
+          <rect x={0} y={0} width={320} height={170} rx={10} fill="#FDE68A" stroke="#92400E" strokeWidth={6} />
+          <rect x={26} y={24} width={78} height={96} rx={4} fill="#FFFFFF" strokeWidth={2.2} />
+          <rect x={122} y={28} width={78} height={92} rx={4} fill="#BAE6FD" strokeWidth={2.2} />
+          <rect x={218} y={22} width={76} height={98} rx={4} fill="#FBCFE8" strokeWidth={2.2} />
+        </g>
+
+        {/* Side desks shown cleanly when NOT in full-row seated classroom mode */}
+        {!seatedMode &&
+          [125, 1515].map((dx, idx) => (
+            <g key={`desk_${idx}`} id={idx === 0 ? "classroom-student-desks" : undefined} transform={`translate(${dx}, 648)`}>
+              <ellipse cx={135} cy={150} rx={148} ry={10} fill="#0F172A" opacity={0.12} stroke="none" />
+              <rect x={82} y={-24} width={106} height={18} rx={4} fill="#D97706" />
+              <rect x={92} y={-6} width={12} height={152} fill="#78350F" />
+              <rect x={166} y={-6} width={12} height={152} fill="#78350F" />
+              <rect x={22} y={22} width={16} height={125} fill="#64748B" />
+              <rect x={232} y={22} width={16} height={125} fill="#64748B" />
+              <rect x={14} y={22} width={242} height={34} rx={4} fill="#B45309" />
+              <rect x={0} y={4} width={270} height={20} rx={6} fill="#D97706" />
+            </g>
+          ))}
+      </g>
+    );
+  }
+);
+
+const SchoolClassroomBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: number; seatedMode?: boolean }> = ({
+  timeOfDay,
+  frame,
+  seatedMode = false,
+}) => {
   const isNight = timeOfDay === "NIGHT";
+  const isSunset = timeOfDay === "SUNSET";
   const cloudX = ((30 + frame * 0.15) % 240) - 10;
   const secDeg = (frame * 3) % 360;
   const minDeg = (frame * 0.15 + 120) % 360;
 
   return (
     <g id="stage-school-classroom" stroke="#141414" strokeWidth={3} strokeLinejoin="round">
-      <SchoolClassroomStaticRoom timeOfDay={timeOfDay} />
+      <SchoolClassroomStaticRoom timeOfDay={timeOfDay} seatedMode={seatedMode} />
 
       <g id="classroom-window" transform="translate(88, 165)">
-        <rect x={0} y={0} width={270} height={270} rx={10} fill={isNight ? "#0F172A" : "#7DD3FC"} />
+        <rect x={0} y={0} width={270} height={270} rx={10} fill={isNight ? "#0F172A" : isSunset ? "#FDBA74" : "#7DD3FC"} />
         {!isNight && (
-          <ellipse cx={Math.max(42, Math.min(228, cloudX))} cy={76} rx={36} ry={15} fill="#FFFFFF" stroke="none" opacity={0.88} />
+          <>
+            <ellipse cx={Math.max(42, Math.min(228, cloudX))} cy={70} rx={36} ry={15} fill="#FFFFFF" stroke="none" opacity={0.9} />
+            {/* Outdoor campus greenery visible outside classroom window (Layer 1 depth) */}
+            <path d="M 4,266 Q 68,204 136,228 Q 204,196 266,226 L 266,266 Z" fill="#4ADE80" stroke="none" />
+            <circle cx={64} cy={222} r={26} fill="#22C55E" stroke="none" />
+            <circle cx={216} cy={228} r={28} fill="#16A34A" stroke="none" />
+          </>
         )}
         <line x1={135} y1={0} x2={135} y2={270} strokeWidth={3.5} />
         <line x1={0} y1={135} x2={270} y2={135} strokeWidth={3.5} />
@@ -1723,6 +1788,14 @@ const HandPropGraphic: React.FC<{
           <path d="M -10,0 L 112,-4" stroke="#141414" strokeWidth={10} strokeLinecap="round" />
           <path d="M -10,0 L 112,-4" stroke="#92400E" strokeWidth={6} strokeLinecap="round" />
           <ellipse cx={116} cy={-12} rx={11} ry={6} fill="#4ADE80" stroke="#141414" strokeWidth={2.2} />
+        </g>
+      )}
+      {prop === "POINTER" && (
+        <g id="hand-prop-pointer" transform="rotate(-22)">
+          <line x1={-12} y1={0} x2={122} y2={0} stroke="#141414" strokeWidth={8.5} strokeLinecap="round" />
+          <line x1={-12} y1={0} x2={24} y2={0} stroke="#1E293B" strokeWidth={5.5} strokeLinecap="round" />
+          <line x1={24} y1={0} x2={116} y2={0} stroke="#E2E8F0" strokeWidth={4.2} strokeLinecap="round" />
+          <circle cx={124} cy={0} r={6.5} fill="#EF4444" stroke="#141414" strokeWidth={2.4} />
         </g>
       )}
       {prop === "MAGNIFYING_GLASS" && (
@@ -2528,13 +2601,17 @@ export const UniversalAutoStage: React.FC<{
   groundY?: number;
   fps?: number;
 }> = ({ spec, frame, localFrame, durationFrames, u, groundY = 840, fps = 60 }) => {
+  const isHostExplain = spec.stageType === "HOST_EXPLAIN_OVERLAY" || spec.overlayMode === "HOST_EXPLAIN";
+  const effectiveStageType = isHostExplain ? (spec.freezeStage ?? "SCHOOL_CLASSROOM") : spec.stageType;
+  const stageRenderFrame = isHostExplain ? (spec.freezeFrame ?? 90) : frame;
+  const hasHostWhiteboard = Boolean(isHostExplain && spec.labBoard === "MIRROR_NEURONS_YAWN");
   const isNight = spec.timeOfDay === "NIGHT";
   const isOutdoor =
-    spec.stageType === "COUNTRYSIDE_YARD" ||
-    spec.stageType === "SIMPLE_GRASS_FIELD" ||
-    spec.stageType === "CITY_STREET" ||
-    spec.stageType === "CITY_STREET_PARK" ||
-    spec.stageType === "WATER_POND_OCEAN";
+    effectiveStageType === "COUNTRYSIDE_YARD" ||
+    effectiveStageType === "SIMPLE_GRASS_FIELD" ||
+    effectiveStageType === "CITY_STREET" ||
+    effectiveStageType === "CITY_STREET_PARK" ||
+    effectiveStageType === "WATER_POND_OCEAN";
 
   const slotBaseX = (slot: AutoActorSpec["slot"]): number =>
     slot === "LEFT" ? 490 : slot === "RIGHT" ? 1390 : 960;
@@ -2613,6 +2690,7 @@ export const UniversalAutoStage: React.FC<{
     isSpeaking: boolean;
     isActivelyTalkingPose: boolean;
     actorX: number;
+    actorGroundY: number;
     headWorldY: number;
     effectiveFacing: "LEFT" | "RIGHT";
     activeExprEnum: AutoActorExpression;
@@ -2702,6 +2780,7 @@ export const UniversalAutoStage: React.FC<{
         isSpeaking,
         isActivelyTalkingPose: false,
         actorX: sleepAnchorX,
+        actorGroundY: actor.groundY ?? groundY,
         headWorldY: 610,
         effectiveFacing: actor.facing,
         activeExprEnum: actor.expression,
@@ -3018,13 +3097,35 @@ export const UniversalAutoStage: React.FC<{
       effectiveFacing = "RIGHT";
     }
 
+    // V22.5: Hiệu ứng trượt mượt vào khung hình (~12 frame) cho Host bên trái trong HOST_EXPLAIN_OVERLAY
+    if (isHostExplain && hasHostWhiteboard && aIdx === 0) {
+      const slideT = smoothstep(0, 1, Math.min(1, localFrame / 12));
+      actorX = actorX - (1 - slideT) * 110;
+    }
+
+    const actorGroundY = actor.groundY ?? groundY;
     const isSeatedActor = Boolean(actor.seated === true && pose !== "walking" && pose !== "running");
     if (isSeatedActor) {
       pose = "sittingBehindDesk";
       flightLift = 0;
       crouchDepth = 0;
     }
-    const seatedHipYVal = isSeatedActor ? Math.max(-180, Math.min(-85, -108 / actorScale)) : undefined;
+    const seatedSeatOffset =
+      effectiveStageType === "SCHOOL_CLASSROOM"
+        ? 128
+        : effectiveStageType === "CITY_LIVING_ROOM"
+        ? 106
+        : 108;
+    const seatedHipYVal = isSeatedActor
+      ? Math.max(-185, Math.min(-85, -seatedSeatOffset / actorScale))
+      : undefined;
+
+    if (actor.yawning) {
+      overrideMouth = "gasp";
+      if (activeExprEnum !== "SURPRISED" && activeExprEnum !== "SHOCKED") {
+        overrideEyes = "closed";
+      }
+    }
 
     const facingDir: 1 | -1 = effectiveFacing === "LEFT" ? -1 : 1;
     const isActorWalking = (pose === "walking" || pose === "running" || walkCycle > 0) && walkWeight > 0.02;
@@ -3036,7 +3137,7 @@ export const UniversalAutoStage: React.FC<{
     );
     const actorEffectiveScaleY = actorScale * actorIdleBreathFactor * anticipationScaleY;
     const estHipY = seatedHipYVal !== undefined ? seatedHipYVal : -173 + crouchDepth - flightLift;
-    const headWorldY = groundY + (estHipY - TORSO_LEN - 70) * actorEffectiveScaleY;
+    const headWorldY = actorGroundY + (estHipY - TORSO_LEN - 70) * actorEffectiveScaleY;
 
     // V18.3: Khóa cứng thời lượng nét run `shiver` chỉ nháy trong 30 frames đầu (0.5s) rồi tắt dần mượt mà!
     const shiverAgeFrames = timelineResolved ? v18LocalFrame : localFrame;
@@ -3054,7 +3155,7 @@ export const UniversalAutoStage: React.FC<{
 
     let handGripX = holdingTarget?.rightGrip?.x ?? actorX + facingDir * 84 * actorScale;
     let handGripY =
-      holdingTarget?.rightGrip?.y ?? groundY - (216 + flightLift - crouchDepth * 0.65) * actorEffectiveScaleY;
+      holdingTarget?.rightGrip?.y ?? actorGroundY - (216 + flightLift - crouchDepth * 0.65) * actorEffectiveScaleY;
     let writePenWorld: { x: number; y: number } | null = null;
 
     if (blendedArmPose) {
@@ -3064,7 +3165,7 @@ export const UniversalAutoStage: React.FC<{
           estHipY,
           torsoTiltDeg,
           actorX,
-          groundY,
+          actorGroundY,
           actorScale,
           facingDir,
           actorEffectiveScaleY
@@ -3076,7 +3177,7 @@ export const UniversalAutoStage: React.FC<{
           estHipY,
           torsoTiltDeg,
           actorX,
-          groundY,
+          actorGroundY,
           actorScale,
           facingDir,
           actorEffectiveScaleY
@@ -3087,7 +3188,7 @@ export const UniversalAutoStage: React.FC<{
           estHipY,
           torsoTiltDeg,
           actorX,
-          groundY,
+          actorGroundY,
           actorScale,
           facingDir,
           actorEffectiveScaleY
@@ -3124,6 +3225,7 @@ export const UniversalAutoStage: React.FC<{
       isSpeaking,
       isActivelyTalkingPose,
       actorX,
+      actorGroundY,
       headWorldY,
       effectiveFacing,
       activeExprEnum,
@@ -3160,23 +3262,35 @@ export const UniversalAutoStage: React.FC<{
     };
   });
 
+  const seatedClassroomActors =
+    !isHostExplain && effectiveStageType === "SCHOOL_CLASSROOM"
+      ? resolvedActors.filter((ra) => ra.actor.seated === true)
+      : [];
+  const hasClassroomSeatedRow = seatedClassroomActors.length > 0;
+  const hasLivingRoomDog = Boolean(
+    effectiveStageType === "CITY_LIVING_ROOM" &&
+      spec.livingRoomDetail &&
+      spec.livingRoomDetail !== "NONE"
+  );
+  const hostVeilOpacity = isHostExplain ? 0.84 * Math.min(1, Math.max(0.25, localFrame / 12)) : 0;
+
   return (
     <g id={`universal-auto-stage-${spec.id}`}>
       <g transform={`translate(${camFocusX}, ${camFocusY}) scale(${camZoom.toFixed(4)}) translate(${-camFocusX}, ${-camFocusY})`}>
-        {/* 1. BỐI CẢNH (11 BỐI CẢNH SỐNG ĐỘNG 60FPS — BAO GỒM PHÒNG TIÊU ÂM ANECHOIC_CHAMBER V18.2) */}
-        {spec.stageType === "COUNTRYSIDE_YARD" && (
+        {/* 1. BỐI CẢNH (HỖ TRỢ ĐẦY ĐỦ FREEZE-FRAME CHO HOST_EXPLAIN_OVERLAY) */}
+        {effectiveStageType === "COUNTRYSIDE_YARD" && (
           <CountrysideYardBackdrop
             timeOfDay={spec.timeOfDay}
-            frame={frame}
+            frame={stageRenderFrame}
             groundY={groundY}
             chongTreCentered={spec.actors.some((a) => a.seated === true)}
             showPorchFan={spec.yardDetail === "PORCH_FAN"}
           />
         )}
-        {spec.stageType === "SIMPLE_GRASS_FIELD" && (
+        {effectiveStageType === "SIMPLE_GRASS_FIELD" && (
           <SimpleGrassFieldBackdrop
             timeOfDay={spec.timeOfDay}
-            frame={frame}
+            frame={stageRenderFrame}
             groundY={groundY}
             weather={
               spec.weather === "FLOOD"
@@ -3187,51 +3301,59 @@ export const UniversalAutoStage: React.FC<{
             }
           />
         )}
-        {spec.stageType === "BEDROOM_INDOOR" && (
+        {effectiveStageType === "BEDROOM_INDOOR" && (
           <BedroomIndoorBackdrop
             timeOfDay={spec.timeOfDay}
-            frame={frame}
+            frame={stageRenderFrame}
             groundY={groundY}
             rainOutside={spec.weather === "RAIN" || spec.weather === "STORM"}
           />
         )}
-        {spec.stageType === "CITY_STREET" && (
-          <CityStreetBackdrop timeOfDay={spec.timeOfDay} frame={frame} groundY={groundY} />
+        {effectiveStageType === "CITY_STREET" && (
+          <CityStreetBackdrop timeOfDay={spec.timeOfDay} frame={stageRenderFrame} groundY={groundY} />
         )}
-        {spec.stageType === "CITY_LIVING_ROOM" && (
-          <CityLivingRoomBackdrop timeOfDay={spec.timeOfDay} frame={frame} />
+        {effectiveStageType === "CITY_LIVING_ROOM" && (
+          <CityLivingRoomBackdrop
+            timeOfDay={spec.timeOfDay}
+            frame={stageRenderFrame}
+            hasPetDog={hasLivingRoomDog || (isHostExplain && spec.freezeStage === "CITY_LIVING_ROOM")}
+          />
         )}
-        {spec.stageType === "CITY_STREET_PARK" && (
-          <CityStreetParkBackdrop timeOfDay={spec.timeOfDay} frame={frame} />
+        {effectiveStageType === "CITY_STREET_PARK" && (
+          <CityStreetParkBackdrop timeOfDay={spec.timeOfDay} frame={stageRenderFrame} />
         )}
-        {spec.stageType === "SCHOOL_CLASSROOM" && (
-          <SchoolClassroomBackdrop timeOfDay={spec.timeOfDay} frame={frame} />
+        {effectiveStageType === "SCHOOL_CLASSROOM" && (
+          <SchoolClassroomBackdrop
+            timeOfDay={spec.timeOfDay}
+            frame={stageRenderFrame}
+            seatedMode={hasClassroomSeatedRow}
+          />
         )}
-        {spec.stageType === "HOME_KITCHEN" && (
-          <HomeKitchenBackdrop timeOfDay={spec.timeOfDay} frame={frame} />
+        {effectiveStageType === "HOME_KITCHEN" && (
+          <HomeKitchenBackdrop timeOfDay={spec.timeOfDay} frame={stageRenderFrame} />
         )}
-        {spec.stageType === "SCIENCE_LAB_ROOM" && (
+        {effectiveStageType === "SCIENCE_LAB_ROOM" && (
           <ScienceLabBackdrop
             timeOfDay={spec.timeOfDay}
-            frame={frame}
+            frame={stageRenderFrame}
             groundY={groundY}
             labBoard={spec.labBoard}
           />
         )}
-        {spec.stageType === "DOCTOR_CLINIC" && (
-          <DoctorClinicBackdrop timeOfDay={spec.timeOfDay} frame={frame} groundY={groundY} />
+        {effectiveStageType === "DOCTOR_CLINIC" && (
+          <DoctorClinicBackdrop timeOfDay={spec.timeOfDay} frame={stageRenderFrame} groundY={groundY} />
         )}
-        {spec.stageType === "WATER_POND_OCEAN" && (
-          <LotusPondBackdrop timeOfDay={spec.timeOfDay} frame={frame} groundY={groundY} />
+        {effectiveStageType === "WATER_POND_OCEAN" && (
+          <LotusPondBackdrop timeOfDay={spec.timeOfDay} frame={stageRenderFrame} groundY={groundY} />
         )}
-        {spec.stageType === "UNDERGROUND_EARTH_CUTAWAY" && (
-          <UndergroundCrossSectionStage frame={frame} localFrame={localFrame} showAnts={true} />
+        {effectiveStageType === "UNDERGROUND_EARTH_CUTAWAY" && (
+          <UndergroundCrossSectionStage frame={stageRenderFrame} localFrame={isHostExplain ? 45 : localFrame} showAnts={true} />
         )}
-        {spec.stageType === "SPACE_COSMOS" && <SpaceCosmosBackdrop frame={frame} groundY={groundY} />}
-        {spec.stageType === "ANECHOIC_CHAMBER" && (
-          <AnechoicChamberBackdrop timeOfDay={spec.timeOfDay} frame={frame} groundY={groundY} />
+        {effectiveStageType === "SPACE_COSMOS" && <SpaceCosmosBackdrop frame={stageRenderFrame} groundY={groundY} />}
+        {effectiveStageType === "ANECHOIC_CHAMBER" && (
+          <AnechoicChamberBackdrop timeOfDay={spec.timeOfDay} frame={stageRenderFrame} groundY={groundY} />
         )}
-        {spec.stageType === "EXPLAINER_POLKA_DOT" && (
+        {effectiveStageType === "EXPLAINER_POLKA_DOT" && (
           <>
             <MemoExplainerPolkaDotBackdrop
               palette={spec.timeOfDay === "NIGHT" ? "lavender" : spec.timeOfDay === "SUNSET" ? "mint" : "cream"}
@@ -3253,6 +3375,41 @@ export const UniversalAutoStage: React.FC<{
               </g>
             )}
           </>
+        )}
+
+        {/* 1.2. Ghế gỗ học sinh phía SAU nhân vật khi ngồi học trong SCHOOL_CLASSROOM */}
+        {hasClassroomSeatedRow && (
+          <ClassroomSeatedChairsBack
+            positions={seatedClassroomActors.map((ra) => Math.round(ra.actorX))}
+            groundY={groundY}
+          />
+        )}
+
+        {/* 1.3. Chú chó cưng 2D nằm trên thảm trong CITY_LIVING_ROOM (tự đóng băng khi HOST_EXPLAIN_OVERLAY) */}
+        {(hasLivingRoomDog || (isHostExplain && spec.freezeStage === "CITY_LIVING_ROOM")) && (
+          <LivingRoomPetDog
+            mode={hasLivingRoomDog ? spec.livingRoomDetail! : "DOG_REST"}
+            frame={stageRenderFrame}
+          />
+        )}
+
+        {/* 1.5. V22.5: LỚP PHỦ TRẮNG SỮA PHẲNG & BẢNG TRẮNG CHUYÊN ĐỀ CHO HOST_EXPLAIN_OVERLAY (0% blur!) */}
+        {isHostExplain && (
+          <g id="layer-host-explain-veil">
+            <rect
+              x={0}
+              y={0}
+              width={1920}
+              height={1080}
+              fill="#F8FAFC"
+              opacity={hostVeilOpacity.toFixed(3)}
+            />
+            <rect x={0} y={778} width={1920} height={302} fill="#E2E8F0" opacity={0.42} />
+            <line x1={0} y1={778} x2={1920} y2={778} stroke="#CBD5E1" strokeWidth={2.5} />
+            {hasHostWhiteboard && (
+              <HostMirrorNeuronsBoard highlight={spec.hostBoardHighlight} frame={localFrame} />
+            )}
+          </g>
         )}
 
         {/* 2. ĐẠO CỤ CHỦ ĐỀ CHUẨN VECTOR 60FPS TỪ KHO 16 ĐẠO CỤ (AutoPropLibrary) */}
@@ -3488,6 +3645,14 @@ export const UniversalAutoStage: React.FC<{
 
           return (
             <g key={`auto_actor_${spec.id}_${aIdx}`}>
+              {isHostExplain && (
+                <GroundShadow
+                  cx={Math.round(ra.actorX)}
+                  cy={Math.round(ra.actorGroundY + 4)}
+                  rx={Math.round(52 * ra.actorScale)}
+                  ry={11}
+                />
+              )}
               {ra.activeHandProp !== "NONE" && !renderCupInFrontForSip && (
                 <HandPropGraphic
                   prop={ra.activeHandProp}
@@ -3506,7 +3671,7 @@ export const UniversalAutoStage: React.FC<{
                 frame={frame}
                 state={{
                   x: ra.actorX,
-                  y: groundY,
+                  y: ra.actorGroundY,
                   scale: ra.actorScale,
                   appearance: actor.appearance,
                   hideBuiltInAppearanceProp: true,
@@ -3533,7 +3698,7 @@ export const UniversalAutoStage: React.FC<{
                   blinkSeed: ra.actorBlinkSeed,
                   nodAmplitudeDeg,
                   nodFreq: ra.v18ActionPose === "TALK_GESTURE" ? 0.11 : 0.13,
-                  isSpeaking: ra.isSpeaking || ra.v18ActionPose === "TALK_GESTURE",
+                  isSpeaking: !actor.yawning && (ra.isSpeaking || ra.v18ActionPose === "TALK_GESTURE"),
                   eyes: ra.overrideEyes ?? expr.eyes,
                   eyebrows: ra.overrideEyebrows ?? expr.eyebrows,
                   mouth: ra.overrideMouth ?? expr.mouth,
@@ -3547,6 +3712,14 @@ export const UniversalAutoStage: React.FC<{
                   holdingTarget: ra.blendedArmPose ? undefined : ra.holdingTarget,
                 }}
               />
+              {actor.yawning && (
+                <ActorYawnWavesOverlay
+                  x={ra.actorX + facingDir * 24 * ra.actorScale}
+                  y={ra.headWorldY + 8 * ra.actorScale}
+                  facingDir={facingDir}
+                  frame={frame}
+                />
+              )}
               {renderCupInFrontForSip && (
                 <HandPropGraphic
                   prop="CUP_SODA"
@@ -3643,6 +3816,18 @@ export const UniversalAutoStage: React.FC<{
             </g>
           );
         })}
+
+        {/* 3.4. V22.5: BÀN HỌC GỖ PHÍA TRƯỚC NHÂN VẬT NGỒI HỌC TRONG SCHOOL_CLASSROOM (KHÔNG LƠ LỬNG, KHÔNG XUYÊN BÀN) */}
+        {hasClassroomSeatedRow && (
+          <ClassroomSeatedDesksForeground
+            desks={seatedClassroomActors.map((ra) => ({
+              x: Math.round(ra.actorX),
+              hasWaterBottle:
+                spec.classroomDetail === "DESK_WATER_BOTTLE" && ra.actor.preset === "BOY",
+            }))}
+            groundY={groundY}
+          />
+        )}
 
         {/* 3.5. V22.3: CHI TIẾT SÂN QUÊ NHỎ BÁM SÁT CẬU BÉ (MUỖI BAY, TIA GÃI, NỐT SƯNG, KHĂN ĐÁ) */}
         {spec.stageType === "COUNTRYSIDE_YARD" &&
@@ -3775,10 +3960,27 @@ export const UniversalAutoStage: React.FC<{
             const facingDir: 1 | -1 = ra.effectiveFacing === "LEFT" ? -1 : 1;
             const headTopWorldY = ra.headWorldY - 58 * ra.actorScale;
             const mouthWorldY = ra.headWorldY + 22 * ra.actorScale;
+            const hostWithBoardBubbleX = hasHostWhiteboard ? Math.min(330, Math.max(290, ra.actorX)) : null;
+            // Tránh bóng thoại dài (2 dòng) đè chỏm đầu nhân vật cao hơn đứng/ngồi ngay phía trước mặt
+            const closeFrontNeighbor = resolvedActors.find(
+              (o) =>
+                o.aIdx !== aIdx &&
+                (o.actorX - ra.actorX) * facingDir > 0 &&
+                Math.abs(o.actorX - ra.actorX) < 360
+            );
+            const bubbleX =
+              hostWithBoardBubbleX !== null
+                ? hostWithBoardBubbleX
+                : isHostExplain
+                ? ra.actorX
+                : closeFrontNeighbor
+                ? Math.max(180, Math.min(1740, ra.actorX - facingDir * 48))
+                : Math.max(180, Math.min(1740, ra.actorX + facingDir * 85));
+            const bubbleMaxW = hasHostWhiteboard ? 500 : 520;
             return (
               <ComicSpeechBubble
                 key={`bubble_${spec.id}_${aIdx}`}
-                x={Math.max(180, Math.min(1740, ra.actorX + facingDir * 85))}
+                x={bubbleX}
                 y={headTopWorldY - 76}
                 mouthX={ra.actorX + facingDir * 22 * ra.actorScale}
                 mouthY={mouthWorldY}
@@ -3787,6 +3989,7 @@ export const UniversalAutoStage: React.FC<{
                 localFrame={localFrame}
                 appearFrame={ra.bubbleAppear}
                 disappearFrame={ra.bubbleDisappear}
+                maxWidth={bubbleMaxW}
               />
             );
           })}

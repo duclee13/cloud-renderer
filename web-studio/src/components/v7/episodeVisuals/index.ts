@@ -148,6 +148,26 @@ import {
   MuoiSkinRecoveryVisual,
   MuoiSummary3CardsVisual,
 } from './muoiGaiVisualsPart2';
+import {
+  NgapDominoEffectVisual,
+  NgapMythOxygenVisual,
+  NgapBrainCoolingVisual,
+  NgapTwoTypesVisual,
+  NgapMirrorCircuitVisual,
+  NgapAutoTriggerVisual,
+  NgapTribeSyncVisual,
+  NgapFamiliarityLadderVisual,
+} from './ngapVisualsPart1';
+import {
+  NgapBabyAge45Visual,
+  NgapNotColdHeartedVisual,
+  NgapSocialAnimalsVisual,
+  NgapDogExperimentVisual,
+  NgapSuppressBackfireVisual,
+  Ngap3SmartTricksVisual,
+  NgapViewerChallengeVisual,
+  NgapSummary3CardsVisual,
+} from './ngapVisualsPart2';
 
 export type EpisodeVisualProps = {
   progress: number;
@@ -293,4 +313,22 @@ export const EPISODE_VISUAL_REGISTRY: Record<string, React.FC<EpisodeVisualProps
   MUOI_COMPARISON_SCRATCH_VS_ICE: MuoiComparisonScratchVsIceVisual,
   MUOI_SKIN_RECOVERY: MuoiSkinRecoveryVisual,
   MUOI_SUMMARY_3_CARDS: MuoiSummary3CardsVisual,
+
+  // Episode 7: Tại Sao Nhìn Người Khác Ngáp Mình Cũng Tự Dưng Ngáp Theo? (V22.5 HOST_EXPLAIN_OVERLAY)
+  NGAP_DOMINO_EFFECT: NgapDominoEffectVisual,
+  NGAP_MYTH_OXYGEN: NgapMythOxygenVisual,
+  NGAP_BRAIN_COOLING: NgapBrainCoolingVisual,
+  NGAP_TWO_TYPES: NgapTwoTypesVisual,
+  NGAP_MIRROR_CIRCUIT: NgapMirrorCircuitVisual,
+  NGAP_AUTO_TRIGGER: NgapAutoTriggerVisual,
+  NGAP_TRIBE_SYNC: NgapTribeSyncVisual,
+  NGAP_FAMILIARITY_LADDER: NgapFamiliarityLadderVisual,
+  NGAP_BABY_AGE_4_5: NgapBabyAge45Visual,
+  NGAP_NOT_COLD_HEARTED: NgapNotColdHeartedVisual,
+  NGAP_SOCIAL_ANIMALS: NgapSocialAnimalsVisual,
+  NGAP_DOG_EXPERIMENT: NgapDogExperimentVisual,
+  NGAP_SUPPRESS_BACKFIRE: NgapSuppressBackfireVisual,
+  NGAP_3_SMART_TRICKS: Ngap3SmartTricksVisual,
+  NGAP_VIEWER_CHALLENGE: NgapViewerChallengeVisual,
+  NGAP_SUMMARY_3_CARDS: NgapSummary3CardsVisual,
 };

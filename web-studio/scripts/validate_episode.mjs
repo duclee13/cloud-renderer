@@ -398,6 +398,7 @@ export const VALID_STAGE_TYPE_SET = new Set([
   'SPACE_COSMOS',
   'ANECHOIC_CHAMBER',
   'EXPLAINER_POLKA_DOT',
+  'HOST_EXPLAIN_OVERLAY',
 ]);
 
 export const VALID_ACTOR_PRESET_SET = new Set([
