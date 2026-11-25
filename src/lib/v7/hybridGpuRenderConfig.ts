@@ -51,30 +51,31 @@ export const HYBRID_GPU_RENDER_DEFAULTS = {
   chromiumOptions: HYBRID_GPU_CHROMIUM_OPTIONS,
   extraChromiumFlags: HYBRID_GPU_CHROME_EXTRA_FLAGS,
   hardwareAcceleration: "if-possible" as const,
-  concurrency: isLinuxOrCiEnvironment() ? 4 : 3, // Linux/CI runner 4 vCPU mặc định 4; Windows laptop mặc định 3
+  concurrency: isLinuxOrCiEnvironment() ? 6 : 3, // Linux/CI GHCR runner tối đa tốc độ với concurrency=6; Windows laptop mặc định 3
   imageFormat: "jpeg" as const,
-  jpegQuality: isLinuxOrCiEnvironment() ? 92 : 90,
-  x264Preset: "veryfast" as const,
+  jpegQuality: isLinuxOrCiEnvironment() ? 88 : 90,
+  x264Preset: isLinuxOrCiEnvironment() ? ("ultrafast" as const) : ("veryfast" as const),
+  crf: isLinuxOrCiEnvironment() ? 16 : 18,
   timeoutInMilliseconds: REMOTION_RENDER_TIMEOUT_MS,
 } as const;
 
 /**
  * Chuẩn hóa concurrency an toàn theo phần cứng:
- * - Trên Linux/CI (runner 4 vCPU): mặc định 4, giới hạn tối đa 4 khớp 4 vCPU
+ * - Trên Linux/CI (runner 4 vCPU + Chromium/x264 pipeline): mặc định 6, cho phép tối đa 8 để bão hòa 100% CPU giữa Chrome & FFmpeg
  * - Trên Windows: giữ theo tham số truyền vào (mặc định 2-3)
  */
 export function resolveSafeRenderConcurrency(requested?: number): number {
   const isCi = isLinuxOrCiEnvironment();
   if (typeof requested === "number" && Number.isFinite(requested) && requested >= 1) {
     const clean = Math.floor(requested);
-    return isCi ? Math.min(4, Math.max(1, clean)) : Math.min(8, Math.max(1, clean));
+    return isCi ? Math.min(8, Math.max(1, clean)) : Math.min(8, Math.max(1, clean));
   }
   const envVal = Number(process.env.CONCURRENCY || process.env.RENDER_CONCURRENCY || "");
   if (Number.isFinite(envVal) && envVal >= 1) {
     const clean = Math.floor(envVal);
-    return isCi ? Math.min(4, Math.max(1, clean)) : Math.min(8, Math.max(1, clean));
+    return isCi ? Math.min(8, Math.max(1, clean)) : Math.min(8, Math.max(1, clean));
   }
-  return isCi ? 4 : 2;
+  return isCi ? 6 : 2;
 }
 
 /**
@@ -148,13 +149,13 @@ export function detectBestHardwareEncoder(): HardwareEncoderDetection {
     encodersOut = "";
   }
 
-  // Trên Linux CI không có GPU phần cứng -> chọn thẳng libx264 veryfast crf 18 không cần probe mất thời gian
+  // Trên Linux CI không có GPU phần cứng -> chọn thẳng libx264 ultrafast crf 16 (JPEG q88) tối đa hóa tốc độ & độ nét
   if (isLinuxOrCiEnvironment()) {
     return {
       encoder: "libx264",
-      displayName: "Linux/CI SwANGLE + CPU libx264 veryfast crf=18 (JPEG q92)",
+      displayName: "Linux/CI SwANGLE + CPU libx264 ultrafast crf=16 (JPEG q88)",
       usesGpuVideoEncode: false,
-      ffmpegVideoArgs: ["-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-pix_fmt", "yuv420p"],
+      ffmpegVideoArgs: ["-c:v", "libx264", "-preset", "ultrafast", "-crf", "16", "-pix_fmt", "yuv420p"],
     };
   }
 
@@ -271,7 +272,7 @@ export async function renderVideoHybridCpuGpu(
 
   const isCi = isLinuxOrCiEnvironment();
   const concurrency = resolveSafeRenderConcurrency(params.concurrency);
-  const jpegQuality = isCi ? 92 : (params.jpegQuality ?? HYBRID_GPU_RENDER_DEFAULTS.jpegQuality);
+  const jpegQuality = isCi ? 88 : (params.jpegQuality ?? HYBRID_GPU_RENDER_DEFAULTS.jpegQuality);
   const renderScale = isPreview ? 1280 / 1920 : 1.0;
   const everyNthFrame = isPreview ? 2 : 1;
   const compFps = Math.max(15, Math.min(120, Math.round(Number(composition?.fps) || 60)));
@@ -373,7 +374,7 @@ export async function renderVideoHybridCpuGpu(
         imageFormat: HYBRID_GPU_RENDER_DEFAULTS.imageFormat,
         jpegQuality,
         x264Preset: HYBRID_GPU_RENDER_DEFAULTS.x264Preset,
-        crf: 18,
+        crf: HYBRID_GPU_RENDER_DEFAULTS.crf,
         scale: renderScale,
         everyNthFrame,
         muted: hasExternalMasterAudio,

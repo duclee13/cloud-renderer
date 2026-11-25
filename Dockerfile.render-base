@@ -1,0 +1,52 @@
+# Prebuilt Remotion Render Base Image (Node 24 + FFmpeg + Chromium Headless Shell + web-studio node_modules)
+# Built once via .github/workflows/build-render-image.yml and pulled by all 20 Stage-2 VMs on GitHub Actions.
+FROM node:24-bookworm-slim
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    CI=true \
+    REMOTION_CACHE_DIR=/opt/remotion-cache \
+    REMOTION_CHROME_EXECUTABLE=/opt/render-env/node_modules/.remotion/chrome-headless-shell/linux64/chrome-headless-shell-linux64/chrome-headless-shell
+
+# 1. System tools, FFmpeg, fonts, and full Chromium Headless Shell shared libraries
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      git \
+      curl \
+      ca-certificates \
+      ffmpeg \
+      fonts-noto-core \
+      fonts-noto-color-emoji \
+      fonts-liberation \
+      libnss3 \
+      libnspr4 \
+      libglib2.0-0 \
+      libatk1.0-0 \
+      libatk-bridge2.0-0 \
+      libcups2 \
+      libdrm2 \
+      libxkbcommon0 \
+      libx11-xcb1 \
+      libxcomposite1 \
+      libxdamage1 \
+      libxfixes3 \
+      libxrandr2 \
+      libgbm1 \
+      libasound2 \
+      libpango-1.0-0 \
+      libcairo2 \
+      libxshmfence1 && \
+    rm -rf /var/lib/apt/lists/* && \
+    git config --system --add safe.directory '*'
+
+# 2. Pre-install web-studio dependencies + Remotion Chromium Headless Shell into /opt/render-env
+WORKDIR /opt/render-env
+COPY web-studio/package.json web-studio/package-lock.json ./
+
+RUN npm ci --no-audit --no-fund && \
+    npx remotion browser ensure && \
+    ln -s /opt/render-env/node_modules/.remotion /opt/remotion-cache && \
+    test -x "$REMOTION_CHROME_EXECUTABLE" && \
+    chmod -R a+rX /opt/render-env /opt/remotion-cache && \
+    npm cache clean --force
+
+WORKDIR /workspace

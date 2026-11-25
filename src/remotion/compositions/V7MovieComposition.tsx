@@ -48,7 +48,8 @@ export interface HybridRenderConfig {
   concurrency: number;
   imageFormat: "jpeg";
   jpegQuality: number;
-  x264Preset: "veryfast";
+  x264Preset: "ultrafast" | "superfast" | "veryfast" | "faster" | "fast" | "medium";
+  crf?: number;
   hwEncoder?: "h264_qsv" | "h264_mf" | "libx264";
   globalQuality?: number;
   preview?: boolean;

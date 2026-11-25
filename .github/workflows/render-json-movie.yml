@@ -239,7 +239,8 @@ jobs:
 
   # ===========================================================================
   # JOB 2: Tối Đa 20 Máy Ảo Render Song Song Cân Bằng Frame (Mặc định 1080p @ 45fps)
-  #        Dùng trực tiếp `./build` (0s re-bundle) + --scale theo quality + JPEG q92 + veryfast crf=18 + concurrency=4
+  #        Chạy thẳng trong GHCR prebuilt container (0s setup Node/npm/apt/Chromium)
+  #        Dùng `./build` + --scale theo quality + JPEG q88 + ultrafast crf=16 + concurrency=6
   # ===========================================================================
   render_chunks:
     name: Job 2 — Render Chunk ${{ matrix.chapter }}/${{ inputs.total_chapters }}
@@ -247,6 +248,14 @@ jobs:
     if: ${{ !inputs.preview_only }}
     runs-on: ubuntu-latest
     timeout-minutes: 35
+    permissions:
+      contents: read
+      packages: read
+    container:
+      image: ghcr.io/duclee13/cloud-renderer-base:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     strategy:
       fail-fast: false
       max-parallel: 20
@@ -262,58 +271,20 @@ jobs:
           name: episode-bundle
           path: .
 
-      - name: Verify Pre-Bundled Assets
+      - name: Link Prebuilt Node Modules & Verify Pre-Bundled Assets
         run: |
+          rm -rf web-studio/node_modules
+          ln -s /opt/render-env/node_modules web-studio/node_modules
           test -f web-studio/build/index.html
           test -f web-studio/episodes/cloud_input_props.json
           test -f out/cloud_plan/cloud_render_plan.json
-          echo "✅ Verified pre-bundled build/ + cloud_input_props.json + cloud_render_plan.json"
-
-      - name: Setup Node.js 24
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24
-          cache: 'npm'
-          cache-dependency-path: web-studio/package-lock.json
-
-      - name: Restore Cached web-studio/node_modules
-        id: cache-node-modules
-        uses: actions/cache@v4
-        with:
-          path: web-studio/node_modules
-          key: web-studio-nm-${{ runner.os }}-node24-${{ hashFiles('web-studio/package-lock.json') }}
-
-      - name: Restore Cached Remotion Chromium Headless Shell
-        id: cache-remotion-browser
-        uses: actions/cache@v4
-        with:
-          path: |
-            web-studio/node_modules/.remotion
-            ~/.cache/remotion
-          key: remotion-chromium-${{ runner.os }}-${{ hashFiles('web-studio/package-lock.json') }}
-
-      - name: Install FFmpeg & Headless Chromium Shared Libraries (Ubuntu 24.04 Safe)
-        run: |
-          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 update
-          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends \
-            ffmpeg libnss3 libnspr4 libglib2.0-0 libatk1.0-0 libatk-bridge2.0-0 \
-            libcups2 libdrm2 libxkbcommon0 libx11-xcb1 libxcomposite1 \
-            libxdamage1 libxfixes3 libxrandr2 libgbm1 libxshmfence1 \
-            libpango-1.0-0 libcairo2 fonts-noto fonts-noto-color-emoji || true
-          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends libasound2t64 || sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends libasound2 || true
-
-      - name: Ensure Web-Studio Dependencies & Chromium Headless Shell
-        working-directory: web-studio
-        run: |
-          if [ "${{ steps.cache-node-modules.outputs.cache-hit }}" != "true" ]; then
-            npm ci --prefer-offline || npm install --prefer-offline
-          fi
-          npx remotion browser ensure
+          test -x "${REMOTION_CHROME_EXECUTABLE:-/opt/render-env/node_modules/.remotion/chrome-headless-shell/linux64/chrome-headless-shell-linux64/chrome-headless-shell}"
+          echo "✅ Linked prebuilt /opt/render-env/node_modules & verified build/ + cloud_input_props.json + cloud_render_plan.json + Chromium"
 
       - name: Render Balanced Frame Chunk ${{ matrix.chapter }}/${{ inputs.total_chapters }} (${{ inputs.quality || '1080p' }} @ ${{ inputs.fps || '45' }}fps)
         working-directory: web-studio
         env:
-          CONCURRENCY: '4'
+          CONCURRENCY: '6'
           REMOTION_FPS: ${{ inputs.fps || '45' }}
           RENDER_QUALITY: ${{ inputs.quality || '1080p' }}
           TOTAL_CHAPTERS: ${{ inputs.total_chapters || '20' }}
