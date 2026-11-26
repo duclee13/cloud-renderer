@@ -19,8 +19,8 @@ import fs from "fs";
 import path from "path";
 import os from "os";
 import { execSync } from "child_process";
-import type { AutoEpisodeBeat, AutoSfxCueId } from "./episodeJsonSchema";
-import { resolveAutoSfxPlan } from "./autoSfxPlanner";
+import type { AutoEpisodeBeat, AutoSfxCueId } from "./episodeJsonSchema.ts";
+import { resolveAutoSfxPlan } from "./autoSfxPlanner.ts";
 
 export type BgmTrackId = "BGM_STORY_CALM" | "BGM_TENSE_PULSE" | "BGM_WARM_OUTRO";
 

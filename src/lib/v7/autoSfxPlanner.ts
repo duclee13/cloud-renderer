@@ -6,7 +6,7 @@
  *   and episode-wide `sfxEnabled?: boolean` (defaults to `true`).
  */
 
-import type { AutoEpisodeBeat, AutoSfxCueId } from "./episodeJsonSchema";
+import type { AutoEpisodeBeat, AutoSfxCueId } from "./episodeJsonSchema.ts";
 
 export type AutoSfxFileName =
   | "pop_soft.wav"
