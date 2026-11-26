@@ -14,6 +14,7 @@ import {
 } from "../src/components/NatureBackdropKit";
 import { CuteCat, CuteDog, CuteBird, CuteAnt } from "../src/components/AnimalSpriteKit";
 import { UniversalAutoStage } from "../src/components/v7/UniversalAutoStage";
+import { EPISODE_VISUAL_REGISTRY } from "../src/components/v7/episodeVisuals";
 
 function assertCleanFlatSvg(svg: string, label: string) {
   assert.ok(!svg.includes("feGaussianBlur"), `${label} must not use feGaussianBlur`);
@@ -200,4 +201,117 @@ test("V23 #4: Zero-regression check on Episode 7 (defaults to LAB_WHITEBOARD & r
   assert.ok(svg.includes('id="host-board-mirror-neurons-static"'), "Episode 7 still renders LAB_WHITEBOARD MIRROR_NEURONS_YAWN");
   assert.ok(!svg.includes('id="host-board-nature-field-static"'), "Episode 7 does not switch to NATURE_FIELD_BOARD");
   assertCleanFlatSvg(svg, "Episode 7 regression check");
+});
+
+test("V23 #5: Episode 9 (60 beats, 16 CAT_* Full-Screen SVGs, NATURE_FIELD_BOARD, Solo Host & Auto-SFX)", () => {
+  const raw = JSON.parse(
+    fs.readFileSync(path.resolve(__dirname, "../episodes/tai_sao_meo_luon_tiep_dat_bang_4_chan_v23.json"), "utf8")
+  );
+  const ep9 = sanitizeAndValidateEpisode(raw);
+  assert.equal(ep9.slug, "tai_sao_meo_luon_tiep_dat_bang_4_chan_v23");
+  assert.equal(ep9.sfxEnabled, true, "Episode 9 enables Auto-SFX");
+  assert.equal(ep9.boardTheme, "NATURE_FIELD_BOARD", "Episode 9 uses NATURE_FIELD_BOARD");
+  assert.equal(ep9.labBoard, "CAT_RIGHTING_PHYSICS", "Episode 9 uses CAT_RIGHTING_PHYSICS");
+  assert.equal(ep9.beats.length, 60, "Episode 9 has exactly 60 beats");
+
+  const svgKeys = new Set<string>();
+  for (const b of ep9.beats) {
+    assert.ok(b.ttsText.trim().length > 10, `${b.id} must have non-empty ttsText`);
+    assert.ok(!/[0-9zZ\-–—]/.test(b.ttsText), `${b.id} ttsText must be pure Vietnamese without digits/z/hyphens`);
+    for (const a of b.actors) {
+      if (a.bubble) {
+        const wc = a.bubble.trim().split(/\s+/).length;
+        assert.ok(wc <= 10, `${b.id} bubble <= 10 words (got ${wc}: ${a.bubble})`);
+      }
+    }
+    if (b.customVisual) {
+      svgKeys.add(b.customVisual);
+      assert.equal(b.fullScreenVisual, true, `${b.id} uses fullScreenVisual`);
+      assert.equal(b.chapterBanner, undefined, `${b.id} hides chapterBanner on Full-Screen SVG`);
+    }
+    if (b.stageType === "HOST_EXPLAIN_OVERLAY") {
+      assert.equal(b.boardTheme, "NATURE_FIELD_BOARD", `${b.id} uses NATURE_FIELD_BOARD`);
+      assert.ok(
+        b.freezeStage === "BACKYARD_BALCONY_PET" || b.freezeStage === "CITY_LIVING_ROOM",
+        `${b.id} locks freezeStage cleanly`
+      );
+      assert.equal(b.chapterBanner, undefined, `${b.id} hides chapterBanner on HOST_EXPLAIN_OVERLAY`);
+    }
+  }
+  assert.equal(svgKeys.size, 16, "Episode 9 uses all 16 distinct CAT_* Full-Screen SVGs");
+
+  // Render key story, Host+Board, Host Solo, Living Room Cat, and all 16 Full-Screen SVGs cleanly
+  const sampleIds = ["b01", "b02", "b04", "b29", "b31", "b46", "b47", "b52", "b59"];
+  for (const bid of sampleIds) {
+    const beat = ep9.beats.find((b) => b.id === bid)!;
+    const svg = renderToStaticMarkup(
+      React.createElement(
+        "svg",
+        { width: 1920, height: 1080 },
+        React.createElement(UniversalAutoStage, {
+          spec: beat,
+          frame: 60,
+          localFrame: 60,
+          durationFrames: 225,
+          u: 0.35,
+          fps: 45,
+        })
+      )
+    );
+    assertCleanFlatSvg(svg, `Ep9 ${bid}`);
+    if (bid === "b04") {
+      assert.ok(svg.includes('id="host-board-cat-righting-static"'), "b04 renders CAT_RIGHTING_PHYSICS Nature Field Board");
+      assert.ok(svg.includes('id="stage-backyard-balcony-pet"'), "b04 freezes BACKYARD_BALCONY_PET");
+    }
+    if (bid === "b31") {
+      assert.ok(svg.includes('id="living-room-pet-cat-CAT_RUG"'), "b31 freezes Mướp (not Episode 7 dog) on CITY_LIVING_ROOM");
+      assert.ok(!svg.includes('id="living-room-pet-dog"'), "b31 does not render Episode 7 dog");
+    }
+    if (bid === "b52") {
+      assert.ok(!svg.includes('id="host-board-cat-righting-static"'), "Solo Host b52 centers BOY without board behind him");
+    }
+  }
+
+  // Render every single Episode 9 Full-Screen SVG component directly and verify 0 blur/dropShadow/foreignObject
+  for (const b of ep9.beats) {
+    if (!b.customVisual) continue;
+    const Comp = EPISODE_VISUAL_REGISTRY[b.customVisual];
+    assert.ok(Comp, `Missing registered visual ${b.customVisual}`);
+    const svg = renderToStaticMarkup(
+      React.createElement(Comp, {
+        progress: 0.4,
+        frame: 50,
+        fps: 45,
+        step: b.visualStep ?? 0,
+        visualStep: b.visualStep ?? 0,
+      })
+    );
+    assert.ok(svg.startsWith("<svg"), `${b.customVisual} renders pure root <svg>`);
+    assertCleanFlatSvg(svg, `Ep9 SVG ${b.id} (${b.customVisual}#${b.visualStep ?? 0})`);
+  }
+
+  // Auto-SFX plan verification on Episode 9
+  const sfxPlan = resolveAutoSfxPlan(
+    ep9.beats.map((b, idx) => ({
+      id: b.id,
+      startFrame: idx * 200,
+      durationFrames: 200,
+      stageType: b.stageType,
+      autoStageSpec: b,
+    })),
+    45,
+    true
+  );
+  const byId = new Map(sfxPlan.map((e) => [e.beatId, e.cueId]));
+  assert.equal(byId.get("b04"), "whoosh_in", "b04 triggers whoosh_in");
+  assert.equal(byId.get("b09"), "alert", "b09 triggers alert_soft");
+  assert.equal(byId.get("b28"), "whoosh_out", "b28 triggers whoosh_out");
+  assert.equal(byId.get("b37"), "alert", "b37 triggers alert_soft");
+  assert.equal(byId.get("b44"), "ding", "b44 triggers ding_warm");
+  assert.equal(byId.get("b45"), "whoosh_out", "b45 triggers whoosh_out");
+  assert.equal(byId.get("b51"), "ding", "b51 triggers ding_warm");
+  assert.equal(byId.get("b55"), "ding", "b55 triggers ding_warm");
+  assert.equal(byId.get("b56"), "ding", "b56 triggers ding_warm");
+  assert.equal(byId.get("b57"), "ding", "b57 triggers ding_warm");
+  assert.equal(byId.get("b59"), "whoosh_out", "b59 triggers whoosh_out");
 });

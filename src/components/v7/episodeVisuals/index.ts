@@ -188,6 +188,26 @@ import {
   CaobangSoundCheckVisual,
   CaobangSummary3CardsVisual,
 } from './caobangVisualsPart2';
+import {
+  CatLowHeightTestVisual,
+  CatMarey1894Visual,
+  CatRigidVsFlexVisual,
+  CatVestibularCompassVisual,
+  CatFlexibleSpineVisual,
+  CatSkaterPhysicsVisual,
+  CatTwoHalfTurnVisual,
+  CatZeroAngularMomentumVisual,
+} from './catRightingVisualsPart1';
+import {
+  CatTailMythVisual,
+  CatSpringLegsVisual,
+  CatParachuteVelocityVisual,
+  CatHighRiseTruthVisual,
+  CatWhenFailsVisual,
+  CatOtherAnimalsNasaVisual,
+  CatQuickQuizVisual,
+  CatSummary3CardsVisual,
+} from './catRightingVisualsPart2';
 
 export type EpisodeVisualProps = {
   progress: number;
@@ -369,4 +389,22 @@ export const EPISODE_VISUAL_REGISTRY: Record<string, React.FC<EpisodeVisualProps
   CAOBANG_3_TIPS: Caobang3TipsVisual,
   CAOBANG_SOUND_CHECK: CaobangSoundCheckVisual,
   CAOBANG_SUMMARY_3_CARDS: CaobangSummary3CardsVisual,
+
+  // Episode 9: Tại Sao Mèo Luôn Tiếp Đất Bằng 4 Chân Dù Bị Thả Ngược Từ Độ Cao Rất Thấp? (V23.0)
+  CAT_LOW_HEIGHT_TEST: CatLowHeightTestVisual,
+  CAT_MAREY_1894: CatMarey1894Visual,
+  CAT_RIGID_VS_FLEX: CatRigidVsFlexVisual,
+  CAT_VESTIBULAR_COMPASS: CatVestibularCompassVisual,
+  CAT_FLEXIBLE_SPINE: CatFlexibleSpineVisual,
+  CAT_SKATER_PHYSICS: CatSkaterPhysicsVisual,
+  CAT_TWO_HALF_TURN: CatTwoHalfTurnVisual,
+  CAT_ZERO_ANGULAR_MOMENTUM: CatZeroAngularMomentumVisual,
+  CAT_TAIL_MYTH: CatTailMythVisual,
+  CAT_SPRING_LEGS: CatSpringLegsVisual,
+  CAT_PARACHUTE_VELOCITY: CatParachuteVelocityVisual,
+  CAT_HIGH_RISE_TRUTH: CatHighRiseTruthVisual,
+  CAT_WHEN_FAILS: CatWhenFailsVisual,
+  CAT_OTHER_ANIMALS_NASA: CatOtherAnimalsNasaVisual,
+  CAT_QUICK_QUIZ: CatQuickQuizVisual,
+  CAT_SUMMARY_3_CARDS: CatSummary3CardsVisual,
 };

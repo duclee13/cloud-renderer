@@ -183,6 +183,7 @@ export type KnownLabBoardId =
   | "ITCH_NEUROLOGY"
   | "MIRROR_NEURONS_YAWN"
   | "ACOUSTICS_CRINGE_ALARM"
+  | "CAT_RIGHTING_PHYSICS"
   | "WATER_SKIN"
   | "ONION_CHEM"
   | "SLEEP_BRAIN";
@@ -210,13 +211,28 @@ export type KitchenDetailId =
   | "DINNER_STEAK"
   | "FORK_SCRAPE_WAVE";
 
-/** V22.5: Chi tiết phụ trợ cho CITY_LIVING_ROOM (chú chó cưng 2D nằm trên thảm, ngáp theo, vẫy đuôi) */
+/** V22.5–V23.0: Chi tiết phụ trợ cho CITY_LIVING_ROOM (thú cưng chó/mèo trên thảm hoặc góc sofa) */
 export type LivingRoomDetailId =
   | "NONE"
   | "DOG_REST"
   | "DOG_YAWN"
   | "DAD_PET_DOG"
-  | "DOG_WAG";
+  | "DOG_WAG"
+  | "CAT_RUG"
+  | "CAT_ALERT"
+  | "CAT_STAND"
+  | "CAT_SOFA";
+
+/** V23.0: Chi tiết phụ trợ cho BACKYARD_BALCONY_PET (ghế gỗ, đệm êm, mèo Mướp trượt/xoay/ngồi, lưới an toàn ban công) */
+export type BalconyDetailId =
+  | "NONE"
+  | "CAT_CHAIR_SLIP"
+  | "CAT_MIDAIR_FLIP"
+  | "CAT_CUSHION_SIT"
+  | "CAT_PET_HAPPY"
+  | "SAFETY_NET_STAND"
+  | "SAFETY_NET_SIT"
+  | "OUTRO_OPEN_FLOOR";
 
 /** V23.0: Chủ đề giao diện bảng nghiên cứu cho HOST_EXPLAIN_OVERLAY (mặc định LAB_WHITEBOARD) */
 export type HostBoardTheme = "LAB_WHITEBOARD" | "NATURE_FIELD_BOARD";
@@ -224,7 +240,7 @@ export type HostBoardTheme = "LAB_WHITEBOARD" | "NATURE_FIELD_BOARD";
 /** V23.0: Ghi đè hiệu ứng âm thanh Auto-SFX trên từng beat (hoặc "none" để tắt cục bộ) */
 export type AutoSfxCueId = "pop" | "whoosh_in" | "whoosh_out" | "ding" | "alert" | "none";
 
-/** V22.5–V22.7: Điểm nhấn nổi bật trên bảng trắng HOST_EXPLAIN_OVERLAY */
+/** V22.5–V23.0: Điểm nhấn nổi bật trên bảng trắng / sổ tay thiên nhiên trong HOST_EXPLAIN_OVERLAY */
 export type HostBoardHighlightId =
   | "NONE"
   | "LEFT"
@@ -242,6 +258,11 @@ export type HostBoardHighlightId =
   | "MUSIC_TRICK"
   | "WHY_IMMUNE"
   | "CRINGE_TIPS"
+  | "CAT_MYSTERY_70Y"
+  | "CAT_ANGULAR_MOMENTUM"
+  | "CAT_TAIL_QUESTION"
+  | "CAT_WARNING_9LIVES"
+  | "CAT_EXPLORE_OTHER"
   | "SUMMARY";
 
 export interface AutoActorSpec {
@@ -301,8 +322,10 @@ export interface AutoEpisodeBeat {
   classroomDetail?: ClassroomDetailId;
   /** V22.7: Chi tiết phòng bếp bổ trợ cho HOME_KITCHEN (bàn ăn tối bò bít tết, sóng rít nĩa cọ đĩa sứ) */
   kitchenDetail?: KitchenDetailId;
-  /** V22.5: Chi tiết phòng khách bổ trợ cho CITY_LIVING_ROOM (chú chó cưng nằm/ngáp/vẫy đuôi) */
+  /** V22.5–V23.0: Chi tiết phòng khách bổ trợ cho CITY_LIVING_ROOM (chó/mèo cưng trên thảm/sofa) */
   livingRoomDetail?: LivingRoomDetailId;
+  /** V23.0: Chi tiết sân hiên bổ trợ cho BACKYARD_BALCONY_PET (ghế gỗ, đệm êm, mèo Mướp, lưới an toàn) */
+  balconyDetail?: BalconyDetailId;
   /** V22.5: Chế độ Freeze-Frame Host giải thích (phủ màn trắng sữa 0.84 phẳng lên nền freezeStage) */
   overlayMode?: "HOST_EXPLAIN";
   /** V22.5: Bối cảnh đời thường đứng yên làm nền cho HOST_EXPLAIN_OVERLAY (vd: SCHOOL_CLASSROOM, CITY_LIVING_ROOM) */
@@ -1243,6 +1266,20 @@ const VALID_LIVING_ROOM_DETAILS: readonly LivingRoomDetailId[] = [
   "DOG_YAWN",
   "DAD_PET_DOG",
   "DOG_WAG",
+  "CAT_RUG",
+  "CAT_ALERT",
+  "CAT_STAND",
+  "CAT_SOFA",
+];
+const VALID_BALCONY_DETAILS: readonly BalconyDetailId[] = [
+  "NONE",
+  "CAT_CHAIR_SLIP",
+  "CAT_MIDAIR_FLIP",
+  "CAT_CUSHION_SIT",
+  "CAT_PET_HAPPY",
+  "SAFETY_NET_STAND",
+  "SAFETY_NET_SIT",
+  "OUTRO_OPEN_FLOOR",
 ];
 const VALID_HOST_HIGHLIGHTS: readonly HostBoardHighlightId[] = [
   "NONE",
@@ -1261,6 +1298,11 @@ const VALID_HOST_HIGHLIGHTS: readonly HostBoardHighlightId[] = [
   "MUSIC_TRICK",
   "WHY_IMMUNE",
   "CRINGE_TIPS",
+  "CAT_MYSTERY_70Y",
+  "CAT_ANGULAR_MOMENTUM",
+  "CAT_TAIL_QUESTION",
+  "CAT_WARNING_9LIVES",
+  "CAT_EXPLORE_OTHER",
   "SUMMARY",
 ];
 
@@ -1285,6 +1327,14 @@ function sanitizeLivingRoomDetailId(raw: unknown): LivingRoomDetailId | undefine
   const norm = raw.trim().toUpperCase().replace(/[\s-]+/g, "_");
   return (VALID_LIVING_ROOM_DETAILS as readonly string[]).includes(norm)
     ? (norm as LivingRoomDetailId)
+    : undefined;
+}
+
+function sanitizeBalconyDetailId(raw: unknown): BalconyDetailId | undefined {
+  if (typeof raw !== "string") return undefined;
+  const norm = raw.trim().toUpperCase().replace(/[\s-]+/g, "_");
+  return (VALID_BALCONY_DETAILS as readonly string[]).includes(norm)
+    ? (norm as BalconyDetailId)
     : undefined;
 }
 
@@ -1354,11 +1404,14 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
     const headerTitle = explicitlyBlankBanner ? undefined : rawHeaderTitle ?? rawChapterBanner;
 
     const stageType = matchEnum(rb?.stageType, VALID_STAGE_TYPES, "SIMPLE_GRASS_FIELD", STAGE_ALIASES);
-    const labBoard = sanitizeLabBoardId(rb?.labBoard) ?? (stageType === "SCIENCE_LAB_ROOM" ? episodeLabBoard : undefined);
+    const labBoard =
+      sanitizeLabBoardId(rb?.labBoard) ??
+      (stageType === "SCIENCE_LAB_ROOM" || stageType === "HOST_EXPLAIN_OVERLAY" ? episodeLabBoard : undefined);
     const yardDetail = sanitizeYardDetailId(rb?.yardDetail);
     const classroomDetail = sanitizeClassroomDetailId(rb?.classroomDetail);
     const kitchenDetail = sanitizeKitchenDetailId(rb?.kitchenDetail);
     const livingRoomDetail = sanitizeLivingRoomDetailId(rb?.livingRoomDetail);
+    const balconyDetail = sanitizeBalconyDetailId(rb?.balconyDetail);
     const overlayMode =
       normalizeUpperKey(rb?.overlayMode) === "HOST_EXPLAIN" || stageType === "HOST_EXPLAIN_OVERLAY"
         ? ("HOST_EXPLAIN" as const)
@@ -1455,6 +1508,7 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       ...(classroomDetail && classroomDetail !== "NONE" ? { classroomDetail } : {}),
       ...(kitchenDetail && kitchenDetail !== "NONE" ? { kitchenDetail } : {}),
       ...(livingRoomDetail && livingRoomDetail !== "NONE" ? { livingRoomDetail } : {}),
+      ...(balconyDetail && balconyDetail !== "NONE" ? { balconyDetail } : {}),
       ...(overlayMode ? { overlayMode } : {}),
       ...(freezeStage ? { freezeStage } : {}),
       ...(freezeFrame !== undefined ? { freezeFrame } : {}),

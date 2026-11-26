@@ -1,0 +1,2736 @@
+{
+  "title": "Tại Sao Mèo Luôn Tiếp Đất Bằng 4 Chân Dù Bị Thả Ngược Từ Độ Cao Rất Thấp?",
+  "slug": "tai_sao_meo_luon_tiep_dat_bang_4_chan_v23",
+  "topic": "Tập 9 — Phản xạ lật người 180°, bảo toàn mô men động lượng, đệm lò xo 4 chân & an toàn cho mèo",
+  "labBoard": "CAT_RIGHTING_PHYSICS",
+  "boardTheme": "NATURE_FIELD_BOARD",
+  "sfxEnabled": true,
+  "beats": [
+    {
+      "id": "b01",
+      "actTitle": "HỒI 1: CÚ TRƯỢT CHÂN NỬA GIÂY & THÍ NGHIỆM NĂM 1894",
+      "chapterBanner": "Hồi 1: Cú Trượt Chân Nửa Giây & Thí Nghiệm 1894",
+      "text": "Buổi chiều ngoài hiên nhà, chú mèo cam nhà tôi đang đi thăng bằng trên thành ghế gỗ thì bỗng hụt chân ngã ngửa ra sau.",
+      "ttsText": "Buổi chiều ngoài hiên nhà, chú mèo cam nhà tôi đang đi thăng bằng trên thành ghế gỗ thì bỗng hụt chân ngã ngửa ra sau.",
+      "stageType": "BACKYARD_BALCONY_PET",
+      "balconyDetail": "CAT_CHAIR_SLIP",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "HOOK_INTRIGUE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "SURPRISED",
+          "handProp": "NONE",
+          "groundY": 816,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 740,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 740,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "JUMP_BACK",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Mướp ơi, coi chừng trượt chân trên thành ghế đấy!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 1060,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b02",
+      "text": "Chỉ cách tấm đệm mềm bên dưới có một đoạn ngắn tũn, vậy mà chưa kịp chớp mắt, Mướp đã xoay phắt người đáp gọn trên bốn chân.",
+      "ttsText": "Chỉ cách tấm đệm mềm bên dưới có một đoạn ngắn tũn, vậy mà chưa kịp chớp mắt, Mướp đã xoay phắt người đáp gọn trên bốn chân.",
+      "stageType": "BACKYARD_BALCONY_PET",
+      "balconyDetail": "CAT_MIDAIR_FLIP",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "voiceTone": "HOOK_INTRIGUE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "SHOCKED",
+          "handProp": "NONE",
+          "groundY": 816,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 740,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "JUMP_BACK",
+              "expression": "SHOCKED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 740,
+              "endX": 740,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Ối, nó ngã ngửa rồi mà vẫn đáp bốn chân!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1.02,
+        "toScale": 1.05,
+        "focusX": 1080,
+        "focusY": 560
+      }
+    },
+    {
+      "id": "b03",
+      "text": "Mướp đáp xuống xong còn ngồi liếm chân tỉnh bơ như chưa có chuyện gì, khiến bố tôi bật cười bảo đó là siêu năng lực của loài mèo.",
+      "ttsText": "Mướp đáp xuống xong còn ngồi liếm chân tỉnh bơ như chưa có chuyện gì, khiến bố tôi bật cười bảo đó là siêu năng lực của loài mèo.",
+      "stageType": "BACKYARD_BALCONY_PET",
+      "balconyDetail": "CAT_CUSHION_SIT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 22,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "actors": [
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 1.0,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#0284C7",
+            "glasses": "RECT",
+            "mustache": true
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 816,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 520,
+              "endX": 520,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 520,
+              "endX": 520,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Mèo mà con, thả thấp thế vẫn lật kịp đấy!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "groundY": 816,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 830,
+              "endX": 830,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 830,
+              "endX": 830,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b04",
+      "text": "Khoan dừng lại một chút nhé, dù bị thả ở tư thế ngửa bụng lên trời từ độ cao rất thấp, mèo vẫn xoay kịp đáp bằng bốn chân.",
+      "ttsText": "Khoan dừng lại một chút nhé, dù bị thả ở tư thế ngửa bụng lên trời từ độ cao rất thấp, mèo vẫn xoay kịp đáp bằng bốn chân.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "BACKYARD_BALCONY_PET",
+      "freezeFrame": 90,
+      "labBoard": "CAT_RIGHTING_PHYSICS",
+      "boardTheme": "NATURE_FIELD_BOARD",
+      "natureBoardTitle": "SỔ TAY THIÊN NHIÊN • PHẢN XẠ LẬT NGƯỜI 180° CỦA MÈO",
+      "hostBoardHighlight": "NONE",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 22,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "HOOK_INTRIGUE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "POINTER",
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "CURIOUS",
+              "handProp": "POINTER"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "POINTER"
+            }
+          ],
+          "appearance": {
+            "scale": 1.28
+          },
+          "lookAtCamera": true,
+          "bubble": "Khoan đã, thả sát đất vậy sao mèo xoay kịp?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 520
+      },
+      "balconyDetail": "CAT_CUSHION_SIT"
+    },
+    {
+      "id": "b05",
+      "text": "Bạn đừng tưởng đây chỉ là chuyện vặt nhé, vì cú lật người chớp nhoáng này từng khiến cả giới vật lý thế giới đau đầu suốt bảy mươi năm.",
+      "ttsText": "Bạn đừng tưởng đây chỉ là chuyện vặt nhé, vì cú lật người chớp nhoáng này từng khiến cả giới vật lý thế giới đau đầu suốt bảy mươi năm.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "BACKYARD_BALCONY_PET",
+      "freezeFrame": 90,
+      "labBoard": "CAT_RIGHTING_PHYSICS",
+      "boardTheme": "NATURE_FIELD_BOARD",
+      "natureBoardTitle": "SỔ TAY THIÊN NHIÊN • PHẢN XẠ LẬT NGƯỜI 180° CỦA MÈO",
+      "hostBoardHighlight": "CAT_MYSTERY_70Y",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 22,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "SURPRISED",
+          "handProp": "NONE",
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            }
+          ],
+          "appearance": {
+            "scale": 1.28
+          },
+          "lookAtCamera": true,
+          "bubble": "Chuyện này từng làm các nhà vật lý đau đầu!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 520
+      },
+      "balconyDetail": "CAT_CUSHION_SIT"
+    },
+    {
+      "id": "b06",
+      "text": "Trong các thí nghiệm quay chậm an toàn trên đệm êm, các nhà khoa học đặt mèo ở tư thế lưng hướng xuống đất và bốn chân chĩa lên trời.",
+      "ttsText": "Trong các thí nghiệm quay chậm an toàn trên đệm êm, các nhà khoa học đặt mèo ở tư thế lưng hướng xuống đất và bốn chân chĩa lên trời.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "CAT_LOW_HEIGHT_TEST",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b07",
+      "text": "Kết quả khó tin: chỉ cần thả từ độ cao ba mươi xăng ti mét, mèo vẫn kịp lật trọn một trăm tám mươi độ để tiếp đất.",
+      "ttsText": "Kết quả khó tin: chỉ cần thả từ độ cao ba mươi xăng ti mét, mèo vẫn kịp lật trọn một trăm tám mươi độ để tiếp đất.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "CAT_LOW_HEIGHT_TEST",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b08",
+      "text": "Vào cuối thế kỷ mười chín, nhà khoa học người Pháp tên Ma rê đã dùng máy ảnh chụp liên tiếp tốc độ cao để ghi lại khoảnh khắc này.",
+      "ttsText": "Vào cuối thế kỷ mười chín, nhà khoa học người Pháp tên Ma rê đã dùng máy ảnh chụp liên tiếp tốc độ cao để ghi lại khoảnh khắc này.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "CAT_MAREY_1894",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b09",
+      "text": "Loạt ảnh chứng minh mèo không hề đạp vào tay người thả để lấy đà, mà tự xoay ngay giữa khoảng không mà chẳng cần bất kỳ điểm tựa nào.",
+      "ttsText": "Loạt ảnh chứng minh mèo không hề đạp vào tay người thả để lấy đà, mà tự xoay ngay giữa khoảng không mà chẳng cần bất kỳ điểm tựa nào.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "voiceTone": "TENSE_CLIMAX",
+      "customVisual": "CAT_MAREY_1894",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      },
+      "sfxCue": "alert"
+    },
+    {
+      "id": "b10",
+      "text": "Theo định luật bảo toàn mô men động lượng, một vật đang đứng yên giữa không trung không thể tự xoay nếu không đẩy vào thứ gì đó.",
+      "ttsText": "Theo định luật bảo toàn mô men động lượng, một vật đang đứng yên giữa không trung không thể tự xoay nếu không đẩy vào thứ gì đó.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "BACKYARD_BALCONY_PET",
+      "freezeFrame": 90,
+      "labBoard": "CAT_RIGHTING_PHYSICS",
+      "boardTheme": "NATURE_FIELD_BOARD",
+      "natureBoardTitle": "SỔ TAY THIÊN NHIÊN • PHẢN XẠ LẬT NGƯỜI 180° CỦA MÈO",
+      "hostBoardHighlight": "CAT_ANGULAR_MOMENTUM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 22,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "THINKING",
+          "handProp": "POINTER",
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "THINKING",
+              "handProp": "POINTER"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "THINKING",
+              "handProp": "POINTER"
+            }
+          ],
+          "appearance": {
+            "scale": 1.28
+          },
+          "lookAtCamera": true,
+          "bubble": "Không có điểm tựa sao mèo tự xoay được nhỉ?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 520
+      },
+      "balconyDetail": "CAT_CUSHION_SIT"
+    },
+    {
+      "id": "b11",
+      "text": "Hóa ra định luật vật lý không hề sai, sai là ở chỗ ngày xưa người ta đã coi cơ thể con mèo giống như một khối cứng nguyên vẹn.",
+      "ttsText": "Hóa ra định luật vật lý không hề sai, sai là ở chỗ ngày xưa người ta đã coi cơ thể con mèo giống như một khối cứng nguyên vẹn.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "CAT_RIGID_VS_FLEX",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      },
+      "actTitle": "HỒI 2: LA BÀN TIỀN ĐÌNH & CỘT SỐNG KHÔNG XƯƠNG ĐÒN"
+    },
+    {
+      "id": "b12",
+      "text": "Mãi tới bảy mươi năm sau, hai nhà cơ học tại Mỹ mới giải mã trọn vẹn bài toán con mèo rơi nhờ phân tích thân mềm của nó.",
+      "ttsText": "Mãi tới bảy mươi năm sau, hai nhà cơ học tại Mỹ mới giải mã trọn vẹn bài toán con mèo rơi nhờ phân tích thân mềm của nó.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "CAT_RIGID_VS_FLEX",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b13",
+      "text": "Để xoay kịp chỉ từ độ cao ba mươi xăng ti mét, bước đầu tiên diễn ra nhanh hơn cả chớp mắt: xác định đâu là mặt đất.",
+      "ttsText": "Để xoay kịp chỉ từ độ cao ba mươi xăng ti mét, bước đầu tiên diễn ra nhanh hơn cả chớp mắt: xác định đâu là mặt đất.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "CAT_VESTIBULAR_COMPASS",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b14",
+      "text": "Hệ tiền đình chứa dịch lỏng trong tai giống chiếc la bàn cực nhạy, báo ngay cho não biết mèo đang lật ngửa chỉ sau vài mi li giây.",
+      "ttsText": "Hệ tiền đình chứa dịch lỏng trong tai giống chiếc la bàn cực nhạy, báo ngay cho não biết mèo đang lật ngửa chỉ sau vài mi li giây.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "CAT_VESTIBULAR_COMPASS",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b15",
+      "text": "Ngay khi nhận lệnh từ não, bộ khung xương đặc biệt của loài mèo liền phát huy uy lực mà con người hay loài chó đều không có được.",
+      "ttsText": "Ngay khi nhận lệnh từ não, bộ khung xương đặc biệt của loài mèo liền phát huy uy lực mà con người hay loài chó đều không có được.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "CAT_FLEXIBLE_SPINE",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b16",
+      "text": "Ngoài cột sống siêu dẻo, mèo không hề có xương đòn cứng nối cố định vai với ngực, giúp nửa thân trước xoay vặn cực kỳ tự do.",
+      "ttsText": "Ngoài cột sống siêu dẻo, mèo không hề có xương đòn cứng nối cố định vai với ngực, giúp nửa thân trước xoay vặn cực kỳ tự do.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "CAT_FLEXIBLE_SPINE",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b17",
+      "text": "Nhưng dẻo thôi chưa đủ để lật ngược giữa không trung, bí quyết nằm ở kỹ thuật chia cơ thể làm hai nửa rồi thay phiên xoay.",
+      "ttsText": "Nhưng dẻo thôi chưa đủ để lật ngược giữa không trung, bí quyết nằm ở kỹ thuật chia cơ thể làm hai nửa rồi thay phiên xoay.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "BACKYARD_BALCONY_PET",
+      "freezeFrame": 90,
+      "labBoard": "CAT_RIGHTING_PHYSICS",
+      "boardTheme": "NATURE_FIELD_BOARD",
+      "natureBoardTitle": "SỔ TAY THIÊN NHIÊN • PHẢN XẠ LẬT NGƯỜI 180° CỦA MÈO",
+      "hostBoardHighlight": "CENTER",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 22,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "HOOK_INTRIGUE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "POINTER",
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "POINTER"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "POINTER"
+            }
+          ],
+          "appearance": {
+            "scale": 1.28
+          },
+          "lookAtCamera": true,
+          "bubble": "Giờ xem vũ điệu xoay hai nửa thân siêu đỉnh!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 520
+      },
+      "balconyDetail": "CAT_CUSHION_SIT"
+    },
+    {
+      "id": "b18",
+      "text": "Để hiểu cực dễ, hãy nhớ tới vận động viên trượt băng nghệ thuật: khi dang rộng hai tay ra ngoài thì họ xoay rất chậm và nặng nề.",
+      "ttsText": "Để hiểu cực dễ, hãy nhớ tới vận động viên trượt băng nghệ thuật: khi dang rộng hai tay ra ngoài thì họ xoay rất chậm và nặng nề.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "CAT_SKATER_PHYSICS",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b19",
+      "text": "Nhưng hễ họ thu gọn hai tay sát vào ngực, quán tính xoay lập tức giảm mạnh khiến cả cơ thể quay vút lên cực kỳ nhanh chóng.",
+      "ttsText": "Nhưng hễ họ thu gọn hai tay sát vào ngực, quán tính xoay lập tức giảm mạnh khiến cả cơ thể quay vút lên cực kỳ nhanh chóng.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "CAT_SKATER_PHYSICS",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b20",
+      "text": "Con mèo đang rơi cũng áp dụng đúng quy tắc trượt băng đó: bước một, nó gập cong phần lưng để tách thân trước và thân sau thành hai nửa.",
+      "ttsText": "Con mèo đang rơi cũng áp dụng đúng quy tắc trượt băng đó: bước một, nó gập cong phần lưng để tách thân trước và thân sau thành hai nửa.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "CAT_TWO_HALF_TURN",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b21",
+      "text": "Bước hai, mèo thu gọn hai chân trước sát mặt để xoay thật nhanh, đồng thời duỗi thẳng hai chân sau ra ngoài làm mỏ neo giữ lại.",
+      "ttsText": "Bước hai, mèo thu gọn hai chân trước sát mặt để xoay thật nhanh, đồng thời duỗi thẳng hai chân sau ra ngoài làm mỏ neo giữ lại.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "CAT_TWO_HALF_TURN",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b22",
+      "text": "Bước ba, mèo lập tức đổi ngược lại: duỗi hai chân trước làm trụ rồi thu gọn chân sau để xoay nửa thân sau đuổi kịp ngay.",
+      "ttsText": "Bước ba, mèo lập tức đổi ngược lại: duỗi hai chân trước làm trụ rồi thu gọn chân sau để xoay nửa thân sau đuổi kịp ngay.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "voiceTone": "TENSE_CLIMAX",
+      "customVisual": "CAT_TWO_HALF_TURN",
+      "visualStep": 2,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b23",
+      "text": "Nhờ hai nửa cơ thể liên tục xoay ngược chiều nhau với quán tính chênh lệch, tổng mô men động lượng của con mèo suốt cú rơi vẫn bằng không.",
+      "ttsText": "Nhờ hai nửa cơ thể liên tục xoay ngược chiều nhau với quán tính chênh lệch, tổng mô men động lượng của con mèo suốt cú rơi vẫn bằng không.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "CAT_ZERO_ANGULAR_MOMENTUM",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      },
+      "actTitle": "HỒI 3: GIẢI OAN CHO CÁI ĐUÔI & CÚ ĐÁP LÒ XO GIẢM XÓC"
+    },
+    {
+      "id": "b24",
+      "text": "Và vì hai chân trước thu gọn cực sát đầu nên góc xoay diễn ra trong tích tắc, đó là lý do thả thấp sát đệm mèo vẫn lật kịp.",
+      "ttsText": "Và vì hai chân trước thu gọn cực sát đầu nên góc xoay diễn ra trong tích tắc, đó là lý do thả thấp sát đệm mèo vẫn lật kịp.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "CAT_ZERO_ANGULAR_MOMENTUM",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b25",
+      "text": "Nhiều bạn sẽ đoán chiếc đuôi dài của mèo quay tít như cánh quạt trực thăng giúp mèo lật người, nhưng sự thật lại cực bất ngờ.",
+      "ttsText": "Nhiều bạn sẽ đoán chiếc đuôi dài của mèo quay tít như cánh quạt trực thăng giúp mèo lật người, nhưng sự thật lại cực bất ngờ.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "BACKYARD_BALCONY_PET",
+      "freezeFrame": 90,
+      "labBoard": "CAT_RIGHTING_PHYSICS",
+      "boardTheme": "NATURE_FIELD_BOARD",
+      "natureBoardTitle": "SỔ TAY THIÊN NHIÊN • PHẢN XẠ LẬT NGƯỜI 180° CỦA MÈO",
+      "hostBoardHighlight": "CAT_TAIL_QUESTION",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 22,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "HOOK_INTRIGUE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ],
+          "appearance": {
+            "scale": 1.28
+          },
+          "lookAtCamera": true,
+          "bubble": "Ủa, vậy cái đuôi có phải cánh quạt xoay không?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 520
+      },
+      "balconyDetail": "CAT_CUSHION_SIT"
+    },
+    {
+      "id": "b26",
+      "text": "Thực tế, chiếc đuôi mèo quá nhẹ nên chỉ đóng vai trò hỗ trợ giữ thăng bằng phụ, chứ hoàn toàn không phải động cơ chính giúp nó xoay người.",
+      "ttsText": "Thực tế, chiếc đuôi mèo quá nhẹ nên chỉ đóng vai trò hỗ trợ giữ thăng bằng phụ, chứ hoàn toàn không phải động cơ chính giúp nó xoay người.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "CAT_TAIL_MYTH",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b27",
+      "text": "Bằng chứng rõ nhất là những giống mèo sinh ra không có đuôi vẫn thực hiện cú lật một trăm tám mươi độ chuẩn xác như mèo thường.",
+      "ttsText": "Bằng chứng rõ nhất là những giống mèo sinh ra không có đuôi vẫn thực hiện cú lật một trăm tám mươi độ chuẩn xác như mèo thường.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "CAT_TAIL_MYTH",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b28",
+      "text": "Quay lại hiên nhà, tôi nhìn Mướp đầy ngưỡng mộ, hóa ra mỗi lần nó nhảy từ nóc tủ xuống đều là một bài toán cơ học đỉnh cao.",
+      "ttsText": "Quay lại hiên nhà, tôi nhìn Mướp đầy ngưỡng mộ, hóa ra mỗi lần nó nhảy từ nóc tủ xuống đều là một bài toán cơ học đỉnh cao.",
+      "stageType": "BACKYARD_BALCONY_PET",
+      "balconyDetail": "CAT_PET_HAPPY",
+      "sfxCue": "whoosh_out",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "actors": [
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 1.0,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#0284C7",
+            "glasses": "RECT",
+            "mustache": true
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 816,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 520,
+              "endX": 520,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 520,
+              "endX": 520,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "PROUD",
+          "handProp": "NONE",
+          "groundY": 816,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 860,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 860,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Giỏi thật, không cần đuôi mà vẫn lật được luôn!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b29",
+      "text": "Tối hôm đó ngồi trong phòng khách, bố tôi đố một câu cực hóc búa: nếu mèo lỡ rơi từ ban công tầng cao thì chuyện gì sẽ xảy ra?",
+      "ttsText": "Tối hôm đó ngồi trong phòng khách, bố tôi đố một câu cực hóc búa: nếu mèo lỡ rơi từ ban công tầng cao thì chuyện gì sẽ xảy ra?",
+      "stageType": "CITY_LIVING_ROOM",
+      "livingRoomDetail": "CAT_RUG",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "groundY": 820,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 665,
+              "endX": 665,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 665,
+              "endX": 665,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ],
+          "seated": true
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 1.0,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#0284C7",
+            "glasses": "RECT",
+            "mustache": true
+          },
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "NONE",
+          "groundY": 820,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 895,
+              "endX": 895,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 895,
+              "endX": 895,
+              "facing": "LEFT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "seated": true,
+          "bubble": "Con có biết mèo rơi tầng cao thì sao không?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 940,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b30",
+      "text": "Tôi đáp ngay là rơi càng cao thì vận tốc càng lớn, chạm đất chắc chắn càng đau, nhưng bố bảo loài mèo còn giấu thêm hai tuyệt chiêu nữa.",
+      "ttsText": "Tôi đáp ngay là rơi càng cao thì vận tốc càng lớn, chạm đất chắc chắn càng đau, nhưng bố bảo loài mèo còn giấu thêm hai tuyệt chiêu nữa.",
+      "stageType": "CITY_LIVING_ROOM",
+      "livingRoomDetail": "CAT_ALERT",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "THINKING",
+          "handProp": "NONE",
+          "groundY": 820,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 665,
+              "endX": 665,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 665,
+              "endX": 665,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "NONE"
+            }
+          ],
+          "seated": true,
+          "bubble": "Rơi càng cao thì va chạm càng mạnh chứ bố?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 1.0,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#0284C7",
+            "glasses": "RECT",
+            "mustache": true
+          },
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 820,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 895,
+              "endX": 895,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 895,
+              "endX": 895,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "seated": true
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 940,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b31",
+      "text": "Xoay người xong mới là nửa chặng đường, phần giúp mèo chạm đất êm ru không bị chấn động nằm ở cấu trúc bốn chân và bộ lông.",
+      "ttsText": "Xoay người xong mới là nửa chặng đường, phần giúp mèo chạm đất êm ru không bị chấn động nằm ở cấu trúc bốn chân và bộ lông.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "CITY_LIVING_ROOM",
+      "freezeFrame": 90,
+      "labBoard": "CAT_RIGHTING_PHYSICS",
+      "boardTheme": "NATURE_FIELD_BOARD",
+      "natureBoardTitle": "SỔ TAY THIÊN NHIÊN • PHẢN XẠ LẬT NGƯỜI 180° CỦA MÈO",
+      "hostBoardHighlight": "RIGHT",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 22,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "POINTER",
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "POINTER"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "POINTER"
+            }
+          ],
+          "appearance": {
+            "scale": 1.28
+          },
+          "lookAtCamera": true,
+          "bubble": "Tuyệt chiêu số một: bộ đệm lò xo bốn chân!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 520
+      },
+      "livingRoomDetail": "CAT_RUG"
+    },
+    {
+      "id": "b32",
+      "text": "Ngay trước khi chạm đất, mèo cong nhẹ lưng rồi chùng bốn chân có khớp gập và đệm thịt dày để hấp thụ lực hệt lò xo giảm xóc.",
+      "ttsText": "Ngay trước khi chạm đất, mèo cong nhẹ lưng rồi chùng bốn chân có khớp gập và đệm thịt dày để hấp thụ lực hệt lò xo giảm xóc.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "CAT_SPRING_LEGS",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b33",
+      "text": "Nhờ khớp chân uốn cong tự nhiên và đệm bàn chân đàn hồi, lực va chạm được dàn trải dần thay vì dội thẳng vào khung xương.",
+      "ttsText": "Nhờ khớp chân uốn cong tự nhiên và đệm bàn chân đàn hồi, lực va chạm được dàn trải dần thay vì dội thẳng vào khung xương.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "CAT_SPRING_LEGS",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b34",
+      "text": "Còn khi rơi từ độ cao lớn hơn, mèo có thêm phản xạ xòe rộng bốn chân và bộ lông dày ra xung quanh hệt chiếc dù lượn tí hon.",
+      "ttsText": "Còn khi rơi từ độ cao lớn hơn, mèo có thêm phản xạ xòe rộng bốn chân và bộ lông dày ra xung quanh hệt chiếc dù lượn tí hon.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "CAT_PARACHUTE_VELOCITY",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b35",
+      "text": "Nhờ thân nhẹ và diện tích cản gió lớn, vận tốc rơi tối đa của mèo chỉ khoảng một trăm ki lô mét mỗi giờ, bằng nửa người.",
+      "ttsText": "Nhờ thân nhẹ và diện tích cản gió lớn, vận tốc rơi tối đa của mèo chỉ khoảng một trăm ki lô mét mỗi giờ, bằng nửa người.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "CAT_PARACHUTE_VELOCITY",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      },
+      "actTitle": "HỒI 4: VẬN TỐC CỰC ĐẠI, SỰ THẬT THÚ Y & KHÔNG CHỈ MÈO BIẾT LẬT"
+    },
+    {
+      "id": "b36",
+      "text": "Nghe tới đây nhiều người hay đồn mèo có chín mạng và rơi từ nhà cao tầng cũng chẳng sao, nhưng đó lại là hiểu lầm rất lớn.",
+      "ttsText": "Nghe tới đây nhiều người hay đồn mèo có chín mạng và rơi từ nhà cao tầng cũng chẳng sao, nhưng đó lại là hiểu lầm rất lớn.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "CITY_LIVING_ROOM",
+      "freezeFrame": 90,
+      "labBoard": "CAT_RIGHTING_PHYSICS",
+      "boardTheme": "NATURE_FIELD_BOARD",
+      "natureBoardTitle": "SỔ TAY THIÊN NHIÊN • PHẢN XẠ LẬT NGƯỜI 180° CỦA MÈO",
+      "hostBoardHighlight": "CAT_WARNING_9LIVES",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 22,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "voiceTone": "TENSE_CLIMAX",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "WORRIED",
+          "handProp": "NONE",
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            }
+          ],
+          "appearance": {
+            "scale": 1.28
+          },
+          "lookAtCamera": true,
+          "bubble": "Nhưng khoan, đừng nghĩ mèo rơi cao không sao nhé!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 520
+      },
+      "livingRoomDetail": "CAT_RUG"
+    },
+    {
+      "id": "b37",
+      "text": "Bác sĩ thú y gọi tai nạn mèo ngã từ ban công cao là hội chứng nhà cao tầng, và thực tế nhiều bé bị gãy chân hay chấn thương.",
+      "ttsText": "Bác sĩ thú y gọi tai nạn mèo ngã từ ban công cao là hội chứng nhà cao tầng, và thực tế nhiều bé bị gãy chân hay chấn thương.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "voiceTone": "TENSE_CLIMAX",
+      "customVisual": "CAT_HIGH_RISE_TRUTH",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      },
+      "sfxCue": "alert"
+    },
+    {
+      "id": "b38",
+      "text": "Một nghiên cứu cũ từng thấy mèo rơi quá tầng bảy ít thương tích hơn, nhưng khoa học sau đó chỉ ra lỗ hổng thống kê nghiêm trọng.",
+      "ttsText": "Một nghiên cứu cũ từng thấy mèo rơi quá tầng bảy ít thương tích hơn, nhưng khoa học sau đó chỉ ra lỗ hổng thống kê nghiêm trọng.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "CAT_HIGH_RISE_TRUTH",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b39",
+      "text": "Hơn nữa, không phải chú mèo nào cũng lật người thành công trong mọi tình huống, vì phản xạ này vẫn có những giới hạn sinh học rất rõ ràng.",
+      "ttsText": "Hơn nữa, không phải chú mèo nào cũng lật người thành công trong mọi tình huống, vì phản xạ này vẫn có những giới hạn sinh học rất rõ ràng.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "CAT_WHEN_FAILS",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b40",
+      "text": "Mèo con dưới ba tuần chưa có phản xạ này, mèo béo hoặc già xoay chậm, còn rơi quá sát đất dưới hai mươi xăng ti mét sẽ không kịp.",
+      "ttsText": "Mèo con dưới ba tuần chưa có phản xạ này, mèo béo hoặc già xoay chậm, còn rơi quá sát đất dưới hai mươi xăng ti mét sẽ không kịp.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "CAT_WHEN_FAILS",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b41",
+      "text": "Một sự thật thú vị nữa là loài mèo nổi tiếng nhất thôi, chứ chúng không phải sinh vật duy nhất biết lật người giữa không trung đâu nhé.",
+      "ttsText": "Một sự thật thú vị nữa là loài mèo nổi tiếng nhất thôi, chứ chúng không phải sinh vật duy nhất biết lật người giữa không trung đâu nhé.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "CITY_LIVING_ROOM",
+      "freezeFrame": 90,
+      "labBoard": "CAT_RIGHTING_PHYSICS",
+      "boardTheme": "NATURE_FIELD_BOARD",
+      "natureBoardTitle": "SỔ TAY THIÊN NHIÊN • PHẢN XẠ LẬT NGƯỜI 180° CỦA MÈO",
+      "hostBoardHighlight": "CAT_EXPLORE_OTHER",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 22,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "HOOK_INTRIGUE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "appearance": {
+            "scale": 1.28
+          },
+          "lookAtCamera": true,
+          "bubble": "Ngoài mèo ra, còn ai biết xoay trên không không?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 520
+      },
+      "livingRoomDetail": "CAT_RUG"
+    },
+    {
+      "id": "b42",
+      "text": "Nhiều loài vật nhỏ như thỏ, chuột, thằn lằn và cả bọ que cũng sở hữu khả năng xoay chỉnh tư thế giữa không trung rất khéo léo.",
+      "ttsText": "Nhiều loài vật nhỏ như thỏ, chuột, thằn lằn và cả bọ que cũng sở hữu khả năng xoay chỉnh tư thế giữa không trung rất khéo léo.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "CAT_OTHER_ANIMALS_NASA",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b43",
+      "text": "Thú vị hơn, cơ quan vũ trụ Mỹ từng tài trợ nghiên cứu cú xoay của mèo để dạy phi hành gia tự xoay trong môi trường không trọng lực.",
+      "ttsText": "Thú vị hơn, cơ quan vũ trụ Mỹ từng tài trợ nghiên cứu cú xoay của mèo để dạy phi hành gia tự xoay trong môi trường không trọng lực.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "CAT_OTHER_ANIMALS_NASA",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b44",
+      "text": "Vì thế, nếu nuôi mèo ở tầng cao, bạn hãy lắp lưới chắn ban công và tuyệt đối không bao giờ tự thả ngược mèo để thử nghiệm nhé.",
+      "ttsText": "Vì thế, nếu nuôi mèo ở tầng cao, bạn hãy lắp lưới chắn ban công và tuyệt đối không bao giờ tự thả ngược mèo để thử nghiệm nhé.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "SLOW_EMOTIONAL",
+      "customVisual": "CAT_OTHER_ANIMALS_NASA",
+      "visualStep": 2,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      },
+      "sfxCue": "ding"
+    },
+    {
+      "id": "b45",
+      "text": "Quay lại phòng khách, tôi bảo ngay với bố rằng mai hai bố con sẽ kiểm tra thật kỹ lưới chắn ban công cho Mướp chơi an toàn.",
+      "ttsText": "Quay lại phòng khách, tôi bảo ngay với bố rằng mai hai bố con sẽ kiểm tra thật kỹ lưới chắn ban công cho Mướp chơi an toàn.",
+      "stageType": "CITY_LIVING_ROOM",
+      "livingRoomDetail": "CAT_STAND",
+      "sfxCue": "whoosh_out",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "CALM_STORY",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 820,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 665,
+              "endX": 665,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 665,
+              "endX": 665,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            }
+          ],
+          "seated": true,
+          "bubble": "Con hiểu rồi, mai mình kiểm tra lưới ban công!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 1.0,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#0284C7",
+            "glasses": "RECT",
+            "mustache": true
+          },
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 820,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 895,
+              "endX": 895,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 895,
+              "endX": 895,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "seated": true
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 940,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b46",
+      "text": "Bố tôi gật gù khen đúng ý bố, còn Mướp thì ung dung nhảy phốc lên ghế đệm nằm ngủ ngon lành như chẳng bận tâm vật lý.",
+      "ttsText": "Bố tôi gật gù khen đúng ý bố, còn Mướp thì ung dung nhảy phốc lên ghế đệm nằm ngủ ngon lành như chẳng bận tâm vật lý.",
+      "stageType": "CITY_LIVING_ROOM",
+      "livingRoomDetail": "CAT_SOFA",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "CALM_STORY",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 820,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 655,
+              "endX": 655,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 655,
+              "endX": 655,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "seated": true
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 1.0,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#0284C7",
+            "glasses": "RECT",
+            "mustache": true
+          },
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 820,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 865,
+              "endX": 865,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 865,
+              "endX": 865,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            }
+          ],
+          "seated": true,
+          "bubble": "Đúng rồi, yêu thú cưng là phải giữ an toàn!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 920,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b47",
+      "actTitle": "HỒI 5: ỨNG DỤNG THỰC TẾ & ĐỐ VUI NHANH",
+      "chapterBanner": "Hồi 5: Ứng Dụng Thực Tế & Đố Vui Nhanh",
+      "text": "Sáng hôm sau, tôi kiểm tra kỹ từng chốt lưới bảo vệ ngoài hiên để chú mèo nhà mình tha hồ tắm nắng mà cả nhà hoàn toàn yên tâm.",
+      "ttsText": "Sáng hôm sau, tôi kiểm tra kỹ từng chốt lưới bảo vệ ngoài hiên để chú mèo nhà mình tha hồ tắm nắng mà cả nhà hoàn toàn yên tâm.",
+      "stageType": "BACKYARD_BALCONY_PET",
+      "balconyDetail": "SAFETY_NET_STAND",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "CALM_STORY",
+      "actors": [
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 1.0,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#0284C7",
+            "glasses": "RECT",
+            "mustache": true
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 816,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 540,
+              "endX": 540,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 540,
+              "endX": 540,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "PROUD",
+          "handProp": "NONE",
+          "groundY": 816,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 860,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 860,
+              "endX": 860,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Lưới chắc chắn rồi, Mướp tha hồ phơi nắng nhé!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b48",
+      "text": "Bố tôi đứng cạnh trêu rằng chỉ cần quan sát chú mèo nhảy một cú thôi là đã học thuộc luôn định luật bảo toàn mô men động lượng rồi.",
+      "ttsText": "Bố tôi đứng cạnh trêu rằng chỉ cần quan sát chú mèo nhảy một cú thôi là đã học thuộc luôn định luật bảo toàn mô men động lượng rồi.",
+      "stageType": "BACKYARD_BALCONY_PET",
+      "balconyDetail": "SAFETY_NET_SIT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "CALM_STORY",
+      "actors": [
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 1.0,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#0284C7",
+            "glasses": "RECT",
+            "mustache": true
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 816,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 540,
+              "endX": 540,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 540,
+              "endX": 540,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Nhìn mèo nhảy mà học luôn bài vật lý đấy!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 816,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 860,
+              "endX": 860,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 860,
+              "endX": 860,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b49",
+      "text": "Trước khi khép lại tập mở màn thế giới động vật hôm nay, hãy thử trả lời nhanh một câu hỏi đố vui nhỏ kiểm tra trí nhớ nhé.",
+      "ttsText": "Trước khi khép lại tập mở màn thế giới động vật hôm nay, hãy thử trả lời nhanh một câu hỏi đố vui nhỏ kiểm tra trí nhớ nhé.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "HOOK_INTRIGUE",
+      "customVisual": "CAT_QUICK_QUIZ",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b50",
+      "text": "Theo bạn, bộ phận nào đóng vai trò quan trọng nhất giúp mèo tự lật giữa không trung: cái đuôi, cột sống mềm cùng bốn chân, hay bộ ria mép?",
+      "ttsText": "Theo bạn, bộ phận nào đóng vai trò quan trọng nhất giúp mèo tự lật giữa không trung: cái đuôi, cột sống mềm cùng bốn chân, hay bộ ria mép?",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "CAT_QUICK_QUIZ",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b51",
+      "text": "Đáp án chính xác là đáp án bê: cột sống siêu dẻo kết hợp kỹ thuật thu duỗi bốn chân, còn cái đuôi chỉ hỗ trợ phụ thôi nhé.",
+      "ttsText": "Đáp án chính xác là đáp án bê: cột sống siêu dẻo kết hợp kỹ thuật thu duỗi bốn chân, còn cái đuôi chỉ hỗ trợ phụ thôi nhé.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "CAT_QUICK_QUIZ",
+      "visualStep": 2,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      },
+      "sfxCue": "ding"
+    },
+    {
+      "id": "b52",
+      "text": "Nếu bạn vừa chọn đúng đáp án bê thì chúc mừng nhé, bạn đã nắm trọn bí kíp vật lý làm khó giới khoa học suốt bảy mươi năm.",
+      "ttsText": "Nếu bạn vừa chọn đúng đáp án bê thì chúc mừng nhé, bạn đã nắm trọn bí kíp vật lý làm khó giới khoa học suốt bảy mươi năm.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "BACKYARD_BALCONY_PET",
+      "freezeFrame": 90,
+      "balconyDetail": "SAFETY_NET_SIT",
+      "labBoard": "CAT_RIGHTING_PHYSICS",
+      "boardTheme": "NATURE_FIELD_BOARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 22,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "CALM_STORY",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 770,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "appearance": {
+            "scale": 1.35
+          },
+          "lookAtCamera": true,
+          "bubble": "Chắc bạn chọn đúng ngay đáp án B rồi nhỉ?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b53",
+      "text": "Đúng là càng tìm hiểu về thế giới động vật, ta càng thấy tự nhiên đã giải những bài toán vật lý khó nhất từ hàng triệu năm trước rồi.",
+      "ttsText": "Đúng là càng tìm hiểu về thế giới động vật, ta càng thấy tự nhiên đã giải những bài toán vật lý khó nhất từ hàng triệu năm trước rồi.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "BACKYARD_BALCONY_PET",
+      "freezeFrame": 90,
+      "balconyDetail": "SAFETY_NET_SIT",
+      "labBoard": "CAT_RIGHTING_PHYSICS",
+      "boardTheme": "NATURE_FIELD_BOARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 22,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "CALM_STORY",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "PROUD",
+          "handProp": "NONE",
+          "groundY": 770,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            }
+          ],
+          "appearance": {
+            "scale": 1.35
+          },
+          "lookAtCamera": true,
+          "bubble": "Thiên nhiên đúng là bậc thầy vật lý siêu đỉnh!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b54",
+      "text": "Giờ thì chúng ta hãy tóm gọn lại ba điều quan trọng nhất đứng sau cú tiếp đất bốn chân huyền thoại của loài mèo hôm nay nhé.",
+      "ttsText": "Giờ thì chúng ta hãy tóm gọn lại ba điều quan trọng nhất đứng sau cú tiếp đất bốn chân huyền thoại của loài mèo hôm nay nhé.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "BACKYARD_BALCONY_PET",
+      "freezeFrame": 90,
+      "labBoard": "CAT_RIGHTING_PHYSICS",
+      "boardTheme": "NATURE_FIELD_BOARD",
+      "natureBoardTitle": "SỔ TAY THIÊN NHIÊN • PHẢN XẠ LẬT NGƯỜI 180° CỦA MÈO",
+      "hostBoardHighlight": "SUMMARY",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 22,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "CALM_STORY",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "POINTER",
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "POINTER"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "POINTER"
+            }
+          ],
+          "appearance": {
+            "scale": 1.28
+          },
+          "lookAtCamera": true,
+          "bubble": "Cùng chốt gọn ba bí mật của loài mèo nhé!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 520
+      },
+      "balconyDetail": "SAFETY_NET_SIT"
+    },
+    {
+      "id": "b55",
+      "text": "Tóm lại ba điều cần nhớ: thứ nhất, hệ tiền đình trong tai trong giúp mèo nhận biết chiều rơi gần như tức thì chỉ sau vài mi li giây.",
+      "ttsText": "Tóm lại ba điều cần nhớ: thứ nhất, hệ tiền đình trong tai trong giúp mèo nhận biết chiều rơi gần như tức thì chỉ sau vài mi li giây.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "CAT_SUMMARY_3_CARDS",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      },
+      "actTitle": "HỒI 6: TỔNG KẾT 3 Ý & HẸN GẶP LẠI",
+      "sfxCue": "ding"
+    },
+    {
+      "id": "b56",
+      "text": "Thứ hai, cột sống siêu dẻo và kỹ thuật thu duỗi hai nửa chân giúp mèo tự xoay một trăm tám mươi độ dù thả sát mặt đệm.",
+      "ttsText": "Thứ hai, cột sống siêu dẻo và kỹ thuật thu duỗi hai nửa chân giúp mèo tự xoay một trăm tám mươi độ dù thả sát mặt đệm.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "CAT_SUMMARY_3_CARDS",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      },
+      "sfxCue": "ding"
+    },
+    {
+      "id": "b57",
+      "text": "Thứ ba, bốn chân lò xo và tư thế dù lượn giúp giảm chấn động, nhưng mèo không bất tử nên nhớ lắp lưới ban công bảo vệ chúng.",
+      "ttsText": "Thứ ba, bốn chân lò xo và tư thế dù lượn giúp giảm chấn động, nhưng mèo không bất tử nên nhớ lắp lưới ban công bảo vệ chúng.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "SLOW_EMOTIONAL",
+      "customVisual": "CAT_SUMMARY_3_CARDS",
+      "visualStep": 2,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      },
+      "sfxCue": "ding"
+    },
+    {
+      "id": "b58",
+      "text": "Đừng quên bình luận bên dưới xem bạn từng chứng kiến cú nhảy bá đạo nào của mèo chưa, và muốn tập sau mình khám phá loài vật nào nhé.",
+      "ttsText": "Đừng quên bình luận bên dưới xem bạn từng chứng kiến cú nhảy bá đạo nào của mèo chưa, và muốn tập sau mình khám phá loài vật nào nhé.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "BACKYARD_BALCONY_PET",
+      "freezeFrame": 90,
+      "balconyDetail": "SAFETY_NET_SIT",
+      "labBoard": "CAT_RIGHTING_PHYSICS",
+      "boardTheme": "NATURE_FIELD_BOARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 22,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "SLOW_EMOTIONAL",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 770,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "appearance": {
+            "scale": 1.35
+          },
+          "lookAtCamera": true,
+          "bubble": "Tập sau bạn muốn giải mã loài vật nào nữa?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b59",
+      "text": "Cảm ơn bạn đã đồng hành cùng chúng mình trong tập mở màn đầy thú vị của hành trình khám phá thế giới động vật hôm nay.",
+      "ttsText": "Cảm ơn bạn đã đồng hành cùng chúng mình trong tập mở màn đầy thú vị của hành trình khám phá thế giới động vật hôm nay.",
+      "stageType": "BACKYARD_BALCONY_PET",
+      "balconyDetail": "OUTRO_OPEN_FLOOR",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "SLOW_EMOTIONAL",
+      "actors": [
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 1.0,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#0284C7",
+            "glasses": "RECT",
+            "mustache": true
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 818,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 660,
+              "endX": 660,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 660,
+              "endX": 660,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "lookAtCamera": true
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 818,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "lookAtCamera": true,
+          "bubble": "Nhớ bảo vệ an toàn cho mấy bé mèo nhé!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b60",
+      "text": "Hẹn gặp lại bạn ở tập tiếp theo với một siêu năng lực kỳ lạ nữa của thiên nhiên, nhớ đăng ký kênh để không bỏ lỡ nhé!",
+      "ttsText": "Hẹn gặp lại bạn ở tập tiếp theo với một siêu năng lực kỳ lạ nữa của thiên nhiên, nhớ đăng ký kênh để không bỏ lỡ nhé!",
+      "stageType": "BACKYARD_BALCONY_PET",
+      "balconyDetail": "OUTRO_OPEN_FLOOR",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 20,
+      "pauseAfterSec": 0.6,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "SLOW_EMOTIONAL",
+      "actors": [
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 1.0,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#0284C7",
+            "glasses": "RECT",
+            "mustache": true
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 818,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 660,
+              "endX": 660,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 660,
+              "endX": 660,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "lookAtCamera": true
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 818,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "lookAtCamera": true,
+          "bubble": "Hẹn gặp lại bạn ở bí mật động vật sau!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1.01,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    }
+  ]
+}

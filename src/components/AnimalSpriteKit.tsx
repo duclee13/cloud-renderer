@@ -60,16 +60,18 @@ export const CuteCat: React.FC<CuteCatProps> = ({
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      {/* Flat Ground Shadow (0 blur) */}
-      <ellipse
-        cx={0}
-        cy={pose === "curl_midair" ? 56 : 4}
-        rx={pose === "curl_midair" ? 44 : pose === "stand" || pose === "puff_fur" ? 64 : 52}
-        ry={pose === "curl_midair" ? 9 : 11}
-        fill="#0F172A"
-        opacity="0.12"
-        stroke="none"
-      />
+      {/* Flat Ground Shadow (0 blur; omitted when cat is tumbling mid-air in curl_midair) */}
+      {pose !== "curl_midair" && (
+        <ellipse
+          cx={0}
+          cy={4}
+          rx={pose === "stand" || pose === "puff_fur" ? 64 : 52}
+          ry={11}
+          fill="#0F172A"
+          opacity="0.12"
+          stroke="none"
+        />
+      )}
 
       <g transform={`rotate(${midairRot.toFixed(1)}) scale(1, ${breathY.toFixed(4)})`}>
         {pose === "curl_midair" ? (

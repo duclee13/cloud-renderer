@@ -68,7 +68,7 @@ function isFullScreenSvgBeat(beat?: AutoSfxBeatLike): boolean {
   return Boolean(spec && spec.fullScreenVisual === true && typeof spec.customVisual === "string" && spec.customVisual.trim());
 }
 
-function isSummaryOrTipsVisual(customVisual?: string): boolean {
+function isSummaryOrTipsVisual(customVisual?: string, visualStep = 0): boolean {
   if (!customVisual) return false;
   const upper = customVisual.toUpperCase();
   return (
@@ -76,7 +76,9 @@ function isSummaryOrTipsVisual(customVisual?: string): boolean {
     upper.includes("TIPS") ||
     upper.includes("TRICKS") ||
     upper.includes("TONG_KET") ||
-    upper.includes("MEO")
+    upper.includes("MEO") ||
+    (upper === "CAT_QUICK_QUIZ" && visualStep === 2) ||
+    (upper === "CAT_OTHER_ANIMALS_NASA" && visualStep === 2)
   );
 }
 
@@ -91,6 +93,8 @@ function isSoftAlertBeat(beat: AutoSfxBeatLike): boolean {
   if (
     (vis.includes("FREQ_BAND") && step === 1) ||
     (vis.includes("AMYGDALA_LOOP") && step === 1) ||
+    (vis === "CAT_MAREY_1894" && step === 1) ||
+    (vis === "CAT_HIGH_RISE_TRUTH" && step === 0) ||
     vis.includes("ALARM")
   ) {
     return true;
@@ -147,7 +151,7 @@ export function resolveAutoSfxPlan(
       } else if (!currHost && prevHost && !currSvg) {
         chosenCue = "whoosh_out";
         reason = "Exit HOST_EXPLAIN_OVERLAY (unfreeze)";
-      } else if (currSvg && isSummaryOrTipsVisual(spec?.customVisual)) {
+      } else if (currSvg && isSummaryOrTipsVisual(spec?.customVisual, spec?.visualStep ?? 0)) {
         chosenCue = "ding";
         reason = `Summary/Tips SVG (${spec?.customVisual})`;
       } else if (isSoftAlertBeat(curr)) {

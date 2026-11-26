@@ -45,12 +45,14 @@ import {
   HostMirrorNeuronsBoard,
   HostAcousticsCringeBoard,
   HostNatureFieldBoard,
+  BackyardBalconyCatStageKit,
   ClassroomSeatedChairsBack,
   ClassroomSeatedDesksForeground,
   ClassroomBoardScreechOverlay,
   KitchenDiningChairsBack,
   KitchenDiningTableForeground,
   LivingRoomPetDog,
+  LivingRoomPetCat,
   ActorYawnWavesOverlay,
 } from "./HostExplainAndStageKits";
 import { resolvePendulumArms } from "../../animscript/motionGraph";
@@ -2668,8 +2670,17 @@ export const UniversalAutoStage: React.FC<{
   const effectiveStageType = isHostExplain ? (spec.freezeStage ?? "SCHOOL_CLASSROOM") : spec.stageType;
   const stageRenderFrame = isHostExplain ? (spec.freezeFrame ?? 90) : frame;
   const resolvedBoardTheme = spec.boardTheme ?? "LAB_WHITEBOARD";
+  const isSoloCenterHost = Boolean(
+    isHostExplain &&
+      spec.actors.length === 1 &&
+      (spec.actors[0].slot === "CENTER" ||
+        (Array.isArray(spec.actors[0].timeline) &&
+          spec.actors[0].timeline.length > 0 &&
+          spec.actors[0].timeline[0].startX >= 700))
+  );
   const hasHostWhiteboard = Boolean(
     isHostExplain &&
+      !isSoloCenterHost &&
       (resolvedBoardTheme === "NATURE_FIELD_BOARD" ||
         spec.labBoard === "MIRROR_NEURONS_YAWN" ||
         spec.labBoard === "ACOUSTICS_CRINGE_ALARM")
@@ -3351,11 +3362,24 @@ export const UniversalAutoStage: React.FC<{
         spec.kitchenDetail &&
         spec.kitchenDetail !== "NONE"
     );
-  const hasLivingRoomDog = Boolean(
+  const isLivingRoomCatMode = Boolean(
+    effectiveStageType === "CITY_LIVING_ROOM" &&
+      (spec.livingRoomDetail === "CAT_RUG" ||
+        spec.livingRoomDetail === "CAT_ALERT" ||
+        spec.livingRoomDetail === "CAT_STAND" ||
+        spec.livingRoomDetail === "CAT_SOFA")
+  );
+  const isLivingRoomDogMode = Boolean(
     effectiveStageType === "CITY_LIVING_ROOM" &&
       spec.livingRoomDetail &&
-      spec.livingRoomDetail !== "NONE"
+      spec.livingRoomDetail !== "NONE" &&
+      !isLivingRoomCatMode
   );
+  const freezeLivingRoomCat = Boolean(
+    isHostExplain && spec.freezeStage === "CITY_LIVING_ROOM" && spec.labBoard === "CAT_RIGHTING_PHYSICS"
+  );
+  const hasLivingRoomDog = isLivingRoomDogMode;
+  const hasLivingRoomPet = isLivingRoomDogMode || isLivingRoomCatMode;
   const hostVeilOpacity = isHostExplain ? 0.84 * Math.min(1, Math.max(0.25, localFrame / 12)) : 0;
 
   return (
@@ -3400,7 +3424,7 @@ export const UniversalAutoStage: React.FC<{
           <CityLivingRoomBackdrop
             timeOfDay={spec.timeOfDay}
             frame={stageRenderFrame}
-            hasPetDog={hasLivingRoomDog || (isHostExplain && spec.freezeStage === "CITY_LIVING_ROOM")}
+            hasPetDog={hasLivingRoomPet || (isHostExplain && spec.freezeStage === "CITY_LIVING_ROOM")}
           />
         )}
         {effectiveStageType === "CITY_STREET_PARK" && (
@@ -3498,15 +3522,29 @@ export const UniversalAutoStage: React.FC<{
             <ClassroomBoardScreechOverlay mode={spec.classroomDetail} frame={localFrame} />
           )}
 
-        {/* 1.3. Chú chó cưng 2D nằm trên thảm trong CITY_LIVING_ROOM (tự đóng băng khi HOST_EXPLAIN_OVERLAY) */}
-        {(hasLivingRoomDog || (isHostExplain && spec.freezeStage === "CITY_LIVING_ROOM")) && (
+        {/* 1.3. Chú chó cưng / mèo cưng 2D trong CITY_LIVING_ROOM (tự đóng băng đúng loài khi HOST_EXPLAIN_OVERLAY) */}
+        {(hasLivingRoomDog ||
+          (isHostExplain && spec.freezeStage === "CITY_LIVING_ROOM" && !freezeLivingRoomCat)) && (
           <LivingRoomPetDog
             mode={hasLivingRoomDog ? spec.livingRoomDetail! : "DOG_REST"}
             frame={stageRenderFrame}
           />
         )}
+        {(isLivingRoomCatMode || freezeLivingRoomCat) && (
+          <LivingRoomPetCat
+            mode={isLivingRoomCatMode ? spec.livingRoomDetail! : "CAT_RUG"}
+            frame={stageRenderFrame}
+          />
+        )}
 
-        {/* 1.5. V22.5–V22.7: LỚP PHỦ TRẮNG SỮA PHẲNG & BẢNG TRẮNG CHUYÊN ĐỀ CHO HOST_EXPLAIN_OVERLAY (0% blur!) */}
+        {/* 1.3B. V23.0: Đạo cụ sân hiên & chú mèo Mướp / lưới an toàn cho BACKYARD_BALCONY_PET */}
+        {effectiveStageType === "BACKYARD_BALCONY_PET" &&
+          spec.balconyDetail &&
+          spec.balconyDetail !== "NONE" && (
+            <BackyardBalconyCatStageKit mode={spec.balconyDetail} frame={stageRenderFrame} />
+          )}
+
+        {/* 1.5. V22.5–V23.0: LỚP PHỦ TRẮNG SỮA PHẲNG & BẢNG CHUYÊN ĐỀ CHO HOST_EXPLAIN_OVERLAY (0% blur!) */}
         {isHostExplain && (
           <g id="layer-host-explain-veil">
             <rect
@@ -3525,6 +3563,7 @@ export const UniversalAutoStage: React.FC<{
                   highlight={spec.hostBoardHighlight}
                   frame={localFrame}
                   title={spec.natureBoardTitle}
+                  labBoard={spec.labBoard}
                 />
               ) : spec.labBoard === "ACOUSTICS_CRINGE_ALARM" ? (
                 <HostAcousticsCringeBoard highlight={spec.hostBoardHighlight} frame={localFrame} />

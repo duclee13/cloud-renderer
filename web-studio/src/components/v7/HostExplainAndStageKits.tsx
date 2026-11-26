@@ -1,6 +1,8 @@
 import React from "react";
 import { GroundShadow } from "../SceneBackdropKit";
+import { CuteCat } from "../AnimalSpriteKit";
 import type {
+  BalconyDetailId,
   ClassroomDetailId,
   HostBoardHighlightId,
   KitchenDetailId,
@@ -1409,11 +1411,257 @@ const HostNatureFieldBoardStaticCore: React.FC<{
 });
 HostNatureFieldBoardStaticCore.displayName = "HostNatureFieldBoardStaticCore";
 
+const HostCatRightingNatureBoardStaticCore: React.FC<{
+  activePanel?: "LEFT" | "CENTER" | "RIGHT" | "LEFT_CENTER";
+  highlight?: HostBoardHighlightId;
+  boardTitle: string;
+}> = React.memo(({ activePanel, highlight, boardTitle }) => {
+  const isLeftActive = activePanel === "LEFT" || activePanel === "LEFT_CENTER";
+  const isCenterActive = activePanel === "CENTER" || activePanel === "LEFT_CENTER";
+  const isRightActive = activePanel === "RIGHT";
+
+  const leftBorder = isLeftActive ? "#15803D" : "#86EFAC";
+  const centerBorder = isCenterActive ? "#15803D" : "#FCD34D";
+  const rightBorder = isRightActive ? "#15803D" : "#7DD3FC";
+  const leftW = isLeftActive ? 4.8 : 2.8;
+  const centerW = isCenterActive ? 4.8 : 2.8;
+  const rightW = isRightActive ? 4.8 : 2.8;
+
+  return (
+    <g id="host-board-cat-righting-static">
+      <GroundShadow cx={1240} cy={654} rx={545} ry={12} />
+
+      {/* Warm Wooden Field-Board Frame (x=680..1800, y=90..640) */}
+      <rect
+        x={680}
+        y={90}
+        width={1120}
+        height={550}
+        rx={24}
+        fill="#FFFBEB"
+        stroke="#B45309"
+        strokeWidth={12}
+      />
+      <rect
+        x={680}
+        y={90}
+        width={1120}
+        height={550}
+        rx={24}
+        fill="none"
+        stroke={INK}
+        strokeWidth={3.2}
+      />
+
+      {/* Top Corner Leaves + Brass Pins */}
+      <g id="cat-nature-board-corner-leaves">
+        <g transform="translate(708, 114)">
+          <path d="M -14,6 C -16,-12 4,-18 18,-8 C 12,10 -4,14 -14,6 Z" fill="#22C55E" stroke="#15803D" strokeWidth={2.2} />
+          <circle cx={0} cy={0} r={5} fill="#F59E0B" stroke={INK} strokeWidth={1.8} />
+        </g>
+        <g transform="translate(1772, 114) scale(-1, 1)">
+          <path d="M -14,6 C -16,-12 4,-18 18,-8 C 12,10 -4,14 -14,6 Z" fill="#22C55E" stroke="#15803D" strokeWidth={2.2} />
+          <circle cx={0} cy={0} r={5} fill="#F59E0B" stroke={INK} strokeWidth={1.8} />
+        </g>
+        <circle cx={708} cy={614} r={5.5} fill="#D97706" stroke={INK} strokeWidth={2} />
+        <circle cx={1772} cy={614} r={5.5} fill="#D97706" stroke={INK} strokeWidth={2} />
+      </g>
+
+      {/* Deep Forest-Green Header Bar (#15803D) */}
+      <rect
+        x={734}
+        y={108}
+        width={1012}
+        height={48}
+        rx={14}
+        fill="#15803D"
+        stroke="#14532D"
+        strokeWidth={2.6}
+      />
+      <text
+        x={1240}
+        y={140}
+        textAnchor="middle"
+        fill="#FFFFFF"
+        fontSize={21}
+        fontWeight={900}
+        fontFamily={FONT}
+      >
+        {boardTitle}
+      </text>
+
+      {/* Ô TRÁI (x=710..1046, y=172..546): 1. La bàn tai trong */}
+      <g id="cat-board-panel-left" transform="translate(710, 172)">
+        <rect
+          x={0}
+          y={0}
+          width={336}
+          height={374}
+          rx={18}
+          fill={isLeftActive ? "#ECFDF5" : "#FFFFFF"}
+          stroke={leftBorder}
+          strokeWidth={leftW}
+        />
+        <text x={168} y={36} textAnchor="middle" fill="#15803D" fontSize={19} fontWeight={900} fontFamily={FONT}>
+          1. La bàn tai trong
+        </text>
+
+        {/* Inner-Ear Vestibular Compass Emblem */}
+        <g transform="translate(168, 128)">
+          <circle cx={0} cy={0} r={60} fill="#DCFCE7" stroke="#16A34A" strokeWidth={3} />
+          {/* Compass Dial */}
+          <circle cx={0} cy={0} r={42} fill="#FFFFFF" stroke={INK} strokeWidth={3} />
+          <line x1={0} y1={-36} x2={0} y2={-26} stroke="#64748B" strokeWidth={3} strokeLinecap="round" />
+          <line x1={0} y1={26} x2={0} y2={36} stroke="#64748B" strokeWidth={3} strokeLinecap="round" />
+          <line x1={-36} y1={0} x2={-26} y2={0} stroke="#64748B" strokeWidth={3} strokeLinecap="round" />
+          <line x1={26} y1={0} x2={36} y2={0} stroke="#64748B" strokeWidth={3} strokeLinecap="round" />
+          {/* Gravity-seeking needle pointing down */}
+          <polygon points="0,-24 -9,0 9,0" fill="#94A3B8" stroke={INK} strokeWidth={2} />
+          <polygon points="0,28 -9,0 9,0" fill="#EA580C" stroke={INK} strokeWidth={2} />
+          <circle cx={0} cy={0} r={5.5} fill="#FACC15" stroke={INK} strokeWidth={2} />
+        </g>
+
+        <rect x={22} y={216} width={292} height={134} rx={14} fill="#F0FDF4" stroke="#86EFAC" strokeWidth={2.4} />
+        <text x={168} y={252} textAnchor="middle" fill="#14532D" fontSize={17} fontWeight={900} fontFamily={FONT}>
+          Hệ tiền đình tai trong
+        </text>
+        <text x={168} y={286} textAnchor="middle" fill="#334155" fontSize={15.5} fontWeight={700} fontFamily={FONT}>
+          Xác định trên–dưới trong tích tắc
+        </text>
+        <text x={168} y={318} textAnchor="middle" fill="#15803D" fontSize={15.5} fontWeight={800} fontFamily={FONT}>
+          → Phản xạ nhanh chỉ vài mili giây!
+        </text>
+      </g>
+
+      {/* Ô GIỮA (x=1066..1414, y=172..546): 2. Xoay 2 nửa thân */}
+      <g id="cat-board-panel-center" transform="translate(1066, 172)">
+        <rect
+          x={0}
+          y={0}
+          width={348}
+          height={374}
+          rx={18}
+          fill={isCenterActive ? "#FEF3C7" : "#FFFFFF"}
+          stroke={centerBorder}
+          strokeWidth={centerW}
+        />
+        <text x={174} y={36} textAnchor="middle" fill="#B45309" fontSize={19} fontWeight={900} fontFamily={FONT}>
+          2. Xoay 2 nửa thân
+        </text>
+
+        {/* Two-Half Rotating Cylinders Emblem */}
+        <g transform="translate(174, 128)">
+          <circle cx={0} cy={0} r={60} fill="#FEF9C3" stroke="#D97706" strokeWidth={3} />
+          {/* Left half (Front body - tucked, fast blue spin) */}
+          <rect x={-52} y={-18} width={44} height={36} rx={14} fill="#38BDF8" stroke={INK} strokeWidth={2.8} />
+          <path d="M -42,-28 A 20,16 0 0,1 -16,-28" fill="none" stroke="#0284C7" strokeWidth={4} strokeLinecap="round" />
+          <polygon points="-12,-28 -22,-34 -20,-22" fill="#0284C7" />
+          {/* Flexible spine pivot dot */}
+          <circle cx={0} cy={0} r={7} fill="#F59E0B" stroke={INK} strokeWidth={2.4} />
+          {/* Right half (Back body - extended, orange counter-anchor) */}
+          <rect x={8} y={-18} width={44} height={36} rx={14} fill="#FB923C" stroke={INK} strokeWidth={2.8} />
+          <path d="M 42,28 A 20,16 0 0,1 16,28" fill="none" stroke="#EA580C" strokeWidth={4} strokeLinecap="round" />
+          <polygon points="12,28 22,34 20,22" fill="#EA580C" />
+        </g>
+
+        <rect x={22} y={216} width={304} height={134} rx={14} fill="#FFFBEB" stroke="#FCD34D" strokeWidth={2.4} />
+        <text x={174} y={252} textAnchor="middle" fill="#92400E" fontSize={16.5} fontWeight={900} fontFamily={FONT}>
+          Thu chân trước – Duỗi chân sau
+        </text>
+        <text x={174} y={286} textAnchor="middle" fill="#334155" fontSize={15.5} fontWeight={700} fontFamily={FONT}>
+          Tự lật 180° không cần điểm tựa
+        </text>
+        <text x={174} y={318} textAnchor="middle" fill="#B45309" fontSize={15.5} fontWeight={800} fontFamily={FONT}>
+          → Bảo toàn mô men động lượng!
+        </text>
+      </g>
+
+      {/* Ô PHẢI (x=1434..1770, y=172..546): 3. Giảm xóc 4 chân & Dù lượn */}
+      <g id="cat-board-panel-right" transform="translate(1434, 172)">
+        <rect
+          x={0}
+          y={0}
+          width={336}
+          height={374}
+          rx={18}
+          fill={isRightActive ? "#E0F2FE" : "#FFFFFF"}
+          stroke={rightBorder}
+          strokeWidth={rightW}
+        />
+        <text x={168} y={36} textAnchor="middle" fill="#0369A1" fontSize={18} fontWeight={900} fontFamily={FONT}>
+          3. Giảm xóc &amp; Dù lượn
+        </text>
+
+        {/* Spring Paw + Parachute Wind Emblem */}
+        <g transform="translate(168, 128)">
+          <circle cx={0} cy={0} r={60} fill="#E0F2FE" stroke="#0284C7" strokeWidth={3} />
+          {/* Cute paw pad on top */}
+          <ellipse cx={0} cy={-16} rx={20} ry={13} fill="#FB923C" stroke={INK} strokeWidth={2.6} />
+          <circle cx={-16} cy={-32} r={6} fill="#FB923C" stroke={INK} strokeWidth={2.2} />
+          <circle cx={0} cy={-37} r={6} fill="#FB923C" stroke={INK} strokeWidth={2.2} />
+          <circle cx={16} cy={-32} r={6} fill="#FB923C" stroke={INK} strokeWidth={2.2} />
+          {/* Spring shock coil underneath */}
+          <path
+            d="M -14,-2 L 14,6 L -14,14 L 14,22 L -14,30 L 14,38"
+            fill="none"
+            stroke="#059669"
+            strokeWidth={4.5}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          {/* Upward air drag arrows */}
+          <path d="M -38,24 L -38,-4 M -44,4 L -38,-6 L -32,4" fill="none" stroke="#0284C7" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M 38,24 L 38,-4 M 32,4 L 38,-6 L 44,4" fill="none" stroke="#0284C7" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" />
+        </g>
+
+        <rect x={22} y={216} width={292} height={134} rx={14} fill="#F0F9FF" stroke="#7DD3FC" strokeWidth={2.4} />
+        <text x={168} y={252} textAnchor="middle" fill="#0369A1" fontSize={16.5} fontWeight={900} fontFamily={FONT}>
+          Đệm lò xo 4 chân + Xòe dù
+        </text>
+        <text x={168} y={286} textAnchor="middle" fill="#334155" fontSize={15.5} fontWeight={700} fontFamily={FONT}>
+          Hãm tốc rơi &amp; phân tán lực va chạm
+        </text>
+        <text x={168} y={318} textAnchor="middle" fill="#0284C7" fontSize={15.5} fontWeight={800} fontFamily={FONT}>
+          → Chạm đất êm nhưng không bất tử!
+        </text>
+      </g>
+
+      {/* Subtle Contextual Corner Emblem Stamp when special highlight active (zero overlap with panel text!) */}
+      {(highlight === "CAT_MYSTERY_70Y" || highlight === "CAT_TAIL_QUESTION") && (
+        <g transform="translate(1736, 206)">
+          <circle cx={0} cy={0} r={24} fill="#F59E0B" stroke={INK} strokeWidth={3} />
+          <text x={0} y={9} textAnchor="middle" fill="#FFFFFF" fontSize={28} fontWeight={900} fontFamily={FONT}>
+            ?
+          </text>
+        </g>
+      )}
+      {highlight === "CAT_WARNING_9LIVES" && (
+        <g transform="translate(1736, 206)">
+          <circle cx={0} cy={0} r={24} fill="#DC2626" stroke={INK} strokeWidth={3} />
+          <text x={0} y={9} textAnchor="middle" fill="#FFFFFF" fontSize={28} fontWeight={900} fontFamily={FONT}>
+            !
+          </text>
+        </g>
+      )}
+      {highlight === "CAT_EXPLORE_OTHER" && (
+        <g transform="translate(1736, 206)">
+          <circle cx={0} cy={0} r={24} fill="#0284C7" stroke={INK} strokeWidth={3} />
+          <circle cx={-3} cy={-3} r={9} fill="#E0F2FE" stroke="#FFFFFF" strokeWidth={2.8} />
+          <line x1={4} y1={4} x2={12} y2={12} stroke="#FFFFFF" strokeWidth={4} strokeLinecap="round" />
+        </g>
+      )}
+    </g>
+  );
+});
+HostCatRightingNatureBoardStaticCore.displayName = "HostCatRightingNatureBoardStaticCore";
+
 export const HostNatureFieldBoard: React.FC<{
   highlight?: HostBoardHighlightId;
   frame?: number;
   title?: string;
-}> = ({ highlight = "NONE", frame = 0, title }) => {
+  labBoard?: string;
+}> = ({ highlight = "NONE", frame = 0, title, labBoard }) => {
+  const isCatBoard = labBoard === "CAT_RIGHTING_PHYSICS";
   const activePanel: "LEFT" | "CENTER" | "RIGHT" | undefined =
     highlight === "LEFT"
       ? "LEFT"
@@ -1422,43 +1670,360 @@ export const HostNatureFieldBoard: React.FC<{
       : highlight === "RIGHT"
       ? "RIGHT"
       : undefined;
+  const catActivePanel: "LEFT" | "CENTER" | "RIGHT" | "LEFT_CENTER" | undefined =
+    highlight === "CAT_ANGULAR_MOMENTUM"
+      ? "LEFT_CENTER"
+      : activePanel;
+
+  const defaultTitle = isCatBoard
+    ? "SỔ TAY THIÊN NHIÊN • PHẢN XẠ LẬT NGƯỜI 180° CỦA MÈO"
+    : "SỔ TAY THIÊN NHIÊN • KHÁM PHÁ THẾ GIỚI ĐỘNG VẬT & TỰ NHIÊN";
 
   const normalizedTitle = title && title.trim()
     ? title.trim().toUpperCase().startsWith("SỔ TAY THIÊN NHIÊN")
       ? title.trim()
       : `SỔ TAY THIÊN NHIÊN • ${title.trim()}`
-    : "SỔ TAY THIÊN NHIÊN • KHÁM PHÁ THẾ GIỚI ĐỘNG VẬT & TỰ NHIÊN";
+    : defaultTitle;
 
   const badgePulse = 0.5 + 0.5 * Math.sin(frame * 0.16);
 
+  const renderFooterContent = () => {
+    if (!isCatBoard) {
+      return {
+        bg: highlight === "SUMMARY" ? "#DCFCE7" : "#FEF3C7",
+        border: highlight === "SUMMARY" ? "#15803D" : "#B45309",
+        color: highlight === "SUMMARY" ? "#14532D" : "#92400E",
+        text:
+          highlight === "SUMMARY"
+            ? "Tổng kết ghi chép điền dã: 3 bí mật thú vị nhất của thế giới tự nhiên!"
+            : "Ghi chép điền dã: Quan sát đời thực → Giải mã khoa học → Hiểu thiên nhiên",
+      };
+    }
+
+    switch (highlight) {
+      case "CAT_MYSTERY_70Y":
+        return {
+          bg: "#FEF3C7",
+          border: "#D97706",
+          color: "#92400E",
+          text: "Bài toán con mèo rơi: Làm đau đầu các nhà vật lý suốt 70 năm!",
+        };
+      case "CAT_ANGULAR_MOMENTUM":
+        return {
+          bg: "#ECFDF5",
+          border: "#15803D",
+          color: "#14532D",
+          text: "Định luật bảo toàn mô men động lượng: Không điểm tựa sao tự xoay?",
+        };
+      case "CENTER":
+        return {
+          bg: "#FEF3C7",
+          border: "#D97706",
+          color: "#92400E",
+          text: "Vũ điệu 2 nửa thân: Thu chân trước xoay vút, duỗi chân sau làm mỏ neo!",
+        };
+      case "CAT_TAIL_QUESTION":
+        return {
+          bg: "#EFF6FF",
+          border: "#0284C7",
+          color: "#0369A1",
+          text: "Giải oan cho chiếc đuôi: Đuôi có phải cánh quạt trực thăng của mèo?",
+        };
+      case "RIGHT":
+        return {
+          bg: "#E0F2FE",
+          border: "#0284C7",
+          color: "#0369A1",
+          text: "Tuyệt chiêu chạm đất: Bộ đệm lò xo 4 chân + Tư thế dù lượn hãm tốc!",
+        };
+      case "CAT_WARNING_9LIVES":
+        return {
+          bg: "#FEE2E2",
+          border: "#DC2626",
+          color: "#991B1B",
+          text: "Cảnh báo thú y: Mèo KHÔNG hề có 9 mạng bất tử — hãy bảo vệ chúng!",
+        };
+      case "CAT_EXPLORE_OTHER":
+        return {
+          bg: "#ECFDF5",
+          border: "#059669",
+          color: "#065F46",
+          text: "Mở rộng thiên nhiên: Thỏ, thằn lằn, bọ que & ứng dụng cho NASA!",
+        };
+      case "SUMMARY":
+        return {
+          bg: "#DCFCE7",
+          border: "#15803D",
+          color: "#14532D",
+          text: "Chốt gọn 3 bí mật vật lý đằng sau cú tiếp đất 4 chân huyền thoại!",
+        };
+      default:
+        return {
+          bg: "#FEF3C7",
+          border: "#B45309",
+          color: "#92400E",
+          text: "Ghi chép điền dã: Thả ngửa chỉ 30 cm mèo vẫn xoay trọn 180°!",
+        };
+    }
+  };
+
+  const footer = renderFooterContent();
+
   return (
     <g id="host-explain-nature-field-board-layer">
-      <HostNatureFieldBoardStaticCore activePanel={activePanel} boardTitle={normalizedTitle} />
+      {isCatBoard ? (
+        <HostCatRightingNatureBoardStaticCore
+          activePanel={catActivePanel}
+          highlight={highlight}
+          boardTitle={normalizedTitle}
+        />
+      ) : (
+        <HostNatureFieldBoardStaticCore activePanel={activePanel} boardTitle={normalizedTitle} />
+      )}
       <g opacity={(0.92 + badgePulse * 0.08).toFixed(2)} transform="translate(1240, 592)">
         <rect
-          x={-370}
+          x={-385}
           y={-24}
-          width={740}
+          width={770}
           height={48}
           rx={24}
-          fill={highlight === "SUMMARY" ? "#DCFCE7" : "#FEF3C7"}
-          stroke={highlight === "SUMMARY" ? "#15803D" : "#B45309"}
+          fill={footer.bg}
+          stroke={footer.border}
           strokeWidth={2.8}
         />
         <text
           x={0}
           y={8}
           textAnchor="middle"
-          fill={highlight === "SUMMARY" ? "#14532D" : "#92400E"}
-          fontSize={19.5}
+          fill={footer.color}
+          fontSize={19}
           fontWeight={900}
           fontFamily={FONT}
         >
-          {highlight === "SUMMARY"
-            ? "Tổng kết ghi chép điền dã: 3 bí mật thú vị nhất của thế giới tự nhiên!"
-            : "Ghi chép điền dã: Quan sát đời thực → Giải mã khoa học → Hiểu thiên nhiên"}
+          {footer.text}
         </text>
       </g>
+    </g>
+  );
+};
+
+/* ============================================================================
+ * 9. BACKYARD_BALCONY_PET Cat & Safety Net Story Stage Kit (Episode 9 — V23.0)
+ *    - Wooden patio chair + plush cushion for Beat 1–3, 28
+ *    - Clean steel-wire balcony safety net behind picket fence for Beat 47, 48, 59, 60
+ *    - Uses CuteCat from AnimalSpriteKit.tsx with matched poses & flat opacity=0.12 shadow
+ * ========================================================================== */
+
+const BalconySafetyNetStatic: React.FC = React.memo(() => (
+  <g id="balcony-safety-net-mesh">
+    {/* Horizontal top & mid mounting bars */}
+    <rect x={366} y={136} width={1554} height={10} rx={4} fill="#64748B" stroke={INK} strokeWidth={2.4} />
+    <rect x={366} y={136} width={10} height={340} rx={3} fill="#64748B" stroke={INK} strokeWidth={2.2} />
+    <rect x={1135} y={136} width={10} height={340} rx={3} fill="#64748B" stroke={INK} strokeWidth={2.2} />
+    <rect x={1898} y={136} width={10} height={340} rx={3} fill="#64748B" stroke={INK} strokeWidth={2.2} />
+    {/* Crisp steel protective wire mesh spanning x=376..1898, y=146..476 */}
+    <g stroke="#475569" strokeWidth={2} opacity={0.42}>
+      {Array.from({ length: 26 }, (_, i) => {
+        const vx = 408 + i * 58;
+        return <line key={`snv_${i}`} x1={vx} y1={146} x2={vx} y2={476} />;
+      })}
+      {[204, 266, 328, 390, 448].map((hy) => (
+        <line key={`snh_${hy}`} x1={376} y1={hy} x2={1898} y2={hy} />
+      ))}
+    </g>
+    {/* Small neat green safety-verified tag on top right rail */}
+    <g transform="translate(1785, 190)">
+      <rect x={-96} y={-22} width={192} height={44} rx={22} fill="#ECFDF5" stroke="#15803D" strokeWidth={3} />
+      <circle cx={-66} cy={0} r={13} fill="#16A34A" />
+      <path d="M -72,0 L -68,5 L -59,-5" fill="none" stroke="#FFFFFF" strokeWidth={3.2} strokeLinecap="round" strokeLinejoin="round" />
+      <text x={14} y={6} textAnchor="middle" fill="#14532D" fontSize={16} fontWeight={900} fontFamily={FONT}>
+        Lưới an toàn
+      </text>
+    </g>
+  </g>
+));
+BalconySafetyNetStatic.displayName = "BalconySafetyNetStatic";
+
+const BalconyChairAndCushionStatic: React.FC = React.memo(() => (
+  <g id="balcony-chair-and-cushion" stroke={INK} strokeWidth={3.2} strokeLinejoin="round">
+    {/* Thick plush turquoise-cream floor cushion at x=1185, y=812 */}
+    <g transform="translate(1185, 812)">
+      <GroundShadow cx={0} cy={12} rx={138} ry={16} />
+      <ellipse cx={0} cy={-4} rx={130} ry={30} fill="#38BDF8" />
+      <ellipse cx={0} cy={-12} rx={118} ry={22} fill="#BAE6FD" stroke="#0284C7" strokeWidth={2.6} />
+      <path d="M -52,-12 Q 0,-2 52,-12" fill="none" stroke="#0284C7" strokeWidth={2.4} opacity={0.55} />
+    </g>
+
+    {/* Warm solid wooden patio chair on right at x=1475, ground y=812 */}
+    <g transform="translate(1475, 812)">
+      <GroundShadow cx={0} cy={8} rx={96} ry={13} />
+      {/* Back legs & tall backrest (top bar at y = -226 -> world y=586) */}
+      <rect x={44} y={-226} width={18} height={226} rx={5} fill="#92400E" />
+      <rect x={-58} y={-114} width={18} height={114} rx={5} fill="#78350F" />
+      <rect x={-52} y={-226} width={114} height={26} rx={7} fill="#B45309" />
+      <rect x={-44} y={-186} width={98} height={22} rx={6} fill="#D97706" />
+      <rect x={-44} y={-152} width={98} height={22} rx={6} fill="#D97706" />
+      {/* Wooden seat slab */}
+      <rect x={-74} y={-118} width={144} height={22} rx={7} fill="#D97706" />
+      {/* Side brace */}
+      <rect x={-44} y={-50} width={92} height={12} rx={4} fill="#78350F" />
+    </g>
+  </g>
+));
+BalconyChairAndCushionStatic.displayName = "BalconyChairAndCushionStatic";
+
+export const BackyardBalconyCatStageKit: React.FC<{
+  mode: BalconyDetailId;
+  frame: number;
+}> = ({ mode, frame }) => {
+  if (mode === "NONE") return null;
+
+  const showSafetyNet =
+    mode === "SAFETY_NET_STAND" || mode === "SAFETY_NET_SIT" || mode === "OUTRO_OPEN_FLOOR";
+  const showChairAndCushion =
+    mode === "CAT_CHAIR_SLIP" ||
+    mode === "CAT_MIDAIR_FLIP" ||
+    mode === "CAT_CUSHION_SIT" ||
+    mode === "CAT_PET_HAPPY";
+
+  const slipTilt = -12 + Math.sin(frame * 0.25) * 4;
+  const flipCycle = Math.min(1, (frame % 75) / 55);
+  const midairRot = -165 + flipCycle * 165;
+  const midairY = 610 + flipCycle * 70;
+
+  return (
+    <g id={`balcony-cat-kit-${mode}`}>
+      {showSafetyNet && <BalconySafetyNetStatic />}
+      {showChairAndCushion && <BalconyChairAndCushionStatic />}
+
+      {mode === "CAT_CHAIR_SLIP" && (
+        <g id="balcony-cat-chair-slip">
+          <g transform={`translate(1432, 584) rotate(${slipTilt.toFixed(1)})`}>
+            <CuteCat x={0} y={0} scale={0.84} flipX={true} frame={frame} pose="stand" />
+          </g>
+          {/* Animated slip/startle motion marks beside chair top */}
+          <g stroke="#F59E0B" strokeWidth={4} strokeLinecap="round" fill="none">
+            <path d="M 1345,546 Q 1332,562 1340,582" />
+            <path d="M 1326,554 Q 1312,570 1320,590" opacity={0.75} />
+          </g>
+        </g>
+      )}
+
+      {mode === "CAT_MIDAIR_FLIP" && (
+        <g id="balcony-cat-midair-flip">
+          {/* Dashed curved trajectory arc from chair backrest to plush cushion */}
+          <path
+            d="M 1390,568 Q 1270,510 1192,664"
+            fill="none"
+            stroke="#0284C7"
+            strokeWidth={4}
+            strokeDasharray="10 8"
+            strokeLinecap="round"
+            opacity={0.72}
+          />
+          {/* Curved 180-degree spin cue around cat */}
+          <path
+            d="M 1112,626 A 84,64 0 0,1 1266,608"
+            fill="none"
+            stroke="#EA580C"
+            strokeWidth={5}
+            strokeLinecap="round"
+          />
+          <polygon points="1272,618 1255,610 1268,596" fill="#EA580C" />
+          <g transform={`translate(1192, ${midairY.toFixed(1)}) rotate(${midairRot.toFixed(1)})`}>
+            <CuteCat x={0} y={42} scale={0.9} frame={frame} pose="curl_midair" />
+          </g>
+        </g>
+      )}
+
+      {mode === "CAT_CUSHION_SIT" && (
+        <CuteCat x={1185} y={794} scale={0.92} flipX={true} frame={frame} pose="sit" />
+      )}
+
+      {mode === "CAT_PET_HAPPY" && (
+        <g id="balcony-cat-pet-happy">
+          <CuteCat x={1185} y={794} scale={0.92} flipX={true} frame={frame} pose="sit" />
+          <g transform={`translate(1185, ${(620 - Math.sin(frame * 0.14) * 8).toFixed(1)})`}>
+            <path
+              d="M 0,12 C -16,-2 -16,-16 -5,-16 C 0,-16 0,-9 0,-9 C 0,-9 0,-16 5,-16 C 16,-16 16,-2 0,12 Z"
+              fill="#FB7185"
+              stroke="#BE123C"
+              strokeWidth={2.4}
+            />
+          </g>
+        </g>
+      )}
+
+      {mode === "SAFETY_NET_STAND" && (
+        <CuteCat x={1235} y={816} scale={0.95} flipX={true} frame={frame} pose="stand" />
+      )}
+
+      {mode === "SAFETY_NET_SIT" && (
+        <CuteCat x={1235} y={816} scale={0.95} flipX={true} frame={frame} pose="sit" />
+      )}
+
+      {mode === "OUTRO_OPEN_FLOOR" && (
+        <CuteCat x={1255} y={818} scale={0.98} flipX={false} frame={frame} pose="sit" />
+      )}
+    </g>
+  );
+};
+
+/* ============================================================================
+ * 10. CITY_LIVING_ROOM Pet Cat Overlay (Episode 9 — Mướp on Rug / Sofa Corner)
+ * ========================================================================== */
+
+export const LivingRoomPetCat: React.FC<{
+  mode: LivingRoomDetailId;
+  frame: number;
+}> = ({ mode, frame }) => {
+  if (mode !== "CAT_RUG" && mode !== "CAT_ALERT" && mode !== "CAT_STAND" && mode !== "CAT_SOFA") {
+    return null;
+  }
+
+  if (mode === "CAT_SOFA") {
+    return (
+      <g id="living-room-pet-cat-sofa">
+        <CuteCat x={1008} y={718} scale={0.74} flipX={true} frame={frame} pose="sit" />
+        {/* Tiny peaceful Zzz floating gently above sleeping/cozy cat */}
+        <text
+          x={1048}
+          y={612 - Math.sin(frame * 0.08) * 6}
+          fill="#F59E0B"
+          stroke={INK}
+          strokeWidth={3}
+          paintOrder="stroke"
+          fontSize={22}
+          fontWeight={900}
+          fontFamily={FONT}
+        >
+          ♪
+        </text>
+      </g>
+    );
+  }
+
+  return (
+    <g id={`living-room-pet-cat-${mode}`}>
+      {/* Cozy woven rug on living room floor cleanly between sofa and coffee table */}
+      <g transform="translate(1245, 814)">
+        <ellipse cx={0} cy={8} rx={124} ry={26} fill="#FEF3C7" stroke="#D97706" strokeWidth={3} />
+        <ellipse cx={0} cy={8} rx={98} ry={18} fill="#FDE68A" stroke="none" opacity={0.68} />
+      </g>
+      <CuteCat
+        x={1245}
+        y={808}
+        scale={0.9}
+        flipX={true}
+        frame={frame}
+        pose={mode === "CAT_STAND" ? "stand" : "sit"}
+      />
+      {mode === "CAT_ALERT" && (
+        <g stroke="#F59E0B" strokeWidth={3.6} strokeLinecap="round" fill="none">
+          <path d="M 1192,654 Q 1180,642 1192,630" />
+          <path d="M 1298,654 Q 1310,642 1298,630" />
+        </g>
+      )}
     </g>
   );
 };
