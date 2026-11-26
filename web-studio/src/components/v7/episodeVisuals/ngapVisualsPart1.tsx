@@ -947,6 +947,8 @@ export const NgapFamiliarityLadderVisual: React.FC<EpisodeVisualProps> = ({
   visualStep,
 }) => {
   const activeStep = step ?? visualStep ?? 0;
+  const BASELINE_Y = 660;
+  const CAPTION_Y = 715;
 
   return (
     <svg viewBox="0 0 1920 1080" width="100%" height="100%" style={{ display: 'block', fontFamily: FONT }}>
@@ -965,15 +967,15 @@ export const NgapFamiliarityLadderVisual: React.FC<EpisodeVisualProps> = ({
         fontSize={29}
       />
 
-      {/* Baseline (raised 14px from 680 -> 666 so baseline & bottom caption have generous clean separation) */}
-      <line x1="250" y1="666" x2="1670" y2="666" stroke="#334155" strokeWidth="5" strokeLinecap="round" />
+      {/* Shared chart baseline for both Step 0 & Step 1 at y=660 (55px above caption at y=715) */}
+      <line x1="250" y1={BASELINE_Y} x2="1670" y2={BASELINE_Y} stroke="#334155" strokeWidth="5" strokeLinecap="round" />
 
       {/* 3 Descending Stairs */}
       {[
         {
           x: 340,
           w: 360,
-          h: 382,
+          h: 360,
           fill: activeStep === 1 ? '#EF4444' : '#F1F5F9',
           border: activeStep === 1 ? '#991B1B' : '#94A3B8',
           badge: 'BẬC 1 • MẠNH NHẤT',
@@ -985,7 +987,7 @@ export const NgapFamiliarityLadderVisual: React.FC<EpisodeVisualProps> = ({
         {
           x: 780,
           w: 360,
-          h: 264,
+          h: 250,
           fill: activeStep === 1 ? '#F59E0B' : '#F1F5F9',
           border: activeStep === 1 ? '#B45309' : '#94A3B8',
           badge: 'BẬC 2 • KHÁ CAO',
@@ -997,7 +999,7 @@ export const NgapFamiliarityLadderVisual: React.FC<EpisodeVisualProps> = ({
         {
           x: 1220,
           w: 360,
-          h: 152,
+          h: 146,
           fill: activeStep === 1 ? '#94A3B8' : '#F1F5F9',
           border: activeStep === 1 ? '#475569' : '#94A3B8',
           badge: 'BẬC 3 • THẤP HƠN',
@@ -1007,7 +1009,7 @@ export const NgapFamiliarityLadderVisual: React.FC<EpisodeVisualProps> = ({
           tagColor: '#475569',
         },
       ].map((bar, idx) => {
-        const topY = 666 - bar.h;
+        const topY = BASELINE_Y - bar.h;
         return (
           <g key={idx}>
             <rect
@@ -1084,7 +1086,7 @@ export const NgapFamiliarityLadderVisual: React.FC<EpisodeVisualProps> = ({
         );
       })}
 
-      <text x="960" y="752" textAnchor="middle" fill="#7C2D12" stroke="none" fontSize="23" fontWeight="800">
+      <text x="960" y={CAPTION_Y} textAnchor="middle" fill="#7C2D12" stroke="none" fontSize="23" fontWeight="800">
         {activeStep === 1
           ? 'Mức độ gắn bó tình cảm càng sâu sắc → Khả năng lây ngáp càng cao!'
           : 'Mức độ lây ngáp thay đổi rõ rệt theo mức độ thân thiết xã hội'}
