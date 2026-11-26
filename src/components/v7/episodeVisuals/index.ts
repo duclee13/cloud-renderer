@@ -168,6 +168,26 @@ import {
   NgapViewerChallengeVisual,
   NgapSummary3CardsVisual,
 } from './ngapVisualsPart2';
+import {
+  CaobangTopWorstSoundsVisual,
+  CaobangStickSlipVisual,
+  CaobangFreqBandVisual,
+  CaobangEarCanalAmpVisual,
+  CaobangWhyEvolvedEarVisual,
+  CaobangAmygdalaLoopVisual,
+  CaobangScreamTextureVisual,
+  CaobangGoosebumpsReflexVisual,
+} from './caobangVisualsPart1';
+import {
+  CaobangAncestorFurVisual,
+  CaobangMusicExperimentVisual,
+  CaobangBrainExpectationVisual,
+  CaobangWhySomeImmuneVisual,
+  CaobangGrimaVsFrissonVisual,
+  Caobang3TipsVisual,
+  CaobangSoundCheckVisual,
+  CaobangSummary3CardsVisual,
+} from './caobangVisualsPart2';
 
 export type EpisodeVisualProps = {
   progress: number;
@@ -331,4 +351,22 @@ export const EPISODE_VISUAL_REGISTRY: Record<string, React.FC<EpisodeVisualProps
   NGAP_3_SMART_TRICKS: Ngap3SmartTricksVisual,
   NGAP_VIEWER_CHALLENGE: NgapViewerChallengeVisual,
   NGAP_SUMMARY_3_CARDS: NgapSummary3CardsVisual,
+
+  // Episode 8: Tại Sao Nghe Tiếng Móng Tay Cào Bảng Hay Dao Cọ Đĩa Lại Rùng Mình Sởn Gai Ốc? (V22.7)
+  CAOBANG_TOP_WORST_SOUNDS: CaobangTopWorstSoundsVisual,
+  CAOBANG_STICK_SLIP: CaobangStickSlipVisual,
+  CAOBANG_FREQ_BAND: CaobangFreqBandVisual,
+  CAOBANG_EAR_CANAL_AMP: CaobangEarCanalAmpVisual,
+  CAOBANG_WHY_EVOLVED_EAR: CaobangWhyEvolvedEarVisual,
+  CAOBANG_AMYGDALA_LOOP: CaobangAmygdalaLoopVisual,
+  CAOBANG_SCREAM_TEXTURE: CaobangScreamTextureVisual,
+  CAOBANG_GOOSEBUMPS_REFLEX: CaobangGoosebumpsReflexVisual,
+  CAOBANG_ANCESTOR_FUR: CaobangAncestorFurVisual,
+  CAOBANG_MUSIC_EXPERIMENT: CaobangMusicExperimentVisual,
+  CAOBANG_BRAIN_EXPECTATION: CaobangBrainExpectationVisual,
+  CAOBANG_WHY_SOME_IMMUNE: CaobangWhySomeImmuneVisual,
+  CAOBANG_GRIMA_VS_FRISSON: CaobangGrimaVsFrissonVisual,
+  CAOBANG_3_TIPS: Caobang3TipsVisual,
+  CAOBANG_SOUND_CHECK: CaobangSoundCheckVisual,
+  CAOBANG_SUMMARY_3_CARDS: CaobangSummary3CardsVisual,
 };

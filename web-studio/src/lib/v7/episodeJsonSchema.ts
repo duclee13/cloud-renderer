@@ -179,6 +179,7 @@ export type KnownLabBoardId =
   | "ACOUSTICS_VOICE"
   | "ITCH_NEUROLOGY"
   | "MIRROR_NEURONS_YAWN"
+  | "ACOUSTICS_CRINGE_ALARM"
   | "WATER_SKIN"
   | "ONION_CHEM"
   | "SLEEP_BRAIN";
@@ -192,10 +193,19 @@ export type CountrysideYardDetailId =
   | "ICE_TOWEL"
   | "PORCH_FAN";
 
-/** V22.5: Chi tiết phụ trợ cho SCHOOL_CLASSROOM (chai nước bàn học, biểu cảm ngáp dây chuyền) */
+/** V22.5–V22.7: Chi tiết phụ trợ cho SCHOOL_CLASSROOM (chai nước bàn học, sóng cào bảng, viết phấn nghiêng 45 độ, khoảng sàn outro) */
 export type ClassroomDetailId =
   | "NONE"
-  | "DESK_WATER_BOTTLE";
+  | "DESK_WATER_BOTTLE"
+  | "CHALK_SCRATCH_WAVE"
+  | "CHALK_WRITE_45DEG"
+  | "OUTRO_OPEN_FLOOR";
+
+/** V22.7: Chi tiết phụ trợ cho HOME_KITCHEN (bàn ăn tối bò bít tết, sóng rít nĩa cọ đĩa sứ) */
+export type KitchenDetailId =
+  | "NONE"
+  | "DINNER_STEAK"
+  | "FORK_SCRAPE_WAVE";
 
 /** V22.5: Chi tiết phụ trợ cho CITY_LIVING_ROOM (chú chó cưng 2D nằm trên thảm, ngáp theo, vẫy đuôi) */
 export type LivingRoomDetailId =
@@ -205,7 +215,7 @@ export type LivingRoomDetailId =
   | "DAD_PET_DOG"
   | "DOG_WAG";
 
-/** V22.5: Điểm nhấn nổi bật trên bảng trắng HOST_EXPLAIN_OVERLAY */
+/** V22.5–V22.7: Điểm nhấn nổi bật trên bảng trắng HOST_EXPLAIN_OVERLAY */
 export type HostBoardHighlightId =
   | "NONE"
   | "LEFT"
@@ -217,6 +227,12 @@ export type HostBoardHighlightId =
   | "LAUGH_YAWN"
   | "NOT_COLD"
   | "BRAKE"
+  | "CRINGE_IMAGINE"
+  | "EAR_AMPLIFIER"
+  | "BRAIN_ALARM"
+  | "MUSIC_TRICK"
+  | "WHY_IMMUNE"
+  | "CRINGE_TIPS"
   | "SUMMARY";
 
 export interface AutoActorSpec {
@@ -272,8 +288,10 @@ export interface AutoEpisodeBeat {
   labBoard?: LabBoardId;
   /** V22.3: Chi tiết sân quê bổ trợ cho COUNTRYSIDE_YARD (muỗi bay, tia gãi, nốt sưng, khăn đá, quạt máy) */
   yardDetail?: CountrysideYardDetailId;
-  /** V22.5: Chi tiết lớp học bổ trợ cho SCHOOL_CLASSROOM (chai nước bàn học...) */
+  /** V22.5–V22.7: Chi tiết lớp học bổ trợ cho SCHOOL_CLASSROOM (chai nước bàn học, sóng cào bảng, phấn 45 độ, sàn outro) */
   classroomDetail?: ClassroomDetailId;
+  /** V22.7: Chi tiết phòng bếp bổ trợ cho HOME_KITCHEN (bàn ăn tối bò bít tết, sóng rít nĩa cọ đĩa sứ) */
+  kitchenDetail?: KitchenDetailId;
   /** V22.5: Chi tiết phòng khách bổ trợ cho CITY_LIVING_ROOM (chú chó cưng nằm/ngáp/vẫy đuôi) */
   livingRoomDetail?: LivingRoomDetailId;
   /** V22.5: Chế độ Freeze-Frame Host giải thích (phủ màn trắng sữa 0.84 phẳng lên nền freezeStage) */
@@ -1173,7 +1191,18 @@ function sanitizeYardDetailId(raw: unknown): CountrysideYardDetailId | undefined
     : undefined;
 }
 
-const VALID_CLASSROOM_DETAILS: readonly ClassroomDetailId[] = ["NONE", "DESK_WATER_BOTTLE"];
+const VALID_CLASSROOM_DETAILS: readonly ClassroomDetailId[] = [
+  "NONE",
+  "DESK_WATER_BOTTLE",
+  "CHALK_SCRATCH_WAVE",
+  "CHALK_WRITE_45DEG",
+  "OUTRO_OPEN_FLOOR",
+];
+const VALID_KITCHEN_DETAILS: readonly KitchenDetailId[] = [
+  "NONE",
+  "DINNER_STEAK",
+  "FORK_SCRAPE_WAVE",
+];
 const VALID_LIVING_ROOM_DETAILS: readonly LivingRoomDetailId[] = [
   "NONE",
   "DOG_REST",
@@ -1192,6 +1221,12 @@ const VALID_HOST_HIGHLIGHTS: readonly HostBoardHighlightId[] = [
   "LAUGH_YAWN",
   "NOT_COLD",
   "BRAKE",
+  "CRINGE_IMAGINE",
+  "EAR_AMPLIFIER",
+  "BRAIN_ALARM",
+  "MUSIC_TRICK",
+  "WHY_IMMUNE",
+  "CRINGE_TIPS",
   "SUMMARY",
 ];
 
@@ -1200,6 +1235,14 @@ function sanitizeClassroomDetailId(raw: unknown): ClassroomDetailId | undefined 
   const norm = raw.trim().toUpperCase().replace(/[\s-]+/g, "_");
   return (VALID_CLASSROOM_DETAILS as readonly string[]).includes(norm)
     ? (norm as ClassroomDetailId)
+    : undefined;
+}
+
+function sanitizeKitchenDetailId(raw: unknown): KitchenDetailId | undefined {
+  if (typeof raw !== "string") return undefined;
+  const norm = raw.trim().toUpperCase().replace(/[\s-]+/g, "_");
+  return (VALID_KITCHEN_DETAILS as readonly string[]).includes(norm)
+    ? (norm as KitchenDetailId)
     : undefined;
 }
 
@@ -1259,6 +1302,7 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
     const labBoard = sanitizeLabBoardId(rb?.labBoard) ?? (stageType === "SCIENCE_LAB_ROOM" ? episodeLabBoard : undefined);
     const yardDetail = sanitizeYardDetailId(rb?.yardDetail);
     const classroomDetail = sanitizeClassroomDetailId(rb?.classroomDetail);
+    const kitchenDetail = sanitizeKitchenDetailId(rb?.kitchenDetail);
     const livingRoomDetail = sanitizeLivingRoomDetailId(rb?.livingRoomDetail);
     const overlayMode =
       normalizeUpperKey(rb?.overlayMode) === "HOST_EXPLAIN" || stageType === "HOST_EXPLAIN_OVERLAY"
@@ -1346,6 +1390,7 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       ...(labBoard ? { labBoard } : {}),
       ...(yardDetail ? { yardDetail } : {}),
       ...(classroomDetail && classroomDetail !== "NONE" ? { classroomDetail } : {}),
+      ...(kitchenDetail && kitchenDetail !== "NONE" ? { kitchenDetail } : {}),
       ...(livingRoomDetail && livingRoomDetail !== "NONE" ? { livingRoomDetail } : {}),
       ...(overlayMode ? { overlayMode } : {}),
       ...(freezeStage ? { freezeStage } : {}),

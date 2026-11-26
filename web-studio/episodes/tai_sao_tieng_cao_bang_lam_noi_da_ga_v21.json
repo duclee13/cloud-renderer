@@ -1,0 +1,3228 @@
+{
+  "title": "Tại Sao Nghe Tiếng Móng Tay Cào Bảng Hay Dao Cọ Đĩa Lại Rùng Mình Sởn Gai Ốc?",
+  "slug": "tai_sao_tieng_cao_bang_lam_noi_da_ga_v21",
+  "topic": "Tập 8 — Ma sát dính–trượt, loa ống tai 2.000–4.000 Hz & phản xạ nổi da gà",
+  "labBoard": "ACOUSTICS_CRINGE_ALARM",
+  "beats": [
+    {
+      "id": "b01",
+      "actTitle": "HỒI 1: CÚ TRƯỢT MÓNG TAY KHIẾN CẢ LỚP RÙNG MÌNH",
+      "chapterBanner": "Hồi 1: Cú Trượt Móng Tay Khiến Cả Lớp Rùng Mình",
+      "text": "Giờ ra chơi chuẩn bị vào tiết, cậu bạn Nam xung phong lên bảng viết giúp cả lớp vài dòng công thức toán.",
+      "ttsText": "Giờ ra chơi chuẩn bị vào tiết, cậu bạn Nam xung phong lên bảng viết giúp cả lớp vài dòng công thức toán.",
+      "stageType": "SCHOOL_CLASSROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 500,
+              "endX": 500,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 500,
+              "endX": 500,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.75,
+            "hairStyle": "PONYTAIL",
+            "hairColor": "#451A03",
+            "outfitStyle": "CARDIGAN",
+            "outfitColor": "#EC4899",
+            "glasses": "ROUND",
+            "mustache": false
+          },
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 890,
+              "endX": 890,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 890,
+              "endX": 890,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.78,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "TSHIRT",
+            "outfitColor": "#0EA5E9",
+            "glasses": "NONE",
+            "mustache": false
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 790,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1365,
+              "endX": 1365,
+              "facing": "LEFT",
+              "pose": "WRITE_NOTE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1365,
+              "endX": 1365,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Đợi mình viết nốt công thức toán lên bảng nhé!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b02",
+      "text": "Đang viết nhanh bỗng viên phấn gãy đôi, khiến đầu móng tay của Nam trượt một đường dài sột soạt xuống mặt bảng.",
+      "ttsText": "Đang viết nhanh bỗng viên phấn gãy đôi, khiến đầu móng tay của Nam trượt một đường dài sột soạt xuống mặt bảng.",
+      "stageType": "SCHOOL_CLASSROOM",
+      "classroomDetail": "CHALK_SCRATCH_WAVE",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "SHOCKED",
+          "handProp": "NONE",
+          "seated": true,
+          "shiver": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 500,
+              "endX": 500,
+              "facing": "RIGHT",
+              "pose": "SHIVER_PANIC",
+              "expression": "SHOCKED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 500,
+              "endX": 500,
+              "facing": "RIGHT",
+              "pose": "FACEPALM",
+              "expression": "SHOCKED",
+              "handProp": "NONE",
+              "shiver": true
+            }
+          ]
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.75,
+            "hairStyle": "PONYTAIL",
+            "hairColor": "#451A03",
+            "outfitStyle": "CARDIGAN",
+            "outfitColor": "#EC4899",
+            "glasses": "ROUND",
+            "mustache": false
+          },
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "SHOCKED",
+          "handProp": "NONE",
+          "seated": true,
+          "shiver": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 890,
+              "endX": 890,
+              "facing": "RIGHT",
+              "pose": "SHIVER_PANIC",
+              "expression": "SHOCKED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 890,
+              "endX": 890,
+              "facing": "RIGHT",
+              "pose": "FACEPALM",
+              "expression": "SHOCKED",
+              "handProp": "NONE",
+              "shiver": true
+            }
+          ]
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.78,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "TSHIRT",
+            "outfitColor": "#0EA5E9",
+            "glasses": "NONE",
+            "mustache": false
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "SHOCKED",
+          "handProp": "NONE",
+          "shiver": true,
+          "groundY": 790,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1365,
+              "endX": 1365,
+              "facing": "LEFT",
+              "pose": "SHIVER_PANIC",
+              "expression": "SHOCKED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1365,
+              "endX": 1365,
+              "facing": "LEFT",
+              "pose": "FACEPALM",
+              "expression": "SHOCKED",
+              "handProp": "NONE",
+              "shiver": true
+            }
+          ],
+          "bubble": "Á, trượt móng tay lên mặt bảng rồi!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b03",
+      "text": "Âm thanh chói tai vừa vang lên, tôi lẫn cô bạn Linh lập tức rùng mình lạnh sống lưng, hai cánh tay nổi đầy da gà.",
+      "ttsText": "Âm thanh chói tai vừa vang lên, tôi lẫn cô bạn Linh lập tức rùng mình lạnh sống lưng, hai cánh tay nổi đầy da gà.",
+      "stageType": "SCHOOL_CLASSROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "SCARED",
+          "handProp": "NONE",
+          "seated": true,
+          "shiver": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 500,
+              "endX": 500,
+              "facing": "RIGHT",
+              "pose": "FACEPALM",
+              "expression": "SCARED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 500,
+              "endX": 500,
+              "facing": "RIGHT",
+              "pose": "SHIVER_PANIC",
+              "expression": "SCARED",
+              "handProp": "NONE",
+              "shiver": true
+            }
+          ],
+          "bubble": "Ối giời ơi, nghe mà sởn hết cả gai ốc!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.75,
+            "hairStyle": "PONYTAIL",
+            "hairColor": "#451A03",
+            "outfitStyle": "CARDIGAN",
+            "outfitColor": "#EC4899",
+            "glasses": "ROUND",
+            "mustache": false
+          },
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "SCARED",
+          "handProp": "NONE",
+          "seated": true,
+          "shiver": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 890,
+              "endX": 890,
+              "facing": "RIGHT",
+              "pose": "FACEPALM",
+              "expression": "SCARED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 890,
+              "endX": 890,
+              "facing": "RIGHT",
+              "pose": "SHIVER_PANIC",
+              "expression": "SCARED",
+              "handProp": "NONE",
+              "shiver": true
+            }
+          ]
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.78,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "TSHIRT",
+            "outfitColor": "#0EA5E9",
+            "glasses": "NONE",
+            "mustache": false
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "WORRIED",
+          "handProp": "NONE",
+          "groundY": 790,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1365,
+              "endX": 1365,
+              "facing": "LEFT",
+              "pose": "FACEPALM",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1365,
+              "endX": 1365,
+              "facing": "LEFT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b04",
+      "text": "Ngay cả thủ phạm là Nam cũng phải nhăn nhó lắc tay vì cảm giác ê buốt chạy dọc từ tai xuống tận xương sống.",
+      "ttsText": "Ngay cả thủ phạm là Nam cũng phải nhăn nhó lắc tay vì cảm giác ê buốt chạy dọc từ tai xuống tận xương sống.",
+      "stageType": "SCHOOL_CLASSROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "WORRIED",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 500,
+              "endX": 500,
+              "facing": "RIGHT",
+              "pose": "FACEPALM",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 500,
+              "endX": 500,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.75,
+            "hairStyle": "PONYTAIL",
+            "hairColor": "#451A03",
+            "outfitStyle": "CARDIGAN",
+            "outfitColor": "#EC4899",
+            "glasses": "ROUND",
+            "mustache": false
+          },
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "WORRIED",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 890,
+              "endX": 890,
+              "facing": "RIGHT",
+              "pose": "FACEPALM",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 890,
+              "endX": 890,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.78,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "TSHIRT",
+            "outfitColor": "#0EA5E9",
+            "glasses": "NONE",
+            "mustache": false
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "WORRIED",
+          "handProp": "NONE",
+          "shiver": true,
+          "groundY": 790,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1365,
+              "endX": 1365,
+              "facing": "LEFT",
+              "pose": "SHIVER_PANIC",
+              "expression": "WORRIED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1365,
+              "endX": 1365,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "WORRIED",
+              "handProp": "NONE",
+              "shiver": true
+            }
+          ],
+          "bubble": "Chính mình cào mà cũng thấy ghê răng quá trời!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b05",
+      "text": "Khoan dừng lại một chút nhé, tiếng cào bảng hoàn toàn không gây hại gì cho cơ thể, vậy tại sao nó lại làm ta rùng mình?",
+      "ttsText": "Khoan dừng lại một chút nhé, tiếng cào bảng hoàn toàn không gây hại gì cho cơ thể, vậy tại sao nó lại làm ta rùng mình?",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "SCHOOL_CLASSROOM",
+      "freezeFrame": 90,
+      "labBoard": "ACOUSTICS_CRINGE_ALARM",
+      "hostBoardHighlight": "LEFT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "appearance": {
+            "scale": 1.28
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "POINTER",
+          "lookAtCamera": true,
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "CURIOUS",
+              "handProp": "POINTER"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "POINTER"
+            }
+          ],
+          "bubble": "Khoan đã, sao âm thanh này đáng sợ vậy?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b06",
+      "text": "Thậm chí các nhà khoa học nhận thấy nhiều người chỉ cần tưởng tượng cảnh móng tay cào bảng thôi cũng đủ thấy ghê người rồi.",
+      "ttsText": "Thậm chí các nhà khoa học nhận thấy nhiều người chỉ cần tưởng tượng cảnh móng tay cào bảng thôi cũng đủ thấy ghê người rồi.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "SCHOOL_CLASSROOM",
+      "freezeFrame": 90,
+      "labBoard": "ACOUSTICS_CRINGE_ALARM",
+      "hostBoardHighlight": "CRINGE_IMAGINE",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "appearance": {
+            "scale": 1.28
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "POINTER",
+          "lookAtCamera": true,
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "POINTER"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "POINTER"
+            }
+          ],
+          "bubble": "Chắc chỉ nghe nhắc thôi bạn cũng hơi rùng mình!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b07",
+      "text": "Trong bảng xếp hạng những âm thanh bị ghét nhất lịch sử, tiếng móng tay cào bảng chỉ là một thành viên trong hội gây ám ảnh.",
+      "ttsText": "Trong bảng xếp hạng những âm thanh bị ghét nhất lịch sử, tiếng móng tay cào bảng chỉ là một thành viên trong hội gây ám ảnh.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "customVisual": "CAOBANG_TOP_WORST_SOUNDS",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b08",
+      "text": "Điểm chung của nhóm âm thanh này là vừa lọt vào tai đã khiến tim hơi đập nhanh, da đổ mồ hôi nhẹ và người co rúm lại.",
+      "ttsText": "Điểm chung của nhóm âm thanh này là vừa lọt vào tai đã khiến tim hơi đập nhanh, da đổ mồ hôi nhẹ và người co rúm lại.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "customVisual": "CAOBANG_TOP_WORST_SOUNDS",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b09",
+      "text": "Để giải mã tận gốc, trước tiên chúng ta hãy phóng to mặt bảng và chiếc đĩa sứ lên hàng nghìn lần để xem chuyện gì xảy ra.",
+      "ttsText": "Để giải mã tận gốc, trước tiên chúng ta hãy phóng to mặt bảng và chiếc đĩa sứ lên hàng nghìn lần để xem chuyện gì xảy ra.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "SCHOOL_CLASSROOM",
+      "freezeFrame": 90,
+      "labBoard": "ACOUSTICS_CRINGE_ALARM",
+      "hostBoardHighlight": "EAR_AMPLIFIER",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "appearance": {
+            "scale": 1.28
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "POINTER",
+          "lookAtCamera": true,
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "CURIOUS",
+              "handProp": "POINTER"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "POINTER"
+            }
+          ],
+          "bubble": "Trước tiên, tiếng rít ghê tai sinh ra thế nào?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b10",
+      "text": "Khi móng tay hay lưỡi dao trượt lên bề mặt cứng, chúng không hề lướt đi trơn tru như ta vẫn tưởng bằng mắt thường.",
+      "ttsText": "Khi móng tay hay lưỡi dao trượt lên bề mặt cứng, chúng không hề lướt đi trơn tru như ta vẫn tưởng bằng mắt thường.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "customVisual": "CAOBANG_STICK_SLIP",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b11",
+      "actTitle": "HỒI 2: MA SÁT DÍNH–TRƯỢT & CHIẾC LOA KHUẾCH ĐẠI TRONG ỐNG TAI",
+      "chapterBanner": "Hồi 2: Ma Sát Dính–Trượt & Chiếc Loa Trong Ống Tai",
+      "text": "Thay vào đó, chúng liên tục bám chặt rồi bật trượt, bám chặt rồi lại bật trượt hàng nghìn lần mỗi giây gọi là ma sát dính trượt.",
+      "ttsText": "Thay vào đó, chúng liên tục bám chặt rồi bật trượt, bám chặt rồi lại bật trượt hàng nghìn lần mỗi giây gọi là ma sát dính trượt.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "customVisual": "CAOBANG_STICK_SLIP",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b12",
+      "text": "Rất nhiều người đoán rằng tiếng cào bảng khó chịu là vì tần số của nó cao chót vót tới mức vượt ngưỡng nghe của tai.",
+      "ttsText": "Rất nhiều người đoán rằng tiếng cào bảng khó chịu là vì tần số của nó cao chót vót tới mức vượt ngưỡng nghe của tai.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "customVisual": "CAOBANG_FREQ_BAND",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b13",
+      "text": "Nhưng khi các nhà khoa học lọc bỏ dần từng dải tần, kết quả lại cực bất ngờ: thủ phạm chính nằm ở dải hai nghìn đến bốn nghìn héc.",
+      "ttsText": "Nhưng khi các nhà khoa học lọc bỏ dần từng dải tần, kết quả lại cực bất ngờ: thủ phạm chính nằm ở dải hai nghìn đến bốn nghìn héc.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "customVisual": "CAOBANG_FREQ_BAND",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b14",
+      "text": "Nghe có vẻ rất vô lý đúng không, tại sao tai người không sợ những nốt cao nhất mà lại cực kỳ dị ứng với đúng dải tần này?",
+      "ttsText": "Nghe có vẻ rất vô lý đúng không, tại sao tai người không sợ những nốt cao nhất mà lại cực kỳ dị ứng với đúng dải tần này?",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "SCHOOL_CLASSROOM",
+      "freezeFrame": 90,
+      "labBoard": "ACOUSTICS_CRINGE_ALARM",
+      "hostBoardHighlight": "EAR_AMPLIFIER",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "appearance": {
+            "scale": 1.28
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "POINTER",
+          "lookAtCamera": true,
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "CURIOUS",
+              "handProp": "POINTER"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "POINTER"
+            }
+          ],
+          "bubble": "Ủa, dải tần này có gì đặc biệt nhỉ?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b15",
+      "text": "Câu trả lời nằm ngay ở hình dáng vật lý của ống tai người, một đường ống nhỏ dài khoảng hai phẩy năm xăng ti mét dẫn tới màng nhĩ.",
+      "ttsText": "Câu trả lời nằm ngay ở hình dáng vật lý của ống tai người, một đường ống nhỏ dài khoảng hai phẩy năm xăng ti mét dẫn tới màng nhĩ.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "customVisual": "CAOBANG_EAR_CANAL_AMP",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b16",
+      "text": "Nhờ độ cong đặc biệt ấy, ống tai hoạt động như chiếc loa cộng hưởng tự động khuếch đại mạnh dải hai nghìn đến bốn nghìn héc.",
+      "ttsText": "Nhờ độ cong đặc biệt ấy, ống tai hoạt động như chiếc loa cộng hưởng tự động khuếch đại mạnh dải hai nghìn đến bốn nghìn héc.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "customVisual": "CAOBANG_EAR_CANAL_AMP",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b17",
+      "text": "Thực ra tự nhiên thiết kế chiếc loa cộng hưởng này vì một lý do cực kỳ hữu ích giúp loài người giao tiếp và sinh tồn.",
+      "ttsText": "Thực ra tự nhiên thiết kế chiếc loa cộng hưởng này vì một lý do cực kỳ hữu ích giúp loài người giao tiếp và sinh tồn.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "customVisual": "CAOBANG_WHY_EVOLVED_EAR",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b18",
+      "text": "Nhờ ống tai ưu ái dải tần này, ta nghe rõ lời nói hay tiếng trẻ khóc, nhưng xui thay tiếng cào bảng lại lọt đúng vào đó.",
+      "ttsText": "Nhờ ống tai ưu ái dải tần này, ta nghe rõ lời nói hay tiếng trẻ khóc, nhưng xui thay tiếng cào bảng lại lọt đúng vào đó.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "customVisual": "CAOBANG_WHY_EVOLVED_EAR",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b19",
+      "text": "Nhưng nếu chỉ đơn thuần là âm thanh to hơn thì cùng lắm ta chỉ thấy ồn thôi, điều gì khiến sống lưng ta lạnh toát và nổi da gà?",
+      "ttsText": "Nhưng nếu chỉ đơn thuần là âm thanh to hơn thì cùng lắm ta chỉ thấy ồn thôi, điều gì khiến sống lưng ta lạnh toát và nổi da gà?",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "SCHOOL_CLASSROOM",
+      "freezeFrame": 90,
+      "labBoard": "ACOUSTICS_CRINGE_ALARM",
+      "hostBoardHighlight": "BRAIN_ALARM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "appearance": {
+            "scale": 1.28
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "SURPRISED",
+          "handProp": "POINTER",
+          "lookAtCamera": true,
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "SURPRISED",
+              "handProp": "POINTER"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "SURPRISED",
+              "handProp": "POINTER"
+            }
+          ],
+          "bubble": "Tai chỉ phóng to thôi, phần đáng sợ ở não!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b20",
+      "text": "Khi các nhà khoa học dùng máy quét não quan sát người nghe nhiều âm thanh, họ phát hiện một cuộc đối thoại bất ngờ bên trong đầu.",
+      "ttsText": "Khi các nhà khoa học dùng máy quét não quan sát người nghe nhiều âm thanh, họ phát hiện một cuộc đối thoại bất ngờ bên trong đầu.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "customVisual": "CAOBANG_AMYGDALA_LOOP",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b21",
+      "text": "Ngay khi vỏ não thính giác gửi tiếng cào bảng sang hạch hạnh nhân, trung tâm báo động sợ hãi này lập tức bật còi báo động đỏ.",
+      "ttsText": "Ngay khi vỏ não thính giác gửi tiếng cào bảng sang hạch hạnh nhân, trung tâm báo động sợ hãi này lập tức bật còi báo động đỏ.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "customVisual": "CAOBANG_AMYGDALA_LOOP",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b22",
+      "text": "Đáng sợ hơn, hạch hạnh nhân còn bắn ngược tín hiệu về vỏ não thính giác làm nó càng nhạy hơn, tạo vòng xoáy khó chịu tột độ.",
+      "ttsText": "Đáng sợ hơn, hạch hạnh nhân còn bắn ngược tín hiệu về vỏ não thính giác làm nó càng nhạy hơn, tạo vòng xoáy khó chịu tột độ.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "customVisual": "CAOBANG_AMYGDALA_LOOP",
+      "visualStep": 2,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b23",
+      "actTitle": "HỒI 3: TIẾNG HÉT CẢNH BÁO TIẾN HÓA & PHẢN XẠ NỔI DA GÀ",
+      "chapterBanner": "Hồi 3: Tiếng Hét Cảnh Báo Tiến Hóa & Phản Xạ Nổi Da Gà",
+      "text": "Lý do hạch hạnh nhân phản ứng dữ dội đến vậy là vì cấu trúc sóng âm răng cưa của tiếng cào bảng cực kỳ giống tiếng hét hoảng loạn.",
+      "ttsText": "Lý do hạch hạnh nhân phản ứng dữ dội đến vậy là vì cấu trúc sóng âm răng cưa của tiếng cào bảng cực kỳ giống tiếng hét hoảng loạn.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "customVisual": "CAOBANG_SCREAM_TEXTURE",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b24",
+      "text": "Bộ não cổ xưa nghe thấy tín hiệu báo nguy khẩn cấp, nhưng đôi mắt lại báo xung quanh bình yên, sự mâu thuẫn này gây rất khó chịu.",
+      "ttsText": "Bộ não cổ xưa nghe thấy tín hiệu báo nguy khẩn cấp, nhưng đôi mắt lại báo xung quanh bình yên, sự mâu thuẫn này gây rất khó chịu.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "customVisual": "CAOBANG_SCREAM_TEXTURE",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b25",
+      "text": "Còi báo động từ hạch hạnh nhân lập tức truyền dọc theo hệ thần kinh giao cảm xuống tận từng lỗ chân lông trên cánh tay và sau gáy bạn.",
+      "ttsText": "Còi báo động từ hạch hạnh nhân lập tức truyền dọc theo hệ thần kinh giao cảm xuống tận từng lỗ chân lông trên cánh tay và sau gáy bạn.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "customVisual": "CAOBANG_GOOSEBUMPS_REFLEX",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b26",
+      "text": "Các bó cơ nhỏ dưới gốc lông đồng loạt co rút kéo từng sợi lông dựng đứng, tạo cảm giác rùng mình và nổi da gà khắp người.",
+      "ttsText": "Các bó cơ nhỏ dưới gốc lông đồng loạt co rút kéo từng sợi lông dựng đứng, tạo cảm giác rùng mình và nổi da gà khắp người.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "customVisual": "CAOBANG_GOOSEBUMPS_REFLEX",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b27",
+      "text": "Ở tổ tiên nhiều lông của ta hay ở loài mèo khi hoảng sợ, việc xù lông giúp cơ thể trông to lớn hơn để dọa kẻ thù.",
+      "ttsText": "Ở tổ tiên nhiều lông của ta hay ở loài mèo khi hoảng sợ, việc xù lông giúp cơ thể trông to lớn hơn để dọa kẻ thù.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "customVisual": "CAOBANG_ANCESTOR_FUR",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b28",
+      "text": "Quay lại lớp học, tôi và Linh đồng thanh nhắc Nam lần sau cầm phấn chắc tay kẻo cả lớp lại được phen rùng mình tập thể.",
+      "ttsText": "Quay lại lớp học, tôi và Linh đồng thanh nhắc Nam lần sau cầm phấn chắc tay kẻo cả lớp lại được phen rùng mình tập thể.",
+      "stageType": "SCHOOL_CLASSROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 500,
+              "endX": 500,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 500,
+              "endX": 500,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Lần sau cậu cầm phấn cho chắc tay nhé!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.75,
+            "hairStyle": "PONYTAIL",
+            "hairColor": "#451A03",
+            "outfitStyle": "CARDIGAN",
+            "outfitColor": "#EC4899",
+            "glasses": "ROUND",
+            "mustache": false
+          },
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 890,
+              "endX": 890,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 890,
+              "endX": 890,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.78,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "TSHIRT",
+            "outfitColor": "#0EA5E9",
+            "glasses": "NONE",
+            "mustache": false
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 790,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1365,
+              "endX": 1365,
+              "facing": "LEFT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1365,
+              "endX": 1365,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b29",
+      "text": "Tối hôm ấy về nhà ăn bò bít tết cùng bố mẹ, cứ tưởng đã thoát khỏi âm thanh ám ảnh ngoài lớp học rồi.",
+      "ttsText": "Tối hôm ấy về nhà ăn bò bít tết cùng bố mẹ, cứ tưởng đã thoát khỏi âm thanh ám ảnh ngoài lớp học rồi.",
+      "stageType": "HOME_KITCHEN",
+      "kitchenDetail": "DINNER_STEAK",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 26,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#2563EB",
+            "glasses": "NONE",
+            "mustache": false
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 580,
+              "endX": 580,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 580,
+              "endX": 580,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Tối nay mẹ làm bò bít tết thơm quá trời!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.88,
+            "hairStyle": "BUN",
+            "hairColor": "#3B2314",
+            "outfitStyle": "CARDIGAN",
+            "outfitColor": "#10B981",
+            "glasses": "NONE",
+            "mustache": false
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1340,
+              "endX": 1340,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1340,
+              "endX": 1340,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b30",
+      "text": "Ai ngờ tôi vừa lỡ tay quẹt mạnh chiếc nĩa kim loại xuống mặt đĩa sứ, một tiếng rít chói tai lại vang lên khiến cả bàn giật thót.",
+      "ttsText": "Ai ngờ tôi vừa lỡ tay quẹt mạnh chiếc nĩa kim loại xuống mặt đĩa sứ, một tiếng rít chói tai lại vang lên khiến cả bàn giật thót.",
+      "stageType": "HOME_KITCHEN",
+      "kitchenDetail": "FORK_SCRAPE_WAVE",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 26,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "actors": [
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#2563EB",
+            "glasses": "NONE",
+            "mustache": false
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "SHOCKED",
+          "handProp": "NONE",
+          "seated": true,
+          "shiver": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 580,
+              "endX": 580,
+              "facing": "RIGHT",
+              "pose": "FACEPALM",
+              "expression": "SHOCKED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 580,
+              "endX": 580,
+              "facing": "RIGHT",
+              "pose": "SHIVER_PANIC",
+              "expression": "SHOCKED",
+              "handProp": "NONE",
+              "shiver": true
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "SHOCKED",
+          "handProp": "NONE",
+          "seated": true,
+          "shiver": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "SHIVER_PANIC",
+              "expression": "SHOCKED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "FACEPALM",
+              "expression": "SHOCKED",
+              "handProp": "NONE",
+              "shiver": true
+            }
+          ],
+          "bubble": "Ái chà, con lỡ cọ nĩa xuống đĩa sứ!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.88,
+            "hairStyle": "BUN",
+            "hairColor": "#3B2314",
+            "outfitStyle": "CARDIGAN",
+            "outfitColor": "#10B981",
+            "glasses": "NONE",
+            "mustache": false
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "SHOCKED",
+          "handProp": "NONE",
+          "seated": true,
+          "shiver": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1340,
+              "endX": 1340,
+              "facing": "LEFT",
+              "pose": "FACEPALM",
+              "expression": "SHOCKED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1340,
+              "endX": 1340,
+              "facing": "LEFT",
+              "pose": "SHIVER_PANIC",
+              "expression": "SHOCKED",
+              "handProp": "NONE",
+              "shiver": true
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b31",
+      "text": "Bố tôi rùng mình bảo tiếng dao nĩa cọ đĩa sứ còn làm bố nổi da gà nhanh hơn cả tiếng cào bảng ngày xưa đi học.",
+      "ttsText": "Bố tôi rùng mình bảo tiếng dao nĩa cọ đĩa sứ còn làm bố nổi da gà nhanh hơn cả tiếng cào bảng ngày xưa đi học.",
+      "stageType": "HOME_KITCHEN",
+      "kitchenDetail": "DINNER_STEAK",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 26,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#2563EB",
+            "glasses": "NONE",
+            "mustache": false
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "WORRIED",
+          "handProp": "NONE",
+          "seated": true,
+          "shiver": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 580,
+              "endX": 580,
+              "facing": "RIGHT",
+              "pose": "SHIVER_PANIC",
+              "expression": "WORRIED",
+              "handProp": "NONE",
+              "shiver": true
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 580,
+              "endX": 580,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "WORRIED",
+              "handProp": "NONE",
+              "shiver": true
+            }
+          ],
+          "bubble": "Tiếng cọ đĩa này còn ghê hơn cào bảng!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "WORRIED",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "WORRIED",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.88,
+            "hairStyle": "BUN",
+            "hairColor": "#3B2314",
+            "outfitStyle": "CARDIGAN",
+            "outfitColor": "#10B981",
+            "glasses": "NONE",
+            "mustache": false
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1340,
+              "endX": 1340,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1340,
+              "endX": 1340,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b32",
+      "text": "Chưa hết đâu nhé, các nhà khoa học còn phát hiện một yếu tố tâm lý khiến bạn ghét tiếng cào bảng hơn cả bản chất thật.",
+      "ttsText": "Chưa hết đâu nhé, các nhà khoa học còn phát hiện một yếu tố tâm lý khiến bạn ghét tiếng cào bảng hơn cả bản chất thật.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "HOME_KITCHEN",
+      "freezeFrame": 90,
+      "labBoard": "ACOUSTICS_CRINGE_ALARM",
+      "hostBoardHighlight": "MUSIC_TRICK",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "appearance": {
+            "scale": 1.28
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "SURPRISED",
+          "handProp": "POINTER",
+          "lookAtCamera": true,
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "SURPRISED",
+              "handProp": "POINTER"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "SURPRISED",
+              "handProp": "POINTER"
+            }
+          ],
+          "bubble": "Vẫn còn một cú lừa tâm lý cực bất ngờ!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b33",
+      "text": "Trong một thí nghiệm nổi tiếng tại Đức, các nhà nghiên cứu chia người nghe làm hai nhóm rồi phát cùng một đoạn ghi âm cào bảng.",
+      "ttsText": "Trong một thí nghiệm nổi tiếng tại Đức, các nhà nghiên cứu chia người nghe làm hai nhóm rồi phát cùng một đoạn ghi âm cào bảng.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "customVisual": "CAOBANG_MUSIC_EXPERIMENT",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b34",
+      "text": "Nhóm biết trước là tiếng cào bảng thấy cực kỳ kinh khủng, còn nhóm được bảo đó là nhạc hiện đại lại thấy dễ chịu hơn hẳn.",
+      "ttsText": "Nhóm biết trước là tiếng cào bảng thấy cực kỳ kinh khủng, còn nhóm được bảo đó là nhạc hiện đại lại thấy dễ chịu hơn hẳn.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "customVisual": "CAOBANG_MUSIC_EXPERIMENT",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b35",
+      "actTitle": "HỒI 4: SỨC MẠNH CỦA SỰ TƯỞNG TƯỢNG & VÌ SAO CÓ NGƯỜI KHÔNG SỢ?",
+      "chapterBanner": "Hồi 4: Sức Mạnh Của Sự Tưởng Tượng & Vì Sao Có Người Không Sợ?",
+      "text": "Điều đó chứng tỏ cơn rùng mình không chỉ đến từ đôi tai, mà còn bị khuếch đại mạnh mẽ bởi chính suy nghĩ và ký ức trong đầu bạn.",
+      "ttsText": "Điều đó chứng tỏ cơn rùng mình không chỉ đến từ đôi tai, mà còn bị khuếch đại mạnh mẽ bởi chính suy nghĩ và ký ức trong đầu bạn.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "customVisual": "CAOBANG_BRAIN_EXPECTATION",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b36",
+      "text": "Khi biết chắc đó là móng tay cào bảng, vỏ não lập tức kích hoạt vùng khó chịu ngay cả trước khi âm thanh kịp lớn lên.",
+      "ttsText": "Khi biết chắc đó là móng tay cào bảng, vỏ não lập tức kích hoạt vùng khó chịu ngay cả trước khi âm thanh kịp lớn lên.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "customVisual": "CAOBANG_BRAIN_EXPECTATION",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b37",
+      "text": "Nhưng chắc bạn cũng từng gặp vài người bạn cực kỳ gan lì, nghe tiếng cào bảng hay cọ xốp mà vẫn ngồi tỉnh bơ chẳng hề rùng mình.",
+      "ttsText": "Nhưng chắc bạn cũng từng gặp vài người bạn cực kỳ gan lì, nghe tiếng cào bảng hay cọ xốp mà vẫn ngồi tỉnh bơ chẳng hề rùng mình.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "HOME_KITCHEN",
+      "freezeFrame": 90,
+      "labBoard": "ACOUSTICS_CRINGE_ALARM",
+      "hostBoardHighlight": "WHY_IMMUNE",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "appearance": {
+            "scale": 1.28
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "CURIOUS",
+          "handProp": "POINTER",
+          "lookAtCamera": true,
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "CURIOUS",
+              "handProp": "POINTER"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "CURIOUS",
+              "handProp": "POINTER"
+            }
+          ],
+          "bubble": "Sao có vài người nghe vẫn thấy bình thường nhỉ?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b38",
+      "text": "Lý do đầu tiên là sự khác biệt siêu nhỏ về hình dáng và độ dài ống tai mỗi người, khiến đỉnh cộng hưởng bị lệch đi chút ít.",
+      "ttsText": "Lý do đầu tiên là sự khác biệt siêu nhỏ về hình dáng và độ dài ống tai mỗi người, khiến đỉnh cộng hưởng bị lệch đi chút ít.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "customVisual": "CAOBANG_WHY_SOME_IMMUNE",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b39",
+      "text": "Lý do thứ hai là độ nhạy của hạch hạnh nhân và thính lực tần số cao ở mỗi người rất khác nhau theo từng độ tuổi.",
+      "ttsText": "Lý do thứ hai là độ nhạy của hạch hạnh nhân và thính lực tần số cao ở mỗi người rất khác nhau theo từng độ tuổi.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "customVisual": "CAOBANG_WHY_SOME_IMMUNE",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b40",
+      "text": "Điều thú vị là cảm giác rùng mình ghê răng khi nghe tiếng cào bảng thậm chí được giới tâm lý học tách thành một cảm xúc riêng biệt.",
+      "ttsText": "Điều thú vị là cảm giác rùng mình ghê răng khi nghe tiếng cào bảng thậm chí được giới tâm lý học tách thành một cảm xúc riêng biệt.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "customVisual": "CAOBANG_GRIMA_VS_FRISSON",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b41",
+      "text": "Ngược lại, khi bạn nổi da gà rùng mình sung sướng lúc nghe một đoạn nhạc hay tuyệt vời, khoa học gọi đó là cảm giác thăng hoa âm thanh.",
+      "ttsText": "Ngược lại, khi bạn nổi da gà rùng mình sung sướng lúc nghe một đoạn nhạc hay tuyệt vời, khoa học gọi đó là cảm giác thăng hoa âm thanh.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "customVisual": "CAOBANG_GRIMA_VS_FRISSON",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b42",
+      "text": "Vậy nếu lỡ gặp mấy âm thanh chói tai này ở lớp học hay bàn ăn, ta có cách nào làm dịu cơn rùng mình thật nhanh không?",
+      "ttsText": "Vậy nếu lỡ gặp mấy âm thanh chói tai này ở lớp học hay bàn ăn, ta có cách nào làm dịu cơn rùng mình thật nhanh không?",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "HOME_KITCHEN",
+      "freezeFrame": 90,
+      "labBoard": "ACOUSTICS_CRINGE_ALARM",
+      "hostBoardHighlight": "CRINGE_TIPS",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "actors": [
+        {
+          "preset": "BOY",
+          "appearance": {
+            "scale": 1.28
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "lookAtCamera": true,
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "POINT_UP",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Có mẹo nào đỡ rùng mình khi lỡ nghe không?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b43",
+      "text": "Mẹo thứ nhất rất thực tế: hãy cầm nghiêng viên phấn xuôi chiều viết và giảm lực ấn để triệt tiêu hiện tượng dính trượt trên mặt bảng.",
+      "ttsText": "Mẹo thứ nhất rất thực tế: hãy cầm nghiêng viên phấn xuôi chiều viết và giảm lực ấn để triệt tiêu hiện tượng dính trượt trên mặt bảng.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "customVisual": "CAOBANG_3_TIPS",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b44",
+      "text": "Mẹo thứ hai trên bàn ăn là đặt nghiêng đầu nĩa hoặc lót miếng thức ăn bên dưới khi cắt, tránh để kim loại cọ trực tiếp lên sứ.",
+      "ttsText": "Mẹo thứ hai trên bàn ăn là đặt nghiêng đầu nĩa hoặc lót miếng thức ăn bên dưới khi cắt, tránh để kim loại cọ trực tiếp lên sứ.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "customVisual": "CAOBANG_3_TIPS",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b45",
+      "text": "Mẹo thứ ba khi lỡ nghe: hãy thả lỏng hai vai và hít thở chậm để báo cho hạch hạnh nhân biết không hề có nguy hiểm.",
+      "ttsText": "Mẹo thứ ba khi lỡ nghe: hãy thả lỏng hai vai và hít thở chậm để báo cho hạch hạnh nhân biết không hề có nguy hiểm.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "customVisual": "CAOBANG_3_TIPS",
+      "visualStep": 2,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b46",
+      "text": "Quay lại bàn ăn, tôi kể hết bí mật về chiếc loa trong ống tai và thí nghiệm nhạc hiện đại khiến bố mẹ bật cười thích thú.",
+      "ttsText": "Quay lại bàn ăn, tôi kể hết bí mật về chiếc loa trong ống tai và thí nghiệm nhạc hiện đại khiến bố mẹ bật cười thích thú.",
+      "stageType": "HOME_KITCHEN",
+      "kitchenDetail": "DINNER_STEAK",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 26,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#2563EB",
+            "glasses": "NONE",
+            "mustache": false
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 580,
+              "endX": 580,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 580,
+              "endX": 580,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Hóa ra tại ống tai mình phóng âm tốt quá!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.88,
+            "hairStyle": "BUN",
+            "hairColor": "#3B2314",
+            "outfitStyle": "CARDIGAN",
+            "outfitColor": "#10B981",
+            "glasses": "NONE",
+            "mustache": false
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1340,
+              "endX": 1340,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1340,
+              "endX": 1340,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b47",
+      "actTitle": "HỒI 5: ỨNG DỤNG THỰC TẾ & THỬ THÁCH TRÍ TƯỞNG TƯỢNG",
+      "chapterBanner": "Hồi 5: Ứng Dụng Thực Tế & Thử Thách Trí Tưởng Tượng",
+      "text": "Mẹ tôi gật gù bảo bộ não con người tinh vi thật, chỉ một tiếng rít nhỏ mà đã kích hoạt cả hệ thống phòng vệ cổ xưa.",
+      "ttsText": "Mẹ tôi gật gù bảo bộ não con người tinh vi thật, chỉ một tiếng rít nhỏ mà đã kích hoạt cả hệ thống phòng vệ cổ xưa.",
+      "stageType": "HOME_KITCHEN",
+      "kitchenDetail": "DINNER_STEAK",
+      "timeOfDay": "SUNSET",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 26,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.96,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#2563EB",
+            "glasses": "NONE",
+            "mustache": false
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 580,
+              "endX": 580,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 580,
+              "endX": 580,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.88,
+            "hairStyle": "BUN",
+            "hairColor": "#3B2314",
+            "outfitStyle": "CARDIGAN",
+            "outfitColor": "#10B981",
+            "glasses": "NONE",
+            "mustache": false
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1340,
+              "endX": 1340,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1340,
+              "endX": 1340,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Hóa ra nổi da gà là để bảo vệ mình!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b48",
+      "text": "Sáng hôm sau tới lớp, Nam áp dụng ngay mẹo cầm nghiêng viên phấn và viết đầy bảng mà không còn phát ra tiếng rít khó chịu nào.",
+      "ttsText": "Sáng hôm sau tới lớp, Nam áp dụng ngay mẹo cầm nghiêng viên phấn và viết đầy bảng mà không còn phát ra tiếng rít khó chịu nào.",
+      "stageType": "SCHOOL_CLASSROOM",
+      "classroomDetail": "CHALK_WRITE_45DEG",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 500,
+              "endX": 500,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 500,
+              "endX": 500,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.75,
+            "hairStyle": "PONYTAIL",
+            "hairColor": "#451A03",
+            "outfitStyle": "CARDIGAN",
+            "outfitColor": "#EC4899",
+            "glasses": "ROUND",
+            "mustache": false
+          },
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 890,
+              "endX": 890,
+              "facing": "RIGHT",
+              "pose": "ARMS_UP_CHEER",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 890,
+              "endX": 890,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.78,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "TSHIRT",
+            "outfitColor": "#0EA5E9",
+            "glasses": "NONE",
+            "mustache": false
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "PROUD",
+          "handProp": "NONE",
+          "groundY": 790,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1365,
+              "endX": 1365,
+              "facing": "LEFT",
+              "pose": "WRITE_NOTE",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1365,
+              "endX": 1365,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "PROUD",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Cầm nghiêng viên phấn thế này viết êm ru luôn!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b49",
+      "text": "Linh bật cười bảo nhờ vậy mà cả lớp hết cảnh giật thót tim mỗi lần có bạn xung phong lên bảng giải bài tập.",
+      "ttsText": "Linh bật cười bảo nhờ vậy mà cả lớp hết cảnh giật thót tim mỗi lần có bạn xung phong lên bảng giải bài tập.",
+      "stageType": "SCHOOL_CLASSROOM",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 500,
+              "endX": 500,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 500,
+              "endX": 500,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.75,
+            "hairStyle": "PONYTAIL",
+            "hairColor": "#451A03",
+            "outfitStyle": "CARDIGAN",
+            "outfitColor": "#EC4899",
+            "glasses": "ROUND",
+            "mustache": false
+          },
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "seated": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 890,
+              "endX": 890,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 890,
+              "endX": 890,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Đỡ hẳn luôn, hôm qua mình nổi hết da gà!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.78,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "TSHIRT",
+            "outfitColor": "#0EA5E9",
+            "glasses": "NONE",
+            "mustache": false
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 790,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1365,
+              "endX": 1365,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1365,
+              "endX": 1365,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.025,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b50",
+      "text": "Trước khi khép lại tập hôm nay, hãy làm nhanh một bài kiểm tra xem âm thanh nào khiến não bạn rùng mình mạnh nhất nhé.",
+      "ttsText": "Trước khi khép lại tập hôm nay, hãy làm nhanh một bài kiểm tra xem âm thanh nào khiến não bạn rùng mình mạnh nhất nhé.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "customVisual": "CAOBANG_SOUND_CHECK",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b51",
+      "text": "Giữa tiếng móng tay cào bảng, tiếng nĩa cọ đĩa sứ, tiếng hai miếng xốp cọ vào nhau và tiếng phấn rít, đâu là khắc tinh số một của bạn?",
+      "ttsText": "Giữa tiếng móng tay cào bảng, tiếng nĩa cọ đĩa sứ, tiếng hai miếng xốp cọ vào nhau và tiếng phấn rít, đâu là khắc tinh số một của bạn?",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "customVisual": "CAOBANG_SOUND_CHECK",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b52",
+      "text": "Nếu nãy giờ chỉ nhìn hình và nghe tôi mô tả mà bạn đã hơi rùng mình, đó chính là bằng chứng rõ nhất về sức mạnh bộ não.",
+      "ttsText": "Nếu nãy giờ chỉ nhìn hình và nghe tôi mô tả mà bạn đã hơi rùng mình, đó chính là bằng chứng rõ nhất về sức mạnh bộ não.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "SCHOOL_CLASSROOM",
+      "freezeFrame": 90,
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "appearance": {
+            "scale": 1.35
+          },
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "lookAtCamera": true,
+          "groundY": 770,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Chỉ đọc tên thôi cũng thấy hơi ghê răng rồi!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b53",
+      "text": "Nên lần tới lỡ nổi da gà vì tiếng cọ đĩa, hãy nhớ đó là bộ ra đa cảnh báo cực nhạy đã bảo vệ loài người hàng vạn năm.",
+      "ttsText": "Nên lần tới lỡ nổi da gà vì tiếng cọ đĩa, hãy nhớ đó là bộ ra đa cảnh báo cực nhạy đã bảo vệ loài người hàng vạn năm.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "SCHOOL_CLASSROOM",
+      "freezeFrame": 90,
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "appearance": {
+            "scale": 1.35
+          },
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "lookAtCamera": true,
+          "groundY": 770,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Đừng ghét nó nhé, đó là ra đa bảo vệ!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b54",
+      "text": "Giờ thì chúng ta cùng tóm gọn lại ba bí mật khoa học đứng sau cơn rùng mình nổi da gà này nhé.",
+      "ttsText": "Giờ thì chúng ta cùng tóm gọn lại ba bí mật khoa học đứng sau cơn rùng mình nổi da gà này nhé.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "SCHOOL_CLASSROOM",
+      "freezeFrame": 90,
+      "labBoard": "ACOUSTICS_CRINGE_ALARM",
+      "hostBoardHighlight": "SUMMARY",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "appearance": {
+            "scale": 1.28
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "POINTER",
+          "lookAtCamera": true,
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "POINTER"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "POINTER"
+            }
+          ],
+          "bubble": "Cùng chốt gọn ba lý do chính hôm nay nhé!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b55",
+      "actTitle": "HỒI 6: TỔNG KẾT 3 Ý & KẾT THÚC GỌN GÀNG",
+      "chapterBanner": "Hồi 6: Tổng Kết 3 Điều Cần Nhớ",
+      "text": "Tóm lại ba điều cần nhớ: thứ nhất, ma sát dính trượt tạo ra dải âm hai nghìn đến bốn nghìn héc đúng vùng ống tai khuếch đại mạnh nhất.",
+      "ttsText": "Tóm lại ba điều cần nhớ: thứ nhất, ma sát dính trượt tạo ra dải âm hai nghìn đến bốn nghìn héc đúng vùng ống tai khuếch đại mạnh nhất.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "customVisual": "CAOBANG_SUMMARY_3_CARDS",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b56",
+      "text": "Thứ hai, sóng âm nhám giống tiếng hét cảnh báo khiến hạch hạnh nhân bật báo động đỏ và kích hoạt cơ dựng lông gây rùng mình nổi da gà.",
+      "ttsText": "Thứ hai, sóng âm nhám giống tiếng hét cảnh báo khiến hạch hạnh nhân bật báo động đỏ và kích hoạt cơ dựng lông gây rùng mình nổi da gà.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "customVisual": "CAOBANG_SUMMARY_3_CARDS",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b57",
+      "text": "Thứ ba, suy nghĩ trong đầu cũng làm cảm giác khó chịu tăng mạnh, và chỉ cần cầm nghiêng phấn hoặc thả lỏng vai là dịu đi ngay.",
+      "ttsText": "Thứ ba, suy nghĩ trong đầu cũng làm cảm giác khó chịu tăng mạnh, và chỉ cần cầm nghiêng phấn hoặc thả lỏng vai là dịu đi ngay.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "customVisual": "CAOBANG_SUMMARY_3_CARDS",
+      "visualStep": 2,
+      "fullScreenVisual": true,
+      "actors": []
+    },
+    {
+      "id": "b58",
+      "text": "Đừng quên bình luận bên dưới xem trong bốn âm thanh lúc nãy, tiếng nào là khắc tinh khiến bạn sởn gai ốc nhanh nhất nhé.",
+      "ttsText": "Đừng quên bình luận bên dưới xem trong bốn âm thanh lúc nãy, tiếng nào là khắc tinh khiến bạn sởn gai ốc nhanh nhất nhé.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "SCHOOL_CLASSROOM",
+      "freezeFrame": 90,
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "BOY",
+          "appearance": {
+            "scale": 1.35
+          },
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "lookAtCamera": true,
+          "groundY": 770,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Tiếng nào làm bạn rùng mình nhất, bình luận nhé!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b59",
+      "text": "Cảm ơn bạn đã cùng chúng mình khám phá trọn bộ những bí mật thú vị về cơ thể người vừa rồi.",
+      "ttsText": "Cảm ơn bạn đã cùng chúng mình khám phá trọn bộ những bí mật thú vị về cơ thể người vừa rồi.",
+      "stageType": "SCHOOL_CLASSROOM",
+      "classroomDetail": "OUTRO_OPEN_FLOOR",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.78,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "TSHIRT",
+            "outfitColor": "#0EA5E9",
+            "glasses": "NONE",
+            "mustache": false
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WAVE",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "lookAtCamera": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 560,
+              "endX": 560,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 560,
+              "endX": 560,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WAVE",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "lookAtCamera": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Từ giờ viết bảng nhớ cầm nghiêng viên phấn nhé!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.75,
+            "hairStyle": "PONYTAIL",
+            "hairColor": "#451A03",
+            "outfitStyle": "CARDIGAN",
+            "outfitColor": "#EC4899",
+            "glasses": "ROUND",
+            "mustache": false
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WAVE",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "lookAtCamera": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1360,
+              "endX": 1360,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1360,
+              "endX": 1360,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b60",
+      "text": "Sắp tới chúng ta sẽ mở rộng sang cả thế giới động vật và thiên nhiên kỳ thú, hẹn gặp lại bạn ở tập tiếp theo nhé!",
+      "ttsText": "Sắp tới chúng ta sẽ mở rộng sang cả thế giới động vật và thiên nhiên kỳ thú, hẹn gặp lại bạn ở tập tiếp theo nhé!",
+      "stageType": "SCHOOL_CLASSROOM",
+      "classroomDetail": "OUTRO_OPEN_FLOOR",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 24,
+      "pauseAfterSec": 0.5,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "actors": [
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.78,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "TSHIRT",
+            "outfitColor": "#0EA5E9",
+            "glasses": "NONE",
+            "mustache": false
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WAVE",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "lookAtCamera": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 560,
+              "endX": 560,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 560,
+              "endX": 560,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WAVE",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "lookAtCamera": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "bubble": "Hẹn gặp lại bạn ở hành trình tập sau!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 0.75,
+            "hairStyle": "PONYTAIL",
+            "hairColor": "#451A03",
+            "outfitStyle": "CARDIGAN",
+            "outfitColor": "#EC4899",
+            "glasses": "ROUND",
+            "mustache": false
+          },
+          "slot": "RIGHT",
+          "facing": "LEFT",
+          "motion": "WAVE",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "lookAtCamera": true,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1360,
+              "endX": 1360,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1360,
+              "endX": 1360,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ]
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
+    }
+  ]
+}

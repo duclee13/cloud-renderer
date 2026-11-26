@@ -3,6 +3,7 @@ import { GroundShadow } from "../SceneBackdropKit";
 import type {
   ClassroomDetailId,
   HostBoardHighlightId,
+  KitchenDetailId,
   LivingRoomDetailId,
 } from "../../lib/v7/episodeJsonSchema";
 
@@ -621,3 +622,585 @@ export const ActorYawnWavesOverlay: React.FC<{
     })}
   </g>
 );
+
+/* ============================================================================
+ * 5. HOST_EXPLAIN_OVERLAY Whiteboard: labBoard = "ACOUSTICS_CRINGE_ALARM" (Episode 8)
+ *    - Locked cleanly to x=680..1800, y=90..640 (width=1120, height=550)
+ *    - Guaranteed >= 90px gap from left Host speech bubble (x <= 590)
+ *    - 100% flat 2D SVG, zero blur/shadow filters, React.memo static core
+ * ========================================================================== */
+
+const HostAcousticsCringeBoardStaticCore: React.FC<{
+  activePanel?: "LEFT" | "CENTER" | "RIGHT";
+  greenTipsTheme?: boolean;
+}> = React.memo(({ activePanel, greenTipsTheme = false }) => {
+  const leftBorder = activePanel === "LEFT" ? "#EA580C" : "#0284C7";
+  const centerBorder = activePanel === "CENTER" ? "#DC2626" : "#F59E0B";
+  const rightBorder = activePanel === "RIGHT" ? "#059669" : "#7C3AED";
+  const leftW = activePanel === "LEFT" ? 4.5 : 2.8;
+  const centerW = activePanel === "CENTER" ? 4.5 : 2.8;
+  const rightW = activePanel === "RIGHT" ? 4.5 : 2.8;
+
+  return (
+    <g id="host-board-acoustics-cringe-static">
+      <GroundShadow cx={1240} cy={654} rx={545} ry={12} />
+
+      {/* Main Whiteboard Frame (x=680..1800, y=90..640) */}
+      <rect
+        x={680}
+        y={90}
+        width={1120}
+        height={550}
+        rx={22}
+        fill="#FFFFFF"
+        stroke={greenTipsTheme ? "#10B981" : "#64748B"}
+        strokeWidth={10}
+      />
+      <rect
+        x={680}
+        y={90}
+        width={1120}
+        height={550}
+        rx={22}
+        fill="none"
+        stroke={INK}
+        strokeWidth={3.2}
+      />
+
+      {/* 4 corner whiteboard pins */}
+      <circle cx={706} cy={116} r={6} fill="#EF4444" stroke={INK} strokeWidth={2} />
+      <circle cx={1774} cy={116} r={6} fill="#EF4444" stroke={INK} strokeWidth={2} />
+      <circle cx={706} cy={614} r={6} fill="#0284C7" stroke={INK} strokeWidth={2} />
+      <circle cx={1774} cy={614} r={6} fill="#0284C7" stroke={INK} strokeWidth={2} />
+
+      {/* Top Title Banner */}
+      <rect
+        x={724}
+        y={108}
+        width={1032}
+        height={48}
+        rx={12}
+        fill={greenTipsTheme ? "#ECFDF5" : "#FEF2F2"}
+        stroke={greenTipsTheme ? "#059669" : "#DC2626"}
+        strokeWidth={2.6}
+      />
+      <text
+        x={1240}
+        y={139}
+        textAnchor="middle"
+        fill={greenTipsTheme ? "#065F46" : "#991B1B"}
+        fontSize={20}
+        fontWeight={900}
+        fontFamily={FONT}
+      >
+        NGHIÊN CỨU ÂM HỌC &amp; NÃO BỘ • TẦN SỐ 2.000–4.000 Hz &amp; BÁO ĐỘNG RÙNG MÌNH
+      </text>
+
+      {/* ============================================================
+       * Ô TRÁI (x=710..1046, y=172..546): Ống tai cộng hưởng 2.000–4.000 Hz
+       * ============================================================ */}
+      <g id="board-panel-cringe-left" transform="translate(710, 172)">
+        <rect
+          x={0}
+          y={0}
+          width={336}
+          height={374}
+          rx={16}
+          fill={activePanel === "LEFT" ? "#FFF7ED" : "#F0F9FF"}
+          stroke={leftBorder}
+          strokeWidth={leftW}
+        />
+        <text x={168} y={36} textAnchor="middle" fill="#0369A1" fontSize={18.5} fontWeight={900} fontFamily={FONT}>
+          1. Loa cộng hưởng ống tai
+        </text>
+
+        {/* Ear canal tube + megaphone amplification */}
+        <g transform="translate(168, 128)">
+          {/* Outer ear shell */}
+          <path
+            d="M -112,-38 C -138,-38 -144,34 -108,42 C -90,46 -80,22 -84,4 C -88,-16 -96,-38 -112,-38 Z"
+            fill="#FDE68A"
+            stroke={INK}
+            strokeWidth={3}
+          />
+          {/* Ear canal corridor (~2.5 cm) */}
+          <path
+            d="M -88,-18 L 62,-26 L 62,26 L -88,18 Z"
+            fill="#FED7AA"
+            stroke={INK}
+            strokeWidth={3}
+          />
+          {/* Eardrum oval */}
+          <ellipse cx={66} cy={0} rx={12} ry={28} fill="#EF4444" stroke={INK} strokeWidth={3} />
+          {/* Amplifying jagged wave inside ear canal */}
+          <path
+            d="M -78,0 L -64,-8 L -50,8 L -34,-12 L -16,14 L 4,-18 L 24,20 L 44,-22 L 54,0"
+            fill="none"
+            stroke="#DC2626"
+            strokeWidth={3.6}
+            strokeLinejoin="round"
+            strokeLinecap="round"
+          />
+          {/* Speaker badge on right */}
+          <g transform="translate(108, 0)">
+            <polygon points="-20,-10 -8,-10 8,-22 8,22 -8,10 -20,10" fill="#0284C7" stroke={INK} strokeWidth={2.5} />
+            <path d="M 16,-12 Q 26,0 16,12" fill="none" stroke="#EA580C" strokeWidth={3.2} strokeLinecap="round" />
+            <path d="M 24,-20 Q 38,0 24,20" fill="none" stroke="#DC2626" strokeWidth={3.2} strokeLinecap="round" />
+          </g>
+        </g>
+
+        {/* Bottom summary box inside left panel */}
+        <rect x={20} y={214} width={296} height={138} rx={12} fill="#FFFFFF" stroke="#BAE6FD" strokeWidth={2.4} />
+        <rect x={54} y={228} width={228} height={36} rx={18} fill="#DC2626" />
+        <text x={168} y={252} textAnchor="middle" fill="#FFFFFF" fontSize={16.5} fontWeight={900} fontFamily={FONT}>
+          2.000 – 4.000 Hz
+        </text>
+        <text x={168} y={294} textAnchor="middle" fill="#0F172A" fontSize={16} fontWeight={800} fontFamily={FONT}>
+          Ống tai dài ~2,5 cm tự phóng đại
+        </text>
+        <text x={168} y={324} textAnchor="middle" fill="#C2410C" fontSize={15.5} fontWeight={800} fontFamily={FONT}>
+          → Nghe sắc &amp; chói gấp đôi!
+        </text>
+      </g>
+
+      {/* ============================================================
+       * Ô GIỮA (x=1066..1414, y=172..546): Vỏ não thính giác <-> Hạch hạnh nhân
+       * ============================================================ */}
+      <g id="board-panel-cringe-center" transform="translate(1066, 172)">
+        <rect
+          x={0}
+          y={0}
+          width={348}
+          height={374}
+          rx={16}
+          fill={activePanel === "CENTER" ? "#FEF2F2" : "#FFFBEB"}
+          stroke={centerBorder}
+          strokeWidth={centerW}
+        />
+        <text x={174} y={36} textAnchor="middle" fill="#B45309" fontSize={18.5} fontWeight={900} fontFamily={FONT}>
+          2. Vòng báo động não bộ
+        </text>
+
+        {/* Brain diagram with Auditory Cortex (blue) <-> Amygdala (red) loop */}
+        <g transform="translate(174, 134)">
+          <path
+            d="M -92,14 C -110,-22 -88,-66 -42,-72 C -18,-90 28,-90 48,-68 C 94,-60 108,-14 88,18 C 80,44 46,60 12,54 C -6,62 -30,62 -46,52 C -74,50 -90,34 -92,14 Z"
+            fill="#FDE2E4"
+            stroke={INK}
+            strokeWidth={3.4}
+            strokeLinejoin="round"
+          />
+          {/* Auditory Cortex node */}
+          <circle cx={-38} cy={-16} r={24} fill="#0284C7" stroke="#FFFFFF" strokeWidth={3} />
+          <text x={-38} y={-11} textAnchor="middle" fill="#FFFFFF" fontSize={13} fontWeight={900} fontFamily={FONT}>
+            Thính
+          </text>
+          {/* Amygdala alarm node */}
+          <circle cx={38} cy={8} r={24} fill="#DC2626" stroke="#FFFFFF" strokeWidth={3} />
+          <text x={38} y={14} textAnchor="middle" fill="#FFFFFF" fontSize={18} fontWeight={900} fontFamily={FONT}>
+            !
+          </text>
+          {/* Two-way feedback arrows */}
+          <path d="M -12,-22 Q 16,-34 32,-16" fill="none" stroke="#EA580C" strokeWidth={4} strokeLinecap="round" />
+          <polygon points="36,-11 23,-14 31,-24" fill="#EA580C" />
+          <path d="M 14,22 Q -14,34 -30,12" fill="none" stroke="#DC2626" strokeWidth={4} strokeLinecap="round" />
+          <polygon points="-34,6 -22,10 -31,19" fill="#DC2626" />
+        </g>
+
+        {/* Legend & summary box */}
+        <rect x={20} y={214} width={308} height={138} rx={12} fill="#FFFFFF" stroke="#FDE68A" strokeWidth={2.4} />
+        <text x={174} y={248} textAnchor="middle" fill="#0369A1" fontSize={16} fontWeight={900} fontFamily={FONT}>
+          Vỏ não thính giác  ↔  Hạch hạnh nhân
+        </text>
+        <text x={174} y={282} textAnchor="middle" fill="#334155" fontSize={15} fontWeight={700} fontFamily={FONT}>
+          Sóng răng cưa giống tiếng hét cảnh báo
+        </text>
+        <rect x={44} y={300} width={260} height={36} rx={18} fill="#FEE2E2" stroke="#DC2626" strokeWidth={2.2} />
+        <text x={174} y={324} textAnchor="middle" fill="#991B1B" fontSize={15.5} fontWeight={900} fontFamily={FONT}>
+          Vòng xoáy phóng đại khó chịu!
+        </text>
+      </g>
+
+      {/* ============================================================
+       * Ô PHẢI (x=1434..1770, y=172..546): Giao cảm -> Cơ dựng lông -> Nổi da gà
+       * ============================================================ */}
+      <g id="board-panel-cringe-right" transform="translate(1434, 172)">
+        <rect
+          x={0}
+          y={0}
+          width={336}
+          height={374}
+          rx={16}
+          fill={activePanel === "RIGHT" ? "#ECFDF5" : "#F5F3FF"}
+          stroke={rightBorder}
+          strokeWidth={rightW}
+        />
+        <text x={168} y={36} textAnchor="middle" fill="#6D28D9" fontSize={18.5} fontWeight={900} fontFamily={FONT}>
+          3. Phản xạ nổi da gà
+        </text>
+
+        {/* Mini skin cross-section showing contracted muscle + raised hair bumps */}
+        <g transform="translate(26, 66)">
+          <rect x={0} y={0} width={284} height={134} rx={14} fill="#FFFFFF" stroke="#C4B5FD" strokeWidth={2.4} />
+          {/* Skin bumps */}
+          <path
+            d="M 14,82 Q 52,82 64,66 Q 76,82 114,82 Q 134,82 146,66 Q 158,82 196,82 Q 214,82 226,66 Q 238,82 270,82 L 270,126 L 14,126 Z"
+            fill="#FDE68A"
+            stroke="#D97706"
+            strokeWidth={2.6}
+          />
+          {/* 3 standing hairs + tiny muscle bands */}
+          {[64, 146, 226].map((hx, hi) => (
+            <g key={hi}>
+              <line x1={hx} y1={108} x2={hx} y2={28} stroke="#1E293B" strokeWidth={4} strokeLinecap="round" />
+              <path d={`M ${hx + 3},98 L ${hx + 22},84`} stroke="#DC2626" strokeWidth={4.5} strokeLinecap="round" />
+            </g>
+          ))}
+          <text x={142} y={20} textAnchor="middle" fill="#B91C1C" fontSize={14} fontWeight={900} fontFamily={FONT}>
+            Lông dựng đứng + Da nổi hạt
+          </text>
+        </g>
+
+        {/* Bottom summary box inside right panel */}
+        <rect x={20} y={214} width={296} height={138} rx={12} fill="#FFFFFF" stroke="#DDD6FE" strokeWidth={2.4} />
+        <text x={168} y={248} textAnchor="middle" fill="#6D28D9" fontSize={16.5} fontWeight={900} fontFamily={FONT}>
+          Hệ thần kinh giao cảm kích hoạt
+        </text>
+        <text x={168} y={282} textAnchor="middle" fill="#334155" fontSize={15} fontWeight={700} fontFamily={FONT}>
+          Cơ dựng lông co rút đồng loạt
+        </text>
+        <text x={168} y={318} textAnchor="middle" fill="#0F766E" fontSize={16} fontWeight={900} fontFamily={FONT}>
+          → Rùng mình &amp; Nổi da gà!
+        </text>
+      </g>
+    </g>
+  );
+});
+HostAcousticsCringeBoardStaticCore.displayName = "HostAcousticsCringeBoardStaticCore";
+
+export const HostAcousticsCringeBoard: React.FC<{
+  highlight?: HostBoardHighlightId;
+  frame?: number;
+}> = ({ highlight = "NONE", frame = 0 }) => {
+  const activePanel: "LEFT" | "CENTER" | "RIGHT" | undefined =
+    highlight === "LEFT" || highlight === "EAR_AMPLIFIER" || highlight === "WHY_IMMUNE"
+      ? "LEFT"
+      : highlight === "CENTER" || highlight === "BRAIN_ALARM" || highlight === "MUSIC_TRICK"
+      ? "CENTER"
+      : highlight === "RIGHT" || highlight === "CRINGE_TIPS"
+      ? "RIGHT"
+      : undefined;
+
+  const greenTipsTheme = highlight === "CRINGE_TIPS";
+  const badgePulse = 0.5 + 0.5 * Math.sin(frame * 0.16);
+
+  const renderContextFooter = () => {
+    switch (highlight) {
+      case "CRINGE_IMAGINE":
+        return (
+          <g transform="translate(1240, 592)">
+            <rect x={-385} y={-25} width={770} height={50} rx={25} fill="#FFF7ED" stroke="#EA580C" strokeWidth={3} />
+            {/* Mini thought-cloud + chalkboard emblem on left */}
+            <circle cx={-344} cy={0} r={17} fill="#14532D" stroke="#92400E" strokeWidth={2.5} />
+            <path d="M -352,-4 L -336,4 M -350,5 L -338,-5" stroke="#FDE047" strokeWidth={2.5} strokeLinecap="round" />
+            <text x={16} y={8} textAnchor="middle" fill="#9A3412" fontSize={19.5} fontWeight={900} fontFamily={FONT}>
+              Chỉ cần nghĩ tới móng tay cào bảng là não đã sởn gai ốc!
+            </text>
+          </g>
+        );
+      case "EAR_AMPLIFIER":
+        return (
+          <g transform="translate(1240, 592)">
+            <rect x={-375} y={-25} width={750} height={50} rx={25} fill="#EFF6FF" stroke="#0284C7" strokeWidth={3} />
+            <text x={0} y={8} textAnchor="middle" fill="#0369A1" fontSize={19.5} fontWeight={900} fontFamily={FONT}>
+              Ống tai dài ~2,5 cm cộng hưởng cực mạnh đúng dải 2.000–4.000 Hz!
+            </text>
+          </g>
+        );
+      case "BRAIN_ALARM":
+        return (
+          <g transform="translate(1240, 592)">
+            <rect x={-375} y={-25} width={750} height={50} rx={25} fill="#FEE2E2" stroke="#DC2626" strokeWidth={3} />
+            <circle cx={-334} cy={0} r={16} fill="#DC2626" />
+            <text x={-334} y={6} textAnchor="middle" fill="#FFFFFF" fontSize={19} fontWeight={900} fontFamily={FONT}>
+              !
+            </text>
+            <text x={14} y={8} textAnchor="middle" fill="#991B1B" fontSize={19.5} fontWeight={900} fontFamily={FONT}>
+              Tai chỉ phóng to — chính Hạch hạnh nhân bật còi rùng mình!
+            </text>
+          </g>
+        );
+      case "MUSIC_TRICK":
+        return (
+          <g transform="translate(1240, 592)">
+            <rect x={-375} y={-25} width={750} height={50} rx={25} fill="#F5F3FF" stroke="#7C3AED" strokeWidth={3} />
+            <circle cx={-334} cy={0} r={16} fill="#7C3AED" />
+            <text x={-334} y={6} textAnchor="middle" fill="#FFFFFF" fontSize={18} fontWeight={900} fontFamily={FONT}>
+              ♪
+            </text>
+            <text x={14} y={8} textAnchor="middle" fill="#5B21B6" fontSize={19.5} fontWeight={900} fontFamily={FONT}>
+              Cú lừa tâm lý: Não bộ + Ký ức phóng đại cảm giác khó chịu!
+            </text>
+          </g>
+        );
+      case "WHY_IMMUNE":
+        return (
+          <g transform="translate(1240, 592)">
+            <rect x={-375} y={-25} width={750} height={50} rx={25} fill="#FEF3C7" stroke="#D97706" strokeWidth={3} />
+            <circle cx={-334} cy={0} r={16} fill="#D97706" />
+            <text x={-334} y={6} textAnchor="middle" fill="#FFFFFF" fontSize={19} fontWeight={900} fontFamily={FONT}>
+              ?
+            </text>
+            <text x={14} y={8} textAnchor="middle" fill="#92400E" fontSize={19.5} fontWeight={900} fontFamily={FONT}>
+              Vì sao có người nghe cào bảng vẫn tỉnh bơ không rùng mình?
+            </text>
+          </g>
+        );
+      case "CRINGE_TIPS":
+        return (
+          <g transform="translate(1240, 592)">
+            <rect x={-385} y={-25} width={770} height={50} rx={25} fill="#ECFDF5" stroke="#059669" strokeWidth={3} />
+            <circle cx={-344} cy={0} r={16} fill="#10B981" />
+            <path d="M -351 0 L -346 5 L -336 -6" fill="none" stroke="#FFFFFF" strokeWidth={3.4} strokeLinecap="round" strokeLinejoin="round" />
+            <text x={14} y={8} textAnchor="middle" fill="#065F46" fontSize={19.5} fontWeight={900} fontFamily={FONT}>
+              3 Mẹo cắt rùng mình: Nghiêng phấn 45° • Lót thức ăn • Thả lỏng vai
+            </text>
+          </g>
+        );
+      case "SUMMARY":
+        return (
+          <g transform="translate(1240, 592)">
+            <rect x={-360} y={-25} width={720} height={50} rx={25} fill="#EFF6FF" stroke="#2563EB" strokeWidth={3} />
+            <text x={0} y={8} textAnchor="middle" fill="#1D4ED8" fontSize={20} fontWeight={900} fontFamily={FONT}>
+              Chốt gọn 3 bí mật khoa học đằng sau cơn rùng mình nổi da gà!
+            </text>
+          </g>
+        );
+      default:
+        return (
+          <g transform="translate(1240, 592)">
+            <rect x={-360} y={-23} width={720} height={46} rx={23} fill="#F8FAFC" stroke="#CBD5E1" strokeWidth={2.4} />
+            <text x={0} y={7} textAnchor="middle" fill="#475569" fontSize={18.5} fontWeight={800} fontFamily={FONT}>
+              Giải mã âm học: Ma sát dính–trượt → Loa ống tai → Báo động não bộ
+            </text>
+          </g>
+        );
+    }
+  };
+
+  return (
+    <g id="host-explain-whiteboard-acoustics-layer">
+      <HostAcousticsCringeBoardStaticCore activePanel={activePanel} greenTipsTheme={greenTipsTheme} />
+      <g opacity={(0.92 + badgePulse * 0.08).toFixed(2)}>{renderContextFooter()}</g>
+    </g>
+  );
+};
+
+/* ============================================================================
+ * 6. SCHOOL_CLASSROOM Chalkboard Action Overlays (Episode 8 Beats 2 & 48)
+ *    - CHALK_SCRATCH_WAVE: jagged orange-red screech waves + crisp "Kéttt!" tag
+ *    - CHALK_WRITE_45DEG: clean 45-degree chalk stroke + smooth green sparkles
+ * ========================================================================== */
+
+export const ClassroomBoardScreechOverlay: React.FC<{
+  mode: ClassroomDetailId;
+  frame: number;
+}> = ({ mode, frame }) => {
+  if (mode !== "CHALK_SCRATCH_WAVE" && mode !== "CHALK_WRITE_45DEG") return null;
+
+  if (mode === "CHALK_SCRATCH_WAVE") {
+    const pulse = 0.5 + 0.5 * Math.sin(frame * 0.45);
+    const shift = Math.sin(frame * 0.55) * 5;
+    return (
+      <g id="classroom-chalk-scratch-wave" transform="translate(1075, 292)">
+        {/* Long nail scratch mark down the green chalkboard */}
+        <path
+          d="M 18,-56 L 26,64"
+          fill="none"
+          stroke="#FEF08A"
+          strokeWidth={4.8}
+          strokeLinecap="round"
+          strokeDasharray="10 6"
+        />
+        {/* Jagged red-orange acoustic screech arcs radiating left toward BOY & Linh */}
+        {[0, 1, 2].map((ri) => {
+          const rOff = -28 - ri * 46 - pulse * 10;
+          const h = 36 + ri * 22;
+          return (
+            <path
+              key={ri}
+              d={`M ${rOff.toFixed(1)},${(-h).toFixed(1)} L ${(rOff - 16).toFixed(1)},${(-h * 0.45).toFixed(1)} L ${(rOff + 6).toFixed(1)},0 L ${(rOff - 18).toFixed(1)},${(h * 0.48).toFixed(1)} L ${rOff.toFixed(1)},${h.toFixed(1)}`}
+              fill="none"
+              stroke={ri === 0 ? "#EF4444" : "#F97316"}
+              strokeWidth={5.5 - ri * 0.8}
+              strokeLinejoin="round"
+              strokeLinecap="round"
+              opacity={(0.95 - ri * 0.18).toFixed(2)}
+            />
+          );
+        })}
+        {/* Crisp high-contrast "Kéttt!" comic sound pill clearly visible on chalkboard */}
+        <g transform={`translate(-92, ${(-76 + shift).toFixed(1)}) rotate(-8)`}>
+          <rect x={-64} y={-24} width={128} height={46} rx={16} fill="#DC2626" stroke={INK} strokeWidth={3.2} />
+          <text x={0} y={8} textAnchor="middle" fill="#FFFFFF" fontSize={26} fontWeight={900} fontFamily={FONT}>
+            Kéttt!
+          </text>
+        </g>
+      </g>
+    );
+  }
+
+  // CHALK_WRITE_45DEG: Smooth tilted 45° chalk glide on Beat 48
+  const glide = (frame * 1.6) % 48;
+  return (
+    <g id="classroom-chalk-write-45deg" transform="translate(1225, 330)">
+      {/* Clean tilted 45-degree white chalk gliding smoothly */}
+      <g transform={`translate(${(glide * 0.6).toFixed(1)}, ${(-18 + Math.sin(frame * 0.14) * 5).toFixed(1)}) rotate(45)`}>
+        <rect x={-26} y={-7} width={52} height={14} rx={4} fill="#FFFFFF" stroke={INK} strokeWidth={2.6} />
+        <rect x={-24} y={-4} width={18} height={8} rx={2} fill="#BAE6FD" stroke="none" />
+      </g>
+      {/* Smooth green-tinted gliding arcs */}
+      <path d="M -92,16 Q -44,-4 10,14" fill="none" stroke="#86EFAC" strokeWidth={4} strokeLinecap="round" opacity={0.9} />
+      <g transform="translate(-76, -68)">
+        <rect x={-62} y={-20} width={124} height={38} rx={14} fill="#ECFDF5" stroke="#059669" strokeWidth={2.8} />
+        <text x={0} y={6} textAnchor="middle" fill="#065F46" fontSize={19} fontWeight={900} fontFamily={FONT}>
+          45° • Êm ru!
+        </text>
+      </g>
+    </g>
+  );
+};
+
+/* ============================================================================
+ * 7. HOME_KITCHEN 3-Layer Seated Family Dining Table Kit (Episode 8 Beats 29–31, 46–47)
+ *    - Chairs BEHIND seated family members (Bố, BOY, Mẹ)
+ *    - Foreground wooden dining table in FRONT with 3 steak plates, forks & knives
+ *    - Optional FORK_SCRAPE_WAVE jagged soundwaves + "KÉTTT!" off BOY's plate (Beat 30)
+ * ========================================================================== */
+
+export const KitchenDiningChairsBack: React.FC<{
+  positions: number[];
+  groundY?: number;
+}> = React.memo(({ positions, groundY = 840 }) => (
+  <g id="kitchen-dining-chairs-back" stroke={INK} strokeWidth={2.8} strokeLinejoin="round">
+    {positions.map((cx, idx) => (
+      <g key={`kchair_${idx}`} transform={`translate(${cx}, ${groundY})`}>
+        {/* Warm wooden dining chair backrest behind seated family member */}
+        <rect x={-52} y={-236} width={104} height={104} rx={12} fill="#92400E" />
+        <rect x={-40} y={-222} width={80} height={22} rx={6} fill="#B45309" stroke="none" />
+        <rect x={-40} y={-188} width={80} height={22} rx={6} fill="#B45309" stroke="none" />
+        <rect x={-44} y={-136} width={13} height={136} rx={3} fill="#78350F" />
+        <rect x={31} y={-136} width={13} height={136} rx={3} fill="#78350F" />
+        {/* Cushion seat at y = groundY - 122 */}
+        <rect x={-58} y={-126} width={116} height={20} rx={8} fill="#D97706" />
+      </g>
+    ))}
+  </g>
+));
+KitchenDiningChairsBack.displayName = "KitchenDiningChairsBack";
+
+const KitchenDiningTableStatic: React.FC<{
+  plateXs: number[];
+  groundY: number;
+}> = React.memo(({ plateXs, groundY }) => (
+  <g id="kitchen-dining-table-foreground" transform={`translate(0, ${groundY})`} stroke={INK} strokeWidth={3} strokeLinejoin="round">
+    {/* Flat grounding shadow under dining table */}
+    <GroundShadow cx={960} cy={8} rx={620} ry={14} />
+
+    {/* Warm solid oak dining table legs touching groundY cleanly */}
+    <rect x={392} y={-152} width={28} height={152} rx={5} fill="#78350F" />
+    <rect x={1500} y={-152} width={28} height={152} rx={5} fill="#78350F" />
+    {/* Modesty apron panel hiding seated lower legs cleanly behind table */}
+    <rect x={386} y={-152} width={1148} height={132} rx={8} fill="#B45309" />
+    <rect x={412} y={-138} width={1096} height={104} rx={6} fill="#D97706" stroke="none" opacity={0.48} />
+
+    {/* Wide polished dining tabletop slab at y = groundY - 172 */}
+    <rect x={352} y={-174} width={1216} height={28} rx={10} fill="#F59E0B" />
+    <line x1={372} y1={-162} x2={1548} y2={-162} stroke="#FEF3C7" strokeWidth={3} opacity={0.62} />
+
+    {/* Center warm table runner + water pitcher */}
+    <rect x={875} y={-174} width={170} height={12} rx={4} fill="#FEF3C7" stroke="#D97706" strokeWidth={2} />
+    <g transform="translate(1152, -174)">
+      <path d="M -18,0 L -14,-56 L 14,-56 L 18,0 Z" fill="#E0F2FE" stroke="#0284C7" strokeWidth={2.5} />
+      <path d="M -14,-28 L 14,-28 L 16,-4 L -16,-4 Z" fill="#7DD3FC" stroke="none" opacity={0.75} />
+      <path d="M 14,-44 C 28,-44 28,-20 16,-18" fill="none" stroke="#0284C7" strokeWidth={3} />
+    </g>
+
+    {/* 3 Steak Porcelain Plates + Forks & Knives aligned with seated actors */}
+    {plateXs.map((px, pi) => (
+      <g key={`steak_plate_${pi}`} transform={`translate(${px}, -174)`}>
+        {/* Porcelain plate rim */}
+        <ellipse cx={0} cy={-4} rx={78} ry={16} fill="#FFFFFF" stroke="#64748B" strokeWidth={2.8} />
+        <ellipse cx={0} cy={-4} rx={58} ry={10} fill="#F8FAFC" stroke="#CBD5E1" strokeWidth={1.8} />
+        {/* Seared beef steak + green veggies */}
+        <ellipse cx={-8} cy={-8} rx={36} ry={11} fill="#9A3412" stroke={INK} strokeWidth={2.2} />
+        <path d="M -26,-10 L -14,-4 M -8,-12 L 4,-5 M 8,-10 L 18,-5" stroke="#451A03" strokeWidth={2.2} strokeLinecap="round" />
+        <circle cx={32} cy={-8} r={8} fill="#22C55E" stroke="#15803D" strokeWidth={1.8} />
+        <circle cx={22} cy={-14} r={6.5} fill="#4ADE80" stroke="#15803D" strokeWidth={1.6} />
+        {/* Metal fork on left */}
+        <g transform="translate(-94, -4)">
+          <line x1={0} y1={-16} x2={0} y2={4} stroke="#64748B" strokeWidth={4} strokeLinecap="round" />
+          <path d="M -5,-22 L -5,-14 M 0,-23 L 0,-14 M 5,-22 L 5,-14" stroke="#64748B" strokeWidth={2.2} strokeLinecap="round" />
+        </g>
+        {/* Metal knife on right */}
+        <g transform="translate(94, -4)">
+          <line x1={0} y1={-18} x2={0} y2={4} stroke="#64748B" strokeWidth={4.2} strokeLinecap="round" />
+          <path d="M -2,-24 Q 6,-16 2,-8 L -2,-8 Z" fill="#CBD5E1" stroke="#475569" strokeWidth={1.8} />
+        </g>
+      </g>
+    ))}
+  </g>
+));
+KitchenDiningTableStatic.displayName = "KitchenDiningTableStatic";
+
+export const KitchenDiningTableForeground: React.FC<{
+  plateXs: number[];
+  mode: KitchenDetailId;
+  scrapeX?: number;
+  frame: number;
+  groundY?: number;
+}> = ({ plateXs, mode, scrapeX = 960, frame, groundY = 840 }) => {
+  const pulse = 0.5 + 0.5 * Math.sin(frame * 0.48);
+  const jitterY = Math.sin(frame * 0.6) * 5;
+  return (
+    <g id="kitchen-dining-table-layer">
+      <KitchenDiningTableStatic plateXs={plateXs} groundY={groundY} />
+      {mode === "FORK_SCRAPE_WAVE" && (
+        <g id="kitchen-fork-scrape-wave" transform={`translate(${scrapeX}, ${groundY - 190})`}>
+          {/* Fork angled directly scraping porcelain plate */}
+          <g transform="translate(30, -2) rotate(-32)">
+            <rect x={-4} y={-42} width={8} height={36} rx={3} fill="#94A3B8" stroke={INK} strokeWidth={2.2} />
+            <path d="M -6,-6 L -6,8 M 0,-6 L 0,10 M 6,-6 L 6,8" stroke="#475569" strokeWidth={2.4} strokeLinecap="round" />
+          </g>
+          {/* Jagged orange-red soundwaves shooting out cleanly beside plate without covering BOY's face */}
+          {[-1, 1].map((dir) => (
+            <g key={dir} transform={`scale(${dir}, 1)`}>
+              {[0, 1].map((wi) => {
+                const dx = 62 + wi * 38 + pulse * 8;
+                const dy = -12 - wi * 20;
+                return (
+                  <path
+                    key={wi}
+                    d={`M ${dx.toFixed(1)},${(dy + 30).toFixed(1)} L ${(dx + 14).toFixed(1)},${(dy + 10).toFixed(1)} L ${(dx - 4).toFixed(1)},${(dy - 4).toFixed(1)} L ${(dx + 16).toFixed(1)},${(dy - 24).toFixed(1)}`}
+                    fill="none"
+                    stroke={wi === 0 ? "#EF4444" : "#F97316"}
+                    strokeWidth={5 - wi * 0.8}
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                  />
+                );
+              })}
+            </g>
+          ))}
+          {/* High-contrast red "KÉTTT!" badge cleanly offset to right gap between BOY & Mom (0 face overlap!) */}
+          <g transform={`translate(178, ${(-82 + jitterY).toFixed(1)}) rotate(-6)`}>
+            <rect x={-66} y={-22} width={132} height={44} rx={15} fill="#DC2626" stroke={INK} strokeWidth={3.2} />
+            <text x={0} y={8} textAnchor="middle" fill="#FFFFFF" fontSize={25} fontWeight={900} fontFamily={FONT}>
+              KÉTTT!
+            </text>
+          </g>
+        </g>
+      )}
+    </g>
+  );
+};

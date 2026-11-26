@@ -463,3 +463,89 @@ test("V22 #5: 10-word auto-wrapping speech bubbles and HOST_EXPLAIN_OVERLAY free
   assert.equal(shouldHideTopChapterBanner(fsAndLive.beats[0]), false, "Keeps chapterBanner on open-top daily-life scenes");
   assert.equal(shouldHideTopChapterBanner(fsAndLive.beats[1]), true, "Auto-hides chapterBanner on Full-Screen SVG beats");
 });
+
+test("V22 #6: Episode 8 (ACOUSTICS_CRINGE_ALARM, HOME_KITCHEN dinner kit, 16 CAOBANG SVGs, 60-beat JSON)", () => {
+  const fs = require("node:fs");
+  const path = require("node:path");
+  const { EPISODE_VISUAL_REGISTRY } = require("../src/components/v7/episodeVisuals/index");
+  const epPath = path.resolve(__dirname, "../episodes/tai_sao_tieng_cao_bang_lam_noi_da_ga_v21.json");
+  const raw = JSON.parse(fs.readFileSync(epPath, "utf8"));
+  const ep = sanitizeAndValidateEpisode(raw);
+
+  assert.equal(ep.beats.length, 60, "Episode 8 must have exactly 60 beats");
+  const expectedSvgs = [
+    "CAOBANG_TOP_WORST_SOUNDS",
+    "CAOBANG_STICK_SLIP",
+    "CAOBANG_FREQ_BAND",
+    "CAOBANG_EAR_CANAL_AMP",
+    "CAOBANG_WHY_EVOLVED_EAR",
+    "CAOBANG_AMYGDALA_LOOP",
+    "CAOBANG_SCREAM_TEXTURE",
+    "CAOBANG_GOOSEBUMPS_REFLEX",
+    "CAOBANG_ANCESTOR_FUR",
+    "CAOBANG_MUSIC_EXPERIMENT",
+    "CAOBANG_BRAIN_EXPECTATION",
+    "CAOBANG_WHY_SOME_IMMUNE",
+    "CAOBANG_GRIMA_VS_FRISSON",
+    "CAOBANG_3_TIPS",
+    "CAOBANG_SOUND_CHECK",
+    "CAOBANG_SUMMARY_3_CARDS",
+  ];
+  const usedSvgs = new Set<string>();
+  for (const beat of ep.beats) {
+    assert.ok(beat.text.trim().length > 0, `${beat.id} must have non-empty text`);
+    assert.ok(beat.ttsText.trim().length > 0, `${beat.id} must have non-empty ttsText`);
+    assert.ok(!/[0-9]/.test(beat.ttsText), `${beat.id} ttsText must not contain digits: ${beat.ttsText}`);
+    for (const actor of beat.actors) {
+      if (actor.bubble) {
+        const words = actor.bubble.trim().split(/\s+/).filter(Boolean);
+        assert.ok(words.length <= 10, `${beat.id} bubble exceeds 10 words (${words.length}): ${actor.bubble}`);
+      }
+    }
+    if (beat.customVisual) {
+      usedSvgs.add(beat.customVisual);
+      const Comp = EPISODE_VISUAL_REGISTRY[beat.customVisual];
+      assert.ok(Comp, `Missing visual component in registry: ${beat.customVisual}`);
+      const markup = renderToStaticMarkup(
+        React.createElement(Comp, { progress: 0.5, frame: 45, fps: 45, step: beat.visualStep ?? 0, visualStep: beat.visualStep ?? 0 })
+      );
+      assert.ok(markup.includes("<svg"), `${beat.customVisual} renders valid SVG`);
+      assert.ok(
+        !markup.includes("feGaussianBlur") && !markup.includes("feDropShadow") && !markup.includes("<foreignObject"),
+        `${beat.customVisual} must not use feGaussianBlur, feDropShadow, or foreignObject`
+      );
+    }
+  }
+  for (const key of expectedSvgs) {
+    assert.ok(usedSvgs.has(key), `Episode 8 JSON must use ${key}`);
+  }
+
+  // Verify HOST_EXPLAIN_OVERLAY ACOUSTICS_CRINGE_ALARM, SCHOOL_CLASSROOM screech, HOME_KITCHEN fork scrape & OUTRO_OPEN_FLOOR
+  for (const [beatId, expectedId] of [
+    ["b02", 'id="classroom-chalk-scratch-wave"'],
+    ["b05", 'id="host-board-acoustics-cringe-static"'],
+    ["b30", 'id="kitchen-fork-scrape-wave"'],
+    ["b32", 'id="host-board-acoustics-cringe-static"'],
+    ["b48", 'id="classroom-chalk-write-45deg"'],
+    ["b59", 'id="stage-school-classroom"'],
+  ] as const) {
+    const targetBeat = ep.beats.find((b) => b.id === beatId);
+    assert.ok(targetBeat, `Beat ${beatId} exists`);
+    const stageSvg = renderToStaticMarkup(
+      React.createElement(
+        "svg",
+        { width: 1920, height: 1080 },
+        React.createElement(UniversalAutoStage, {
+          spec: targetBeat!,
+          frame: 60,
+          localFrame: 60,
+          durationFrames: 225,
+          u: 0.3,
+          fps: 45,
+        })
+      )
+    );
+    assert.ok(stageSvg.includes(expectedId), `${beatId} renders ${expectedId}`);
+    assert.ok(!stageSvg.includes("feGaussianBlur") && !stageSvg.includes("feDropShadow"), `${beatId} zero blur filters`);
+  }
+});

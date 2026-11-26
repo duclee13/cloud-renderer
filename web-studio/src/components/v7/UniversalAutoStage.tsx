@@ -38,8 +38,12 @@ import { EPISODE_VISUAL_REGISTRY, type EpisodeVisualProps } from "./episodeVisua
 import { GroundShadow } from "../SceneBackdropKit";
 import {
   HostMirrorNeuronsBoard,
+  HostAcousticsCringeBoard,
   ClassroomSeatedChairsBack,
   ClassroomSeatedDesksForeground,
+  ClassroomBoardScreechOverlay,
+  KitchenDiningChairsBack,
+  KitchenDiningTableForeground,
   LivingRoomPetDog,
   ActorYawnWavesOverlay,
 } from "./HostExplainAndStageKits";
@@ -1489,8 +1493,12 @@ const CityStreetParkBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: number
   );
 };
 
-const SchoolClassroomStaticRoom = React.memo<{ timeOfDay: AutoTimeOfDay; seatedMode?: boolean }>(
-  ({ timeOfDay, seatedMode = false }) => {
+const SchoolClassroomStaticRoom = React.memo<{
+  timeOfDay: AutoTimeOfDay;
+  seatedMode?: boolean;
+  openFloorOutro?: boolean;
+}>(
+  ({ timeOfDay, seatedMode = false, openFloorOutro = false }) => {
     const isNight = timeOfDay === "NIGHT";
     const isSunset = timeOfDay === "SUNSET";
     return (
@@ -1536,10 +1544,14 @@ const SchoolClassroomStaticRoom = React.memo<{ timeOfDay: AutoTimeOfDay; seatedM
           <rect x={218} y={22} width={76} height={98} rx={4} fill="#FBCFE8" strokeWidth={2.2} />
         </g>
 
-        {/* Side desks shown cleanly when NOT in full-row seated classroom mode */}
+        {/* Side desks pushed cleanly back when openFloorOutro, or normal side desks when not seatedMode */}
         {!seatedMode &&
-          [125, 1515].map((dx, idx) => (
-            <g key={`desk_${idx}`} id={idx === 0 ? "classroom-student-desks" : undefined} transform={`translate(${dx}, 648)`}>
+          (openFloorOutro ? [72, 1625] : [125, 1515]).map((dx, idx) => (
+            <g
+              key={`desk_${idx}`}
+              id={idx === 0 ? "classroom-student-desks" : undefined}
+              transform={openFloorOutro ? `translate(${dx}, 612) scale(0.78)` : `translate(${dx}, 648)`}
+            >
               <ellipse cx={135} cy={150} rx={148} ry={10} fill="#0F172A" opacity={0.12} stroke="none" />
               <rect x={82} y={-24} width={106} height={18} rx={4} fill="#D97706" />
               <rect x={92} y={-6} width={12} height={152} fill="#78350F" />
@@ -1555,10 +1567,16 @@ const SchoolClassroomStaticRoom = React.memo<{ timeOfDay: AutoTimeOfDay; seatedM
   }
 );
 
-const SchoolClassroomBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: number; seatedMode?: boolean }> = ({
+const SchoolClassroomBackdrop: React.FC<{
+  timeOfDay: AutoTimeOfDay;
+  frame: number;
+  seatedMode?: boolean;
+  openFloorOutro?: boolean;
+}> = ({
   timeOfDay,
   frame,
   seatedMode = false,
+  openFloorOutro = false,
 }) => {
   const isNight = timeOfDay === "NIGHT";
   const isSunset = timeOfDay === "SUNSET";
@@ -1568,7 +1586,7 @@ const SchoolClassroomBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: numbe
 
   return (
     <g id="stage-school-classroom" stroke="#141414" strokeWidth={3} strokeLinejoin="round">
-      <SchoolClassroomStaticRoom timeOfDay={timeOfDay} seatedMode={seatedMode} />
+      <SchoolClassroomStaticRoom timeOfDay={timeOfDay} seatedMode={seatedMode} openFloorOutro={openFloorOutro} />
 
       <g id="classroom-window" transform="translate(88, 165)">
         <rect x={0} y={0} width={270} height={270} rx={10} fill={isNight ? "#0F172A" : isSunset ? "#FDBA74" : "#7DD3FC"} />
@@ -1597,14 +1615,28 @@ const SchoolClassroomBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: numbe
   );
 };
 
-const HomeKitchenStaticLayer = React.memo<{ timeOfDay: AutoTimeOfDay }>(({ timeOfDay }) => {
+const HomeKitchenStaticLayer = React.memo<{
+  timeOfDay: AutoTimeOfDay;
+  seatedDiningMode?: boolean;
+}>(({ timeOfDay, seatedDiningMode = false }) => {
   const isNight = timeOfDay === "NIGHT";
+  const isSunset = timeOfDay === "SUNSET";
   return (
     <g>
-      <rect x={0} y={0} width={1920} height={765} fill={isNight ? "#1E293B" : "#FFF7ED"} stroke="none" />
-      <rect x={660} y={365} width={680} height={175} fill={isNight ? "#334155" : "#E0F2FE"} stroke="#94A3B8" strokeWidth={2} />
+      <rect x={0} y={0} width={1920} height={765} fill={isNight ? "#1E293B" : isSunset ? "#FFFBEB" : "#FFF7ED"} stroke="none" />
+      <rect x={660} y={365} width={680} height={175} fill={isNight ? "#334155" : isSunset ? "#FEF3C7" : "#E0F2FE"} stroke="#94A3B8" strokeWidth={2} />
       <rect x={0} y={765} width={1920} height={315} fill={isNight ? "#334155" : "#E7C9A9"} stroke="none" />
       <line x1={0} y1={765} x2={1920} y2={765} stroke="#141414" strokeWidth={3.2} />
+
+      {/* Warm golden ceiling pendant lamp for cozy dinner lighting (0 blur) */}
+      {(isSunset || seatedDiningMode) && (
+        <g id="kitchen-pendant-lamp">
+          <polygon points="910,96 1010,96 1340,765 580,765" fill="#FEF08A" opacity={0.16} stroke="none" />
+          <line x1={960} y1={0} x2={960} y2={68} stroke="#475569" strokeWidth={4} />
+          <path d="M 910,104 C 910,66 1010,66 1010,104 Z" fill="#F59E0B" stroke="#141414" strokeWidth={3} />
+          <ellipse cx={960} cy={104} rx={44} ry={10} fill="#FEF9C3" stroke="#D97706" strokeWidth={2} />
+        </g>
+      )}
 
       <g id="kitchen-cabinets" transform="translate(680, 145)">
         <rect x={0} y={0} width={350} height={185} rx={8} fill={isNight ? "#475569" : "#FDE68A"} />
@@ -1636,32 +1668,39 @@ const HomeKitchenStaticLayer = React.memo<{ timeOfDay: AutoTimeOfDay }>(({ timeO
         <line x1={22} y1={215} x2={22} y2={295} strokeWidth={5} strokeLinecap="round" />
       </g>
 
-      <g id="kitchen-dining-table" transform="translate(1565, 650)">
-        <ellipse cx={150} cy={148} rx={162} ry={10} fill="#0F172A" opacity={0.12} stroke="none" />
-        <rect x={24} y={24} width={16} height={122} rx={4} fill="#92400E" />
-        <rect x={260} y={24} width={16} height={122} rx={4} fill="#92400E" />
-        <rect x={0} y={0} width={300} height={24} rx={8} fill="#B45309" />
-        <path d="M 105,0 Q 150,16 195,0 Z" fill="#FFFFFF" />
-        <circle cx={136} cy={-10} r={12} fill="#EF4444" />
-        <circle cx={162} cy={-10} r={12} fill="#FACC15" />
-      </g>
+      {!seatedDiningMode && (
+        <g id="kitchen-dining-table" transform="translate(1565, 650)">
+          <ellipse cx={150} cy={148} rx={162} ry={10} fill="#0F172A" opacity={0.12} stroke="none" />
+          <rect x={24} y={24} width={16} height={122} rx={4} fill="#92400E" />
+          <rect x={260} y={24} width={16} height={122} rx={4} fill="#92400E" />
+          <rect x={0} y={0} width={300} height={24} rx={8} fill="#B45309" />
+          <path d="M 105,0 Q 150,16 195,0 Z" fill="#FFFFFF" />
+          <circle cx={136} cy={-10} r={12} fill="#EF4444" />
+          <circle cx={162} cy={-10} r={12} fill="#FACC15" />
+        </g>
+      )}
     </g>
   );
 });
 
-const HomeKitchenBackdrop: React.FC<{ timeOfDay: AutoTimeOfDay; frame: number }> = ({ timeOfDay, frame }) => {
+const HomeKitchenBackdrop: React.FC<{
+  timeOfDay: AutoTimeOfDay;
+  frame: number;
+  seatedDiningMode?: boolean;
+}> = ({ timeOfDay, frame, seatedDiningMode = false }) => {
   const isNight = timeOfDay === "NIGHT";
+  const isSunset = timeOfDay === "SUNSET";
   const cloudX = ((35 + frame * 0.16) % 250) - 10;
   const steamRise = (frame * 1.4) % 36;
 
   return (
     <g id="stage-home-kitchen" stroke="#141414" strokeWidth={3} strokeLinejoin="round">
-      <HomeKitchenStaticLayer timeOfDay={timeOfDay} />
+      <HomeKitchenStaticLayer timeOfDay={timeOfDay} seatedDiningMode={seatedDiningMode} />
 
       <g id="kitchen-window" transform="translate(135, 175)">
-        <rect x={0} y={0} width={300} height={250} rx={12} fill={isNight ? "#0F172A" : "#7DD3FC"} />
+        <rect x={0} y={0} width={300} height={250} rx={12} fill={isNight ? "#0F172A" : isSunset ? "#FDBA74" : "#7DD3FC"} />
         {!isNight && (
-          <ellipse cx={Math.max(44, Math.min(256, cloudX))} cy={74} rx={36} ry={15} fill="#FFFFFF" stroke="none" opacity={0.88} />
+          <ellipse cx={Math.max(44, Math.min(256, cloudX))} cy={74} rx={36} ry={15} fill={isSunset ? "#FEF3C7" : "#FFFFFF"} stroke="none" opacity={0.88} />
         )}
         <line x1={150} y1={0} x2={150} y2={250} strokeWidth={3.5} />
         <line x1={0} y1={125} x2={300} y2={125} strokeWidth={3.5} />
@@ -2622,7 +2661,10 @@ export const UniversalAutoStage: React.FC<{
   const isHostExplain = spec.stageType === "HOST_EXPLAIN_OVERLAY" || spec.overlayMode === "HOST_EXPLAIN";
   const effectiveStageType = isHostExplain ? (spec.freezeStage ?? "SCHOOL_CLASSROOM") : spec.stageType;
   const stageRenderFrame = isHostExplain ? (spec.freezeFrame ?? 90) : frame;
-  const hasHostWhiteboard = Boolean(isHostExplain && spec.labBoard === "MIRROR_NEURONS_YAWN");
+  const hasHostWhiteboard = Boolean(
+    isHostExplain &&
+      (spec.labBoard === "MIRROR_NEURONS_YAWN" || spec.labBoard === "ACOUSTICS_CRINGE_ALARM")
+  );
   const isNight = spec.timeOfDay === "NIGHT";
   const isOutdoor =
     effectiveStageType === "COUNTRYSIDE_YARD" ||
@@ -3131,6 +3173,8 @@ export const UniversalAutoStage: React.FC<{
     const seatedSeatOffset =
       effectiveStageType === "SCHOOL_CLASSROOM"
         ? 128
+        : effectiveStageType === "HOME_KITCHEN"
+        ? 132
         : effectiveStageType === "CITY_LIVING_ROOM"
         ? 106
         : 108;
@@ -3285,6 +3329,17 @@ export const UniversalAutoStage: React.FC<{
       ? resolvedActors.filter((ra) => ra.actor.seated === true)
       : [];
   const hasClassroomSeatedRow = seatedClassroomActors.length > 0;
+  const seatedKitchenActors =
+    !isHostExplain && effectiveStageType === "HOME_KITCHEN"
+      ? resolvedActors.filter((ra) => ra.actor.seated === true)
+      : [];
+  const hasKitchenSeatedDinner =
+    seatedKitchenActors.length > 0 ||
+    Boolean(
+      effectiveStageType === "HOME_KITCHEN" &&
+        spec.kitchenDetail &&
+        spec.kitchenDetail !== "NONE"
+    );
   const hasLivingRoomDog = Boolean(
     effectiveStageType === "CITY_LIVING_ROOM" &&
       spec.livingRoomDetail &&
@@ -3345,10 +3400,15 @@ export const UniversalAutoStage: React.FC<{
             timeOfDay={spec.timeOfDay}
             frame={stageRenderFrame}
             seatedMode={hasClassroomSeatedRow}
+            openFloorOutro={spec.classroomDetail === "OUTRO_OPEN_FLOOR"}
           />
         )}
         {effectiveStageType === "HOME_KITCHEN" && (
-          <HomeKitchenBackdrop timeOfDay={spec.timeOfDay} frame={stageRenderFrame} />
+          <HomeKitchenBackdrop
+            timeOfDay={spec.timeOfDay}
+            frame={stageRenderFrame}
+            seatedDiningMode={hasKitchenSeatedDinner || (isHostExplain && spec.freezeStage === "HOME_KITCHEN")}
+          />
         )}
         {effectiveStageType === "SCIENCE_LAB_ROOM" && (
           <ScienceLabBackdrop
@@ -3403,6 +3463,21 @@ export const UniversalAutoStage: React.FC<{
           />
         )}
 
+        {/* 1.2B. V22.7: Ghế ăn gỗ phía SAU gia đình khi ngồi ăn tối trong HOME_KITCHEN */}
+        {!isHostExplain && seatedKitchenActors.length > 0 && (
+          <KitchenDiningChairsBack
+            positions={seatedKitchenActors.map((ra) => Math.round(ra.actorX))}
+            groundY={groundY}
+          />
+        )}
+
+        {/* 1.2C. V22.7: Hiệu ứng phấn cào bảng / viết nghiêng 45 độ trên bảng đen SCHOOL_CLASSROOM */}
+        {!isHostExplain &&
+          effectiveStageType === "SCHOOL_CLASSROOM" &&
+          (spec.classroomDetail === "CHALK_SCRATCH_WAVE" || spec.classroomDetail === "CHALK_WRITE_45DEG") && (
+            <ClassroomBoardScreechOverlay mode={spec.classroomDetail} frame={localFrame} />
+          )}
+
         {/* 1.3. Chú chó cưng 2D nằm trên thảm trong CITY_LIVING_ROOM (tự đóng băng khi HOST_EXPLAIN_OVERLAY) */}
         {(hasLivingRoomDog || (isHostExplain && spec.freezeStage === "CITY_LIVING_ROOM")) && (
           <LivingRoomPetDog
@@ -3411,7 +3486,7 @@ export const UniversalAutoStage: React.FC<{
           />
         )}
 
-        {/* 1.5. V22.5: LỚP PHỦ TRẮNG SỮA PHẲNG & BẢNG TRẮNG CHUYÊN ĐỀ CHO HOST_EXPLAIN_OVERLAY (0% blur!) */}
+        {/* 1.5. V22.5–V22.7: LỚP PHỦ TRẮNG SỮA PHẲNG & BẢNG TRẮNG CHUYÊN ĐỀ CHO HOST_EXPLAIN_OVERLAY (0% blur!) */}
         {isHostExplain && (
           <g id="layer-host-explain-veil">
             <rect
@@ -3424,9 +3499,12 @@ export const UniversalAutoStage: React.FC<{
             />
             <rect x={0} y={778} width={1920} height={302} fill="#E2E8F0" opacity={0.42} />
             <line x1={0} y1={778} x2={1920} y2={778} stroke="#CBD5E1" strokeWidth={2.5} />
-            {hasHostWhiteboard && (
-              <HostMirrorNeuronsBoard highlight={spec.hostBoardHighlight} frame={localFrame} />
-            )}
+            {hasHostWhiteboard &&
+              (spec.labBoard === "ACOUSTICS_CRINGE_ALARM" ? (
+                <HostAcousticsCringeBoard highlight={spec.hostBoardHighlight} frame={localFrame} />
+              ) : (
+                <HostMirrorNeuronsBoard highlight={spec.hostBoardHighlight} frame={localFrame} />
+              ))}
           </g>
         )}
 
@@ -3843,6 +3921,25 @@ export const UniversalAutoStage: React.FC<{
               hasWaterBottle:
                 spec.classroomDetail === "DESK_WATER_BOTTLE" && ra.actor.preset === "BOY",
             }))}
+            groundY={groundY}
+          />
+        )}
+
+        {/* 3.4B. V22.7: BÀN ĂN TỐI BÒ BÍT TẾT PHÍA TRƯỚC GIA ĐÌNH TRONG HOME_KITCHEN (KÈM SÓNG RÍT NĨA CỌ ĐĨA SỨ) */}
+        {!isHostExplain && hasKitchenSeatedDinner && (
+          <KitchenDiningTableForeground
+            plateXs={
+              seatedKitchenActors.length > 0
+                ? seatedKitchenActors.map((ra) => Math.round(ra.actorX))
+                : [580, 960, 1340]
+            }
+            mode={spec.kitchenDetail ?? "DINNER_STEAK"}
+            scrapeX={
+              Math.round(
+                (seatedKitchenActors.find((ra) => ra.actor.preset === "BOY") ?? seatedKitchenActors[1])?.actorX ?? 960
+              )
+            }
+            frame={localFrame}
             groundY={groundY}
           />
         )}
