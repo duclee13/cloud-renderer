@@ -19,6 +19,8 @@ import fs from "fs";
 import path from "path";
 import os from "os";
 import { execSync } from "child_process";
+import type { AutoEpisodeBeat, AutoSfxCueId } from "./episodeJsonSchema";
+import { resolveAutoSfxPlan } from "./autoSfxPlanner";
 
 export type BgmTrackId = "BGM_STORY_CALM" | "BGM_TENSE_PULSE" | "BGM_WARM_OUTRO";
 
@@ -69,6 +71,10 @@ export interface SoundDesignBeatInput {
   sfxText?: string;
   narrationText?: string;
   bgmMood?: BgmTrackId;
+  /** V17–V23: Thông số cảnh JSON tự động để Auto-SFX V23.0 bắt chuyển cảnh chính xác */
+  autoStageSpec?: AutoEpisodeBeat;
+  /** V23.0: Ghi đè hiệu ứng Auto-SFX cấp beat */
+  sfxCue?: AutoSfxCueId;
   cardProps?: {
     accentTheme?: string;
     highlightColor?: string;
@@ -973,6 +979,8 @@ export interface MixMasterAudioParams {
   fps?: number;
   outputWavPath: string;
   cacheDir?: string;
+  /** V23.0: Bật/tắt trộn thêm gói Auto-SFX public/sfx/*.wav vào Master Audio Cloud (mặc định true) */
+  sfxEnabled?: boolean;
 }
 
 export interface MixMasterAudioResult {
@@ -1052,7 +1060,12 @@ export function mixMasterAudioWithSoundDesign(params: MixMasterAudioParams): Mix
       }
     }
 
-    // 3. Trộn chính xác từng sample toàn bộ các cue SFX
+    // 3. Trộn chính xác từng sample toàn bộ các cue SFX (V13 legacy + V23.0 public/sfx/*.wav)
+    const v23AutoSfxEvents = resolveAutoSfxPlan(params.beats, fps, params.sfxEnabled ?? true);
+    const v23CoveredFrames = new Set<number>(
+      v23AutoSfxEvents.filter((ev) => ev.cueId === "whoosh_in" || ev.cueId === "whoosh_out").map((ev) => ev.startFrame)
+    );
+
     const decodedSfx: Partial<Record<SfxEffectId, Float32Array>> = {};
     const getSfx = (id: SfxEffectId): Float32Array => {
       if (!decodedSfx[id]) {
@@ -1062,11 +1075,39 @@ export function mixMasterAudioWithSoundDesign(params: MixMasterAudioParams): Mix
     };
 
     for (const cue of plan.sfxCues) {
+      if (cue.effectId === "sfx_whoosh" && v23CoveredFrames.has(cue.frame)) {
+        continue;
+      }
       const sfxData = getSfx(cue.effectId);
       const startSample = Math.max(0, Math.floor((cue.frame / fps) * SAMPLE_RATE));
       const maxLen = Math.min(sfxData.length, targetSamples - startSample);
       for (let i = 0; i < maxLen; i++) {
         mixBuf[startSample + i] += sfxData[i] * cue.volume;
+      }
+    }
+
+    // 3B. V23.0 Auto-SFX pack (web-studio/public/sfx/*.wav) — đảm bảo Cloud Render (--muted) cũng có đủ Auto-SFX
+    if (v23AutoSfxEvents.length > 0) {
+      const cwd = process.cwd();
+      const sfxPublicDir =
+        path.basename(cwd).toLowerCase() === "web-studio"
+          ? path.join(cwd, "public", "sfx")
+          : path.join(cwd, "web-studio", "public", "sfx");
+      const decodedV23Sfx: Record<string, Float32Array | null> = {};
+      for (const ev of v23AutoSfxEvents) {
+        if (!(ev.fileName in decodedV23Sfx)) {
+          const wavFile = path.join(sfxPublicDir, ev.fileName);
+          decodedV23Sfx[ev.fileName] = fs.existsSync(wavFile)
+            ? decodeWavToFloat32Mono(wavFile).samples
+            : null;
+        }
+        const sfxData = decodedV23Sfx[ev.fileName];
+        if (!sfxData) continue;
+        const startSample = Math.max(0, Math.floor((ev.startFrame / fps) * SAMPLE_RATE));
+        const maxLen = Math.min(sfxData.length, targetSamples - startSample);
+        for (let i = 0; i < maxLen; i++) {
+          mixBuf[startSample + i] += sfxData[i] * ev.volume;
+        }
       }
     }
 

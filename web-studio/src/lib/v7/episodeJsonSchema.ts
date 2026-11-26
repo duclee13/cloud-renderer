@@ -13,6 +13,9 @@ export type AutoStageType =
   | "CITY_STREET_PARK"
   | "SCHOOL_CLASSROOM"
   | "HOME_KITCHEN"
+  | "FOREST_PARK"
+  | "OCEAN_UNDERWATER"
+  | "BACKYARD_BALCONY_PET"
   | "SCIENCE_LAB_ROOM"
   | "DOCTOR_CLINIC"
   | "WATER_POND_OCEAN"
@@ -215,6 +218,12 @@ export type LivingRoomDetailId =
   | "DAD_PET_DOG"
   | "DOG_WAG";
 
+/** V23.0: Chủ đề giao diện bảng nghiên cứu cho HOST_EXPLAIN_OVERLAY (mặc định LAB_WHITEBOARD) */
+export type HostBoardTheme = "LAB_WHITEBOARD" | "NATURE_FIELD_BOARD";
+
+/** V23.0: Ghi đè hiệu ứng âm thanh Auto-SFX trên từng beat (hoặc "none" để tắt cục bộ) */
+export type AutoSfxCueId = "pop" | "whoosh_in" | "whoosh_out" | "ding" | "alert" | "none";
+
 /** V22.5–V22.7: Điểm nhấn nổi bật trên bảng trắng HOST_EXPLAIN_OVERLAY */
 export type HostBoardHighlightId =
   | "NONE"
@@ -302,6 +311,12 @@ export interface AutoEpisodeBeat {
   freezeFrame?: number;
   /** V22.5: Điểm nhấn/huy hiệu ngữ cảnh trên bảng trắng trong HOST_EXPLAIN_OVERLAY */
   hostBoardHighlight?: HostBoardHighlightId;
+  /** V23.0: Giao diện bảng trong HOST_EXPLAIN_OVERLAY ("LAB_WHITEBOARD" mặc định | "NATURE_FIELD_BOARD") */
+  boardTheme?: HostBoardTheme;
+  /** V23.0: Tiêu đề phụ tùy chỉnh cho bảng Sổ Tay Thiên Nhiên (NATURE_FIELD_BOARD) */
+  natureBoardTitle?: string;
+  /** V23.0: Ghi đè hiệu ứng Auto-SFX của beat (hoặc "none" để tắt cục bộ) */
+  sfxCue?: AutoSfxCueId;
   /** V22.4: Khi true -> phủ lớp hồi tưởng (Flashback Overlay SVG phẳng: kem/sepia mờ, khung viền trắng 4 cạnh, tag "Hồi tưởng") */
   flashback?: boolean;
   timeOfDay: AutoTimeOfDay;
@@ -332,6 +347,10 @@ export interface AutoEpisodeSpec {
   topic?: string;
   /** V22.2: Bảng nghiên cứu mặc định cấp tập cho các cảnh SCIENCE_LAB_ROOM (beat có thể ghi đè riêng) */
   labBoard?: LabBoardId;
+  /** V23.0: Giao diện bảng mặc định cấp tập cho HOST_EXPLAIN_OVERLAY (mặc định LAB_WHITEBOARD) */
+  boardTheme?: HostBoardTheme;
+  /** V23.0: Bật/tắt toàn bộ lớp Auto-SFX cấp tập (mặc định true) */
+  sfxEnabled?: boolean;
   beats: AutoEpisodeBeat[];
 }
 
@@ -344,6 +363,9 @@ export const VALID_STAGE_TYPES: readonly AutoStageType[] = [
   "CITY_STREET_PARK",
   "SCHOOL_CLASSROOM",
   "HOME_KITCHEN",
+  "FOREST_PARK",
+  "OCEAN_UNDERWATER",
+  "BACKYARD_BALCONY_PET",
   "SCIENCE_LAB_ROOM",
   "DOCTOR_CLINIC",
   "WATER_POND_OCEAN",
@@ -663,6 +685,18 @@ const STAGE_ALIASES: Record<string, AutoStageType> = {
   KITCHEN: "HOME_KITCHEN",
   DINING_ROOM: "HOME_KITCHEN",
   DINING: "HOME_KITCHEN",
+  FOREST: "FOREST_PARK",
+  FOREST_PARK_BACKDROP: "FOREST_PARK",
+  NATURE_PARK: "FOREST_PARK",
+  WOODS: "FOREST_PARK",
+  UNDERWATER: "OCEAN_UNDERWATER",
+  DEEP_OCEAN: "OCEAN_UNDERWATER",
+  OCEAN_UNDERWATER_BACKDROP: "OCEAN_UNDERWATER",
+  SEAFLOOR: "OCEAN_UNDERWATER",
+  BALCONY: "BACKYARD_BALCONY_PET",
+  BACKYARD: "BACKYARD_BALCONY_PET",
+  PATIO: "BACKYARD_BALCONY_PET",
+  PET_BALCONY: "BACKYARD_BALCONY_PET",
   LAB: "SCIENCE_LAB_ROOM",
   LABORATORY: "SCIENCE_LAB_ROOM",
   SCIENCE_LAB: "SCIENCE_LAB_ROOM",
@@ -1262,6 +1296,25 @@ function sanitizeHostBoardHighlightId(raw: unknown): HostBoardHighlightId | unde
     : undefined;
 }
 
+const VALID_BOARD_THEMES: readonly HostBoardTheme[] = ["LAB_WHITEBOARD", "NATURE_FIELD_BOARD"];
+const VALID_SFX_CUES: readonly AutoSfxCueId[] = ["pop", "whoosh_in", "whoosh_out", "ding", "alert", "none"];
+
+function sanitizeHostBoardTheme(raw: unknown): HostBoardTheme | undefined {
+  if (typeof raw !== "string") return undefined;
+  const norm = raw.trim().toUpperCase().replace(/[\s-]+/g, "_");
+  return (VALID_BOARD_THEMES as readonly string[]).includes(norm)
+    ? (norm as HostBoardTheme)
+    : undefined;
+}
+
+function sanitizeAutoSfxCueId(raw: unknown): AutoSfxCueId | undefined {
+  if (typeof raw !== "string") return undefined;
+  const norm = raw.trim().toLowerCase().replace(/[\s-]+/g, "_");
+  return (VALID_SFX_CUES as readonly string[]).includes(norm)
+    ? (norm as AutoSfxCueId)
+    : undefined;
+}
+
 /**
  * Chuẩn hóa, tự sửa enum sai lệch và làm sạch tuyệt đối kịch bản JSON từ AI thành AutoEpisodeSpec hợp lệ 100%.
  */
@@ -1274,6 +1327,8 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
   const rawTitle = typeof root.title === "string" && root.title.trim() ? root.title.trim() : fallbackTopic;
   const rawSlug = typeof root.slug === "string" && root.slug.trim() ? slugifyVietnamese(root.slug) : slugifyVietnamese(rawTitle);
   const episodeLabBoard = sanitizeLabBoardId(root.labBoard);
+  const episodeBoardTheme = sanitizeHostBoardTheme(root.boardTheme);
+  const episodeSfxEnabled = typeof root.sfxEnabled === "boolean" ? root.sfxEnabled : undefined;
   const rawBeats: any[] = Array.isArray(root.beats) ? root.beats : [];
   if (rawBeats.length === 0) {
     throw new Error("Episode JSON phải chứa ít nhất 1 beat trong mảng beats[].");
@@ -1317,6 +1372,14 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
         ? Math.max(0, Math.round(Number(rb.freezeFrame)))
         : undefined;
     const hostBoardHighlight = sanitizeHostBoardHighlightId(rb?.hostBoardHighlight);
+    const boardTheme =
+      sanitizeHostBoardTheme(rb?.boardTheme) ??
+      (overlayMode ? episodeBoardTheme : undefined);
+    const natureBoardTitle =
+      typeof rb?.natureBoardTitle === "string" && rb.natureBoardTitle.trim()
+        ? rb.natureBoardTitle.trim().slice(0, 72)
+        : undefined;
+    const sfxCue = sanitizeAutoSfxCueId(rb?.sfxCue);
     const flashback = rb?.flashback === true ? true : undefined;
     const timeOfDay = matchEnum(rb?.timeOfDay, VALID_TIME_OF_DAY, "DAY");
     const weather = matchEnum(rb?.weather, VALID_WEATHER, "CLEAR");
@@ -1396,6 +1459,9 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       ...(freezeStage ? { freezeStage } : {}),
       ...(freezeFrame !== undefined ? { freezeFrame } : {}),
       ...(hostBoardHighlight && hostBoardHighlight !== "NONE" ? { hostBoardHighlight } : {}),
+      ...(boardTheme ? { boardTheme } : {}),
+      ...(natureBoardTitle ? { natureBoardTitle } : {}),
+      ...(sfxCue ? { sfxCue } : {}),
       ...(flashback ? { flashback: true } : {}),
       timeOfDay,
       weather,
@@ -1420,6 +1486,8 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
     slug: rawSlug,
     ...(typeof root.topic === "string" && root.topic.trim() ? { topic: root.topic.trim() } : { topic: fallbackTopic }),
     ...(episodeLabBoard ? { labBoard: episodeLabBoard } : {}),
+    ...(episodeBoardTheme ? { boardTheme: episodeBoardTheme } : {}),
+    ...(episodeSfxEnabled !== undefined ? { sfxEnabled: episodeSfxEnabled } : {}),
     beats: sanitizedBeats,
   };
 }

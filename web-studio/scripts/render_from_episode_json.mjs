@@ -449,6 +449,7 @@ async function prepareCloudEpisodePlan({
       fps,
       outputWavPath: mixedAllWav,
       cacheDir: SOUND_DESIGN_CACHE_DIR,
+      sfxEnabled: episode.sfxEnabled,
     });
 
     const masterAudioM4aPath = path.join(planDir, 'master_episode_audio.m4a');
@@ -942,6 +943,7 @@ async function main() {
         fps: effectiveFps,
         outputWavPath,
         cacheDir: SOUND_DESIGN_CACHE_DIR,
+        sfxEnabled: episode.sfxEnabled,
       });
       return {
         durationSec: mixRes.durationSec,

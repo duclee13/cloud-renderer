@@ -32,6 +32,7 @@ import {
   StoryInfographicCards,
   CharacterStoryOverlays,
 } from "../components/cards/StoryInfographicCards";
+import { AudioSfxLayer } from "../../components/AudioSfxLayer";
 import { generateSfxDataUrl } from "../../lib/sfxGenerator";
 import { compileScriptBeats, ScriptBeat } from "../../animscript/actionLibrary";
 import {
@@ -89,6 +90,8 @@ export interface V7MoviePayload {
   fps: number;
   beats: ScriptBeat[];
   showDebugHud?: boolean;
+  /** V23.0: Bật/tắt lớp Auto-SFX (mặc định true) */
+  sfxEnabled?: boolean;
   renderConfig?: HybridRenderConfig;
   soundDesign?: V7SoundDesignPayload;
 }
@@ -98,6 +101,8 @@ export interface V7MovieCompositionProps {
   v7MoviePayload?: V7MoviePayload;
   beats?: ScriptBeat[];
   showDebugHud?: boolean;
+  /** V23.0: Bật/tắt lớp Auto-SFX (mặc định true) */
+  sfxEnabled?: boolean;
 }
 
 export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => {
@@ -917,6 +922,20 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
           </>
         );
       })()}
+
+      {/* =========================================================================
+          1C. V23.0 AUTO-SFX ENGINE (pop_soft, whoosh_in, whoosh_out, ding_warm, alert_soft)
+              - Âm lượng dịu 0.16–0.26, không át TTS Hải Đăng, chỉ kích hoạt trên AutoStage / sfxCue
+         ========================================================================= */}
+      <AudioSfxLayer
+        beats={beats}
+        sfxEnabled={
+          props.sfxEnabled ??
+          props.payload?.sfxEnabled ??
+          props.v7MoviePayload?.sfxEnabled ??
+          true
+        }
+      />
 
       {/* =========================================================================
           2-4. TẦNG SÂN KHẤU ĐỒNG THỜI V16.0 (TRUE SIMULTANEOUS CROSSFADE 0.5s — 0% BLACK FLASH)

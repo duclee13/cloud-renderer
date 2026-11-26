@@ -1204,3 +1204,261 @@ export const KitchenDiningTableForeground: React.FC<{
     </g>
   );
 };
+
+/* ============================================================================
+ * 8. HOST_EXPLAIN_OVERLAY Board Theme: boardTheme = "NATURE_FIELD_BOARD" (V23.0)
+ *    - Strictly preserves V22.0 anti-overlap coordinates: x=680..1800, y=90..640
+ *      (>= 90px gap from left Host speech bubble x <= 590, BOY at x=330 y=760)
+ *    - Warm wooden frame (#B45309, rx=24), soft cream paper (#FFFBEB), top corner leaves
+ *    - Deep green header (#15803D) with crisp white title (#FFFFFF) "SỔ TAY THIÊN NHIÊN • ..."
+ *    - 3 airy React.memo illustration panels, zero blur/dropShadow/foreignObject
+ * ========================================================================== */
+
+const HostNatureFieldBoardStaticCore: React.FC<{
+  activePanel?: "LEFT" | "CENTER" | "RIGHT";
+  boardTitle: string;
+}> = React.memo(({ activePanel, boardTitle }) => {
+  const leftBorder = activePanel === "LEFT" ? "#15803D" : "#86EFAC";
+  const centerBorder = activePanel === "CENTER" ? "#15803D" : "#FCD34D";
+  const rightBorder = activePanel === "RIGHT" ? "#15803D" : "#7DD3FC";
+  const leftW = activePanel === "LEFT" ? 4.5 : 2.8;
+  const centerW = activePanel === "CENTER" ? 4.5 : 2.8;
+  const rightW = activePanel === "RIGHT" ? 4.5 : 2.8;
+
+  return (
+    <g id="host-board-nature-field-static">
+      <GroundShadow cx={1240} cy={654} rx={545} ry={12} />
+
+      {/* Warm Wooden Field-Board Outer Frame (x=680..1800, y=90..640, rx=24) */}
+      <rect
+        x={680}
+        y={90}
+        width={1120}
+        height={550}
+        rx={24}
+        fill="#FFFBEB"
+        stroke="#B45309"
+        strokeWidth={12}
+      />
+      <rect
+        x={680}
+        y={90}
+        width={1120}
+        height={550}
+        rx={24}
+        fill="none"
+        stroke={INK}
+        strokeWidth={3.2}
+      />
+
+      {/* Subtle brass binder pins & fresh green leaf accents at top corners */}
+      <g id="nature-board-corner-leaves">
+        <g transform="translate(708, 114)">
+          <path d="M -14,6 C -16,-12 4,-18 18,-8 C 12,10 -4,14 -14,6 Z" fill="#22C55E" stroke="#15803D" strokeWidth={2.2} />
+          <circle cx={0} cy={0} r={5} fill="#F59E0B" stroke={INK} strokeWidth={1.8} />
+        </g>
+        <g transform="translate(1772, 114) scale(-1, 1)">
+          <path d="M -14,6 C -16,-12 4,-18 18,-8 C 12,10 -4,14 -14,6 Z" fill="#22C55E" stroke="#15803D" strokeWidth={2.2} />
+          <circle cx={0} cy={0} r={5} fill="#F59E0B" stroke={INK} strokeWidth={1.8} />
+        </g>
+        <circle cx={708} cy={614} r={5.5} fill="#D97706" stroke={INK} strokeWidth={2} />
+        <circle cx={1772} cy={614} r={5.5} fill="#D97706" stroke={INK} strokeWidth={2} />
+      </g>
+
+      {/* Deep Forest-Green Header Bar (#15803D) with crisp white text (#FFFFFF) */}
+      <rect
+        x={734}
+        y={108}
+        width={1012}
+        height={48}
+        rx={14}
+        fill="#15803D"
+        stroke="#14532D"
+        strokeWidth={2.6}
+      />
+      <text
+        x={1240}
+        y={140}
+        textAnchor="middle"
+        fill="#FFFFFF"
+        fontSize={21}
+        fontWeight={900}
+        fontFamily={FONT}
+      >
+        {boardTitle}
+      </text>
+
+      {/* Ô TRÁI (x=710..1046, y=172..546): 1. Quan sát tập tính */}
+      <g id="nature-board-panel-left" transform="translate(710, 172)">
+        <rect
+          x={0}
+          y={0}
+          width={336}
+          height={374}
+          rx={18}
+          fill={activePanel === "LEFT" ? "#ECFDF5" : "#FFFFFF"}
+          stroke={leftBorder}
+          strokeWidth={leftW}
+        />
+        <text x={168} y={36} textAnchor="middle" fill="#15803D" fontSize={19} fontWeight={900} fontFamily={FONT}>
+          1. Quan sát tập tính
+        </text>
+
+        {/* Clean Paw Print + Field Magnifier Illustration */}
+        <g transform="translate(168, 128)">
+          <circle cx={0} cy={0} r={62} fill="#DCFCE7" stroke="#16A34A" strokeWidth={3} />
+          {/* Cute animal paw */}
+          <ellipse cx={0} cy={14} rx={22} ry={16} fill="#92400E" stroke={INK} strokeWidth={2.6} />
+          <circle cx={-24} cy={-8} r={9} fill="#92400E" stroke={INK} strokeWidth={2.4} />
+          <circle cx={-8} cy={-20} r={9} fill="#92400E" stroke={INK} strokeWidth={2.4} />
+          <circle cx={10} cy={-20} r={9} fill="#92400E" stroke={INK} strokeWidth={2.4} />
+          <circle cx={26} cy={-8} r={9} fill="#92400E" stroke={INK} strokeWidth={2.4} />
+        </g>
+
+        <rect x={22} y={216} width={292} height={134} rx={14} fill="#F0FDF4" stroke="#86EFAC" strokeWidth={2.4} />
+        <text x={168} y={252} textAnchor="middle" fill="#14532D" fontSize={17} fontWeight={900} fontFamily={FONT}>
+          Theo dõi ngoài tự nhiên
+        </text>
+        <text x={168} y={286} textAnchor="middle" fill="#334155" fontSize={15.5} fontWeight={700} fontFamily={FONT}>
+          Ghi nhận phản xạ nhanh &amp; thói quen
+        </text>
+        <text x={168} y={318} textAnchor="middle" fill="#15803D" fontSize={15.5} fontWeight={800} fontFamily={FONT}>
+          → Đặt câu hỏi khoa học thú vị!
+        </text>
+      </g>
+
+      {/* Ô GIỮA (x=1066..1414, y=172..546): 2. Cơ chế sinh học */}
+      <g id="nature-board-panel-center" transform="translate(1066, 172)">
+        <rect
+          x={0}
+          y={0}
+          width={348}
+          height={374}
+          rx={18}
+          fill={activePanel === "CENTER" ? "#FEF3C7" : "#FFFFFF"}
+          stroke={centerBorder}
+          strokeWidth={centerW}
+        />
+        <text x={174} y={36} textAnchor="middle" fill="#B45309" fontSize={19} fontWeight={900} fontFamily={FONT}>
+          2. Cơ chế sinh học &amp; vật lý
+        </text>
+
+        {/* Clean Magnifying Lens + Biological Gear/Motion Emblem */}
+        <g transform="translate(174, 128)">
+          <circle cx={0} cy={0} r={62} fill="#FEF9C3" stroke="#D97706" strokeWidth={3} />
+          <circle cx={-8} cy={-8} r={30} fill="#E0F2FE" stroke={INK} strokeWidth={3.6} />
+          <path d="M -20,-8 Q -8,-24 4,-8 T 20,-8" fill="none" stroke="#0284C7" strokeWidth={3.6} strokeLinecap="round" />
+          <line x1={14} y1={14} x2={42} y2={42} stroke="#92400E" strokeWidth={10} strokeLinecap="round" />
+          <line x1={14} y1={14} x2={42} y2={42} stroke={INK} strokeWidth={3.5} strokeLinecap="round" />
+        </g>
+
+        <rect x={22} y={216} width={304} height={134} rx={14} fill="#FFFBEB" stroke="#FCD34D" strokeWidth={2.4} />
+        <text x={174} y={252} textAnchor="middle" fill="#92400E" fontSize={17} fontWeight={900} fontFamily={FONT}>
+          Cấu tạo cơ thể siêu tinh vi
+        </text>
+        <text x={174} y={286} textAnchor="middle" fill="#334155" fontSize={15.5} fontWeight={700} fontFamily={FONT}>
+          Xương khớp, giác quan &amp; cân bằng lực
+        </text>
+        <text x={174} y={318} textAnchor="middle" fill="#B45309" fontSize={15.5} fontWeight={800} fontFamily={FONT}>
+          → Giải mã nguyên lý cốt lõi!
+        </text>
+      </g>
+
+      {/* Ô PHẢI (x=1434..1770, y=172..546): 3. Kỳ quan thích nghi */}
+      <g id="nature-board-panel-right" transform="translate(1434, 172)">
+        <rect
+          x={0}
+          y={0}
+          width={336}
+          height={374}
+          rx={18}
+          fill={activePanel === "RIGHT" ? "#E0F2FE" : "#FFFFFF"}
+          stroke={rightBorder}
+          strokeWidth={rightW}
+        />
+        <text x={168} y={36} textAnchor="middle" fill="#0369A1" fontSize={19} fontWeight={900} fontFamily={FONT}>
+          3. Kỳ quan thích nghi
+        </text>
+
+        {/* Clean Green Leaf Shield Emblem */}
+        <g transform="translate(168, 128)">
+          <circle cx={0} cy={0} r={62} fill="#E0F2FE" stroke="#0284C7" strokeWidth={3} />
+          <path
+            d="M -32,16 C -34,-26 8,-44 36,-32 C 34,8 2,36 -32,16 Z"
+            fill="#22C55E"
+            stroke={INK}
+            strokeWidth={3.2}
+            strokeLinejoin="round"
+          />
+          <path d="M -26,12 Q 4,-4 28,-26" fill="none" stroke="#14532D" strokeWidth={3.2} strokeLinecap="round" />
+        </g>
+
+        <rect x={22} y={216} width={292} height={134} rx={14} fill="#F0F9FF" stroke="#7DD3FC" strokeWidth={2.4} />
+        <text x={168} y={252} textAnchor="middle" fill="#0369A1" fontSize={17} fontWeight={900} fontFamily={FONT}>
+          Tiến hóa hàng triệu năm
+        </text>
+        <text x={168} y={286} textAnchor="middle" fill="#334155" fontSize={15.5} fontWeight={700} fontFamily={FONT}>
+          Săn mồi, tự vệ &amp; hòa hợp môi trường
+        </text>
+        <text x={168} y={318} textAnchor="middle" fill="#0284C7" fontSize={15.5} fontWeight={800} fontFamily={FONT}>
+          → Bài học tuyệt đẹp từ thiên nhiên!
+        </text>
+      </g>
+    </g>
+  );
+});
+HostNatureFieldBoardStaticCore.displayName = "HostNatureFieldBoardStaticCore";
+
+export const HostNatureFieldBoard: React.FC<{
+  highlight?: HostBoardHighlightId;
+  frame?: number;
+  title?: string;
+}> = ({ highlight = "NONE", frame = 0, title }) => {
+  const activePanel: "LEFT" | "CENTER" | "RIGHT" | undefined =
+    highlight === "LEFT"
+      ? "LEFT"
+      : highlight === "CENTER"
+      ? "CENTER"
+      : highlight === "RIGHT"
+      ? "RIGHT"
+      : undefined;
+
+  const normalizedTitle = title && title.trim()
+    ? title.trim().toUpperCase().startsWith("SỔ TAY THIÊN NHIÊN")
+      ? title.trim()
+      : `SỔ TAY THIÊN NHIÊN • ${title.trim()}`
+    : "SỔ TAY THIÊN NHIÊN • KHÁM PHÁ THẾ GIỚI ĐỘNG VẬT & TỰ NHIÊN";
+
+  const badgePulse = 0.5 + 0.5 * Math.sin(frame * 0.16);
+
+  return (
+    <g id="host-explain-nature-field-board-layer">
+      <HostNatureFieldBoardStaticCore activePanel={activePanel} boardTitle={normalizedTitle} />
+      <g opacity={(0.92 + badgePulse * 0.08).toFixed(2)} transform="translate(1240, 592)">
+        <rect
+          x={-370}
+          y={-24}
+          width={740}
+          height={48}
+          rx={24}
+          fill={highlight === "SUMMARY" ? "#DCFCE7" : "#FEF3C7"}
+          stroke={highlight === "SUMMARY" ? "#15803D" : "#B45309"}
+          strokeWidth={2.8}
+        />
+        <text
+          x={0}
+          y={8}
+          textAnchor="middle"
+          fill={highlight === "SUMMARY" ? "#14532D" : "#92400E"}
+          fontSize={19.5}
+          fontWeight={900}
+          fontFamily={FONT}
+        >
+          {highlight === "SUMMARY"
+            ? "Tổng kết ghi chép điền dã: 3 bí mật thú vị nhất của thế giới tự nhiên!"
+            : "Ghi chép điền dã: Quan sát đời thực → Giải mã khoa học → Hiểu thiên nhiên"}
+        </text>
+      </g>
+    </g>
+  );
+};

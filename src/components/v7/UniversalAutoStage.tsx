@@ -37,8 +37,14 @@ import { CuratedAnimatedProp } from "./AutoPropLibrary";
 import { EPISODE_VISUAL_REGISTRY, type EpisodeVisualProps } from "./episodeVisuals";
 import { GroundShadow } from "../SceneBackdropKit";
 import {
+  FOREST_PARK_BACKDROP,
+  OCEAN_UNDERWATER_BACKDROP,
+  BACKYARD_BALCONY_PET,
+} from "../NatureBackdropKit";
+import {
   HostMirrorNeuronsBoard,
   HostAcousticsCringeBoard,
+  HostNatureFieldBoard,
   ClassroomSeatedChairsBack,
   ClassroomSeatedDesksForeground,
   ClassroomBoardScreechOverlay,
@@ -2661,9 +2667,12 @@ export const UniversalAutoStage: React.FC<{
   const isHostExplain = spec.stageType === "HOST_EXPLAIN_OVERLAY" || spec.overlayMode === "HOST_EXPLAIN";
   const effectiveStageType = isHostExplain ? (spec.freezeStage ?? "SCHOOL_CLASSROOM") : spec.stageType;
   const stageRenderFrame = isHostExplain ? (spec.freezeFrame ?? 90) : frame;
+  const resolvedBoardTheme = spec.boardTheme ?? "LAB_WHITEBOARD";
   const hasHostWhiteboard = Boolean(
     isHostExplain &&
-      (spec.labBoard === "MIRROR_NEURONS_YAWN" || spec.labBoard === "ACOUSTICS_CRINGE_ALARM")
+      (resolvedBoardTheme === "NATURE_FIELD_BOARD" ||
+        spec.labBoard === "MIRROR_NEURONS_YAWN" ||
+        spec.labBoard === "ACOUSTICS_CRINGE_ALARM")
   );
   const isNight = spec.timeOfDay === "NIGHT";
   const isOutdoor =
@@ -2671,6 +2680,8 @@ export const UniversalAutoStage: React.FC<{
     effectiveStageType === "SIMPLE_GRASS_FIELD" ||
     effectiveStageType === "CITY_STREET" ||
     effectiveStageType === "CITY_STREET_PARK" ||
+    effectiveStageType === "FOREST_PARK" ||
+    effectiveStageType === "BACKYARD_BALCONY_PET" ||
     effectiveStageType === "WATER_POND_OCEAN";
 
   const slotBaseX = (slot: AutoActorSpec["slot"]): number =>
@@ -3410,6 +3421,15 @@ export const UniversalAutoStage: React.FC<{
             seatedDiningMode={hasKitchenSeatedDinner || (isHostExplain && spec.freezeStage === "HOME_KITCHEN")}
           />
         )}
+        {effectiveStageType === "FOREST_PARK" && (
+          <FOREST_PARK_BACKDROP timeOfDay={spec.timeOfDay} frame={stageRenderFrame} uid={spec.id} />
+        )}
+        {effectiveStageType === "OCEAN_UNDERWATER" && (
+          <OCEAN_UNDERWATER_BACKDROP timeOfDay={spec.timeOfDay} frame={stageRenderFrame} uid={spec.id} />
+        )}
+        {effectiveStageType === "BACKYARD_BALCONY_PET" && (
+          <BACKYARD_BALCONY_PET timeOfDay={spec.timeOfDay} frame={stageRenderFrame} uid={spec.id} />
+        )}
         {effectiveStageType === "SCIENCE_LAB_ROOM" && (
           <ScienceLabBackdrop
             timeOfDay={spec.timeOfDay}
@@ -3500,7 +3520,13 @@ export const UniversalAutoStage: React.FC<{
             <rect x={0} y={778} width={1920} height={302} fill="#E2E8F0" opacity={0.42} />
             <line x1={0} y1={778} x2={1920} y2={778} stroke="#CBD5E1" strokeWidth={2.5} />
             {hasHostWhiteboard &&
-              (spec.labBoard === "ACOUSTICS_CRINGE_ALARM" ? (
+              (resolvedBoardTheme === "NATURE_FIELD_BOARD" ? (
+                <HostNatureFieldBoard
+                  highlight={spec.hostBoardHighlight}
+                  frame={localFrame}
+                  title={spec.natureBoardTitle}
+                />
+              ) : spec.labBoard === "ACOUSTICS_CRINGE_ALARM" ? (
                 <HostAcousticsCringeBoard highlight={spec.hostBoardHighlight} frame={localFrame} />
               ) : (
                 <HostMirrorNeuronsBoard highlight={spec.hostBoardHighlight} frame={localFrame} />
