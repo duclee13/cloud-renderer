@@ -391,3 +391,133 @@ test("V23 #6: V23.5 Expressive & Friendly Creature Kit (8 creatures, 6 emotions,
   assert.ok(v235Svg.includes(">zZ<"), "CuteDolphin halfAsleep=true renders unihemispheric sleep zZ");
   assertCleanFlatSvg(v235Svg, "V23.5 New Creatures Suite");
 });
+
+test("V23 #7: Episode 10 (60 beats, 16 OCTO_* Full-Screen SVGs, OCEAN_UNDERWATER kit, NATURE_FIELD_BOARD & Auto-SFX)", () => {
+  const raw = JSON.parse(
+    fs.readFileSync(path.resolve(__dirname, "../episodes/tai_sao_bach_tuoc_doi_mau_tang_hinh_v23.json"), "utf8")
+  );
+  const ep10 = sanitizeAndValidateEpisode(raw);
+  assert.equal(ep10.slug, "tai_sao_bach_tuoc_doi_mau_tang_hinh_v23");
+  assert.equal(ep10.sfxEnabled, true, "Episode 10 enables Auto-SFX");
+  assert.equal(ep10.boardTheme, "NATURE_FIELD_BOARD", "Episode 10 uses NATURE_FIELD_BOARD");
+  assert.equal(ep10.labBoard, "OCTOPUS_INVISIBLE_CAMO", "Episode 10 uses OCTOPUS_INVISIBLE_CAMO");
+  assert.equal(ep10.beats.length, 60, "Episode 10 has exactly 60 beats");
+
+  const svgKeys = new Set<string>();
+  for (const b of ep10.beats) {
+    assert.ok(b.ttsText.trim().length > 10, `${b.id} must have non-empty ttsText`);
+    assert.ok(!/[0-9zZ\-–—]/.test(b.ttsText), `${b.id} ttsText must be pure Vietnamese without digits/z/hyphens`);
+    if (b.oceanBubble) {
+      const wc = b.oceanBubble.trim().split(/\s+/).length;
+      assert.ok(wc <= 10, `${b.id} oceanBubble <= 10 words (got ${wc}: ${b.oceanBubble})`);
+    }
+    for (const a of b.actors) {
+      if (a.bubble) {
+        const wc = a.bubble.trim().split(/\s+/).length;
+        assert.ok(wc <= 10, `${b.id} bubble <= 10 words (got ${wc}: ${a.bubble})`);
+      }
+    }
+    if (b.customVisual) {
+      svgKeys.add(b.customVisual);
+      assert.equal(b.fullScreenVisual, true, `${b.id} uses fullScreenVisual`);
+      assert.equal(b.chapterBanner, undefined, `${b.id} hides chapterBanner on Full-Screen SVG`);
+    }
+    if (b.stageType === "HOST_EXPLAIN_OVERLAY") {
+      assert.equal(b.boardTheme, "NATURE_FIELD_BOARD", `${b.id} uses NATURE_FIELD_BOARD`);
+      assert.ok(
+        b.freezeStage === "OCEAN_UNDERWATER" || b.freezeStage === "CITY_LIVING_ROOM",
+        `${b.id} locks freezeStage cleanly`
+      );
+      assert.equal(b.chapterBanner, undefined, `${b.id} hides chapterBanner on HOST_EXPLAIN_OVERLAY`);
+    }
+  }
+  assert.equal(svgKeys.size, 16, "Episode 10 uses all 16 distinct OCTO_* Full-Screen SVGs");
+
+  // Beat 49 & 50 subtitle displays "đáp án B" while TTS reads "đáp án bê"
+  const b49 = ep10.beats.find((b) => b.id === "b49")!;
+  const b50 = ep10.beats.find((b) => b.id === "b50")!;
+  assert.ok(b49.text.includes("đáp án B") && b49.ttsText.includes("đáp án bê"), "b49 displays 'đáp án B' & reads 'đáp án bê'");
+  assert.ok(b50.text.includes("đáp án B") && b50.ttsText.includes("đáp án bê"), "b50 displays 'đáp án B' & reads 'đáp án bê'");
+
+  // Render key story, Host+Board (Ocean & Living Room), Solo Host, and Open-Floor Outro beats
+  const sampleIds = ["b01", "b03", "b04", "b05", "b27", "b28", "b30", "b37", "b45", "b50", "b58", "b59", "b60"];
+  for (const bid of sampleIds) {
+    const beat = ep10.beats.find((b) => b.id === bid)!;
+    const svg = renderToStaticMarkup(
+      React.createElement(
+        "svg",
+        { width: 1920, height: 1080 },
+        React.createElement(UniversalAutoStage, {
+          spec: beat,
+          frame: 60,
+          localFrame: 60,
+          durationFrames: 225,
+          u: 0.35,
+          fps: 45,
+        })
+      )
+    );
+    assertCleanFlatSvg(svg, `Ep10 ${bid}`);
+    if (bid === "b03") {
+      assert.ok(svg.includes('id="ocean-story-kit-OCTO_ROCK_CAMO"'), "b03 renders OCEAN_UNDERWATER camo kit");
+      assert.ok(svg.includes("[Cá mập nói]"), "b03 displays [Cá mập nói] tag");
+    }
+    if (bid === "b04") {
+      assert.ok(svg.includes('id="host-board-octopus-camo-static"'), "b04 renders OCTOPUS_INVISIBLE_CAMO Nature Field Board");
+      assert.ok(svg.includes('id="stage-ocean-underwater"'), "b04 freezes OCEAN_UNDERWATER");
+    }
+    if (bid === "b30" || bid === "b37") {
+      assert.ok(svg.includes('id="stage-city-living-room"'), `${bid} freezes CITY_LIVING_ROOM`);
+      assert.ok(!svg.includes('id="living-room-pet-dog"'), `${bid} does not spawn stray Episode 7 dog`);
+    }
+    if (bid === "b50") {
+      assert.ok(!svg.includes('id="host-board-octopus-camo-static"'), "Solo Host b50 centers BOY without board behind him");
+    }
+  }
+
+  // Render every single Episode 10 Full-Screen SVG component directly and verify 0 blur/dropShadow/foreignObject
+  for (const b of ep10.beats) {
+    if (!b.customVisual) continue;
+    const Comp = EPISODE_VISUAL_REGISTRY[b.customVisual];
+    assert.ok(Comp, `Missing registered visual ${b.customVisual}`);
+    const svg = renderToStaticMarkup(
+      React.createElement(Comp, {
+        progress: 0.4,
+        frame: 50,
+        fps: 45,
+        step: b.visualStep ?? 0,
+        visualStep: b.visualStep ?? 0,
+      })
+    );
+    assert.ok(svg.startsWith("<svg"), `${b.customVisual} renders pure root <svg>`);
+    assertCleanFlatSvg(svg, `Ep10 SVG ${b.id} (${b.customVisual}#${b.visualStep ?? 0})`);
+    if (b.id === "b34") {
+      assert.ok(svg.includes("#DC2626") && svg.includes("CẢNH BÁO CỰC ĐỘC!"), "b34 renders high-contrast #DC2626 alert badge");
+    }
+  }
+
+  // Auto-SFX plan verification on Episode 10
+  const sfxPlan = resolveAutoSfxPlan(
+    ep10.beats.map((b, idx) => ({
+      id: b.id,
+      startFrame: idx * 200,
+      durationFrames: 200,
+      stageType: b.stageType,
+      autoStageSpec: b,
+    })),
+    45,
+    true
+  );
+  const byId = new Map(sfxPlan.map((e) => [e.beatId, e.cueId]));
+  assert.equal(byId.get("b04"), "whoosh_in", "b04 triggers whoosh_in");
+  assert.equal(byId.get("b27"), "whoosh_out", "b27 triggers whoosh_out");
+  assert.equal(byId.get("b30"), "whoosh_in", "b30 triggers whoosh_in");
+  assert.equal(byId.get("b34"), "alert", "b34 triggers alert_soft");
+  assert.equal(byId.get("b42"), "ding", "b42 triggers ding_warm");
+  assert.equal(byId.get("b43"), "whoosh_out", "b43 triggers whoosh_out");
+  assert.equal(byId.get("b49"), "ding", "b49 triggers ding_warm");
+  assert.equal(byId.get("b53"), "ding", "b53 triggers ding_warm");
+  assert.equal(byId.get("b54"), "ding", "b54 triggers ding_warm");
+  assert.equal(byId.get("b55"), "ding", "b55 triggers ding_warm");
+  assert.equal(byId.get("b58"), "whoosh_out", "b58 triggers whoosh_out");
+});

@@ -78,7 +78,9 @@ function isSummaryOrTipsVisual(customVisual?: string, visualStep = 0): boolean {
     upper.includes("TONG_KET") ||
     upper.includes("MEO") ||
     (upper === "CAT_QUICK_QUIZ" && visualStep === 2) ||
-    (upper === "CAT_OTHER_ANIMALS_NASA" && visualStep === 2)
+    (upper === "CAT_OTHER_ANIMALS_NASA" && visualStep === 2) ||
+    (upper === "OCTO_QUICK_QUIZ" && visualStep === 2) ||
+    (upper === "OCTO_HUMAN_TECH" && visualStep === 2)
   );
 }
 
@@ -95,6 +97,7 @@ function isSoftAlertBeat(beat: AutoSfxBeatLike): boolean {
     (vis.includes("AMYGDALA_LOOP") && step === 1) ||
     (vis === "CAT_MAREY_1894" && step === 1) ||
     (vis === "CAT_HIGH_RISE_TRUTH" && step === 0) ||
+    (vis === "OCTO_COMMUNICATION_MOOD" && step === 1) ||
     vis.includes("ALARM")
   ) {
     return true;
@@ -103,6 +106,9 @@ function isSoftAlertBeat(beat: AutoSfxBeatLike): boolean {
 }
 
 function beatHasSpeechBubble(beat: AutoSfxBeatLike): boolean {
+  if (typeof beat.autoStageSpec?.oceanBubble === "string" && beat.autoStageSpec.oceanBubble.trim().length > 0) {
+    return true;
+  }
   const actors = beat.autoStageSpec?.actors;
   if (!Array.isArray(actors)) return false;
   return actors.some((a) => typeof a?.bubble === "string" && a.bubble.trim().length > 0);

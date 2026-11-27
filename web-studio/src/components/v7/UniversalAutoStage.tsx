@@ -46,6 +46,7 @@ import {
   HostAcousticsCringeBoard,
   HostNatureFieldBoard,
   BackyardBalconyCatStageKit,
+  OceanUnderwaterStoryKit,
   ClassroomSeatedChairsBack,
   ClassroomSeatedDesksForeground,
   ClassroomBoardScreechOverlay,
@@ -1265,12 +1266,16 @@ const CityLivingRoomStaticWindowFrame = React.memo<{ timeOfDay: AutoTimeOfDay }>
   );
 });
 
-const CityLivingRoomStaticFurniture = React.memo<{ timeOfDay: AutoTimeOfDay; hasPetDog?: boolean }>(
-  ({ timeOfDay, hasPetDog = false }) => {
+const CityLivingRoomStaticFurniture = React.memo<{
+  timeOfDay: AutoTimeOfDay;
+  hasPetDog?: boolean;
+  openFloorOutro?: boolean;
+}>(({ timeOfDay, hasPetDog = false, openFloorOutro = false }) => {
     const isNight = timeOfDay === "NIGHT";
     const isSunset = timeOfDay === "SUNSET";
-    const sofaX = hasPetDog ? 540 : 650;
-    const tableX = hasPetDog ? 1425 : 1245;
+    const sofaX = openFloorOutro ? 620 : hasPetDog ? 540 : 650;
+    const sofaY = openFloorOutro ? 536 : hasPetDog ? 592 : 565;
+    const tableX = openFloorOutro ? 1515 : hasPetDog ? 1425 : 1245;
     return (
       <g>
         {/* Warm pendant ceiling lamp with soft flat cone glow in evening/sunset */}
@@ -1293,7 +1298,7 @@ const CityLivingRoomStaticFurniture = React.memo<{ timeOfDay: AutoTimeOfDay; has
           <path d="M 18,92 L 62,44 L 98,78 L 122,56 L 148,92 Z" fill="#86EFAC" stroke="#141414" strokeWidth={2.4} />
           <circle cx={122} cy={34} r={12} fill="#FDE047" stroke="#141414" strokeWidth={2.2} />
         </g>
-        <g id="living-room-sofa" transform={`translate(${sofaX}, ${hasPetDog ? 592 : 565})`}>
+        <g id="living-room-sofa" transform={`translate(${sofaX}, ${sofaY})`}>
           <ellipse cx={260} cy={227} rx={275} ry={12} fill="#0F172A" opacity={0.12} stroke="none" />
           <rect x={28} y={204} width={16} height={22} rx={3} fill="#78350F" />
           <rect x={476} y={204} width={16} height={22} rx={3} fill="#78350F" />
@@ -1321,7 +1326,8 @@ const CityLivingRoomBackdrop: React.FC<{
   timeOfDay: AutoTimeOfDay;
   frame: number;
   hasPetDog?: boolean;
-}> = ({ timeOfDay, frame, hasPetDog = false }) => {
+  openFloorOutro?: boolean;
+}> = ({ timeOfDay, frame, hasPetDog = false, openFloorOutro = false }) => {
   const isNight = timeOfDay === "NIGHT";
   const isSunset = timeOfDay === "SUNSET";
   const cloudX = ((40 + frame * 0.16) % 360) - 20;
@@ -1358,7 +1364,7 @@ const CityLivingRoomBackdrop: React.FC<{
         <circle cx={0} cy={0} r={4} fill="#141414" stroke="none" />
       </g>
 
-      <CityLivingRoomStaticFurniture timeOfDay={timeOfDay} hasPetDog={hasPetDog} />
+      <CityLivingRoomStaticFurniture timeOfDay={timeOfDay} hasPetDog={hasPetDog} openFloorOutro={openFloorOutro} />
 
       <g id="living-room-plant" transform="translate(1735, 792)">
         <ellipse cx={0} cy={4} rx={48} ry={10} fill="#0F172A" opacity={0.12} stroke="none" />
@@ -3382,10 +3388,16 @@ export const UniversalAutoStage: React.FC<{
     effectiveStageType === "CITY_LIVING_ROOM" &&
       spec.livingRoomDetail &&
       spec.livingRoomDetail !== "NONE" &&
+      spec.livingRoomDetail !== "OUTRO_OPEN_FLOOR" &&
       !isLivingRoomCatMode
   );
   const freezeLivingRoomCat = Boolean(
     isHostExplain && spec.freezeStage === "CITY_LIVING_ROOM" && spec.labBoard === "CAT_RIGHTING_PHYSICS"
+  );
+  const freezeLivingRoomDog = Boolean(
+    isHostExplain &&
+      spec.freezeStage === "CITY_LIVING_ROOM" &&
+      (spec.labBoard === "MIRROR_NEURONS_YAWN" || !spec.labBoard)
   );
   const hasLivingRoomDog = isLivingRoomDogMode;
   const hasLivingRoomPet = isLivingRoomDogMode || isLivingRoomCatMode;
@@ -3433,7 +3445,8 @@ export const UniversalAutoStage: React.FC<{
           <CityLivingRoomBackdrop
             timeOfDay={spec.timeOfDay}
             frame={stageRenderFrame}
-            hasPetDog={hasLivingRoomPet || (isHostExplain && spec.freezeStage === "CITY_LIVING_ROOM")}
+            hasPetDog={hasLivingRoomPet || freezeLivingRoomDog || freezeLivingRoomCat}
+            openFloorOutro={spec.livingRoomDetail === "OUTRO_OPEN_FLOOR"}
           />
         )}
         {effectiveStageType === "CITY_STREET_PARK" && (
@@ -3532,8 +3545,7 @@ export const UniversalAutoStage: React.FC<{
           )}
 
         {/* 1.3. Chú chó cưng / mèo cưng 2D trong CITY_LIVING_ROOM (tự đóng băng đúng loài khi HOST_EXPLAIN_OVERLAY) */}
-        {(hasLivingRoomDog ||
-          (isHostExplain && spec.freezeStage === "CITY_LIVING_ROOM" && !freezeLivingRoomCat)) && (
+        {(hasLivingRoomDog || freezeLivingRoomDog) && (
           <LivingRoomPetDog
             mode={hasLivingRoomDog ? spec.livingRoomDetail! : "DOG_REST"}
             frame={stageRenderFrame}
@@ -3555,6 +3567,21 @@ export const UniversalAutoStage: React.FC<{
               frame={stageRenderFrame}
               localFrame={isHostExplain ? (spec.freezeFrame ?? 90) : localFrame}
               durationFrames={durationFrames}
+            />
+          )}
+
+        {/* 1.3C. V23.5: Rạn san hô, chú bạch tuộc Tuộc & chú cá mập hiền cho OCEAN_UNDERWATER */}
+        {effectiveStageType === "OCEAN_UNDERWATER" &&
+          ((spec.oceanDetail && spec.oceanDetail !== "NONE") ||
+            (isHostExplain && spec.labBoard === "OCTOPUS_INVISIBLE_CAMO")) && (
+            <OceanUnderwaterStoryKit
+              mode={spec.oceanDetail && spec.oceanDetail !== "NONE" ? spec.oceanDetail : "OCTO_ROCK_CAMO"}
+              frame={stageRenderFrame}
+              localFrame={isHostExplain ? (spec.freezeFrame ?? 90) : localFrame}
+              durationFrames={durationFrames}
+              bubble={spec.oceanBubble}
+              speaker={spec.oceanSpeaker}
+              isHostExplain={isHostExplain}
             />
           )}
 

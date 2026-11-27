@@ -208,6 +208,26 @@ import {
   CatQuickQuizVisual,
   CatSummary3CardsVisual,
 } from './catRightingVisualsPart2';
+import {
+  OctoSpeedVsChameleonVisual,
+  OctoSkinPixelsVisual,
+  Octo3SkinLayersVisual,
+  Octo3dPapillaeVisual,
+  OctoBrainToSkinVisual,
+  OctoHumanVsEyeVisual,
+  OctoWPupilPrismVisual,
+  OctoSkinEyesVisual,
+} from './octopusCamoVisualsPart1';
+import {
+  OctoPolarizedLightVisual,
+  OctoDreamingSleepVisual,
+  OctoCommunicationMoodVisual,
+  OctoMimicMasterVisual,
+  OctoEnergyCostVisual,
+  OctoHumanTechVisual,
+  OctoQuickQuizVisual,
+  OctoSummary3CardsVisual,
+} from './octopusCamoVisualsPart2';
 
 export type EpisodeVisualProps = {
   progress: number;
@@ -407,4 +427,22 @@ export const EPISODE_VISUAL_REGISTRY: Record<string, React.FC<EpisodeVisualProps
   CAT_OTHER_ANIMALS_NASA: CatOtherAnimalsNasaVisual,
   CAT_QUICK_QUIZ: CatQuickQuizVisual,
   CAT_SUMMARY_3_CARDS: CatSummary3CardsVisual,
+
+  // Episode 10: Làm Sao Bạch Tuộc Đổi Màu Tàng Hình Trong Chưa Đầy 1 Giây — Dù Nó Bị Mù Màu? (V23.5)
+  OCTO_SPEED_VS_CHAMELEON: OctoSpeedVsChameleonVisual,
+  OCTO_SKIN_PIXELS: OctoSkinPixelsVisual,
+  OCTO_3_SKIN_LAYERS: Octo3SkinLayersVisual,
+  OCTO_3D_PAPILLAE: Octo3dPapillaeVisual,
+  OCTO_BRAIN_TO_SKIN: OctoBrainToSkinVisual,
+  OCTO_HUMAN_VS_EYE: OctoHumanVsEyeVisual,
+  OCTO_W_PUPIL_PRISM: OctoWPupilPrismVisual,
+  OCTO_SKIN_EYES: OctoSkinEyesVisual,
+  OCTO_POLARIZED_LIGHT: OctoPolarizedLightVisual,
+  OCTO_DREAMING_SLEEP: OctoDreamingSleepVisual,
+  OCTO_COMMUNICATION_MOOD: OctoCommunicationMoodVisual,
+  OCTO_MIMIC_MASTER: OctoMimicMasterVisual,
+  OCTO_ENERGY_COST: OctoEnergyCostVisual,
+  OCTO_HUMAN_TECH: OctoHumanTechVisual,
+  OCTO_QUICK_QUIZ: OctoQuickQuizVisual,
+  OCTO_SUMMARY_3_CARDS: OctoSummary3CardsVisual,
 };

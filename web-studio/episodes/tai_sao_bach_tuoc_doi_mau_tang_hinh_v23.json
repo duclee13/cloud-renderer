@@ -1,0 +1,2324 @@
+{
+  "title": "Làm Sao Bạch Tuộc Đổi Màu Tàng Hình Trong Chưa Đầy 1 Giây — Dù Nó Bị Mù Màu?",
+  "slug": "tai_sao_bach_tuoc_doi_mau_tang_hinh_v23",
+  "topic": "Tập 10 — Màn hình da 3 lớp, điêu khắc nhú da 3D, đồng tử chữ U tán sắc ánh sáng & da cảm biến của bạch tuộc",
+  "labBoard": "OCTOPUS_INVISIBLE_CAMO",
+  "boardTheme": "NATURE_FIELD_BOARD",
+  "sfxEnabled": true,
+  "beats": [
+    {
+      "id": "b01",
+      "actTitle": "HỒI 1: MÀN BIẾN MẤT TRONG CHỚP MẮT DƯỚI ĐÁY BIỂN",
+      "chapterBanner": "Hồi 1: Màn Biến Mất Trong Chớp Mắt Dưới Đáy Biển",
+      "text": "Dưới rạn san hô sáng trong, một chú bạch tuộc màu cam rực rỡ đang thong thả bò qua bãi cát để tìm bữa trưa.",
+      "ttsText": "Dưới rạn san hô sáng trong, một chú bạch tuộc màu cam rực rỡ đang thong thả bò qua bãi cát để tìm bữa trưa.",
+      "stageType": "OCEAN_UNDERWATER",
+      "oceanDetail": "OCTO_CRAWL_REEF",
+      "oceanBubble": "Hôm nay nước biển trong quá, đi kiếm cua thôi!",
+      "oceanSpeaker": "OCTOPUS",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "HOOK_INTRIGUE",
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b02",
+      "text": "Bỗng một bóng cá mập to lớn lướt tới gần, tưởng chừng chú bạch tuộc mềm yếu kia không còn đường nào chạy thoát.",
+      "ttsText": "Bỗng một bóng cá mập to lớn lướt tới gần, tưởng chừng chú bạch tuộc mềm yếu kia không còn đường nào chạy thoát.",
+      "stageType": "OCEAN_UNDERWATER",
+      "oceanDetail": "OCTO_SHARK_ARRIVE",
+      "oceanBubble": "Ối, có kẻ săn mồi bơi lại gần rồi!",
+      "oceanSpeaker": "OCTOPUS",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "voiceTone": "HOOK_INTRIGUE",
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b03",
+      "text": "Nhưng chỉ trong chưa đầy nửa giây, lớp da cam rực bỗng hóa xám xù xì giống hệt hòn đá khiến kẻ săn mồi bơi thẳng qua luôn.",
+      "ttsText": "Nhưng chỉ trong chưa đầy nửa giây, lớp da cam rực bỗng hóa xám xù xì giống hệt hòn đá khiến kẻ săn mồi bơi thẳng qua luôn.",
+      "stageType": "OCEAN_UNDERWATER",
+      "oceanDetail": "OCTO_ROCK_CAMO",
+      "oceanBubble": "Ủa, con bạch tuộc cam vừa ở đây đâu rồi?",
+      "oceanSpeaker": "SHARK",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b04",
+      "text": "Khoan dừng lại một chút nhé, bạch tuộc không chỉ đổi màu nhanh hơn cả một cái chớp mắt mà còn biến da mình thành bề mặt sần sùi.",
+      "ttsText": "Khoan dừng lại một chút nhé, bạch tuộc không chỉ đổi màu nhanh hơn cả một cái chớp mắt mà còn biến da mình thành bề mặt sần sùi.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "OCEAN_UNDERWATER",
+      "freezeFrame": 90,
+      "oceanDetail": "OCTO_ROCK_CAMO",
+      "labBoard": "OCTOPUS_INVISIBLE_CAMO",
+      "boardTheme": "NATURE_FIELD_BOARD",
+      "natureBoardTitle": "SỔ TAY THIÊN NHIÊN • BÍ MẬT TÀNG HÌNH CỦA BẠCH TUỘC",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 6,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "SURPRISED",
+          "handProp": "POINTER",
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "SURPRISED",
+              "handProp": "POINTER"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "SURPRISED",
+              "handProp": "POINTER"
+            }
+          ],
+          "appearance": {
+            "scale": 1.28
+          },
+          "lookAtCamera": true,
+          "bubble": "Khoan đã, nó biến mất nhanh hơn cái chớp mắt!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b05",
+      "text": "Nhưng điều làm các nhà khoa học kinh ngạc nhất là thế này: mắt bạch tuộc gần như bị mù màu, vậy làm sao nó bắt chước chuẩn đến thế?",
+      "ttsText": "Nhưng điều làm các nhà khoa học kinh ngạc nhất là thế này: mắt bạch tuộc gần như bị mù màu, vậy làm sao nó bắt chước chuẩn đến thế?",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "OCEAN_UNDERWATER",
+      "freezeFrame": 90,
+      "oceanDetail": "OCTO_ROCK_CAMO",
+      "labBoard": "OCTOPUS_INVISIBLE_CAMO",
+      "boardTheme": "NATURE_FIELD_BOARD",
+      "natureBoardTitle": "SỔ TAY THIÊN NHIÊN • BÍ MẬT TÀNG HÌNH CỦA BẠCH TUỘC",
+      "hostBoardHighlight": "OCTO_COLORBLIND_PARADOX",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "THINKING",
+          "handProp": "NONE",
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            }
+          ],
+          "appearance": {
+            "scale": 1.28
+          },
+          "lookAtCamera": true,
+          "bubble": "Nghịch lý cực lớn: bạch tuộc bị mù màu!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b06",
+      "text": "Nhiều người hay nghĩ tắc kè hoa là bậc thầy đổi màu số một, nhưng so về tốc độ thì tắc kè hoa còn thua bạch tuộc rất xa.",
+      "ttsText": "Nhiều người hay nghĩ tắc kè hoa là bậc thầy đổi màu số một, nhưng so về tốc độ thì tắc kè hoa còn thua bạch tuộc rất xa.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 6,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "OCTO_SPEED_VS_CHAMELEON",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b07",
+      "text": "Trong khi tắc kè cần vài chục giây nhờ hoóc môn, bạch tuộc chỉ mất hai trăm mi li giây nhờ dây thần kinh nối thẳng tới da.",
+      "ttsText": "Trong khi tắc kè cần vài chục giây nhờ hoóc môn, bạch tuộc chỉ mất hai trăm mi li giây nhờ dây thần kinh nối thẳng tới da.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "OCTO_SPEED_VS_CHAMELEON",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b08",
+      "text": "Nếu phóng đại da bạch tuộc dưới kính hiển vi, bạn sẽ thấy nó hệt một chiếc màn hình ti vi sống với hàng triệu điểm ảnh nhỏ xíu.",
+      "ttsText": "Nếu phóng đại da bạch tuộc dưới kính hiển vi, bạn sẽ thấy nó hệt một chiếc màn hình ti vi sống với hàng triệu điểm ảnh nhỏ xíu.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "OCTO_SKIN_PIXELS",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b09",
+      "text": "Mỗi điểm ảnh là một túi sắc tố chứa hạt vàng, đỏ hoặc nâu, được bao quanh bởi các sợi cơ nhỏ nối thẳng tới não.",
+      "ttsText": "Mỗi điểm ảnh là một túi sắc tố chứa hạt vàng, đỏ hoặc nâu, được bao quanh bởi các sợi cơ nhỏ nối thẳng tới não.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "OCTO_SKIN_PIXELS",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b10",
+      "text": "Khoan đã, nếu các túi sắc tố chỉ có màu vàng, đỏ và nâu, vậy bạch tuộc lấy đâu ra màu xanh dương hay xanh ngọc lấp lánh dưới biển?",
+      "ttsText": "Khoan đã, nếu các túi sắc tố chỉ có màu vàng, đỏ và nâu, vậy bạch tuộc lấy đâu ra màu xanh dương hay xanh ngọc lấp lánh dưới biển?",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "OCEAN_UNDERWATER",
+      "freezeFrame": 90,
+      "oceanDetail": "OCTO_ROCK_CAMO",
+      "labBoard": "OCTOPUS_INVISIBLE_CAMO",
+      "boardTheme": "NATURE_FIELD_BOARD",
+      "natureBoardTitle": "SỔ TAY THIÊN NHIÊN • BÍ MẬT TÀNG HÌNH CỦA BẠCH TUỘC",
+      "hostBoardHighlight": "LEFT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 6,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "THINKING",
+          "handProp": "POINTER",
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "THINKING",
+              "handProp": "POINTER"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "THINKING",
+              "handProp": "POINTER"
+            }
+          ],
+          "appearance": {
+            "scale": 1.28
+          },
+          "lookAtCamera": true,
+          "bubble": "Chỉ có vàng đỏ nâu thì lấy đâu màu xanh?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b11",
+      "actTitle": "HỒI 2: MÀN HÌNH DA 3 LỚP & NGHỆ THUẬT ĐIÊU KHẮC 3D",
+      "text": "Câu trả lời nằm ở cấu trúc ba tầng cực tinh vi dưới da bạch tuộc, phối hợp nhịp nhàng như xưởng pha màu tự nhiên hiện đại.",
+      "ttsText": "Câu trả lời nằm ở cấu trúc ba tầng cực tinh vi dưới da bạch tuộc, phối hợp nhịp nhàng như xưởng pha màu tự nhiên hiện đại.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 6,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "OCTO_3_SKIN_LAYERS",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b12",
+      "text": "Tầng giữa chứa tế bào phản quang tạo ánh xanh lam và lục lấp lánh, còn tầng đáy là tấm gương trắng phản chiếu đúng màu ánh sáng xung quanh.",
+      "ttsText": "Tầng giữa chứa tế bào phản quang tạo ánh xanh lam và lục lấp lánh, còn tầng đáy là tấm gương trắng phản chiếu đúng màu ánh sáng xung quanh.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "OCTO_3_SKIN_LAYERS",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b13",
+      "text": "Nhưng chỉ đổi màu phẳng lì thì cá mập tinh mắt vẫn nhận ra, nên bạch tuộc còn có tuyệt chiêu biến hình ở không gian ba chiều.",
+      "ttsText": "Nhưng chỉ đổi màu phẳng lì thì cá mập tinh mắt vẫn nhận ra, nên bạch tuộc còn có tuyệt chiêu biến hình ở không gian ba chiều.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "OCTO_3D_PAPILLAE",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b14",
+      "text": "Dưới da nó có hàng nghìn nhú cơ bắp tự phồng lên thành gai nhọn hay gờ đá sần sùi hệt rạn san hô chỉ sau vài giây.",
+      "ttsText": "Dưới da nó có hàng nghìn nhú cơ bắp tự phồng lên thành gai nhọn hay gờ đá sần sùi hệt rạn san hô chỉ sau vài giây.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "OCTO_3D_PAPILLAE",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b15",
+      "text": "Đặc biệt hơn, hai phần ba tế bào thần kinh nằm dọc tám xúc tu, giúp từng vùng da phản ứng cực nhanh mà không cần chờ lâu.",
+      "ttsText": "Đặc biệt hơn, hai phần ba tế bào thần kinh nằm dọc tám xúc tu, giúp từng vùng da phản ứng cực nhanh mà không cần chờ lâu.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "OCTO_BRAIN_TO_SKIN",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b16",
+      "text": "Nhờ mạng lưới thần kinh dày đặc ấy, một nửa thân bạch tuộc có thể giả màu cát mịn trong khi nửa kia đang giả tảng đá phủ rêu xanh.",
+      "ttsText": "Nhờ mạng lưới thần kinh dày đặc ấy, một nửa thân bạch tuộc có thể giả màu cát mịn trong khi nửa kia đang giả tảng đá phủ rêu xanh.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "OCTO_BRAIN_TO_SKIN",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b17",
+      "text": "Tới đây mới là câu đố khó nhất đại dương: mắt bạch tuộc không có tế bào phân biệt màu như người, sao nó phối màu chuẩn vậy?",
+      "ttsText": "Tới đây mới là câu đố khó nhất đại dương: mắt bạch tuộc không có tế bào phân biệt màu như người, sao nó phối màu chuẩn vậy?",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "OCEAN_UNDERWATER",
+      "freezeFrame": 90,
+      "oceanDetail": "OCTO_ROCK_CAMO",
+      "labBoard": "OCTOPUS_INVISIBLE_CAMO",
+      "boardTheme": "NATURE_FIELD_BOARD",
+      "natureBoardTitle": "SỔ TAY THIÊN NHIÊN • BÍ MẬT TÀNG HÌNH CỦA BẠCH TUỘC",
+      "hostBoardHighlight": "RIGHT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 6,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "THINKING",
+          "handProp": "POINTER",
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "THINKING",
+              "handProp": "POINTER"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "THINKING",
+              "handProp": "POINTER"
+            }
+          ],
+          "appearance": {
+            "scale": 1.28
+          },
+          "lookAtCamera": true,
+          "bubble": "Bị mù màu sao nó chọn đúng màu nhỉ?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b18",
+      "text": "Đôi mắt người nhìn được cầu vồng rực rỡ là nhờ có ba loại tế bào cảm nhận ba màu cơ bản gồm đỏ, xanh lá và xanh dương.",
+      "ttsText": "Đôi mắt người nhìn được cầu vồng rực rỡ là nhờ có ba loại tế bào cảm nhận ba màu cơ bản gồm đỏ, xanh lá và xanh dương.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 6,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "OCTO_HUMAN_VS_EYE",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b19",
+      "text": "Ngược lại, võng mạc hầu hết loài bạch tuộc chỉ có một loại cảm biến ánh sáng, tức là theo lý thuyết chúng chỉ thấy đen trắng.",
+      "ttsText": "Ngược lại, võng mạc hầu hết loài bạch tuộc chỉ có một loại cảm biến ánh sáng, tức là theo lý thuyết chúng chỉ thấy đen trắng.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "OCTO_HUMAN_VS_EYE",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b20",
+      "text": "Bí ẩn hàng chục năm ấy được giải mã bất ngờ vào năm hai nghìn không trăm mười sáu, nhờ hình dáng đồng tử kỳ dị của nó.",
+      "ttsText": "Bí ẩn hàng chục năm ấy được giải mã bất ngờ vào năm hai nghìn không trăm mười sáu, nhờ hình dáng đồng tử kỳ dị của nó.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "OCTO_W_PUPIL_PRISM",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b21",
+      "text": "Ở mắt người hay máy ảnh, ánh sáng các màu hội tụ lệch nhau gây nhòe ảnh là lỗi quang học cần phải loại bỏ càng nhiều càng tốt.",
+      "ttsText": "Ở mắt người hay máy ảnh, ánh sáng các màu hội tụ lệch nhau gây nhòe ảnh là lỗi quang học cần phải loại bỏ càng nhiều càng tốt.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "OCTO_W_PUPIL_PRISM",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b22",
+      "text": "Nhưng đồng tử chữ U rộng của bạch tuộc lại cố tình phóng đại tán sắc đó, chỉ cần chỉnh tiêu cự là nó đoán ra màu ngay.",
+      "ttsText": "Nhưng đồng tử chữ U rộng của bạch tuộc lại cố tình phóng đại tán sắc đó, chỉ cần chỉnh tiêu cự là nó đoán ra màu ngay.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "OCTO_W_PUPIL_PRISM",
+      "visualStep": 2,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b23",
+      "actTitle": "HỒI 3: LÀN DA BIẾT NHÌN ÁNH SÁNG & CÂU CHUYỆN PHÒNG KHÁCH",
+      "text": "Chưa hết đâu nhé, các nhà sinh vật học còn phát hiện bí mật khó tin khác: chính làn da bạch tuộc cũng có thể cảm nhận ánh sáng.",
+      "ttsText": "Chưa hết đâu nhé, các nhà sinh vật học còn phát hiện bí mật khó tin khác: chính làn da bạch tuộc cũng có thể cảm nhận ánh sáng.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "OCTO_SKIN_EYES",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b24",
+      "text": "Trong phòng thí nghiệm, ngay cả mảng da bạch tuộc tách rời khỏi mắt và não vẫn tự giãn túi sắc tố khi có ánh sáng chiếu vào.",
+      "ttsText": "Trong phòng thí nghiệm, ngay cả mảng da bạch tuộc tách rời khỏi mắt và não vẫn tự giãn túi sắc tố khi có ánh sáng chiếu vào.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "OCTO_SKIN_EYES",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b25",
+      "text": "Ngoài ra, đôi mắt bạch tuộc còn nhìn thấy ánh sáng phân cực mà mắt người hoàn toàn mù tịt, giúp nó phát hiện con mồi trong suốt dưới nước.",
+      "ttsText": "Ngoài ra, đôi mắt bạch tuộc còn nhìn thấy ánh sáng phân cực mà mắt người hoàn toàn mù tịt, giúp nó phát hiện con mồi trong suốt dưới nước.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "OCTO_POLARIZED_LIGHT",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b26",
+      "text": "Thậm chí dây thần kinh thị giác của bạch tuộc xếp phía sau võng mạc nên mắt nó không hề có điểm mù như mắt con người.",
+      "ttsText": "Thậm chí dây thần kinh thị giác của bạch tuộc xếp phía sau võng mạc nên mắt nó không hề có điểm mù như mắt con người.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "OCTO_POLARIZED_LIGHT",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b27",
+      "text": "Quay lại rạn san hô, khi bóng cá mập khuất dạng, chú bạch tuộc lập tức trả lại màu cam rực rỡ rồi tiếp tục hành trình kiếm ăn.",
+      "ttsText": "Quay lại rạn san hô, khi bóng cá mập khuất dạng, chú bạch tuộc lập tức trả lại màu cam rực rỡ rồi tiếp tục hành trình kiếm ăn.",
+      "stageType": "OCEAN_UNDERWATER",
+      "oceanDetail": "OCTO_PROUD_RETURN",
+      "oceanBubble": "Thoát rồi, màn ngụy trang hôm nay đỉnh quá!",
+      "oceanSpeaker": "OCTOPUS",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 6,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "sfxCue": "whoosh_out",
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b28",
+      "text": "Tối hôm đó ngồi xem phim tài liệu đại dương cùng bố ở phòng khách, tôi trầm trồ mãi trước pha biến hình đỉnh cao của loài bạch tuộc.",
+      "ttsText": "Tối hôm đó ngồi xem phim tài liệu đại dương cùng bố ở phòng khách, tôi trầm trồ mãi trước pha biến hình đỉnh cao của loài bạch tuộc.",
+      "stageType": "CITY_LIVING_ROOM",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 6,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "SURPRISED",
+          "handProp": "NONE",
+          "groundY": 793,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 775,
+              "endX": 775,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 775,
+              "endX": 775,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "SURPRISED",
+              "handProp": "NONE"
+            }
+          ],
+          "seated": true,
+          "bubble": "Bố ơi, con bạch tuộc vừa biến thành san hô!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 1,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#0284C7",
+            "glasses": "RECT",
+            "mustache": true
+          },
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 793,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1005,
+              "endX": 1005,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1005,
+              "endX": 1005,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "seated": true
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 940,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b29",
+      "text": "Bố tôi bật cười đố thêm một chi tiết bất ngờ: bạch tuộc không chỉ đổi màu để trốn kẻ thù mà còn đổi màu ngay lúc đang ngủ.",
+      "ttsText": "Bố tôi bật cười đố thêm một chi tiết bất ngờ: bạch tuộc không chỉ đổi màu để trốn kẻ thù mà còn đổi màu ngay lúc đang ngủ.",
+      "stageType": "CITY_LIVING_ROOM",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "THINKING",
+          "handProp": "NONE",
+          "groundY": 793,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 775,
+              "endX": 775,
+              "facing": "RIGHT",
+              "pose": "SCRATCH_HEAD",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 775,
+              "endX": 775,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "THINKING",
+              "handProp": "NONE"
+            }
+          ],
+          "seated": true
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 1,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#0284C7",
+            "glasses": "RECT",
+            "mustache": true
+          },
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 793,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1005,
+              "endX": 1005,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1005,
+              "endX": 1005,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "seated": true,
+          "bubble": "Con có biết bạch tuộc đổi màu khi ngủ không?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 940,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b30",
+      "text": "Đúng vậy đấy, ngoài ngụy trang tàng hình, làn da bạch tuộc còn là bảng đèn báo cảm xúc và thậm chí chớp màu liên tục trong giấc ngủ.",
+      "ttsText": "Đúng vậy đấy, ngoài ngụy trang tàng hình, làn da bạch tuộc còn là bảng đèn báo cảm xúc và thậm chí chớp màu liên tục trong giấc ngủ.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "CITY_LIVING_ROOM",
+      "freezeFrame": 90,
+      "labBoard": "OCTOPUS_INVISIBLE_CAMO",
+      "boardTheme": "NATURE_FIELD_BOARD",
+      "natureBoardTitle": "SỔ TAY THIÊN NHIÊN • BÍ MẬT TÀNG HÌNH CỦA BẠCH TUỘC",
+      "hostBoardHighlight": "OCTO_DREAM_CLOUD",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 6,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "POINTER",
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "POINTER"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "POINTER"
+            }
+          ],
+          "appearance": {
+            "scale": 1.28
+          },
+          "lookAtCamera": true,
+          "bubble": "Đang ngủ mà cũng đổi màu, nó đang mơ à?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b31",
+      "text": "Các nhà khoa học thấy bạch tuộc có hai giai đoạn ngủ giống người: lúc ngủ yên da trắng bệch, còn lúc ngủ động thì màu sắc bùng nổ.",
+      "ttsText": "Các nhà khoa học thấy bạch tuộc có hai giai đoạn ngủ giống người: lúc ngủ yên da trắng bệch, còn lúc ngủ động thì màu sắc bùng nổ.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 6,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "OCTO_DREAMING_SLEEP",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b32",
+      "text": "Trong giai đoạn ngủ động chừng một phút, mắt nó đảo nhanh và da đổi màu rực rỡ như đang chiếu lại giấc mơ săn mồi ban ngày.",
+      "ttsText": "Trong giai đoạn ngủ động chừng một phút, mắt nó đảo nhanh và da đổi màu rực rỡ như đang chiếu lại giấc mơ săn mồi ban ngày.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "OCTO_DREAMING_SLEEP",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b33",
+      "text": "Khi còn thức, bạch tuộc dùng màu da làm ngôn ngữ giao tiếp: màu sẫm là hung hăng tranh lãnh thổ, còn màu nhạt là muốn tránh xung đột.",
+      "ttsText": "Khi còn thức, bạch tuộc dùng màu da làm ngôn ngữ giao tiếp: màu sẫm là hung hăng tranh lãnh thổ, còn màu nhạt là muốn tránh xung đột.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "OCTO_COMMUNICATION_MOOD",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b34",
+      "text": "Riêng bạch tuộc đốm xanh cực độc thì ngược lại: lúc gặp nguy hiểm nó bật sáng hàng chục vòng tròn xanh rực để dọa kẻ thù tránh xa.",
+      "ttsText": "Riêng bạch tuộc đốm xanh cực độc thì ngược lại: lúc gặp nguy hiểm nó bật sáng hàng chục vòng tròn xanh rực để dọa kẻ thù tránh xa.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "voiceTone": "TENSE_CLIMAX",
+      "customVisual": "OCTO_COMMUNICATION_MOOD",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "sfxCue": "alert",
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b35",
+      "actTitle": "HỒI 4: BẬC THẦY ĐÓNG GIẢ & ỨNG DỤNG CHO CON NGƯỜI",
+      "text": "Đỉnh cao nhất họ bạch tuộc là bạch tuộc bắt chước, chúng không chỉ đổi màu mà còn uốn tám xúc tu để đóng giả thành sinh vật khác.",
+      "ttsText": "Đỉnh cao nhất họ bạch tuộc là bạch tuộc bắt chước, chúng không chỉ đổi màu mà còn uốn tám xúc tu để đóng giả thành sinh vật khác.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "OCTO_MIMIC_MASTER",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b36",
+      "text": "Tùy kẻ thù trước mặt, nó có thể giả làm cá sư tử gai độc, cá bơn dẹt hay giấu sáu xúc tu để đóng giả rắn biển sọc.",
+      "ttsText": "Tùy kẻ thù trước mặt, nó có thể giả làm cá sư tử gai độc, cá bơn dẹt hay giấu sáu xúc tu để đóng giả rắn biển sọc.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "OCTO_MIMIC_MASTER",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b37",
+      "text": "Nghe toàn siêu năng lực khủng khiếp, nhưng thực ra khả năng tàng hình của bạch tuộc cũng phải đánh đổi bằng cái giá rất đắt về năng lượng.",
+      "ttsText": "Nghe toàn siêu năng lực khủng khiếp, nhưng thực ra khả năng tàng hình của bạch tuộc cũng phải đánh đổi bằng cái giá rất đắt về năng lượng.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "CITY_LIVING_ROOM",
+      "freezeFrame": 90,
+      "labBoard": "OCTOPUS_INVISIBLE_CAMO",
+      "boardTheme": "NATURE_FIELD_BOARD",
+      "natureBoardTitle": "SỔ TAY THIÊN NHIÊN • BÍ MẬT TÀNG HÌNH CỦA BẠCH TUỘC",
+      "hostBoardHighlight": "OCTO_BATTERY_DRAIN",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 6,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "THINKING",
+          "handProp": "POINTER",
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "THINKING",
+              "handProp": "POINTER"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "THINKING",
+              "handProp": "POINTER"
+            }
+          ],
+          "appearance": {
+            "scale": 1.28
+          },
+          "lookAtCamera": true,
+          "bubble": "Làn da siêu đỉnh này có điểm yếu nào không?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b38",
+      "text": "Để giữ hàng triệu túi sắc tố căng mở liên tục, bạch tuộc tốn lượng năng lượng cực lớn, gần ngang toàn bộ năng lượng sống khi nghỉ ngơi.",
+      "ttsText": "Để giữ hàng triệu túi sắc tố căng mở liên tục, bạch tuộc tốn lượng năng lượng cực lớn, gần ngang toàn bộ năng lượng sống khi nghỉ ngơi.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 6,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_TENSE_PULSE",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "OCTO_ENERGY_COST",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b39",
+      "text": "Vì thế lúc ở yên trong hang đá an toàn hay ban đêm ít kẻ săn mồi, bạch tuộc thả lỏng cơ da về màu nhạt để tiết kiệm sức.",
+      "ttsText": "Vì thế lúc ở yên trong hang đá an toàn hay ban đêm ít kẻ săn mồi, bạch tuộc thả lỏng cơ da về màu nhạt để tiết kiệm sức.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "OCTO_ENERGY_COST",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b40",
+      "text": "Lấy cảm hứng từ làn da này, các kỹ sư vật liệu đang chế tạo da nhân tạo có thể tự đổi màu lẫn độ sần theo ánh sáng.",
+      "ttsText": "Lấy cảm hứng từ làn da này, các kỹ sư vật liệu đang chế tạo da nhân tạo có thể tự đổi màu lẫn độ sần theo ánh sáng.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "OCTO_HUMAN_TECH",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b41",
+      "text": "Công nghệ mô phỏng da bạch tuộc hứa hẹn tạo ra rô bốt mềm thám hiểm đại dương và màn hình dẻo siêu tiết kiệm điện năng.",
+      "ttsText": "Công nghệ mô phỏng da bạch tuộc hứa hẹn tạo ra rô bốt mềm thám hiểm đại dương và màn hình dẻo siêu tiết kiệm điện năng.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "OCTO_HUMAN_TECH",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b42",
+      "text": "Quan trọng nhất, những bậc thầy ngụy trang này phụ thuộc vào rạn san hô sạch đẹp, nên giữ sạch biển cũng là bảo vệ nhà của chúng.",
+      "ttsText": "Quan trọng nhất, những bậc thầy ngụy trang này phụ thuộc vào rạn san hô sạch đẹp, nên giữ sạch biển cũng là bảo vệ nhà của chúng.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "OCTO_HUMAN_TECH",
+      "visualStep": 2,
+      "fullScreenVisual": true,
+      "sfxCue": "ding",
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b43",
+      "text": "Quay lại phòng khách, tôi hào hứng kể cho bố nghe chuyện đồng tử chữ U biến lỗi tán sắc ánh sáng thành công cụ đoán màu siêu thông minh.",
+      "ttsText": "Quay lại phòng khách, tôi hào hứng kể cho bố nghe chuyện đồng tử chữ U biến lỗi tán sắc ánh sáng thành công cụ đoán màu siêu thông minh.",
+      "stageType": "CITY_LIVING_ROOM",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 6,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "sfxCue": "whoosh_out",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 793,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 775,
+              "endX": 775,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 775,
+              "endX": 775,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "seated": true,
+          "bubble": "Mắt nó biến lỗi quang học thành siêu phẩm luôn!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 1,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#0284C7",
+            "glasses": "RECT",
+            "mustache": true
+          },
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 793,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1005,
+              "endX": 1005,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1005,
+              "endX": 1005,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "seated": true
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 940,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b44",
+      "text": "Bố tôi gật gù bảo dưới đại dương còn hàng vạn bí ẩn mà con người mới chỉ khám phá được một góc rất nhỏ thôi.",
+      "ttsText": "Bố tôi gật gù bảo dưới đại dương còn hàng vạn bí ẩn mà con người mới chỉ khám phá được một góc rất nhỏ thôi.",
+      "stageType": "CITY_LIVING_ROOM",
+      "timeOfDay": "NIGHT",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 793,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 775,
+              "endX": 775,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 775,
+              "endX": 775,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "seated": true
+        },
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 1,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#0284C7",
+            "glasses": "RECT",
+            "mustache": true
+          },
+          "slot": "CENTER",
+          "facing": "LEFT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 793,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1005,
+              "endX": 1005,
+              "facing": "LEFT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1005,
+              "endX": 1005,
+              "facing": "LEFT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "seated": true,
+          "bubble": "Đại dương đúng là kho tàng khoa học vô tận!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 940,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b45",
+      "text": "Dưới biển xanh, chú bạch tuộc tinh nghịch lại thoắt ẩn thoắt hiện giữa những bụi san hô rực rỡ như một nhà ảo thuật thực thụ của đại dương.",
+      "ttsText": "Dưới biển xanh, chú bạch tuộc tinh nghịch lại thoắt ẩn thoắt hiện giữa những bụi san hô rực rỡ như một nhà ảo thuật thực thụ của đại dương.",
+      "stageType": "OCEAN_UNDERWATER",
+      "oceanDetail": "OCTO_CORAL_MAGIC",
+      "oceanBubble": "Đố bạn tìm ra mình trong rạn san hô này!",
+      "oceanSpeaker": "OCTOPUS",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 6,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b46",
+      "text": "Ngay cả chú cá mập đi ngang qua cũng đành bó tay chịu thua trước tốc độ biến hình nhanh hơn cả chớp mắt của bậc thầy đại dương này.",
+      "ttsText": "Ngay cả chú cá mập đi ngang qua cũng đành bó tay chịu thua trước tốc độ biến hình nhanh hơn cả chớp mắt của bậc thầy đại dương này.",
+      "stageType": "OCEAN_UNDERWATER",
+      "oceanDetail": "OCTO_SHARK_FRIENDLY",
+      "oceanBubble": "Chịu thua cậu luôn, tàng hình nhanh quá trời!",
+      "oceanSpeaker": "SHARK",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b47",
+      "actTitle": "HỒI 5: ĐỐ VUI NHANH & GÓC NHÌN ĐẠI DƯƠNG",
+      "text": "Trước khi chốt lại tập khám phá đại dương hôm nay, hãy thử sức nhanh với một câu hỏi đố vui kiểm tra trí nhớ nhé.",
+      "ttsText": "Trước khi chốt lại tập khám phá đại dương hôm nay, hãy thử sức nhanh với một câu hỏi đố vui kiểm tra trí nhớ nhé.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 6,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "OCTO_QUICK_QUIZ",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b48",
+      "text": "Theo bạn, điều gì giúp bạch tuộc nhận biết màu dù bị mù màu: ngửi mùi biển, đồng tử tán sắc cùng da cảm biến, hay nghe tiếng sóng?",
+      "ttsText": "Theo bạn, điều gì giúp bạch tuộc nhận biết màu dù bị mù màu: ngửi mùi biển, đồng tử tán sắc cùng da cảm biến, hay nghe tiếng sóng?",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_STORY_CALM",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "customVisual": "OCTO_QUICK_QUIZ",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b49",
+      "text": "Đáp án chính xác là đáp án B: đồng tử chữ U tận dụng tán sắc ánh sáng kết hợp thêm các cảm biến ánh sáng ngay trên da.",
+      "ttsText": "Đáp án chính xác là đáp án bê: đồng tử chữ U tận dụng tán sắc ánh sáng kết hợp thêm các cảm biến ánh sáng ngay trên da.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "CALM_STORY",
+      "customVisual": "OCTO_QUICK_QUIZ",
+      "visualStep": 2,
+      "fullScreenVisual": true,
+      "sfxCue": "ding",
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b50",
+      "text": "Nếu bạn chọn đúng đáp án B thì quá đỉnh luôn, bạn đã giải mã được một trong những bí ẩn quang học thú vị nhất của đại dương.",
+      "ttsText": "Nếu bạn chọn đúng đáp án bê thì quá đỉnh luôn, bạn đã giải mã được một trong những bí ẩn quang học thú vị nhất của đại dương.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "OCEAN_UNDERWATER",
+      "freezeFrame": 90,
+      "oceanDetail": "OCTO_CORAL_MAGIC",
+      "labBoard": "OCTOPUS_INVISIBLE_CAMO",
+      "boardTheme": "NATURE_FIELD_BOARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 6,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "CALM_STORY",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 770,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "appearance": {
+            "scale": 1.35
+          },
+          "lookAtCamera": true,
+          "bubble": "Chắc bạn chọn đúng ngay đáp án B rồi nhỉ?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b51",
+      "text": "Thật khó tin khi sinh vật nhỏ dưới đáy biển lại sở hữu chiếc màn hình ba chiều sống động vượt xa nhiều công nghệ hiện đại của con người.",
+      "ttsText": "Thật khó tin khi sinh vật nhỏ dưới đáy biển lại sở hữu chiếc màn hình ba chiều sống động vượt xa nhiều công nghệ hiện đại của con người.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "OCEAN_UNDERWATER",
+      "freezeFrame": 90,
+      "oceanDetail": "OCTO_CORAL_MAGIC",
+      "labBoard": "OCTOPUS_INVISIBLE_CAMO",
+      "boardTheme": "NATURE_FIELD_BOARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "CALM_STORY",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 770,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "appearance": {
+            "scale": 1.35
+          },
+          "lookAtCamera": true,
+          "bubble": "Cơ thể không có màn hình mà đỉnh hơn tivi!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b52",
+      "text": "Giờ thì chúng ta hãy tóm gọn lại ba bí mật khoa học đứng sau siêu năng lực đổi màu tàng hình của bạch tuộc nhé.",
+      "ttsText": "Giờ thì chúng ta hãy tóm gọn lại ba bí mật khoa học đứng sau siêu năng lực đổi màu tàng hình của bạch tuộc nhé.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "OCEAN_UNDERWATER",
+      "freezeFrame": 90,
+      "oceanDetail": "OCTO_CORAL_MAGIC",
+      "labBoard": "OCTOPUS_INVISIBLE_CAMO",
+      "boardTheme": "NATURE_FIELD_BOARD",
+      "natureBoardTitle": "SỔ TAY THIÊN NHIÊN • BÍ MẬT TÀNG HÌNH CỦA BẠCH TUỘC",
+      "hostBoardHighlight": "SUMMARY",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "STEP_BY_STEP_SUSPENSE",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "POINTER",
+          "groundY": 760,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "POINTER"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 330,
+              "endX": 330,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "POINTER"
+            }
+          ],
+          "appearance": {
+            "scale": 1.28
+          },
+          "lookAtCamera": true,
+          "bubble": "Cùng chốt gọn ba bí mật tàng hình hôm nay!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b53",
+      "actTitle": "HỒI 6: TỔNG KẾT 3 Ý & HẸN GẶP LẠI",
+      "text": "Tóm lại ba điều cần nhớ: thứ nhất, da bạch tuộc có ba tầng sắc tố và phản quang giúp đổi màu chỉ trong hai trăm mi li giây.",
+      "ttsText": "Tóm lại ba điều cần nhớ: thứ nhất, da bạch tuộc có ba tầng sắc tố và phản quang giúp đổi màu chỉ trong hai trăm mi li giây.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 6,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "SLOW_EMOTIONAL",
+      "customVisual": "OCTO_SUMMARY_3_CARDS",
+      "visualStep": 0,
+      "fullScreenVisual": true,
+      "sfxCue": "ding",
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b54",
+      "text": "Thứ hai, hàng nghìn nhú da cơ bắp có thể tự phồng gai ba chiều giúp bạch tuộc giả dạng sần sùi giống hệt san hô và đá ngầm.",
+      "ttsText": "Thứ hai, hàng nghìn nhú da cơ bắp có thể tự phồng gai ba chiều giúp bạch tuộc giả dạng sần sùi giống hệt san hô và đá ngầm.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "SLOW_EMOTIONAL",
+      "customVisual": "OCTO_SUMMARY_3_CARDS",
+      "visualStep": 1,
+      "fullScreenVisual": true,
+      "sfxCue": "ding",
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b55",
+      "text": "Thứ ba, dù mắt bị mù màu, đồng tử chữ U tận dụng tán sắc ánh sáng cùng cảm biến trên da vẫn giúp bạch tuộc phối màu chuẩn xác.",
+      "ttsText": "Thứ ba, dù mắt bị mù màu, đồng tử chữ U tận dụng tán sắc ánh sáng cùng cảm biến trên da vẫn giúp bạch tuộc phối màu chuẩn xác.",
+      "stageType": "EXPLAINER_POLKA_DOT",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "SLOW_EMOTIONAL",
+      "customVisual": "OCTO_SUMMARY_3_CARDS",
+      "visualStep": 2,
+      "fullScreenVisual": true,
+      "sfxCue": "ding",
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b56",
+      "text": "Đố vui cuối giờ: nếu một ngày bạn có làn da đổi màu tàng hình như bạch tuộc, bạn sẽ dùng siêu năng lực đó làm gì đầu tiên?",
+      "ttsText": "Đố vui cuối giờ: nếu một ngày bạn có làn da đổi màu tàng hình như bạch tuộc, bạn sẽ dùng siêu năng lực đó làm gì đầu tiên?",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "OCEAN_UNDERWATER",
+      "freezeFrame": 90,
+      "oceanDetail": "OCTO_OUTRO_WAVE",
+      "labBoard": "OCTOPUS_INVISIBLE_CAMO",
+      "boardTheme": "NATURE_FIELD_BOARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 6,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "SLOW_EMOTIONAL",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 770,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "appearance": {
+            "scale": 1.35
+          },
+          "lookAtCamera": true,
+          "bubble": "Nếu được đổi màu, bạn sẽ dùng vào việc gì?",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b57",
+      "text": "Hãy để lại bình luận thật hài hước bên dưới, và bật mí luôn loài động vật kỳ lạ tiếp theo mà bạn muốn tụi mình giải mã nhé.",
+      "ttsText": "Hãy để lại bình luận thật hài hước bên dưới, và bật mí luôn loài động vật kỳ lạ tiếp theo mà bạn muốn tụi mình giải mã nhé.",
+      "stageType": "HOST_EXPLAIN_OVERLAY",
+      "overlayMode": "HOST_EXPLAIN",
+      "freezeStage": "OCEAN_UNDERWATER",
+      "freezeFrame": 90,
+      "oceanDetail": "OCTO_OUTRO_WAVE",
+      "labBoard": "OCTOPUS_INVISIBLE_CAMO",
+      "boardTheme": "NATURE_FIELD_BOARD",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "SLOW_EMOTIONAL",
+      "actors": [
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 770,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 960,
+              "endX": 960,
+              "facing": "RIGHT",
+              "pose": "POINT_FORWARD",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "appearance": {
+            "scale": 1.35
+          },
+          "lookAtCamera": true,
+          "bubble": "Nhớ bình luận bên dưới cho mình biết nhé!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.015,
+        "focusX": 960,
+        "focusY": 520
+      }
+    },
+    {
+      "id": "b58",
+      "text": "Dưới đáy đại dương xanh trong, chú bạch tuộc tinh nghịch gửi lời chào tạm biệt và nhắc chúng ta cùng nhau giữ gìn biển cả thật sạch đẹp.",
+      "ttsText": "Dưới đáy đại dương xanh trong, chú bạch tuộc tinh nghịch gửi lời chào tạm biệt và nhắc chúng ta cùng nhau giữ gìn biển cả thật sạch đẹp.",
+      "stageType": "OCEAN_UNDERWATER",
+      "oceanDetail": "OCTO_OUTRO_WAVE",
+      "oceanBubble": "Tạm biệt mọi người, nhớ giữ sạch đại dương nhé!",
+      "oceanSpeaker": "OCTOPUS",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 6,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "SLOW_EMOTIONAL",
+      "actors": [],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b59",
+      "text": "Cảm ơn bạn đã đồng hành cùng chúng mình trong chuyến lặn biển khám phá bậc thầy ngụy trang của đại dương hôm nay.",
+      "ttsText": "Cảm ơn bạn đã đồng hành cùng chúng mình trong chuyến lặn biển khám phá bậc thầy ngụy trang của đại dương hôm nay.",
+      "stageType": "CITY_LIVING_ROOM",
+      "livingRoomDetail": "OUTRO_OPEN_FLOOR",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CROSSFADE",
+      "transitionFrames": 6,
+      "pauseAfterSec": 0.4,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "SLOW_EMOTIONAL",
+      "actors": [
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 1,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#0284C7",
+            "glasses": "RECT",
+            "mustache": true
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 852,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 775,
+              "endX": 775,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 775,
+              "endX": 775,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "lookAtCamera": true
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "IDLE_TALK",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 852,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1055,
+              "endX": 1055,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1055,
+              "endX": 1055,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "lookAtCamera": true,
+          "bubble": "Cảm ơn bạn đã khám phá đại dương hôm nay!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
+    },
+    {
+      "id": "b60",
+      "text": "Hẹn gặp lại bạn ở tập tiếp theo với một siêu năng lực khó tin nữa của thế giới động vật, nhớ đăng ký kênh để không bỏ lỡ nhé!",
+      "ttsText": "Hẹn gặp lại bạn ở tập tiếp theo với một siêu năng lực khó tin nữa của thế giới động vật, nhớ đăng ký kênh để không bỏ lỡ nhé!",
+      "stageType": "CITY_LIVING_ROOM",
+      "livingRoomDetail": "OUTRO_OPEN_FLOOR",
+      "timeOfDay": "DAY",
+      "weather": "CLEAR",
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
+      "pauseAfterSec": 0.6,
+      "bgmMood": "BGM_WARM_OUTRO",
+      "voiceTone": "SLOW_EMOTIONAL",
+      "actors": [
+        {
+          "preset": "CUSTOM",
+          "appearance": {
+            "scale": 1,
+            "hairStyle": "NEAT_SHORT",
+            "hairColor": "#1E293B",
+            "outfitStyle": "POLO",
+            "outfitColor": "#0284C7",
+            "glasses": "RECT",
+            "mustache": true
+          },
+          "slot": "LEFT",
+          "facing": "RIGHT",
+          "motion": "WAVE",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 852,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 775,
+              "endX": 775,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 775,
+              "endX": 775,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "lookAtCamera": true
+        },
+        {
+          "preset": "BOY",
+          "slot": "CENTER",
+          "facing": "RIGHT",
+          "motion": "WAVE",
+          "expression": "HAPPY",
+          "handProp": "NONE",
+          "groundY": 852,
+          "timeline": [
+            {
+              "fromPct": 0,
+              "toPct": 0.5,
+              "startX": 1055,
+              "endX": 1055,
+              "facing": "RIGHT",
+              "pose": "TALK_GESTURE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            },
+            {
+              "fromPct": 0.5,
+              "toPct": 1,
+              "startX": 1055,
+              "endX": 1055,
+              "facing": "RIGHT",
+              "pose": "NOD_SMILE",
+              "expression": "HAPPY",
+              "handProp": "NONE"
+            }
+          ],
+          "lookAtCamera": true,
+          "bubble": "Hẹn gặp lại bạn ở bí mật thiên nhiên sau!",
+          "bubbleStartPct": 0.08,
+          "bubbleEndPct": 0.94
+        }
+      ],
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
+    }
+  ]
+}

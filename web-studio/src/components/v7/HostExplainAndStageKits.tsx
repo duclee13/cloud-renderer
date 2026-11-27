@@ -1,13 +1,14 @@
 import React from "react";
 import { Easing, interpolate } from "remotion";
 import { GroundShadow } from "../SceneBackdropKit";
-import { CuteCat } from "../AnimalSpriteKit";
+import { CuteCat, CuteOctopus, CuteShark } from "../AnimalSpriteKit";
 import type {
   BalconyDetailId,
   ClassroomDetailId,
   HostBoardHighlightId,
   KitchenDetailId,
   LivingRoomDetailId,
+  OceanDetailId,
 } from "../../lib/v7/episodeJsonSchema";
 
 const INK = "#141414";
@@ -1656,6 +1657,243 @@ const HostCatRightingNatureBoardStaticCore: React.FC<{
 });
 HostCatRightingNatureBoardStaticCore.displayName = "HostCatRightingNatureBoardStaticCore";
 
+const HostOctopusCamoNatureBoardStaticCore: React.FC<{
+  activePanel?: "LEFT" | "CENTER" | "RIGHT";
+  highlight?: HostBoardHighlightId;
+  boardTitle: string;
+}> = React.memo(({ activePanel, highlight, boardTitle }) => {
+  const isLeftActive = activePanel === "LEFT";
+  const isCenterActive = activePanel === "CENTER";
+  const isRightActive = activePanel === "RIGHT";
+
+  const leftBorder = isLeftActive ? "#15803D" : "#86EFAC";
+  const centerBorder = isCenterActive ? "#15803D" : "#FCD34D";
+  const rightBorder = isRightActive ? "#15803D" : "#7DD3FC";
+  const leftW = isLeftActive ? 4.8 : 2.8;
+  const centerW = isCenterActive ? 4.8 : 2.8;
+  const rightW = isRightActive ? 4.8 : 2.8;
+
+  return (
+    <g id="host-board-octopus-camo-static">
+      <GroundShadow cx={1240} cy={654} rx={545} ry={12} />
+
+      {/* Warm Wooden Field-Board Frame (x=680..1800, y=90..640) */}
+      <rect
+        x={680}
+        y={90}
+        width={1120}
+        height={550}
+        rx={24}
+        fill="#FFFBEB"
+        stroke="#B45309"
+        strokeWidth={12}
+      />
+      <rect
+        x={680}
+        y={90}
+        width={1120}
+        height={550}
+        rx={24}
+        fill="none"
+        stroke={INK}
+        strokeWidth={3.2}
+      />
+
+      {/* Top Corner Leaves + Brass Pins */}
+      <g id="octo-nature-board-corner-leaves">
+        <g transform="translate(708, 114)">
+          <path d="M -14,6 C -16,-12 4,-18 18,-8 C 12,10 -4,14 -14,6 Z" fill="#22C55E" stroke="#15803D" strokeWidth={2.2} />
+          <circle cx={0} cy={0} r={5} fill="#F59E0B" stroke={INK} strokeWidth={1.8} />
+        </g>
+        <g transform="translate(1772, 114) scale(-1, 1)">
+          <path d="M -14,6 C -16,-12 4,-18 18,-8 C 12,10 -4,14 -14,6 Z" fill="#22C55E" stroke="#15803D" strokeWidth={2.2} />
+          <circle cx={0} cy={0} r={5} fill="#F59E0B" stroke={INK} strokeWidth={1.8} />
+        </g>
+        <circle cx={708} cy={614} r={5.5} fill="#D97706" stroke={INK} strokeWidth={2} />
+        <circle cx={1772} cy={614} r={5.5} fill="#D97706" stroke={INK} strokeWidth={2} />
+      </g>
+
+      {/* Deep Forest-Green Header Bar (#15803D) */}
+      <rect
+        x={734}
+        y={108}
+        width={1012}
+        height={48}
+        rx={14}
+        fill="#15803D"
+        stroke="#14532D"
+        strokeWidth={2.6}
+      />
+      <text
+        x={1240}
+        y={140}
+        textAnchor="middle"
+        fill="#FFFFFF"
+        fontSize={21}
+        fontWeight={900}
+        fontFamily={FONT}
+      >
+        {boardTitle}
+      </text>
+
+      {/* Ô TRÁI (x=710..1046, y=172..546): 1. Màn hình da 3 lớp */}
+      <g id="octo-board-panel-left" transform="translate(710, 172)">
+        <rect
+          x={0}
+          y={0}
+          width={336}
+          height={374}
+          rx={18}
+          fill={isLeftActive ? "#ECFDF5" : "#FFFFFF"}
+          stroke={leftBorder}
+          strokeWidth={leftW}
+        />
+        <text x={168} y={36} textAnchor="middle" fill="#15803D" fontSize={19} fontWeight={900} fontFamily={FONT}>
+          1. Màn hình da 3 lớp
+        </text>
+
+        {/* 3-Layer Skin Emblem */}
+        <g transform="translate(168, 128)">
+          <circle cx={0} cy={0} r={60} fill="#DCFCE7" stroke="#16A34A" strokeWidth={3} />
+          {/* Layer 1: Chromatophores (yellow/red/brown dots) */}
+          <rect x={-44} y={-32} width={88} height={20} rx={8} fill="#FEF3C7" stroke={INK} strokeWidth={2.4} />
+          <circle cx={-24} cy={-22} r={5.5} fill="#F59E0B" />
+          <circle cx={0} cy={-22} r={6} fill="#EF4444" />
+          <circle cx={24} cy={-22} r={5.5} fill="#92400E" />
+          {/* Layer 2: Iridescent blue/teal reflector */}
+          <rect x={-44} y={-8} width={88} height={20} rx={8} fill="#38BDF8" stroke={INK} strokeWidth={2.4} />
+          <line x1={-30} y1={2} x2={30} y2={2} stroke="#E0F2FE" strokeWidth={3.5} strokeLinecap="round" />
+          {/* Layer 3: White mirror reflector */}
+          <rect x={-44} y={16} width={88} height={20} rx={8} fill="#FFFFFF" stroke={INK} strokeWidth={2.4} />
+        </g>
+
+        <rect x={22} y={216} width={292} height={134} rx={14} fill="#F0FDF4" stroke="#86EFAC" strokeWidth={2.4} />
+        <text x={168} y={252} textAnchor="middle" fill="#14532D" fontSize={16.5} fontWeight={900} fontFamily={FONT}>
+          Túi sắc tố + Phản quang
+        </text>
+        <text x={168} y={286} textAnchor="middle" fill="#334155" fontSize={15.5} fontWeight={700} fontFamily={FONT}>
+          + Gương phản xạ trắng ở đáy
+        </text>
+        <text x={168} y={318} textAnchor="middle" fill="#15803D" fontSize={15.5} fontWeight={800} fontFamily={FONT}>
+          → Đổi màu chỉ ~0,2 giây!
+        </text>
+      </g>
+
+      {/* Ô GIỮA (x=1066..1414, y=172..546): 2. Điêu khắc da 3D */}
+      <g id="octo-board-panel-center" transform="translate(1066, 172)">
+        <rect
+          x={0}
+          y={0}
+          width={348}
+          height={374}
+          rx={18}
+          fill={isCenterActive ? "#FEF3C7" : "#FFFFFF"}
+          stroke={centerBorder}
+          strokeWidth={centerW}
+        />
+        <text x={174} y={36} textAnchor="middle" fill="#B45309" fontSize={19} fontWeight={900} fontFamily={FONT}>
+          2. Điêu khắc da 3D
+        </text>
+
+        {/* 3D Papillae Texture Emblem */}
+        <g transform="translate(174, 128)">
+          <circle cx={0} cy={0} r={60} fill="#FEF9C3" stroke="#D97706" strokeWidth={3} />
+          <path
+            d="M -46,24 L -46,8 Q -32,-26 -18,4 Q -4,-34 10,2 Q 26,-24 40,8 L 46,24 Z"
+            fill="#FB923C"
+            stroke={INK}
+            strokeWidth={3}
+            strokeLinejoin="round"
+          />
+          <path d="M -26,-22 L -26,-36 M -4,-30 L -4,-44 M 22,-18 L 22,-32" stroke="#D97706" strokeWidth={3.2} strokeLinecap="round" />
+        </g>
+
+        <rect x={22} y={216} width={304} height={134} rx={14} fill="#FFFBEB" stroke="#FCD34D" strokeWidth={2.4} />
+        <text x={174} y={252} textAnchor="middle" fill="#92400E" fontSize={16.5} fontWeight={900} fontFamily={FONT}>
+          Hàng nghìn nhú da cơ bắp
+        </text>
+        <text x={174} y={286} textAnchor="middle" fill="#334155" fontSize={15.5} fontWeight={700} fontFamily={FONT}>
+          Tự phồng gai giả san hô &amp; đá sần
+        </text>
+        <text x={174} y={318} textAnchor="middle" fill="#B45309" fontSize={15.5} fontWeight={800} fontFamily={FONT}>
+          → Biến hình cả không gian 3D!
+        </text>
+      </g>
+
+      {/* Ô PHẢI (x=1434..1770, y=172..546): 3. Mắt chữ U & Da cảm biến */}
+      <g id="octo-board-panel-right" transform="translate(1434, 172)">
+        <rect
+          x={0}
+          y={0}
+          width={336}
+          height={374}
+          rx={18}
+          fill={isRightActive ? "#E0F2FE" : "#FFFFFF"}
+          stroke={rightBorder}
+          strokeWidth={rightW}
+        />
+        <text x={168} y={36} textAnchor="middle" fill="#0369A1" fontSize={18} fontWeight={900} fontFamily={FONT}>
+          3. Mắt chữ U &amp; Da cảm biến
+        </text>
+
+        {/* U-Shaped Pupil + Prism Dispersion Emblem */}
+        <g transform="translate(168, 128)">
+          <circle cx={0} cy={0} r={60} fill="#E0F2FE" stroke="#0284C7" strokeWidth={3} />
+          <ellipse cx={0} cy={0} rx={40} ry={30} fill="#FEF3C7" stroke={INK} strokeWidth={3} />
+          {/* Signature U/W-shaped octopus pupil */}
+          <path d="M -22,-8 C -22,18 22,18 22,-8" fill="none" stroke={INK} strokeWidth={11} strokeLinecap="round" />
+          {/* RGB chromatic dispersion dots */}
+          <circle cx={-16} cy={-38} r={5} fill="#EF4444" />
+          <circle cx={0} cy={-42} r={5} fill="#22C55E" />
+          <circle cx={16} cy={-38} r={5} fill="#3B82F6" />
+        </g>
+
+        <rect x={22} y={216} width={292} height={134} rx={14} fill="#F0F9FF" stroke="#7DD3FC" strokeWidth={2.4} />
+        <text x={168} y={252} textAnchor="middle" fill="#0369A1" fontSize={16.5} fontWeight={900} fontFamily={FONT}>
+          Đọc màu nhờ tán sắc ánh sáng
+        </text>
+        <text x={168} y={286} textAnchor="middle" fill="#334155" fontSize={15.5} fontWeight={700} fontFamily={FONT}>
+          Kết hợp phân tử cảm biến trên da
+        </text>
+        <text x={168} y={318} textAnchor="middle" fill="#0284C7" fontSize={15.5} fontWeight={800} fontFamily={FONT}>
+          → Phối màu chuẩn dù bị mù màu!
+        </text>
+      </g>
+
+      {/* Clean Corner Context Stamps (zero overlap with panel text!) */}
+      {highlight === "OCTO_COLORBLIND_PARADOX" && (
+        <g transform="translate(1720, 206)">
+          <rect x={-52} y={-24} width={44} height={48} rx={10} fill="#F8FAFC" stroke={INK} strokeWidth={2.8} />
+          <rect x={-46} y={-18} width={14} height={36} rx={3} fill="#0F172A" />
+          <rect x={-28} y={-18} width={14} height={36} rx={3} fill="#94A3B8" />
+          <circle cx={20} cy={0} r={24} fill="#F59E0B" stroke={INK} strokeWidth={3} />
+          <text x={20} y={9} textAnchor="middle" fill="#FFFFFF" fontSize={28} fontWeight={900} fontFamily={FONT}>
+            ?
+          </text>
+        </g>
+      )}
+      {highlight === "OCTO_DREAM_CLOUD" && (
+        <g transform="translate(1724, 206)">
+          <circle cx={-16} cy={4} r={16} fill="#38BDF8" stroke={INK} strokeWidth={2.6} />
+          <circle cx={4} cy={-4} r={20} fill="#F472B6" stroke={INK} strokeWidth={2.6} />
+          <circle cx={22} cy={4} r={15} fill="#FACC15" stroke={INK} strokeWidth={2.6} />
+          <text x={4} y={6} textAnchor="middle" fill="#FFFFFF" fontSize={16} fontWeight={900} fontFamily={FONT}>
+            zZ
+          </text>
+        </g>
+      )}
+      {highlight === "OCTO_BATTERY_DRAIN" && (
+        <g transform="translate(1724, 206)">
+          <rect x={-32} y={-18} width={54} height={36} rx={8} fill="#FFFFFF" stroke={INK} strokeWidth={3} />
+          <rect x={22} y={-8} width={8} height={16} rx={3} fill={INK} />
+          <rect x={-25} y={-11} width={16} height={22} rx={4} fill="#EF4444" />
+        </g>
+      )}
+    </g>
+  );
+});
+HostOctopusCamoNatureBoardStaticCore.displayName = "HostOctopusCamoNatureBoardStaticCore";
+
 export const HostNatureFieldBoard: React.FC<{
   highlight?: HostBoardHighlightId;
   frame?: number;
@@ -1663,6 +1901,7 @@ export const HostNatureFieldBoard: React.FC<{
   labBoard?: string;
 }> = ({ highlight = "NONE", frame = 0, title, labBoard }) => {
   const isCatBoard = labBoard === "CAT_RIGHTING_PHYSICS";
+  const isOctoBoard = labBoard === "OCTOPUS_INVISIBLE_CAMO";
   const activePanel: "LEFT" | "CENTER" | "RIGHT" | undefined =
     highlight === "LEFT"
       ? "LEFT"
@@ -1676,7 +1915,9 @@ export const HostNatureFieldBoard: React.FC<{
       ? "LEFT_CENTER"
       : activePanel;
 
-  const defaultTitle = isCatBoard
+  const defaultTitle = isOctoBoard
+    ? "SỔ TAY THIÊN NHIÊN • BÍ MẬT TÀNG HÌNH CỦA BẠCH TUỘC"
+    : isCatBoard
     ? "SỔ TAY THIÊN NHIÊN • PHẢN XẠ LẬT NGƯỜI 180° CỦA MÈO"
     : "SỔ TAY THIÊN NHIÊN • KHÁM PHÁ THẾ GIỚI ĐỘNG VẬT & TỰ NHIÊN";
 
@@ -1689,6 +1930,60 @@ export const HostNatureFieldBoard: React.FC<{
   const badgePulse = 0.5 + 0.5 * Math.sin(frame * 0.16);
 
   const renderFooterContent = () => {
+    if (isOctoBoard) {
+      switch (highlight) {
+        case "OCTO_COLORBLIND_PARADOX":
+          return {
+            bg: "#FEF3C7",
+            border: "#D97706",
+            color: "#92400E",
+            text: "Nghịch lý đại dương: Mắt bị mù màu nhưng ngụy trang chuẩn 100%!",
+          };
+        case "LEFT":
+          return {
+            bg: "#ECFDF5",
+            border: "#15803D",
+            color: "#14532D",
+            text: "Màn hình da 3 lớp: Túi sắc tố + Phản quang xanh + Gương trắng!",
+          };
+        case "RIGHT":
+          return {
+            bg: "#E0F2FE",
+            border: "#0284C7",
+            color: "#0369A1",
+            text: "Câu đố lớn nhất: Mắt chữ U & da cảm biến tự giải mã màu sắc!",
+          };
+        case "OCTO_DREAM_CLOUD":
+          return {
+            bg: "#FCE7F3",
+            border: "#DB2777",
+            color: "#9D174D",
+            text: "Làn da còn là bảng cảm xúc & chớp đổi màu rực rỡ ngay lúc đang ngủ!",
+          };
+        case "OCTO_BATTERY_DRAIN":
+          return {
+            bg: "#FEE2E2",
+            border: "#DC2626",
+            color: "#991B1B",
+            text: "Cái giá năng lượng: Duy trì triệu điểm ảnh tiêu tốn cực nhiều pin!",
+          };
+        case "SUMMARY":
+          return {
+            bg: "#DCFCE7",
+            border: "#15803D",
+            color: "#14532D",
+            text: "Chốt gọn 3 bí mật khoa học của bậc thầy tàng hình đại dương!",
+          };
+        default:
+          return {
+            bg: "#E0F2FE",
+            border: "#0284C7",
+            color: "#0369A1",
+            text: "Ghi chép điền dã: Bạch tuộc đổi màu & biến hình 3D trong < 1 giây!",
+          };
+      }
+    }
+
     if (!isCatBoard) {
       return {
         bg: highlight === "SUMMARY" ? "#DCFCE7" : "#FEF3C7",
@@ -1772,7 +2067,13 @@ export const HostNatureFieldBoard: React.FC<{
 
   return (
     <g id="host-explain-nature-field-board-layer">
-      {isCatBoard ? (
+      {isOctoBoard ? (
+        <HostOctopusCamoNatureBoardStaticCore
+          activePanel={activePanel}
+          highlight={highlight}
+          boardTitle={normalizedTitle}
+        />
+      ) : isCatBoard ? (
         <HostCatRightingNatureBoardStaticCore
           activePanel={catActivePanel}
           highlight={highlight}
@@ -2061,6 +2362,446 @@ export const LivingRoomPetCat: React.FC<{
           <path d="M 1192,654 Q 1180,642 1192,630" />
           <path d="M 1298,654 Q 1310,642 1298,630" />
         </g>
+      )}
+    </g>
+  );
+};
+
+/* ============================================================================
+ * 11. OCEAN_UNDERWATER Octopus & Friendly Shark Story Stage Kit (Episode 10 — V23.5)
+ *     - Static reef rock & pink/teal corals wrapped in React.memo (zero frame prop)
+ *     - Uses CuteOctopus & CuteShark from AnimalSpriteKit.tsx (zero body wobble)
+ *     - Beat 3: smooth RGB color morph from coral (#FB923C) to rocky slate-moss (#64748B) + 3D bumps
+ *     - Beat 45: playful morph from pink reef coral back to bright coral-orange
+ *     - Clean auto-wrapping <=10-word speech bubble for [Tuộc nói] & [Cá mập nói]
+ * ========================================================================== */
+
+function blendOctoHex(hexA: string, hexB: string, tRaw: number): string {
+  const t = Math.max(0, Math.min(1, tRaw));
+  const p = (h: string): [number, number, number] => {
+    const c = h.replace("#", "");
+    return [parseInt(c.slice(0, 2), 16), parseInt(c.slice(2, 4), 16), parseInt(c.slice(4, 6), 16)];
+  };
+  const [r1, g1, b1] = p(hexA);
+  const [r2, g2, b2] = p(hexB);
+  const r = Math.round(r1 + (r2 - r1) * t);
+  const g = Math.round(g1 + (g2 - g1) * t);
+  const b = Math.round(b1 + (b2 - b1) * t);
+  return `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
+}
+
+const OceanReefRocksAndCoralsStatic: React.FC = React.memo(() => (
+  <g id="ocean-story-reef-rocks-static" stroke={INK} strokeWidth={3.4} strokeLinejoin="round" strokeLinecap="round">
+    {/* Prominent Textured Reef Rock on Left-Center (x=470..830, ground y=818) where Tuộc camouflages! */}
+    <g transform="translate(650, 818)">
+      <GroundShadow cx={0} cy={10} rx={182} ry={18} />
+      <path
+        d="M -170,4 C -162,-76 -110,-148 -38,-156 C 24,-162 84,-126 126,-84 C 154,-56 172,-22 168,4 Z"
+        fill="#64748B"
+      />
+      <path
+        d="M -126,-16 C -114,-74 -72,-124 -18,-132 C 26,-136 68,-108 100,-72 C 42,-88 -42,-78 -126,-16 Z"
+        fill="#94A3B8"
+        opacity={0.42}
+        stroke="none"
+      />
+      {/* Mossy green reef patches on rock */}
+      <ellipse cx={-72} cy={-86} rx={36} ry={14} fill="#16A34A" opacity={0.55} stroke="none" />
+      <ellipse cx={42} cy={-96} rx={30} ry={12} fill="#15803D" opacity={0.5} stroke="none" />
+      <circle cx={-98} cy={-38} r={10} fill="#475569" stroke="none" opacity={0.6} />
+      <circle cx={68} cy={-44} r={12} fill="#475569" stroke="none" opacity={0.55} />
+    </g>
+
+    {/* Colorful Pink & Teal Coral Clusters on Right-Center & Far-Left */}
+    <g transform="translate(1485, 818)">
+      <GroundShadow cx={0} cy={8} rx={128} ry={14} />
+      {/* Pink Staghorn Coral */}
+      <path
+        d="M -42,0 C -46,-56 -72,-104 -92,-126 C -80,-138 -62,-126 -48,-96 C -42,-132 -22,-162 -4,-160 C 12,-158 14,-124 8,-86 C 32,-118 62,-138 78,-124 C 90,-112 68,-74 44,-46 C 58,-30 62,-14 58,0 Z"
+        fill="#F472B6"
+      />
+      <path d="M -22,-18 C -20,-62 -10,-108 -2,-136" fill="none" stroke="#FBCFE8" strokeWidth={5} />
+      {/* Warm Gold Brain Coral at Base */}
+      <ellipse cx={86} cy={-18} rx={48} ry={34} fill="#FBBF24" />
+      <path d="M 56,-16 Q 72,-32 88,-16 Q 104,-30 116,-16" fill="none" stroke="#D97706" strokeWidth={3.5} />
+    </g>
+
+    {/* Cute Tiny Red Crab peeking safely on far-left sand */}
+    <g transform="translate(360, 814)">
+      <ellipse cx={0} cy={-14} rx={22} ry={14} fill="#EF4444" stroke={INK} strokeWidth={2.8} />
+      <circle cx={-8} cy={-30} r={4.5} fill="#FFFFFF" stroke={INK} strokeWidth={2} />
+      <circle cx={8} cy={-30} r={4.5} fill="#FFFFFF" stroke={INK} strokeWidth={2} />
+      <circle cx={-8} cy={-30} r={2} fill={INK} stroke="none" />
+      <circle cx={8} cy={-30} r={2} fill={INK} stroke="none" />
+    </g>
+  </g>
+));
+OceanReefRocksAndCoralsStatic.displayName = "OceanReefRocksAndCoralsStatic";
+
+const OceanCreatureBubble: React.FC<{
+  cx: number;
+  cy: number;
+  tailX: number;
+  tailY: number;
+  text: string;
+  speakerLabel?: string;
+  localFrame: number;
+  durationFrames: number;
+}> = ({ cx, cy, tailX, tailY, text, speakerLabel, localFrame, durationFrames }) => {
+  const startF = Math.round(durationFrames * 0.08);
+  const endF = Math.round(durationFrames * 0.94);
+  if (localFrame < startF || localFrame > endF) return null;
+
+  const fadeIn = Math.min(1, (localFrame - startF) / 8);
+  const fadeOut = Math.min(1, (endF - localFrame) / 8);
+  const opacity = Math.max(0, Math.min(1, Math.min(fadeIn, fadeOut)));
+
+  const words = text.trim().split(/\s+/);
+  const lines: string[] = [];
+  let cur = "";
+  for (const w of words) {
+    const next = cur ? `${cur} ${w}` : w;
+    if (next.length > 26 && cur) {
+      lines.push(cur);
+      cur = w;
+    } else {
+      cur = next;
+    }
+  }
+  if (cur) lines.push(cur);
+
+  const longest = Math.max(...lines.map((l) => l.length));
+  const boxW = Math.min(500, Math.max(250, longest * 14.5 + 56));
+  const boxH = lines.length > 1 ? 94 : 64;
+  const safeCx = Math.max(boxW / 2 + 40, Math.min(1920 - boxW / 2 - 40, cx));
+  const safeCy = Math.max(135, Math.min(480, cy));
+  const tagText = speakerLabel ? `[${speakerLabel}]` : undefined;
+  const tagW = tagText ? Math.max(118, tagText.length * 10.5 + 24) : 0;
+
+  return (
+    <g id="ocean-creature-speech-bubble" opacity={opacity.toFixed(3)}>
+      {/* Tail pointer */}
+      <polygon
+        points={`${(safeCx - 16).toFixed(1)},${(safeCy + boxH / 2 - 4).toFixed(1)} ${(safeCx + 16).toFixed(1)},${(safeCy + boxH / 2 - 4).toFixed(1)} ${tailX.toFixed(1)},${tailY.toFixed(1)}`}
+        fill="#FFFFFF"
+        stroke={INK}
+        strokeWidth={3.5}
+        strokeLinejoin="round"
+      />
+      <rect
+        x={safeCx - boxW / 2}
+        y={safeCy - boxH / 2}
+        width={boxW}
+        height={boxH}
+        rx={28}
+        fill="#FFFFFF"
+        stroke={INK}
+        strokeWidth={3.8}
+      />
+      {/* Mask tail seam cleanly */}
+      <rect
+        x={safeCx - 20}
+        y={safeCy + boxH / 2 - 8}
+        width={40}
+        height={10}
+        fill="#FFFFFF"
+        stroke="none"
+      />
+      {/* Speaker label pill perched cleanly on top-left corner */}
+      {tagText && (
+        <g transform={`translate(${(safeCx - boxW / 2 + 24).toFixed(1)}, ${(safeCy - boxH / 2 - 14).toFixed(1)})`}>
+          <rect
+            x={0}
+            y={-15}
+            width={tagW}
+            height={30}
+            rx={15}
+            fill={speakerLabel?.includes("Cá mập") ? "#0369A1" : "#EA580C"}
+            stroke={INK}
+            strokeWidth={2.4}
+          />
+          <text
+            x={tagW / 2}
+            y={5}
+            textAnchor="middle"
+            fill="#FFFFFF"
+            stroke="none"
+            fontSize={16}
+            fontWeight={900}
+            fontFamily={FONT}
+          >
+            {tagText}
+          </text>
+        </g>
+      )}
+      {lines.map((line, idx) => (
+        <text
+          key={idx}
+          x={safeCx}
+          y={safeCy + (lines.length === 1 ? 8 : idx === 0 ? -7 : 23)}
+          textAnchor="middle"
+          fill="#0F172A"
+          stroke="none"
+          fontSize={23}
+          fontWeight={800}
+          fontFamily={FONT}
+        >
+          {line}
+        </text>
+      ))}
+    </g>
+  );
+};
+
+export const OceanUnderwaterStoryKit: React.FC<{
+  mode: OceanDetailId;
+  frame: number;
+  localFrame?: number;
+  durationFrames?: number;
+  bubble?: string;
+  speaker?: "OCTOPUS" | "SHARK";
+  isHostExplain?: boolean;
+}> = ({
+  mode,
+  frame,
+  localFrame,
+  durationFrames = 225,
+  bubble,
+  speaker = "OCTOPUS",
+  isHostExplain = false,
+}) => {
+  if (mode === "NONE") return null;
+
+  const activeLocal = localFrame ?? frame;
+  const showBubble = Boolean(!isHostExplain && bubble && bubble.trim().length > 0);
+  const speakerLabel = speaker === "SHARK" ? "Cá mập nói" : "Tuộc nói";
+
+  // Beat 1: CuteOctopus crawls gently across bright sand toward reef rock
+  const crawlT = interpolate(activeLocal, [0, durationFrames], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const beat1OctoX = 760 + crawlT * 110;
+
+  // Beat 2: CuteShark glides smoothly in from right; CuteOctopus pulls beside rock surprised
+  const sharkEnterX = interpolate(activeLocal, [0, 48], [1840, 1340], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.out(Easing.cubic),
+  });
+
+  // Beat 3: Instant <0.5s camouflage morph from bright coral (#FB923C) -> rocky slate-moss (#64748B) + 3D bumps; Shark swims past puzzled!
+  const camoT = interpolate(activeLocal, [4, 26], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.out(Easing.cubic),
+  });
+  const beat3OctoColors = {
+    main: blendOctoHex("#FB923C", "#64748B", camoT),
+    belly: blendOctoHex("#FFEDD5", "#94A3B8", camoT),
+    spot: blendOctoHex("#EA580C", "#16A34A", camoT),
+  };
+  const sharkPassX = interpolate(activeLocal, [10, durationFrames], [1360, 420], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  // Beat 27: Proud unfreeze return from rock camo back to bright coral-orange!
+  const uncamoT = interpolate(activeLocal, [0, 24], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.out(Easing.cubic),
+  });
+  const beat27OctoColors = {
+    main: blendOctoHex("#64748B", "#FB923C", uncamoT),
+    belly: blendOctoHex("#94A3B8", "#FFEDD5", uncamoT),
+    spot: blendOctoHex("#16A34A", "#EA580C", uncamoT),
+  };
+  const farSharkX = interpolate(activeLocal, [0, durationFrames], [1480, 1780], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  // Beat 45: Playful morph from pink coral (#F472B6) back to bright coral-orange (#FB923C)
+  const pinkRevealT = interpolate(activeLocal, [14, 42], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.out(Easing.cubic),
+  });
+  const beat45OctoColors = {
+    main: blendOctoHex("#F472B6", "#FB923C", pinkRevealT),
+    belly: blendOctoHex("#FCE7F3", "#FFEDD5", pinkRevealT),
+    spot: blendOctoHex("#DB2777", "#EA580C", pinkRevealT),
+  };
+
+  // Beat 46 & 58: Friendly smiling shark cruising gently across top water
+  const friendlySharkX = interpolate(activeLocal, [0, durationFrames], [1480, 1180], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  return (
+    <g id={`ocean-story-kit-${mode}`}>
+      <OceanReefRocksAndCoralsStatic />
+
+      {mode === "OCTO_CRAWL_REEF" && (
+        <>
+          <CuteOctopus x={beat1OctoX} y={796} scale={1.18} frame={frame} pose="crawl" emotion="happy" />
+          {showBubble && (
+            <OceanCreatureBubble
+              cx={beat1OctoX}
+              cy={515}
+              tailX={beat1OctoX}
+              tailY={645}
+              text={bubble!}
+              speakerLabel={speakerLabel}
+              localFrame={activeLocal}
+              durationFrames={durationFrames}
+            />
+          )}
+        </>
+      )}
+
+      {mode === "OCTO_SHARK_ARRIVE" && (
+        <>
+          <CuteOctopus x={700} y={794} scale={1.14} frame={frame} pose="crawl" emotion="surprised" />
+          <CuteShark x={sharkEnterX} y={475} scale={1.38} flipX={true} frame={frame} pose="swim" emotion="curious" />
+          {showBubble && (
+            <OceanCreatureBubble
+              cx={690}
+              cy={515}
+              tailX={700}
+              tailY={640}
+              text={bubble!}
+              speakerLabel={speakerLabel}
+              localFrame={activeLocal}
+              durationFrames={durationFrames}
+            />
+          )}
+        </>
+      )}
+
+      {mode === "OCTO_ROCK_CAMO" && (
+        <>
+          {/* Tuộc hugs the reef rock and shifts smoothly into textured gray-moss stone! */}
+          <CuteOctopus
+            x={692}
+            y={782}
+            scale={1.08}
+            frame={frame}
+            pose="crawl"
+            emotion="happy"
+            colorOverride={beat3OctoColors}
+            papillaeBumps={camoT > 0.45}
+          />
+          {/* Puzzled Shark swims right over the disguised octopus */}
+          <CuteShark x={sharkPassX} y={425} scale={1.36} flipX={true} frame={frame} pose="swim" emotion="curious" />
+          {showBubble && (
+            <OceanCreatureBubble
+              cx={Math.max(420, Math.min(1480, sharkPassX))}
+              cy={215}
+              tailX={Math.max(380, Math.min(1520, sharkPassX - 24))}
+              tailY={330}
+              text={bubble!}
+              speakerLabel={speakerLabel}
+              localFrame={activeLocal}
+              durationFrames={durationFrames}
+            />
+          )}
+        </>
+      )}
+
+      {mode === "OCTO_PROUD_RETURN" && (
+        <>
+          <g opacity={0.55}>
+            <CuteShark x={farSharkX} y={320} scale={0.72} flipX={false} frame={frame} pose="swim" emotion="happy" />
+          </g>
+          <CuteOctopus
+            x={940}
+            y={712}
+            scale={1.24}
+            frame={frame}
+            pose="float"
+            emotion="proud"
+            colorOverride={beat27OctoColors}
+          />
+          {showBubble && (
+            <OceanCreatureBubble
+              cx={940}
+              cy={445}
+              tailX={940}
+              tailY={560}
+              text={bubble!}
+              speakerLabel={speakerLabel}
+              localFrame={activeLocal}
+              durationFrames={durationFrames}
+            />
+          )}
+        </>
+      )}
+
+      {mode === "OCTO_CORAL_MAGIC" && (
+        <>
+          <CuteOctopus
+            x={1375}
+            y={776}
+            scale={1.18}
+            frame={frame}
+            pose="wave"
+            emotion="happy"
+            colorOverride={beat45OctoColors}
+          />
+          {showBubble && (
+            <OceanCreatureBubble
+              cx={1320}
+              cy={485}
+              tailX={1370}
+              tailY={618}
+              text={bubble!}
+              speakerLabel={speakerLabel}
+              localFrame={activeLocal}
+              durationFrames={durationFrames}
+            />
+          )}
+        </>
+      )}
+
+      {mode === "OCTO_SHARK_FRIENDLY" && (
+        <>
+          <CuteShark x={friendlySharkX} y={420} scale={1.32} flipX={true} frame={frame} pose="swim" emotion="happy" />
+          <CuteOctopus x={830} y={760} scale={1.2} frame={frame} pose="wave" emotion="happy" />
+          {showBubble && (
+            <OceanCreatureBubble
+              cx={speaker === "SHARK" ? Math.max(520, Math.min(1440, friendlySharkX)) : 830}
+              cy={speaker === "SHARK" ? 215 : 490}
+              tailX={speaker === "SHARK" ? Math.max(480, Math.min(1460, friendlySharkX - 24)) : 830}
+              tailY={speaker === "SHARK" ? 328 : 610}
+              text={bubble!}
+              speakerLabel={speakerLabel}
+              localFrame={activeLocal}
+              durationFrames={durationFrames}
+            />
+          )}
+        </>
+      )}
+
+      {mode === "OCTO_OUTRO_WAVE" && (
+        <>
+          <CuteShark x={1360} y={425} scale={1.18} flipX={true} frame={frame} pose="swim" emotion="happy" />
+          <CuteOctopus x={920} y={740} scale={1.28} frame={frame} pose="wave" emotion="happy" />
+          {showBubble && (
+            <OceanCreatureBubble
+              cx={920}
+              cy={455}
+              tailX={920}
+              tailY={580}
+              text={bubble!}
+              speakerLabel={speakerLabel}
+              localFrame={activeLocal}
+              durationFrames={durationFrames}
+            />
+          )}
+        </>
       )}
     </g>
   );

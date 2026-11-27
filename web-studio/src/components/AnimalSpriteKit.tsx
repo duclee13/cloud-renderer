@@ -1325,6 +1325,12 @@ export type CuteOctopusPose = "float" | "crawl" | "wave";
 export interface CuteOctopusProps extends AnimalSpriteBaseProps {
   pose?: CuteOctopusPose;
   variant?: "coral" | "purple";
+  /** Optional custom skin colors (for smooth rock/sand/coral/sleep camo transitions) */
+  colorOverride?: { main: string; belly: string; spot: string };
+  /** Show subtle 3D rocky skin papillae bumps when camouflaged on reef stone */
+  papillaeBumps?: boolean;
+  /** Show bright warning blue rings (Blue-Ringed Octopus) */
+  blueRings?: boolean;
 }
 
 export const CuteOctopus: React.FC<CuteOctopusProps> = ({
@@ -1336,13 +1342,16 @@ export const CuteOctopus: React.FC<CuteOctopusProps> = ({
   pose = "float",
   variant = "coral",
   emotion = "happy",
+  colorOverride,
+  papillaeBumps = false,
+  blueRings = false,
 }) => {
-  const mainColor = variant === "purple" ? "#C084FC" : "#FB923C";
-  const bellyColor = variant === "purple" ? "#F3E8FF" : "#FFEDD5";
-  const spotColor = variant === "purple" ? "#9333EA" : "#EA580C";
-  const breathY = computeAnimalBreathScaleY(frame, 41);
-  const floatBobY = pose === "float" ? Math.sin(frame * 0.09) * 8 : 0;
-  const curiousTilt = emotion === "curious" ? 6 : 0;
+  const mainColor = colorOverride?.main ?? (variant === "purple" ? "#C084FC" : "#FB923C");
+  const bellyColor = colorOverride?.belly ?? (variant === "purple" ? "#F3E8FF" : "#FFEDD5");
+  const spotColor = colorOverride?.spot ?? (variant === "purple" ? "#9333EA" : "#EA580C");
+  const breathY = 1 + 0.012 * Math.sin((frame + 41) * 0.08);
+  const floatBobY = pose === "float" ? Math.sin(frame * 0.09) * 7 : 0;
+  const curiousTilt = emotion === "curious" ? 5 : 0;
   const dir = flipX ? -1 : 1;
 
   const tentacleBases = [-40, -24, -8, 8, 24, 40];
@@ -1362,9 +1371,9 @@ export const CuteOctopus: React.FC<CuteOctopusProps> = ({
         {/* 6 Smooth Sine-Wave Tentacles */}
         {tentacleBases.map((bx, i) => {
           const isWavingArm = pose === "wave" && i === 5;
-          const wave = Math.sin(frame * 0.1 + i * 0.95) * (pose === "crawl" ? 8 : 11);
+          const wave = Math.sin(frame * 0.1 + i * 0.95) * (pose === "crawl" ? 7 : 10);
           if (isWavingArm) {
-            const hiWave = Math.sin(frame * 0.22) * 14;
+            const hiWave = Math.sin(frame * 0.22) * 12;
             return (
               <g key={i}>
                 <path
@@ -1405,6 +1414,13 @@ export const CuteOctopus: React.FC<CuteOctopusProps> = ({
 
         {/* Round Bulbous Cute Head + Pastel Underside + Flat Cel-Shading */}
         <g transform={`translate(0, -64) rotate(${curiousTilt})`}>
+          {papillaeBumps && (
+            <g fill={mainColor} stroke={INK} strokeWidth={3.2}>
+              <path d="M -40,-24 L -48,-36 L -28,-36 Z" />
+              <path d="M -12,-42 L -2,-56 L 10,-42 Z" />
+              <path d="M 26,-36 L 42,-40 L 42,-22 Z" />
+            </g>
+          )}
           <ellipse cx={0} cy={0} rx={48} ry={44} fill={mainColor} />
           <ellipse cx={0} cy={16} rx={32} ry={20} fill={bellyColor} stroke="none" />
           <path
@@ -1413,7 +1429,17 @@ export const CuteOctopus: React.FC<CuteOctopusProps> = ({
             opacity="0.11"
             stroke="none"
           />
-          <OctopusHeadSpotsStatic spotColor={spotColor} />
+          {blueRings ? (
+            <g fill="none" stroke="#0EA5E9" strokeWidth={4.2}>
+              <circle cx={-26} cy={-24} r={7.5} fill="#0F172A" />
+              <circle cx={0} cy={-30} r={8.5} fill="#0F172A" />
+              <circle cx={27} cy={-22} r={7.5} fill="#0F172A" />
+              <circle cx={-34} cy={-4} r={6} fill="#0F172A" />
+              <circle cx={34} cy={-4} r={6} fill="#0F172A" />
+            </g>
+          ) : (
+            <OctopusHeadSpotsStatic spotColor={spotColor} />
+          )}
           <CreatureFace
             emotion={emotion}
             frame={frame}

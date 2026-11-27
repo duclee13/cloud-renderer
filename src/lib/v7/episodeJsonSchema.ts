@@ -184,6 +184,7 @@ export type KnownLabBoardId =
   | "MIRROR_NEURONS_YAWN"
   | "ACOUSTICS_CRINGE_ALARM"
   | "CAT_RIGHTING_PHYSICS"
+  | "OCTOPUS_INVISIBLE_CAMO"
   | "WATER_SKIN"
   | "ONION_CHEM"
   | "SLEEP_BRAIN";
@@ -211,7 +212,7 @@ export type KitchenDetailId =
   | "DINNER_STEAK"
   | "FORK_SCRAPE_WAVE";
 
-/** V22.5–V23.0: Chi tiết phụ trợ cho CITY_LIVING_ROOM (thú cưng chó/mèo trên thảm hoặc góc sofa) */
+/** V22.5–V23.5: Chi tiết phụ trợ cho CITY_LIVING_ROOM (thú cưng chó/mèo hoặc khoảng sàn outro thoáng) */
 export type LivingRoomDetailId =
   | "NONE"
   | "DOG_REST"
@@ -221,7 +222,8 @@ export type LivingRoomDetailId =
   | "CAT_RUG"
   | "CAT_ALERT"
   | "CAT_STAND"
-  | "CAT_SOFA";
+  | "CAT_SOFA"
+  | "OUTRO_OPEN_FLOOR";
 
 /** V23.0: Chi tiết phụ trợ cho BACKYARD_BALCONY_PET (ghế gỗ, đệm êm, mèo Mướp trượt/xoay/ngồi, lưới an toàn ban công) */
 export type BalconyDetailId =
@@ -234,13 +236,24 @@ export type BalconyDetailId =
   | "SAFETY_NET_SIT"
   | "OUTRO_OPEN_FLOOR";
 
+/** V23.5: Chi tiết phụ trợ cho OCEAN_UNDERWATER (Tập 10 — Bạch tuộc Tuộc & Cá mập hiền) */
+export type OceanDetailId =
+  | "NONE"
+  | "OCTO_CRAWL_REEF"
+  | "OCTO_SHARK_ARRIVE"
+  | "OCTO_ROCK_CAMO"
+  | "OCTO_PROUD_RETURN"
+  | "OCTO_CORAL_MAGIC"
+  | "OCTO_SHARK_FRIENDLY"
+  | "OCTO_OUTRO_WAVE";
+
 /** V23.0: Chủ đề giao diện bảng nghiên cứu cho HOST_EXPLAIN_OVERLAY (mặc định LAB_WHITEBOARD) */
 export type HostBoardTheme = "LAB_WHITEBOARD" | "NATURE_FIELD_BOARD";
 
 /** V23.0: Ghi đè hiệu ứng âm thanh Auto-SFX trên từng beat (hoặc "none" để tắt cục bộ) */
 export type AutoSfxCueId = "pop" | "whoosh_in" | "whoosh_out" | "ding" | "alert" | "none";
 
-/** V22.5–V23.0: Điểm nhấn nổi bật trên bảng trắng / sổ tay thiên nhiên trong HOST_EXPLAIN_OVERLAY */
+/** V22.5–V23.5: Điểm nhấn nổi bật trên bảng trắng / sổ tay thiên nhiên trong HOST_EXPLAIN_OVERLAY */
 export type HostBoardHighlightId =
   | "NONE"
   | "LEFT"
@@ -263,6 +276,9 @@ export type HostBoardHighlightId =
   | "CAT_TAIL_QUESTION"
   | "CAT_WARNING_9LIVES"
   | "CAT_EXPLORE_OTHER"
+  | "OCTO_COLORBLIND_PARADOX"
+  | "OCTO_DREAM_CLOUD"
+  | "OCTO_BATTERY_DRAIN"
   | "SUMMARY";
 
 export interface AutoActorSpec {
@@ -326,6 +342,12 @@ export interface AutoEpisodeBeat {
   livingRoomDetail?: LivingRoomDetailId;
   /** V23.0: Chi tiết sân hiên bổ trợ cho BACKYARD_BALCONY_PET (ghế gỗ, đệm êm, mèo Mướp, lưới an toàn) */
   balconyDetail?: BalconyDetailId;
+  /** V23.5: Chi tiết đáy biển bổ trợ cho OCEAN_UNDERWATER (Tập 10 — Bạch tuộc Tuộc & Cá mập hiền) */
+  oceanDetail?: OceanDetailId;
+  /** V23.5: Bóng thoại gọn (<= 10 từ) cho sinh vật biển trong OCEAN_UNDERWATER */
+  oceanBubble?: string;
+  /** V23.5: Sinh vật đang nói trong OCEAN_UNDERWATER ("OCTOPUS" | "SHARK") */
+  oceanSpeaker?: "OCTOPUS" | "SHARK";
   /** V22.5: Chế độ Freeze-Frame Host giải thích (phủ màn trắng sữa 0.84 phẳng lên nền freezeStage) */
   overlayMode?: "HOST_EXPLAIN";
   /** V22.5: Bối cảnh đời thường đứng yên làm nền cho HOST_EXPLAIN_OVERLAY (vd: SCHOOL_CLASSROOM, CITY_LIVING_ROOM) */
@@ -1270,6 +1292,7 @@ const VALID_LIVING_ROOM_DETAILS: readonly LivingRoomDetailId[] = [
   "CAT_ALERT",
   "CAT_STAND",
   "CAT_SOFA",
+  "OUTRO_OPEN_FLOOR",
 ];
 const VALID_BALCONY_DETAILS: readonly BalconyDetailId[] = [
   "NONE",
@@ -1280,6 +1303,16 @@ const VALID_BALCONY_DETAILS: readonly BalconyDetailId[] = [
   "SAFETY_NET_STAND",
   "SAFETY_NET_SIT",
   "OUTRO_OPEN_FLOOR",
+];
+const VALID_OCEAN_DETAILS: readonly OceanDetailId[] = [
+  "NONE",
+  "OCTO_CRAWL_REEF",
+  "OCTO_SHARK_ARRIVE",
+  "OCTO_ROCK_CAMO",
+  "OCTO_PROUD_RETURN",
+  "OCTO_CORAL_MAGIC",
+  "OCTO_SHARK_FRIENDLY",
+  "OCTO_OUTRO_WAVE",
 ];
 const VALID_HOST_HIGHLIGHTS: readonly HostBoardHighlightId[] = [
   "NONE",
@@ -1303,6 +1336,9 @@ const VALID_HOST_HIGHLIGHTS: readonly HostBoardHighlightId[] = [
   "CAT_TAIL_QUESTION",
   "CAT_WARNING_9LIVES",
   "CAT_EXPLORE_OTHER",
+  "OCTO_COLORBLIND_PARADOX",
+  "OCTO_DREAM_CLOUD",
+  "OCTO_BATTERY_DRAIN",
   "SUMMARY",
 ];
 
@@ -1335,6 +1371,14 @@ function sanitizeBalconyDetailId(raw: unknown): BalconyDetailId | undefined {
   const norm = raw.trim().toUpperCase().replace(/[\s-]+/g, "_");
   return (VALID_BALCONY_DETAILS as readonly string[]).includes(norm)
     ? (norm as BalconyDetailId)
+    : undefined;
+}
+
+function sanitizeOceanDetailId(raw: unknown): OceanDetailId | undefined {
+  if (typeof raw !== "string") return undefined;
+  const norm = raw.trim().toUpperCase().replace(/[\s-]+/g, "_");
+  return (VALID_OCEAN_DETAILS as readonly string[]).includes(norm)
+    ? (norm as OceanDetailId)
     : undefined;
 }
 
@@ -1412,6 +1456,17 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
     const kitchenDetail = sanitizeKitchenDetailId(rb?.kitchenDetail);
     const livingRoomDetail = sanitizeLivingRoomDetailId(rb?.livingRoomDetail);
     const balconyDetail = sanitizeBalconyDetailId(rb?.balconyDetail);
+    const oceanDetail = sanitizeOceanDetailId(rb?.oceanDetail);
+    const oceanBubble =
+      typeof rb?.oceanBubble === "string" && rb.oceanBubble.trim()
+        ? rb.oceanBubble.trim().slice(0, 96)
+        : undefined;
+    const oceanSpeaker: "OCTOPUS" | "SHARK" | undefined =
+      typeof rb?.oceanSpeaker === "string" && rb.oceanSpeaker.trim().toUpperCase() === "SHARK"
+        ? "SHARK"
+        : typeof rb?.oceanSpeaker === "string" && rb.oceanSpeaker.trim().toUpperCase() === "OCTOPUS"
+        ? "OCTOPUS"
+        : undefined;
     const overlayMode =
       normalizeUpperKey(rb?.overlayMode) === "HOST_EXPLAIN" || stageType === "HOST_EXPLAIN_OVERLAY"
         ? ("HOST_EXPLAIN" as const)
@@ -1509,6 +1564,9 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       ...(kitchenDetail && kitchenDetail !== "NONE" ? { kitchenDetail } : {}),
       ...(livingRoomDetail && livingRoomDetail !== "NONE" ? { livingRoomDetail } : {}),
       ...(balconyDetail && balconyDetail !== "NONE" ? { balconyDetail } : {}),
+      ...(oceanDetail && oceanDetail !== "NONE" ? { oceanDetail } : {}),
+      ...(oceanBubble ? { oceanBubble } : {}),
+      ...(oceanSpeaker ? { oceanSpeaker } : {}),
       ...(overlayMode ? { overlayMode } : {}),
       ...(freezeStage ? { freezeStage } : {}),
       ...(freezeFrame !== undefined ? { freezeFrame } : {}),
