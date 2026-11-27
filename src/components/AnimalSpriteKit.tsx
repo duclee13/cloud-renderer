@@ -546,11 +546,12 @@ export const CuteCat: React.FC<CuteCatProps> = ({
   const furLight = variant === "gray" ? "#F8FAFC" : "#FFF7ED";
   const furStripe = variant === "gray" ? "#94A3B8" : "#EA580C";
   const resolvedEmotion: CreatureEmotion = emotion ?? (pose === "puff_fur" ? "surprised" : "happy");
-  const breathY = computeAnimalBreathScaleY(frame, 0);
-  const tailWag = Math.sin(frame * 0.09) * (pose === "puff_fur" ? 5 : 14);
-  const earTwitch = Math.sin(frame * 0.11) * 2.8;
+  // Subtle micro-breathing <= 0.012, ZERO whole-body rocking/wobble!
+  const breathY = 1 + 0.012 * Math.sin(frame * 0.08);
+  const tailWag = Math.sin(frame * 0.09) * (pose === "puff_fur" ? 5 : 13);
+  const earTwitch = Math.sin(frame * 0.11) * 2.4;
   const curiousTilt = resolvedEmotion === "curious" ? 6 : 0;
-  const midairRot = pose === "curl_midair" && !disableMidairWobble ? Math.sin(frame * 0.14) * 14 : 0;
+  const midairRot = 0;
   const dir = flipX ? -1 : 1;
 
   return (
@@ -562,14 +563,14 @@ export const CuteCat: React.FC<CuteCatProps> = ({
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      {/* Flat Ground Shadow (omitted when cat is tumbling mid-air in curl_midair) */}
+      {/* Flat Ground Shadow (omitted when cat is airborne in curl_midair) */}
       {pose !== "curl_midair" && (
         <FlatGroundShadow rx={pose === "stand" || pose === "puff_fur" ? 64 : 52} ry={11} />
       )}
 
-      <g transform={`rotate(${midairRot.toFixed(1)}) scale(1, ${breathY.toFixed(4)})`}>
+      <g transform={`scale(1, ${breathY.toFixed(4)})`}>
         {pose === "curl_midair" ? (
-          /* Midair Righting Reflex Pose (Episode 9) */
+          /* Midair Righting Reflex Pose (Episode 9) — 100% unified chunky orange paws with white tips matching pose="stand" */
           <g transform="translate(0, -68)">
             {/* Smooth Bézier balancing tail (optional for Manx) */}
             {hasTail && (
@@ -588,21 +589,37 @@ export const CuteCat: React.FC<CuteCatProps> = ({
                 />
               </>
             )}
+            {/* 4 Chunky Rounded Orange Paws + White Paw Tips (seamless match with pose="stand"!) */}
+            <g id="cat-midair-chunky-paws">
+              <g transform="translate(-40, 14) rotate(16)">
+                <rect x={-8} y={0} width={16} height={42} rx={8} fill={furMain} />
+                <ellipse cx={0} cy={38} rx={6.5} ry={4.2} fill={furLight} stroke="none" />
+              </g>
+              <g transform="translate(-14, 16) rotate(6)">
+                <rect x={-8} y={0} width={16} height={40} rx={8} fill={furMain} />
+                <ellipse cx={0} cy={36} rx={6.5} ry={4.2} fill={furLight} stroke="none" />
+              </g>
+              <g transform="translate(20, 16) rotate(-6)">
+                <rect x={-8} y={0} width={16} height={40} rx={8} fill={furMain} />
+                <ellipse cx={0} cy={36} rx={6.5} ry={4.2} fill={furLight} stroke="none" />
+              </g>
+              <g transform="translate(40, 14) rotate(-16)">
+                <rect x={-8} y={0} width={16} height={42} rx={8} fill={furMain} />
+                <ellipse cx={0} cy={38} rx={6.5} ry={4.2} fill={furLight} stroke="none" />
+              </g>
+            </g>
             {/* Arched airborne torso + cream belly + flat cel-shade */}
             <path
-              d="M -54,-6 C -48,-46 38,-48 52,-6 C 58,14 34,26 0,20 C -34,26 -58,14 -54,-6 Z"
+              d="M -56,-6 C -48,-46 38,-48 54,-6 C 60,14 34,26 0,20 C -34,26 -60,14 -56,-6 Z"
               fill={furMain}
             />
-            <ellipse cx={0} cy={12} rx={32} ry={10} fill={furLight} stroke="none" />
+            <ellipse cx={0} cy={12} rx={34} ry={11} fill={furLight} stroke="none" />
             <path
               d="M -46,-14 C -24,-36 22,-36 44,-14 C 22,-26 -22,-26 -46,-14 Z"
               fill="#0F172A"
               opacity="0.10"
               stroke="none"
             />
-            {/* 4 outstretched landing paws */}
-            <path d="M -38,16 L -48,46 M -18,18 L -22,50 M 22,18 L 28,50 M 42,16 L 54,44" stroke={INK} strokeWidth={9.5} />
-            <path d="M -38,16 L -48,46 M -18,18 L -22,50 M 22,18 L 28,50 M 42,16 L 54,44" stroke={furLight} strokeWidth={4} />
             {/* Expressive Head */}
             <g transform={`translate(56, -24) rotate(${curiousTilt})`}>
               <g transform={`rotate(${(-earTwitch).toFixed(1)}, -16, -24)`}>
@@ -695,11 +712,17 @@ export const CuteCat: React.FC<CuteCatProps> = ({
               <path d="M 0,0 C -26,-12 -36,-42 -16,-68" fill="none" stroke={INK} strokeWidth={13} />
               <path d="M 0,0 C -26,-12 -36,-42 -16,-68" fill="none" stroke={furMain} strokeWidth={6.8} />
             </g>
-            {/* 4 neat legs */}
-            <rect x={-44} y={-46} width={16} height={46} rx={7} fill={furMain} />
-            <rect x={-18} y={-44} width={16} height={44} rx={7} fill={furMain} />
-            <rect x={16} y={-44} width={16} height={44} rx={7} fill={furMain} />
-            <rect x={34} y={-46} width={16} height={46} rx={7} fill={furMain} />
+            {/* 4 neat rounded orange legs + small white paw tips (100% matched with curl_midair!) */}
+            <g id="cat-stand-chunky-paws">
+              <rect x={-44} y={-46} width={16} height={46} rx={8} fill={furMain} />
+              <ellipse cx={-36} cy={-4.5} rx={6.5} ry={4} fill={furLight} stroke="none" />
+              <rect x={-18} y={-44} width={16} height={44} rx={8} fill={furMain} />
+              <ellipse cx={-10} cy={-4.5} rx={6.5} ry={4} fill={furLight} stroke="none" />
+              <rect x={16} y={-44} width={16} height={44} rx={8} fill={furMain} />
+              <ellipse cx={24} cy={-4.5} rx={6.5} ry={4} fill={furLight} stroke="none" />
+              <rect x={34} y={-46} width={16} height={46} rx={8} fill={furMain} />
+              <ellipse cx={42} cy={-4.5} rx={6.5} ry={4} fill={furLight} stroke="none" />
+            </g>
             {/* Rounded body + cream belly + flat cel-shade */}
             <ellipse cx={0} cy={-58} rx={58} ry={34} fill={furMain} />
             <ellipse cx={6} cy={-48} rx={36} ry={18} fill={furLight} stroke="none" />

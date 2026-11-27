@@ -3554,6 +3554,7 @@ export const UniversalAutoStage: React.FC<{
               mode={spec.balconyDetail}
               frame={stageRenderFrame}
               localFrame={isHostExplain ? (spec.freezeFrame ?? 90) : localFrame}
+              durationFrames={durationFrames}
             />
           )}
 

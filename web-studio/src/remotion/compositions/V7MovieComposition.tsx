@@ -158,10 +158,34 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
     typeof currentBeat.transitionFrames === "number" && Number.isFinite(currentBeat.transitionFrames)
       ? Math.max(0, Math.round(currentBeat.transitionFrames))
       : defaultCrossfadeFrames;
+  // V23.7 Ghost-Free Transition Rules:
+  // 1) 2 consecutive beats on the SAME non-SVG stage backdrop (e.g. BACKYARD_BALCONY_PET, CITY_LIVING_ROOM,
+  //    or consecutive HOST_EXPLAIN_OVERLAY beats) -> 0-frame clean CUT so 2 BOYs / 2 ghost pets NEVER overlap!
+  // 2) Entering/leaving a Full-Screen SVG <-> HOST_EXPLAIN_OVERLAY (or story stage) -> short 6-frame sequential
+  //    dip through clean #F8FAFC (outgoing 1->0 in first half, incoming 0->1 in second half — ZERO overlap!)
+  const prevSpec = prevBeat?.autoStageSpec;
+  const currSpec = currentBeat?.autoStageSpec;
+  const prevIsFullSvg = Boolean(prevSpec && isFullScreenCustomVisualBeat(prevSpec));
+  const currIsFullSvg = Boolean(currSpec && isFullScreenCustomVisualBeat(currSpec));
+  const isSameStageCut = Boolean(
+    prevSpec &&
+      currSpec &&
+      !prevIsFullSvg &&
+      !currIsFullSvg &&
+      prevSpec.stageType === currSpec.stageType
+  );
+  const isHostOrStageSvgBoundary = Boolean(prevSpec && currSpec && prevIsFullSvg !== currIsFullSvg);
+
+  const clampedRequestedTransition = isSameStageCut
+    ? 0
+    : isHostOrStageSvgBoundary
+    ? Math.min(6, requestedTransitionFrames)
+    : requestedTransitionFrames;
+
   const effectiveTransitionFrames =
-    prevBeat && transitionInMode === "CROSSFADE"
+    prevBeat && transitionInMode === "CROSSFADE" && clampedRequestedTransition > 0
       ? Math.min(
-          requestedTransitionFrames,
+          clampedRequestedTransition,
           Math.floor(Math.min(prevBeat.durationFrames, currentBeat.durationFrames) * 0.45)
         )
       : 0;
@@ -171,6 +195,7 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
       effectiveTransitionFrames > 0 &&
       activeBeatLocalF < effectiveTransitionFrames
   );
+  const isSequentialDipTransition = Boolean(isCrossfading && isHostOrStageSvgBoundary);
   const crossfadeT = isCrossfading
     ? Math.min(1, Math.max(0, activeBeatLocalF / Math.max(1, effectiveTransitionFrames)))
     : 1;
@@ -981,24 +1006,52 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
       )}
 
       {/* =========================================================================
-          2-4. TẦNG SÂN KHẤU ĐỒNG THỜI V16.0 (TRUE SIMULTANEOUS CROSSFADE 0.5s — 0% BLACK FLASH)
+          2-4. TẦNG SÂN KHẤU V23.7 (KHỬ HOÀN TOÀN BÓNG MA CHỒNG HÌNH)
+               - Cùng bối cảnh (BACKYARD_BALCONY_PET, CITY_LIVING_ROOM, HOST...): CUT sạch 0 frame overlap
+               - Giữa HOST_EXPLAIN_OVERLAY <-> Full-Screen SVG: Sequential Dip 6 frames qua nền #F8FAFC
+                 (không bao giờ chồng đồng thời BOY/bảng trắng lên thẻ SVG!)
          ========================================================================= */}
-      {isCrossfading && prevBeat && prevEvaluated &&
-        renderVisualBeatLayer(
-          prevBeat,
-          prevFinalLocalF,
-          prevEvaluated,
-          1.0,
-          10,
-          `beat_outgoing_${activeBeatIndex - 1}`
-        )}
-      {renderVisualBeatLayer(
-        currentBeat,
-        activeBeatLocalF,
-        evaluated,
-        isCrossfading ? crossfadeT : 1.0,
-        isCrossfading ? 20 : 10,
-        `beat_active_${activeBeatIndex}`
+      {isSequentialDipTransition ? (
+        <>
+          <AbsoluteFill style={{ width, height, backgroundColor: "#F8FAFC", zIndex: 5 }} />
+          {crossfadeT < 0.5 && prevBeat && prevEvaluated
+            ? renderVisualBeatLayer(
+                prevBeat,
+                prevFinalLocalF,
+                prevEvaluated,
+                Math.max(0, 1 - crossfadeT * 2),
+                10,
+                `beat_outgoing_${activeBeatIndex - 1}`
+              )
+            : renderVisualBeatLayer(
+                currentBeat,
+                activeBeatLocalF,
+                evaluated,
+                Math.min(1, Math.max(0, (crossfadeT - 0.5) * 2)),
+                10,
+                `beat_active_${activeBeatIndex}`
+              )}
+        </>
+      ) : (
+        <>
+          {isCrossfading && prevBeat && prevEvaluated &&
+            renderVisualBeatLayer(
+              prevBeat,
+              prevFinalLocalF,
+              prevEvaluated,
+              1.0,
+              10,
+              `beat_outgoing_${activeBeatIndex - 1}`
+            )}
+          {renderVisualBeatLayer(
+            currentBeat,
+            activeBeatLocalF,
+            evaluated,
+            isCrossfading ? crossfadeT : 1.0,
+            isCrossfading ? 20 : 10,
+            `beat_active_${activeBeatIndex}`
+          )}
+        </>
       )}
 
       {/* =========================================================================

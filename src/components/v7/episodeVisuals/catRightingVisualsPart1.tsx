@@ -318,7 +318,6 @@ export const CatRigidVsFlexVisual: React.FC<EpisodeVisualProps> = ({
   visualStep,
 }) => {
   const activeStep = step ?? visualStep ?? 0;
-  const flexAngle = Math.sin(frame * 0.14) * 14;
 
   return (
     <svg viewBox="0 0 1920 1080" width="100%" height="100%" style={{ display: 'block', fontFamily: FONT }}>
@@ -370,7 +369,7 @@ export const CatRigidVsFlexVisual: React.FC<EpisodeVisualProps> = ({
         <text x={357} y={46} textAnchor="middle" fill="#14532D" fontSize={25} fontWeight={900}>
           Cơ thể mèo siêu mềm dẻo (Thực tế)
         </text>
-        <g transform={`translate(357, 192) rotate(${flexAngle.toFixed(1)})`}>
+        <g transform="translate(357, 192)">
           <CuteCat x={0} y={42} scale={1.15} frame={frame} pose="curl_midair" />
         </g>
         <CatContrastBadge x={357} y={298} w={540} h={50} text="✓  Tự uốn cong & xoay 2 nửa thân!" variant="solidGreen" fontSize={21} />
@@ -503,20 +502,7 @@ export const CatVestibularCompassVisual: React.FC<EpisodeVisualProps> = ({
             </g>
           )}
 
-          {/* Highlight 1: Thin Blue Dashed Frame OUTSIDE Both Eyes (does NOT bloat eye size!) */}
-          <rect
-            x={-96}
-            y={-50}
-            width={192}
-            height={72}
-            rx={36}
-            fill="none"
-            stroke="#0284C7"
-            strokeWidth={3.5}
-            strokeDasharray="9 7"
-          />
-
-          {/* Cute Pink Nose, Friendly ':3' Smile & Symmetric Whiskers */}
+          {/* Cute Pink Nose, Friendly ':3' Smile & Symmetric Whiskers (ZERO dashed box over forehead/nose!) */}
           <polygon points="-14,22 14,22 0,38" fill="#FB7185" stroke="none" />
           <path d="M -28,50 Q -14,66 0,50 Q 14,66 28,50" fill="none" stroke={INK} strokeWidth={4.5} />
           <g stroke={INK} strokeWidth={3.8} fill="none">
@@ -526,6 +512,18 @@ export const CatVestibularCompassVisual: React.FC<EpisodeVisualProps> = ({
             <line x1={102} y1={44} x2={162} y2={52} />
           </g>
         </g>
+
+        {/* Clean Thin Curved Blue Pointer to Right Eye (starts outside eye without crossing face/forehead!) */}
+        <circle cx={524} cy={488} r={5.5} fill="#E0F2FE" stroke="#0284C7" strokeWidth={3} />
+        <path
+          d="M 530,486 C 588,330 715,288 904,288"
+          fill="none"
+          stroke="#0284C7"
+          strokeWidth={4}
+          strokeDasharray="9 7"
+          strokeLinecap="round"
+        />
+        <polygon points="916,288 898,278 898,298" fill="#0284C7" />
 
         {/* Small Target Pin at Base of Right Ear + Thin Connector to Separate Magnifying Glass */}
         <circle cx={536} cy={392} r={8.5} fill="#FEF3C7" stroke="#EA580C" strokeWidth={3.2} />
@@ -542,32 +540,26 @@ export const CatVestibularCompassVisual: React.FC<EpisodeVisualProps> = ({
 
         {/* Highlight 2: Separate Magnifying Glass Zoom Callout Outside Right Ear Edge (740, 412) */}
         <g id="vestibular-magnifying-glass" transform="translate(740, 412)">
-          {/* Magnifying glass angled handle */}
-          <line x1={-44} y1={48} x2={-72} y2={78} stroke={INK} strokeWidth={13} strokeLinecap="round" />
-          <line x1={-44} y1={48} x2={-72} y2={78} stroke="#B45309" strokeWidth={7} strokeLinecap="round" />
-          {/* Magnifying lens */}
+          {/* Magnifying glass angled handle (angled down-left cleanly away from bottom label) */}
+          <line x1={-46} y1={46} x2={-74} y2={74} stroke={INK} strokeWidth={13} strokeLinecap="round" />
+          <line x1={-46} y1={46} x2={-74} y2={74} stroke="#B45309" strokeWidth={7} strokeLinecap="round" />
+          {/* Magnifying lens (pure vestibular spiral inside — ZERO overlapping text!) */}
           <circle cx={0} cy={0} r={66} fill="#FFFBEB" stroke={INK} strokeWidth={4.5} />
           <circle cx={0} cy={0} r={58} fill="none" stroke="#EA580C" strokeWidth={3.2} />
-          {/* Vestibular semicircular canals + fluid level inside lens */}
-          <path d="M -28,2 A 26,26 0 1,1 26,2" fill="none" stroke="#D97706" strokeWidth={7} strokeLinecap="round" />
-          <path d="M -16,8 A 15,15 0 1,1 16,8" fill="none" stroke="#F59E0B" strokeWidth={5.5} strokeLinecap="round" />
-          <ellipse cx={0} cy={12} rx={16} ry={7} fill="#38BDF8" stroke="#0284C7" strokeWidth={2.2} />
-          <circle cx={0} cy={12} r={4.5} fill="#EA580C" />
-          <text x={0} y={42} textAnchor="middle" fill="#9A3412" fontSize={15.5} fontWeight={900}>
-            Tai trong
-          </text>
-        </g>
+          {/* Vestibular semicircular canals + fluid level centered cleanly inside lens */}
+          <path d="M -30,6 A 29,29 0 1,1 30,6" fill="none" stroke="#D97706" strokeWidth={7.5} strokeLinecap="round" />
+          <path d="M -17,12 A 16,16 0 1,1 17,12" fill="none" stroke="#F59E0B" strokeWidth={5.8} strokeLinecap="round" />
+          <ellipse cx={0} cy={18} rx={18} ry={8} fill="#38BDF8" stroke="#0284C7" strokeWidth={2.4} />
+          <circle cx={0} cy={18} r={5} fill="#EA580C" />
 
-        {/* Clean Non-Crossing Leader Arrows to Right Explanation Cards */}
-        <path
-          d="M 528,458 C 566,302 720,288 904,288"
-          fill="none"
-          stroke="#0284C7"
-          strokeWidth={4.5}
-          strokeDasharray="10 7"
-          strokeLinecap="round"
-        />
-        <polygon points="916,288 898,278 898,298" fill="#0284C7" />
+          {/* Clean "Tai trong" label placed strictly BELOW the magnifying glass (>= 18px clear below r=66 rim!) */}
+          <g transform="translate(0, 98)">
+            <rect x={-64} y={-18} width={128} height={36} rx={18} fill="#FEF3C7" stroke="#EA580C" strokeWidth={2.8} />
+            <text x={0} y={6} textAnchor="middle" fill="#9A3412" fontSize={18} fontWeight={900}>
+              Tai trong
+            </text>
+          </g>
+        </g>
 
         <line x1={808} y1={424} x2={904} y2={468} stroke="#EA580C" strokeWidth={5} strokeLinecap="round" />
         <polygon points="916,473 895,475 903,457" fill="#EA580C" />
@@ -668,38 +660,95 @@ export const CatFlexibleSpineVisual: React.FC<EpisodeVisualProps> = ({
           MÔ PHỎNG X-QUANG 2D • CỘT SỐNG ĐÀN HỒI CỦA MÈO
         </text>
 
-        {/* Cat silhouette outline in soft cyan */}
-        <g transform={`translate(${activeStep === 1 ? 470 : 785}, 275) scale(${activeStep === 1 ? 0.92 : 1.18})`}>
-          {/* Soft glowing X-ray torso silhouette */}
+        {/* CuteCat-Proportioned X-Ray Cat Silhouette (Head, Ears, Tail, 4 Legs & Bright White Spine!) */}
+        <g
+          transform={`translate(${activeStep === 1 ? 470 : 785}, 248) scale(${activeStep === 1 ? 0.96 : 1.12})`}
+          strokeLinejoin="round"
+          strokeLinecap="round"
+        >
+          {/* Graceful Curved Cat Tail (left) */}
           <path
-            d={`M -280,10 C -260,-95 -80,${(-110 + waveAmp).toFixed(1)} 40,${(-95 - waveAmp * 0.5).toFixed(1)} C 175,-85 265,-25 275,20 C 265,92 145,104 20,90 C -115,104 -255,88 -280,10 Z`}
+            d="M -188,-4 C -250,-16 -292,-62 -268,-112 C -254,-132 -232,-124 -236,-102 C -244,-70 -220,-42 -178,-26 Z"
             fill="#0284C7"
-            opacity={0.22}
+            opacity={0.24}
             stroke="#38BDF8"
-            strokeWidth={3.5}
+            strokeWidth={3.4}
           />
-          {/* Cat skull silhouette on right */}
-          <circle cx={305} cy={-26} r={54} fill="#0284C7" opacity={0.28} stroke="#7DD3FC" strokeWidth={3.5} />
-          <polygon points="274,-68 286,-108 310,-72" fill="#0284C7" opacity={0.3} stroke="#7DD3FC" strokeWidth={3} />
-          <polygon points="316,-70 338,-106 346,-62" fill="#0284C7" opacity={0.3} stroke="#7DD3FC" strokeWidth={3} />
+          {/* Subtle X-Ray Tail Vertebrae Dots */}
+          <path
+            d="M -190,-12 C -234,-26 -264,-62 -252,-104"
+            fill="none"
+            stroke="#BAE6FD"
+            strokeWidth={4.5}
+            strokeDasharray="10 10"
+            opacity={0.75}
+          />
 
-          {/* Articulated flexible glowing vertebrae chain */}
+          {/* 4 Proportional CuteCat Rounded Legs (Hind Pair + Front Pair) */}
+          <g fill="#0284C7" opacity={0.24} stroke="#38BDF8" strokeWidth={3.4}>
+            {/* Hind Back Leg */}
+            <rect x={-166} y={24} width={34} height={96} rx={17} />
+            {/* Hind Near Leg */}
+            <rect x={-122} y={28} width={34} height={94} rx={17} />
+            {/* Front Near Leg */}
+            <rect x={54} y={28} width={34} height={94} rx={17} />
+            {/* Front Lead Leg */}
+            <rect x={98} y={24} width={34} height={96} rx={17} />
+          </g>
+          {/* Subtle X-Ray Limb Bones inside the 4 Legs */}
+          <g stroke="#BAE6FD" strokeWidth={5.5} opacity={0.58}>
+            <line x1={-149} y1={42} x2={-149} y2={104} />
+            <line x1={-105} y1={46} x2={-105} y2={106} />
+            <line x1={71} y1={46} x2={71} y2={106} />
+            <line x1={115} y1={42} x2={115} y2={104} />
+          </g>
+
+          {/* Proportional Arched CuteCat Torso Silhouette */}
+          <path
+            d={`M -186,-16 C -174,-78 -72,${(-88 + waveAmp * 0.55).toFixed(1)} 28,${(-82 - waveAmp * 0.35).toFixed(1)} C 118,-76 164,-44 166,-4 C 166,42 126,56 76,54 L -116,54 C -168,54 -196,26 -186,-16 Z`}
+            fill="#0284C7"
+            opacity={0.26}
+            stroke="#38BDF8"
+            strokeWidth={3.8}
+          />
+
+          {/* Subtle Translucent Ribcage Arcs */}
+          <g fill="none" stroke="#7DD3FC" strokeWidth={2.5} opacity={0.42}>
+            <path d="M 30,-22 C 26,8 34,30 48,38" />
+            <path d="M 56,-22 C 52,8 60,30 74,38" />
+            <path d="M 82,-20 C 78,8 86,28 98,36" />
+          </g>
+
+          {/* CuteCat Proportional Round Head + 2 Triangular Ears */}
+          <g transform="translate(198, -56)">
+            <polygon points="-38,-30 -48,-84 -8,-50" fill="#0284C7" opacity={0.28} stroke="#7DD3FC" strokeWidth={3.4} />
+            <polygon points="36,-30 48,-84 8,-50" fill="#0284C7" opacity={0.28} stroke="#7DD3FC" strokeWidth={3.4} />
+            <polygon points="-30,-38 -36,-66 -15,-46" fill="#7DD3FC" opacity={0.24} stroke="none" />
+            <polygon points="30,-38 36,-66 15,-46" fill="#7DD3FC" opacity={0.24} stroke="none" />
+            <circle cx={0} cy={0} r={54} fill="#0284C7" opacity={0.28} stroke="#7DD3FC" strokeWidth={3.8} />
+            {/* Friendly subtle X-ray face silhouette cues */}
+            <circle cx={-16} cy={-6} r={6} fill="#BAE6FD" opacity={0.75} stroke="none" />
+            <circle cx={18} cy={-6} r={6} fill="#BAE6FD" opacity={0.75} stroke="none" />
+            <polygon points="-4,6 4,6 0,11" fill="#7DD3FC" opacity={0.7} stroke="none" />
+          </g>
+
+          {/* Articulated Flexible Bright-White Spine Vertebrae Chain Inside Torso */}
           {Array.from({ length: spineCount }, (_, vi) => {
             const t = vi / (spineCount - 1);
-            const vx = -235 + t * 470;
-            const vy = -12 + Math.sin(t * Math.PI * 1.6 + frame * 0.14) * 26;
+            const vx = -168 + t * 324;
+            const vy = -20 + Math.sin(t * Math.PI * 1.5 + frame * 0.14) * 16;
             const isShoulder = vi >= 11 && vi <= 13;
             return (
               <g key={vi} transform={`translate(${vx.toFixed(1)}, ${vy.toFixed(1)})`}>
                 <rect
-                  x={-11}
-                  y={-18}
-                  width={22}
-                  height={36}
-                  rx={7}
-                  fill={isShoulder && activeStep === 1 ? '#FACC15' : '#E0F2FE'}
+                  x={-8.5}
+                  y={-14}
+                  width={17}
+                  height={28}
+                  rx={6}
+                  fill={isShoulder && activeStep === 1 ? '#FACC15' : '#FFFFFF'}
                   stroke={isShoulder && activeStep === 1 ? '#EA580C' : '#38BDF8'}
-                  strokeWidth={2.6}
+                  strokeWidth={2.4}
                 />
               </g>
             );
@@ -707,7 +756,7 @@ export const CatFlexibleSpineVisual: React.FC<EpisodeVisualProps> = ({
 
           {/* Highlight circle around cat shoulder when Step 1 */}
           {activeStep === 1 && (
-            <circle cx={200} cy={14} r={66} fill="none" stroke="#FACC15" strokeWidth={5} strokeDasharray="10 6" />
+            <circle cx={124} cy={-6} r={56} fill="none" stroke="#FACC15" strokeWidth={4.8} strokeDasharray="10 6" />
           )}
         </g>
 

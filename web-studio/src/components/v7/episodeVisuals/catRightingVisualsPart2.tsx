@@ -1,7 +1,7 @@
 import React from 'react';
 import { Easing, interpolate } from 'remotion';
 import type { EpisodeVisualProps } from './index';
-import { CuteCat, isAnimalBlinking } from '../../AnimalSpriteKit';
+import { CuteCat, CuteLizard, isAnimalBlinking } from '../../AnimalSpriteKit';
 import {
   INK,
   FONT,
@@ -33,7 +33,7 @@ export const CatTailMythVisual: React.FC<EpisodeVisualProps> = ({
     extrapolateRight: 'clamp',
     easing: Easing.out(Easing.cubic),
   });
-  const manxDropY = -92 + dropProgress * 172; // -92 (top release) -> +80 (paws firmly on cushion at y=138)
+  const manxDropY = -56 + dropProgress * 144; // -56 (top release) -> +88 (paws firmly on cushion at y=156)
   const hasLanded = localFrame >= 36;
   const manxBlink = isAnimalBlinking(localFrame, 23);
 
@@ -115,22 +115,35 @@ export const CatTailMythVisual: React.FC<EpisodeVisualProps> = ({
 
             {/* Left: Tailless Manx Cat Single 180°->0° Flip & Firm 4-Paw Landing on Cushion */}
             <g transform="translate(470, 265)">
-              <circle cx={0} cy={-8} r={182} fill="#FFFFFF" stroke="#22C55E" strokeWidth={4} strokeDasharray="10 8" />
-              {/* Vertical drop guide */}
-              <line x1={0} y1={-128} x2={0} y2={126} stroke="#38BDF8" strokeWidth={3.5} strokeDasharray="10 8" opacity={0.65} />
+              {/* Two Clean Header Pill Labels Strictly OUTSIDE & ABOVE Dashed Circle (bottom at y=-178 vs circle top y=-146 -> 32px clear gap!) */}
+              <g transform="translate(0, -200)">
+                <rect x={-216} y={-22} width={144} height={44} rx={22} fill="#FEF3C7" stroke="#D97706" strokeWidth={3} />
+                <text x={-144} y={7} textAnchor="middle" fill="#92400E" fontSize={20} fontWeight={900}>
+                  Lật 180°
+                </text>
+                <text x={-48} y={8} textAnchor="middle" fill="#15803D" fontSize={24} fontWeight={900}>
+                  →
+                </text>
+                <rect x={-22} y={-22} width={238} height={44} rx={22} fill="#DCFCE7" stroke="#15803D" strokeWidth={3} />
+                <text x={97} y={7} textAnchor="middle" fill="#14532D" fontSize={20} fontWeight={900}>
+                  Đáp vững 4 chân
+                </text>
+              </g>
 
-              {/* Single-flip arc arrow */}
-              <path d="M -126,-96 A 148,136 0 0,1 132,-86" fill="none" stroke="#15803D" strokeWidth={6.5} strokeLinecap="round" />
-              <polygon points="142,-76 116,-82 132,-102" fill="#15803D" />
-              <text x={0} y={-144} textAnchor="middle" fill="#15803D" fontSize={22} fontWeight={900}>
-                Lật 180° → Đáp vững 4 chân
-              </text>
+              {/* Dashed circle shifted down cleanly to cy=22, r=168 (top=-146, bottom=+190) */}
+              <circle cx={0} cy={22} r={168} fill="#FFFFFF" stroke="#22C55E" strokeWidth={4} strokeDasharray="10 8" />
+              {/* Vertical drop guide */}
+              <line x1={0} y1={-96} x2={0} y2={132} stroke="#38BDF8" strokeWidth={3.5} strokeDasharray="10 8" opacity={0.65} />
+
+              {/* Single-flip arc arrow cleanly inside circle upper half */}
+              <path d="M -112,-66 A 128,112 0 0,1 116,-58" fill="none" stroke="#15803D" strokeWidth={6} strokeLinecap="round" />
+              <polygon points="124,-48 100,-54 116,-72" fill="#15803D" />
 
               {/* Soft plush landing cushion at bottom of circle */}
-              <g transform="translate(0, 152)">
-                <ellipse cx={0} cy={12} rx={165} ry={18} fill="#0F172A" opacity={0.12} />
-                <rect x={-158} y={-28} width={316} height={48} rx={24} fill="#38BDF8" stroke={INK} strokeWidth={3.6} />
-                <rect x={-140} y={-21} width={280} height={16} rx={8} fill="#BAE6FD" stroke="#0284C7" strokeWidth={2} />
+              <g transform="translate(0, 160)">
+                <ellipse cx={0} cy={12} rx={152} ry={16} fill="#0F172A" opacity={0.12} />
+                <rect x={-146} y={-26} width={292} height={44} rx={22} fill="#38BDF8" stroke={INK} strokeWidth={3.6} />
+                <rect x={-128} y={-19} width={256} height={15} rx={7.5} fill="#BAE6FD" stroke="#0284C7" strokeWidth={2} />
               </g>
 
               {/* Custom Tailless Manx Cat: flips ONCE [0..32] then stands firmly still on 4 paws on cushion */}
@@ -398,7 +411,9 @@ export const CatParachuteVelocityVisual: React.FC<EpisodeVisualProps> = ({
 }) => {
   const activeStep = step ?? visualStep ?? 0;
   const windRise = (frame * 3.2) % 90;
-  const hoverY = Math.sin(frame * 0.14) * 10;
+  const hoverY = Math.sin(frame * 0.1) * 7;
+  const tailSway = Math.sin(frame * 0.12) * 8;
+  const glideBlink = isAnimalBlinking(frame, 19);
 
   return (
     <svg viewBox="0 0 1920 1080" width="100%" height="100%" style={{ display: 'block', fontFamily: FONT }}>
@@ -433,30 +448,126 @@ export const CatParachuteVelocityVisual: React.FC<EpisodeVisualProps> = ({
             );
           })}
 
-          {/* Parachute-Spread Flying-Squirrel-Style Cute Cat */}
-          <g transform={`translate(960, ${(415 + hoverY).toFixed(1)})`} stroke={INK} strokeWidth={4.5} strokeLinejoin="round" strokeLinecap="round">
-            {/* Air drag canopy arc beneath cat */}
-            <path d="M -250,48 Q 0,108 250,48" fill="none" stroke="#38BDF8" strokeWidth={7} strokeDasharray="14 10" />
-            {/* 4 Legs spread wide horizontally */}
-            <path d="M -110,-28 L -220,-62 L -208,-34 L -112,4 Z" fill="#FB923C" />
-            <path d="M 110,-28 L 220,-62 L 208,-34 L 112,4 Z" fill="#FB923C" />
-            <path d="M -104,24 L -216,66 L -198,92 L -94,48 Z" fill="#FB923C" />
-            <path d="M 104,24 L 216,66 L 198,92 L 94,48 Z" fill="#FB923C" />
-            {/* Puffed wide fluffy torso */}
-            <ellipse cx={0} cy={4} rx={124} ry={62} fill="#FB923C" />
-            <ellipse cx={0} cy={14} rx={82} ry={38} fill="#FFF7ED" stroke="none" />
-            {/* Head facing forward */}
-            <g transform="translate(0, -68)">
-              <polygon points="-32,-16 -40,-56 -8,-30" fill="#FB923C" />
-              <polygon points="32,-16 40,-56 8,-30" fill="#FB923C" />
-              <polygon points="-26,-20 -31,-42 -12,-28" fill="#FBCFE8" stroke="none" />
-              <polygon points="26,-20 31,-42 12,-28" fill="#FBCFE8" stroke="none" />
-              <circle cx={0} cy={0} r={42} fill="#FB923C" />
-              <ellipse cx={0} cy={14} rx={22} ry={14} fill="#FFF7ED" stroke="none" />
-              <circle cx={-14} cy={-5} r={5.5} fill={INK} stroke="none" />
-              <circle cx={14} cy={-5} r={5.5} fill={INK} stroke="none" />
-              <polygon points="-5,6 5,6 0,12" fill="#FB7185" stroke="none" />
-              <path d="M -10,18 Q -5,24 0,18 Q 5,24 10,18" fill="none" strokeWidth={3.2} />
+          {/* CuteCat V23.5 Gliding Parachute Pose — round sparkly face, rosy cheeks, cream belly & 4 chunky orange paws splayed softly to 4 corners! */}
+          <g
+            id="svg11-gliding-cutecat-v235"
+            transform={`translate(960, ${(438 + hoverY).toFixed(1)})`}
+            stroke={INK}
+            strokeWidth={4.2}
+            strokeLinejoin="round"
+            strokeLinecap="round"
+          >
+            {/* Air drag canopy arc beneath splayed paws */}
+            <path d="M -250,74 Q 0,136 250,74" fill="none" stroke="#38BDF8" strokeWidth={7} strokeDasharray="14 10" />
+
+            {/* Fluffy curved orange tail streaming behind back */}
+            <g transform={`translate(-108, 12) rotate(${tailSway.toFixed(1)})`}>
+              <path d="M 0,0 C -44,-14 -72,-54 -48,-88" fill="none" stroke={INK} strokeWidth={20} />
+              <path d="M 0,0 C -44,-14 -72,-54 -48,-88" fill="none" stroke="#FDBA74" strokeWidth={11.5} />
+            </g>
+
+            {/* 4 Chunky Rounded Orange Paws (#FDBA74) + Small White Paw Tips (#FFF7ED) Splayed Softly Outward to 4 Corners */}
+            {/* Top-Left Front Paw */}
+            <g transform="translate(-104, -36) rotate(-52)">
+              <rect x={-16} y={-68} width={32} height={74} rx={16} fill="#FDBA74" />
+              <ellipse cx={0} cy={-58} rx={12} ry={8} fill="#FFF7ED" stroke="none" />
+              <circle cx={-5} cy={-60} r={2.5} fill="#FDA4AF" stroke="none" />
+              <circle cx={0} cy={-63} r={2.5} fill="#FDA4AF" stroke="none" />
+              <circle cx={5} cy={-60} r={2.5} fill="#FDA4AF" stroke="none" />
+            </g>
+            {/* Top-Right Front Paw */}
+            <g transform="translate(104, -36) rotate(52)">
+              <rect x={-16} y={-68} width={32} height={74} rx={16} fill="#FDBA74" />
+              <ellipse cx={0} cy={-58} rx={12} ry={8} fill="#FFF7ED" stroke="none" />
+              <circle cx={-5} cy={-60} r={2.5} fill="#FDA4AF" stroke="none" />
+              <circle cx={0} cy={-63} r={2.5} fill="#FDA4AF" stroke="none" />
+              <circle cx={5} cy={-60} r={2.5} fill="#FDA4AF" stroke="none" />
+            </g>
+            {/* Bottom-Left Hind Paw */}
+            <g transform="translate(-96, 36) rotate(-132)">
+              <rect x={-16} y={-68} width={32} height={74} rx={16} fill="#FDBA74" />
+              <ellipse cx={0} cy={-58} rx={12} ry={8} fill="#FFF7ED" stroke="none" />
+              <circle cx={-5} cy={-60} r={2.5} fill="#FDA4AF" stroke="none" />
+              <circle cx={0} cy={-63} r={2.5} fill="#FDA4AF" stroke="none" />
+              <circle cx={5} cy={-60} r={2.5} fill="#FDA4AF" stroke="none" />
+            </g>
+            {/* Bottom-Right Hind Paw */}
+            <g transform="translate(96, 36) rotate(132)">
+              <rect x={-16} y={-68} width={32} height={74} rx={16} fill="#FDBA74" />
+              <ellipse cx={0} cy={-58} rx={12} ry={8} fill="#FFF7ED" stroke="none" />
+              <circle cx={-5} cy={-60} r={2.5} fill="#FDA4AF" stroke="none" />
+              <circle cx={0} cy={-63} r={2.5} fill="#FDA4AF" stroke="none" />
+              <circle cx={5} cy={-60} r={2.5} fill="#FDA4AF" stroke="none" />
+            </g>
+
+            {/* Plump Fluffy CuteCat Torso (#FDBA74) + Soft Cream Belly (#FFF7ED) + Flat Cel-Shade */}
+            <path
+              d="M -112,2 C -114,-54 -56,-76 0,-76 C 56,-76 114,-54 112,2 C 110,56 58,74 0,74 C -58,74 -110,56 -112,2 Z"
+              fill="#FDBA74"
+            />
+            <ellipse cx={0} cy={10} rx={74} ry={46} fill="#FFF7ED" stroke="none" />
+            <path
+              d="M -96,34 C -48,68 48,68 96,34 C 48,78 -48,78 -96,34 Z"
+              fill="#0F172A"
+              opacity={0.10}
+              stroke="none"
+            />
+            {/* Cute tabby side stripes on torso */}
+            <g stroke="#EA580C" strokeWidth={4.5} fill="none" opacity={0.85}>
+              <path d="M -98,-12 Q -84,-8 -74,-12" />
+              <path d="M -100,8 Q -84,12 -72,8" />
+              <path d="M 98,-12 Q 84,-8 74,-12" />
+              <path d="M 100,8 Q 84,12 72,8" />
+            </g>
+
+            {/* CuteCat V23.5 Expressive Round Head */}
+            <g transform="translate(0, -82)">
+              {/* Triangular Ears with Pastel Pink Inner Triangles */}
+              <polygon points="-44,-26 -54,-78 -10,-46" fill="#FDBA74" />
+              <polygon points="44,-26 54,-78 10,-46" fill="#FDBA74" />
+              <polygon points="-36,-32 -43,-63 -16,-42" fill="#FBCFE8" stroke="none" />
+              <polygon points="36,-32 43,-63 16,-42" fill="#FBCFE8" stroke="none" />
+
+              {/* Round Cream-Orange Head */}
+              <circle cx={0} cy={0} r={54} fill="#FDBA74" />
+              {/* Tabby Forehead Stripes */}
+              <g stroke="#EA580C" strokeWidth={4.5} fill="none">
+                <line x1={0} y1={-48} x2={0} y2={-32} />
+                <line x1={-12} y1={-46} x2={-9} y2={-33} />
+                <line x1={12} y1={-46} x2={9} y2={-33} />
+              </g>
+              {/* Pastel Rosy Cheeks (#FDA4AF, opacity="0.45") */}
+              <ellipse cx={-32} cy={8} rx={11} ry={6.5} fill="#FDA4AF" opacity={0.45} stroke="none" />
+              <ellipse cx={32} cy={8} rx={11} ry={6.5} fill="#FDA4AF" opacity={0.45} stroke="none" />
+              {/* Cream Muzzle */}
+              <ellipse cx={0} cy={17} rx={26} ry={17} fill="#FFF7ED" stroke="none" />
+
+              {/* Sparkling Symmetric V23.5 Eyes */}
+              {glideBlink ? (
+                <g fill="none" stroke={INK} strokeWidth={3.8}>
+                  <path d="M -28,-6 Q -19,1 -10,-6" />
+                  <path d="M 10,-6 Q 19,1 28,-6" />
+                </g>
+              ) : (
+                <g stroke="none">
+                  <circle cx={-19} cy={-6} r={9.2} fill="#0F172A" />
+                  <circle cx={-22} cy={-9} r={3} fill="#FFFFFF" />
+                  <circle cx={-16} cy={-3.5} r={1.5} fill="#FFFFFF" />
+                  <circle cx={19} cy={-6} r={9.2} fill="#0F172A" />
+                  <circle cx={16} cy={-9} r={3} fill="#FFFFFF" />
+                  <circle cx={22} cy={-3.5} r={1.5} fill="#FFFFFF" />
+                </g>
+              )}
+
+              {/* Cute Pink Nose, ':3' Smile & Whiskers */}
+              <polygon points="-6,8 6,8 0,15" fill="#FB7185" stroke="none" />
+              <path d="M -12,20 Q -6,27 0,20 Q 6,27 12,20" fill="none" stroke={INK} strokeWidth={3.4} />
+              <g stroke={INK} strokeWidth={2.8} fill="none">
+                <line x1={-38} y1={10} x2={-62} y2={4} />
+                <line x1={-38} y1={18} x2={-62} y2={22} />
+                <line x1={38} y1={10} x2={62} y2={4} />
+                <line x1={38} y1={18} x2={62} y2={22} />
+              </g>
             </g>
           </g>
 
@@ -852,23 +963,34 @@ export const CatOtherAnimalsNasaVisual: React.FC<EpisodeVisualProps> = ({
 
       {activeStep === 0 && (
         <g>
-          {/* Card 1: Cute Rabbit (Thỏ) */}
+          {/* Card 1: Cute Rabbit (Thỏ) — V23.5 Expressive Style */}
           <g transform="translate(195, 210)">
             <rect x={0} y={0} width={475} height={515} rx={28} fill="#FFF7ED" stroke="#EA580C" strokeWidth={4} />
             <text x={237} y={54} textAnchor="middle" fill="#C2410C" fontSize={28} fontWeight={900}>1. Loài Thỏ</text>
-            <g transform="translate(237, 250)" stroke={INK} strokeWidth={4} strokeLinejoin="round">
+            <g transform="translate(237, 250)" stroke={INK} strokeWidth={4} strokeLinejoin="round" strokeLinecap="round">
               <circle cx={0} cy={0} r={118} fill="#FFFFFF" stroke="#FDBA74" strokeWidth={3.5} />
               {/* Rabbit ears */}
-              <ellipse cx={-20} cy={-78} rx={15} ry={44} transform="rotate(-12, -20, -78)" fill="#F8FAFC" />
-              <ellipse cx={20} cy={-78} rx={15} ry={44} transform="rotate(12, 20, -78)" fill="#F8FAFC" />
-              <ellipse cx={-20} cy={-78} rx={7} ry={28} transform="rotate(-12, -20, -78)" fill="#FBCFE8" stroke="none" />
-              <ellipse cx={20} cy={-78} rx={7} ry={28} transform="rotate(12, 20, -78)" fill="#FBCFE8" stroke="none" />
+              <ellipse cx={-20} cy={-64} rx={15} ry={40} transform="rotate(-12, -20, -64)" fill="#F8FAFC" />
+              <ellipse cx={20} cy={-64} rx={15} ry={40} transform="rotate(12, 20, -64)" fill="#F8FAFC" />
+              <ellipse cx={-20} cy={-64} rx={7} ry={25} transform="rotate(-12, -20, -64)" fill="#FBCFE8" stroke="none" />
+              <ellipse cx={20} cy={-64} rx={7} ry={25} transform="rotate(12, 20, -64)" fill="#FBCFE8" stroke="none" />
               {/* Cute round bunny head & body */}
-              <ellipse cx={0} cy={40} rx={52} ry={36} fill="#F8FAFC" />
-              <circle cx={0} cy={-16} r={38} fill="#F8FAFC" />
-              <circle cx={-13} cy={-20} r={4.5} fill={INK} stroke="none" />
-              <circle cx={13} cy={-20} r={4.5} fill={INK} stroke="none" />
-              <polygon points="-5,-8 5,-8 0,-2" fill="#FB7185" stroke="none" />
+              <ellipse cx={0} cy={46} rx={52} ry={34} fill="#F8FAFC" />
+              <circle cx={0} cy={-6} r={38} fill="#F8FAFC" />
+              {/* Pastel rosy cheeks */}
+              <ellipse cx={-22} cy={4} rx={7.5} ry={4.2} fill="#FDA4AF" opacity={0.45} stroke="none" />
+              <ellipse cx={22} cy={4} rx={7.5} ry={4.2} fill="#FDA4AF" opacity={0.45} stroke="none" />
+              {/* Sparkling eyes with white highlights */}
+              <g stroke="none">
+                <circle cx={-13} cy={-10} r={5.6} fill="#0F172A" />
+                <circle cx={-14.8} cy={-11.8} r={1.9} fill="#FFFFFF" />
+                <circle cx={-11.4} cy={-8.4} r={0.9} fill="#FFFFFF" />
+                <circle cx={13} cy={-10} r={5.6} fill="#0F172A" />
+                <circle cx={11.2} cy={-11.8} r={1.9} fill="#FFFFFF" />
+                <circle cx={14.6} cy={-8.4} r={0.9} fill="#FFFFFF" />
+              </g>
+              <polygon points="-5,1 5,1 0,7" fill="#FB7185" stroke="none" />
+              <path d="M -8,11 Q -4,16 0,11 Q 4,16 8,11" fill="none" strokeWidth={2.6} />
               {/* Rotation arrow */}
               <path d="M -88,-52 A 98,98 0 0,1 88,-52" fill="none" stroke="#EA580C" strokeWidth={5.5} strokeLinecap="round" />
               <polygon points="96,-44 74,-48 86,-66" fill="#EA580C" stroke="none" />
@@ -881,19 +1003,14 @@ export const CatOtherAnimalsNasaVisual: React.FC<EpisodeVisualProps> = ({
             </text>
           </g>
 
-          {/* Card 2: Cute Gecko / Lizard (Thằn lằn) */}
+          {/* Card 2: Cute Gecko / Lizard (Thằn lằn) — directly using CuteLizard V23.5 from AnimalSpriteKit */}
           <g transform="translate(722, 210)">
             <rect x={0} y={0} width={475} height={515} rx={28} fill="#ECFDF5" stroke="#15803D" strokeWidth={4} />
             <text x={237} y={54} textAnchor="middle" fill="#14532D" fontSize={28} fontWeight={900}>2. Thằn lằn</text>
-            <g transform="translate(237, 250)" stroke={INK} strokeWidth={4} strokeLinejoin="round" strokeLinecap="round">
+            <g transform="translate(237, 250)">
               <circle cx={0} cy={0} r={118} fill="#FFFFFF" stroke="#86EFAC" strokeWidth={3.5} />
-              {/* Cute green gecko body + swinging tail */}
-              <path d="M -84,26 Q -45,54 -14,22" fill="none" stroke="#16A34A" strokeWidth={14} />
-              <ellipse cx={16} cy={6} rx={48} ry={22} fill="#22C55E" />
-              <circle cx={72} cy={-4} r={24} fill="#4ADE80" />
-              <circle cx={78} cy={-10} r={4.5} fill={INK} stroke="none" />
-              <path d="M -10,20 L -24,46 M 38,20 L 52,46 M -4,-12 L -20,-34 M 40,-12 L 56,-34" stroke="#15803D" strokeWidth={7} />
-              <path d="M -88,-52 A 98,98 0 0,1 88,-52" fill="none" stroke="#15803D" strokeWidth={5.5} />
+              <CuteLizard x={22} y={44} scale={0.94} frame={frame} pose="stand" emotion="happy" />
+              <path d="M -88,-52 A 98,98 0 0,1 88,-52" fill="none" stroke="#15803D" strokeWidth={5.5} strokeLinecap="round" />
               <polygon points="96,-44 74,-48 86,-66" fill="#15803D" stroke="none" />
             </g>
             <text x={237} y={426} textAnchor="middle" fill="#334155" fontSize={21} fontWeight={800}>
@@ -904,16 +1021,70 @@ export const CatOtherAnimalsNasaVisual: React.FC<EpisodeVisualProps> = ({
             </text>
           </g>
 
-          {/* Card 3: Cute Stick Insect (Bọ que) */}
+          {/* Card 3: Friendly V23.5 Stick Insect (Bọ que) — rounded head/joints/legs + sparkling eyes + rosy cheek */}
           <g transform="translate(1250, 210)">
             <rect x={0} y={0} width={475} height={515} rx={28} fill="#EFF6FF" stroke="#0284C7" strokeWidth={4} />
             <text x={237} y={54} textAnchor="middle" fill="#0369A1" fontSize={28} fontWeight={900}>3. Bọ que</text>
-            <g transform="translate(237, 250)" stroke={INK} strokeWidth={4} strokeLinecap="round">
+            <g transform="translate(237, 250)" stroke={INK} strokeWidth={3.6} strokeLinecap="round" strokeLinejoin="round">
               <circle cx={0} cy={0} r={118} fill="#FFFFFF" stroke="#7DD3FC" strokeWidth={3.5} />
-              {/* Cute twig-like insect */}
-              <line x1={-66} y1={14} x2={68} y2={-10} stroke="#92400E" strokeWidth={12} />
-              <circle cx={72} cy={-12} r={11} fill="#B45309" />
-              <path d="M -30,8 L -48,46 M 4,2 L -8,44 M 36,-4 L 30,38 M -24,6 L -38,-32 M 12,0 L 8,-38 M 44,-6 L 56,-40" stroke="#78350F" strokeWidth={4.5} />
+
+              {/* Friendly Rounded Stick Insect (V23.5 palette & eye highlights) */}
+              <g id="svg14-friendly-stick-insect-v235" transform="translate(-4, 16)">
+                {/* 6 Softly Bent Rounded Jointed Legs + Little Round Foot Pads */}
+                <g fill="none" stroke={INK} strokeWidth={6.5}>
+                  <path d="M -42,8 L -58,34 L -72,44" />
+                  <path d="M -8,4 L -16,36 L -28,48" />
+                  <path d="M 26,-2 L 26,32 L 38,44" />
+                  <path d="M -38,2 L -52,-22 L -66,-26" />
+                  <path d="M -4,-2 L -8,-30 L 4,-38" />
+                  <path d="M 28,-8 L 36,-32 L 50,-36" />
+                </g>
+                <g fill="none" stroke="#65A30D" strokeWidth={3.2}>
+                  <path d="M -42,8 L -58,34 L -72,44" />
+                  <path d="M -8,4 L -16,36 L -28,48" />
+                  <path d="M 26,-2 L 26,32 L 38,44" />
+                  <path d="M -38,2 L -52,-22 L -66,-26" />
+                  <path d="M -4,-2 L -8,-30 L 4,-38" />
+                  <path d="M 28,-8 L 36,-32 L 50,-36" />
+                </g>
+                {/* Tiny rounded feet */}
+                <g fill="#BEF264" stroke={INK} strokeWidth={2.2}>
+                  <circle cx={-72} cy={44} r={3.5} />
+                  <circle cx={-28} cy={48} r={3.5} />
+                  <circle cx={38} cy={44} r={3.5} />
+                  <circle cx={-66} cy={-26} r={3.5} />
+                  <circle cx={4} cy={-38} r={3.5} />
+                  <circle cx={50} cy={-36} r={3.5} />
+                </g>
+
+                {/* Segmented Rounded Twig-Green Body (Abdomen + Thorax) */}
+                <rect x={-74} y={0} width={58} height={18} rx={9} transform="rotate(-10, -45, 9)" fill="#65A30D" />
+                <rect x={-22} y={-8} width={64} height={20} rx={10} transform="rotate(-10, 10, 2)" fill="#84CC16" />
+                {/* Cute tiny leaf-bud accent on back */}
+                <path d="M -18,-10 C -26,-26 -6,-32 2,-14 Z" fill="#4ADE80" stroke={INK} strokeWidth={2.8} />
+
+                {/* Soft Curved Antennae */}
+                <path d="M 62,-24 Q 78,-42 90,-36" fill="none" stroke={INK} strokeWidth={3} />
+                <path d="M 52,-26 Q 60,-46 74,-44" fill="none" stroke={INK} strokeWidth={3} />
+                <circle cx={90} cy={-36} r={2.8} fill="#84CC16" strokeWidth={2} />
+                <circle cx={74} cy={-44} r={2.8} fill="#84CC16" strokeWidth={2} />
+
+                {/* Friendly Rounded Head with Small Sparkling Eyes + Rosy Cheek + Smile */}
+                <g transform="translate(56, -12)">
+                  <circle cx={0} cy={0} r={19} fill="#A3E635" />
+                  <ellipse cx={6} cy={6} rx={5.5} ry={3.2} fill="#FDA4AF" opacity={0.48} stroke="none" />
+                  <ellipse cx={-10} cy={6} rx={4.5} ry={2.8} fill="#FDA4AF" opacity={0.42} stroke="none" />
+                  {/* Twin small cute eyes with white sparkle highlights */}
+                  <g stroke="none">
+                    <circle cx={-5} cy={-4} r={4.2} fill="#0F172A" />
+                    <circle cx={-6.3} cy={-5.3} r={1.5} fill="#FFFFFF" />
+                    <circle cx={7} cy={-4} r={4.2} fill="#0F172A" />
+                    <circle cx={5.7} cy={-5.3} r={1.5} fill="#FFFFFF" />
+                  </g>
+                  <path d="M -4,6 Q 1,11 6,6" fill="none" stroke={INK} strokeWidth={2.5} />
+                </g>
+              </g>
+
               <path d="M -88,-52 A 98,98 0 0,1 88,-52" fill="none" stroke="#0284C7" strokeWidth={5.5} />
               <polygon points="96,-44 74,-48 86,-66" fill="#0284C7" stroke="none" />
             </g>

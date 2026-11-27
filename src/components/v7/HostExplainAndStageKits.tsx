@@ -1855,17 +1855,17 @@ const BalconyChairAndCushionStatic: React.FC = React.memo(() => (
 
     {/* Warm solid wooden patio chair on right at x=1475, ground y=812 */}
     <g transform="translate(1475, 812)">
-      <GroundShadow cx={0} cy={8} rx={96} ry={13} />
-      {/* Back legs & tall backrest (top bar at y = -226 -> world y=586) */}
-      <rect x={44} y={-226} width={18} height={226} rx={5} fill="#92400E" />
+      <GroundShadow cx={0} cy={8} rx={104} ry={13} />
+      {/* Back legs & tall sturdy backrest (top rail spans world x=1411..1547, y=586) */}
+      <rect x={46} y={-226} width={18} height={226} rx={5} fill="#92400E" />
       <rect x={-58} y={-114} width={18} height={114} rx={5} fill="#78350F" />
-      <rect x={-52} y={-226} width={114} height={26} rx={7} fill="#B45309" />
-      <rect x={-44} y={-186} width={98} height={22} rx={6} fill="#D97706" />
-      <rect x={-44} y={-152} width={98} height={22} rx={6} fill="#D97706" />
+      <rect x={-64} y={-226} width={136} height={26} rx={7} fill="#B45309" />
+      <rect x={-52} y={-186} width={112} height={22} rx={6} fill="#D97706" />
+      <rect x={-52} y={-152} width={112} height={22} rx={6} fill="#D97706" />
       {/* Wooden seat slab */}
-      <rect x={-74} y={-118} width={144} height={22} rx={7} fill="#D97706" />
+      <rect x={-78} y={-118} width={152} height={22} rx={7} fill="#D97706" />
       {/* Side brace */}
-      <rect x={-44} y={-50} width={92} height={12} rx={4} fill="#78350F" />
+      <rect x={-46} y={-50} width={96} height={12} rx={4} fill="#78350F" />
     </g>
   </g>
 ));
@@ -1875,7 +1875,8 @@ export const BackyardBalconyCatStageKit: React.FC<{
   mode: BalconyDetailId;
   frame: number;
   localFrame?: number;
-}> = ({ mode, frame, localFrame }) => {
+  durationFrames?: number;
+}> = ({ mode, frame, localFrame, durationFrames }) => {
   if (mode === "NONE") return null;
 
   const showSafetyNet =
@@ -1887,7 +1888,15 @@ export const BackyardBalconyCatStageKit: React.FC<{
     mode === "CAT_PET_HAPPY";
 
   const activeLocalFrame = localFrame ?? frame;
-  const slipTilt = -12 + Math.sin(frame * 0.25) * 4;
+  const activeDuration = Math.max(45, durationFrames ?? 225);
+  const slipStartFrame = Math.max(0, activeDuration - 18);
+  const isSlippingEndOfBeat = activeLocalFrame >= slipStartFrame;
+  // Beat 1: stand 100% steady & level on all 4 paws on the chair top rail; tilt gently ONLY in the last ~18 frames!
+  const slipTilt = interpolate(activeLocalFrame, [slipStartFrame, activeDuration], [0, -14], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.in(Easing.quad),
+  });
   const flipDeg = interpolate(activeLocalFrame, [0, 32], [180, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
@@ -1909,14 +1918,17 @@ export const BackyardBalconyCatStageKit: React.FC<{
 
       {mode === "CAT_CHAIR_SLIP" && (
         <g id="balcony-cat-chair-slip">
-          <g transform={`translate(1432, 584) rotate(${slipTilt.toFixed(1)})`}>
-            <CuteCat x={0} y={0} scale={0.84} flipX={true} frame={frame} pose="stand" />
+          {/* All 4 paws stand squarely on wooden chair backrest (rail x=1411..1547, y=586; paws span x=1439..1516!) */}
+          <g transform={`translate(1480, 587) rotate(${slipTilt.toFixed(1)}, -38, 0)`}>
+            <CuteCat x={0} y={0} scale={0.82} flipX={true} frame={frame} pose="stand" />
           </g>
-          {/* Animated slip/startle motion marks beside chair top */}
-          <g stroke="#F59E0B" strokeWidth={4} strokeLinecap="round" fill="none">
-            <path d="M 1345,546 Q 1332,562 1340,582" />
-            <path d="M 1326,554 Q 1312,570 1320,590" opacity={0.75} />
-          </g>
+          {/* Slip startle lines appear ONLY during the final ~18-frame slip moment */}
+          {isSlippingEndOfBeat && (
+            <g stroke="#F59E0B" strokeWidth={4} strokeLinecap="round" fill="none">
+              <path d="M 1396,544 Q 1384,560 1392,580" />
+              <path d="M 1378,552 Q 1365,568 1373,588" opacity={0.75} />
+            </g>
+          )}
         </g>
       )}
 
