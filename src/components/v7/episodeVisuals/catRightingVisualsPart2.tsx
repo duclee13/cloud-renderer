@@ -270,7 +270,7 @@ export const CatSpringLegsVisual: React.FC<EpisodeVisualProps> = ({
             <polygon points="310,232 300,252 320,252" fill={INK} />
             <polygon points="1658,578 1638,568 1638,588" fill={INK} />
             <text x={286} y={260} textAnchor="end" fill="#0F172A" fontSize={20} fontWeight={900}>Lực va chạm</text>
-            <text x={1610} y={616} textAnchor="end" fill="#475569" fontSize={20} fontWeight={800}>Thời gian chạm đất →</text>
+            <text x={1610} y={630} textAnchor="end" fill="#475569" fontSize={20} fontWeight={800}>Thời gian chạm đất →</text>
 
             {/* Red Tall Sharp Spike: Rigid landing */}
             <path
@@ -727,8 +727,8 @@ export const CatWhenFailsVisual: React.FC<EpisodeVisualProps> = ({
             <g transform="translate(240, 218)">
               {item.icon === 'KITTEN' && (
                 <g>
-                  <CuteCat x={0} y={70} scale={0.78} frame={frame} pose="sit" />
-                  <CatContrastBadge x={0} y={-82} w={230} h={38} text="< 3–4 tuần tuổi" variant="solidBlue" fontSize={18} />
+                  <CuteCat x={0} y={88} scale={0.72} frame={frame} pose="sit" />
+                  <CatContrastBadge x={0} y={-90} w={230} h={38} text="< 3–4 tuần tuổi" variant="solidBlue" fontSize={18} />
                 </g>
               )}
               {item.icon === 'CHUBBY' && (
@@ -738,12 +738,12 @@ export const CatWhenFailsVisual: React.FC<EpisodeVisualProps> = ({
               )}
               {item.icon === 'LOW' && (
                 <g>
-                  {/* Low floor & ruler */}
+                  {/* Low floor & ruler (label lifted cleanly >= 20px above yellow ruler top!) */}
                   <line x1={-150} y1={84} x2={150} y2={84} stroke={INK} strokeWidth={5} strokeLinecap="round" />
                   <rect x={-135} y={-20} width={34} height={104} rx={8} fill="#FEF08A" stroke="#D97706" strokeWidth={3} />
-                  <text x={-118} y={-32} textAnchor="middle" fill="#DC2626" fontSize={19} fontWeight={900}>&lt;20cm</text>
-                  <g transform="translate(36, 16) rotate(135)">
-                    <CuteCat x={0} y={32} scale={0.74} frame={frame} pose="curl_midair" />
+                  <text x={-124} y={-42} textAnchor="middle" fill="#DC2626" fontSize={20} fontWeight={900}>&lt;20cm</text>
+                  <g transform="translate(46, 0) rotate(135)">
+                    <CuteCat x={0} y={32} scale={0.72} frame={frame} pose="curl_midair" />
                   </g>
                 </g>
               )}

@@ -317,7 +317,7 @@
               "startX": 330,
               "endX": 330,
               "facing": "RIGHT",
-              "pose": "POINT_UP",
+              "pose": "TALK_GESTURE",
               "expression": "SURPRISED",
               "handProp": "NONE"
             },
@@ -327,7 +327,7 @@
               "startX": 330,
               "endX": 330,
               "facing": "RIGHT",
-              "pose": "TALK_GESTURE",
+              "pose": "POINT_FORWARD",
               "expression": "SURPRISED",
               "handProp": "NONE"
             }
@@ -1478,7 +1478,7 @@
               "startX": 330,
               "endX": 330,
               "facing": "RIGHT",
-              "pose": "POINT_UP",
+              "pose": "TALK_GESTURE",
               "expression": "WORRIED",
               "handProp": "NONE"
             },
@@ -1488,7 +1488,7 @@
               "startX": 330,
               "endX": 330,
               "facing": "RIGHT",
-              "pose": "TALK_GESTURE",
+              "pose": "POINT_FORWARD",
               "expression": "WORRIED",
               "handProp": "NONE"
             }
@@ -2179,7 +2179,7 @@
     },
     {
       "id": "b51",
-      "text": "Đáp án chính xác là đáp án bê: cột sống siêu dẻo kết hợp kỹ thuật thu duỗi bốn chân, còn cái đuôi chỉ hỗ trợ phụ thôi nhé.",
+      "text": "Đáp án chính xác là đáp án B: cột sống siêu dẻo kết hợp kỹ thuật thu duỗi bốn chân, còn cái đuôi chỉ hỗ trợ phụ thôi nhé.",
       "ttsText": "Đáp án chính xác là đáp án bê: cột sống siêu dẻo kết hợp kỹ thuật thu duỗi bốn chân, còn cái đuôi chỉ hỗ trợ phụ thôi nhé.",
       "stageType": "EXPLAINER_POLKA_DOT",
       "timeOfDay": "DAY",
@@ -2203,7 +2203,7 @@
     },
     {
       "id": "b52",
-      "text": "Nếu bạn vừa chọn đúng đáp án bê thì chúc mừng nhé, bạn đã nắm trọn bí kíp vật lý làm khó giới khoa học suốt bảy mươi năm.",
+      "text": "Nếu bạn vừa chọn đúng đáp án B thì chúc mừng nhé, bạn đã nắm trọn bí kíp vật lý làm khó giới khoa học suốt bảy mươi năm.",
       "ttsText": "Nếu bạn vừa chọn đúng đáp án bê thì chúc mừng nhé, bạn đã nắm trọn bí kíp vật lý làm khó giới khoa học suốt bảy mươi năm.",
       "stageType": "HOST_EXPLAIN_OVERLAY",
       "overlayMode": "HOST_EXPLAIN",
@@ -2661,7 +2661,7 @@
           },
           "slot": "LEFT",
           "facing": "RIGHT",
-          "motion": "IDLE_TALK",
+          "motion": "WAVE",
           "expression": "HAPPY",
           "handProp": "NONE",
           "groundY": 818,
@@ -2672,7 +2672,7 @@
               "startX": 660,
               "endX": 660,
               "facing": "RIGHT",
-              "pose": "ARMS_UP_CHEER",
+              "pose": "NOD_SMILE",
               "expression": "HAPPY",
               "handProp": "NONE"
             },
@@ -2693,7 +2693,7 @@
           "preset": "BOY",
           "slot": "CENTER",
           "facing": "RIGHT",
-          "motion": "IDLE_TALK",
+          "motion": "WAVE",
           "expression": "HAPPY",
           "handProp": "NONE",
           "groundY": 818,
@@ -2704,7 +2704,7 @@
               "startX": 960,
               "endX": 960,
               "facing": "RIGHT",
-              "pose": "ARMS_UP_CHEER",
+              "pose": "TALK_GESTURE",
               "expression": "HAPPY",
               "handProp": "NONE"
             },

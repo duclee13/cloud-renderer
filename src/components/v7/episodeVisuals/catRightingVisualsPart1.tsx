@@ -72,39 +72,39 @@ export const CatLowHeightTestVisual: React.FC<EpisodeVisualProps> = ({
         </g>
       </g>
 
-      {/* Center Stage: Soft thick safety cushion + Cat drop & flip */}
+      {/* Center Stage: Soft thick safety cushion + Cat drop & flip (shifted left to x=865 so Step 0 tags stay >= 90px clear of right card!) */}
       <g>
         {/* Dashed drop guideline */}
-        <line x1={960} y1={270} x2={960} y2={665} stroke="#38BDF8" strokeWidth={4} strokeDasharray="12 10" opacity={0.65} />
+        <line x1={865} y1={270} x2={865} y2={665} stroke="#38BDF8" strokeWidth={4} strokeDasharray="12 10" opacity={0.65} />
 
         {/* Thick plush cushion at bottom of card (y=660..740) */}
-        <g transform="translate(960, 706)">
-          <ellipse cx={0} cy={16} rx={300} ry={28} fill="#0F172A" opacity={0.12} />
-          <rect x={-290} y={-44} width={580} height={74} rx={36} fill="#38BDF8" stroke={INK} strokeWidth={4} />
-          <rect x={-266} y={-34} width={532} height={36} rx={18} fill="#BAE6FD" stroke="#0284C7" strokeWidth={2.6} />
-          <text x={0} y={16} textAnchor="middle" fill="#0C4A6E" fontSize={22} fontWeight={900}>
+        <g transform="translate(865, 706)">
+          <ellipse cx={0} cy={16} rx={280} ry={26} fill="#0F172A" opacity={0.12} />
+          <rect x={-270} y={-44} width={540} height={76} rx={36} fill="#38BDF8" stroke={INK} strokeWidth={4} />
+          <rect x={-246} y={-34} width={492} height={26} rx={13} fill="#BAE6FD" stroke="#0284C7" strokeWidth={2.4} />
+          <text x={0} y={18} textAnchor="middle" fill="#0C4A6E" fontSize={22} fontWeight={900}>
             Đệm dày êm ái an toàn
           </text>
         </g>
 
         {/* Cat Illustration */}
         {activeStep === 0 ? (
-          <g transform={`translate(960, ${dropY.toFixed(1)})`}>
+          <g transform={`translate(865, ${dropY.toFixed(1)})`}>
             {/* Gentle supporting open-hand indicators on sides */}
             <path d="M -185,18 Q -150,36 -116,14" fill="none" stroke="#94A3B8" strokeWidth={7} strokeLinecap="round" />
             <path d="M 185,18 Q 150,36 116,14" fill="none" stroke="#94A3B8" strokeWidth={7} strokeLinecap="round" />
             {/* Upside-down cat (rotated 180 deg so back faces down, 4 paws point up!) */}
             <g transform="rotate(180)">
-              <CuteCat x={0} y={48} scale={1.15} frame={frame} pose="curl_midair" />
+              <CuteCat x={0} y={48} scale={1.12} frame={frame} pose="curl_midair" />
             </g>
-            {/* Clean callout tags on left & right of cat */}
-            <g transform="translate(240, -56)">
+            {/* Clean callout tags on right of cat — right edge at x = 865 + 215 + 125 = 1205 (105px clear gap from right card at x=1310!) */}
+            <g transform="translate(215, -56)">
               <rect x={-125} y={-24} width={250} height={48} rx={24} fill="#EFF6FF" stroke="#0284C7" strokeWidth={3} />
               <text x={0} y={7} textAnchor="middle" fill="#0369A1" fontSize={20} fontWeight={900}>
                 4 chân chĩa lên trời ↑
               </text>
             </g>
-            <g transform="translate(240, 56)">
+            <g transform="translate(215, 56)">
               <rect x={-125} y={-24} width={250} height={48} rx={24} fill="#FFF7ED" stroke="#EA580C" strokeWidth={3} />
               <text x={0} y={7} textAnchor="middle" fill="#9A3412" fontSize={20} fontWeight={900}>
                 Lưng hướng xuống ↓
@@ -114,29 +114,29 @@ export const CatLowHeightTestVisual: React.FC<EpisodeVisualProps> = ({
         ) : (
           <g>
             {/* Ghost upside-down start position at top */}
-            <g transform="translate(960, 290) rotate(180)" opacity={0.28}>
+            <g transform="translate(865, 290) rotate(180)" opacity={0.28}>
               <CuteCat x={0} y={45} scale={0.95} frame={0} pose="curl_midair" />
             </g>
             {/* Rotating midair arc arrow */}
             <path
-              d="M 800,370 A 150,120 0 0,0 818,556"
+              d="M 705,370 A 150,120 0 0,0 723,556"
               fill="none"
               stroke="#EA580C"
               strokeWidth={7}
               strokeLinecap="round"
             />
-            <polygon points="828,566 802,554 824,538" fill="#EA580C" />
-            <text x={710} y={472} textAnchor="middle" fill="#C2410C" fontSize={28} fontWeight={900}>
+            <polygon points="733,566 707,554 729,538" fill="#EA580C" />
+            <text x={625} y={472} textAnchor="middle" fill="#C2410C" fontSize={28} fontWeight={900}>
               180°
             </text>
 
             {/* Animated flipping cat landing cleanly on cushion */}
             {flipCycle < 0.85 ? (
-              <g transform={`translate(960, ${dropY.toFixed(1)}) rotate(${flipDeg.toFixed(1)})`}>
+              <g transform={`translate(865, ${dropY.toFixed(1)}) rotate(${flipDeg.toFixed(1)})`}>
                 <CuteCat x={0} y={45} scale={1.08} frame={frame} pose="curl_midair" />
               </g>
             ) : (
-              <CuteCat x={960} y={664} scale={1.15} frame={frame} pose="stand" />
+              <CuteCat x={865} y={664} scale={1.15} frame={frame} pose="stand" />
             )}
           </g>
         )}

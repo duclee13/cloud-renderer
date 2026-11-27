@@ -3289,6 +3289,19 @@ export const UniversalAutoStage: React.FC<{
       };
     }
 
+    // V23.1: Hỗ trợ vẫy tay đứng vững (0px nhấc chân) khi actor.motion === "WAVE" trên timeline đứng yên
+    if (
+      timelineResolved &&
+      actor.motion === "WAVE" &&
+      (v18ActionPose === "NOD_SMILE" || v18ActionPose === "TALK_GESTURE")
+    ) {
+      waveRightArm = true;
+      blendedArmPose = undefined;
+      v18ActionPose = undefined;
+      flightLift = 0;
+      crouchDepth = 0;
+    }
+
     const isActivelyTalkingPose = Boolean(
       isSpeaking ||
         v18ActionPose === "TALK_GESTURE" ||
@@ -3717,9 +3730,9 @@ export const UniversalAutoStage: React.FC<{
             otherCandidates.find((o) => o.isSpeaking || o.isActivelyTalkingPose) ??
             [...otherCandidates].sort((a, b) => Math.abs(a.actorX - ra.actorX) - Math.abs(b.actorX - ra.actorX))[0];
 
-          // V18.2–V22.4: Tính hướng ánh mắt tự động (ưu tiên lookAtCamera -> dx=0, dy=0 nhìn thẳng khán giả; còn lại khóa cứng dx >= 0 cùng chiều facing!)
+          // V18.2–V23.1: Khóa cứng ánh mắt nhìn thẳng camera (dx=0, dy=0) cho mọi beat HOST_EXPLAIN_OVERLAY hoặc actor.lookAtCamera
           let lookOffset: { dx: number; dy: number };
-          if (actor.lookAtCamera) {
+          if (isHostExplain || actor.lookAtCamera) {
             lookOffset = { dx: 0, dy: 0 };
           } else if (ra.v18ActionPose === "SWEEP_LIGHT") {
             lookOffset = { dx: 3.4, dy: Math.max(-3.6, Math.min(3.6, ra.sweepSin * 3.4)) };
@@ -3787,7 +3800,11 @@ export const UniversalAutoStage: React.FC<{
             ? Math.sin(frame * 0.14 + aIdx) * 3.6 * (0.45 + 0.55 * Math.max(0, Math.sin(frame * 0.035)))
             : 0;
 
-          const effectiveHeadTiltDeg = ra.headTiltDeg + listenerNodDeg;
+          const rawEffectiveHeadTiltDeg = ra.headTiltDeg + listenerNodDeg;
+          const effectiveHeadTiltDeg =
+            isHostExplain || actor.lookAtCamera
+              ? Math.max(-3, Math.min(3, rawEffectiveHeadTiltDeg))
+              : rawEffectiveHeadTiltDeg;
           const nodAmplitudeDeg =
             ra.v18ActionPose === "NOD_SMILE" || ra.v18ActionPose === "SIP_DRINK"
               ? 0
