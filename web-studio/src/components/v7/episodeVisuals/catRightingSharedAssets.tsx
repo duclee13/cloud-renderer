@@ -187,6 +187,7 @@ export const CatStageCardBackdrop: React.FC<{
   cardFill?: string;
 }> = React.memo(({ tone = 'FOREST', gradId, showMainCard = true, cardBorder, cardFill = '#FFFFFF' }) => {
   const pal = TONE_PALETTE[tone];
+  const dotPatId = `${gradId}_dots_pat`;
   return (
     <g>
       <defs>
@@ -194,17 +195,13 @@ export const CatStageCardBackdrop: React.FC<{
           <stop offset="0%" stopColor={pal.bgTop} />
           <stop offset="100%" stopColor={pal.bgBot} />
         </linearGradient>
+        <pattern id={dotPatId} x="20" y="20" width="200" height="180" patternUnits="userSpaceOnUse">
+          <circle cx="100" cy="90" r="7" fill={pal.dot} opacity="0.14" />
+        </pattern>
       </defs>
 
       <rect x="0" y="0" width="1920" height="1080" fill={`url(#${gradId})`} />
-
-      <g fill={pal.dot} opacity="0.14">
-        {[120, 320, 520, 720, 920, 1120, 1320, 1520, 1720].map((px) =>
-          [110, 290, 470, 650].map((py) => (
-            <circle key={`${px}_${py}`} cx={px} cy={py} r="7" />
-          ))
-        )}
-      </g>
+      <rect x="20" y="20" width="1800" height="720" fill={`url(#${dotPatId})`} />
 
       {/* Clean floor band below card for subtitle area y=825..1080 */}
       <rect x="0" y="825" width="1920" height="255" fill={pal.floor} opacity="0.62" />

@@ -128,7 +128,7 @@ export const AnimScriptScene: React.FC<AnimScriptSceneProps> = ({ ir, showDebugM
                 fontSize: 22,
                 fontWeight: 800,
                 color: "#E11D48",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                boxShadow: "0 2px 0 rgba(0,0,0,0.18)",
                 pointerEvents: "none",
                 zIndex: 35,
               }}
@@ -295,7 +295,7 @@ export const AnimScriptScene: React.FC<AnimScriptSceneProps> = ({ ir, showDebugM
             lineHeight: 1.4,
             textAlign: "center",
             maxWidth: 1200,
-            boxShadow: "0 6px 20px rgba(0,0,0,0.35)",
+            boxShadow: "0 4px 0 rgba(0,0,0,0.35)",
             border: "1px solid rgba(255,255,255,0.15)",
             zIndex: 100,
           }}

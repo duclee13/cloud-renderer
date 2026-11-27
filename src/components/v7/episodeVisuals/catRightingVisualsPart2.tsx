@@ -1,6 +1,7 @@
 import React from 'react';
+import { Easing, interpolate } from 'remotion';
 import type { EpisodeVisualProps } from './index';
-import { CuteCat } from '../../AnimalSpriteKit';
+import { CuteCat, isAnimalBlinking } from '../../AnimalSpriteKit';
 import {
   INK,
   FONT,
@@ -13,7 +14,7 @@ import {
 /* ============================================================================
  * SVG_09: CAT_TAIL_MYTH (Beats 26–27, steps 0, 1)
  *   - Step 0: Mass & role comparison — Body & 4 legs (Main engine) vs Light tail (Minor balance helper)
- *   - Step 1: Tailless cat (Manx) smoothly flipping 180° + green tick "Vẫn lật 180° bình thường!"
+ *   - Step 1: Tailless cat (Manx) single 180°->0° flip landing on cushion & standing firmly on 4 paws
  * ========================================================================== */
 export const CatTailMythVisual: React.FC<EpisodeVisualProps> = ({
   frame = 0,
@@ -21,8 +22,20 @@ export const CatTailMythVisual: React.FC<EpisodeVisualProps> = ({
   visualStep,
 }) => {
   const activeStep = step ?? visualStep ?? 0;
-  const flipCycle = Math.min(1, (frame % 72) / 50);
-  const taillessRot = 180 * (1 - flipCycle);
+  const localFrame = frame;
+  const taillessRot = interpolate(localFrame, [0, 32], [180, 0], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+    easing: Easing.out(Easing.cubic),
+  });
+  const dropProgress = interpolate(localFrame, [0, 36], [0, 1], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+    easing: Easing.out(Easing.cubic),
+  });
+  const manxDropY = -92 + dropProgress * 172; // -92 (top release) -> +80 (paws firmly on cushion at y=138)
+  const hasLanded = localFrame >= 36;
+  const manxBlink = isAnimalBlinking(localFrame, 23);
 
   return (
     <svg viewBox="0 0 1920 1080" width="100%" height="100%" style={{ display: 'block', fontFamily: FONT }}>
@@ -100,38 +113,74 @@ export const CatTailMythVisual: React.FC<EpisodeVisualProps> = ({
           <g transform="translate(195, 205)">
             <rect x={0} y={0} width={1530} height={532} rx={28} fill="#F0FDF4" stroke="#15803D" strokeWidth={4.5} />
 
-            {/* Left: Tailless Cat Flipping Mid-Air */}
+            {/* Left: Tailless Manx Cat Single 180°->0° Flip & Firm 4-Paw Landing on Cushion */}
             <g transform="translate(470, 265)">
-              <circle cx={0} cy={0} r={170} fill="#FFFFFF" stroke="#22C55E" strokeWidth={4} strokeDasharray="10 8" />
-              {/* Rotation arrow */}
-              <path d="M -126,-116 A 168,168 0 0,1 132,-106" fill="none" stroke="#15803D" strokeWidth={7} strokeLinecap="round" />
-              <polygon points="142,-96 116,-102 132,-122" fill="#15803D" />
+              <circle cx={0} cy={-8} r={182} fill="#FFFFFF" stroke="#22C55E" strokeWidth={4} strokeDasharray="10 8" />
+              {/* Vertical drop guide */}
+              <line x1={0} y1={-128} x2={0} y2={126} stroke="#38BDF8" strokeWidth={3.5} strokeDasharray="10 8" opacity={0.65} />
 
-              {/* Custom Tailless Manx Cat matching CuteCat stroke style */}
-              <g transform={`rotate(${taillessRot.toFixed(1)})`}>
+              {/* Single-flip arc arrow */}
+              <path d="M -126,-96 A 148,136 0 0,1 132,-86" fill="none" stroke="#15803D" strokeWidth={6.5} strokeLinecap="round" />
+              <polygon points="142,-76 116,-82 132,-102" fill="#15803D" />
+              <text x={0} y={-144} textAnchor="middle" fill="#15803D" fontSize={22} fontWeight={900}>
+                Lật 180° → Đáp vững 4 chân
+              </text>
+
+              {/* Soft plush landing cushion at bottom of circle */}
+              <g transform="translate(0, 152)">
+                <ellipse cx={0} cy={12} rx={165} ry={18} fill="#0F172A" opacity={0.12} />
+                <rect x={-158} y={-28} width={316} height={48} rx={24} fill="#38BDF8" stroke={INK} strokeWidth={3.6} />
+                <rect x={-140} y={-21} width={280} height={16} rx={8} fill="#BAE6FD" stroke="#0284C7" strokeWidth={2} />
+              </g>
+
+              {/* Custom Tailless Manx Cat: flips ONCE [0..32] then stands firmly still on 4 paws on cushion */}
+              <g transform={`translate(0, ${manxDropY.toFixed(1)}) rotate(${taillessRot.toFixed(1)})`}>
                 <g stroke={INK} strokeWidth={4.2} strokeLinejoin="round" strokeLinecap="round">
                   {/* Tiny round stubby tailless rear (Manx highlight!) */}
                   <circle cx={-64} cy={-8} r={11} fill="#FDBA74" />
                   {/* Highlight dashed ring around tailless rear */}
                   <circle cx={-64} cy={-8} r={26} fill="none" stroke="#EA580C" strokeWidth={3.5} strokeDasharray="6 5" />
-                  {/* Flexible arched body */}
-                  <path d="M -58,0 C -46,-46 18,-48 56,-8 C 68,6 58,34 32,34 L -36,34 C -58,34 -68,18 -58,0 Z" fill="#FB923C" />
-                  <ellipse cx={-2} cy={14} rx={36} ry={15} fill="#FFF7ED" stroke="none" />
-                  {/* 4 cute paws */}
-                  <rect x={-44} y={24} width={16} height={34} rx={7} fill="#FB923C" />
-                  <rect x={-18} y={26} width={16} height={32} rx={7} fill="#FB923C" />
-                  <rect x={16} y={26} width={16} height={32} rx={7} fill="#FB923C" />
-                  <rect x={40} y={24} width={16} height={34} rx={7} fill="#FB923C" />
-                  {/* Cute Cat Head */}
+                  {/* Flexible body (arched midair -> relaxed standing when landed) */}
+                  <path
+                    d={
+                      hasLanded
+                        ? 'M -56,-18 C -46,-36 32,-36 52,-18 C 64,-4 58,28 36,28 L -38,28 C -58,28 -64,2 -56,-18 Z'
+                        : 'M -58,0 C -46,-46 18,-48 56,-8 C 68,6 58,34 32,34 L -36,34 C -58,34 -68,18 -58,0 Z'
+                    }
+                    fill="#FDBA74"
+                  />
+                  <ellipse cx={-2} cy={12} rx={36} ry={14} fill="#FFF7ED" stroke="none" />
+                  {/* 4 cute paws standing firmly on cushion */}
+                  <rect x={-44} y={22} width={16} height={34} rx={7} fill="#FDBA74" />
+                  <rect x={-18} y={24} width={16} height={32} rx={7} fill="#FDBA74" />
+                  <rect x={16} y={24} width={16} height={32} rx={7} fill="#FDBA74" />
+                  <rect x={40} y={22} width={16} height={34} rx={7} fill="#FDBA74" />
+                  {/* Cute Symmetric V23.5 Cat Head */}
                   <g transform="translate(64, -22)">
-                    <polygon points="-20,-18 -24,-46 -4,-28" fill="#FB923C" />
-                    <polygon points="20,-18 24,-46 4,-28" fill="#FB923C" />
+                    <polygon points="-20,-18 -24,-46 -4,-28" fill="#FDBA74" />
+                    <polygon points="20,-18 24,-46 4,-28" fill="#FDBA74" />
                     <polygon points="-16,-22 -19,-36 -8,-26" fill="#FBCFE8" stroke="none" />
                     <polygon points="16,-22 19,-36 8,-26" fill="#FBCFE8" stroke="none" />
-                    <circle cx={0} cy={0} r={32} fill="#FB923C" />
+                    <circle cx={0} cy={0} r={32} fill="#FDBA74" />
+                    {/* Pastel pink cheeks */}
+                    <ellipse cx={-18} cy={4} rx={6.5} ry={3.8} fill="#FDA4AF" opacity={0.45} stroke="none" />
+                    <ellipse cx={18} cy={4} rx={6.5} ry={3.8} fill="#FDA4AF" opacity={0.45} stroke="none" />
                     <ellipse cx={0} cy={10} rx={16} ry={11} fill="#FFF7ED" stroke="none" />
-                    <circle cx={-10} cy={-4} r={4.5} fill={INK} stroke="none" />
-                    <circle cx={10} cy={-4} r={4.5} fill={INK} stroke="none" />
+                    {manxBlink ? (
+                      <g fill="none" stroke={INK} strokeWidth={2.8}>
+                        <path d="M -16,-4 Q -11,0 -6,-4" />
+                        <path d="M 6,-4 Q 11,0 16,-4" />
+                      </g>
+                    ) : (
+                      <g stroke="none">
+                        <circle cx={-11} cy={-4} r={5.4} fill="#0F172A" />
+                        <circle cx={-12.6} cy={-5.8} r={1.8} fill="#FFFFFF" />
+                        <circle cx={-9.4} cy={-2.4} r={0.9} fill="#FFFFFF" />
+                        <circle cx={11} cy={-4} r={5.4} fill="#0F172A" />
+                        <circle cx={9.4} cy={-5.8} r={1.8} fill="#FFFFFF" />
+                        <circle cx={12.6} cy={-2.4} r={0.9} fill="#FFFFFF" />
+                      </g>
+                    )}
                     <polygon points="-4,4 4,4 0,9" fill="#FB7185" stroke="none" />
                     <path d="M -7,13 Q -3.5,18 0,13 Q 3.5,18 7,13" fill="none" strokeWidth={2.6} />
                   </g>
@@ -959,15 +1008,14 @@ export const CatOtherAnimalsNasaVisual: React.FC<EpisodeVisualProps> = ({
                 <circle cx={145} cy={80} r={24} />
                 <circle cx={182} cy={82} r={20} />
               </g>
-              {/* Protective steel mesh grid across window */}
-              <g stroke="#334155" strokeWidth={3} opacity={0.55}>
-                {Array.from({ length: 11 }, (_, i) => (
-                  <line key={`nv_${i}`} x1={48 + i * 50} y1={0} x2={48 + i * 50} y2={350} />
-                ))}
-                {[60, 120, 180, 240, 300].map((hy) => (
-                  <line key={`nh_${hy}`} x1={0} y1={hy} x2={600} y2={hy} />
-                ))}
-              </g>
+              {/* Protective steel mesh grid across window via single <pattern> */}
+              <defs>
+                <pattern id="cat14_balcony_mesh_pat" x={0} y={0} width={50} height={60} patternUnits="userSpaceOnUse">
+                  <line x1={48} y1={0} x2={48} y2={60} stroke="#334155" strokeWidth={3} opacity={0.55} />
+                  <line x1={0} y1={60} x2={50} y2={60} stroke="#334155" strokeWidth={3} opacity={0.55} />
+                </pattern>
+              </defs>
+              <rect x={0} y={0} width={600} height={350} fill="url(#cat14_balcony_mesh_pat)" />
               {/* Windowsill */}
               <rect x={0} y={350} width={600} height={88} rx={10} fill="#FEF3C7" stroke={INK} strokeWidth={4} />
               {/* Happy CuteCat safely enjoying sun inside the balcony net */}

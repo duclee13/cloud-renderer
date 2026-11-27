@@ -33,6 +33,7 @@ import {
   CharacterStoryOverlays,
 } from "../components/cards/StoryInfographicCards";
 import { AudioSfxLayer } from "../../components/AudioSfxLayer";
+import { LocalBeVietnamProFontStyle } from "../localFonts";
 import { generateSfxDataUrl } from "../../lib/sfxGenerator";
 import { compileScriptBeats, ScriptBeat } from "../../animscript/actionLibrary";
 import {
@@ -92,6 +93,8 @@ export interface V7MoviePayload {
   showDebugHud?: boolean;
   /** V23.0: Bật/tắt lớp Auto-SFX (mặc định true) */
   sfxEnabled?: boolean;
+  /** V23.6: Bỏ mount toàn bộ <Audio> khi worker Cloud render chunk hình câm (--muted) */
+  renderMuted?: boolean;
   renderConfig?: HybridRenderConfig;
   soundDesign?: V7SoundDesignPayload;
 }
@@ -103,6 +106,8 @@ export interface V7MovieCompositionProps {
   showDebugHud?: boolean;
   /** V23.0: Bật/tắt lớp Auto-SFX (mặc định true) */
   sfxEnabled?: boolean;
+  /** V23.6: Bỏ mount toàn bộ <Audio> khi worker Cloud render chunk hình câm (--muted) */
+  renderMuted?: boolean;
 }
 
 export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => {
@@ -803,139 +808,177 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
       ? compileScriptBeats([prevBeat], prevBeat.startFrame + prevFinalLocalF, groundY)
       : null;
 
+  const isRenderMuted = Boolean(
+    props.renderMuted ??
+      props.payload?.renderMuted ??
+      props.v7MoviePayload?.renderMuted ??
+      false
+  );
+
   return (
     <AbsoluteFill style={{ width, height, overflow: "hidden", backgroundColor: "#0A0A0C" }}>
-      {/* Font Be Vietnam Pro */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800;900&display=swap');
-      `}</style>
+      {/* Font Be Vietnam Pro (100% Local Offline WOFF2 — 0 external Google Fonts network calls!) */}
+      <LocalBeVietnamProFontStyle />
 
       {/* =========================================================================
           1. ĐỒNG BỘ ÂM THANH TTS NHẤN NHÁ TỪNG MỆNH ĐỀ & SFX (REMOTION SEQUENCE)
+             - V23.6: Chỉ mount đúng <Sequence premountFor={0}> đang active tại frame hiện tại,
+               và tắt hoàn toàn khi worker Cloud render hình câm (isRenderMuted=true)
          ========================================================================= */}
-      {beats.map((beat, idx) => {
-        const sfxElements: React.ReactNode[] = [];
-        if (beat.sfxType) {
-          sfxElements.push(
-            <Sequence
-              key={`beat_sfx_${idx}_${beat.startFrame}`}
-              from={beat.startFrame}
-              durationInFrames={Math.min(35, beat.durationFrames)}
-            >
-              <Audio src={generateSfxDataUrl(beat.sfxType)} volume={0.25} />
-            </Sequence>
-          );
-        }
-        if (beat.sfxText) {
-          const popOffset = Math.max(4, Math.floor(0.18 * beat.durationFrames));
-          sfxElements.push(
-            <Sequence
-              key={`beat_sfx_pop_${idx}_${beat.startFrame}`}
-              from={beat.startFrame + popOffset}
-              durationInFrames={Math.min(25, Math.max(10, beat.durationFrames - popOffset))}
-            >
-              <Audio src={generateSfxDataUrl("sfx_pop")} volume={0.28} />
-            </Sequence>
-          );
-        }
-
-        if (beat.audioUrl) {
-          return (
-            <React.Fragment key={`beat_audio_single_${idx}_${beat.startFrame}`}>
-              {sfxElements}
-              <Sequence
-                from={beat.startFrame}
-                durationInFrames={beat.durationFrames}
-              >
-                <Audio src={beat.audioUrl} />
-              </Sequence>
-            </React.Fragment>
-          );
-        }
-
-        if (beat.subClauseAudios && beat.subClauseAudios.length > 0) {
-          return (
-            <React.Fragment key={`beat_audio_group_${idx}_${beat.startFrame}`}>
-              {sfxElements}
-              {beat.subClauseAudios.map((clause, cIdx) => (
+      {!isRenderMuted &&
+        beats.map((beat, idx) => {
+          const sfxElements: React.ReactNode[] = [];
+          if (beat.sfxType) {
+            const sfxDur = Math.min(35, beat.durationFrames);
+            if (frame >= beat.startFrame && frame < beat.startFrame + sfxDur) {
+              sfxElements.push(
                 <Sequence
-                  key={`beat_clause_${idx}_${cIdx}`}
-                  from={beat.startFrame + clause.startOffsetFrames}
-                  durationInFrames={Math.max(10, clause.durationFrames)}
+                  key={`beat_sfx_${idx}_${beat.startFrame}`}
+                  from={beat.startFrame}
+                  durationInFrames={sfxDur}
+                  layout="none"
                 >
-                  <Audio src={clause.audioUrl} />
+                  <Audio src={generateSfxDataUrl(beat.sfxType)} volume={0.25} />
                 </Sequence>
-              ))}
-            </React.Fragment>
-          );
-        }
+              );
+            }
+          }
+          if (beat.sfxText) {
+            const popOffset = Math.max(4, Math.floor(0.18 * beat.durationFrames));
+            const popFrom = beat.startFrame + popOffset;
+            const popDur = Math.min(25, Math.max(10, beat.durationFrames - popOffset));
+            if (frame >= popFrom && frame < popFrom + popDur) {
+              sfxElements.push(
+                <Sequence
+                  key={`beat_sfx_pop_${idx}_${beat.startFrame}`}
+                  from={popFrom}
+                  durationInFrames={popDur}
+                  layout="none"
+                >
+                  <Audio src={generateSfxDataUrl("sfx_pop")} volume={0.28} />
+                </Sequence>
+              );
+            }
+          }
 
-        return <React.Fragment key={`beat_sfx_only_${idx}`}>{sfxElements}</React.Fragment>;
-      })}
+          if (beat.audioUrl) {
+            const isBeatAudioActive = frame >= beat.startFrame && frame < beat.startFrame + beat.durationFrames;
+            if (!isBeatAudioActive && sfxElements.length === 0) return null;
+            return (
+              <React.Fragment key={`beat_audio_single_${idx}_${beat.startFrame}`}>
+                {sfxElements}
+                {isBeatAudioActive && (
+                  <Sequence
+                    from={beat.startFrame}
+                    durationInFrames={beat.durationFrames}
+                    layout="none"
+                  >
+                    <Audio src={beat.audioUrl} />
+                  </Sequence>
+                )}
+              </React.Fragment>
+            );
+          }
+
+          if (beat.subClauseAudios && beat.subClauseAudios.length > 0) {
+            const activeClauses = beat.subClauseAudios
+              .map((clause, cIdx) => ({ clause, cIdx }))
+              .filter(({ clause }) => {
+                const cFrom = beat.startFrame + clause.startOffsetFrames;
+                const cDur = Math.max(10, clause.durationFrames);
+                return frame >= cFrom && frame < cFrom + cDur;
+              });
+            if (activeClauses.length === 0 && sfxElements.length === 0) return null;
+            return (
+              <React.Fragment key={`beat_audio_group_${idx}_${beat.startFrame}`}>
+                {sfxElements}
+                {activeClauses.map(({ clause, cIdx }) => (
+                  <Sequence
+                    key={`beat_clause_${idx}_${cIdx}`}
+                    from={beat.startFrame + clause.startOffsetFrames}
+                    durationInFrames={Math.max(10, clause.durationFrames)}
+                    layout="none"
+                  >
+                    <Audio src={clause.audioUrl} />
+                  </Sequence>
+                ))}
+              </React.Fragment>
+            );
+          }
+
+          if (sfxElements.length === 0) return null;
+          return <React.Fragment key={`beat_sfx_only_${idx}`}>{sfxElements}</React.Fragment>;
+        })}
 
       {/* =========================================================================
           1B. V13.0 NHẠC NỀN BGM (3 HỒI CROSSFADE -22dB) & 6 SFX TỰ ĐỘNG (CHO REMOTION PREVIEW)
          ========================================================================= */}
-      {(() => {
-        const activeSound = props.payload?.soundDesign ?? props.v7MoviePayload?.soundDesign;
-        if (!activeSound) return null;
-        return (
-          <>
-            {(activeSound.bgmSegments || []).map((seg, sIdx) => {
-              const src = activeSound.bgmAudioUrls?.[seg.trackId];
-              if (!src) return null;
-              const segDur = Math.max(1, seg.endFrame - seg.startFrame);
-              const fadeInF = Math.max(1, Math.round((seg.fadeInSec || 0.5) * fps));
-              const fadeOutF = Math.max(1, Math.round((seg.fadeOutSec || 0.8) * fps));
-              return (
-                <Sequence
-                  key={`v13_bgm_${sIdx}_${seg.trackId}_${seg.startFrame}`}
-                  from={seg.startFrame}
-                  durationInFrames={segDur}
-                >
-                  <Audio
-                    src={src}
-                    loop
-                    volume={(f) => {
-                      const inGain = f < fadeInF ? f / fadeInF : 1;
-                      const remain = segDur - 1 - f;
-                      const outGain = remain < fadeOutF ? Math.max(0, remain / fadeOutF) : 1;
-                      return seg.volume * inGain * outGain;
-                    }}
-                  />
-                </Sequence>
-              );
-            })}
-            {(activeSound.sfxCues || []).map((cue, cIdx) => {
-              const src = activeSound.sfxAudioUrls?.[cue.effectId];
-              if (!src) return null;
-              return (
-                <Sequence
-                  key={`v13_sfx_${cIdx}_${cue.effectId}_${cue.frame}`}
-                  from={cue.frame}
-                  durationInFrames={36}
-                >
-                  <Audio src={src} volume={cue.volume} />
-                </Sequence>
-              );
-            })}
-          </>
-        );
-      })()}
+      {!isRenderMuted &&
+        (() => {
+          const activeSound = props.payload?.soundDesign ?? props.v7MoviePayload?.soundDesign;
+          if (!activeSound) return null;
+          return (
+            <>
+              {(activeSound.bgmSegments || []).map((seg, sIdx) => {
+                const src = activeSound.bgmAudioUrls?.[seg.trackId];
+                const segDur = Math.max(1, seg.endFrame - seg.startFrame);
+                if (!src || frame < seg.startFrame || frame >= seg.startFrame + segDur) return null;
+                const fadeInF = Math.max(1, Math.round((seg.fadeInSec || 0.5) * fps));
+                const fadeOutF = Math.max(1, Math.round((seg.fadeOutSec || 0.8) * fps));
+                return (
+                  <Sequence
+                    key={`v13_bgm_${sIdx}_${seg.trackId}_${seg.startFrame}`}
+                    from={seg.startFrame}
+                    durationInFrames={segDur}
+                    layout="none"
+                  >
+                    <Audio
+                      src={src}
+                      loop
+                      volume={(f) => {
+                        const inGain = f < fadeInF ? f / fadeInF : 1;
+                        const remain = segDur - 1 - f;
+                        const outGain = remain < fadeOutF ? Math.max(0, remain / fadeOutF) : 1;
+                        return seg.volume * inGain * outGain;
+                      }}
+                    />
+                  </Sequence>
+                );
+              })}
+              {(activeSound.sfxCues || []).map((cue, cIdx) => {
+                const src = activeSound.sfxAudioUrls?.[cue.effectId];
+                if (!src || frame < cue.frame || frame >= cue.frame + 36) return null;
+                return (
+                  <Sequence
+                    key={`v13_sfx_${cIdx}_${cue.effectId}_${cue.frame}`}
+                    from={cue.frame}
+                    durationInFrames={36}
+                    layout="none"
+                  >
+                    <Audio src={src} volume={cue.volume} />
+                  </Sequence>
+                );
+              })}
+            </>
+          );
+        })()}
 
       {/* =========================================================================
           1C. V23.0 AUTO-SFX ENGINE (pop_soft, whoosh_in, whoosh_out, ding_warm, alert_soft)
-              - Âm lượng dịu 0.16–0.26, không át TTS Hải Đăng, chỉ kích hoạt trên AutoStage / sfxCue
+              - Âm lượng dịu 0.16–0.26, premountFor={0}, tắt khi isRenderMuted=true
          ========================================================================= */}
-      <AudioSfxLayer
-        beats={beats}
-        sfxEnabled={
-          props.sfxEnabled ??
-          props.payload?.sfxEnabled ??
-          props.v7MoviePayload?.sfxEnabled ??
-          true
-        }
-      />
+      {!isRenderMuted && (
+        <AudioSfxLayer
+          beats={beats}
+          muted={isRenderMuted}
+          sfxEnabled={
+            props.sfxEnabled ??
+            props.payload?.sfxEnabled ??
+            props.v7MoviePayload?.sfxEnabled ??
+            true
+          }
+        />
+      )}
 
       {/* =========================================================================
           2-4. TẦNG SÂN KHẤU ĐỒNG THỜI V16.0 (TRUE SIMULTANEOUS CROSSFADE 0.5s — 0% BLACK FLASH)
@@ -992,7 +1035,7 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
               letterSpacing: "0.2px",
               WebkitTextStroke: "7px #0F172A",
               paintOrder: "stroke fill",
-              textShadow: "0 3px 6px rgba(0, 0, 0, 0.65)",
+              textShadow: "0 3px 0 rgba(15, 23, 42, 0.82)",
             }}
           >
             {activeSubtitleText}

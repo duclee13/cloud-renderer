@@ -1,5 +1,5 @@
 import React from "react";
-import { Audio, Sequence, staticFile, useVideoConfig } from "remotion";
+import { Audio, Sequence, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import {
   resolveAutoSfxPlan,
   VALID_AUTO_SFX_FILES,
@@ -11,6 +11,8 @@ export interface AudioSfxLayerProps {
   beats: readonly AutoSfxBeatLike[];
   /** Master toggle for V23.0 Auto-SFX layer (defaults to true) */
   sfxEnabled?: boolean;
+  /** Skip mounting <Audio> decoders when rendering silent video chunks on Cloud 20-VM workers */
+  muted?: boolean;
   /** Optional volume multiplier clamped strictly inside safe range (default 1.0 -> 0.18..0.22) */
   volumeScale?: number;
   /** Optional allowlist of verified files inside public/sfx/ */
@@ -20,31 +22,36 @@ export interface AudioSfxLayerProps {
 const DEFAULT_AVAILABLE_SFX_FILES: ReadonlySet<string> = new Set<AutoSfxFileName>(VALID_AUTO_SFX_FILES);
 
 /**
- * AudioSfxLayer (Engine V23.0):
- * - Automatically attaches subtle, royalty-free WAV cues (pop_soft, whoosh_in, whoosh_out, ding_warm, alert_soft)
- *   to beat transitions in V7MovieComposition without ever overpowering VieNeu-TTS narration.
- * - Safe volume range: 0.16–0.26.
- * - Supports per-beat `sfxCue` overrides ("pop" | "whoosh_in" | "whoosh_out" | "ding" | "alert" | "none")
- *   and episode-wide `sfxEnabled?: boolean`.
+ * AudioSfxLayer (Engine V23.0 — Cloud 20-VM Optimized):
+ * - Automatically attaches subtle, royalty-free local WAV cues (< 40 KB each in `public/sfx/`)
+ *   to beat transitions in V7MovieComposition without overpowering VieNeu-TTS narration.
+ * - Strictly mounts ONLY the `<Sequence premountFor={0}>` active at the current `frame`
+ *   (and mounts 0 `<Audio>` tags when `muted={true}` on Cloud video workers), preventing
+ *   Chromium/FFmpeg from opening dozens of concurrent audio decoders per worker.
  */
 export const AudioSfxLayer: React.FC<AudioSfxLayerProps> = ({
   beats,
   sfxEnabled = true,
+  muted = false,
   volumeScale = 1,
   availableFiles = DEFAULT_AVAILABLE_SFX_FILES,
 }) => {
+  const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
   const events = React.useMemo(
-    () => resolveAutoSfxPlan(beats, fps, sfxEnabled),
-    [beats, fps, sfxEnabled]
+    () => (sfxEnabled && !muted ? resolveAutoSfxPlan(beats, fps, sfxEnabled) : []),
+    [beats, fps, sfxEnabled, muted]
   );
 
-  if (!sfxEnabled || events.length === 0) return null;
+  if (!sfxEnabled || muted || events.length === 0) return null;
 
   return (
     <>
       {events.map((ev) => {
+        if (frame < ev.startFrame || frame >= ev.startFrame + ev.durationFrames) {
+          return null;
+        }
         if (!availableFiles.has(ev.fileName)) return null;
         const safeVol = Math.max(0.16, Math.min(0.26, Number((ev.volume * volumeScale).toFixed(3))));
         return (

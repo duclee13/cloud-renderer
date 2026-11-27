@@ -177,17 +177,31 @@ const CountrysideYardStaticLayer = React.memo<{
         opacity={0.48}
       />
 
-      {/* Hàng rào gỗ mộc ngăn sân và ruộng lúa */}
+      {/* Hàng rào gỗ mộc ngăn sân và ruộng lúa qua <pattern> */}
       <g id="wooden-fence" stroke="#141414" strokeWidth={2.8} strokeLinejoin="round">
+        <defs>
+          <pattern id="kass-yard-fence-picket-pat" x={40} y={630} width={105} height={132} patternUnits="userSpaceOnUse">
+            <path
+              d="M 0,130 L 0,18 L 14,2 L 28,18 L 28,130 Z"
+              fill="#C26A27"
+              stroke="#141414"
+              strokeWidth={2.8}
+              strokeLinejoin="round"
+            />
+          </pattern>
+          <pattern id="kass-yard-brick-seams-pat" x={0} y={760} width={200} height={88} patternUnits="userSpaceOnUse">
+            <line x1={0} y1={40} x2={200} y2={40} stroke="#9A3412" strokeWidth={1.8} opacity={0.16} />
+            <line x1={0} y1={84} x2={200} y2={84} stroke="#9A3412" strokeWidth={1.8} opacity={0.16} />
+            <line x1={120} y1={0} x2={120} y2={40} stroke="#9A3412" strokeWidth={1.8} opacity={0.16} />
+            <line x1={20} y1={40} x2={20} y2={84} stroke="#9A3412" strokeWidth={1.8} opacity={0.16} />
+          </pattern>
+          <pattern id="kass-bamboo-slats-pat" x={benchX + 26} y={seatY + 2} width={44} height={18} patternUnits="userSpaceOnUse">
+            <line x1={0} y1={0} x2={0} y2={18} stroke="#92400E" strokeWidth={2} opacity={0.55} />
+          </pattern>
+        </defs>
         <rect x={-10} y={668} width={1320} height={14} fill="#B45309" />
         <rect x={-10} y={712} width={1320} height={14} fill="#92400E" />
-        {[40, 145, 250, 355, 460, 565, 670, 775, 880, 985, 1090, 1195].map((fx) => (
-          <path
-            key={`fence_p_${fx}`}
-            d={`M ${fx},760 L ${fx},648 L ${fx + 14},632 L ${fx + 28},648 L ${fx + 28},760 Z`}
-            fill="#C26A27"
-          />
-        ))}
+        <rect x={40} y={630} width={1200} height={132} fill="url(#kass-yard-fence-picket-pat)" stroke="none" />
       </g>
 
       {/* Thân cây xanh hông nhà (tán lá đung đưa nằm ở lớp động) */}
@@ -246,25 +260,10 @@ const CountrysideYardStaticLayer = React.memo<{
       {/* Thân cây góc phải cạnh nhà */}
       <rect x={1860} y={599} width={24} height={165} fill="#78350F" stroke="#141414" strokeWidth={3} />
 
-      {/* Mặt sân gạch quê ấm áp + đường mạch gạch mảnh nhẹ (vùng y > 830 dịu sạch cho phụ đề) */}
+      {/* Mặt sân gạch quê ấm áp + đường mạch gạch qua <pattern> */}
       <rect x={0} y={760} width={1920} height={1080 - 760} fill={`url(#yard-ground-${timeOfDay})`} />
       <line x1={0} y1={760} x2={1920} y2={760} stroke="#141414" strokeWidth={3} />
-      <g stroke="#9A3412" strokeWidth={1.8} opacity={0.16}>
-        {[796, 836, 882, 934, 992].map((by, rowIdx) => (
-          <g key={`brick_r_${by}`}>
-            <line x1={0} y1={by} x2={1920} y2={by} />
-            {[120, 320, 520, 720, 920, 1120, 1320, 1520, 1720].map((bx) => (
-              <line
-                key={`brick_v_${bx}`}
-                x1={bx + (rowIdx % 2) * 100}
-                y1={by - 36}
-                x2={bx + (rowIdx % 2) * 100}
-                y2={by}
-              />
-            ))}
-          </g>
-        ))}
-      </g>
+      <rect x={0} y={760} width={1920} height={272} fill="url(#kass-yard-brick-seams-pat)" />
 
       {/* Chõng tre + khay ấm trà quê grounded 0px tại groundY với GroundShadow phẳng opacity="0.12" */}
       <g id="yard-bamboo-chong-tre">
@@ -279,19 +278,8 @@ const CountrysideYardStaticLayer = React.memo<{
         {/* Mặt nan tre đan ấm áp (top edge nằm chính xác tại seatY = groundY - 108) */}
         <rect x={benchX} y={seatY} width={benchW} height={22} rx={7} fill="#D97706" stroke="#141414" strokeWidth={3.2} />
         <rect x={benchX + 8} y={seatY + 4} width={benchW - 16} height={6} rx={3} fill="#F59E0B" opacity={0.75} />
-        {/* Các đốt nan tre dọc tinh tế */}
-        {Array.from({ length: Math.floor(benchW / 44) }).map((_, si) => (
-          <line
-            key={`slat_${si}`}
-            x1={benchX + 26 + si * 44}
-            y1={seatY + 2}
-            x2={benchX + 26 + si * 44}
-            y2={seatY + 20}
-            stroke="#92400E"
-            strokeWidth={2}
-            opacity={0.55}
-          />
-        ))}
+        {/* Các đốt nan tre dọc qua <pattern> */}
+        <rect x={benchX + 22} y={seatY + 2} width={benchW - 44} height={18} fill="url(#kass-bamboo-slats-pat)" />
 
         {/* Khay ấm trà gốm & 2 chén nhỏ đặt ngay trên mặt chõng tre */}
         <g id="yard-teapot-set" transform={`translate(${teaTrayX}, ${seatY})`}>
@@ -460,37 +448,80 @@ export const CountrysideYardBackdrop: React.FC<{
   );
 };
 
+const BedroomIndoorStaticWallAndFloor = React.memo<{ timeOfDay: KassTimeOfDay; winSky: string }>(
+  ({ timeOfDay, winSky }) => {
+    const isNight = timeOfDay === "NIGHT";
+    const isSunset = timeOfDay === "SUNSET";
+    const wallFill = isNight ? "#334155" : isSunset ? "#FDE68A" : "#FEF9C3";
+    return (
+      <g>
+        <rect x={0} y={0} width={1920} height={770} fill={wallFill} stroke="none" />
+        <rect x={0} y={745} width={1920} height={26} fill="#B45309" />
+        <rect x={0} y={770} width={1920} height={310} fill={isNight ? "#475569" : "#D6A874"} stroke="none" />
+        <line x1={0} y1={770} x2={1920} y2={770} stroke="#141414" strokeWidth={3} />
+        <line x1={0} y1={845} x2={1920} y2={845} stroke="#92400E" strokeWidth={2} opacity={0.35} />
+        <line x1={0} y1={925} x2={1920} y2={925} stroke="#92400E" strokeWidth={2} opacity={0.35} />
+        <line x1={0} y1={1005} x2={1920} y2={1005} stroke="#92400E" strokeWidth={2} opacity={0.35} />
+        <rect x={260} y={108} width={360} height={228} rx={12} fill={winSky} />
+      </g>
+    );
+  }
+);
+BedroomIndoorStaticWallAndFloor.displayName = "BedroomIndoorStaticWallAndFloor";
+
+const BedroomIndoorStaticFurniture = React.memo<{ isNight: boolean }>(({ isNight }) => (
+  <g>
+    <g transform="translate(260, 108)">
+      <line x1={180} y1={0} x2={180} y2={228} stroke="#141414" strokeWidth={3} />
+      <line x1={0} y1={114} x2={360} y2={114} stroke="#141414" strokeWidth={3} />
+      <rect x={0} y={0} width={360} height={228} rx={12} fill="none" stroke="#92400E" strokeWidth={10} />
+      <rect x={0} y={0} width={360} height={228} rx={12} fill="none" stroke="#141414" strokeWidth={3} />
+    </g>
+
+    {/* Giường ngủ ấm cúng bên phải */}
+    <g transform="translate(1150, 560)">
+      <rect x={445} y={-65} width={45} height={275} rx={8} fill="#92400E" />
+      <rect x={0} y={40} width={35} height={170} rx={8} fill="#92400E" />
+      <rect x={22} y={80} width={440} height={105} rx={12} fill="#FFFFFF" />
+      <ellipse cx={395} cy={68} rx={58} ry={24} fill="#F8FAFC" />
+      <path d="M 22,82 L 325,82 Q 345,120 335,185 L 22,185 Z" fill="#93C5FD" />
+      <rect x={15} y={168} width={460} height={36} rx={8} fill="#B45309" />
+    </g>
+
+    {/* Tủ đầu giường + Đèn ngủ nhỏ */}
+    <g transform="translate(970, 620)">
+      <rect x={0} y={35} width={145} height={135} rx={10} fill="#C26A27" />
+      <rect x={16} y={54} width={113} height={42} rx={6} fill="#D97706" />
+      <circle cx={72} cy={75} r={5} fill="#FEF3C7" />
+      <rect x={16} y={108} width={113} height={42} rx={6} fill="#D97706" />
+      <circle cx={72} cy={129} r={5} fill="#FEF3C7" />
+      {isNight && <circle cx={72} cy={-26} r={115} fill="#FEF08A" opacity={0.22} stroke="none" />}
+      <rect x={54} y={16} width={36} height={19} rx={5} fill="#64748B" />
+      <line x1={72} y1={-8} x2={72} y2={16} stroke="#141414" strokeWidth={4} />
+      <polygon points="36,-8 108,-8 92,-56 52,-56" fill={isNight ? "#FEF08A" : "#FDE68A"} />
+    </g>
+  </g>
+));
+BedroomIndoorStaticFurniture.displayName = "BedroomIndoorStaticFurniture";
+
 /**
- * 2. BEDROOM_INDOOR: Phòng ngủ ấm áp (tường kem, giường, tủ đầu giường + đèn ngủ, cửa sổ ngày/đêm)
+ * 2. BEDROOM_INDOOR: Phòng ngủ ấm áp (tách lớp tĩnh React.memo không truyền frame)
  */
 export const BedroomIndoorBackdrop: React.FC<{
   timeOfDay?: KassTimeOfDay;
   frame?: number;
   groundY?: number;
   rainOutside?: boolean;
-}> = ({ timeOfDay = "DAY", frame = 0, groundY = 840, rainOutside = false }) => {
+}> = ({ timeOfDay = "DAY", frame = 0, rainOutside = false }) => {
   const isNight = timeOfDay === "NIGHT";
   const isSunset = timeOfDay === "SUNSET";
-  const wallFill = isNight ? "#334155" : isSunset ? "#FDE68A" : "#FEF9C3";
   const winSky = rainOutside ? "#1E293B" : isNight ? "#0F172A" : isSunset ? "#FB923C" : "#7DD3FC";
   const winCloudX = ((40 + frame * 0.18) % 340) - 20;
 
   return (
     <g id="stage-bedroom-indoor" stroke="#141414" strokeWidth={3} strokeLinejoin="round">
-      {/* Tường kem ấm */}
-      <rect x={0} y={0} width={1920} height={770} fill={wallFill} stroke="none" />
-      {/* Đường len tường gỗ */}
-      <rect x={0} y={745} width={1920} height={26} fill="#B45309" />
-      {/* Sàn gỗ ấm */}
-      <rect x={0} y={770} width={1920} height={310} fill={isNight ? "#475569" : "#D6A874"} stroke="none" />
-      <line x1={0} y1={770} x2={1920} y2={770} stroke="#141414" strokeWidth={3} />
-      {[845, 925, 1005].map((fy) => (
-        <line key={`plank_${fy}`} x1={0} y1={fy} x2={1920} y2={fy} stroke="#92400E" strokeWidth={2} opacity={0.35} />
-      ))}
-
-      {/* Cửa sổ nhìn ra bầu trời ngày/chiều/đêm hoặc cơn mưa rào (V17.2: nâng đỉnh lên y=108, đáy ở y=336 để đầu nhân vật đứng dưới sàn không bao giờ chạm viền cửa sổ!) */}
+      <BedroomIndoorStaticWallAndFloor timeOfDay={timeOfDay} winSky={winSky} />
       <g transform="translate(260, 108)">
-        <rect x={0} y={0} width={360} height={228} rx={12} fill={winSky} />
         {rainOutside ? (
           <g stroke="#93C5FD" strokeWidth={2.5} strokeLinecap="round" opacity={0.85}>
             {Array.from({ length: 16 }).map((_, ri) => {
@@ -511,37 +542,8 @@ export const BedroomIndoorBackdrop: React.FC<{
             <ellipse cx={Math.max(48, Math.min(310, winCloudX))} cy={86} rx={36} ry={16} fill="#FFFFFF" stroke="none" opacity={0.85} />
           </>
         )}
-        <line x1={180} y1={0} x2={180} y2={228} stroke="#141414" strokeWidth={3} />
-        <line x1={0} y1={114} x2={360} y2={114} stroke="#141414" strokeWidth={3} />
-        <rect x={0} y={0} width={360} height={228} rx={12} fill="none" stroke="#92400E" strokeWidth={10} />
-        <rect x={0} y={0} width={360} height={228} rx={12} fill="none" stroke="#141414" strokeWidth={3} />
       </g>
-
-      {/* Giường ngủ ấm cúng bên phải */}
-      <g transform="translate(1150, 560)">
-        <rect x={445} y={-65} width={45} height={275} rx={8} fill="#92400E" />
-        <rect x={0} y={40} width={35} height={170} rx={8} fill="#92400E" />
-        <rect x={22} y={80} width={440} height={105} rx={12} fill="#FFFFFF" />
-        {/* Gối trắng mềm */}
-        <ellipse cx={395} cy={68} rx={58} ry={24} fill="#F8FAFC" />
-        {/* Chăn xanh pastel */}
-        <path d="M 22,82 L 325,82 Q 345,120 335,185 L 22,185 Z" fill="#93C5FD" />
-        <rect x={15} y={168} width={460} height={36} rx={8} fill="#B45309" />
-      </g>
-
-      {/* Tủ đầu giường + Đèn ngủ nhỏ */}
-      <g transform="translate(970, 620)">
-        <rect x={0} y={35} width={145} height={135} rx={10} fill="#C26A27" />
-        <rect x={16} y={54} width={113} height={42} rx={6} fill="#D97706" />
-        <circle cx={72} cy={75} r={5} fill="#FEF3C7" />
-        <rect x={16} y={108} width={113} height={42} rx={6} fill="#D97706" />
-        <circle cx={72} cy={129} r={5} fill="#FEF3C7" />
-        {/* Đèn ngủ nhỏ */}
-        {isNight && <circle cx={72} cy={-26} r={115} fill="#FEF08A" opacity={0.22} stroke="none" />}
-        <rect x={54} y={16} width={36} height={19} rx={5} fill="#64748B" />
-        <line x1={72} y1={-8} x2={72} y2={16} stroke="#141414" strokeWidth={4} />
-        <polygon points="36,-8 108,-8 92,-56 52,-56" fill={isNight ? "#FEF08A" : "#FDE68A"} />
-      </g>
+      <BedroomIndoorStaticFurniture isNight={isNight} />
     </g>
   );
 };
@@ -888,35 +890,24 @@ export const MagnifyingGlassOverlay: React.FC<{
   );
 };
 
-/**
- * 5. SIMPLE_GRASS_FIELD: Bãi cỏ xanh rì có cây xoài sai quả & mây trôi (hỗ trợ DAY / SUNSET / NIGHT)
- */
-export const SimpleGrassFieldBackdrop: React.FC<{
-  timeOfDay?: KassTimeOfDay;
-  frame?: number;
-  groundY?: number;
-  weather?: "CLEAR" | "RAIN" | "FLOOD";
-  showRainbow?: boolean;
-}> = ({ timeOfDay = "SUNSET", frame = 0, groundY = 840, weather = "CLEAR", showRainbow = false }) => {
+const SimpleGrassFieldStaticSkyAndRainbow = React.memo<{
+  timeOfDay: KassTimeOfDay;
+  weather: "CLEAR" | "RAIN" | "FLOOD";
+  groundY: number;
+  showRainbow: boolean;
+}>(({ timeOfDay, weather, groundY, showRainbow }) => {
   const isSunset = timeOfDay === "SUNSET";
   const isNight = timeOfDay === "NIGHT";
   const isRain = weather === "RAIN";
   const isFlood = weather === "FLOOD";
-  // V14.1 / V15.0 Living Scene Rule: Mây trôi chậm đều sang phải (cloudX += frame * 0.18) & tán cây đung đưa theo gió
-  const cloudDriftPx = frame * (isRain ? 0.55 : 0.18);
-  const breezeDeg = Math.sin(frame * (isRain ? 0.08 : 0.04)) * (isRain ? 3.2 : 1.5);
-
   const skyTop = isRain ? "#334155" : isNight ? "#1E293B" : isSunset ? "#F97316" : isFlood ? "#7DD3FC" : "#60A5FA";
-  const skyMid = isRain ? "#475569" : isNight ? "#0F172A" : isSunset ? "#FDBA74" : isFlood ? "#BAE6FD" : "#BAE6FD";
+  const skyMid = isRain ? "#475569" : isNight ? "#0F172A" : isSunset ? "#FDBA74" : "#BAE6FD";
   const skyBot = isRain ? "#64748B" : isNight ? "#090E1A" : isSunset ? "#FEF3C7" : "#F0F9FF";
-  const hillBack = isNight ? "#111C2E" : isSunset ? "#65A30D" : "#86EFAC";
   const grassTop = isNight ? "#14382A" : isSunset ? "#4D7C0F" : "#4ADE80";
   const grassBot = isNight ? "#091D15" : isSunset ? "#365314" : "#22C55E";
-  const canopyMain = isNight ? "#14532D" : isSunset ? "#15803D" : "#22C55E";
-  const canopyDark = isNight ? "#052E16" : isSunset ? "#166534" : "#16A34A";
 
   return (
-    <g id="stage-simple-grass-field">
+    <g>
       <defs>
         <linearGradient id={`field-sky-${timeOfDay}-${weather}`} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor={skyTop} />
@@ -928,10 +919,7 @@ export const SimpleGrassFieldBackdrop: React.FC<{
           <stop offset="100%" stopColor={grassBot} />
         </linearGradient>
       </defs>
-
       <rect x={0} y={0} width={1920} height={groundY} fill={`url(#field-sky-${timeOfDay}-${weather})`} />
-
-      {/* Mặt trời chiều dịu / ban ngày */}
       {!isNight && (
         <g transform={`translate(${isSunset ? 285 : 320}, ${isSunset ? 470 : 175})`}>
           <circle cx={0} cy={0} r={isSunset ? 115 : 80} fill="#FEF08A" opacity={0.34} />
@@ -945,8 +933,6 @@ export const SimpleGrassFieldBackdrop: React.FC<{
           />
         </g>
       )}
-
-      {/* Cầu vồng rực rỡ sau cơn mưa (khi showRainbow=true) */}
       {showRainbow && (
         <g opacity={0.55}>
           {[
@@ -967,6 +953,70 @@ export const SimpleGrassFieldBackdrop: React.FC<{
           ))}
         </g>
       )}
+    </g>
+  );
+});
+SimpleGrassFieldStaticSkyAndRainbow.displayName = "SimpleGrassFieldStaticSkyAndRainbow";
+
+const SimpleGrassFieldStaticLandAndTrunk = React.memo<{
+  timeOfDay: KassTimeOfDay;
+  weather: "CLEAR" | "RAIN" | "FLOOD";
+  groundY: number;
+}>(({ timeOfDay, weather, groundY }) => {
+  const isSunset = timeOfDay === "SUNSET";
+  const isNight = timeOfDay === "NIGHT";
+  const hillBack = isNight ? "#111C2E" : isSunset ? "#65A30D" : "#86EFAC";
+  return (
+    <g>
+      <path
+        d={`M -20,${groundY - 40} Q 340,605 720,685 T 1460,655 T 1940,680 L 1940,${groundY} L -20,${groundY} Z`}
+        fill={hillBack}
+        stroke="#141414"
+        strokeWidth={3}
+      />
+      <rect x={0} y={760} width={1920} height={320} fill={`url(#field-grass-${timeOfDay}-${weather})`} />
+      <line x1={0} y1={760} x2={1920} y2={760} stroke="#141414" strokeWidth={3} />
+      <g transform="translate(1515, 790)" stroke="#141414" strokeWidth={3} strokeLinejoin="round">
+        <ellipse cx={-60} cy={52} rx={275} ry={28} fill="#0F172A" opacity={0.18} stroke="none" />
+        <path
+          d="M -95,50 Q -50,24 -44,-65 L -36,-380 L 42,-380 L 52,-65 Q 64,24 110,50 Z"
+          fill="#78350F"
+        />
+        <path d="M -38,-295 Q -150,-365 -245,-385 L -230,-415 Q -135,-395 -28,-335 Z" fill="#78350F" />
+        <path d="M 38,-305 Q 155,-365 240,-380 L 230,-412 Q 145,-395 28,-342 Z" fill="#78350F" />
+      </g>
+    </g>
+  );
+});
+SimpleGrassFieldStaticLandAndTrunk.displayName = "SimpleGrassFieldStaticLandAndTrunk";
+
+/**
+ * 5. SIMPLE_GRASS_FIELD: Bãi cỏ xanh rì có cây xoài sai quả & mây trôi (tách nền tĩnh React.memo)
+ */
+export const SimpleGrassFieldBackdrop: React.FC<{
+  timeOfDay?: KassTimeOfDay;
+  frame?: number;
+  groundY?: number;
+  weather?: "CLEAR" | "RAIN" | "FLOOD";
+  showRainbow?: boolean;
+}> = ({ timeOfDay = "SUNSET", frame = 0, groundY = 840, weather = "CLEAR", showRainbow = false }) => {
+  const isSunset = timeOfDay === "SUNSET";
+  const isNight = timeOfDay === "NIGHT";
+  const isRain = weather === "RAIN";
+  const isFlood = weather === "FLOOD";
+  const cloudDriftPx = frame * (isRain ? 0.55 : 0.18);
+  const breezeDeg = Math.sin(frame * (isRain ? 0.08 : 0.04)) * (isRain ? 3.2 : 1.5);
+  const canopyMain = isNight ? "#14532D" : isSunset ? "#15803D" : "#22C55E";
+  const canopyDark = isNight ? "#052E16" : isSunset ? "#166534" : "#16A34A";
+
+  return (
+    <g id="stage-simple-grass-field">
+      <SimpleGrassFieldStaticSkyAndRainbow
+        timeOfDay={timeOfDay}
+        weather={weather}
+        groundY={groundY}
+        showRainbow={showRainbow}
+      />
 
       {/* Mây trôi chậm đều sang phải (cloudX += frame * 0.18, y>=195 thoáng tiêu đề nổi) */}
       {(!isNight || isRain) &&
@@ -989,31 +1039,10 @@ export const SimpleGrassFieldBackdrop: React.FC<{
           );
         })}
 
-      {/* Đồi cỏ thoai thoải phía xa */}
-      <path
-        d={`M -20,${groundY - 40} Q 340,605 720,685 T 1460,655 T 1940,680 L 1940,${groundY} L -20,${groundY} Z`}
-        fill={hillBack}
-        stroke="#141414"
-        strokeWidth={3}
-      />
+      <SimpleGrassFieldStaticLandAndTrunk timeOfDay={timeOfDay} weather={weather} groundY={groundY} />
 
-      {/* Mặt bãi cỏ xanh rì */}
-      <rect x={0} y={760} width={1920} height={320} fill={`url(#field-grass-${timeOfDay}-${weather})`} />
-      <line x1={0} y1={760} x2={1920} y2={760} stroke="#141414" strokeWidth={3} />
-
-      {/* Cây xoài cổ thụ rợp bóng bên phải với những quả xoài chín vàng */}
+      {/* Tán cây xoài + quả xoài đung đưa nhẹ theo gió */}
       <g id="mango-tree" transform="translate(1515, 790)" stroke="#141414" strokeWidth={3} strokeLinejoin="round">
-        {/* Bóng râm dưới gốc cây xoài */}
-        <ellipse cx={-60} cy={52} rx={275} ry={28} fill="#0F172A" opacity={0.18} stroke="none" />
-        {/* Thân & rễ cây xoài bám đất */}
-        <path
-          d="M -95,50 Q -50,24 -44,-65 L -36,-380 L 42,-380 L 52,-65 Q 64,24 110,50 Z"
-          fill="#78350F"
-        />
-        {/* Cành lớn vươn trái & phải */}
-        <path d="M -38,-295 Q -150,-365 -245,-385 L -230,-415 Q -135,-395 -28,-335 Z" fill="#78350F" />
-        <path d="M 38,-305 Q 155,-365 240,-380 L 230,-412 Q 145,-395 28,-342 Z" fill="#78350F" />
-        {/* Tán lá xanh rậm + những quả xoài chín vàng đung đưa nhẹ theo gió (Math.sin(frame * 0.04) * 1.5°) */}
         <g transform={`rotate(${breezeDeg.toFixed(2)}, 0, -340)`}>
           <circle cx={-195} cy={-445} r={118} fill={canopyDark} />
           <circle cx={195} cy={-440} r={120} fill={canopyDark} />

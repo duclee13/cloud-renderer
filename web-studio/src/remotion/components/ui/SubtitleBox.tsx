@@ -115,12 +115,7 @@ export const SubtitleBox: React.FC<SubtitleBoxProps> = ({
   const adjustedY = isMultiLine ? y - lineSpacing * 0.42 : y;
 
   return (
-    <g
-      transform={`translate(${x}, ${adjustedY})`}
-      style={{
-        filter: "drop-shadow(0px 8px 18px rgba(0, 0, 0, 0.75))",
-      }}
-    >
+    <g transform={`translate(${x}, ${adjustedY})`}>
       {isKaraoke ? (
         /* Karaoke Word Highlight Mode (Đa dòng) */
         <text

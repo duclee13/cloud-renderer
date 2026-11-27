@@ -1,4 +1,4 @@
-name: Render Long 2D Movie (Parallel Cloud Matrix V16.1 — 16 VMs SwANGLE)
+name: Render Long 2D Movie (Parallel Cloud Matrix — Pre-Bundled 20 VMs SwANGLE)
 
 on:
   workflow_dispatch:
@@ -8,73 +8,85 @@ on:
         required: true
         default: 'scripts/render_v16_tadpole_bedroom_movie.mjs'
       total_chapters:
-        description: 'Tổng số Chunk chạy song song (mặc định 16 máy ảo × 4 micro-beats/máy cho tập 64 micro-beats ~15-20 phút)'
+        description: 'Tổng số Chunk chạy song song (mặc định 20 máy ảo)'
         required: true
-        default: '16'
+        default: '20'
       output_name:
         description: 'Tên file MP4 hoàn chỉnh sau khi ghép nối trong out/'
         required: true
         default: 'tadpole_bedroom_movie_v16.mp4'
 
 jobs:
+  prepare_bundle:
+    name: Job 1 — Pre-Bundle Remotion Once
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/duclee13/cloud-renderer-base:latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Link Pre-installed Dependencies & Pre-Bundle Remotion Once
+        working-directory: web-studio
+        run: |
+          rm -rf node_modules .remotion
+          ln -s /opt/render-deps/web-studio/node_modules ./node_modules
+          if [ -d /opt/render-deps/web-studio/.remotion ]; then
+            ln -s /opt/render-deps/web-studio/.remotion ./.remotion
+          fi
+          npx remotion bundle src/remotion/index.ts --out-dir build
+
+      - name: Upload Pre-Bundled Remotion Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: long-movie-remotion-bundle
+          path: web-studio/build
+          if-no-files-found: error
+          compression-level: 1
+          retention-days: 1
+
   render_chapters:
     name: Render Chunk ${{ matrix.chapter }}/${{ inputs.total_chapters }}
+    needs: prepare_bundle
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    container:
+      image: ghcr.io/duclee13/cloud-renderer-base:latest
+    timeout-minutes: 15
     strategy:
       fail-fast: false
-      max-parallel: 16
+      max-parallel: 20
       matrix:
         chapter: ${{ fromJson(format('[{0}]', inputs.total_chapters == '1' && '1' || inputs.total_chapters == '2' && '1,2' || inputs.total_chapters == '3' && '1,2,3' || inputs.total_chapters == '4' && '1,2,3,4' || inputs.total_chapters == '5' && '1,2,3,4,5' || inputs.total_chapters == '6' && '1,2,3,4,5,6' || inputs.total_chapters == '7' && '1,2,3,4,5,6,7' || inputs.total_chapters == '8' && '1,2,3,4,5,6,7,8' || inputs.total_chapters == '9' && '1,2,3,4,5,6,7,8,9' || inputs.total_chapters == '10' && '1,2,3,4,5,6,7,8,9,10' || inputs.total_chapters == '11' && '1,2,3,4,5,6,7,8,9,10,11' || inputs.total_chapters == '12' && '1,2,3,4,5,6,7,8,9,10,11,12' || inputs.total_chapters == '13' && '1,2,3,4,5,6,7,8,9,10,11,12,13' || inputs.total_chapters == '14' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14' || inputs.total_chapters == '15' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15' || inputs.total_chapters == '16' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16' || inputs.total_chapters == '18' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18' || '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20')) }}
     steps:
       - name: Checkout Repository (kèm cache giọng đọc .tts-cache/)
         uses: actions/checkout@v4
-
-      - name: Setup Node.js 24 (Native TS support)
-        uses: actions/setup-node@v4
         with:
-          node-version: 24
-          cache: 'npm'
-          cache-dependency-path: web-studio/package-lock.json
+          fetch-depth: 1
 
-      - name: Install FFmpeg & Headless Chromium Libraries (Ubuntu 24.04 Safe)
+      - name: Download Pre-Bundled Remotion Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: long-movie-remotion-bundle
+          path: web-studio/build
+
+      - name: Link Pre-installed Dependencies & Chromium (0s Setup)
+        working-directory: web-studio
         run: |
-          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 update
-          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends \
-            ffmpeg \
-            libnss3 \
-            libnspr4 \
-            libglib2.0-0 \
-            libatk1.0-0 \
-            libatk-bridge2.0-0 \
-            libcups2 \
-            libdrm2 \
-            libxkbcommon0 \
-            libx11-xcb1 \
-            libxcomposite1 \
-            libxdamage1 \
-            libxfixes3 \
-            libxrandr2 \
-            libgbm1 \
-            libxshmfence1 \
-            libpango-1.0-0 \
-            libcairo2 \
-            fonts-noto \
-            fonts-noto-color-emoji || true
-          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends libasound2t64 || sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends libasound2 || true
+          rm -rf node_modules .remotion
+          ln -s /opt/render-deps/web-studio/node_modules ./node_modules
+          if [ -d /opt/render-deps/web-studio/.remotion ]; then
+            ln -s /opt/render-deps/web-studio/.remotion ./.remotion
+          else
+            npx remotion browser ensure
+          fi
 
-      - name: Install Web-Studio Dependencies
-        working-directory: web-studio
-        run: npm ci --prefer-offline || npm install --prefer-offline
-
-      - name: Ensure Remotion Headless Chromium Browser (Ubuntu Linux)
-        working-directory: web-studio
-        run: npx remotion browser ensure
-
-      - name: Render Chunk ${{ matrix.chapter }}/${{ inputs.total_chapters }} (SwANGLE + JPEG q92 + Concurrency=2)
+      - name: Render Chunk ${{ matrix.chapter }}/${{ inputs.total_chapters }} (SwANGLE + superfast crf=23 + JPEG q88 + Concurrency=4)
         working-directory: web-studio
         env:
-          CONCURRENCY: '2'
+          CONCURRENCY: '4'
           TOTAL_CHAPTERS: ${{ inputs.total_chapters }}
           TTS_PROVIDER: 'VIENEU_LOCAL'
         run: |
@@ -89,6 +101,7 @@ jobs:
           name: chapter-${{ matrix.chapter }}
           path: out/chunks/*_chapter_${{ matrix.chapter }}.mp4
           if-no-files-found: error
+          compression-level: 0
           retention-days: 2
 
   stitch_final_movie:

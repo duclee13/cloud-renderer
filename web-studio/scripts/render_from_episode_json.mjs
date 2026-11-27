@@ -459,19 +459,20 @@ async function prepareCloudEpisodePlan({
         `-c:a aac -b:a 192k -ar ${AUDIO_SR} -ac 1 -movflags +faststart "${masterAudioM4aPath.replace(/\\/g, '/')}"`
     );
 
-    // Ghi file inputProps gọn nhẹ (~40KB, giữ nguyên hệ tọa độ thiết kế 1920x1080)
+    // Ghi file inputProps gọn nhẹ (~40KB, giữ nguyên hệ tọa độ thiết kế 1920x1080, bật renderMuted=true cho 20 worker VM)
     const payload = {
       title: episode.title,
       totalDurationFrames: totalFrames,
       fps,
       beats: compiledBeats,
       showDebugHud: false,
+      renderMuted: true,
     };
     const inputPropsPath = path.join(webStudioRoot, 'episodes', 'cloud_input_props.json');
     fs.mkdirSync(path.dirname(inputPropsPath), { recursive: true });
     fs.writeFileSync(
       inputPropsPath,
-      JSON.stringify({ payload, v7MoviePayload: payload, showDebugHud: false }),
+      JSON.stringify({ payload, v7MoviePayload: payload, showDebugHud: false, renderMuted: true }),
       'utf8'
     );
 
@@ -661,7 +662,16 @@ async function renderCloudBalancedFrameChunk({ chapterIndex, totalChapters, bund
         return;
       }
 
-      console.log(rawLine);
+      // Chặn spam log mỗi frame từ Remotion CLI (Encoded X/Y, Time remaining, progress bar...)
+      if (
+        /\b(?:Encoded|Encoding)\s+\d+\s*\/\s*\d+/i.test(clean) ||
+        /\btime remaining:/i.test(clean) ||
+        /^(?:Bundling|Copying public dir)\b/i.test(clean)
+      ) {
+        return;
+      }
+
+      console.log(clean);
     };
 
     child.stdout.on('data', (chunk) => {

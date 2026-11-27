@@ -1,4 +1,4 @@
-name: Auto Factory — Topic to 7-Min 2D Movie (100% Cloud)
+name: Auto Factory — Topic to 7-Min 2D Movie (100% Cloud, 20 VMs @ 45fps)
 
 on:
   workflow_dispatch:
@@ -13,9 +13,9 @@ on:
         default: '6.5'
         type: string
       total_chapters:
-        description: 'Số máy ảo render song song (mặc định 16 máy ảo × 4 micro-beats/máy)'
+        description: 'Số máy ảo render song song cân bằng theo tổng frame (mặc định 20 VM)'
         required: true
-        default: '16'
+        default: '20'
         type: string
       preview_only:
         description: 'Tick nếu chỉ muốn xem trước 4 ảnh đại diện + kịch bản JSON trong ~3 phút'
@@ -25,10 +25,10 @@ on:
 
 jobs:
   # ===========================================================================
-  # JOB 1: AI Đạo Diễn viết kịch bản V16 + VieNeu-TTS giọng Hải Đăng trên Ubuntu
+  # JOB 1: AI Đạo Diễn + VieNeu-TTS + Pre-Bundle Remotion 1 Lần Duy Nhất
   # ===========================================================================
   plan_and_voice:
-    name: Job 1 — AI Script + VieNeu-TTS (Hải Đăng)
+    name: Job 1 — AI Script + VieNeu-TTS + Pre-Bundle Once
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -47,6 +47,13 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Cache web-studio/node_modules
+        id: cache-node-modules
+        uses: actions/cache@v4
+        with:
+          path: web-studio/node_modules
+          key: web-studio-nm-${{ runner.os }}-node24-${{ hashFiles('web-studio/package-lock.json') }}
+
       - name: Install FFmpeg (and Chromium libs when preview_only)
         run: |
           sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 update
@@ -60,7 +67,17 @@ jobs:
             sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends libasound2t64 || sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends libasound2 || true
           fi
 
-      - name: Generate V16 Micro-Beat Script JSON via AI Director (Groq Priority / Gemini Fallback)
+      - name: Install Web-Studio Dependencies
+        working-directory: web-studio
+        run: |
+          if [ "${{ steps.cache-node-modules.outputs.cache-hit }}" != "true" ]; then
+            npm ci --prefer-offline || npm install --prefer-offline
+          fi
+          if [ "${{ inputs.preview_only }}" = "true" ]; then
+            npx remotion browser ensure
+          fi
+
+      - name: Generate V16 Micro-Beat Script JSON via AI Director
         working-directory: web-studio
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
@@ -75,8 +92,6 @@ jobs:
         if: ${{ inputs.preview_only }}
         working-directory: web-studio
         run: |
-          npm ci --prefer-offline || npm install --prefer-offline
-          npx remotion browser ensure
           node scripts/render_from_episode_json.mjs --episode=episodes/current_episode.json --preview-only
 
       - name: Upload Preview Stills & Script Artifact (Preview-Only)
@@ -102,92 +117,128 @@ jobs:
       - name: Install VieNeu-TTS (Torch-Free ONNX CPU) + Edge-TTS Fallback
         if: ${{ !inputs.preview_only }}
         run: |
+          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends espeak-ng || true
           python3 -m pip install --upgrade pip
           pip install --no-cache-dir vieneu edge-tts soundfile numpy
 
-      - name: Synthesize All Episode Micro-Beats via VieNeu-TTS (Hải Đăng, int8 CPU)
+      - name: Synthesize All Episode Micro-Beats via VieNeu-TTS (Hải Đăng, int8 CPU @ 45fps)
         if: ${{ !inputs.preview_only }}
         working-directory: web-studio
         env:
           VIENEU_PRECISION: 'int8'
           VIENEU_TTS_VOICE: 'Hải Đăng'
           VIENEU_TTS_ATEMPO: '1.10'
+          REMOTION_FPS: '45'
         run: |
           python3 scripts/cloud_vieneu_tts.py \
             --episode=episodes/current_episode.json \
             --cache-dir=../.tts-cache/auto_episode \
             --voice="Hải Đăng" \
-            --atempo=1.10
+            --atempo=1.10 \
+            --fps=45
 
-      - name: Upload Episode Bundle (JSON Script + Full TTS Audio Cache)
+      - name: Pre-Bundle Remotion Once & Build Frame-Balanced 20-VM Plan + Master Audio
+        if: ${{ !inputs.preview_only }}
+        working-directory: web-studio
+        env:
+          REMOTION_FPS: '45'
+          RENDER_QUALITY: '1080p'
+          TOTAL_CHAPTERS: ${{ inputs.total_chapters || '20' }}
+        run: |
+          npx remotion bundle src/remotion/index.ts --out-dir build
+          test -f build/index.html
+          node scripts/render_from_episode_json.mjs \
+            --episode=episodes/current_episode.json \
+            --prepare-cloud \
+            --quality="1080p" \
+            --fps="45" \
+            --total-chapters="${{ inputs.total_chapters || '20' }}"
+
+      - name: Upload Pre-Bundled Worker Artifact
         if: ${{ !inputs.preview_only }}
         uses: actions/upload-artifact@v4
         with:
-          name: episode-bundle
+          name: episode-worker-bundle
+          compression-level: 1
+          path: |
+            web-studio/build/**
+            web-studio/episodes/current_episode.json
+            web-studio/episodes/cloud_input_props.json
+            out/cloud_plan/cloud_render_plan.json
+          if-no-files-found: error
+          retention-days: 2
+
+      - name: Upload Master Audio Artifact (For Stage-3 Stitch Only)
+        if: ${{ !inputs.preview_only }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: episode-master-audio
+          compression-level: 1
           path: |
             web-studio/episodes/current_episode.json
-            .tts-cache/auto_episode/**
+            out/cloud_plan/cloud_render_plan.json
+            out/cloud_plan/master_episode_audio.m4a
           if-no-files-found: error
           retention-days: 2
 
   # ===========================================================================
-  # JOB 2: 16 Máy Ảo Render Song Song (SwANGLE + JPEG q92 + Concurrency=2)
+  # JOB 2: Tối Đa 20 Máy Ảo Render Song Song Cân Bằng Frame (1080p @ 45fps)
   # ===========================================================================
   render_chunks:
     name: Job 2 — Render Chunk ${{ matrix.chapter }}/${{ inputs.total_chapters }}
     needs: plan_and_voice
     if: ${{ !inputs.preview_only }}
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      packages: read
+    container:
+      image: ghcr.io/duclee13/cloud-renderer-base:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     strategy:
       fail-fast: false
-      max-parallel: 16
+      max-parallel: 20
       matrix:
-        chapter: ${{ fromJson(format('[{0}]', inputs.total_chapters == '1' && '1' || inputs.total_chapters == '2' && '1,2' || inputs.total_chapters == '3' && '1,2,3' || inputs.total_chapters == '4' && '1,2,3,4' || inputs.total_chapters == '5' && '1,2,3,4,5' || inputs.total_chapters == '6' && '1,2,3,4,5,6' || inputs.total_chapters == '7' && '1,2,3,4,5,6,7' || inputs.total_chapters == '8' && '1,2,3,4,5,6,7,8' || inputs.total_chapters == '9' && '1,2,3,4,5,6,7,8,9' || inputs.total_chapters == '10' && '1,2,3,4,5,6,7,8,9,10' || inputs.total_chapters == '11' && '1,2,3,4,5,6,7,8,9,10,11' || inputs.total_chapters == '12' && '1,2,3,4,5,6,7,8,9,10,11,12' || inputs.total_chapters == '13' && '1,2,3,4,5,6,7,8,9,10,11,12,13' || inputs.total_chapters == '14' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14' || inputs.total_chapters == '15' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15' || inputs.total_chapters == '16' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16' || inputs.total_chapters == '18' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18' || '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20')) }}
+        chapter: ${{ fromJson(format('[{0}]', inputs.total_chapters == '1' && '1' || inputs.total_chapters == '2' && '1,2' || inputs.total_chapters == '3' && '1,2,3' || inputs.total_chapters == '4' && '1,2,3,4' || inputs.total_chapters == '5' && '1,2,3,4,5' || inputs.total_chapters == '6' && '1,2,3,4,5,6' || inputs.total_chapters == '7' && '1,2,3,4,5,6,7' || inputs.total_chapters == '8' && '1,2,3,4,5,6,7,8' || inputs.total_chapters == '9' && '1,2,3,4,5,6,7,8,9' || inputs.total_chapters == '10' && '1,2,3,4,5,6,7,8,9,10' || inputs.total_chapters == '11' && '1,2,3,4,5,6,7,8,9,10,11' || inputs.total_chapters == '12' && '1,2,3,4,5,6,7,8,9,10,11,12' || inputs.total_chapters == '13' && '1,2,3,4,5,6,7,8,9,10,11,12,13' || inputs.total_chapters == '14' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14' || inputs.total_chapters == '15' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15' || inputs.total_chapters == '16' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16' || inputs.total_chapters == '17' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17' || inputs.total_chapters == '18' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18' || inputs.total_chapters == '19' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19' || '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20')) }}
     steps:
-      - name: Checkout Repository
+      - name: Checkout Repository (Shallow)
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
-      - name: Download Episode Bundle (JSON + TTS Cache)
+      - name: Download Pre-Bundled Episode & Render Plan
         uses: actions/download-artifact@v4
         with:
-          name: episode-bundle
+          name: episode-worker-bundle
           path: .
 
-      - name: Setup Node.js 24
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24
-          cache: 'npm'
-          cache-dependency-path: web-studio/package-lock.json
-
-      - name: Install FFmpeg & Headless Chromium Libraries (Ubuntu 24.04 Safe)
+      - name: Link Prebuilt Node Modules & Verify Pre-Bundled Assets
         run: |
-          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 update
-          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends \
-            ffmpeg libnss3 libnspr4 libglib2.0-0 libatk1.0-0 libatk-bridge2.0-0 \
-            libcups2 libdrm2 libxkbcommon0 libx11-xcb1 libxcomposite1 \
-            libxdamage1 libxfixes3 libxrandr2 libgbm1 libxshmfence1 \
-            libpango-1.0-0 libcairo2 fonts-noto fonts-noto-color-emoji || true
-          sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends libasound2t64 || sudo apt-get -o Acquire::http::Timeout=30 -o Acquire::Retries=3 install -y --no-install-recommends libasound2 || true
+          rm -rf web-studio/node_modules
+          ln -s /opt/render-env/node_modules web-studio/node_modules
+          test -f web-studio/build/index.html
+          test -f web-studio/episodes/cloud_input_props.json
+          test -f out/cloud_plan/cloud_render_plan.json
 
-      - name: Install Web-Studio Dependencies & Chromium Browser
-        working-directory: web-studio
-        run: |
-          npm ci --prefer-offline || npm install --prefer-offline
-          npx remotion browser ensure
-
-      - name: Render Chunk ${{ matrix.chapter }}/${{ inputs.total_chapters }} (SwANGLE + JPEG q92)
+      - name: Render Balanced Frame Chunk ${{ matrix.chapter }}/${{ inputs.total_chapters }}
         working-directory: web-studio
         env:
-          CONCURRENCY: '2'
-          TOTAL_CHAPTERS: ${{ inputs.total_chapters }}
-          TTS_PROVIDER: 'VIENEU_LOCAL'
+          CONCURRENCY: '4'
+          REMOTION_FPS: '45'
+          RENDER_QUALITY: '1080p'
+          TOTAL_CHAPTERS: ${{ inputs.total_chapters || '20' }}
+          VM_INDEX: ${{ matrix.chapter }}
         run: |
           node scripts/render_from_episode_json.mjs \
-            --episode=episodes/current_episode.json \
+            --render-frame-chunk \
+            --bundle-dir=./build \
             --chapter=${{ matrix.chapter }} \
-            --total-chapters=${{ inputs.total_chapters }}
+            --total-chapters=${{ inputs.total_chapters || '20' }} \
+            --quality="1080p" \
+            --fps="45"
 
       - name: Upload Chapter Chunk MP4
         uses: actions/upload-artifact@v4
@@ -207,13 +258,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Checkout Repository
+      - name: Checkout Repository (Shallow)
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
-      - name: Download Episode Bundle
+      - name: Download Episode Master Audio & Plan
         uses: actions/download-artifact@v4
         with:
-          name: episode-bundle
+          name: episode-master-audio
           path: .
 
       - name: Download All Rendered Chunk Artifacts into out/chunks/
@@ -234,13 +287,15 @@ jobs:
       - name: Stitch All ${{ inputs.total_chapters }} Chunks via --concat-only
         working-directory: web-studio
         env:
-          TOTAL_CHAPTERS: ${{ inputs.total_chapters }}
+          REMOTION_FPS: '45'
+          TOTAL_CHAPTERS: ${{ inputs.total_chapters || '20' }}
         run: |
           ls -lah ../out/chunks/
           node scripts/render_from_episode_json.mjs \
             --episode=episodes/current_episode.json \
             --concat-only \
-            --total-chapters=${{ inputs.total_chapters }} \
+            --fps="45" \
+            --total-chapters=${{ inputs.total_chapters || '20' }} \
             --output="../out/auto_movie_final.mp4"
           ffprobe -v error -show_entries format=duration,size -of default=noprint_wrappers=1 "../out/auto_movie_final.mp4"
 

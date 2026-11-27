@@ -2,6 +2,7 @@ import React from "react";
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
 import { StickmanRig } from "../components/character/StickmanRig";
 import { DynamicBackground } from "../components/backgrounds/DynamicBackground";
+import { LocalBeVietnamProFontStyle } from "../localFonts";
 import { Point2D } from "../types/character";
 import {
   resolvePendulumLegs,
@@ -654,10 +655,8 @@ export const TestV5ActionsShowcase: React.FC = () => {
 
   return (
     <AbsoluteFill style={{ width, height, overflow: "hidden", backgroundColor: "#F7F3EE" }}>
-      {/* Nạp font hỗ trợ tiếng Việt đầy đủ */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700;800;900&display=swap');
-      `}</style>
+      {/* Nạp font Be Vietnam Pro local offline */}
+      <LocalBeVietnamProFontStyle />
 
       {/* 1. Nền Studio kẻ ngang ấm áp (Lined Paper) */}
       <DynamicBackground preset="linedPaper" />

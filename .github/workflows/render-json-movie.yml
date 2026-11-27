@@ -224,16 +224,30 @@ jobs:
             --total-chapters="${{ inputs.total_chapters || '20' }}"
           ls -lh build/index.html episodes/cloud_input_props.json ../out/cloud_plan/
 
-      - name: Upload Pre-Bundled Episode & Master Audio Plan Artifact
+      - name: Upload Pre-Bundled Worker Artifact (Lightweight — No Master Audio Overhead for 20 VMs)
         if: ${{ !inputs.preview_only }}
         uses: actions/upload-artifact@v4
         with:
-          name: episode-bundle
+          name: episode-worker-bundle
+          compression-level: 1
           path: |
             web-studio/build/**
             web-studio/episodes/current_episode.json
             web-studio/episodes/cloud_input_props.json
-            out/cloud_plan/**
+            out/cloud_plan/cloud_render_plan.json
+          if-no-files-found: error
+          retention-days: 2
+
+      - name: Upload Master Audio Artifact (For Stage-3 Lossless Stitch Only)
+        if: ${{ !inputs.preview_only }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: episode-master-audio
+          compression-level: 1
+          path: |
+            web-studio/episodes/current_episode.json
+            out/cloud_plan/cloud_render_plan.json
+            out/cloud_plan/master_episode_audio.m4a
           if-no-files-found: error
           retention-days: 2
 
@@ -247,7 +261,7 @@ jobs:
     needs: plan_and_voice
     if: ${{ !inputs.preview_only }}
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 15
     permissions:
       contents: read
       packages: read
@@ -262,13 +276,15 @@ jobs:
       matrix:
         chapter: ${{ fromJson(format('[{0}]', inputs.total_chapters == '1' && '1' || inputs.total_chapters == '2' && '1,2' || inputs.total_chapters == '3' && '1,2,3' || inputs.total_chapters == '4' && '1,2,3,4' || inputs.total_chapters == '5' && '1,2,3,4,5' || inputs.total_chapters == '6' && '1,2,3,4,5,6' || inputs.total_chapters == '7' && '1,2,3,4,5,6,7' || inputs.total_chapters == '8' && '1,2,3,4,5,6,7,8' || inputs.total_chapters == '9' && '1,2,3,4,5,6,7,8,9' || inputs.total_chapters == '10' && '1,2,3,4,5,6,7,8,9,10' || inputs.total_chapters == '11' && '1,2,3,4,5,6,7,8,9,10,11' || inputs.total_chapters == '12' && '1,2,3,4,5,6,7,8,9,10,11,12' || inputs.total_chapters == '13' && '1,2,3,4,5,6,7,8,9,10,11,12,13' || inputs.total_chapters == '14' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14' || inputs.total_chapters == '15' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15' || inputs.total_chapters == '16' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16' || inputs.total_chapters == '17' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17' || inputs.total_chapters == '18' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18' || inputs.total_chapters == '19' && '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19' || '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20')) }}
     steps:
-      - name: Checkout Repository
+      - name: Checkout Repository (Shallow)
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
       - name: Download Pre-Bundled Episode & Render Plan
         uses: actions/download-artifact@v4
         with:
-          name: episode-bundle
+          name: episode-worker-bundle
           path: .
 
       - name: Link Prebuilt Node Modules & Verify Pre-Bundled Assets
@@ -318,13 +334,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Checkout Repository
+      - name: Checkout Repository (Shallow)
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
       - name: Download Episode Plan & Master Audio
         uses: actions/download-artifact@v4
         with:
-          name: episode-bundle
+          name: episode-master-audio
           path: .
 
       - name: Download All Rendered Chunk Artifacts into out/chunks/

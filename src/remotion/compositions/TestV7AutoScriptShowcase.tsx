@@ -9,6 +9,7 @@ import React from "react";
 import { useCurrentFrame, useVideoConfig, AbsoluteFill } from "remotion";
 import { StickmanRig } from "../components/character/StickmanRig";
 import { BackgroundStage } from "../components/backgrounds/BackgroundStage";
+import { LocalBeVietnamProFontStyle } from "../localFonts";
 import { compileScriptBeats, ScriptBeat } from "../../animscript/actionLibrary";
 
 export const SCRIPT_BEATS: ScriptBeat[] = [
@@ -169,10 +170,8 @@ export const TestV7AutoScriptShowcase: React.FC = () => {
 
   return (
     <AbsoluteFill style={{ width, height, overflow: "hidden", backgroundColor: "#0F172A" }}>
-      {/* Font Be Vietnam Pro */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700;800;900&display=swap');
-      `}</style>
+      {/* Font Be Vietnam Pro local offline */}
+      <LocalBeVietnamProFontStyle />
 
       {/* 1. PHÔNG NỀN ĐA LỚP THEO THEME HIỆN TẠI (STUDY_ROOM, SUNSET_PARK, DARK_STUDIO) */}
       <BackgroundStage theme={evaluated.theme} frame={frame} groundY={groundY} />

@@ -223,18 +223,18 @@ const GlowLine: React.FC<{
   color?: string;
   strokeWidth?: number;
 }> = ({ start, end, color = "#00E5FF", strokeWidth = 4 }) => {
-  const glowId = `glow-filter-${Math.round(start.x)}-${Math.round(start.y)}`;
   return (
     <g id="glow-line">
-      <defs>
-        <filter id={glowId}>
-          <feGaussianBlur stdDeviation="6" result="blur" />
-          <feMerge>
-            <feMergeNode in="blur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-      </defs>
+      <line
+        x1={start.x}
+        y1={start.y}
+        x2={end.x}
+        y2={end.y}
+        stroke={color}
+        strokeWidth={strokeWidth + 10}
+        strokeLinecap="round"
+        opacity={0.22}
+      />
       <line
         x1={start.x}
         y1={start.y}
@@ -243,8 +243,7 @@ const GlowLine: React.FC<{
         stroke={color}
         strokeWidth={strokeWidth + 4}
         strokeLinecap="round"
-        filter={`url(#${glowId})`}
-        opacity={0.6}
+        opacity={0.45}
       />
       <line
         x1={start.x}

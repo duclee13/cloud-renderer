@@ -348,7 +348,8 @@ export const OceanUnderwaterBackdrop = OCEAN_UNDERWATER_BACKDROP;
 
 const BackyardBalconyStaticBase: React.FC<{ gradId: string; isSunset: boolean; isNight: boolean }> = React.memo(
   ({ gradId, isSunset, isNight }) => {
-    const picketXs = Array.from({ length: 24 }, (_, idx) => 380 + idx * 66);
+    const picketPatId = `${gradId}_pickets`;
+    const patioTilePatId = `${gradId}_patio_tiles`;
     return (
       <g id="backyard-balcony-static-base">
         <defs>
@@ -356,6 +357,26 @@ const BackyardBalconyStaticBase: React.FC<{ gradId: string; isSunset: boolean; i
             <stop offset="0%" stopColor={isNight ? "#1E293B" : isSunset ? "#FDBA74" : "#BAE6FD"} />
             <stop offset="100%" stopColor={isNight ? "#334155" : isSunset ? "#FEF3C7" : "#F0F9FF"} />
           </linearGradient>
+          <pattern id={picketPatId} x={380} y={454} width={66} height={268} patternUnits="userSpaceOnUse">
+            <path
+              d="M 0,22 L 22,2 L 44,22 L 44,266 L 0,266 Z"
+              fill="#FAF7F2"
+              stroke={INK}
+              strokeWidth={2.8}
+              strokeLinejoin="round"
+            />
+          </pattern>
+          <pattern id={patioTilePatId} x={0} y={720} width={240} height={360} patternUnits="userSpaceOnUse">
+            <line
+              x1={240}
+              y1={0}
+              x2={192}
+              y2={360}
+              stroke={isNight ? "#64748B" : "#D6BFA3"}
+              strokeWidth={2.2}
+              opacity={0.62}
+            />
+          </pattern>
         </defs>
 
         {/* Layer 1: Bright Afternoon Sky */}
@@ -374,17 +395,11 @@ const BackyardBalconyStaticBase: React.FC<{ gradId: string; isSunset: boolean; i
           stroke="none"
         />
 
-        {/* Layer 2: Warm White/Beige Wooden Fence (y=460..720) */}
+        {/* Layer 2: Warm White/Beige Wooden Fence via single SVG <pattern> (y=454..720) */}
         <g id="balcony-wooden-fence" stroke={INK} strokeWidth={2.8} strokeLinejoin="round">
           <rect x={360} y={512} width={1560} height={24} fill="#E7E5E4" />
           <rect x={360} y={644} width={1560} height={24} fill="#E7E5E4" />
-          {picketXs.map((px, pi) => (
-            <path
-              key={`bp_${pi}`}
-              d={`M ${px},476 L ${px + 22},456 L ${px + 44},476 L ${px + 44},720 L ${px},720 Z`}
-              fill="#FAF7F2"
-            />
-          ))}
+          <rect x={380} y={454} width={1562} height={268} fill={`url(#${picketPatId})`} stroke="none" />
         </g>
 
         {/* Left Edge House Wall & Sliding Glass Patio Door (x=0..365) */}
@@ -419,16 +434,12 @@ const BackyardBalconyStaticBase: React.FC<{ gradId: string; isSunset: boolean; i
           </g>
         </g>
 
-        {/* Layer 3: Bright Clean Patio Floor (y=720..1080) with subtle perspective tile seams */}
+        {/* Layer 3: Bright Clean Patio Floor (y=720..1080) with <pattern> tile seams */}
         <rect x={0} y={720} width={1920} height={360} fill={isNight ? "#475569" : "#F5E6D3"} stroke="none" />
         <line x1={0} y1={720} x2={1920} y2={720} stroke={INK} strokeWidth={3.2} />
-        <g stroke={isNight ? "#64748B" : "#D6BFA3"} strokeWidth={2.2} opacity={0.62}>
-          <line x1={0} y1={792} x2={1920} y2={792} />
-          <line x1={0} y1={876} x2={1920} y2={876} />
-          {[240, 480, 720, 960, 1200, 1440, 1680].map((tx) => (
-            <line key={`bpt_${tx}`} x1={tx} y1={720} x2={tx - 48} y2={1080} />
-          ))}
-        </g>
+        <line x1={0} y1={792} x2={1920} y2={792} stroke={isNight ? "#64748B" : "#D6BFA3"} strokeWidth={2.2} opacity={0.62} />
+        <line x1={0} y1={876} x2={1920} y2={876} stroke={isNight ? "#64748B" : "#D6BFA3"} strokeWidth={2.2} opacity={0.62} />
+        <rect x={0} y={720} width={1872} height={360} fill={`url(#${patioTilePatId})`} stroke="none" />
       </g>
     );
   }

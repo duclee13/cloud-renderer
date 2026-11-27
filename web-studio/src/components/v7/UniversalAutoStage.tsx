@@ -598,11 +598,14 @@ const ScienceLabStaticLayer = React.memo<{ timeOfDay: AutoTimeOfDay; labBoard?: 
 
   return (
     <g>
+      <defs>
+        <pattern id="lab-wall-grid-pat" x={0} y={0} width={160} height={775} patternUnits="userSpaceOnUse">
+          <line x1={0} y1={0} x2={0} y2={775} stroke="#94A3B8" strokeWidth={1.2} opacity={0.22} />
+        </pattern>
+      </defs>
       <rect x={0} y={0} width={1920} height={775} fill={wallFill} stroke="none" />
-      {/* Gạch ốp phòng thí nghiệm mờ nhẹ */}
-      {Array.from({ length: 12 }).map((_, i) => (
-        <line key={`lgv_${i}`} x1={i * 160} y1={0} x2={i * 160} y2={775} stroke="#94A3B8" strokeWidth={1.2} opacity={0.22} />
-      ))}
+      {/* Gạch ốp phòng thí nghiệm mờ nhẹ qua <pattern> */}
+      <rect x={0} y={0} width={1920} height={775} fill="url(#lab-wall-grid-pat)" stroke="none" />
       <rect x={0} y={775} width={1920} height={305} fill={isNight ? "#334155" : "#CBD5E1"} stroke="none" />
       <line x1={0} y1={775} x2={1920} y2={775} stroke="#141414" strokeWidth={3.2} />
 
@@ -1096,22 +1099,75 @@ const AnechoicChamberStaticLayer = React.memo<{ timeOfDay: AutoTimeOfDay }>(({ t
   const rows = 5;
   const cellW = 150;
   const cellH = 132;
+  const ceilPatId = `anechoic_ceil_${timeOfDay}`;
+  const wallPatId = `anechoic_wall_${timeOfDay}`;
+  const floorWedgePatId = `anechoic_flr_wedge_${timeOfDay}`;
+  const floorWirePatId = `anechoic_flr_wire_${timeOfDay}`;
+
+  const renderVerticalWedgeModule = (ox: number, oy: number) => (
+    <g transform={`translate(${ox}, ${oy})`}>
+      <rect x={0} y={0} width={cellW} height={cellH} fill={bgDeep} stroke={wedgeEdge} strokeWidth={isNight ? 1.8 : 2.6} />
+      {[0, 1, 2].map((w) => {
+        const wx = w * 50;
+        return (
+          <g key={`vw_${w}`} stroke={wedgeEdge} strokeWidth={isNight ? 1.8 : 2.6} strokeLinejoin="round">
+            <polygon points={`${wx},0 ${wx + 25},14 ${wx + 25},${cellH - 14} ${wx},${cellH}`} fill={wedgeFaceB} />
+            <polygon points={`${wx + 25},14 ${wx + 50},0 ${wx + 50},${cellH} ${wx + 25},${cellH - 14}`} fill={wedgeFaceA} />
+            <line x1={wx + 25} y1={14} x2={wx + 25} y2={cellH - 14} stroke={wedgeHighlight} strokeWidth={isNight ? 1 : 2} />
+          </g>
+        );
+      })}
+    </g>
+  );
+
+  const renderHorizontalWedgeModule = (ox: number, oy: number) => (
+    <g transform={`translate(${ox}, ${oy})`}>
+      <rect x={0} y={0} width={cellW} height={cellH} fill={bgDeep} stroke={wedgeEdge} strokeWidth={isNight ? 1.8 : 2.6} />
+      {[0, 1, 2].map((w) => {
+        const wy = w * 44;
+        return (
+          <g key={`hw_${w}`} stroke={wedgeEdge} strokeWidth={isNight ? 1.8 : 2.6} strokeLinejoin="round">
+            <polygon points={`0,${wy} 14,${wy + 22} ${cellW - 14},${wy + 22} ${cellW},${wy}`} fill={wedgeFaceB} />
+            <polygon points={`14,${wy + 22} 0,${wy + 44} ${cellW},${wy + 44} ${cellW - 14},${wy + 22}`} fill={wedgeFaceA} />
+            <line x1={14} y1={wy + 22} x2={cellW - 14} y2={wy + 22} stroke={wedgeHighlight} strokeWidth={isNight ? 1 : 2} />
+          </g>
+        );
+      })}
+    </g>
+  );
 
   return (
     <g>
-      <rect x={0} y={0} width={1920} height={1080} fill={bgDeep} />
+      <defs>
+        <pattern id={ceilPatId} x={0} y={0} width={120} height={110} patternUnits="userSpaceOnUse">
+          <g stroke={wedgeEdge} strokeWidth={isNight ? 2 : 3} strokeLinejoin="round">
+            <polygon points="0,0 60,108 60,0" fill={wedgeFaceB} />
+            <polygon points="60,0 60,108 120,0" fill={wedgeFaceA} />
+          </g>
+        </pattern>
+        <pattern id={wallPatId} x={0} y={110} width={cellW * 2} height={cellH * 2} patternUnits="userSpaceOnUse">
+          {renderVerticalWedgeModule(0, 0)}
+          {renderHorizontalWedgeModule(cellW, 0)}
+          {renderHorizontalWedgeModule(0, cellH)}
+          {renderVerticalWedgeModule(cellW, cellH)}
+        </pattern>
+        <pattern id={floorWedgePatId} x={0} y={868} width={192} height={212} patternUnits="userSpaceOnUse">
+          <g stroke={wedgeEdge} strokeWidth={isNight ? 1.5 : 2.2} opacity={isNight ? 0.55 : 0.78}>
+            <polygon points="0,212 48,0 96,212" fill={wedgeFaceA} />
+            <polygon points="96,212 144,0 192,212" fill={wedgeFaceB} />
+          </g>
+        </pattern>
+        <pattern id={floorWirePatId} x={0} y={770} width={84} height={110} patternUnits="userSpaceOnUse">
+          <line x1={0} y1={22} x2={84} y2={22} stroke={gridWire} strokeWidth={1.5} opacity={0.42} />
+          <line x1={0} y1={46} x2={84} y2={46} stroke={gridWire} strokeWidth={1.5} opacity={0.42} />
+          <line x1={0} y1={70} x2={84} y2={70} stroke={gridWire} strokeWidth={1.5} opacity={0.42} />
+          <line x1={0} y1={94} x2={84} y2={94} stroke={gridWire} strokeWidth={1.5} opacity={0.42} />
+          <line x1={56} y1={0} x2={28} y2={110} stroke={gridWire} strokeWidth={1.5} opacity={0.36} />
+        </pattern>
+      </defs>
 
-      <g stroke={wedgeEdge} strokeWidth={isNight ? 2 : 3} strokeLinejoin="round">
-        {Array.from({ length: 16 }).map((_, ci) => {
-          const x0 = ci * 120;
-          return (
-            <g key={`ceil_w_${ci}`}>
-              <polygon points={`${x0},0 ${x0 + 60},108 ${x0 + 60},0`} fill={wedgeFaceB} />
-              <polygon points={`${x0 + 60},0 ${x0 + 60},108 ${x0 + 120},0`} fill={wedgeFaceA} />
-            </g>
-          );
-        })}
-      </g>
+      <rect x={0} y={0} width={1920} height={1080} fill={bgDeep} />
+      <rect x={0} y={0} width={1920} height={110} fill={`url(#${ceilPatId})`} />
 
       {!isNight && (
         <g opacity={isSunset ? 0.55 : 0.72}>
@@ -1122,43 +1178,7 @@ const AnechoicChamberStaticLayer = React.memo<{ timeOfDay: AutoTimeOfDay }>(({ t
         </g>
       )}
 
-      <g stroke={wedgeEdge} strokeWidth={isNight ? 1.8 : 2.6} strokeLinejoin="round">
-        {Array.from({ length: rows }).map((_, r) =>
-          Array.from({ length: cols }).map((__, c) => {
-            const bx = c * cellW;
-            const by = 110 + r * cellH;
-            const isVertical = (r + c) % 2 === 0;
-            return (
-              <g key={`wall_mod_${r}_${c}`} transform={`translate(${bx}, ${by})`}>
-                <rect x={0} y={0} width={cellW} height={cellH} fill={bgDeep} />
-                {isVertical ? (
-                  [0, 1, 2].map((w) => {
-                    const wx = w * 50;
-                    return (
-                      <g key={`vw_${w}`}>
-                        <polygon points={`${wx},0 ${wx + 25},14 ${wx + 25},${cellH - 14} ${wx},${cellH}`} fill={wedgeFaceB} />
-                        <polygon points={`${wx + 25},14 ${wx + 50},0 ${wx + 50},${cellH} ${wx + 25},${cellH - 14}`} fill={wedgeFaceA} />
-                        <line x1={wx + 25} y1={14} x2={wx + 25} y2={cellH - 14} stroke={wedgeHighlight} strokeWidth={isNight ? 1 : 2} />
-                      </g>
-                    );
-                  })
-                ) : (
-                  [0, 1, 2].map((w) => {
-                    const wy = w * 44;
-                    return (
-                      <g key={`hw_${w}`}>
-                        <polygon points={`0,${wy} 14,${wy + 22} ${cellW - 14},${wy + 22} ${cellW},${wy}`} fill={wedgeFaceB} />
-                        <polygon points={`14,${wy + 22} 0,${wy + 44} ${cellW},${wy + 44} ${cellW - 14},${wy + 22}`} fill={wedgeFaceA} />
-                        <line x1={14} y1={wy + 22} x2={cellW - 14} y2={wy + 22} stroke={wedgeHighlight} strokeWidth={isNight ? 1 : 2} />
-                      </g>
-                    );
-                  })
-                )}
-              </g>
-            );
-          })
-        )}
-      </g>
+      <rect x={0} y={110} width={cols * cellW} height={rows * cellH} fill={`url(#${wallPatId})`} />
 
       <g transform="translate(1525, 215)" stroke={wedgeEdge} strokeWidth={isNight ? 2.5 : 4} strokeLinejoin="round">
         <rect x={0} y={0} width={330} height={555} rx={10} fill={doorOuter} />
@@ -1177,27 +1197,11 @@ const AnechoicChamberStaticLayer = React.memo<{ timeOfDay: AutoTimeOfDay }>(({ t
       </g>
 
       <rect x={0} y={770} width={1920} height={310} fill={floorBg} />
-      <g stroke={wedgeEdge} strokeWidth={isNight ? 1.5 : 2.2} opacity={isNight ? 0.55 : 0.78}>
-        {Array.from({ length: 20 }).map((_, fi) => {
-          const fx = fi * 96;
-          return (
-            <polygon
-              key={`flr_w_${fi}`}
-              points={`${fx},1080 ${fx + 48},868 ${fx + 96},1080`}
-              fill={fi % 2 === 0 ? wedgeFaceA : wedgeFaceB}
-            />
-          );
-        })}
-      </g>
+      <rect x={0} y={868} width={1920} height={212} fill={`url(#${floorWedgePatId})`} />
       <rect x={0} y={770} width={1920} height={110} fill={isNight ? "#0B1120" : "#334155"} fillOpacity={0.74} />
       <line x1={0} y1={770} x2={1920} y2={770} stroke={wedgeEdge} strokeWidth={3.5} />
       <line x1={0} y1={880} x2={1920} y2={880} stroke={wedgeEdge} strokeWidth={3.5} />
-      {[792, 816, 840, 864].map((gy) => (
-        <line key={`glh_${gy}`} x1={0} y1={gy} x2={1920} y2={gy} stroke={gridWire} strokeWidth={1.5} opacity={0.42} />
-      ))}
-      {Array.from({ length: 24 }).map((_, gi) => (
-        <line key={`glv_${gi}`} x1={gi * 84} y1={770} x2={gi * 84 - 28} y2={880} stroke={gridWire} strokeWidth={1.5} opacity={0.36} />
-      ))}
+      <rect x={0} y={770} width={1920} height={110} fill={`url(#${floorWirePatId})`} />
     </g>
   );
 });
@@ -1439,14 +1443,15 @@ const CityStreetParkStaticWalkwayAndBenches = React.memo<{ timeOfDay: AutoTimeOf
   const isNight = timeOfDay === "NIGHT";
   return (
     <g>
+      <defs>
+        <pattern id="park-walkway-seams-pat" x={0} y={755} width={124} height={71} patternUnits="userSpaceOnUse">
+          <line x1={124} y1={0} x2={100} y2={71} stroke="#94A3B8" strokeWidth={2} opacity={0.25} />
+        </pattern>
+      </defs>
       <rect x={0} y={755} width={1920} height={325} fill={isNight ? "#475569" : "#E2E8F0"} stroke="none" />
       <line x1={0} y1={755} x2={1920} y2={755} stroke="#141414" strokeWidth={3.2} />
       <line x1={0} y1={826} x2={1920} y2={826} stroke="#94A3B8" strokeWidth={2.5} opacity={0.45} />
-      <g stroke="#94A3B8" strokeWidth={2} opacity={0.25}>
-        {Array.from({ length: 16 }).map((_, bi) => (
-          <line key={`brk_${bi}`} x1={bi * 124} y1={755} x2={bi * 124 - 24} y2={826} />
-        ))}
-      </g>
+      <rect x={0} y={755} width={1920} height={71} fill="url(#park-walkway-seams-pat)" stroke="none" />
       {[330, 1560].map((bx, idx) => (
         <g key={`bench_${idx}`} id={idx === 0 ? "park-stone-bench" : undefined} transform={`translate(${bx}, 712)`}>
           <ellipse cx={0} cy={72} rx={118} ry={10} fill="#0F172A" opacity={0.12} stroke="none" />
@@ -1516,13 +1521,14 @@ const SchoolClassroomStaticRoom = React.memo<{
         <line x1={0} y1={540} x2={1920} y2={540} stroke="#141414" strokeWidth={3} />
         <rect x={0} y={765} width={1920} height={315} fill={isNight ? "#475569" : "#E2E8F0"} stroke="none" />
         <line x1={0} y1={765} x2={1920} y2={765} stroke="#141414" strokeWidth={3.2} />
-        {/* Subtle tiled floor seams (3-layer indoor depth) */}
-        <g stroke="#94A3B8" strokeWidth={1.6} opacity={0.22}>
-          <line x1={0} y1={822} x2={1920} y2={822} />
-          {[240, 480, 720, 960, 1200, 1440, 1680].map((fx) => (
-            <line key={`cls_fl_${fx}`} x1={fx} y1={765} x2={fx - 26} y2={822} />
-          ))}
-        </g>
+        {/* Subtle tiled floor seams via <pattern> */}
+        <defs>
+          <pattern id="classroom-floor-seams-pat" x={0} y={765} width={240} height={57} patternUnits="userSpaceOnUse">
+            <line x1={240} y1={0} x2={214} y2={57} stroke="#94A3B8" strokeWidth={1.6} opacity={0.22} />
+          </pattern>
+        </defs>
+        <line x1={0} y1={822} x2={1920} y2={822} stroke="#94A3B8" strokeWidth={1.6} opacity={0.22} />
+        <rect x={0} y={765} width={1880} height={57} fill="url(#classroom-floor-seams-pat)" stroke="none" />
 
         {/* Soft diagonal classroom sunbeam falling from left window (zero blur) */}
         {!isNight && (
@@ -2703,38 +2709,28 @@ export const UniversalAutoStage: React.FC<{
   const hasCustomVisual = Boolean(CustomVisualComponent);
   const isFullScreenCustomVisual = Boolean(CustomVisualComponent && spec.fullScreenVisual === true);
 
-  // V20.0: Chế độ hoạt họa tràn màn hình 1920x1080 — ẩn toàn bộ nền sân khấu mặc định, actors, thời tiết, speechBubble & callout vàng.
+  // V20.0 / V23.6: Chế độ hoạt họa tràn màn hình 1920x1080 — nhúng trực tiếp <svg> thuần (0% HTML layout overhead)
   // Phụ đề phía dưới (zIndex 60) và chapterBanner phía trên (zIndex 45) vẫn do V7MovieComposition giữ ở layer trên cùng.
   if (isFullScreenCustomVisual && CustomVisualComponent) {
     return (
       <g id={`universal-auto-stage-${spec.id}`} data-fullscreen-visual="true">
         <g id={`layer-custom-visual-fullscreen-${spec.id}`}>
-          <foreignObject
+          <svg
             x={CUSTOM_VISUAL_FULLSCREEN_RECT.left}
             y={CUSTOM_VISUAL_FULLSCREEN_RECT.top}
             width={CUSTOM_VISUAL_FULLSCREEN_RECT.width}
             height={CUSTOM_VISUAL_FULLSCREEN_RECT.height}
+            viewBox="0 0 1920 1080"
             style={{ overflow: "hidden" }}
           >
-            <div
-              className="v20-fullscreen-visual-host"
-              style={{
-                width: `${CUSTOM_VISUAL_FULLSCREEN_RECT.width}px`,
-                height: `${CUSTOM_VISUAL_FULLSCREEN_RECT.height}px`,
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              <style>{`.v20-fullscreen-visual-host > div { width: 100% !important; height: 100% !important; max-width: none !important; max-height: none !important; } .v20-fullscreen-visual-host > svg, .v20-fullscreen-visual-host > div > svg:only-child { width: 100% !important; height: 100% !important; max-width: none !important; max-height: none !important; display: block; }`}</style>
-              <CustomVisualComponent
-                progress={sceneProgressP}
-                frame={localFrame}
-                fps={fps}
-                step={spec.visualStep ?? 0}
-                visualStep={spec.visualStep ?? 0}
-              />
-            </div>
-          </foreignObject>
+            <CustomVisualComponent
+              progress={sceneProgressP}
+              frame={localFrame}
+              fps={fps}
+              step={spec.visualStep ?? 0}
+              visualStep={spec.visualStep ?? 0}
+            />
+          </svg>
         </g>
       </g>
     );
@@ -3554,7 +3550,11 @@ export const UniversalAutoStage: React.FC<{
         {effectiveStageType === "BACKYARD_BALCONY_PET" &&
           spec.balconyDetail &&
           spec.balconyDetail !== "NONE" && (
-            <BackyardBalconyCatStageKit mode={spec.balconyDetail} frame={stageRenderFrame} />
+            <BackyardBalconyCatStageKit
+              mode={spec.balconyDetail}
+              frame={stageRenderFrame}
+              localFrame={isHostExplain ? (spec.freezeFrame ?? 90) : localFrame}
+            />
           )}
 
         {/* 1.5. V22.5–V23.0: LỚP PHỦ TRẮNG SỮA PHẲNG & BẢNG CHUYÊN ĐỀ CHO HOST_EXPLAIN_OVERLAY (0% blur!) */}
@@ -3622,32 +3622,25 @@ export const UniversalAutoStage: React.FC<{
           </g>
         )}
 
-        {/* 2.5. V19.0: HOẠT HỌA MINH HỌA RIÊNG THEO BEAT (customVisual) — NẰM TRÊN NỀN SÂN KHẤU, DƯỚI NHÂN VẬT / SPEECHBUBBLE / PHỤ ĐỀ */}
+        {/* 2.5. V19.0 / V23.6: HOẠT HỌA MINH HỌA RIÊNG THEO BEAT (customVisual) — <svg> THUẦN 0% HTML OVERHEAD */}
         {CustomVisualComponent && (
           <g id={`layer-custom-visual-${spec.id}`}>
-            <foreignObject
+            <svg
               x={CUSTOM_VISUAL_STAGE_RECT.left}
               y={CUSTOM_VISUAL_STAGE_RECT.top}
               width={CUSTOM_VISUAL_STAGE_RECT.width}
               height={CUSTOM_VISUAL_STAGE_RECT.height}
+              viewBox="0 0 1120 680"
               style={{ overflow: "visible" }}
             >
-              <div
-                style={{
-                  width: `${CUSTOM_VISUAL_STAGE_RECT.width}px`,
-                  height: `${CUSTOM_VISUAL_STAGE_RECT.height}px`,
-                  position: "relative",
-                }}
-              >
-                <CustomVisualComponent
-                  progress={sceneProgressP}
-                  frame={localFrame}
-                  fps={fps}
-                  step={spec.visualStep ?? 0}
-                  visualStep={spec.visualStep ?? 0}
-                />
-              </div>
-            </foreignObject>
+              <CustomVisualComponent
+                progress={sceneProgressP}
+                frame={localFrame}
+                fps={fps}
+                step={spec.visualStep ?? 0}
+                visualStep={spec.visualStep ?? 0}
+              />
+            </svg>
           </g>
         )}
 
@@ -3801,12 +3794,15 @@ export const UniversalAutoStage: React.FC<{
             : 0;
 
           const rawEffectiveHeadTiltDeg = ra.headTiltDeg + listenerNodDeg;
-          const effectiveHeadTiltDeg =
-            isHostExplain || actor.lookAtCamera
-              ? Math.max(-3, Math.min(3, rawEffectiveHeadTiltDeg))
-              : rawEffectiveHeadTiltDeg;
+          const isCameraLockedHost = isHostExplain || Boolean(actor.lookAtCamera);
+          const effectiveHeadTiltDeg = isHostExplain
+            ? 0
+            : actor.lookAtCamera
+            ? Math.max(-2, Math.min(2, rawEffectiveHeadTiltDeg))
+            : rawEffectiveHeadTiltDeg;
+          const effectiveTorsoTiltDeg = isHostExplain ? 0 : ra.torsoTiltDeg;
           const nodAmplitudeDeg =
-            ra.v18ActionPose === "NOD_SMILE" || ra.v18ActionPose === "SIP_DRINK"
+            isHostExplain || ra.v18ActionPose === "NOD_SMILE" || ra.v18ActionPose === "SIP_DRINK"
               ? 0
               : ra.v18ActionPose === "SWEEP_LIGHT" || ra.v18ActionPose === "FACEPALM"
               ? 0.5
@@ -3817,6 +3813,11 @@ export const UniversalAutoStage: React.FC<{
               : actor.motion === "IDLE_TALK" || actor.motion === "WAVE" || actor.motion === "APPROACH_OTHER"
               ? 3.2
               : 1.5;
+          const rawResolvedEyes = ra.overrideEyes ?? expr.eyes;
+          const hostSafeEyes: EyeExpression =
+            isHostExplain && (rawResolvedEyes === "surprised" || rawResolvedEyes === "wide")
+              ? "neutral"
+              : rawResolvedEyes;
 
           const renderCupInFrontForSip =
             ra.activeHandProp === "CUP_SODA" && ra.v18ActionPose === "SIP_DRINK";
@@ -3856,7 +3857,7 @@ export const UniversalAutoStage: React.FC<{
                   facing: ra.effectiveFacing === "LEFT" ? "left" : "right",
                   pose: ra.pose,
                   ...(ra.seatedHipY !== undefined ? { seatedHipY: ra.seatedHipY } : {}),
-                  torsoTiltDeg: ra.torsoTiltDeg,
+                  torsoTiltDeg: effectiveTorsoTiltDeg,
                   headTiltDeg: effectiveHeadTiltDeg,
                   flightLift: ra.flightLift,
                   crouchDepth: ra.crouchDepth,
@@ -3872,16 +3873,17 @@ export const UniversalAutoStage: React.FC<{
                   v18SegmentProgress: ra.v18SegmentProgress,
                   v18LocalFrame: ra.v18LocalFrame,
                   blendedArmPose: ra.blendedArmPose,
-                  lookOffset,
+                  pupilGaze: isCameraLockedHost ? { x: 0, y: 0 } : undefined,
+                  lookOffset: isCameraLockedHost ? { dx: 0, dy: 0 } : lookOffset,
                   blinkSeed: ra.actorBlinkSeed,
                   nodAmplitudeDeg,
                   nodFreq: ra.v18ActionPose === "TALK_GESTURE" ? 0.11 : 0.13,
                   isSpeaking: !actor.yawning && (ra.isSpeaking || ra.v18ActionPose === "TALK_GESTURE"),
-                  eyes: ra.overrideEyes ?? expr.eyes,
+                  eyes: hostSafeEyes,
                   eyebrows: ra.overrideEyebrows ?? expr.eyebrows,
                   mouth: ra.overrideMouth ?? expr.mouth,
                   blush: expr.blush,
-                  sweatDrop: expr.sweatDrop,
+                  sweatDrop: isHostExplain ? false : expr.sweatDrop,
                   shiver: ra.activeShiver,
                   shiverOpacity: ra.shiverOpacity,
                   shiverDarkStage:

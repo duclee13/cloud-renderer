@@ -38,7 +38,7 @@ export const SlowMotionTransitionScene: React.FC = () => {
           fontFamily: "monospace",
           fontSize: 16,
           lineHeight: 1.6,
-          boxShadow: "0 8px 30px rgba(0,0,0,0.45)",
+          boxShadow: "0 4px 0 rgba(0,0,0,0.45)",
           zIndex: 100,
         }}
       >
@@ -102,7 +102,7 @@ export const SlowMotionBrakingScene: React.FC = () => {
           fontFamily: "monospace",
           fontSize: 16,
           lineHeight: 1.6,
-          boxShadow: "0 8px 30px rgba(0,0,0,0.45)",
+          boxShadow: "0 4px 0 rgba(0,0,0,0.45)",
           zIndex: 100,
         }}
       >

@@ -1,4 +1,4 @@
-name: Distributed 1080p 60FPS Video Renderer
+name: Distributed 1080p Video Renderer (Pre-Bundled 20-VM Balanced)
 
 on:
   workflow_dispatch:
@@ -8,13 +8,13 @@ on:
         required: true
         default: 'story_001'
       totalFrames:
-        description: 'Total number of frames to render (e.g. 18000 for 5 mins @ 60fps)'
+        description: 'Total number of frames to render (e.g. 13500 for 5 mins @ 45fps)'
         required: true
         default: '480'
       chunkCount:
-        description: 'Number of parallel chunks (1 = Full single-runner, 2-10 = Parallel chunks)'
+        description: 'Number of parallel chunks (1 = Full single-runner, up to 20 = Parallel chunks)'
         required: true
-        default: '1'
+        default: '20'
       scenePayloadUrl:
         description: 'Signed URL or raw JSON string containing the Scene Graph'
         required: false
@@ -22,25 +22,58 @@ on:
 
 permissions:
   contents: write
+  packages: read
 
 jobs:
   prepare-matrix:
-    name: Calculate Frame Chunks
+    name: Pre-Bundle Once & Calculate Balanced Frame Chunks
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     outputs:
       chunks: ${{ steps.set-matrix.outputs.chunks }}
     steps:
-      - name: Compute Frame Ranges
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'npm'
+          cache-dependency-path: web-studio/package-lock.json
+
+      - name: Cache web-studio/node_modules
+        id: cache-node-modules
+        uses: actions/cache@v4
+        with:
+          path: web-studio/node_modules
+          key: web-studio-nm-${{ runner.os }}-node24-${{ hashFiles('web-studio/package-lock.json') }}
+
+      - name: Install Dependencies & Pre-Bundle Remotion Once
+        working-directory: web-studio
+        run: |
+          if [ "${{ steps.cache-node-modules.outputs.cache-hit }}" != "true" ]; then
+            npm ci --prefer-offline || npm install --prefer-offline
+          fi
+          npx remotion bundle src/remotion/index.ts --out-dir build
+          test -f build/index.html
+
+      - name: Compute Strictly Balanced Frame Ranges & Write Props
         id: set-matrix
         uses: actions/github-script@v7
         with:
           script: |
-            let totalFrames = parseInt('${{ github.event.inputs.totalFrames }}', 10) || 480;
-            const chunkCount = Math.max(1, parseInt('${{ github.event.inputs.chunkCount }}', 10) || 1);
+            const fs = require('fs');
+            let totalFrames = Math.max(1, parseInt('${{ github.event.inputs.totalFrames }}', 10) || 480);
+            const requestedChunks = Math.max(1, Math.min(20, parseInt('${{ github.event.inputs.chunkCount }}', 10) || 1));
             const rawPayload = `${{ github.event.inputs.scenePayloadUrl }}`.trim();
+            let payloadObj = { totalFrames };
             if (rawPayload && rawPayload.startsWith('{')) {
               try {
                 const parsed = JSON.parse(rawPayload);
+                const ir = parsed.ir || (parsed.timeline ? parsed : undefined);
                 if (parsed.ir?.totalDurationFrames) {
                   totalFrames = parseInt(parsed.ir.totalDurationFrames, 10);
                 } else if (parsed.totalDurationFrames) {
@@ -55,112 +88,89 @@ jobs:
                   }, 0);
                   if (maxEnd > 0) totalFrames = maxEnd;
                 }
-              } catch (e) {
-                // Ignore parse errors, stick to totalFrames
-              }
+                payloadObj = {
+                  totalFrames,
+                  sceneGraph: parsed,
+                  ...(ir ? { ir } : {}),
+                  ...parsed,
+                };
+              } catch {}
             }
-            const chunkSize = Math.ceil(totalFrames / chunkCount);
-            const chunks = [];
+            fs.mkdirSync('dist', { recursive: true });
+            fs.writeFileSync('dist/props.json', JSON.stringify(payloadObj));
 
-            for (let i = 0; i < chunkCount; i++) {
-              const start = i * chunkSize;
-              const end = Math.min((i + 1) * chunkSize - 1, totalFrames - 1);
-              if (start <= totalFrames - 1) {
-                chunks.push({
-                  index: i,
-                  startFrame: start,
-                  endFrame: end,
-                  paddedIndex: String(i).padStart(3, '0')
-                });
-              }
+            // Rational floor partition: max difference <= 1 frame across all workers, zero gap, zero overlap
+            const maxValidChunks = totalFrames >= 2 ? Math.floor(totalFrames / 2) : 1;
+            const safeChunks = Math.max(1, Math.min(maxValidChunks, requestedChunks));
+            const chunks = [];
+            for (let i = 0; i < safeChunks; i++) {
+              const start = Math.floor((i * totalFrames) / safeChunks);
+              const end = Math.floor(((i + 1) * totalFrames) / safeChunks) - 1;
+              chunks.push({
+                index: i,
+                startFrame: start,
+                endFrame: end,
+                paddedIndex: String(i).padStart(3, '0')
+              });
             }
             core.setOutput('chunks', JSON.stringify(chunks));
+
+      - name: Upload Pre-Bundled Remotion & Props Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: remotion-bundle
+          compression-level: 1
+          path: |
+            web-studio/build/**
+            dist/props.json
+          if-no-files-found: error
+          retention-days: 1
 
   render-chunk:
     name: Render Chunk ${{ matrix.chunk.paddedIndex }}
     needs: prepare-matrix
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    container:
+      image: ghcr.io/duclee13/cloud-renderer-base:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     strategy:
       fail-fast: false
+      max-parallel: 20
       matrix:
         chunk: ${{ fromJson(needs.prepare-matrix.outputs.chunks) }}
     steps:
-      - name: Checkout Codebase
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Download Pre-Bundled Remotion & Props
+        uses: actions/download-artifact@v4
         with:
-          node-version: 22
-          cache: 'npm'
-          cache-dependency-path: web-studio/package.json
+          name: remotion-bundle
+          path: .
 
-      - name: Install System Dependencies for Headless Chromium
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            ffmpeg \
-            libnss3 \
-            libatk-bridge2.0-0 \
-            libx11-xcb1 \
-            libxcomposite1 \
-            libxdamage1 \
-            libxrandr2 \
-            libgbm1 \
-            fonts-noto-color-emoji || true
-          sudo apt-get install -y libasound2t64 || sudo apt-get install -y libasound2 || true
-
-      - name: Install Project Dependencies
-        working-directory: web-studio
-        run: npm ci --prefer-offline || npm install --prefer-offline
-
-      - name: Prepare Scene Payload & Props File
-        working-directory: web-studio
-        env:
-          RAW_PAYLOAD: ${{ github.event.inputs.scenePayloadUrl }}
-          TOTAL_FRAMES: ${{ github.event.inputs.totalFrames }}
-        run: |
-          mkdir -p ../dist/chunks
-          node -e "
-            const fs = require('fs');
-            const raw = process.env.RAW_PAYLOAD || '';
-            const total = parseInt(process.env.TOTAL_FRAMES || '480', 10);
-            let payload = { totalFrames: total };
-            if (raw.trim().startsWith('{')) {
-              try {
-                const parsed = JSON.parse(raw);
-                const ir = parsed.ir || (parsed.timeline ? parsed : undefined);
-                payload = {
-                  totalFrames: ir?.totalDurationFrames || total,
-                  sceneGraph: parsed,
-                  ...(ir ? { ir } : {}),
-                  ...parsed,
-                };
-              } catch (e) {
-                console.warn('Fallback to default props:', e.message);
-              }
-            }
-            fs.writeFileSync('../dist/props.json', JSON.stringify(payload));
-          "
-
-      - name: Render Video Chunk via Remotion & FFmpeg In-Memory Pipe
+      - name: Link Prebuilt Node Modules & Render Video Chunk
         working-directory: web-studio
         env:
           START_FRAME: ${{ matrix.chunk.startFrame }}
           END_FRAME: ${{ matrix.chunk.endFrame }}
           CHUNK_INDEX: ${{ matrix.chunk.paddedIndex }}
         run: |
+          rm -rf node_modules
+          ln -s /opt/render-env/node_modules node_modules
+          mkdir -p ../dist/chunks
           echo "Rendering frames $START_FRAME to $END_FRAME (Chunk $CHUNK_INDEX)..."
-          
-          # Render chunk using Remotion with libx264 animation profile
-          npx remotion render src/remotion/index.ts MainScene ../dist/chunks/chunk_${CHUNK_INDEX}.mp4 \
+          node node_modules/@remotion/cli/remotion-cli.js render ./build MainScene ../dist/chunks/chunk_${CHUNK_INDEX}.mp4 \
             --frames=${START_FRAME}-${END_FRAME} \
             --props=../dist/props.json \
             --pixel-format=yuv420p \
             --codec=h264 \
-            --crf=18 \
+            --image-format=jpeg \
+            --jpeg-quality=88 \
+            --x264-preset=superfast \
+            --crf=23 \
             --concurrency=4 \
-            --log=info
+            --gl=swangle \
+            --log=error
 
       - name: Upload Chunk Artifact
         uses: actions/upload-artifact@v4
@@ -174,12 +184,15 @@ jobs:
     needs: [prepare-matrix, render-chunk]
     if: always() && needs.prepare-matrix.result == 'success'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - name: Checkout Repository
+      - name: Checkout Repository (Shallow)
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
       - name: Setup FFmpeg
-        run: sudo apt-get update && sudo apt-get install -y ffmpeg || true
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg || true
 
       - name: Download All Chunk Artifacts
         uses: actions/download-artifact@v4
@@ -203,19 +216,15 @@ jobs:
           fi
 
           if [ "$COUNT" -eq 1 ]; then
-            echo "Chỉ có 1 file duy nhất (Chế độ Full Single Runner) -> Copy trực tiếp, không cần ghép concat!"
             cp "${CHUNK_FILES[0]}" output/final_raw.mp4
           else
-            echo "Ghép $COUNT chunks theo đúng thứ tự..."
             for f in "${CHUNK_FILES[@]}"; do
               echo "file '$PWD/$f'" >> concat_list.txt
             done
-            cat concat_list.txt
-            ffmpeg -f concat -safe 0 -i concat_list.txt -c copy output/final_raw.mp4
+            ffmpeg -y -v error -f concat -safe 0 -i concat_list.txt -c copy output/final_raw.mp4
           fi
 
-          # Tối ưu hóa FastStart cho Web Streaming
-          ffmpeg -i output/final_raw.mp4 -c copy -movflags +faststart output/story_${{ github.event.inputs.scriptId }}_1080p60fps.mp4
+          ffmpeg -y -v error -i output/final_raw.mp4 -c copy -movflags +faststart output/story_${{ github.event.inputs.scriptId }}_1080p60fps.mp4
 
       - name: Create GitHub Release and Upload 1080p Video
         id: create_release
@@ -224,12 +233,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: render-${{ github.event.inputs.scriptId }}-${{ github.run_id }}
-          name: "Render 1080p 60FPS: ${{ github.event.inputs.scriptId }}"
+          name: "Render 1080p: ${{ github.event.inputs.scriptId }}"
           body: |
             ### Automated Render Completion
             - **Script ID:** `${{ github.event.inputs.scriptId }}`
             - **Resolution:** `1920x1080 (Full HD)`
-            - **Frame Rate:** `60 FPS`
             - **Total Frames:** `${{ github.event.inputs.totalFrames }}`
             - **Parallel Chunks:** `${{ github.event.inputs.chunkCount }}`
           files: output/story_${{ github.event.inputs.scriptId }}_1080p60fps.mp4

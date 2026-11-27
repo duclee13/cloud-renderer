@@ -12,7 +12,18 @@ import {
   OCEAN_UNDERWATER_BACKDROP,
   BACKYARD_BALCONY_PET,
 } from "../src/components/NatureBackdropKit";
-import { CuteCat, CuteDog, CuteBird, CuteAnt } from "../src/components/AnimalSpriteKit";
+import {
+  CuteCat,
+  CuteDog,
+  CuteBird,
+  CuteAnt,
+  CuteLizard,
+  CuteOctopus,
+  CuteShark,
+  CuteDolphin,
+  CreatureEmotion,
+  isAnimalBlinking,
+} from "../src/components/AnimalSpriteKit";
 import { UniversalAutoStage } from "../src/components/v7/UniversalAutoStage";
 import { EPISODE_VISUAL_REGISTRY } from "../src/components/v7/episodeVisuals";
 
@@ -314,4 +325,69 @@ test("V23 #5: Episode 9 (60 beats, 16 CAT_* Full-Screen SVGs, NATURE_FIELD_BOARD
   assert.equal(byId.get("b56"), "ding", "b56 triggers ding_warm");
   assert.equal(byId.get("b57"), "ding", "b57 triggers ding_warm");
   assert.equal(byId.get("b59"), "whoosh_out", "b59 triggers whoosh_out");
+});
+
+test("V23 #6: V23.5 Expressive & Friendly Creature Kit (8 creatures, 6 emotions, hasTail=false, halfAsleep=true, 0 blur)", () => {
+  // 1. Verify smooth 5-frame blink every 110 frames
+  assert.equal(isAnimalBlinking(104, 0), false);
+  assert.equal(isAnimalBlinking(105, 0), true);
+  assert.equal(isAnimalBlinking(109, 0), true);
+  assert.equal(isAnimalBlinking(110, 0), false);
+
+  // 2. Verify all 6 emotions + counter-flip on flipX=true
+  const emotions: CreatureEmotion[] = ["happy", "curious", "surprised", "scared", "sleepy", "proud"];
+  for (const em of emotions) {
+    const svgFront = renderToStaticMarkup(
+      React.createElement(
+        "svg",
+        { viewBox: "0 0 400 400" },
+        React.createElement(CuteCat, { x: 200, y: 300, frame: 24, pose: "sit", emotion: em, flipX: true }),
+        React.createElement(CuteDog, { x: 200, y: 300, frame: 24, pose: "stand", emotion: em })
+      )
+    );
+    assert.ok(svgFront.includes("#FDA4AF") && svgFront.includes('opacity="0.45"'), `Emotion ${em} renders pastel rosy cheeks`);
+    assertCleanFlatSvg(svgFront, `CreatureFace front (${em})`);
+    if (em === "curious") assert.ok(svgFront.includes(">?<") && svgFront.includes("scale(-1, 1)"), "Curious renders counter-flipped ? badge");
+    if (em === "surprised") assert.ok(svgFront.includes(">!<"), "Surprised renders ! badge");
+    if (em === "scared") assert.ok(svgFront.includes("#38BDF8"), "Scared renders pastel-blue sweat drop");
+    if (em === "sleepy") assert.ok(svgFront.includes(">z<") && svgFront.includes(">Z<"), "Sleepy renders floating zZ");
+  }
+
+  // 3. Verify all 4 new creatures + all poses + hasTail=false + halfAsleep=true
+  const v235Sprites = [
+    React.createElement(CuteDog, { key: "dog-sit", x: 200, y: 300, frame: 24, pose: "sit" }),
+    React.createElement(CuteDog, { key: "dog-stand", x: 380, y: 300, frame: 24, pose: "stand" }),
+    React.createElement(CuteLizard, { key: "liz-stand", x: 200, y: 600, frame: 24, pose: "stand", hasTail: true }),
+    React.createElement(CuteLizard, { key: "liz-notail", x: 450, y: 600, frame: 24, pose: "run", hasTail: false, emotion: "scared" }),
+    React.createElement(CuteLizard, { key: "liz-climb", x: 700, y: 600, frame: 24, pose: "climb", emotion: "curious" }),
+    React.createElement(CuteOctopus, { key: "oct-float", x: 950, y: 600, frame: 24, pose: "float", variant: "coral" }),
+    React.createElement(CuteOctopus, { key: "oct-crawl", x: 1150, y: 600, frame: 24, pose: "crawl", variant: "purple" }),
+    React.createElement(CuteOctopus, { key: "oct-wave", x: 1350, y: 600, frame: 24, pose: "wave", variant: "coral", emotion: "proud" }),
+    React.createElement(CuteShark, { key: "shk-swim", x: 400, y: 880, frame: 24, pose: "swim", emotion: "happy" }),
+    React.createElement(CuteShark, { key: "shk-rest", x: 750, y: 880, frame: 24, pose: "rest", emotion: "sleepy" }),
+    React.createElement(CuteDolphin, { key: "dol-swim", x: 1100, y: 880, frame: 24, pose: "swim", halfAsleep: true }),
+    React.createElement(CuteDolphin, { key: "dol-jump", x: 1450, y: 880, frame: 24, pose: "jump", halfAsleep: false, emotion: "proud" }),
+  ];
+
+  const v235Svg = renderToStaticMarkup(React.createElement("svg", { viewBox: "0 0 1920 1080" }, ...v235Sprites));
+  for (const id of [
+    "animal-cute-dog-sit",
+    "animal-cute-dog-stand",
+    "animal-cute-lizard-stand",
+    "animal-cute-lizard-run",
+    "animal-cute-lizard-climb",
+    "lizard-detached-tail-stump",
+    "animal-cute-octopus-float",
+    "animal-cute-octopus-crawl",
+    "animal-cute-octopus-wave",
+    "animal-cute-shark-swim",
+    "animal-cute-shark-rest",
+    "animal-cute-dolphin-swim",
+    "animal-cute-dolphin-jump",
+    "dolphin-half-asleep-face",
+  ]) {
+    assert.ok(v235Svg.includes(`id="${id}"`), `Renders V23.5 element ${id}`);
+  }
+  assert.ok(v235Svg.includes(">zZ<"), "CuteDolphin halfAsleep=true renders unihemispheric sleep zZ");
+  assertCleanFlatSvg(v235Svg, "V23.5 New Creatures Suite");
 });

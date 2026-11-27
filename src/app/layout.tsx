@@ -14,12 +14,7 @@ export default function RootLayout({
   return (
     <html lang="vi" className="dark">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
+        <link href="/fonts/be-vietnam-pro.css" rel="stylesheet" />
       </head>
       <body className="min-h-screen bg-[#0A0A0C] text-[#EDEDED] antialiased selection:bg-blue-600 selection:text-white">
         {children}

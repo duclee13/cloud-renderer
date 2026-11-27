@@ -14,6 +14,7 @@ RUN apt-get update && \
       curl \
       ca-certificates \
       ffmpeg \
+      fontconfig \
       fonts-noto-core \
       fonts-noto-color-emoji \
       fonts-liberation \
@@ -38,7 +39,10 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     git config --system --add safe.directory '*'
 
-# 2. Pre-install web-studio dependencies + Remotion Chromium Headless Shell into /opt/render-env
+# 2. Pre-install local Be Vietnam Pro fonts + web-studio dependencies + Remotion Chromium Headless Shell
+COPY web-studio/public/fonts /usr/local/share/fonts/be-vietnam-pro
+RUN fc-cache -f
+
 WORKDIR /opt/render-env
 COPY web-studio/package.json web-studio/package-lock.json ./
 

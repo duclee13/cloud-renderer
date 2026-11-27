@@ -298,6 +298,7 @@ export async function renderVideoHybridCpuGpu(
   const startMs = Date.now();
   const logProgress = createFivePercentProgressLogger(chunkLabel, totalExpectedFrames, startMs);
   const hasExternalMasterAudio = Boolean(masterAudioPath && fs.existsSync(masterAudioPath));
+  const effectiveInputProps = hasExternalMasterAudio ? { ...inputProps, renderMuted: true } : inputProps;
 
   if (encoderInfo.usesGpuVideoEncode && !isCi) {
     const framesTempDir = fs.mkdtempSync(path.join(os.tmpdir(), tempDirPrefix));
@@ -312,7 +313,7 @@ export async function renderVideoHybridCpuGpu(
         composition,
         serveUrl,
         outputDir: framesTempDir,
-        inputProps,
+        inputProps: effectiveInputProps,
         imageFormat: HYBRID_GPU_RENDER_DEFAULTS.imageFormat,
         jpegQuality,
         chromiumOptions: HYBRID_GPU_CHROMIUM_OPTIONS,
@@ -371,7 +372,7 @@ export async function renderVideoHybridCpuGpu(
         codec: "h264",
         pixelFormat: "yuv420p",
         outputLocation: rawMediaTarget,
-        inputProps,
+        inputProps: effectiveInputProps,
         chromiumOptions: HYBRID_GPU_CHROMIUM_OPTIONS,
         puppeteerInstance: isCi ? undefined : puppeteerInstance,
         hardwareAcceleration: HYBRID_GPU_RENDER_DEFAULTS.hardwareAcceleration,

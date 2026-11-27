@@ -1,4 +1,5 @@
 import React from "react";
+import { Easing, interpolate } from "remotion";
 import { GroundShadow } from "../SceneBackdropKit";
 import { CuteCat } from "../AnimalSpriteKit";
 import type {
@@ -1816,21 +1817,19 @@ export const HostNatureFieldBoard: React.FC<{
 
 const BalconySafetyNetStatic: React.FC = React.memo(() => (
   <g id="balcony-safety-net-mesh">
+    <defs>
+      <pattern id="balcony-safety-wire-mesh-pat" x={376} y={146} width={58} height={62} patternUnits="userSpaceOnUse">
+        <line x1={32} y1={0} x2={32} y2={62} stroke="#475569" strokeWidth={2} opacity={0.42} />
+        <line x1={0} y1={58} x2={58} y2={58} stroke="#475569" strokeWidth={2} opacity={0.42} />
+      </pattern>
+    </defs>
     {/* Horizontal top & mid mounting bars */}
     <rect x={366} y={136} width={1554} height={10} rx={4} fill="#64748B" stroke={INK} strokeWidth={2.4} />
     <rect x={366} y={136} width={10} height={340} rx={3} fill="#64748B" stroke={INK} strokeWidth={2.2} />
     <rect x={1135} y={136} width={10} height={340} rx={3} fill="#64748B" stroke={INK} strokeWidth={2.2} />
     <rect x={1898} y={136} width={10} height={340} rx={3} fill="#64748B" stroke={INK} strokeWidth={2.2} />
-    {/* Crisp steel protective wire mesh spanning x=376..1898, y=146..476 */}
-    <g stroke="#475569" strokeWidth={2} opacity={0.42}>
-      {Array.from({ length: 26 }, (_, i) => {
-        const vx = 408 + i * 58;
-        return <line key={`snv_${i}`} x1={vx} y1={146} x2={vx} y2={476} />;
-      })}
-      {[204, 266, 328, 390, 448].map((hy) => (
-        <line key={`snh_${hy}`} x1={376} y1={hy} x2={1898} y2={hy} />
-      ))}
-    </g>
+    {/* Crisp steel protective wire mesh spanning x=376..1898, y=146..476 via single <pattern> */}
+    <rect x={376} y={146} width={1522} height={330} fill="url(#balcony-safety-wire-mesh-pat)" />
     {/* Small neat green safety-verified tag on top right rail */}
     <g transform="translate(1785, 190)">
       <rect x={-96} y={-22} width={192} height={44} rx={22} fill="#ECFDF5" stroke="#15803D" strokeWidth={3} />
@@ -1875,7 +1874,8 @@ BalconyChairAndCushionStatic.displayName = "BalconyChairAndCushionStatic";
 export const BackyardBalconyCatStageKit: React.FC<{
   mode: BalconyDetailId;
   frame: number;
-}> = ({ mode, frame }) => {
+  localFrame?: number;
+}> = ({ mode, frame, localFrame }) => {
   if (mode === "NONE") return null;
 
   const showSafetyNet =
@@ -1886,10 +1886,21 @@ export const BackyardBalconyCatStageKit: React.FC<{
     mode === "CAT_CUSHION_SIT" ||
     mode === "CAT_PET_HAPPY";
 
+  const activeLocalFrame = localFrame ?? frame;
   const slipTilt = -12 + Math.sin(frame * 0.25) * 4;
-  const flipCycle = Math.min(1, (frame % 75) / 55);
-  const midairRot = -165 + flipCycle * 165;
-  const midairY = 610 + flipCycle * 70;
+  const flipDeg = interpolate(activeLocalFrame, [0, 32], [180, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.out(Easing.cubic),
+  });
+  const dropProgress = interpolate(activeLocalFrame, [0, 36], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.out(Easing.cubic),
+  });
+  const midairX = 1365 - dropProgress * 180;
+  const midairY = 588 + dropProgress * 164;
+  const hasLandedOnCushion = activeLocalFrame >= 36;
 
   return (
     <g id={`balcony-cat-kit-${mode}`}>
@@ -1921,18 +1932,33 @@ export const BackyardBalconyCatStageKit: React.FC<{
             strokeLinecap="round"
             opacity={0.72}
           />
-          {/* Curved 180-degree spin cue around cat */}
-          <path
-            d="M 1112,626 A 84,64 0 0,1 1266,608"
-            fill="none"
-            stroke="#EA580C"
-            strokeWidth={5}
-            strokeLinecap="round"
-          />
-          <polygon points="1272,618 1255,610 1268,596" fill="#EA580C" />
-          <g transform={`translate(1192, ${midairY.toFixed(1)}) rotate(${midairRot.toFixed(1)})`}>
-            <CuteCat x={0} y={42} scale={0.9} frame={frame} pose="curl_midair" />
-          </g>
+          {!hasLandedOnCushion ? (
+            <>
+              {/* Curved 180-degree spin cue around cat while flipping once */}
+              <path
+                d="M 1112,626 A 84,64 0 0,1 1266,608"
+                fill="none"
+                stroke="#EA580C"
+                strokeWidth={5}
+                strokeLinecap="round"
+              />
+              <polygon points="1272,618 1255,610 1268,596" fill="#EA580C" />
+              <g transform={`translate(${midairX.toFixed(1)}, ${midairY.toFixed(1)}) rotate(${flipDeg.toFixed(1)})`}>
+                <CuteCat
+                  x={0}
+                  y={42}
+                  scale={0.9}
+                  flipX={true}
+                  frame={frame}
+                  pose="curl_midair"
+                  disableMidairWobble={true}
+                />
+              </g>
+            </>
+          ) : (
+            /* Stands firmly and calmly on all 4 paws on cushion for the rest of Beat 2 */
+            <CuteCat x={1185} y={794} scale={0.92} flipX={true} frame={frame} pose="stand" />
+          )}
         </g>
       )}
 

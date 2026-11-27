@@ -564,9 +564,6 @@ export const BackgroundStage: React.FC<BackgroundStageProps> = ({
             <stop offset="65%" stopColor="#ECF8F2" />
             <stop offset="100%" stopColor="#F4F9F5" />
           </linearGradient>
-          <filter id="bokehBlurFilter" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="22" />
-          </filter>
           <pattern id="insectMeshPattern" width="16" height="16" patternUnits="userSpaceOnUse">
             <path d="M 16 0 L 0 0 0 16" fill="none" stroke="#94A3B8" strokeWidth="1.1" opacity="0.38" />
           </pattern>
@@ -580,22 +577,22 @@ export const BackgroundStage: React.FC<BackgroundStageProps> = ({
           </linearGradient>
         </defs>
 
-        {/* 1. Phía sau: Kính mờ nhìn ra khu vườn với vòm cây mờ & chấm hoa Bokeh */}
+        {/* 1. Phía sau: Kính mờ nhìn ra khu vườn với vòm cây & chấm hoa Bokeh phẳng (0 blur) */}
         <rect x={0} y={0} width={width} height={sillTopY} fill="url(#windowFrostedSky)" />
-        <g filter="url(#bokehBlurFilter)">
-          {/* Vòm cây xanh lá mờ nhòe (opacity = 0.55) */}
-          <circle cx={210} cy={560} r={220} fill="#86EFAC" opacity={0.58} />
-          <circle cx={520} cy={610} r={250} fill="#4ADE80" opacity={0.50} />
-          <circle cx={880} cy={590} r={230} fill="#A7F3D0" opacity={0.55} />
-          <circle cx={1180} cy={540} r={210} fill="#86EFAC" opacity={0.52} />
-          <circle cx={1620} cy={580} r={240} fill="#6EE7B7" opacity={0.45} />
-          {/* Các chấm hoa đỏ cam & nắng vàng bokeh mềm mại */}
-          <circle cx={310} cy={470} r={36} fill="#FB7185" opacity={0.55} />
-          <circle cx={420} cy={530} r={26} fill="#F97316" opacity={0.50} />
-          <circle cx={670} cy={430} r={44} fill="#FDE047" opacity={0.60} />
-          <circle cx={1050} cy={460} r={34} fill="#FB7185" opacity={0.50} />
-          <circle cx={1160} cy={380} r={48} fill="#FEF08A" opacity={0.65} />
-          <circle cx={1520} cy={440} r={32} fill="#F97316" opacity={0.45} />
+        <g opacity={0.72}>
+          {/* Vòm cây xanh lá dịu phẳng */}
+          <circle cx={210} cy={560} r={220} fill="#86EFAC" opacity={0.42} />
+          <circle cx={520} cy={610} r={250} fill="#4ADE80" opacity={0.36} />
+          <circle cx={880} cy={590} r={230} fill="#A7F3D0" opacity={0.42} />
+          <circle cx={1180} cy={540} r={210} fill="#86EFAC" opacity={0.38} />
+          <circle cx={1620} cy={580} r={240} fill="#6EE7B7" opacity={0.34} />
+          {/* Các chấm hoa đỏ cam & nắng vàng bokeh phẳng */}
+          <circle cx={310} cy={470} r={36} fill="#FB7185" opacity={0.38} />
+          <circle cx={420} cy={530} r={26} fill="#F97316" opacity={0.35} />
+          <circle cx={670} cy={430} r={44} fill="#FDE047" opacity={0.45} />
+          <circle cx={1050} cy={460} r={34} fill="#FB7185" opacity={0.36} />
+          <circle cx={1160} cy={380} r={48} fill="#FEF08A" opacity={0.48} />
+          <circle cx={1520} cy={440} r={32} fill="#F97316" opacity={0.34} />
         </g>
 
         {/* 2. Bên phải (X >= 1340px): Khung thanh nhôm dọc & Tấm lưới chắn côn trùng kẻ caro vuông nhỏ */}

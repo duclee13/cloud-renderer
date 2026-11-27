@@ -1,6 +1,7 @@
 import React from 'react';
+import { Easing, interpolate } from 'remotion';
 import type { EpisodeVisualProps } from './index';
-import { CuteCat } from '../../AnimalSpriteKit';
+import { CuteCat, isAnimalBlinking } from '../../AnimalSpriteKit';
 import {
   INK,
   FONT,
@@ -13,7 +14,7 @@ import {
 /* ============================================================================
  * SVG_01: CAT_LOW_HEIGHT_TEST (Beats 6–7, steps 0, 1)
  *   - Step 0: Upside-down cat (back facing down, 4 paws up) cleanly above thick soft cushion
- *   - Step 1: Bright vertical ruler (~30 cm) + stopwatch (~0,3 – 0,5 giây) + 180° flip landing on 4 paws
+ *   - Step 1: Bright vertical ruler (~30 cm) + stopwatch (~0,3 – 0,5 giây) + single 180°->0° flip landing & standing still on 4 paws
  * ========================================================================== */
 export const CatLowHeightTestVisual: React.FC<EpisodeVisualProps> = ({
   frame = 0,
@@ -21,10 +22,23 @@ export const CatLowHeightTestVisual: React.FC<EpisodeVisualProps> = ({
   visualStep,
 }) => {
   const activeStep = step ?? visualStep ?? 0;
-  const floatY = Math.sin(frame * 0.12) * 6;
-  const flipCycle = Math.min(1, (frame % 75) / 50);
-  const flipDeg = activeStep === 0 ? 180 : 180 * (1 - flipCycle);
-  const dropY = activeStep === 0 ? 330 + floatY : 330 + flipCycle * 260;
+  const localFrame = frame;
+  const floatY = Math.sin(localFrame * 0.12) * 6;
+  const flipDeg =
+    activeStep === 0
+      ? 180
+      : interpolate(localFrame, [0, 32], [180, 0], {
+          extrapolateLeft: 'clamp',
+          extrapolateRight: 'clamp',
+          easing: Easing.out(Easing.cubic),
+        });
+  const dropProgress = interpolate(localFrame, [0, 36], [0, 1], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+    easing: Easing.out(Easing.cubic),
+  });
+  const dropY = activeStep === 0 ? 330 + floatY : 330 + dropProgress * 289;
+  const hasLanded = activeStep === 1 && localFrame >= 36;
 
   return (
     <svg viewBox="0 0 1920 1080" width="100%" height="100%" style={{ display: 'block', fontFamily: FONT }}>
@@ -130,13 +144,13 @@ export const CatLowHeightTestVisual: React.FC<EpisodeVisualProps> = ({
               180°
             </text>
 
-            {/* Animated flipping cat landing cleanly on cushion */}
-            {flipCycle < 0.85 ? (
+            {/* Single 180°->0° flip landing cleanly and standing firmly on 4 paws */}
+            {!hasLanded ? (
               <g transform={`translate(865, ${dropY.toFixed(1)}) rotate(${flipDeg.toFixed(1)})`}>
-                <CuteCat x={0} y={45} scale={1.08} frame={frame} pose="curl_midair" />
+                <CuteCat x={0} y={45} scale={1.12} frame={localFrame} pose="curl_midair" disableMidairWobble={true} />
               </g>
             ) : (
-              <CuteCat x={865} y={664} scale={1.15} frame={frame} pose="stand" />
+              <CuteCat x={865} y={664} scale={1.15} frame={localFrame} pose="stand" />
             )}
           </g>
         )}
@@ -216,16 +230,16 @@ export const CatMarey1894Visual: React.FC<EpisodeVisualProps> = ({
         </text>
       </g>
 
-      {/* Classic Filmstrip container (y=250..560) */}
+      {/* Classic Filmstrip container (y=250..560) with <pattern> sprockets */}
       <g transform="translate(175, 250)">
+        <defs>
+          <pattern id="cat02_marey_sprockets_pat" x={24} y={0} width={64} height={310} patternUnits="userSpaceOnUse">
+            <rect x={0} y={12} width={34} height={18} rx={4} fill="#FEF3C7" opacity={0.85} />
+            <rect x={0} y={280} width={34} height={18} rx={4} fill="#FEF3C7" opacity={0.85} />
+          </pattern>
+        </defs>
         <rect x={0} y={0} width={1570} height={310} rx={20} fill="#1E293B" stroke={INK} strokeWidth={4} />
-        {/* Top & bottom sprocket holes */}
-        {Array.from({ length: 24 }, (_, si) => (
-          <g key={si}>
-            <rect x={24 + si * 64} y={12} width={34} height={18} rx={4} fill="#FEF3C7" opacity={0.85} />
-            <rect x={24 + si * 64} y={280} width={34} height={18} rx={4} fill="#FEF3C7" opacity={0.85} />
-          </g>
-        ))}
+        <rect x={24} y={0} width={1536} height={310} fill="url(#cat02_marey_sprockets_pat)" />
 
         {/* 5 Sequential Chronophotograph Frames */}
         {filmFrames.map((ff, idx) => {
@@ -404,7 +418,8 @@ export const CatRigidVsFlexVisual: React.FC<EpisodeVisualProps> = ({
 
 /* ============================================================================
  * SVG_04: CAT_VESTIBULAR_COMPASS (Beats 13–14, steps 0, 1)
- *   - Step 0: Clean cat head cross-section highlighting Eyes (blue) & Inner Ear Vestibular (amber)
+ *   - Step 0: Symmetric V23.5 CuteCat head (2 equal sparkly eyes + pastel rosy cheeks),
+ *             thin blue dashed ring outside eyes + separate magnifying glass at right ear edge
  *   - Step 1: Compass needle pointing straight down ("Trọng lực ↓") + millisecond reflex timer
  * ========================================================================== */
 export const CatVestibularCompassVisual: React.FC<EpisodeVisualProps> = ({
@@ -414,6 +429,7 @@ export const CatVestibularCompassVisual: React.FC<EpisodeVisualProps> = ({
 }) => {
   const activeStep = step ?? visualStep ?? 0;
   const compassWobble = activeStep === 1 ? Math.sin(frame * 0.2) * 5 : 0;
+  const catBlink = isAnimalBlinking(frame, 17);
 
   return (
     <svg viewBox="0 0 1920 1080" width="100%" height="100%" style={{ display: 'block', fontFamily: FONT }}>
@@ -432,45 +448,129 @@ export const CatVestibularCompassVisual: React.FC<EpisodeVisualProps> = ({
         fontSize={29}
       />
 
-      {/* Left Side: Clean Cat Head Cross-Section (x=540, y=470) */}
-      <g transform="translate(520, 470)">
-        <circle cx={0} cy={0} r={240} fill="#FFFBEB" stroke="#F59E0B" strokeWidth={4} strokeDasharray="10 8" />
-        {/* Cat ears */}
-        <polygon points="-135,-105 -160,-230 -32,-158" fill="#FB923C" stroke={INK} strokeWidth={5} strokeLinejoin="round" />
-        <polygon points="135,-105 160,-230 32,-158" fill="#FB923C" stroke={INK} strokeWidth={5} strokeLinejoin="round" />
-        <polygon points="-114,-118 -132,-196 -52,-148" fill="#FBCFE8" />
-        <polygon points="114,-118 132,-196 52,-148" fill="#FBCFE8" />
-        {/* Head circle */}
-        <circle cx={0} cy={12} r={172} fill="#FDBA74" stroke={INK} strokeWidth={5} />
-        <ellipse cx={0} cy={66} rx={92} ry={58} fill="#FFF7ED" />
+      {/* Left Side: Natural Symmetric V23.5 CuteCat Head + Separate Vestibular Magnifying Glass */}
+      <g id="cat-vestibular-natural-head-diagram">
+        {/* Soft circular backdrop behind cat head */}
+        <circle cx={445} cy={498} r={206} fill="#FFFBEB" stroke="#F59E0B" strokeWidth={3.8} strokeDasharray="10 8" />
 
-        {/* Highlight 1: Eyes (Blue ring) */}
-        <g id="cat-head-eyes-highlight">
-          <circle cx={-62} cy={-16} r={42} fill="#E0F2FE" stroke="#0284C7" strokeWidth={4} />
-          <circle cx={-62} cy={-16} r={18} fill="#0284C7" />
-          <circle cx={-62} cy={-16} r={9} fill={INK} />
-          <circle cx={-56} cy={-22} r={4} fill="#FFFFFF" />
-          <circle cx={26} cy={-16} r={24} fill="#FFFFFF" stroke={INK} strokeWidth={3.5} />
-          <circle cx={26} cy={-16} r={10} fill={INK} />
+        {/* Symmetric V23.5 CuteCat Front Head centered at (445, 506) */}
+        <g transform="translate(445, 506)" strokeLinecap="round" strokeLinejoin="round">
+          {/* Symmetric Cat Ears */}
+          <polygon points="-124,-96 -146,-212 -28,-146" fill="#FDBA74" stroke={INK} strokeWidth={5} />
+          <polygon points="124,-96 146,-212 28,-146" fill="#FDBA74" stroke={INK} strokeWidth={5} />
+          <polygon points="-104,-108 -120,-180 -46,-136" fill="#FBCFE8" stroke="none" />
+          <polygon points="104,-108 120,-180 46,-136" fill="#FBCFE8" stroke="none" />
+
+          {/* Symmetric Round Head + Flat Chin Cel-Shade */}
+          <circle cx={0} cy={0} r={146} fill="#FDBA74" stroke={INK} strokeWidth={5} />
+          <path
+            d="M -126,56 C -76,132 76,132 126,56 C 76,148 -76,148 -126,56 Z"
+            fill="#0F172A"
+            opacity={0.10}
+            stroke="none"
+          />
+
+          {/* Forehead Tabby Stripes */}
+          <g stroke="#EA580C" strokeWidth={7} fill="none">
+            <line x1={0} y1={-132} x2={0} y2={-96} />
+            <line x1={-28} y1={-126} x2={-22} y2={-98} />
+            <line x1={28} y1={-126} x2={22} y2={-98} />
+          </g>
+
+          {/* Pastel Rosy Cheeks (#FDA4AF, opacity="0.45") */}
+          <ellipse cx={-88} cy={22} rx={26} ry={15} fill="#FDA4AF" opacity={0.45} stroke="none" />
+          <ellipse cx={88} cy={22} rx={26} ry={15} fill="#FDA4AF" opacity={0.45} stroke="none" />
+
+          {/* Cream Muzzle */}
+          <ellipse cx={0} cy={46} rx={68} ry={45} fill="#FFF7ED" stroke="none" />
+
+          {/* Symmetric V23.5 Twin Eyes (2 equal-sized eyes with dual white sparkle highlights!) */}
+          {catBlink ? (
+            <g fill="none" stroke={INK} strokeWidth={5}>
+              <path d="M -75,-14 Q -54,2 -33,-14" />
+              <path d="M 33,-14 Q 54,2 75,-14" />
+            </g>
+          ) : (
+            <g id="cat-symmetric-sparkle-eyes" stroke="none">
+              {/* Left Eye (r=21) */}
+              <circle cx={-54} cy={-14} r={21} fill="#0F172A" />
+              <circle cx={-60.5} cy={-20.5} r={6.8} fill="#FFFFFF" />
+              <circle cx={-47.5} cy={-8} r={3.2} fill="#FFFFFF" />
+              {/* Right Eye (r=21 — 100% identical size!) */}
+              <circle cx={54} cy={-14} r={21} fill="#0F172A" />
+              <circle cx={47.5} cy={-20.5} r={6.8} fill="#FFFFFF" />
+              <circle cx={60.5} cy={-8} r={3.2} fill="#FFFFFF" />
+            </g>
+          )}
+
+          {/* Highlight 1: Thin Blue Dashed Frame OUTSIDE Both Eyes (does NOT bloat eye size!) */}
+          <rect
+            x={-96}
+            y={-50}
+            width={192}
+            height={72}
+            rx={36}
+            fill="none"
+            stroke="#0284C7"
+            strokeWidth={3.5}
+            strokeDasharray="9 7"
+          />
+
+          {/* Cute Pink Nose, Friendly ':3' Smile & Symmetric Whiskers */}
+          <polygon points="-14,22 14,22 0,38" fill="#FB7185" stroke="none" />
+          <path d="M -28,50 Q -14,66 0,50 Q 14,66 28,50" fill="none" stroke={INK} strokeWidth={4.5} />
+          <g stroke={INK} strokeWidth={3.8} fill="none">
+            <line x1={-102} y1={26} x2={-160} y2={14} />
+            <line x1={-102} y1={44} x2={-162} y2={52} />
+            <line x1={102} y1={26} x2={160} y2={14} />
+            <line x1={102} y1={44} x2={162} y2={52} />
+          </g>
         </g>
 
-        {/* Cute nose & mouth */}
-        <polygon points="-14,42 14,42 0,58" fill="#FB7185" />
-        <path d="M -28,74 Q -14,90 0,74 Q 14,90 28,74" fill="none" stroke={INK} strokeWidth={4.5} strokeLinecap="round" />
+        {/* Small Target Pin at Base of Right Ear + Thin Connector to Separate Magnifying Glass */}
+        <circle cx={536} cy={392} r={8.5} fill="#FEF3C7" stroke="#EA580C" strokeWidth={3.2} />
+        <line
+          x1={545}
+          y1={393}
+          x2={672}
+          y2={410}
+          stroke="#EA580C"
+          strokeWidth={3.2}
+          strokeDasharray="7 5"
+          strokeLinecap="round"
+        />
 
-        {/* Highlight 2: Inner Ear Vestibular Organ (Amber spiral glow inside right ear base) */}
-        <g transform="translate(106, -54)">
-          <circle cx={0} cy={0} r={54} fill="#FEF3C7" stroke="#EA580C" strokeWidth={5} />
-          {/* Semicircular canals + fluid icon */}
-          <path d="M -24,8 A 24,24 0 1,1 24,8" fill="none" stroke="#D97706" strokeWidth={8} strokeLinecap="round" />
-          <path d="M -14,14 A 14,14 0 1,1 14,14" fill="none" stroke="#F59E0B" strokeWidth={6} strokeLinecap="round" />
-          <circle cx={0} cy={14} r={8} fill="#EA580C" />
+        {/* Highlight 2: Separate Magnifying Glass Zoom Callout Outside Right Ear Edge (740, 412) */}
+        <g id="vestibular-magnifying-glass" transform="translate(740, 412)">
+          {/* Magnifying glass angled handle */}
+          <line x1={-44} y1={48} x2={-72} y2={78} stroke={INK} strokeWidth={13} strokeLinecap="round" />
+          <line x1={-44} y1={48} x2={-72} y2={78} stroke="#B45309" strokeWidth={7} strokeLinecap="round" />
+          {/* Magnifying lens */}
+          <circle cx={0} cy={0} r={66} fill="#FFFBEB" stroke={INK} strokeWidth={4.5} />
+          <circle cx={0} cy={0} r={58} fill="none" stroke="#EA580C" strokeWidth={3.2} />
+          {/* Vestibular semicircular canals + fluid level inside lens */}
+          <path d="M -28,2 A 26,26 0 1,1 26,2" fill="none" stroke="#D97706" strokeWidth={7} strokeLinecap="round" />
+          <path d="M -16,8 A 15,15 0 1,1 16,8" fill="none" stroke="#F59E0B" strokeWidth={5.5} strokeLinecap="round" />
+          <ellipse cx={0} cy={12} rx={16} ry={7} fill="#38BDF8" stroke="#0284C7" strokeWidth={2.2} />
+          <circle cx={0} cy={12} r={4.5} fill="#EA580C" />
+          <text x={0} y={42} textAnchor="middle" fill="#9A3412" fontSize={15.5} fontWeight={900}>
+            Tai trong
+          </text>
         </g>
 
-        {/* Leader arrows to right-side explanation cards */}
-        <path d="M -62,-62 C -20,-175 180,-195 360,-150" fill="none" stroke="#0284C7" strokeWidth={5} strokeDasharray="10 7" />
-        <path d="M 164,-54 L 360,-20" fill="none" stroke="#EA580C" strokeWidth={6} />
-        <polygon points="374,-18 354,-30 356,-8" fill="#EA580C" />
+        {/* Clean Non-Crossing Leader Arrows to Right Explanation Cards */}
+        <path
+          d="M 528,458 C 566,302 720,288 904,288"
+          fill="none"
+          stroke="#0284C7"
+          strokeWidth={4.5}
+          strokeDasharray="10 7"
+          strokeLinecap="round"
+        />
+        <polygon points="916,288 898,278 898,298" fill="#0284C7" />
+
+        <line x1={808} y1={424} x2={904} y2={468} stroke="#EA580C" strokeWidth={5} strokeLinecap="round" />
+        <polygon points="916,473 895,475 903,457" fill="#EA580C" />
       </g>
 
       {/* Right Column: Two Sensory Cards + Step 1 Gravity Compass */}

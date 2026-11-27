@@ -230,20 +230,19 @@ StaticSidewalkAndRoadBase.displayName = 'StaticSidewalkAndRoadBase';
 
 const SidewalkSeamTile: React.FC = React.memo(() => (
   <g>
-    {/* 8 evenly spaced sidewalk slab seams per 960px tile (120px pitch -> seamless loop) */}
-    {[0, 120, 240, 360, 480, 600, 720, 840].map((sx) => (
-      <g key={sx}>
-        <line x1={sx} y1="615" x2={sx - 22} y2="673" stroke="#CBD5E1" strokeWidth="2.5" />
-        <line x1={sx - 22} y1="673" x2={sx - 22} y2="685" stroke="#94A3B8" strokeWidth="2" />
-      </g>
-    ))}
+    <defs>
+      <pattern id="sbk_sidewalk_seam_pat" x={-24} y={615} width={120} height={70} patternUnits="userSpaceOnUse">
+        <line x1={24} y1={0} x2={2} y2={58} stroke="#CBD5E1" strokeWidth="2.5" />
+        <line x1={2} y1={58} x2={2} y2={70} stroke="#94A3B8" strokeWidth="2" />
+      </pattern>
+    </defs>
+    <rect x="-24" y="615" width="984" height="70" fill="url(#sbk_sidewalk_seam_pat)" />
     <line x1="0" y1="644" x2="960" y2="644" stroke="#CBD5E1" strokeWidth="2" opacity="0.7" />
   </g>
 ));
 SidewalkSeamTile.displayName = 'SidewalkSeamTile';
 
 const MidgroundParkPropsTile: React.FC = React.memo(() => {
-  const fencePosts = Array.from({ length: 15 }, (_, idx) => idx * 64 + 32);
   const trees = [
     { x: 138, scale: 1.0, trunkH: 72 },
     { x: 486, scale: 0.92, trunkH: 66 },
@@ -254,15 +253,11 @@ const MidgroundParkPropsTile: React.FC = React.memo(() => {
 
   return (
     <g>
-      {/* Low Park Fence running continuously edge-to-edge (0..960) */}
-      <g>
-        <rect x="0" y="593" width="960" height="5" fill="#CBD5E1" stroke="#64748B" strokeWidth="1.5" />
-        <rect x="0" y="606" width="960" height="5" fill="#CBD5E1" stroke="#64748B" strokeWidth="1.5" />
-        {fencePosts.map((px) => (
+      <defs>
+        <pattern id="sbk_park_fence_posts_pat" x={0} y={584} width={64} height={36} patternUnits="userSpaceOnUse">
           <rect
-            key={px}
-            x={px - 4}
-            y="586"
+            x={28}
+            y={2}
             width="8"
             height="32"
             rx="2"
@@ -270,7 +265,13 @@ const MidgroundParkPropsTile: React.FC = React.memo(() => {
             stroke="#64748B"
             strokeWidth="1.6"
           />
-        ))}
+        </pattern>
+      </defs>
+      {/* Low Park Fence running continuously edge-to-edge (0..960) via <pattern> */}
+      <g>
+        <rect x="0" y="593" width="960" height="5" fill="#CBD5E1" stroke="#64748B" strokeWidth="1.5" />
+        <rect x="0" y="606" width="960" height="5" fill="#CBD5E1" stroke="#64748B" strokeWidth="1.5" />
+        <rect x="0" y="584" width="960" height="36" fill="url(#sbk_park_fence_posts_pat)" />
       </g>
 
       {/* Slim Street Lamps (2 per 960px tile) */}
@@ -668,15 +669,22 @@ export const IndoorWarmRoomBackdrop: React.FC<IndoorWarmRoomBackdropProps> = Rea
             <stop offset="0%" stopColor="#7DD3FC" />
             <stop offset="100%" stopColor="#E0F2FE" />
           </linearGradient>
+          <pattern id={`${wallGradId}_wainscot_pat`} x={0} y={554} width={240} height={218} patternUnits="userSpaceOnUse">
+            <line x1={240} y1={0} x2={240} y2={218} stroke={pal.chairRail} strokeWidth="1.5" opacity="0.16" />
+          </pattern>
+          <pattern id={`${floorGradId}_planks_pat`} x={0} y={792} width={380} height={104} patternUnits="userSpaceOnUse">
+            <line x1={0} y1={44} x2={380} y2={44} stroke={pal.grain} strokeWidth="2" opacity="0.18" />
+            <line x1={0} y1={96} x2={380} y2={96} stroke={pal.grain} strokeWidth="2" opacity="0.18" />
+            <line x1={180} y1={0} x2={180} y2={44} stroke={pal.grain} strokeWidth="1.8" opacity="0.18" />
+            <line x1={345} y1={44} x2={345} y2={96} stroke={pal.grain} strokeWidth="1.8" opacity="0.18" />
+          </pattern>
         </defs>
 
         {/* Layer 1: 2-Tone Architectural Wall, Chair Rail & Baseboard */}
         <rect x="0" y="0" width="1920" height="795" fill={`url(#${wallGradId})`} />
         <rect x="0" y="548" width="1920" height="226" fill={pal.wainscot} opacity="0.45" />
-        {/* Subtle vertical wainscot panel seams */}
-        {[240, 480, 720, 960, 1200, 1440, 1680].map((px) => (
-          <line key={px} x1={px} y1="554" x2={px} y2="772" stroke={pal.chairRail} strokeWidth="1.5" opacity="0.16" />
-        ))}
+        {/* Subtle vertical wainscot panel seams via <pattern> */}
+        <rect x="0" y="554" width="1880" height="218" fill={`url(#${wallGradId}_wainscot_pat)`} />
         {/* Chair Rail Molding */}
         <rect x="0" y="544" width="1920" height="8" fill="#FFFFFF" opacity="0.78" />
         <line x1="0" y1="552" x2="1920" y2="552" stroke={pal.chairRail} strokeWidth="2.5" opacity="0.35" />
@@ -684,25 +692,10 @@ export const IndoorWarmRoomBackdrop: React.FC<IndoorWarmRoomBackdropProps> = Rea
         <rect x="0" y="772" width="1920" height="23" fill="#F8FAFC" />
         <line x1="0" y1="772" x2="1920" y2="772" stroke="#CBD5E1" strokeWidth="2.5" />
 
-        {/* Light-Wood Floor (y = 795..1080) with subtle wood-plank grain lines */}
+        {/* Light-Wood Floor (y = 795..1080) with <pattern> wood-plank grain */}
         <rect x="0" y="795" width="1920" height="285" fill={`url(#${floorGradId})`} />
         <line x1="0" y1="795" x2="1920" y2="795" stroke="#92400E" strokeWidth="3.5" opacity="0.48" />
-        {[836, 886, 944, 1008].map((fy, idx) => (
-          <g key={fy} opacity="0.18">
-            <line x1="0" y1={fy} x2="1920" y2={fy} stroke={pal.grain} strokeWidth="2" />
-            {[180, 560, 940, 1320, 1700].map((jx) => (
-              <line
-                key={jx}
-                x1={jx + (idx % 2) * 165}
-                y1={fy - 44}
-                x2={jx + (idx % 2) * 165}
-                y2={fy}
-                stroke={pal.grain}
-                strokeWidth="1.8"
-              />
-            ))}
-          </g>
-        ))}
+        <rect x="0" y="795" width="1920" height="285" fill={`url(#${floorGradId}_planks_pat)`} />
 
         {/* Soft Sunbeam Falling from Left Window onto Floor */}
         <polygon points="118,452 406,184 685,795 235,795" fill="#FEF9C3" opacity="0.2" />

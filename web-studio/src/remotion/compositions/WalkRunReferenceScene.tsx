@@ -631,7 +631,7 @@ export const WalkRunReferenceScene: React.FC<WalkRunReferenceSceneProps> = ({
           fontSize: 19,
           fontWeight: 800,
           letterSpacing: 0.5,
-          boxShadow: "0 4px 14px rgba(0,0,0,0.2)",
+          boxShadow: "0 4px 0 rgba(0,0,0,0.22)",
           border: "2px solid rgba(255,255,255,0.4)",
           zIndex: 50,
         }}
@@ -656,7 +656,7 @@ export const WalkRunReferenceScene: React.FC<WalkRunReferenceSceneProps> = ({
           padding: "14px 20px",
           borderRadius: 12,
           border: "1px solid rgba(56, 189, 248, 0.4)",
-          boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
+          boxShadow: "0 4px 0 rgba(0,0,0,0.3)",
           lineHeight: 1.6,
           zIndex: 50,
           minWidth: 440,
@@ -723,7 +723,7 @@ export const WalkRunReferenceScene: React.FC<WalkRunReferenceSceneProps> = ({
           lineHeight: 1.4,
           textAlign: "center",
           maxWidth: 1400,
-          boxShadow: "0 6px 20px rgba(0,0,0,0.35)",
+          boxShadow: "0 4px 0 rgba(0,0,0,0.35)",
           border: "1px solid rgba(255,255,255,0.18)",
           zIndex: 50,
         }}

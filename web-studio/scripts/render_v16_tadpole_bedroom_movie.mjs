@@ -595,20 +595,27 @@ async function main() {
       };
     },
 
-    // 3. Bundle Remotion & mở Chromium 1 lần (Linux/CI để Remotion quản lý SwANGLE chống deadlock)
+    // 3. Bundle Remotion & mở Chromium 1 lần (tái sử dụng web-studio/build nếu Job 1 đã pre-bundle sẵn)
     prepareRenderer: async () => {
-      if (!remotionBundlerMod) remotionBundlerMod = await import('@remotion/bundler');
       if (!remotionRendererMod) remotionRendererMod = await import('@remotion/renderer');
 
+      const prebuiltDir = path.join(workspaceRoot, 'web-studio', 'build');
+      const hasPrebuilt = fs.existsSync(path.join(prebuiltDir, 'index.html'));
       const entryPoint = path.join(workspaceRoot, 'web-studio', 'src', 'remotion', 'index.ts');
       const isCi = isLinuxOrCiEnvironment();
-      console.log(`\n-> Bundling Remotion V16.1 composition (${isCi ? 'Linux/CI SwANGLE' : 'Local ANGLE'})...`);
-      const bundleLocation = await remotionBundlerMod.bundle({
-        entryPoint,
-        onProgress: (p) => {
-          if (p === 100 || p % 50 === 0) console.log(`  Bundling: ${p}%`);
-        },
-      });
+      let bundleLocation = prebuiltDir;
+      if (hasPrebuilt) {
+        console.log(`\n-> Reusing pre-bundled Remotion directory: ${prebuiltDir}`);
+      } else {
+        if (!remotionBundlerMod) remotionBundlerMod = await import('@remotion/bundler');
+        console.log(`\n-> Bundling Remotion V16.1 composition (${isCi ? 'Linux/CI SwANGLE' : 'Local ANGLE'})...`);
+        bundleLocation = await remotionBundlerMod.bundle({
+          entryPoint,
+          onProgress: (p) => {
+            if (p === 100 || p % 50 === 0) console.log(`  Bundling: ${p}%`);
+          },
+        });
+      }
       if (isCi) {
         return { bundleLocation, browserInstance: undefined, close: async () => {} };
       }
