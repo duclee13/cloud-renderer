@@ -2821,7 +2821,7 @@ export const OceanUnderwaterStoryKit: React.FC<{
           - All one-shot morphs & motions strictly clamped!
          ==================================================================== */}
 
-      {/* Beat 1 (06:15): Big Shark gliding overhead; Tuộc disguised as gray mossy stone with blinking eyes */}
+      {/* Beat 1 (BÌNH MINH): Big Shark gliding overhead; Tuộc seamlessly camouflaged as mossy gray stone with blinking eyes */}
       {mode === "V24_OCEAN_DAWN_SHARK_OVERHEAD" && (() => {
         const sX = interpolate(activeLocal, [0, durationFrames], [1560, 1040], {
           extrapolateLeft: "clamp",
@@ -2836,15 +2836,19 @@ export const OceanUnderwaterStoryKit: React.FC<{
               frame={frame}
               pose="crawl"
               emotion="happy"
-              colorOverride={{ main: "#64748B", belly: "#94A3B8", spot: "#16A34A" }}
+              colorOverride={{ main: "#64748B", belly: "#5B6B7F", spot: "#475569" }}
               papillaeBumps={true}
+              rockCamoTexture={true}
+              strokeOpacity={0.45}
+              hideCheeks={true}
+              hideEmotionBadge={true}
             />
             <CuteShark x={sX} y={370} scale={1.48} flipX={true} frame={frame} pose="swim" emotion="curious" />
           </>
         );
       })()}
 
-      {/* Beat 2 (06:15): Tense close pass — Shark swoops dangerously low one handspan above stone Tuộc */}
+      {/* Beat 2 (BÌNH MINH): Tense close pass — Shark swoops dangerously low one handspan above stone Tuộc */}
       {mode === "V24_OCEAN_SHARK_CLOSE_PASS" && (() => {
         const sX = interpolate(activeLocal, [0, durationFrames], [1180, 740], {
           extrapolateLeft: "clamp",
@@ -2859,15 +2863,19 @@ export const OceanUnderwaterStoryKit: React.FC<{
               frame={frame}
               pose="crawl"
               emotion="scared"
-              colorOverride={{ main: "#64748B", belly: "#94A3B8", spot: "#16A34A" }}
+              colorOverride={{ main: "#64748B", belly: "#5B6B7F", spot: "#475569" }}
               papillaeBumps={true}
+              rockCamoTexture={true}
+              strokeOpacity={0.45}
+              hideCheeks={true}
+              hideEmotionBadge={true}
             />
             <CuteShark x={sX} y={535} scale={1.52} flipX={true} frame={frame} pose="swim" emotion="curious" />
           </>
         );
       })()}
 
-      {/* Beat 3 (06:15): Shark with '?' glides completely past toward left; stone Tuộc stays calm */}
+      {/* Beat 3 (BÌNH MINH): Shark with '?' glides completely past toward left; stone Tuộc stays blended into rock */}
       {mode === "V24_OCEAN_SHARK_SWIMS_PAST" && (() => {
         const sX = interpolate(activeLocal, [0, durationFrames], [780, 140], {
           extrapolateLeft: "clamp",
@@ -2883,15 +2891,19 @@ export const OceanUnderwaterStoryKit: React.FC<{
               frame={frame}
               pose="crawl"
               emotion="happy"
-              colorOverride={{ main: "#64748B", belly: "#94A3B8", spot: "#16A34A" }}
+              colorOverride={{ main: "#64748B", belly: "#5B6B7F", spot: "#475569" }}
               papillaeBumps={true}
+              rockCamoTexture={true}
+              strokeOpacity={0.45}
+              hideCheeks={true}
+              hideEmotionBadge={true}
             />
             <CuteShark x={sX} y={425} scale={1.38} flipX={true} frame={frame} pose="swim" emotion="curious" />
           </>
         );
       })()}
 
-      {/* Beat 4 (06:15): Gray rock smoothly reveals plum-red Tuộc (#C4365D, bandana_green) waving! */}
+      {/* Beat 4 (BÌNH MINH): Gray mossy rock dramatically bursts into vivid plum-red Tuộc (#C4365D, bandana_green) waving! */}
       {mode === "V24_OCEAN_ROCK_REVEAL_TUOC" && (() => {
         const revT = interpolate(activeLocal, [4, 28], [0, 1], {
           extrapolateLeft: "clamp",
@@ -2909,15 +2921,18 @@ export const OceanUnderwaterStoryKit: React.FC<{
             accessory={revT > 0.45 ? "bandana_green" : "none"}
             colorOverride={{
               main: blendOctoHex("#64748B", "#C4365D", revT),
-              belly: blendOctoHex("#94A3B8", "#FCE7F3", revT),
-              spot: blendOctoHex("#16A34A", "#FCE7F3", revT),
+              belly: blendOctoHex("#5B6B7F", "#FCE7F3", revT),
+              spot: blendOctoHex("#475569", "#FCE7F3", revT),
             }}
             papillaeBumps={revT < 0.45}
+            rockCamoTexture={revT < 0.4}
+            strokeOpacity={0.45 + 0.55 * revT}
+            hideCheeks={revT < 0.4}
           />
         );
       })()}
 
-      {/* Beat 8 (07:00): Bright sunlit morning crawl along the coral reef */}
+      {/* Beat 8 (BUỔI SÁNG): Bright sunlit morning crawl along the coral reef */}
       {mode === "V24_OCEAN_MORNING_CRAWL" && (() => {
         const cx = interpolate(activeLocal, [0, durationFrames], [740, 1080], {
           extrapolateLeft: "clamp",
@@ -2936,7 +2951,7 @@ export const OceanUnderwaterStoryKit: React.FC<{
         );
       })()}
 
-      {/* Beat 16 (09:30): Harsh diagonal sunlit rays on spiky reef; Tuộc pauses thoughtfully */}
+      {/* Beat 16 (NẮNG LÊN CAO): Harsh diagonal sunlit rays on spiky reef; Tuộc pauses thoughtfully */}
       {mode === "V24_OCEAN_HARSH_SUN_REEF" && (
         <>
           <g opacity={0.22}>
@@ -2955,22 +2970,61 @@ export const OceanUnderwaterStoryKit: React.FC<{
         </>
       )}
 
-      {/* Beat 32 (13:30): Lunch hunt — Tuộc happily glides past pink coral reef */}
+      {/* Beat 32: Lunch hunt — Tuộc glides along sand toward an expressive little orange-red crab on the right! */}
       {mode === "V24_OCEAN_LUNCH_HUNT" && (() => {
-        const cx = interpolate(activeLocal, [0, durationFrames], [1080, 1290], {
+        const cx = interpolate(activeLocal, [0, durationFrames], [980, 1210], {
           extrapolateLeft: "clamp",
           extrapolateRight: "clamp",
         });
+        const crabScuttleX = 1445 + Math.sin(frame * 0.16) * 14;
+        const clawSnap = Math.sin(frame * 0.24) * 8;
         return (
-          <CuteOctopus
-            x={cx}
-            y={784}
-            scale={1.2}
-            frame={frame}
-            pose="crawl"
-            emotion="happy"
-            accessory="bandana_green"
-          />
+          <>
+            <CuteOctopus
+              x={cx}
+              y={786}
+              scale={1.2}
+              frame={frame}
+              pose="crawl"
+              emotion="happy"
+              accessory="bandana_green"
+            />
+            {/* Cute little orange-red crab right in front of Tuộc on the sandy seabed */}
+            <g
+              id="v24-lunch-target-crab"
+              transform={`translate(${crabScuttleX.toFixed(1)}, 808)`}
+              stroke={INK}
+              strokeWidth={3.2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <GroundShadow cx={0} cy={8} rx={44} ry={8} />
+              {/* 6 little scuttling crab legs */}
+              <path d="M -26,-8 L -42,-2 L -46,8 M -22,-4 L -36,4 L -38,11 M -16,-2 L -26,8" fill="none" stroke="#C2410C" strokeWidth={3.5} />
+              <path d="M 26,-8 L 42,-2 L 46,8 M 22,-4 L 36,4 L 38,11 M 16,-2 L 26,8" fill="none" stroke="#C2410C" strokeWidth={3.5} />
+              {/* 2 raised snapping pincers */}
+              <g transform={`translate(-26, -24) rotate(${(-14 - clawSnap).toFixed(1)})`}>
+                <path d="M 0,10 L -10,-6" fill="none" stroke="#EA580C" strokeWidth={5} />
+                <path d="M -18,-10 C -22,-22 -4,-26 -2,-12 L -10,-12 L -8,-4 Z" fill="#F97316" />
+              </g>
+              <g transform={`translate(26, -24) rotate(${(14 + clawSnap).toFixed(1)})`}>
+                <path d="M 0,10 L 10,-6" fill="none" stroke="#EA580C" strokeWidth={5} />
+                <path d="M 18,-10 C 22,-22 4,-26 2,-12 L 10,-12 L 8,-4 Z" fill="#F97316" />
+              </g>
+              {/* Round orange-red crab shell + glossy highlight */}
+              <ellipse cx={0} cy={-14} rx={30} ry={19} fill="#F97316" />
+              <ellipse cx={-6} cy={-21} rx={12} ry={5} fill="#FDBA74" opacity={0.7} stroke="none" />
+              {/* Stalked sparkling eyes */}
+              <line x1={-10} y1={-31} x2={-12} y2={-42} stroke="#EA580C" strokeWidth={3.5} />
+              <line x1={10} y1={-31} x2={12} y2={-42} stroke="#EA580C" strokeWidth={3.5} />
+              <circle cx={-12} cy={-44} r={6} fill="#FFFFFF" />
+              <circle cx={12} cy={-44} r={6} fill="#FFFFFF" />
+              <circle cx={-13} cy={-44} r={2.8} fill={INK} stroke="none" />
+              <circle cx={11} cy={-44} r={2.8} fill={INK} stroke="none" />
+              {/* Surprised little mouth */}
+              <circle cx={0} cy={-9} r={3} fill="#9A3412" stroke="none" />
+            </g>
+          </>
         );
       })()}
 
@@ -3265,7 +3319,7 @@ export const OceanUnderwaterStoryKit: React.FC<{
         );
       })()}
 
-      {/* Beat 65: Fast morph (<0.5s) from plum-red #C4365D into gray rocky stone with 3D bumps! */}
+      {/* Beat 65: Fast morph (<0.5s) from plum-red #C4365D into seamlessly blended mossy gray stone! */}
       {mode === "V24_OCEAN_FAST_MORPH_ROCK" && (() => {
         const mT = interpolate(activeLocal, [2, 22], [0, 1], {
           extrapolateLeft: "clamp",
@@ -3283,15 +3337,19 @@ export const OceanUnderwaterStoryKit: React.FC<{
             accessory={mT < 0.45 ? "bandana_green" : "none"}
             colorOverride={{
               main: blendOctoHex("#C4365D", "#64748B", mT),
-              belly: blendOctoHex("#FCE7F3", "#94A3B8", mT),
-              spot: blendOctoHex("#FCE7F3", "#16A34A", mT),
+              belly: blendOctoHex("#FCE7F3", "#5B6B7F", mT),
+              spot: blendOctoHex("#FCE7F3", "#475569", mT),
             }}
             papillaeBumps={mT > 0.4}
+            rockCamoTexture={mT > 0.45}
+            strokeOpacity={1 - 0.55 * mT}
+            hideCheeks={mT > 0.45}
+            hideEmotionBadge={true}
           />
         );
       })()}
 
-      {/* Beat 66: Close-up cute rock wink amidst shimmering bubbles */}
+      {/* Beat 66: Close-up cute rock wink — Tuộc melts into reef stone, only sparkling eyes wink! */}
       {mode === "V24_OCEAN_ROCK_CUTE_WINK" && (() => {
         // Trigger a deliberate cute blink right around localFrame 24..34!
         const winkFrame = activeLocal >= 24 && activeLocal <= 34 ? 106 : 20;
@@ -3304,8 +3362,12 @@ export const OceanUnderwaterStoryKit: React.FC<{
               frame={winkFrame}
               pose="crawl"
               emotion="happy"
-              colorOverride={{ main: "#64748B", belly: "#94A3B8", spot: "#16A34A" }}
+              colorOverride={{ main: "#64748B", belly: "#5B6B7F", spot: "#475569" }}
               papillaeBumps={true}
+              rockCamoTexture={true}
+              strokeOpacity={0.45}
+              hideCheeks={true}
+              hideEmotionBadge={true}
             />
             {[0, 1, 2, 3, 4].map((bi) => (
               <circle
@@ -3323,7 +3385,7 @@ export const OceanUnderwaterStoryKit: React.FC<{
         );
       })()}
 
-      {/* Beat 67: Final reveal — rock pops right back to plum-red Tuộc (bandana_green) waving goodbye! */}
+      {/* Beat 67: Final reveal — blended stone bursts right back to vivid plum-red Tuộc (bandana_green) waving goodbye! */}
       {mode === "V24_OCEAN_FINAL_REVEAL_WAVE" && (() => {
         const popT = interpolate(activeLocal, [4, 24], [0, 1], {
           extrapolateLeft: "clamp",
@@ -3341,10 +3403,13 @@ export const OceanUnderwaterStoryKit: React.FC<{
             accessory={popT > 0.35 ? "bandana_green" : "none"}
             colorOverride={{
               main: blendOctoHex("#64748B", "#C4365D", popT),
-              belly: blendOctoHex("#94A3B8", "#FCE7F3", popT),
-              spot: blendOctoHex("#16A34A", "#FCE7F3", popT),
+              belly: blendOctoHex("#5B6B7F", "#FCE7F3", popT),
+              spot: blendOctoHex("#475569", "#FCE7F3", popT),
             }}
             papillaeBumps={popT < 0.35}
+            rockCamoTexture={popT < 0.35}
+            strokeOpacity={0.45 + 0.55 * popT}
+            hideCheeks={popT < 0.35}
           />
         );
       })()}

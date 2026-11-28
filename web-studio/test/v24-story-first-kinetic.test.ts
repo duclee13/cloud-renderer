@@ -518,6 +518,26 @@ test("V24 #7: Episode 10 V24.0 (68 beats ANIMAL_POV, 0 HOST_EXPLAIN, 0 headline 
   assert.equal(ep.sfxEnabled, true, "Ep10 V24 must enable Auto-SFX");
   assert.equal(ep.beats.length, 68, "Ep10 V24 must contain exactly 68 beats");
 
+  // 0 unnatural digital clock times (HH:MM) anywhere in Ep10 V24 JSON!
+  assert.ok(!/\b\d{2}:\d{2}\b/.test(rawText), "Ep10 V24 JSON must contain 0 digital clock timestamps (HH:MM)");
+  assert.equal(ep.beats[0].timeBadge, "BÌNH MINH");
+  assert.equal(ep.beats[7].timeBadge, "BUỔI SÁNG");
+  assert.equal(ep.beats[15].timeBadge, "NẮNG LÊN CAO");
+  assert.equal(ep.beats[20].timeBadge, "GIỮA TRƯA");
+  assert.equal(ep.beats[23].timeBadge, "2016");
+  assert.equal(ep.beats[31].timeBadge, undefined, "Beat 32 omits timeBadge");
+  assert.equal(ep.beats[32].timeBadge, "BUỔI CHIỀU");
+  assert.equal(ep.beats[35].timeBadge, undefined, "Beat 36 omits timeBadge");
+  assert.equal(ep.beats[37].timeBadge, undefined, "Beat 38 omits timeBadge");
+  assert.equal(ep.beats[40].timeBadge, "HOÀNG HÔN");
+  assert.equal(ep.beats[44].timeBadge, "ĐÊM XUỐNG");
+  assert.equal(ep.beats[45].timeBadge, undefined, "Beat 46 omits timeBadge");
+  assert.equal(ep.beats[46].timeBadge, undefined, "Beat 47 omits timeBadge");
+  assert.equal(ep.beats[47].timeBadge, undefined, "Beat 48 omits timeBadge");
+  assert.equal(ep.beats[49].timeBadge, undefined, "Beat 50 omits timeBadge to avoid repeating 1 – 2 NĂM");
+  assert.equal(ep.beats[57].timeBadge, "SÁNG HÔM SAU");
+  assert.equal(ep.beats[63].timeBadge, "NGÀY MỚI");
+
   const reusedV23Svgs = new Set([
     "OCTO_SPEED_VS_CHAMELEON",
     "OCTO_SKIN_PIXELS",
@@ -590,6 +610,9 @@ test("V24 #7: Episode 10 V24.0 (68 beats ANIMAL_POV, 0 HOST_EXPLAIN, 0 headline 
       assert.ok(svg.includes("animal-cute-octopus-"), `${beat.id} renders foreground CuteOctopus`);
       assert.ok(svg.includes('id="layer-kinetic-headline"'), `${beat.id} renders KineticHeadlineLayer`);
       assert.ok(!svg.includes('id="layer-host-explain-veil"'), `${beat.id} has no freeze veil`);
+      if (beat.id === "b49" || beat.id === "b57") {
+        assert.ok(!svg.includes(">?<"), `${beat.id} solemn beat must NOT show floating yellow '?' badge`);
+      }
       assertZeroForbiddenSvg(svg, `Ep10 V24 CLEAN_EXPLAINER ${beat.id}`);
     } else if (beat.stageType === "OCEAN_UNDERWATER") {
       oceanStageCount++;
@@ -610,6 +633,13 @@ test("V24 #7: Episode 10 V24.0 (68 beats ANIMAL_POV, 0 HOST_EXPLAIN, 0 headline 
       assert.ok(svg.includes('id="stage-ocean-underwater"'), `${beat.id} renders OCEAN_UNDERWATER`);
       assert.ok(svg.includes("ocean-story-kit-V24_OCEAN_"), `${beat.id} renders upgraded OceanUnderwaterStoryKit`);
       assert.ok(!svg.includes("[Tuộc nói]") && !svg.includes("[Cá mập nói]"), `${beat.id} has no bracketed speaker tags`);
+      if (beat.id === "b01" || beat.id === "b02" || beat.id === "b03" || beat.id === "b66") {
+        assert.ok(svg.includes('id="octo-rock-camo-texture"'), `${beat.id} renders mossy stone camo texture`);
+        assert.ok(svg.includes('stroke-opacity="0.45"'), `${beat.id} softens body stroke opacity to 0.45 in rock camo`);
+      }
+      if (beat.id === "b32") {
+        assert.ok(svg.includes('id="v24-lunch-target-crab"'), "Beat 32 renders orange-red crab ahead of Tuộc");
+      }
       if (beat.id === "b60") {
         assert.ok(svg.includes('id="animal-accessory-glasses_round"'), "Beat 60 renders Cụ Tuộc glasses_round");
         assert.ok(svg.includes('stroke="#94A3B8"'), "Beat 60 renders Cụ Tuộc elder eyebrows");
@@ -632,6 +662,7 @@ test("V24 #7: Episode 10 V24.0 (68 beats ANIMAL_POV, 0 HOST_EXPLAIN, 0 headline 
     );
     assert.ok(svg.includes("1 – 2 NĂM"), `OCTO_SHORT_LIFESPAN step ${s} displays 1 – 2 NĂM`);
     assert.ok(svg.includes('id="animal-accessory-bandana_green"'), `OCTO_SHORT_LIFESPAN step ${s} shows Tuộc bandana_green`);
+    assert.ok(!svg.includes(">?<"), `OCTO_SHORT_LIFESPAN step ${s} must NOT show floating yellow '?' badge`);
     assertZeroForbiddenSvg(svg, `OCTO_SHORT_LIFESPAN step ${s}`);
   }
 

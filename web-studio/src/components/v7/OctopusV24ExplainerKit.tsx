@@ -304,17 +304,17 @@ export const OctopusV24ExplainerKit: React.FC<OctopusV24ExplainerKitProps> = ({
             strokeWidth={10.5}
             strokeLinecap="round"
           />
-          {/* Floating monochrome reef puzzle card */}
-          <g transform={`translate(1320, ${(455 + Math.sin(frame * 0.08) * 6).toFixed(1)})`}>
-            <rect x={-185} y={-115} width={370} height={230} rx={28} fill="#FFFFFF" stroke={INK} strokeWidth={4.5} />
-            <rect x={-155} y={-85} width={310} height={118} rx={18} fill="#CBD5E1" stroke="#64748B" strokeWidth={3} />
+          {/* Floating monochrome reef puzzle card (widened +80px so text never touches border) */}
+          <g transform={`translate(1345, ${(455 + Math.sin(frame * 0.08) * 6).toFixed(1)})`}>
+            <rect x={-225} y={-118} width={450} height={236} rx={28} fill="#FFFFFF" stroke={INK} strokeWidth={4.5} />
+            <rect x={-190} y={-88} width={380} height={120} rx={18} fill="#CBD5E1" stroke="#64748B" strokeWidth={3} />
             {/* Monochrome reef silhouette */}
-            <path d="M -125,33 Q -85,-42 -42,33 M -22,33 Q 22,-58 68,33 M 72,33 Q 108,-26 135,33" fill="#64748B" />
-            <circle cx={115} cy={-48} r={28} fill="#F59E0B" stroke={INK} strokeWidth={3} />
-            <text x={115} y={-38} textAnchor="middle" fill="#FFFFFF" fontSize={32} fontWeight={900} fontFamily={FONT}>
+            <path d="M -145,32 Q -95,-44 -48,32 M -26,32 Q 24,-60 76,32 M 82,32 Q 124,-28 158,32" fill="#64748B" />
+            <circle cx={142} cy={-48} r={28} fill="#F59E0B" stroke={INK} strokeWidth={3} />
+            <text x={142} y={-38} textAnchor="middle" fill="#FFFFFF" fontSize={32} fontWeight={900} fontFamily={FONT}>
               ?
             </text>
-            <text x={0} y={82} textAnchor="middle" fill="#92400E" fontSize={23} fontWeight={900} fontFamily={FONT}>
+            <text x={0} y={84} textAnchor="middle" fill="#92400E" fontSize={20.5} fontWeight={900} fontFamily={FONT}>
               Đen trắng → Sao pha chuẩn màu?
             </text>
           </g>
@@ -441,7 +441,7 @@ export const OctopusV24ExplainerKit: React.FC<OctopusV24ExplainerKitProps> = ({
         </g>
       )}
 
-      {/* BEAT 49: Có một sự thật... (SILENT) — Tuộc solemn, eyes open straight at viewer */}
+      {/* BEAT 49: Có một sự thật... (SILENT) — Tuộc solemn, eyes open straight at viewer (no '?' badge) */}
       {safeMode === "V24_EXPLAIN_SILENT_TRUTH" && (
         <g>
           <ellipse cx={960} cy={610} rx={260} ry={220} fill="#4338CA" opacity={0.18} />
@@ -453,6 +453,7 @@ export const OctopusV24ExplainerKit: React.FC<OctopusV24ExplainerKitProps> = ({
             frame={frame}
             pose="float"
             emotion="curious"
+            hideEmotionBadge={true}
             accessory="bandana_green"
           />
         </g>
@@ -521,7 +522,7 @@ export const OctopusV24ExplainerKit: React.FC<OctopusV24ExplainerKitProps> = ({
         </g>
       )}
 
-      {/* BEAT 57: Chưa từng gặp mẹ — Tuộc looking upward at warm drifting light motes */}
+      {/* BEAT 57: Chưa từng gặp mẹ — Tuộc looking upward at warm drifting light motes (no '?' badge) */}
       {safeMode === "V24_EXPLAIN_LOOK_UP_LIGHTS" && (
         <g>
           <GroundShadow cx={880} cy={792} rx={150} ry={18} />
@@ -545,6 +546,7 @@ export const OctopusV24ExplainerKit: React.FC<OctopusV24ExplainerKitProps> = ({
             frame={frame}
             pose="crawl"
             emotion="curious"
+            hideEmotionBadge={true}
             accessory="bandana_green"
           />
         </g>

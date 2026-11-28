@@ -104,7 +104,7 @@ export const OctoShortLifespanVisual: React.FC<EpisodeVisualProps> = ({
           strokeWidth={4.5}
         />
 
-        {/* Left: Tuộc (bandana_green) thoughtfully looking at the lifespan panel */}
+        {/* Left: Tuộc (bandana_green) thoughtfully looking at the lifespan panel (no yellow '?' badge) */}
         <g id="octo-v24-lifespan-tuoc">
           <ellipse cx={415} cy={695} rx={120} ry={18} fill="#0F172A" opacity={0.35} />
           <CuteOctopus
@@ -114,6 +114,7 @@ export const OctoShortLifespanVisual: React.FC<EpisodeVisualProps> = ({
             frame={frame}
             pose="float"
             emotion={activeStep === 0 ? 'curious' : 'happy'}
+            hideEmotionBadge={true}
             accessory="bandana_green"
           />
         </g>
@@ -453,12 +454,12 @@ export const OctoMotherSacrificeVisual: React.FC<EpisodeVisualProps> = ({
             />
           </g>
 
-          {/* Clean caption badge cleanly inside safe zone y=680..740 */}
-          <g transform="translate(1185, 695)">
+          {/* Clean caption badge cleanly inside safe zone y=680..740 (widened +90px for spacious padding) */}
+          <g transform="translate(1205, 695)">
             <rect
-              x={-330}
+              x={-375}
               y={-28}
-              width={660}
+              width={750}
               height={56}
               rx={28}
               fill="#0F172A"

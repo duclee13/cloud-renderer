@@ -290,6 +290,10 @@ export interface CreatureFaceProps {
   badgeY?: number;
   parentRotationDeg?: number;
   forceHappyArcEyes?: boolean;
+  /** Suppress floating emotion badge (?, !, sweat, zZ) on solemn/stealth beats */
+  hideEmotionBadge?: boolean;
+  /** Suppress pastel pink cheeks when camouflaged into stone */
+  hideCheeks?: boolean;
 }
 
 const SparkleEye: React.FC<{
@@ -448,6 +452,8 @@ export const CreatureFace: React.FC<CreatureFaceProps> = ({
   badgeY = -28,
   parentRotationDeg = 0,
   forceHappyArcEyes = false,
+  hideEmotionBadge = false,
+  hideCheeks = false,
 }) => {
   const blink = isAnimalBlinking(frame, blinkSeed);
   const shimmerX = emotion === "surprised" ? Math.sin(frame * 0.55) * 0.8 : 0;
@@ -462,17 +468,19 @@ export const CreatureFace: React.FC<CreatureFaceProps> = ({
 
   if (layout === "side") {
     return (
-      <g className={`creature-face-side-${emotion}`}>
+      <g className={`creature-face-side-${emotion}`} strokeOpacity={1}>
         {/* Pastel Rosy Cheek */}
-        <ellipse
-          cx={eyeSpread + 2}
-          cy={cheekY}
-          rx={eyeRadius * 1.15 * cheekScale}
-          ry={eyeRadius * 0.68 * cheekScale}
-          fill={CHEEK_PINK}
-          opacity={cheekOpacity}
-          stroke="none"
-        />
+        {!hideCheeks && (
+          <ellipse
+            cx={eyeSpread + 2}
+            cy={cheekY}
+            rx={eyeRadius * 1.15 * cheekScale}
+            ry={eyeRadius * 0.68 * cheekScale}
+            fill={CHEEK_PINK}
+            opacity={cheekOpacity}
+            stroke="none"
+          />
+        )}
 
         {/* Eyebrow by emotion (plus soft silver-gray brow for ageVariant="elder") */}
         {emotion === "curious" && (
@@ -557,40 +565,46 @@ export const CreatureFace: React.FC<CreatureFaceProps> = ({
           </>
         )}
 
-        <CreatureEmotionBadge
-          emotion={emotion}
-          frame={frame}
-          x={badgeX}
-          y={badgeY}
-          flipX={flipX}
-          parentRotationDeg={parentRotationDeg}
-        />
+        {!hideEmotionBadge && (
+          <CreatureEmotionBadge
+            emotion={emotion}
+            frame={frame}
+            x={badgeX}
+            y={badgeY}
+            flipX={flipX}
+            parentRotationDeg={parentRotationDeg}
+          />
+        )}
       </g>
     );
   }
 
   // FRONT 2-EYE EXPRESSIVE FACE
   return (
-    <g className={`creature-face-front-${emotion}`}>
-      {/* Pastel Rosy Cheeks (#FDA4AF, opacity="0.45"; richer 0.62 for baby) */}
-      <ellipse
-        cx={-cheekSpread}
-        cy={cheekY}
-        rx={eyeRadius * 1.25 * cheekScale}
-        ry={eyeRadius * 0.72 * cheekScale}
-        fill={CHEEK_PINK}
-        opacity={cheekOpacity}
-        stroke="none"
-      />
-      <ellipse
-        cx={cheekSpread}
-        cy={cheekY}
-        rx={eyeRadius * 1.25 * cheekScale}
-        ry={eyeRadius * 0.72 * cheekScale}
-        fill={CHEEK_PINK}
-        opacity={cheekOpacity}
-        stroke="none"
-      />
+    <g className={`creature-face-front-${emotion}`} strokeOpacity={1}>
+      {/* Pastel Rosy Cheeks (#FDA4AF, opacity="0.45"; richer 0.62 for baby; hidden in rock camo) */}
+      {!hideCheeks && (
+        <>
+          <ellipse
+            cx={-cheekSpread}
+            cy={cheekY}
+            rx={eyeRadius * 1.25 * cheekScale}
+            ry={eyeRadius * 0.72 * cheekScale}
+            fill={CHEEK_PINK}
+            opacity={cheekOpacity}
+            stroke="none"
+          />
+          <ellipse
+            cx={cheekSpread}
+            cy={cheekY}
+            rx={eyeRadius * 1.25 * cheekScale}
+            ry={eyeRadius * 0.72 * cheekScale}
+            fill={CHEEK_PINK}
+            opacity={cheekOpacity}
+            stroke="none"
+          />
+        </>
+      )}
 
       {/* Emotion Eyebrows (plus soft silver-gray brows for ageVariant="elder") */}
       {emotion === "curious" && (
@@ -674,14 +688,16 @@ export const CreatureFace: React.FC<CreatureFaceProps> = ({
         </>
       )}
 
-      <CreatureEmotionBadge
-        emotion={emotion}
-        frame={frame}
-        x={badgeX}
-        y={badgeY}
-        flipX={flipX}
-        parentRotationDeg={parentRotationDeg}
-      />
+      {!hideEmotionBadge && (
+        <CreatureEmotionBadge
+          emotion={emotion}
+          frame={frame}
+          x={badgeX}
+          y={badgeY}
+          flipX={flipX}
+          parentRotationDeg={parentRotationDeg}
+        />
+      )}
     </g>
   );
 };
@@ -1648,6 +1664,14 @@ export interface CuteOctopusProps extends AnimalSpriteBaseProps {
   colorOverride?: { main: string; belly: string; spot: string };
   /** Show subtle 3D rocky skin papillae bumps when camouflaged on reef stone */
   papillaeBumps?: boolean;
+  /** Show mottled mossy rock patches & stone ridges for seamless reef-stone camouflage */
+  rockCamoTexture?: boolean;
+  /** Optional body outline opacity (default 1; lower to 0.45 when disguised as rock) */
+  strokeOpacity?: number;
+  /** Suppress floating emotion badge (?, !, sweat, zZ) on solemn/stealth beats */
+  hideEmotionBadge?: boolean;
+  /** Suppress rosy cheeks when disguised as stone */
+  hideCheeks?: boolean;
   /** Show bright warning blue rings (Blue-Ringed Octopus) */
   blueRings?: boolean;
 }
@@ -1665,6 +1689,10 @@ export const CuteOctopus: React.FC<CuteOctopusProps> = ({
   ageVariant = "adult",
   colorOverride,
   papillaeBumps = false,
+  rockCamoTexture = false,
+  strokeOpacity = 1,
+  hideEmotionBadge = false,
+  hideCheeks = false,
   blueRings = false,
 }) => {
   const mainColor = colorOverride?.main ?? (variant === "purple" ? "#C084FC" : "#C4365D");
@@ -1672,6 +1700,7 @@ export const CuteOctopus: React.FC<CuteOctopusProps> = ({
   const spotColor = colorOverride?.spot ?? (variant === "purple" ? "#9333EA" : "#FCE7F3");
   const celShadeFill = colorOverride ? "#0F172A" : variant === "purple" ? "#581C87" : "#881337";
   const celShadeOpacity = colorOverride ? "0.11" : "0.18";
+  const bodyStrokeOpacity = Math.max(0.15, Math.min(1, strokeOpacity));
   const breathY = 1 + 0.012 * Math.sin((frame + 41) * 0.08);
   const floatBobY = pose === "float" ? Math.sin(frame * 0.09) * 7 : 0;
   const curiousTilt = emotion === "curious" ? 5 : 0;
@@ -1688,7 +1717,7 @@ export const CuteOctopus: React.FC<CuteOctopusProps> = ({
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      {pose === "crawl" && <FlatGroundShadow cy={5} rx={76} ry={11} />}
+      {pose === "crawl" && !rockCamoTexture && <FlatGroundShadow cy={5} rx={76} ry={11} />}
 
       <g transform={`scale(1, ${breathY.toFixed(4)})`}>
         {/* 6 Smooth Sine-Wave Tentacles */}
@@ -1703,6 +1732,7 @@ export const CuteOctopus: React.FC<CuteOctopusProps> = ({
                   d={`M 34,-34 C 62,-44 76,${(-76 + hiWave).toFixed(1)} 64,${(-98 + hiWave).toFixed(1)}`}
                   fill="none"
                   stroke={INK}
+                  strokeOpacity={bodyStrokeOpacity}
                   strokeWidth={18}
                 />
                 <path
@@ -1723,6 +1753,7 @@ export const CuteOctopus: React.FC<CuteOctopusProps> = ({
                 d={`M ${bx},-28 C ${(bx * 1.15).toFixed(1)},-12 ${(spreadX * 0.85).toFixed(1)},${(endY - 6).toFixed(1)} ${spreadX.toFixed(1)},${endY.toFixed(1)}`}
                 fill="none"
                 stroke={INK}
+                strokeOpacity={bodyStrokeOpacity}
                 strokeWidth={16}
               />
               <path
@@ -1742,13 +1773,13 @@ export const CuteOctopus: React.FC<CuteOctopusProps> = ({
         {/* Round Bulbous Cute Head + Pastel Underside + Flat Cel-Shading */}
         <g transform={`translate(0, -64) rotate(${curiousTilt})`}>
           {papillaeBumps && (
-            <g fill={mainColor} stroke={INK} strokeWidth={3.2}>
+            <g fill={mainColor} stroke={INK} strokeOpacity={bodyStrokeOpacity} strokeWidth={3.2}>
               <path d="M -40,-24 L -48,-36 L -28,-36 Z" />
               <path d="M -12,-42 L -2,-56 L 10,-42 Z" />
               <path d="M 26,-36 L 42,-40 L 42,-22 Z" />
             </g>
           )}
-          <ellipse cx={0} cy={0} rx={48} ry={44} fill={mainColor} />
+          <ellipse cx={0} cy={0} rx={48} ry={44} fill={mainColor} strokeOpacity={bodyStrokeOpacity} />
           <ellipse cx={0} cy={16} rx={32} ry={20} fill={bellyColor} stroke="none" />
           <path
             d="M -42,16 C -22,38 22,38 42,16 C 22,44 -22,44 -42,16 Z"
@@ -1756,6 +1787,18 @@ export const CuteOctopus: React.FC<CuteOctopusProps> = ({
             opacity={celShadeOpacity}
             stroke="none"
           />
+          {rockCamoTexture && (
+            <g id="octo-rock-camo-texture" stroke="none">
+              {/* Mossy reef stone patches & rough rock pits matching OceanReefRocksAndCoralsStatic */}
+              <ellipse cx={-22} cy={-24} rx={15} ry={7} fill="#16A34A" opacity={0.45} />
+              <ellipse cx={21} cy={-20} rx={13} ry={6} fill="#15803D" opacity={0.42} />
+              <path d="M -36,-8 Q -18,-18 2,-12 Q 20,-6 36,-14" fill="none" stroke="#475569" strokeWidth={2.6} opacity={0.55} />
+              <circle cx={-30} cy={12} r={5.5} fill="#475569" opacity={0.52} />
+              <circle cx={31} cy={8} r={6} fill="#475569" opacity={0.5} />
+              <circle cx={-4} cy={-31} r={4.5} fill="#94A3B8" opacity={0.45} />
+              <circle cx={14} cy={27} r={4} fill="#475569" opacity={0.45} />
+            </g>
+          )}
           {blueRings ? (
             <g fill="none" stroke="#0EA5E9" strokeWidth={4.2}>
               <circle cx={-26} cy={-24} r={7.5} fill="#0F172A" />
@@ -1784,6 +1827,8 @@ export const CuteOctopus: React.FC<CuteOctopusProps> = ({
             mouthY={18}
             badgeX={48}
             badgeY={-32}
+            hideEmotionBadge={hideEmotionBadge}
+            hideCheeks={hideCheeks}
           />
           {accessory === "glasses_round" && (
             <AnimalAccessory type="glasses_round" anchorX={0} anchorY={4} eyeSpread={15} scale={1.12} />
