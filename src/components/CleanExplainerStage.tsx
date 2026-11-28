@@ -5,6 +5,8 @@ export interface CleanExplainerStageProps {
   palette?: ExplainerPaletteId;
   frame: number;
   uid?: string;
+  /** V24.0: Hide studio floor band & y=790 horizon line on full-bleed FROG_* science visuals */
+  hideHorizon?: boolean;
 }
 
 interface CleanExplainerPaletteColors {
@@ -86,7 +88,8 @@ const AMBIENT_DOTS: readonly { x: number; y: number; r: number }[] = [
 const CleanExplainerStaticBackdrop: React.FC<{
   palette: ExplainerPaletteId;
   gradId: string;
-}> = React.memo(({ palette, gradId }) => {
+  hideHorizon?: boolean;
+}> = React.memo(({ palette, gradId, hideHorizon = false }) => {
   const colors = CLEAN_EXPLAINER_PALETTES[palette] ?? CLEAN_EXPLAINER_PALETTES.SKY_BLUE;
   return (
     <g id={`clean-explainer-static-${palette}`}>
@@ -96,19 +99,26 @@ const CleanExplainerStaticBackdrop: React.FC<{
           <stop offset="100%" stopColor={colors.bgBottom} />
         </linearGradient>
       </defs>
-      {/* Clean gradient sky/backdrop */}
-      <rect x={0} y={0} width={1920} height={790} fill={`url(#${gradId})`} stroke="none" />
-      {/* Flat studio floor band y=790..1080 */}
-      <rect x={0} y={790} width={1920} height={290} fill={colors.floorFill} stroke="none" />
-      {/* Crisp horizon line */}
-      <line
-        x1={0}
-        y1={790}
-        x2={1920}
-        y2={790}
-        stroke={colors.horizonStroke}
-        strokeWidth={3}
-      />
+      {hideHorizon ? (
+        /* Full-bleed gradient canvas with zero horizon line cutting across science diagrams */
+        <rect x={0} y={0} width={1920} height={1080} fill={`url(#${gradId})`} stroke="none" />
+      ) : (
+        <>
+          {/* Clean gradient sky/backdrop */}
+          <rect x={0} y={0} width={1920} height={790} fill={`url(#${gradId})`} stroke="none" />
+          {/* Flat studio floor band y=790..1080 */}
+          <rect x={0} y={790} width={1920} height={290} fill={colors.floorFill} stroke="none" />
+          {/* Crisp horizon line */}
+          <line
+            x1={0}
+            y1={790}
+            x2={1920}
+            y2={790}
+            stroke={colors.horizonStroke}
+            strokeWidth={3}
+          />
+        </>
+      )}
     </g>
   );
 });
@@ -116,13 +126,14 @@ CleanExplainerStaticBackdrop.displayName = "CleanExplainerStaticBackdrop";
 
 /**
  * CleanExplainerStage (Engine V24.0 — Non-Freeze Scientific Explanation Stage)
- * - 2-layer flat SVG (1920x1080): React.memo gradient + floor (`y=790`) + 12 slow ambient dots.
+ * - 2-layer flat SVG (1920x1080): React.memo gradient + optional floor (`y=790`) + 12 slow ambient dots.
  * - Zero blur, zero drop-shadow, zero foreignObject; safe to layer with AnimalSpriteKit or customVisuals.
  */
 export const CleanExplainerStage: React.FC<CleanExplainerStageProps> = ({
   palette = "SKY_BLUE",
   frame,
   uid = "default",
+  hideHorizon = false,
 }) => {
   const safePalette: ExplainerPaletteId =
     palette in CLEAN_EXPLAINER_PALETTES ? palette : "SKY_BLUE";
@@ -130,8 +141,8 @@ export const CleanExplainerStage: React.FC<CleanExplainerStageProps> = ({
   const gradId = `clean-explainer-grad-${safePalette}-${uid.replace(/[^a-zA-Z0-9_-]/g, "")}`;
 
   return (
-    <g id="stage-clean-explainer" data-palette={safePalette}>
-      <CleanExplainerStaticBackdrop palette={safePalette} gradId={gradId} />
+    <g id="stage-clean-explainer" data-palette={safePalette} data-hide-horizon={hideHorizon ? "true" : "false"}>
+      <CleanExplainerStaticBackdrop palette={safePalette} gradId={gradId} hideHorizon={hideHorizon} />
       {/* Layer 2: 12 subtle ambient light dots drifting gently (0 blur, near-0 render cost) */}
       <g id="clean-explainer-ambient-dots" stroke="none">
         {AMBIENT_DOTS.map((dot, i) => {

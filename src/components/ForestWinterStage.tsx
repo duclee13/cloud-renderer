@@ -16,6 +16,8 @@ export interface ForestWinterStageProps {
   uid?: string;
 }
 
+type VernalPoolMode = "NONE" | "RIGHT_BANK" | "CENTER";
+
 interface SeasonPalette {
   skyTop: string;
   skyBottom: string;
@@ -29,7 +31,6 @@ interface SeasonPalette {
   floorBase: string;
   floorBand: string;
   floorStroke: string;
-  showPool: boolean;
   showSunbeams: boolean;
   sunbeamColor: string;
 }
@@ -48,7 +49,6 @@ const SEASON_PALETTES: Record<ForestSeasonId, SeasonPalette> = {
     floorBase: "#F1F5F9",
     floorBand: "#E2E8F0",
     floorStroke: "#94A3B8",
-    showPool: false,
     showSunbeams: false,
     sunbeamColor: "#FFFFFF",
   },
@@ -65,7 +65,6 @@ const SEASON_PALETTES: Record<ForestSeasonId, SeasonPalette> = {
     floorBase: "#F59E0B",
     floorBand: "#D97706",
     floorStroke: "#92400E",
-    showPool: false,
     showSunbeams: true,
     sunbeamColor: "#FEF9C3",
   },
@@ -82,7 +81,6 @@ const SEASON_PALETTES: Record<ForestSeasonId, SeasonPalette> = {
     floorBase: "#CBD5E1",
     floorBand: "#94A3B8",
     floorStroke: "#475569",
-    showPool: false,
     showSunbeams: false,
     sunbeamColor: "#BAE6FD",
   },
@@ -94,12 +92,11 @@ const SEASON_PALETTES: Record<ForestSeasonId, SeasonPalette> = {
     pineBack: "#15803D",
     pineFront: "#166534",
     trunk: "#78350F",
-    snowCap: "#F8FAFC",
+    snowCap: null,
     mapleCanopy: null,
     floorBase: "#86EFAC",
     floorBand: "#4ADE80",
     floorStroke: "#15803D",
-    showPool: true,
     showSunbeams: true,
     sunbeamColor: "#FEF08A",
   },
@@ -116,7 +113,6 @@ const SEASON_PALETTES: Record<ForestSeasonId, SeasonPalette> = {
     floorBase: "#4ADE80",
     floorBand: "#22C55E",
     floorStroke: "#15803D",
-    showPool: false,
     showSunbeams: true,
     sunbeamColor: "#FEF9C3",
   },
@@ -156,149 +152,287 @@ const ForestWinterBackdropStatic: React.FC<{
   season: ForestSeasonId;
   isNight: boolean;
   gradId: string;
-}> = React.memo(({ season, isNight, gradId }) => {
-  const pal = SEASON_PALETTES[season] ?? SEASON_PALETTES.DEEP_WINTER;
-  const skyTop = isNight ? "#0F172A" : pal.skyTop;
-  const skyBottom = isNight ? "#1E293B" : pal.skyBottom;
+  poolMode: VernalPoolMode;
+  showSpringThawEarth: boolean;
+  showPineSnowCaps: boolean;
+  hideDefaultSkyOrb: boolean;
+}> = React.memo(
+  ({ season, isNight, gradId, poolMode, showSpringThawEarth, showPineSnowCaps, hideDefaultSkyOrb }) => {
+    const pal = SEASON_PALETTES[season] ?? SEASON_PALETTES.DEEP_WINTER;
+    const skyTop = isNight ? "#0F172A" : pal.skyTop;
+    const skyBottom = isNight ? "#1E293B" : pal.skyBottom;
 
-  return (
-    <g id={`forest-winter-backdrop-static-${season}`}>
-      <defs>
-        <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={skyTop} />
-          <stop offset="100%" stopColor={skyBottom} />
-        </linearGradient>
-      </defs>
+    // Nighttime spring pines stay deep lush nocturnal emerald (never gray/snowy!)
+    const nightPineFront = season === "SPRING_THAW" ? "#064E3B" : "#0F172A";
+    const nightPineBack = season === "SPRING_THAW" ? "#065F46" : "#1E293B";
+    const floorBaseColor = showSpringThawEarth
+      ? "#A16207"
+      : isNight
+      ? season === "SPRING_THAW"
+        ? "#14532D"
+        : "#1E293B"
+      : pal.floorBase;
+    const floorBandColor = showSpringThawEarth
+      ? "#78350F"
+      : isNight
+      ? season === "SPRING_THAW"
+        ? "#052E16"
+        : "#0F172A"
+      : pal.floorBand;
 
-      {/* Layer 1: Sky + Moon/Sun + Distant Boreal Ridge */}
-      <rect x={0} y={0} width={1920} height={745} fill={`url(#${gradId})`} stroke="none" />
+    return (
+      <g id={`forest-winter-backdrop-static-${season}`}>
+        <defs>
+          <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={skyTop} />
+            <stop offset="100%" stopColor={skyBottom} />
+          </linearGradient>
+        </defs>
 
-      {isNight ? (
-        <g id="forest-winter-moon" transform="translate(1620, 170)">
-          <circle cx={0} cy={0} r={74} fill="#BAE6FD" opacity={0.14} stroke="none" />
-          <path
-            d="M 14,-38 A 40,40 0 1,0 14,38 A 30,30 0 1,1 14,-38 Z"
-            fill="#F8FAFC"
-            stroke="#94A3B8"
-            strokeWidth={2.5}
-          />
-          {[
-            { x: -1240, y: -60 },
-            { x: -920, y: 45 },
-            { x: -610, y: -35 },
-            { x: -290, y: 20 },
-            { x: 160, y: 80 },
-          ].map((s, si) => (
-            <circle key={si} cx={s.x} cy={s.y} r={3.5} fill="#E0F2FE" opacity={0.72} stroke="none" />
-          ))}
-        </g>
-      ) : (
-        <g id="forest-winter-sun" transform="translate(1640, 165)" opacity={season === "DEEP_WINTER" ? 0.52 : 0.85}>
-          <circle cx={0} cy={0} r={86} fill="#FEF9C3" opacity={0.28} stroke="none" />
-          <circle cx={0} cy={0} r={44} fill="#FEF08A" stroke="none" />
-        </g>
-      )}
+        {/* Layer 1: Sky + Moon/Sun (hidden on Beat 20 freeze-thaw cycle!) + Distant Boreal Ridge */}
+        <rect x={0} y={0} width={1920} height={745} fill={`url(#${gradId})`} stroke="none" />
 
-      {/* Distant Mountain & Forest Silhouette Hills */}
-      <path
-        d="M 0,565 Q 280,405 580,505 T 1180,470 T 1700,490 T 1920,445 L 1920,745 L 0,745 Z"
-        fill={isNight ? "#1E293B" : pal.farHill}
-        opacity={0.82}
-        stroke="none"
-      />
-      <path
-        d="M 0,635 Q 340,520 720,585 T 1420,550 T 1920,595 L 1920,745 L 0,745 Z"
-        fill={isNight ? "#0F172A" : pal.midHill}
-        opacity={0.88}
-        stroke="none"
-      />
-
-      {/* Layer 2: Northern Spruce/Pine Trees (2-tier flat vector polygons + optional snow caps / autumn maples) */}
-      <g id="forest-winter-trees-layer">
-        {BACK_PINES.map((t, ti) => {
-          const isMaple = Boolean(pal.mapleCanopy) && ti % 2 === 1;
-          const pineFill = isNight ? "#0F172A" : ti % 2 === 0 ? pal.pineFront : pal.pineBack;
-          return (
-            <g key={ti} transform={`translate(${t.x}, 740) scale(${t.scale})`}>
-              <rect x={-14} y={-195} width={28} height={195} rx={7} fill={isNight ? "#1E293B" : pal.trunk} stroke={INK} strokeWidth={3} />
-              {isMaple ? (
-                <g>
-                  <circle cx={-44} cy={-222} r={58} fill={isNight ? "#7C2D12" : pal.mapleCanopy!} stroke={INK} strokeWidth={3} />
-                  <circle cx={44} cy={-222} r={58} fill={isNight ? "#9A3412" : pal.mapleCanopy!} stroke={INK} strokeWidth={3} />
-                  <circle cx={0} cy={-268} r={68} fill={isNight ? "#7C2D12" : season === "AUTUMN" ? "#DC2626" : "#16A34A"} stroke={INK} strokeWidth={3} />
-                  <circle cx={14} cy={-282} r={40} fill={season === "AUTUMN" ? "#F59E0B" : "#4ADE80"} opacity={isNight ? 0.25 : 0.7} stroke="none" />
-                </g>
-              ) : (
-                <g>
-                  {/* 3 crisp layered pine tiers */}
-                  <polygon points="0,-325 -78,-185 78,-185" fill={pineFill} stroke={INK} strokeWidth={3} strokeLinejoin="round" />
-                  <polygon points="0,-275 -92,-125 92,-125" fill={pineFill} stroke={INK} strokeWidth={3} strokeLinejoin="round" />
-                  <polygon points="0,-215 -102,-65 102,-65" fill={pineFill} stroke={INK} strokeWidth={3} strokeLinejoin="round" />
-                  {pal.snowCap && (
-                    <g fill={isNight ? "#CBD5E1" : pal.snowCap} stroke="none" opacity={season === "SPRING_THAW" ? 0.55 : 0.92}>
-                      <polygon points="0,-325 -38,-256 -12,-268 0,-252 16,-266 38,-256" />
-                      <polygon points="-46,-195 -88,-128 -52,-142 -24,-130 -44,-162" />
-                      <polygon points="46,-195 88,-128 52,-142 24,-130 44,-162" />
-                    </g>
-                  )}
-                </g>
-              )}
+        {!hideDefaultSkyOrb &&
+          (isNight ? (
+            <g id="forest-winter-moon" transform="translate(1620, 170)">
+              <circle cx={0} cy={0} r={74} fill="#BAE6FD" opacity={0.14} stroke="none" />
+              <path
+                d="M 14,-38 A 40,40 0 1,0 14,38 A 30,30 0 1,1 14,-38 Z"
+                fill="#F8FAFC"
+                stroke="#94A3B8"
+                strokeWidth={2.5}
+              />
+              {[
+                { x: -1240, y: -60 },
+                { x: -920, y: 45 },
+                { x: -610, y: -35 },
+                { x: -290, y: 20 },
+                { x: 160, y: 80 },
+              ].map((s, si) => (
+                <circle key={si} cx={s.x} cy={s.y} r={3.5} fill="#E0F2FE" opacity={0.72} stroke="none" />
+              ))}
             </g>
-          );
-        })}
-      </g>
+          ) : (
+            <g id="forest-winter-sun" transform="translate(1640, 165)" opacity={season === "DEEP_WINTER" ? 0.52 : 0.85}>
+              <circle cx={0} cy={0} r={86} fill="#FEF9C3" opacity={0.28} stroke="none" />
+              <circle cx={0} cy={0} r={44} fill="#FEF08A" stroke="none" />
+            </g>
+          ))}
 
-      {/* Optional Flat Sunbeams (0 blur!) */}
-      {pal.showSunbeams && !isNight && (
-        <g id="forest-winter-sunbeams" stroke="none">
-          <polygon points="1160,0 1400,0 880,780 600,780" fill={pal.sunbeamColor} opacity={0.18} />
-          <polygon points="1480,0 1720,0 1290,780 1030,780" fill={pal.sunbeamColor} opacity={0.18} />
+        {/* Distant Mountain & Forest Silhouette Hills */}
+        <path
+          d="M 0,565 Q 280,405 580,505 T 1180,470 T 1700,490 T 1920,445 L 1920,745 L 0,745 Z"
+          fill={isNight ? (season === "SPRING_THAW" ? "#1E3A2F" : "#1E293B") : pal.farHill}
+          opacity={0.82}
+          stroke="none"
+        />
+        <path
+          d="M 0,635 Q 340,520 720,585 T 1420,550 T 1920,595 L 1920,745 L 0,745 Z"
+          fill={isNight ? (season === "SPRING_THAW" ? "#14532D" : "#0F172A") : pal.midHill}
+          opacity={0.88}
+          stroke="none"
+        />
+
+        {/* Layer 2: Northern Spruce/Pine Trees (zero winter snow on spring night Beat 45!) */}
+        <g id="forest-winter-trees-layer" data-pine-snow={showPineSnowCaps ? "true" : "false"}>
+          {BACK_PINES.map((t, ti) => {
+            const isMaple = Boolean(pal.mapleCanopy) && ti % 2 === 1;
+            const pineFill = isNight
+              ? ti % 2 === 0
+                ? nightPineFront
+                : nightPineBack
+              : ti % 2 === 0
+              ? pal.pineFront
+              : pal.pineBack;
+            return (
+              <g key={ti} transform={`translate(${t.x}, 740) scale(${t.scale})`}>
+                <rect
+                  x={-14}
+                  y={-195}
+                  width={28}
+                  height={195}
+                  rx={7}
+                  fill={isNight ? "#1E293B" : pal.trunk}
+                  stroke={INK}
+                  strokeWidth={3}
+                />
+                {isMaple ? (
+                  <g>
+                    <circle cx={-44} cy={-222} r={58} fill={isNight ? "#7C2D12" : pal.mapleCanopy!} stroke={INK} strokeWidth={3} />
+                    <circle cx={44} cy={-222} r={58} fill={isNight ? "#9A3412" : pal.mapleCanopy!} stroke={INK} strokeWidth={3} />
+                    <circle
+                      cx={0}
+                      cy={-268}
+                      r={68}
+                      fill={isNight ? "#7C2D12" : season === "AUTUMN" ? "#DC2626" : "#16A34A"}
+                      stroke={INK}
+                      strokeWidth={3}
+                    />
+                    <circle
+                      cx={14}
+                      cy={-282}
+                      r={40}
+                      fill={season === "AUTUMN" ? "#F59E0B" : "#4ADE80"}
+                      opacity={isNight ? 0.25 : 0.7}
+                      stroke="none"
+                    />
+                  </g>
+                ) : (
+                  <g>
+                    <polygon points="0,-325 -78,-185 78,-185" fill={pineFill} stroke={INK} strokeWidth={3} strokeLinejoin="round" />
+                    <polygon points="0,-275 -92,-125 92,-125" fill={pineFill} stroke={INK} strokeWidth={3} strokeLinejoin="round" />
+                    <polygon points="0,-215 -102,-65 102,-65" fill={pineFill} stroke={INK} strokeWidth={3} strokeLinejoin="round" />
+                    {showPineSnowCaps && pal.snowCap && (
+                      <g fill={isNight ? "#CBD5E1" : pal.snowCap} stroke="none" opacity={0.92}>
+                        <polygon points="0,-325 -38,-256 -12,-268 0,-252 16,-266 38,-256" />
+                        <polygon points="-46,-195 -88,-128 -52,-142 -24,-130 -44,-162" />
+                        <polygon points="46,-195 88,-128 52,-142 24,-130 44,-162" />
+                      </g>
+                    )}
+                  </g>
+                )}
+              </g>
+            );
+          })}
         </g>
-      )}
 
-      {/* Layer 3: Forest Floor (y=735..1080) with Seasonal Snow, Leaf Litter, or Vernal Pool */}
-      <rect x={0} y={735} width={1920} height={345} fill={isNight ? "#1E293B" : pal.floorBase} stroke="none" />
-      <path
-        d="M 0,760 Q 480,736 960,756 T 1920,748 L 1920,1080 L 0,1080 Z"
-        fill={isNight ? "#0F172A" : pal.floorBand}
-        opacity={0.72}
-        stroke="none"
-      />
-      <line x1={0} y1={735} x2={1920} y2={735} stroke={isNight ? "#334155" : pal.floorStroke} strokeWidth={3.2} />
+        {/* Bare Spring Branches Sprouting Fresh Tender Green Buds (Beats 6, 32, 39) */}
+        {showSpringThawEarth && (
+          <g id="forest-spring-budding-twigs" stroke={INK} strokeWidth={3.2} strokeLinecap="round" strokeLinejoin="round">
+            {/* Left budding branch */}
+            <path d="M 180,740 Q 260,645 340,615 M 255,668 Q 315,662 365,642 M 230,692 Q 195,650 175,625" fill="none" stroke="#78350F" strokeWidth={8} />
+            {[
+              { x: 342, y: 612 },
+              { x: 368, y: 640 },
+              { x: 298, y: 632 },
+              { x: 174, y: 622 },
+            ].map((b, bi) => (
+              <path key={bi} d="M -8,4 C -6,-8 8,-10 12,0 C 4,8 -4,8 -8,4 Z" transform={`translate(${b.x}, ${b.y})`} fill="#4ADE80" stroke="#15803D" strokeWidth={2.2} />
+            ))}
+            {/* Right budding branch */}
+            <path d="M 1735,740 Q 1655,640 1565,606 M 1648,668 Q 1585,658 1538,638" fill="none" stroke="#78350F" strokeWidth={8} />
+            {[
+              { x: 1562, y: 604 },
+              { x: 1535, y: 636 },
+              { x: 1612, y: 628 },
+            ].map((b, bi) => (
+              <path key={bi} d="M 8,4 C 6,-8 -8,-10 -12,0 C -4,8 4,8 8,4 Z" transform={`translate(${b.x}, ${b.y})`} fill="#86EFAC" stroke="#15803D" strokeWidth={2.2} />
+            ))}
+          </g>
+        )}
 
-      {/* Cozy Leaf-Litter Hollow Pocket centered around x=820, y=805 for winter/autumn continuity */}
-      {(season === "DEEP_WINTER" || season === "EARLY_WINTER" || season === "AUTUMN") && (
-        <g id="forest-leaf-litter-pocket" transform="translate(820, 816)">
-          <ellipse cx={0} cy={8} rx={175} ry={30} fill={season === "DEEP_WINTER" ? "#92400E" : "#B45309"} opacity={0.72} stroke={INK} strokeWidth={3} />
-          <ellipse cx={-68} cy={0} rx={48} ry={16} fill="#C2410C" stroke={INK} strokeWidth={2.5} />
-          <ellipse cx={58} cy={2} rx={52} ry={17} fill="#D97706" stroke={INK} strokeWidth={2.5} />
-          <ellipse cx={-12} cy={10} rx={58} ry={15} fill="#9A3412" stroke={INK} strokeWidth={2.5} />
-          {season !== "AUTUMN" && (
-            <path
-              d="M -140,-4 Q -80,-18 -20,-6 Q 40,-18 115,-4"
-              fill="none"
-              stroke="#E0F2FE"
-              strokeWidth={5}
-              strokeLinecap="round"
-              opacity={0.85}
+        {/* Optional Flat Sunbeams (0 blur!) */}
+        {pal.showSunbeams && !isNight && (
+          <g id="forest-winter-sunbeams" stroke="none">
+            <polygon points="1160,0 1400,0 880,780 600,780" fill={pal.sunbeamColor} opacity={0.18} />
+            <polygon points="1480,0 1720,0 1290,780 1030,780" fill={pal.sunbeamColor} opacity={0.18} />
+          </g>
+        )}
+
+        {/* Layer 3: Forest Floor (y=735..1080) */}
+        <rect x={0} y={735} width={1920} height={345} fill={floorBaseColor} stroke="none" />
+        <path
+          d="M 0,760 Q 480,736 960,756 T 1920,748 L 1920,1080 L 0,1080 Z"
+          fill={floorBandColor}
+          opacity={0.72}
+          stroke="none"
+        />
+        <line
+          x1={0}
+          y1={735}
+          x2={1920}
+          y2={735}
+          stroke={showSpringThawEarth ? "#713F12" : isNight ? "#334155" : pal.floorStroke}
+          strokeWidth={3.2}
+        />
+
+        {/* Spring Thaw Earth Ground (Beats 6, 32, 39): Damp mossy patches + scattered melting snow patches + leaf bed (NO pool!) */}
+        {showSpringThawEarth && (
+          <g id="forest-spring-thaw-ground">
+            {/* Damp emerald moss patches */}
+            <ellipse cx={360} cy={792} rx={170} ry={34} fill="#4D7C0F" opacity={0.75} stroke="none" />
+            <ellipse cx={1260} cy={788} rx={195} ry={36} fill="#65A30D" opacity={0.72} stroke="none" />
+            <ellipse cx={1620} cy={835} rx={155} ry={30} fill="#4D7C0F" opacity={0.68} stroke="none" />
+            {/* Scattered melting white snow patches */}
+            <ellipse cx={395} cy={768} rx={105} ry={20} fill="#F8FAFC" stroke="#CBD5E1" strokeWidth={2.5} opacity={0.86} />
+            <ellipse cx={1360} cy={775} rx={125} ry={22} fill="#F8FAFC" stroke="#CBD5E1" strokeWidth={2.5} opacity={0.82} />
+            <ellipse cx={1125} cy={836} rx={78} ry={16} fill="#F8FAFC" stroke="#CBD5E1" strokeWidth={2.2} opacity={0.76} />
+            {/* Cozy fallen leaf bed where frog wakes up (x=820, y=816) */}
+            <g transform="translate(820, 816)">
+              <ellipse cx={0} cy={8} rx={175} ry={30} fill="#92400E" opacity={0.82} stroke={INK} strokeWidth={3} />
+              <ellipse cx={-68} cy={0} rx={48} ry={16} fill="#C2410C" stroke={INK} strokeWidth={2.5} />
+              <ellipse cx={58} cy={2} rx={52} ry={17} fill="#D97706" stroke={INK} strokeWidth={2.5} />
+              <ellipse cx={-12} cy={10} rx={58} ry={15} fill="#9A3412" stroke={INK} strokeWidth={2.5} />
+            </g>
+          </g>
+        )}
+
+        {/* Cozy Leaf-Litter Hollow Pocket centered around x=820, y=805 for winter/autumn continuity */}
+        {(season === "DEEP_WINTER" || season === "EARLY_WINTER" || season === "AUTUMN") && (
+          <g id="forest-leaf-litter-pocket" transform="translate(820, 816)">
+            <ellipse
+              cx={0}
+              cy={8}
+              rx={175}
+              ry={30}
+              fill={season === "DEEP_WINTER" ? "#92400E" : "#B45309"}
+              opacity={0.72}
+              stroke={INK}
+              strokeWidth={3}
             />
-          )}
-        </g>
-      )}
+            <ellipse cx={-68} cy={0} rx={48} ry={16} fill="#C2410C" stroke={INK} strokeWidth={2.5} />
+            <ellipse cx={58} cy={2} rx={52} ry={17} fill="#D97706" stroke={INK} strokeWidth={2.5} />
+            <ellipse cx={-12} cy={10} rx={58} ry={15} fill="#9A3412" stroke={INK} strokeWidth={2.5} />
+            {season !== "AUTUMN" && (
+              <path
+                d="M -140,-4 Q -80,-18 -20,-6 Q 40,-18 115,-4"
+                fill="none"
+                stroke="#E0F2FE"
+                strokeWidth={5}
+                strokeLinecap="round"
+                opacity={0.85}
+              />
+            )}
+          </g>
+        )}
 
-      {/* Clear Snowmelt Vernal Pool in SPRING_THAW */}
-      {pal.showPool && (
-        <g id="forest-vernal-pool-static" transform="translate(980, 818)">
-          <ellipse cx={0} cy={6} rx={485} ry={66} fill={isNight ? "#0C4A6E" : "#38BDF8"} stroke={isNight ? "#38BDF8" : "#0284C7"} strokeWidth={4} />
-          <ellipse cx={-20} cy={-4} rx={410} ry={44} fill={isNight ? "#0369A1" : "#BAE6FD"} opacity={0.55} stroke="none" />
-          {/* Residual melting snow patches on left bank */}
-          <ellipse cx={-480} cy={-38} rx={110} ry={22} fill="#F8FAFC" stroke="#CBD5E1" strokeWidth={2.5} opacity={0.82} />
-          <ellipse cx={470} cy={-32} rx={95} ry={19} fill="#F8FAFC" stroke="#CBD5E1" strokeWidth={2.5} opacity={0.78} />
-        </g>
-      )}
-    </g>
-  );
-});
+        {/* Vernal Pool — Right-Bank layout (Beat 42: frog sits on left grassy/mossy shore beside pool) */}
+        {poolMode === "RIGHT_BANK" && (
+          <g id="forest-vernal-pool-right" transform="translate(1370, 822)">
+            {/* Left lush mossy bank edge */}
+            <ellipse cx={-610} cy={-10} rx={210} ry={40} fill="#4D7C0F" opacity={0.62} stroke="none" />
+            <ellipse cx={0} cy={6} rx={440} ry={64} fill="#38BDF8" stroke="#0284C7" strokeWidth={4} />
+            <ellipse cx={20} cy={-4} rx={365} ry={42} fill="#BAE6FD" opacity={0.58} stroke="none" />
+          </g>
+        )}
+
+        {/* Vernal Pool — Center layout (Beat 44 daytime clear pool & Beat 45 moonlit spring chorus — NO winter snow patches!) */}
+        {poolMode === "CENTER" && (
+          <g id="forest-vernal-pool-center" transform="translate(960, 820)">
+            <ellipse
+              cx={0}
+              cy={6}
+              rx={505}
+              ry={68}
+              fill={isNight ? "#0C4A6E" : "#38BDF8"}
+              stroke={isNight ? "#38BDF8" : "#0284C7"}
+              strokeWidth={4}
+            />
+            <ellipse
+              cx={-18}
+              cy={-4}
+              rx={420}
+              ry={44}
+              fill={isNight ? "#0369A1" : "#BAE6FD"}
+              opacity={0.55}
+              stroke="none"
+            />
+          </g>
+        )}
+      </g>
+    );
+  }
+);
 ForestWinterBackdropStatic.displayName = "ForestWinterBackdropStatic";
 
 /* ============================================================================
@@ -325,9 +459,33 @@ export const ForestWinterStage: React.FC<ForestWinterStageProps> = ({
   const showSnowflakes = season === "DEEP_WINTER" || season === "EARLY_WINTER";
   const showFallingLeaves = season === "AUTUMN";
 
+  // Exact per-beat spring backdrop configuration (Point 3 & Point 7 Beat 20)
+  const isEarlySpringEarthBeat =
+    detail === "FROG_FOREST_B06_SPRING_REVIVE" ||
+    detail === "FROG_FOREST_B32_SPRING_SUNLIGHT" ||
+    detail === "FROG_FOREST_B39_RUSH_FORWARD";
+  const poolMode: VernalPoolMode =
+    detail === "FROG_FOREST_B42_FIRST_TO_POOL"
+      ? "RIGHT_BANK"
+      : detail === "FROG_FOREST_B44_SAFE_NO_FISH" || detail === "FROG_FOREST_B45_SPRING_CHORUS"
+      ? "CENTER"
+      : "NONE";
+  // Strictly NO snow caps on pines in SPRING_THAW (especially Beat 45 ĐÊM XUÂN!) or SUMMER/AUTUMN
+  const showPineSnowCaps = season === "DEEP_WINTER" || season === "EARLY_WINTER";
+  // Hide default fixed sun/moon sky orb on Beat 20 so only the alternating Sun/Moon orb shows
+  const hideDefaultSkyOrb = detail === "FROG_FOREST_B20_FREEZE_THAW_CYCLE";
+
   return (
     <g id="stage-forest-winter" data-season={season} data-detail={detail}>
-      <ForestWinterBackdropStatic season={season} isNight={isNight} gradId={gradId} />
+      <ForestWinterBackdropStatic
+        season={season}
+        isNight={isNight}
+        gradId={gradId}
+        poolMode={poolMode}
+        showSpringThawEarth={isEarlySpringEarthBeat}
+        showPineSnowCaps={showPineSnowCaps}
+        hideDefaultSkyOrb={hideDefaultSkyOrb}
+      />
 
       {/* Dynamic Ambient Particles: Snowflakes or Autumn Maple Leaves */}
       {showSnowflakes && (
@@ -390,9 +548,9 @@ export const ForestWinterStage: React.FC<ForestWinterStageProps> = ({
         />
       )}
 
-      {/* Beat 2 (GIỮA MÙA ĐÔNG): Exact continuous frog coords (x=820, y=805) while hiker's boot sweeps past! */}
+      {/* Beat 2 (GIỮA MÙA ĐÔNG): Exact continuous frog coords (x=820, y=805) + crisp solid 2D winter snow boot! */}
       {detail === "FROG_FOREST_B02_BOOT_NEAR_MISS" && (() => {
-        const bootX = interpolate(activeLocal, [0, safeDur], [1540, 1070], {
+        const bootX = interpolate(activeLocal, [0, safeDur], [1500, 1085], {
           extrapolateLeft: "clamp",
           extrapolateRight: "clamp",
           easing: Easing.out(Easing.cubic),
@@ -412,26 +570,56 @@ export const ForestWinterStage: React.FC<ForestWinterStageProps> = ({
               freezeState="frozen_solid"
               accessory="scarf_red"
             />
-            {/* Winter Hiker Boot passing right beside the frozen frog */}
-            <g id="forest-hiker-boot" transform={`translate(${bootX.toFixed(1)}, 788)`} stroke={INK} strokeWidth={4.5} strokeLinejoin="round">
-              <GroundShadow cx={20} cy={22} rx={125} ry={16} />
-              <path d="M -20,-185 L 78,-185 L 86,-42 L -110,-28 C -126,-26 -132,-4 -116,12 L 96,12 C 110,12 114,-4 108,-26 L 96,-185" fill="#475569" />
-              <rect x={-122} y={4} width={228} height={18} rx={7} fill="#1E293B" />
-              {/* Boot laces */}
-              <path d="M -18,-130 L 18,-126 M -20,-102 L 16,-98 M -24,-74 L 12,-70" stroke="#CBD5E1" strokeWidth={4} />
+            {/* Crisp Solid 2D Winter Snow Boot (rounded toe, shaft + collar, serrated lug sole, #1E293B/#334155, 100% opaque!) */}
+            <g
+              id="forest-hiker-boot"
+              transform={`translate(${bootX.toFixed(1)}, 790)`}
+              stroke="#0F172A"
+              strokeWidth={4.5}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <GroundShadow cx={-6} cy={22} rx={128} ry={16} />
+              {/* Main solid boot silhouette: ankle shaft + curved vamp + rounded toe box facing left */}
+              <path
+                d="M -14,-186 L 86,-186 L 94,-24 C 96,-4 86,6 68,6 L -108,6 C -130,6 -138,-14 -126,-34 C -114,-52 -82,-58 -46,-62 L -26,-160 C -24,-176 -20,-186 -14,-186 Z"
+                fill="#334155"
+              />
+              {/* Padded winter cuff collar at top of boot */}
+              <rect x={-22} y={-198} width={114} height={28} rx={12} fill="#CBD5E1" />
+              {/* Reinforced dark rounded toe cap & heel counter */}
+              <path
+                d="M -126,-34 C -114,-52 -84,-56 -56,-56 C -64,-24 -64,-6 -68,6 L -108,6 C -130,6 -138,-14 -126,-34 Z"
+                fill="#1E293B"
+              />
+              <path d="M 38,-62 C 68,-60 88,-44 92,-16 L 90,6 L 34,6 Z" fill="#1E293B" />
+              {/* Crisp laces & metal eyelets along front shaft */}
+              <path d="M -20,-142 L 16,-136 M -26,-114 L 12,-108 M -32,-86 L 8,-80" stroke="#F8FAFC" strokeWidth={5} />
+              <circle cx={18} cy={-136} r={4.5} fill="#94A3B8" stroke="#0F172A" strokeWidth={2.2} />
+              <circle cx={14} cy={-108} r={4.5} fill="#94A3B8" stroke="#0F172A" strokeWidth={2.2} />
+              <circle cx={10} cy={-80} r={4.5} fill="#94A3B8" stroke="#0F172A" strokeWidth={2.2} />
+              {/* Thick serrated lugged winter snow-tread rubber outsole */}
+              <path
+                d="M -124,4 L 94,4 L 94,20 L 76,20 L 70,13 L 54,13 L 48,20 L 28,20 L 22,13 L 4,13 L -2,20 L -22,20 L -28,13 L -48,13 L -54,20 L -74,20 L -80,13 L -100,13 L -106,20 L -124,20 Z"
+                fill="#1E293B"
+              />
             </g>
-            {/* Tiny flying ice chips */}
+            {/* Tiny crisp flying ice chips */}
             {chipT > 0 && chipT < 1 && (
               <g fill="#E0F2FE" stroke="#0284C7" strokeWidth={2.2} opacity={(1 - chipT).toFixed(2)}>
-                <polygon points={`${(955 - chipT * 48).toFixed(1)},${(790 - chipT * 42).toFixed(1)} ${(965 - chipT * 48).toFixed(1)},${(782 - chipT * 42).toFixed(1)} ${(962 - chipT * 48).toFixed(1)},${(796 - chipT * 42).toFixed(1)}`} />
-                <polygon points={`${(980 - chipT * 26).toFixed(1)},${(794 - chipT * 58).toFixed(1)} ${(992 - chipT * 26).toFixed(1)},${(786 - chipT * 58).toFixed(1)} ${(988 - chipT * 26).toFixed(1)},${(800 - chipT * 58).toFixed(1)}`} />
+                <polygon
+                  points={`${(955 - chipT * 48).toFixed(1)},${(790 - chipT * 42).toFixed(1)} ${(965 - chipT * 48).toFixed(1)},${(782 - chipT * 42).toFixed(1)} ${(962 - chipT * 48).toFixed(1)},${(796 - chipT * 42).toFixed(1)}`}
+                />
+                <polygon
+                  points={`${(980 - chipT * 26).toFixed(1)},${(794 - chipT * 58).toFixed(1)} ${(992 - chipT * 26).toFixed(1)},${(786 - chipT * 58).toFixed(1)} ${(988 - chipT * 26).toFixed(1)},${(800 - chipT * 58).toFixed(1)}`}
+                />
               </g>
             )}
           </>
         );
       })()}
 
-      {/* Beat 6 (ĐẦU XUÂN): Thaw & joyful high spring leap out of the leaf bed! */}
+      {/* Beat 6 (ĐẦU XUÂN): Thaw & joyful high spring leap out of the mossy leaf bed (NO pool!) */}
       {detail === "FROG_FOREST_B06_SPRING_REVIVE" && (() => {
         const thawDone = activeLocal >= 16;
         const hopX = interpolate(activeLocal, [16, safeDur], [790, 1120], {
@@ -474,7 +662,6 @@ export const ForestWinterStage: React.FC<ForestWinterStageProps> = ({
         });
         return (
           <>
-            {/* Cute little forest beetle ahead */}
             <g transform="translate(1150, 804)" stroke={INK} strokeWidth={2.5}>
               <ellipse cx={0} cy={-6} rx={14} ry={9} fill="#1E293B" />
               <circle cx={-12} cy={-6} r={5} fill="#334155" />
@@ -517,7 +704,6 @@ export const ForestWinterStage: React.FC<ForestWinterStageProps> = ({
               emotion={touched ? "surprised" : "curious"}
               accessory="scarf_red"
             />
-            {/* Falling crystalline snowflake */}
             <g transform={`translate(880, ${flakeY.toFixed(1)})`} stroke="#E0F2FE" strokeWidth={3.5} strokeLinecap="round">
               <line x1={0} y1={-16} x2={0} y2={16} />
               <line x1={-14} y1={-8} x2={14} y2={8} />
@@ -534,13 +720,12 @@ export const ForestWinterStage: React.FC<ForestWinterStageProps> = ({
         );
       })()}
 
-      {/* Beat 20 (CUỐI THU): Rapid night-freeze / noon-thaw cycle in forest */}
+      {/* Beat 20 (CUỐI THU): Rapid night-freeze / noon-thaw cycle — ONLY single alternating Moon <-> Sun orb! */}
       {detail === "FROG_FOREST_B20_FREEZE_THAW_CYCLE" && (() => {
         const cyclePhase = Math.sin(activeLocal * 0.085);
         const isColdHalf = cyclePhase < 0;
         return (
           <>
-            {/* Cold blue vs warm sun atmosphere tint */}
             <rect
               x={0}
               y={0}
@@ -550,8 +735,7 @@ export const ForestWinterStage: React.FC<ForestWinterStageProps> = ({
               opacity={isColdHalf ? 0.34 : 0.14}
               stroke="none"
             />
-            {/* Top-right switching Moon <-> Sun emblem */}
-            <g transform="translate(1540, 290)" stroke={INK} strokeWidth={3.5}>
+            <g id="forest-b20-cycle-orb" transform="translate(1580, 240)" stroke={INK} strokeWidth={3.5}>
               <circle cx={0} cy={0} r={54} fill={isColdHalf ? "#1E293B" : "#FEF9C3"} />
               {isColdHalf ? (
                 <path d="M 8,-22 A 24,24 0 1,0 8,22 A 18,18 0 1,1 8,-22 Z" fill="#BAE6FD" />
@@ -586,7 +770,6 @@ export const ForestWinterStage: React.FC<ForestWinterStageProps> = ({
             freezeState="frozen_solid"
             accessory="scarf_red"
           />
-          {/* Sweeping diagonal wind streaks */}
           <g stroke="#F8FAFC" strokeWidth={4} strokeLinecap="round" opacity={0.55}>
             {[0, 1, 2, 3, 4].map((wi) => {
               const wx = 1920 - ((frame * 18 + wi * 390) % 2100);
@@ -613,7 +796,7 @@ export const ForestWinterStage: React.FC<ForestWinterStageProps> = ({
         </>
       )}
 
-      {/* Beat 32 (ĐẦU XUÂN): Warm spring sunlight & dripping snowmelt drops onto frog */}
+      {/* Beat 32 (ĐẦU XUÂN): Warm spring sunlight & snowmelt drops dripping onto frog in leaf bed (NO pool!) */}
       {detail === "FROG_FOREST_B32_SPRING_SUNLIGHT" && (
         <>
           {[0, 1, 2].map((di) => {
@@ -644,7 +827,7 @@ export const ForestWinterStage: React.FC<ForestWinterStageProps> = ({
         </>
       )}
 
-      {/* Beat 39 (ĐẦU XUÂN): Urgent sprint hopping across melting snow patches */}
+      {/* Beat 39 (ĐẦU XUÂN): Urgent sprint hopping across melting snow patches & damp earth (NO pool!) */}
       {detail === "FROG_FOREST_B39_RUSH_FORWARD" && (() => {
         const fx = interpolate(activeLocal, [0, safeDur], [580, 1150], {
           extrapolateLeft: "clamp",
@@ -664,14 +847,13 @@ export const ForestWinterStage: React.FC<ForestWinterStageProps> = ({
         );
       })()}
 
-      {/* Beat 42 (GIỮA XUÂN): Arriving first at the vernal pool while far lake stays iced */}
+      {/* Beat 42 (GIỮA XUÂN): Frog sits on left mossy grass bank right beside the vernal pool shifted to the right */}
       {detail === "FROG_FOREST_B42_FIRST_TO_POOL" && (
         <>
-          {/* Distant frozen white lake patch on horizon */}
           <ellipse cx={1460} cy={712} rx={190} ry={16} fill="#E0F2FE" stroke="#94A3B8" strokeWidth={2.5} opacity={0.85} />
           <CuteWoodFrog
             x={760}
-            y={796}
+            y={798}
             scale={1.22}
             frame={frame}
             pose="sit"
@@ -683,41 +865,71 @@ export const ForestWinterStage: React.FC<ForestWinterStageProps> = ({
         </>
       )}
 
-      {/* Beat 44 (GIỮA XUÂN): Swimming peacefully in crystal-clear predator-free vernal pool */}
+      {/* Beat 44 (GIỮA XUÂN): Frog gently floating half-submerged in the clear vernal pool + 2 crisp white ripples! */}
       {detail === "FROG_FOREST_B44_SAFE_NO_FISH" && (() => {
-        const swimX = interpolate(activeLocal, [0, safeDur], [770, 980], {
+        const swimX = interpolate(activeLocal, [0, safeDur], [790, 1020], {
           extrapolateLeft: "clamp",
           extrapolateRight: "clamp",
         });
-        const rippleR = 54 + (frame % 45) * 2.2;
+        const bobY = Math.sin(frame * 0.1) * 3.5;
+        const r1 = 68 + (frame % 48) * 2.2;
+        const r2 = 68 + ((frame + 24) % 48) * 2.2;
+        const clipId = `frog-b44-waterline-clip-${safeUid}`;
         return (
-          <>
+          <g id="forest-b44-floating-frog">
+            <defs>
+              <clipPath id={clipId}>
+                <rect x={0} y={0} width={1920} height={808} />
+              </clipPath>
+            </defs>
+            {/* 2 crisp concentric white surface ripple rings around floating frog */}
             <ellipse
               cx={swimX}
-              cy={814}
-              rx={rippleR}
-              ry={rippleR * 0.25}
+              cy={810}
+              rx={r1}
+              ry={r1 * 0.24}
+              fill="none"
+              stroke="#FFFFFF"
+              strokeWidth={3.5}
+              opacity={Math.max(0.15, 1 - (frame % 48) / 48).toFixed(2)}
+            />
+            <ellipse
+              cx={swimX}
+              cy={810}
+              rx={r2}
+              ry={r2 * 0.24}
               fill="none"
               stroke="#FFFFFF"
               strokeWidth={3}
-              opacity={Math.max(0, 1 - (frame % 45) / 45).toFixed(2)}
+              opacity={Math.max(0.15, 1 - ((frame + 24) % 48) / 48).toFixed(2)}
             />
-            <CuteWoodFrog
-              x={swimX}
-              y={802}
-              scale={1.2}
-              frame={frame}
-              pose="sit"
-              freezeState="normal"
-              emotion="happy"
-              hideEmotionBadge={true}
-              accessory="scarf_red"
+            {/* Half-submerged CuteWoodFrog clipped cleanly at the water surface y=808 */}
+            <g clipPath={`url(#${clipId})`}>
+              <CuteWoodFrog
+                x={swimX}
+                y={836 + bobY}
+                scale={1.24}
+                frame={frame}
+                pose="sit"
+                freezeState="normal"
+                emotion="happy"
+                hideEmotionBadge={true}
+                accessory="scarf_red"
+              />
+            </g>
+            {/* Crisp shimmering waterline highlight across submerged waist */}
+            <path
+              d={`M ${(swimX - 72).toFixed(1)},808 Q ${swimX.toFixed(1)},814 ${(swimX + 72).toFixed(1)},808`}
+              fill="none"
+              stroke="#E0F2FE"
+              strokeWidth={4}
+              strokeLinecap="round"
             />
-          </>
+          </g>
         );
       })()}
 
-      {/* Beat 45 (ĐÊM XUÂN): Moonlit vernal pool wood-frog chorus with warm sound waves! */}
+      {/* Beat 45 (ĐÊM XUÂN): Moonlit vernal pool chorus — ONLY center hero wears scarf_red, 4 neighbors wear accessory="none" */}
       {detail === "FROG_FOREST_B45_SPRING_CHORUS" && (
         <>
           {[
@@ -759,7 +971,7 @@ export const ForestWinterStage: React.FC<ForestWinterStageProps> = ({
         </>
       )}
 
-      {/* Beat 49 (MÙA HÈ): Dozens of tiny newborn baby wood frogs hopping onto leafy shore! */}
+      {/* Beat 49 (MÙA HÈ): Newborn baby wood frogs hopping onto shore — strictly accessory="none"! */}
       {detail === "FROG_FOREST_B49_BABIES_ON_LAND" && (
         <g id="forest-baby-frogs-parade">
           {[0, 1, 2, 3, 4, 5].map((bi) => {
@@ -779,13 +991,14 @@ export const ForestWinterStage: React.FC<ForestWinterStageProps> = ({
                 ageVariant="baby"
                 emotion="happy"
                 hideEmotionBadge={true}
+                accessory="none"
               />
             );
           })}
         </g>
       )}
 
-      {/* Beat 53 (MÙA HÈ): Proud adult hero watching young froglets hop through sunlit leaves */}
+      {/* Beat 53 (MÙA HÈ): ONLY adult hero wears scarf_red; all 3 baby froglets strictly accessory="none"! */}
       {detail === "FROG_FOREST_B53_PROUD_WATCH" && (
         <>
           <CuteWoodFrog
@@ -816,6 +1029,7 @@ export const ForestWinterStage: React.FC<ForestWinterStageProps> = ({
                 ageVariant="baby"
                 emotion="happy"
                 hideEmotionBadge={true}
+                accessory="none"
               />
             );
           })}

@@ -956,17 +956,76 @@ test("V24 #8: Episode 11 Wood Frog (62 beats ANIMAL_POV, CuteWoodFrog, 5-season 
       assert.ok(beat.forestSeason, `${beat.id} specifies forestSeason`);
       seenSeasons.add(beat.forestSeason!);
       assert.ok(svg.includes('id="stage-forest-winter"'), `${beat.id} renders ForestWinterStage`);
+      // Verify exact spring scenery & snow-free spring night & single-protagonist scarf rules
+      const scarfCount = (svg.match(/id="animal-accessory-scarf_red"/g) || []).length;
+      if (beat.id === "b45") {
+        assert.equal(scarfCount, 1, "Beat 45 must render scarf_red ONLY on center protagonist frog");
+        assert.ok(svg.includes('data-pine-snow="false"'), "Beat 45 (ĐÊM XUÂN) must have ZERO winter snow on pines");
+      }
+      if (beat.id === "b49") {
+        assert.equal(scarfCount, 0, "Beat 49 baby froglets must NOT wear scarf_red");
+      }
+      if (beat.id === "b53") {
+        assert.equal(scarfCount, 1, "Beat 53 must render scarf_red ONLY on adult protagonist frog (not babies)");
+      }
+      if (beat.id === "b06" || beat.id === "b32" || beat.id === "b39") {
+        assert.ok(svg.includes('id="forest-spring-thaw-ground"'), `${beat.id} renders spring thaw earth & snow patches`);
+        assert.ok(svg.includes('id="forest-spring-budding-twigs"'), `${beat.id} renders budding spring branches`);
+        assert.ok(!svg.includes('id="forest-vernal-pool-'), `${beat.id} must NOT render blue pond under frog`);
+      }
+      if (beat.id === "b42") {
+        assert.ok(svg.includes('id="forest-vernal-pool-right"'), "Beat 42 shifts vernal pool to right bank");
+      }
+      if (beat.id === "b44") {
+        assert.ok(svg.includes('id="forest-b44-floating-frog"'), "Beat 44 floats frog half-submerged with ripples");
+      }
+      if (beat.id === "b20") {
+        assert.ok(!svg.includes('id="forest-winter-sun"') && !svg.includes('id="forest-winter-moon"'), "Beat 20 hides static sky orb");
+        assert.ok(svg.includes('id="forest-b20-cycle-orb"'), "Beat 20 displays single alternating Sun/Moon orb");
+      }
     } else if (beat.customVisual) {
       fullBleedVisualCount++;
       assert.ok(expectedFrogVisuals.has(beat.customVisual), `${beat.id} uses expected FROG_* visual`);
       assert.ok(beat.customVisual in EPISODE_VISUAL_REGISTRY, `${beat.id} visual registered in EPISODE_VISUAL_REGISTRY`);
       seenVisuals.add(beat.customVisual);
       assert.ok(svg.includes('id="stage-clean-explainer"'), `${beat.id} mounts CleanExplainerStage underlay beneath full-bleed visual`);
+      assert.ok(svg.includes('data-hide-horizon="true"'), `${beat.id} hides y=790 horizon line on FROG_* visual`);
+      assert.ok(!svg.includes('y1="790"'), `${beat.id} must not render horizontal line at y=790`);
+      if (beat.id === "b03") {
+        assert.ok(svg.includes('id="frog-b03-icon-brain"') && svg.includes('id="frog-b03-icon-heart"'), "Beat 3 places organ icons along perimeter");
+      }
+      if (beat.id === "b23") {
+        assert.ok(svg.includes("Glucose") && !svg.includes("glu-cô-zơ"), "Beat 23 SVG uses Glucose label");
+      }
+      if (beat.id === "b24") {
+        assert.ok(svg.includes("2 – 10×"), "Beat 24 middle bar synced to 2 – 10×");
+      }
+      if (beat.id === "b26") {
+        assert.ok(svg.includes("Glucose") && svg.includes("Urê") && !svg.includes("U-rê"), "Beat 26 SVG uses Glucose & Urê labels");
+      }
+      if (beat.id === "b30") {
+        assert.ok(svg.includes('id="frog-b30-7month-calendar-strip"') && svg.includes("Th1") && svg.includes("Th7"), "Beat 30 renders 7-month horizontal strip Th1..Th7");
+      }
+      if (beat.id === "b34") {
+        assert.ok(svg.includes('id="frog-b34-chest-heart-glow"'), "Beat 34 lowers compact warm heart to chest below chin");
+      }
+      if (beat.id === "b35") {
+        assert.ok(svg.includes('id="frog-b35-curved-vessels"'), "Beat 35 renders organically curved branching blood vessels");
+      }
+      if (beat.id === "b43") {
+        assert.ok(svg.includes('id="frog-b43-sleeping-mud-frog"'), "Beat 43 renders sleeping green mud frog with eyes & legs");
+      }
     } else {
       explainerKitCount++;
       assert.equal(beat.stageType, "CLEAN_EXPLAINER");
       assert.ok(svg.includes('id="stage-clean-explainer"'), `${beat.id} renders CleanExplainerStage`);
       assert.ok(svg.includes("frog-v24-explainer-kit-"), `${beat.id} renders FrogV24ExplainerKit (never empty!)`);
+      if (beat.id === "b17" || beat.id === "b27" || beat.id === "b33") {
+        assert.ok(svg.includes(`id="frog-${beat.id}-caption-pill"`), `${beat.id} lifts caption pill safely above horizon (y <= 665)`);
+      }
+      if (beat.id === "b40") {
+        assert.ok(svg.includes('id="frog-b40-sleeping-mud-frog"'), "Beat 40 renders sleeping green mud frog with eyes & legs");
+      }
       if (beat.id === "b60" || beat.id === "b61") {
         assert.ok(svg.includes('id="v24-tardigrade-silhouette-teaser"'), `${beat.id} renders 8-legged Tardigrade teaser silhouette`);
       }
@@ -974,6 +1033,16 @@ test("V24 #8: Episode 11 Wood Frog (62 beats ANIMAL_POV, CuteWoodFrog, 5-season 
         assert.ok(svg.includes('id="v24-ep12-teaser-badge"') && svg.includes("TẬP 12"), "Beat 61 displays TẬP 12 badge");
       }
     }
+    // Every Ep11 beat uses crisp 0-frame CUT to prevent overlapping KineticHeadlines
+    assert.equal(beat.transitionIn, "CUT", `${beat.id} uses 0-frame CUT`);
+    assert.equal(beat.transitionFrames, 0, `${beat.id} transitionFrames === 0`);
+  }
+
+  // Verify Beat 3 & Beat 30 mute heartbeat ("none"), while Beat 2, 29, 35, 47, 50 retain heartbeat!
+  assert.equal(ep.beats[2].sfxCue, "none", "Beat 3 (TIM NGỪNG ĐẬP!) must mute heartbeat");
+  assert.equal(ep.beats[29].sfxCue, "none", "Beat 30 (7 THÁNG TIM NGỪNG ĐẬP) must mute heartbeat");
+  for (const hbIdx of [1, 28, 34, 46, 49]) {
+    assert.equal(ep.beats[hbIdx].sfxCue, "heartbeat", `Beat ${hbIdx + 1} retains heartbeat SFX`);
   }
 
   assert.equal(forestStageCount, 20, "Ep11 must have 20 FOREST_WINTER_STAGE beats");

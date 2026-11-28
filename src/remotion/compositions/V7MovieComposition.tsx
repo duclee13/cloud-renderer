@@ -199,12 +199,19 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
   const isHostOrStageSvgBoundary = Boolean(
     prevSpec && currSpec && (prevIsFullSvg !== currIsFullSvg || prevIsHost !== currIsHost)
   );
+  const topLevelStoryMode =
+    props.storyMode ??
+    props.payload?.storyMode ??
+    props.v7MoviePayload?.storyMode ??
+    currSpec?.storyMode;
+  const isV24AnimalPovHardCut = topLevelStoryMode === "ANIMAL_POV";
 
-  const clampedRequestedTransition = isSameStageCut
-    ? 0
-    : isHostOrStageSvgBoundary
-    ? Math.min(6, requestedTransitionFrames)
-    : requestedTransitionFrames;
+  const clampedRequestedTransition =
+    isSameStageCut || isV24AnimalPovHardCut
+      ? 0
+      : isHostOrStageSvgBoundary
+      ? Math.min(6, requestedTransitionFrames)
+      : requestedTransitionFrames;
 
   const effectiveTransitionFrames =
     prevBeat && transitionInMode === "CROSSFADE" && clampedRequestedTransition > 0

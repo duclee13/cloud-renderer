@@ -14,7 +14,10 @@
       "forestSeason": "DEEP_WINTER",
       "forestDetail": "FROG_FOREST_B01_FROZEN_STONE",
       "timeBadge": "GIỮA MÙA ĐÔNG",
-      "kineticHeadline": { "text": "ĐỪNG ĐÁ VÀO TÔI", "tone": "ALERT" },
+      "kineticHeadline": {
+        "text": "ĐỪNG ĐÁ VÀO TÔI",
+        "tone": "ALERT"
+      },
       "bgmMood": "TENSE",
       "sfxCue": "tick",
       "voiceTone": "HOOK_INTRIGUE",
@@ -24,7 +27,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.05, "focusX": 820, "focusY": 720 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.05,
+        "focusX": 820,
+        "focusY": 720
+      }
     },
     {
       "id": "b02",
@@ -34,7 +42,10 @@
       "forestSeason": "DEEP_WINTER",
       "forestDetail": "FROG_FOREST_B02_BOOT_NEAR_MISS",
       "timeBadge": "GIỮA MÙA ĐÔNG",
-      "kineticHeadline": { "text": "CỨNG NHƯ ĐÁ!", "tone": "ALERT" },
+      "kineticHeadline": {
+        "text": "CỨNG NHƯ ĐÁ!",
+        "tone": "ALERT"
+      },
       "bgmMood": "TENSE",
       "sfxCue": "heartbeat",
       "voiceTone": "TENSE_CLIMAX",
@@ -44,7 +55,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.04, "toScale": 1.08, "focusX": 880, "focusY": 720 }
+      "camera": {
+        "fromScale": 1.04,
+        "toScale": 1.08,
+        "focusX": 880,
+        "focusY": 720
+      }
     },
     {
       "id": "b03",
@@ -55,9 +71,12 @@
       "customVisual": "FROG_CLINICAL_DEATH",
       "visualStep": 0,
       "fullScreenVisual": true,
-      "kineticHeadline": { "text": "TIM NGỪNG ĐẬP!", "tone": "ALERT" },
+      "kineticHeadline": {
+        "text": "TIM NGỪNG ĐẬP!",
+        "tone": "ALERT"
+      },
       "bgmMood": "TENSE",
-      "sfxCue": "heartbeat",
+      "sfxCue": "none",
       "voiceTone": "TENSE_CLIMAX",
       "timeOfDay": "NIGHT",
       "weather": "CLEAR",
@@ -65,7 +84,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.01, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b04",
@@ -76,7 +100,10 @@
       "customVisual": "FROG_CLINICAL_DEATH",
       "visualStep": 1,
       "fullScreenVisual": true,
-      "kineticHeadline": { "text": "70% LÀ BĂNG!", "tone": "ALERT" },
+      "kineticHeadline": {
+        "text": "70% LÀ BĂNG!",
+        "tone": "ALERT"
+      },
       "bgmMood": "TENSE",
       "sfxCue": "pop",
       "voiceTone": "TENSE_CLIMAX",
@@ -86,7 +113,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.01, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b05",
@@ -95,7 +127,10 @@
       "stageType": "CLEAN_EXPLAINER",
       "explainerPalette": "LAVENDER_NIGHT",
       "forestDetail": "V24_FROG_EXPLAIN_B05_NOT_DEAD",
-      "kineticHeadline": { "text": "NHƯNG TÔI CHƯA CHẾT", "tone": "GOLD" },
+      "kineticHeadline": {
+        "text": "NHƯNG TÔI CHƯA CHẾT",
+        "tone": "GOLD"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "headline_pop",
       "voiceTone": "CALM_STORY",
@@ -105,7 +140,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.03, "focusX": 960, "focusY": 560 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 560
+      }
     },
     {
       "id": "b06",
@@ -115,17 +155,25 @@
       "forestSeason": "SPRING_THAW",
       "forestDetail": "FROG_FOREST_B06_SPRING_REVIVE",
       "timeBadge": "ĐẦU XUÂN",
-      "kineticHeadline": { "text": "HỒI SINH!", "tone": "SUCCESS" },
+      "kineticHeadline": {
+        "text": "HỒI SINH!",
+        "tone": "SUCCESS"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "sparkle",
       "voiceTone": "CALM_STORY",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
-      "transitionIn": "CROSSFADE",
-      "transitionFrames": 6,
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.03, "focusX": 960, "focusY": 620 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 620
+      }
     },
     {
       "id": "b07",
@@ -134,7 +182,10 @@
       "stageType": "CLEAN_EXPLAINER",
       "explainerPalette": "SKY_BLUE",
       "forestDetail": "V24_FROG_EXPLAIN_B07_NORTH_MAP",
-      "kineticHeadline": { "text": "TÔI LÀ ẾCH GỖ", "tone": "GOLD" },
+      "kineticHeadline": {
+        "text": "TÔI LÀ ẾCH GỖ",
+        "tone": "GOLD"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "headline_pop",
       "voiceTone": "CALM_STORY",
@@ -144,7 +195,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b08",
@@ -153,7 +209,10 @@
       "stageType": "CLEAN_EXPLAINER",
       "explainerPalette": "WARM_CREAM",
       "forestDetail": "V24_FROG_EXPLAIN_B08_SNOWFLAKE_MYSTERY",
-      "kineticHeadline": { "text": "LÀM SAO SỐNG NỔI?", "tone": "INFO" },
+      "kineticHeadline": {
+        "text": "LÀM SAO SỐNG NỔI?",
+        "tone": "INFO"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "headline_pop",
       "voiceTone": "CALM_STORY",
@@ -163,7 +222,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b09",
@@ -173,17 +237,25 @@
       "forestSeason": "AUTUMN",
       "forestDetail": "FROG_FOREST_B09_AUTUMN_PREP",
       "timeBadge": "CUỐI THU",
-      "kineticHeadline": { "text": "QUAY LẠI MÙA THU", "tone": "GOLD" },
+      "kineticHeadline": {
+        "text": "QUAY LẠI MÙA THU",
+        "tone": "GOLD"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "tick",
       "voiceTone": "CALM_STORY",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
-      "transitionIn": "CROSSFADE",
-      "transitionFrames": 6,
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.03, "focusX": 880, "focusY": 640 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 880,
+        "focusY": 640
+      }
     },
     {
       "id": "b10",
@@ -192,7 +264,10 @@
       "stageType": "CLEAN_EXPLAINER",
       "explainerPalette": "SOFT_SLATE",
       "forestDetail": "V24_FROG_EXPLAIN_B10_WATER_NEEDLES",
-      "kineticHeadline": { "text": "BĂNG RẤT NGUY HIỂM", "tone": "ALERT" },
+      "kineticHeadline": {
+        "text": "BĂNG RẤT NGUY HIỂM",
+        "tone": "ALERT"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "headline_pop",
       "voiceTone": "CALM_STORY",
@@ -202,7 +277,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b11",
@@ -213,7 +293,10 @@
       "customVisual": "FROG_ICE_DANGER",
       "visualStep": 0,
       "fullScreenVisual": true,
-      "kineticHeadline": { "text": "XÉ RÁCH TẾ BÀO", "tone": "ALERT" },
+      "kineticHeadline": {
+        "text": "XÉ RÁCH TẾ BÀO",
+        "tone": "ALERT"
+      },
       "bgmMood": "TENSE",
       "sfxCue": "pop",
       "voiceTone": "TENSE_CLIMAX",
@@ -223,7 +306,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.01, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b12",
@@ -234,7 +322,10 @@
       "customVisual": "FROG_ICE_DANGER",
       "visualStep": 1,
       "fullScreenVisual": true,
-      "kineticHeadline": { "text": "HÚT KIỆT NƯỚC", "tone": "ALERT" },
+      "kineticHeadline": {
+        "text": "HÚT KIỆT NƯỚC",
+        "tone": "ALERT"
+      },
       "bgmMood": "TENSE",
       "sfxCue": "pop",
       "voiceTone": "TENSE_CLIMAX",
@@ -244,7 +335,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.01, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b13",
@@ -254,17 +350,25 @@
       "forestSeason": "EARLY_WINTER",
       "forestDetail": "FROG_FOREST_B13_FIRST_FROST",
       "timeBadge": "ĐÊM LẠNH ĐẦU TIÊN",
-      "kineticHeadline": { "text": "BĂNG CHẠM VÀO DA", "tone": "INFO" },
+      "kineticHeadline": {
+        "text": "BĂNG CHẠM VÀO DA",
+        "tone": "INFO"
+      },
       "bgmMood": "TENSE",
       "sfxCue": "tick",
       "voiceTone": "TENSE_CLIMAX",
       "timeOfDay": "NIGHT",
       "weather": "CLEAR",
-      "transitionIn": "CROSSFADE",
-      "transitionFrames": 6,
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.04, "focusX": 880, "focusY": 680 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.04,
+        "focusX": 880,
+        "focusY": 680
+      }
     },
     {
       "id": "b14",
@@ -273,7 +377,10 @@
       "stageType": "CLEAN_EXPLAINER",
       "explainerPalette": "SKY_BLUE",
       "forestDetail": "V24_FROG_EXPLAIN_B14_EMBRACE_FREEZE",
-      "kineticHeadline": { "text": "KHÔNG CHỐNG LẠI BĂNG", "tone": "GOLD" },
+      "kineticHeadline": {
+        "text": "KHÔNG CHỐNG LẠI BĂNG",
+        "tone": "GOLD"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "headline_pop",
       "voiceTone": "CALM_STORY",
@@ -283,7 +390,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b15",
@@ -294,7 +406,10 @@
       "customVisual": "FROG_EXTRACELLULAR_FREEZE",
       "visualStep": 0,
       "fullScreenVisual": true,
-      "kineticHeadline": { "text": "CHỈ ĐÓNG BĂNG Ở NGOÀI", "tone": "INFO" },
+      "kineticHeadline": {
+        "text": "CHỈ ĐÓNG BĂNG Ở NGOÀI",
+        "tone": "INFO"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "pop",
       "voiceTone": "CALM_STORY",
@@ -304,7 +419,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.01, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b16",
@@ -315,7 +435,10 @@
       "customVisual": "FROG_EXTRACELLULAR_FREEZE",
       "visualStep": 1,
       "fullScreenVisual": true,
-      "kineticHeadline": { "text": "RÚT NƯỚC THU NHỎ", "tone": "INFO" },
+      "kineticHeadline": {
+        "text": "RÚT NƯỚC THU NHỎ",
+        "tone": "INFO"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "pop",
       "voiceTone": "CALM_STORY",
@@ -325,7 +448,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.01, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b17",
@@ -334,7 +462,10 @@
       "stageType": "CLEAN_EXPLAINER",
       "explainerPalette": "MINT_FRESH",
       "forestDetail": "V24_FROG_EXPLAIN_B17_SLOW_FREEZE",
-      "kineticHeadline": { "text": "ĐÓNG BĂNG CHẬM RÃI", "tone": "SUCCESS" },
+      "kineticHeadline": {
+        "text": "ĐÓNG BĂNG CHẬM RÃI",
+        "tone": "SUCCESS"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "ding",
       "voiceTone": "CALM_STORY",
@@ -344,7 +475,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b18",
@@ -353,7 +489,10 @@
       "stageType": "CLEAN_EXPLAINER",
       "explainerPalette": "WARM_CREAM",
       "forestDetail": "V24_FROG_EXPLAIN_B18_WAIT_HOW",
-      "kineticHeadline": { "text": "KHOAN ĐÃ...", "tone": "GOLD" },
+      "kineticHeadline": {
+        "text": "KHOAN ĐÃ...",
+        "tone": "GOLD"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "headline_pop",
       "voiceTone": "CALM_STORY",
@@ -363,7 +502,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b19",
@@ -372,7 +516,10 @@
       "stageType": "CLEAN_EXPLAINER",
       "explainerPalette": "WARM_CREAM",
       "forestDetail": "V24_FROG_EXPLAIN_B19_ANTIFREEZE_BREW",
-      "kineticHeadline": { "text": "CẦN CHẤT CHỐNG ĐÔNG", "tone": "SUCCESS" },
+      "kineticHeadline": {
+        "text": "CẦN CHẤT CHỐNG ĐÔNG",
+        "tone": "SUCCESS"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "ding",
       "voiceTone": "CALM_STORY",
@@ -382,7 +529,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b20",
@@ -392,17 +544,25 @@
       "forestSeason": "EARLY_WINTER",
       "forestDetail": "FROG_FOREST_B20_FREEZE_THAW_CYCLE",
       "timeBadge": "CUỐI THU",
-      "kineticHeadline": { "text": "ĐÔNG RỒI LẠI TAN", "tone": "INFO" },
+      "kineticHeadline": {
+        "text": "ĐÔNG RỒI LẠI TAN",
+        "tone": "INFO"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "tick",
       "voiceTone": "CALM_STORY",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
-      "transitionIn": "CROSSFADE",
-      "transitionFrames": 6,
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 960, "focusY": 600 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 600
+      }
     },
     {
       "id": "b21",
@@ -413,7 +573,10 @@
       "customVisual": "FROG_AUTUMN_CYCLES",
       "visualStep": 0,
       "fullScreenVisual": true,
-      "kineticHeadline": { "text": "10 – 15 LẦN TẬP DƯỢT", "tone": "GOLD" },
+      "kineticHeadline": {
+        "text": "10 – 15 LẦN TẬP DƯỢT",
+        "tone": "GOLD"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "pop",
       "voiceTone": "CALM_STORY",
@@ -423,7 +586,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.01, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b22",
@@ -434,7 +602,10 @@
       "customVisual": "FROG_AUTUMN_CYCLES",
       "visualStep": 1,
       "fullScreenVisual": true,
-      "kineticHeadline": { "text": "NẠP ĐẦY KHO ĐƯỜNG", "tone": "SUCCESS" },
+      "kineticHeadline": {
+        "text": "NẠP ĐẦY KHO ĐƯỜNG",
+        "tone": "SUCCESS"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "ding",
       "voiceTone": "CALM_STORY",
@@ -444,7 +615,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.01, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b23",
@@ -455,7 +631,10 @@
       "customVisual": "FROG_GLUCOSE_ANTIFREEZE",
       "visualStep": 0,
       "fullScreenVisual": true,
-      "kineticHeadline": { "text": "GAN BƠM ĐƯỜNG Ồ ẠT", "tone": "GOLD" },
+      "kineticHeadline": {
+        "text": "GAN BƠM ĐƯỜNG Ồ ẠT",
+        "tone": "GOLD"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "pop",
       "voiceTone": "CALM_STORY",
@@ -465,7 +644,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.01, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b24",
@@ -476,7 +660,10 @@
       "customVisual": "FROG_GLUCOSE_ANTIFREEZE",
       "visualStep": 1,
       "fullScreenVisual": true,
-      "kineticHeadline": { "text": "ĐƯỜNG TĂNG 200 LẦN!", "tone": "ALERT" },
+      "kineticHeadline": {
+        "text": "ĐƯỜNG TĂNG 200 LẦN!",
+        "tone": "ALERT"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "headline_pop",
       "voiceTone": "CALM_STORY",
@@ -486,7 +673,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.01, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b25",
@@ -495,7 +687,10 @@
       "stageType": "CLEAN_EXPLAINER",
       "explainerPalette": "SOFT_SLATE",
       "forestDetail": "V24_FROG_EXPLAIN_B25_HUMAN_VS_FROG",
-      "kineticHeadline": { "text": "NGƯỜI LÀ NGUY KỊCH", "tone": "ALERT" },
+      "kineticHeadline": {
+        "text": "NGƯỜI LÀ NGUY KỊCH",
+        "tone": "ALERT"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "pop",
       "voiceTone": "CALM_STORY",
@@ -505,7 +700,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b26",
@@ -516,7 +716,10 @@
       "customVisual": "FROG_GLUCOSE_ANTIFREEZE",
       "visualStep": 2,
       "fullScreenVisual": true,
-      "kineticHeadline": { "text": "SI RÔ CHỐNG ĐÔNG", "tone": "SUCCESS" },
+      "kineticHeadline": {
+        "text": "SI RÔ CHỐNG ĐÔNG",
+        "tone": "SUCCESS"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "ding",
       "voiceTone": "CALM_STORY",
@@ -526,7 +729,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.01, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b27",
@@ -535,7 +743,10 @@
       "stageType": "CLEAN_EXPLAINER",
       "explainerPalette": "MINT_FRESH",
       "forestDetail": "V24_FROG_EXPLAIN_B27_CELL_HYDRATED",
-      "kineticHeadline": { "text": "GIỮ NƯỚC TRONG TẾ BÀO", "tone": "INFO" },
+      "kineticHeadline": {
+        "text": "GIỮ NƯỚC TRONG TẾ BÀO",
+        "tone": "INFO"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "pop",
       "voiceTone": "CALM_STORY",
@@ -545,7 +756,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b28",
@@ -555,17 +771,25 @@
       "forestSeason": "DEEP_WINTER",
       "forestDetail": "FROG_FOREST_B28_BLIZZARD",
       "timeBadge": "GIỮA MÙA ĐÔNG",
-      "kineticHeadline": { "text": "BÃO TUYẾT PHƯƠNG BẮC", "tone": "ALERT" },
+      "kineticHeadline": {
+        "text": "BÃO TUYẾT PHƯƠNG BẮC",
+        "tone": "ALERT"
+      },
       "bgmMood": "TENSE",
       "sfxCue": "tick",
       "voiceTone": "TENSE_CLIMAX",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
-      "transitionIn": "CROSSFADE",
-      "transitionFrames": 6,
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.03, "focusX": 880, "focusY": 640 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 880,
+        "focusY": 640
+      }
     },
     {
       "id": "b29",
@@ -576,7 +800,10 @@
       "customVisual": "FROG_ALASKA_EXTREME",
       "visualStep": 0,
       "fullScreenVisual": true,
-      "kineticHeadline": { "text": "ÂM 18 ĐỘ C!", "tone": "ALERT" },
+      "kineticHeadline": {
+        "text": "ÂM 18 ĐỘ C!",
+        "tone": "ALERT"
+      },
       "bgmMood": "TENSE",
       "sfxCue": "heartbeat",
       "voiceTone": "TENSE_CLIMAX",
@@ -586,7 +813,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.01, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b30",
@@ -597,9 +829,12 @@
       "customVisual": "FROG_ALASKA_EXTREME",
       "visualStep": 1,
       "fullScreenVisual": true,
-      "kineticHeadline": { "text": "7 THÁNG TIM NGỪNG ĐẬP", "tone": "ALERT" },
+      "kineticHeadline": {
+        "text": "7 THÁNG TIM NGỪNG ĐẬP",
+        "tone": "ALERT"
+      },
       "bgmMood": "TENSE",
-      "sfxCue": "heartbeat",
+      "sfxCue": "none",
       "voiceTone": "TENSE_CLIMAX",
       "timeOfDay": "NIGHT",
       "weather": "CLEAR",
@@ -607,7 +842,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.4,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.01, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b31",
@@ -617,17 +857,25 @@
       "forestSeason": "DEEP_WINTER",
       "forestDetail": "FROG_FOREST_B31_ABSOLUTE_SILENCE",
       "timeBadge": "GIỮA MÙA ĐÔNG",
-      "kineticHeadline": { "text": "IM LẶNG TUYỆT ĐỐI", "tone": "INFO" },
+      "kineticHeadline": {
+        "text": "IM LẶNG TUYỆT ĐỐI",
+        "tone": "INFO"
+      },
       "bgmMood": "SILENT",
       "sfxCue": "none",
       "voiceTone": "SLOW_EMOTIONAL",
       "timeOfDay": "NIGHT",
       "weather": "CLEAR",
-      "transitionIn": "CROSSFADE",
-      "transitionFrames": 6,
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
       "pauseAfterSec": 0.5,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.03, "focusX": 820, "focusY": 720 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 820,
+        "focusY": 720
+      }
     },
     {
       "id": "b32",
@@ -637,17 +885,25 @@
       "forestSeason": "SPRING_THAW",
       "forestDetail": "FROG_FOREST_B32_SPRING_SUNLIGHT",
       "timeBadge": "ĐẦU XUÂN",
-      "kineticHeadline": { "text": "NẮNG XUÂN ĐÃ TỚI", "tone": "GOLD" },
+      "kineticHeadline": {
+        "text": "NẮNG XUÂN ĐÃ TỚI",
+        "tone": "GOLD"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "sparkle",
       "voiceTone": "CALM_STORY",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
-      "transitionIn": "CROSSFADE",
-      "transitionFrames": 6,
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.03, "focusX": 820, "focusY": 680 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 820,
+        "focusY": 680
+      }
     },
     {
       "id": "b33",
@@ -656,7 +912,10 @@
       "stageType": "CLEAN_EXPLAINER",
       "explainerPalette": "WARM_CREAM",
       "forestDetail": "V24_FROG_EXPLAIN_B33_THAW_RISK",
-      "kineticHeadline": { "text": "RÃ ĐÔNG RẤT KHÓ", "tone": "INFO" },
+      "kineticHeadline": {
+        "text": "RÃ ĐÔNG RẤT KHÓ",
+        "tone": "INFO"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "headline_pop",
       "voiceTone": "CALM_STORY",
@@ -666,7 +925,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b34",
@@ -677,7 +941,10 @@
       "customVisual": "FROG_INSIDE_OUT_THAW",
       "visualStep": 0,
       "fullScreenVisual": true,
-      "kineticHeadline": { "text": "TAN TỪ TRONG RA NGOÀI", "tone": "GOLD" },
+      "kineticHeadline": {
+        "text": "TAN TỪ TRONG RA NGOÀI",
+        "tone": "GOLD"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "sparkle",
       "voiceTone": "CALM_STORY",
@@ -687,7 +954,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.01, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b35",
@@ -698,7 +970,10 @@
       "customVisual": "FROG_INSIDE_OUT_THAW",
       "visualStep": 1,
       "fullScreenVisual": true,
-      "kineticHeadline": { "text": "NHỊP TIM ĐẦU TIÊN", "tone": "SUCCESS" },
+      "kineticHeadline": {
+        "text": "NHỊP TIM ĐẦU TIÊN",
+        "tone": "SUCCESS"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "heartbeat",
       "voiceTone": "CALM_STORY",
@@ -708,7 +983,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.01, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b36",
@@ -717,7 +997,10 @@
       "stageType": "CLEAN_EXPLAINER",
       "explainerPalette": "SKY_BLUE",
       "forestDetail": "V24_FROG_EXPLAIN_B36_FIRST_BREATH",
-      "kineticHeadline": { "text": "HƠI THỞ ĐẦU TIÊN", "tone": "SUCCESS" },
+      "kineticHeadline": {
+        "text": "HƠI THỞ ĐẦU TIÊN",
+        "tone": "SUCCESS"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "ding",
       "voiceTone": "CALM_STORY",
@@ -727,7 +1010,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b37",
@@ -738,7 +1026,10 @@
       "customVisual": "FROG_INSIDE_OUT_THAW",
       "visualStep": 2,
       "fullScreenVisual": true,
-      "kineticHeadline": { "text": "10 TIẾNG TỈNH TÁO", "tone": "GOLD" },
+      "kineticHeadline": {
+        "text": "10 TIẾNG TỈNH TÁO",
+        "tone": "GOLD"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "ding",
       "voiceTone": "CALM_STORY",
@@ -748,7 +1039,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.01, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b38",
@@ -757,7 +1053,10 @@
       "stageType": "CLEAN_EXPLAINER",
       "explainerPalette": "MINT_FRESH",
       "forestDetail": "V24_FROG_EXPLAIN_B38_CLEANUP_SUGAR",
-      "kineticHeadline": { "text": "DỌN SẠCH KHO ĐƯỜNG", "tone": "INFO" },
+      "kineticHeadline": {
+        "text": "DỌN SẠCH KHO ĐƯỜNG",
+        "tone": "INFO"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "pop",
       "voiceTone": "CALM_STORY",
@@ -767,7 +1066,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b39",
@@ -777,17 +1081,25 @@
       "forestSeason": "SPRING_THAW",
       "forestDetail": "FROG_FOREST_B39_RUSH_FORWARD",
       "timeBadge": "ĐẦU XUÂN",
-      "kineticHeadline": { "text": "KHÔNG KỊP NGHỈ NGƠI", "tone": "GOLD" },
+      "kineticHeadline": {
+        "text": "KHÔNG KỊP NGHỈ NGƠI",
+        "tone": "GOLD"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "tick",
       "voiceTone": "CALM_STORY",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
-      "transitionIn": "CROSSFADE",
-      "transitionFrames": 6,
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.03, "focusX": 920, "focusY": 640 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 920,
+        "focusY": 640
+      }
     },
     {
       "id": "b40",
@@ -796,7 +1108,10 @@
       "stageType": "CLEAN_EXPLAINER",
       "explainerPalette": "WARM_CREAM",
       "forestDetail": "V24_FROG_EXPLAIN_B40_MUD_VS_SURFACE",
-      "kineticHeadline": { "text": "TẠI SAO PHẢI LIỀU?", "tone": "ALERT" },
+      "kineticHeadline": {
+        "text": "TẠI SAO PHẢI LIỀU?",
+        "tone": "ALERT"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "headline_pop",
       "voiceTone": "CALM_STORY",
@@ -806,7 +1121,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b41",
@@ -815,17 +1135,25 @@
       "stageType": "CLEAN_EXPLAINER",
       "explainerPalette": "LAVENDER_NIGHT",
       "forestDetail": "V24_FROG_EXPLAIN_B41_SHORT_SUMMER",
-      "kineticHeadline": { "text": "VÌ MÙA HÈ QUÁ NGẮN", "tone": "EMOTION" },
+      "kineticHeadline": {
+        "text": "VÌ MÙA HÈ QUÁ NGẮN",
+        "tone": "EMOTION"
+      },
       "bgmMood": "EMOTIONAL",
       "sfxCue": "none",
       "voiceTone": "SLOW_EMOTIONAL",
       "timeOfDay": "NIGHT",
       "weather": "CLEAR",
-      "transitionIn": "CROSSFADE",
-      "transitionFrames": 6,
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
       "pauseAfterSec": 0.45,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b42",
@@ -835,7 +1163,10 @@
       "forestSeason": "SPRING_THAW",
       "forestDetail": "FROG_FOREST_B42_FIRST_TO_POOL",
       "timeBadge": "GIỮA XUÂN",
-      "kineticHeadline": { "text": "KẺ TỚI SỚM NHẤT", "tone": "GOLD" },
+      "kineticHeadline": {
+        "text": "KẺ TỚI SỚM NHẤT",
+        "tone": "GOLD"
+      },
       "bgmMood": "EMOTIONAL",
       "sfxCue": "none",
       "voiceTone": "SLOW_EMOTIONAL",
@@ -845,7 +1176,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.4,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 920, "focusY": 640 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 920,
+        "focusY": 640
+      }
     },
     {
       "id": "b43",
@@ -856,7 +1192,10 @@
       "customVisual": "FROG_VERNAL_POOL_RACE",
       "visualStep": 0,
       "fullScreenVisual": true,
-      "kineticHeadline": { "text": "VŨNG NƯỚC KHÔNG CÁ", "tone": "INFO" },
+      "kineticHeadline": {
+        "text": "VŨNG NƯỚC KHÔNG CÁ",
+        "tone": "INFO"
+      },
       "bgmMood": "EMOTIONAL",
       "sfxCue": "none",
       "voiceTone": "SLOW_EMOTIONAL",
@@ -866,7 +1205,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.4,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.01, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b44",
@@ -876,7 +1220,10 @@
       "forestSeason": "SPRING_THAW",
       "forestDetail": "FROG_FOREST_B44_SAFE_NO_FISH",
       "timeBadge": "GIỮA XUÂN",
-      "kineticHeadline": { "text": "NƠI AN TOÀN NHẤT", "tone": "INFO" },
+      "kineticHeadline": {
+        "text": "NƠI AN TOÀN NHẤT",
+        "tone": "INFO"
+      },
       "bgmMood": "EMOTIONAL",
       "sfxCue": "none",
       "voiceTone": "SLOW_EMOTIONAL",
@@ -886,7 +1233,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.4,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 920, "focusY": 650 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 920,
+        "focusY": 650
+      }
     },
     {
       "id": "b45",
@@ -896,17 +1248,25 @@
       "forestSeason": "SPRING_THAW",
       "forestDetail": "FROG_FOREST_B45_SPRING_CHORUS",
       "timeBadge": "ĐÊM XUÂN",
-      "kineticHeadline": { "text": "VÀI NGÀY BÙNG NỔ", "tone": "GOLD" },
+      "kineticHeadline": {
+        "text": "VÀI NGÀY BÙNG NỔ",
+        "tone": "GOLD"
+      },
       "bgmMood": "EMOTIONAL",
       "sfxCue": "sparkle",
       "voiceTone": "SLOW_EMOTIONAL",
       "timeOfDay": "NIGHT",
       "weather": "CLEAR",
-      "transitionIn": "CROSSFADE",
-      "transitionFrames": 6,
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
       "pauseAfterSec": 0.4,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 940, "focusY": 660 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 940,
+        "focusY": 660
+      }
     },
     {
       "id": "b46",
@@ -917,7 +1277,10 @@
       "customVisual": "FROG_VERNAL_POOL_RACE",
       "visualStep": 1,
       "fullScreenVisual": true,
-      "kineticHeadline": { "text": "SƯỞI ẤM CHO CON", "tone": "EMOTION" },
+      "kineticHeadline": {
+        "text": "SƯỞI ẤM CHO CON",
+        "tone": "EMOTION"
+      },
       "bgmMood": "EMOTIONAL",
       "sfxCue": "sparkle",
       "voiceTone": "SLOW_EMOTIONAL",
@@ -927,7 +1290,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.45,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.01, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b47",
@@ -936,7 +1304,10 @@
       "stageType": "CLEAN_EXPLAINER",
       "explainerPalette": "LAVENDER_NIGHT",
       "forestDetail": "V24_FROG_EXPLAIN_B47_SILENT_RIPPLE",
-      "kineticHeadline": { "text": "MỐI NGUY ÂM THẦM", "tone": "ALERT" },
+      "kineticHeadline": {
+        "text": "MỐI NGUY ÂM THẦM",
+        "tone": "ALERT"
+      },
       "bgmMood": "SILENT",
       "sfxCue": "heartbeat",
       "voiceTone": "SLOW_EMOTIONAL",
@@ -946,7 +1317,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.5,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.03, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b48",
@@ -957,7 +1333,10 @@
       "customVisual": "FROG_VERNAL_POOL_RACE",
       "visualStep": 2,
       "fullScreenVisual": true,
-      "kineticHeadline": { "text": "CHẠY ĐUA VỚI NẮNG", "tone": "ALERT" },
+      "kineticHeadline": {
+        "text": "CHẠY ĐUA VỚI NẮNG",
+        "tone": "ALERT"
+      },
       "bgmMood": "EMOTIONAL",
       "sfxCue": "none",
       "voiceTone": "SLOW_EMOTIONAL",
@@ -967,7 +1346,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.45,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.01, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.01,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b49",
@@ -977,17 +1361,25 @@
       "forestSeason": "SUMMER",
       "forestDetail": "FROG_FOREST_B49_BABIES_ON_LAND",
       "timeBadge": "MÙA HÈ",
-      "kineticHeadline": { "text": "BƯỚC LÊN MẶT ĐẤT", "tone": "GOLD" },
+      "kineticHeadline": {
+        "text": "BƯỚC LÊN MẶT ĐẤT",
+        "tone": "GOLD"
+      },
       "bgmMood": "EMOTIONAL",
       "sfxCue": "sparkle",
       "voiceTone": "SLOW_EMOTIONAL",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
-      "transitionIn": "CROSSFADE",
-      "transitionFrames": 6,
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
       "pauseAfterSec": 0.4,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 960, "focusY": 660 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 660
+      }
     },
     {
       "id": "b50",
@@ -996,7 +1388,10 @@
       "stageType": "CLEAN_EXPLAINER",
       "explainerPalette": "LAVENDER_NIGHT",
       "forestDetail": "V24_FROG_EXPLAIN_B50_SURVIVAL_70PCT",
-      "kineticHeadline": { "text": "HƠN 70% KHÔNG QUA NỔI", "tone": "EMOTION" },
+      "kineticHeadline": {
+        "text": "HƠN 70% KHÔNG QUA NỔI",
+        "tone": "EMOTION"
+      },
       "bgmMood": "EMOTIONAL",
       "sfxCue": "heartbeat",
       "voiceTone": "SLOW_EMOTIONAL",
@@ -1006,7 +1401,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.45,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b51",
@@ -1015,7 +1415,10 @@
       "stageType": "CLEAN_EXPLAINER",
       "explainerPalette": "LAVENDER_NIGHT",
       "forestDetail": "V24_FROG_EXPLAIN_B51_LIFESPAN_3Y",
-      "kineticHeadline": { "text": "CHỈ KHOẢNG 3 NĂM", "tone": "EMOTION" },
+      "kineticHeadline": {
+        "text": "CHỈ KHOẢNG 3 NĂM",
+        "tone": "EMOTION"
+      },
       "bgmMood": "EMOTIONAL",
       "sfxCue": "none",
       "voiceTone": "SLOW_EMOTIONAL",
@@ -1025,7 +1428,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.45,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b52",
@@ -1034,7 +1442,10 @@
       "stageType": "CLEAN_EXPLAINER",
       "explainerPalette": "LAVENDER_NIGHT",
       "forestDetail": "V24_FROG_EXPLAIN_B52_THREE_WAGERS",
-      "kineticHeadline": { "text": "MỖI NĂM MỘT VÁN CƯỢC", "tone": "EMOTION" },
+      "kineticHeadline": {
+        "text": "MỖI NĂM MỘT VÁN CƯỢC",
+        "tone": "EMOTION"
+      },
       "bgmMood": "EMOTIONAL",
       "sfxCue": "none",
       "voiceTone": "SLOW_EMOTIONAL",
@@ -1044,7 +1455,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.45,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b53",
@@ -1054,17 +1470,25 @@
       "forestSeason": "SUMMER",
       "forestDetail": "FROG_FOREST_B53_PROUD_WATCH",
       "timeBadge": "MÙA HÈ",
-      "kineticHeadline": { "text": "KHÔNG HỀ VÔ NGHĨA", "tone": "EMOTION" },
+      "kineticHeadline": {
+        "text": "KHÔNG HỀ VÔ NGHĨA",
+        "tone": "EMOTION"
+      },
       "bgmMood": "EMOTIONAL",
       "sfxCue": "sparkle",
       "voiceTone": "SLOW_EMOTIONAL",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
-      "transitionIn": "CROSSFADE",
-      "transitionFrames": 6,
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
       "pauseAfterSec": 0.45,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 920, "focusY": 650 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 920,
+        "focusY": 650
+      }
     },
     {
       "id": "b54",
@@ -1074,7 +1498,10 @@
       "forestSeason": "SUMMER",
       "forestDetail": "FROG_FOREST_B54_MOSS_ROCK_REST",
       "timeBadge": "MÙA HÈ",
-      "kineticHeadline": { "text": "KHÔNG PHẢI ĂN MAY", "tone": "GOLD" },
+      "kineticHeadline": {
+        "text": "KHÔNG PHẢI ĂN MAY",
+        "tone": "GOLD"
+      },
       "bgmMood": "EMOTIONAL",
       "sfxCue": "none",
       "voiceTone": "SLOW_EMOTIONAL",
@@ -1084,7 +1511,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.4,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 920, "focusY": 640 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 920,
+        "focusY": 640
+      }
     },
     {
       "id": "b55",
@@ -1094,17 +1526,25 @@
       "forestSeason": "AUTUMN",
       "forestDetail": "FROG_FOREST_B55_LEAVES_FALL_AGAIN",
       "timeBadge": "CUỐI THU",
-      "kineticHeadline": { "text": "LÁ LẠI BẮT ĐẦU RƠI", "tone": "INFO" },
+      "kineticHeadline": {
+        "text": "LÁ LẠI BẮT ĐẦU RƠI",
+        "tone": "INFO"
+      },
       "bgmMood": "EMOTIONAL",
       "sfxCue": "none",
       "voiceTone": "SLOW_EMOTIONAL",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
-      "transitionIn": "CROSSFADE",
-      "transitionFrames": 6,
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
       "pauseAfterSec": 0.4,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 920, "focusY": 640 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 920,
+        "focusY": 640
+      }
     },
     {
       "id": "b56",
@@ -1114,7 +1554,10 @@
       "forestSeason": "AUTUMN",
       "forestDetail": "FROG_FOREST_B56_PREPARE_AGAIN",
       "timeBadge": "CUỐI THU",
-      "kineticHeadline": { "text": "CHUẨN BỊ LẦN NỮA", "tone": "GOLD" },
+      "kineticHeadline": {
+        "text": "CHUẨN BỊ LẦN NỮA",
+        "tone": "GOLD"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "tick",
       "voiceTone": "CALM_STORY",
@@ -1124,7 +1567,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 860, "focusY": 660 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 860,
+        "focusY": 660
+      }
     },
     {
       "id": "b57",
@@ -1134,17 +1582,25 @@
       "forestSeason": "EARLY_WINTER",
       "forestDetail": "FROG_FOREST_B57_SEE_YOU_SPRING",
       "timeBadge": "ĐẦU ĐÔNG",
-      "kineticHeadline": { "text": "HẸN GẶP MÙA XUÂN", "tone": "INFO" },
+      "kineticHeadline": {
+        "text": "HẸN GẶP MÙA XUÂN",
+        "tone": "INFO"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "pop",
       "voiceTone": "CALM_STORY",
       "timeOfDay": "NIGHT",
       "weather": "CLEAR",
-      "transitionIn": "CROSSFADE",
-      "transitionFrames": 6,
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
       "pauseAfterSec": 0.4,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.03, "focusX": 820, "focusY": 700 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 820,
+        "focusY": 700
+      }
     },
     {
       "id": "b58",
@@ -1154,17 +1610,25 @@
       "forestSeason": "DEEP_WINTER",
       "forestDetail": "FROG_FOREST_B58_STILL_ALIVE",
       "timeBadge": "GIỮA MÙA ĐÔNG",
-      "kineticHeadline": { "text": "VẪN CÒN SỐNG ĐẤY!", "tone": "GOLD" },
+      "kineticHeadline": {
+        "text": "VẪN CÒN SỐNG ĐẤY!",
+        "tone": "GOLD"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "ding",
       "voiceTone": "CALM_STORY",
       "timeOfDay": "DAY",
       "weather": "CLEAR",
-      "transitionIn": "CROSSFADE",
-      "transitionFrames": 6,
+      "transitionIn": "CUT",
+      "transitionFrames": 0,
       "pauseAfterSec": 0.4,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.05, "focusX": 820, "focusY": 720 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.05,
+        "focusX": 820,
+        "focusY": 720
+      }
     },
     {
       "id": "b59",
@@ -1173,7 +1637,10 @@
       "stageType": "CLEAN_EXPLAINER",
       "explainerPalette": "SKY_BLUE",
       "forestDetail": "V24_FROG_EXPLAIN_B59_TOUGHER_CREATURE",
-      "kineticHeadline": { "text": "NHƯNG CHƯA LÀ GÌ...", "tone": "GOLD" },
+      "kineticHeadline": {
+        "text": "NHƯNG CHƯA LÀ GÌ...",
+        "tone": "GOLD"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "headline_pop",
       "voiceTone": "CALM_STORY",
@@ -1183,7 +1650,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
     },
     {
       "id": "b60",
@@ -1192,7 +1664,10 @@
       "stageType": "CLEAN_EXPLAINER",
       "explainerPalette": "LAVENDER_NIGHT",
       "forestDetail": "V24_FROG_EXPLAIN_B60_TARDIGRADE_TEASER",
-      "kineticHeadline": { "text": "NHỎ HƠN HẠT CÁT", "tone": "ALERT" },
+      "kineticHeadline": {
+        "text": "NHỎ HƠN HẠT CÁT",
+        "tone": "ALERT"
+      },
       "bgmMood": "TENSE",
       "sfxCue": "pop",
       "voiceTone": "TENSE_CLIMAX",
@@ -1202,7 +1677,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.35,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.04, "focusX": 960, "focusY": 520 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.04,
+        "focusX": 960,
+        "focusY": 520
+      }
     },
     {
       "id": "b61",
@@ -1211,7 +1691,10 @@
       "stageType": "CLEAN_EXPLAINER",
       "explainerPalette": "LAVENDER_NIGHT",
       "forestDetail": "V24_FROG_EXPLAIN_B61_TARDIGRADE_SPACE",
-      "kineticHeadline": { "text": "TẬP SAU: GẤU NƯỚC!", "tone": "GOLD" },
+      "kineticHeadline": {
+        "text": "TẬP SAU: GẤU NƯỚC!",
+        "tone": "GOLD"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "sparkle",
       "voiceTone": "CALM_STORY",
@@ -1221,7 +1704,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.4,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.03, "focusX": 960, "focusY": 520 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.03,
+        "focusX": 960,
+        "focusY": 520
+      }
     },
     {
       "id": "b62",
@@ -1230,7 +1718,10 @@
       "stageType": "CLEAN_EXPLAINER",
       "explainerPalette": "SKY_BLUE",
       "forestDetail": "V24_FROG_EXPLAIN_B62_OUTRO_WAVE",
-      "kineticHeadline": { "text": "HẸN GẶP TẬP SAU!", "tone": "GOLD" },
+      "kineticHeadline": {
+        "text": "HẸN GẶP TẬP SAU!",
+        "tone": "GOLD"
+      },
       "bgmMood": "CURIOUS",
       "sfxCue": "ding",
       "voiceTone": "CALM_STORY",
@@ -1240,7 +1731,12 @@
       "transitionFrames": 0,
       "pauseAfterSec": 0.5,
       "actors": [],
-      "camera": { "fromScale": 1.0, "toScale": 1.02, "focusX": 960, "focusY": 540 }
+      "camera": {
+        "fromScale": 1,
+        "toScale": 1.02,
+        "focusX": 960,
+        "focusY": 540
+      }
     }
   ]
 }

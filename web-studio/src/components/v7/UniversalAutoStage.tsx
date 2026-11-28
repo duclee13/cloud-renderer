@@ -2736,6 +2736,7 @@ export const UniversalAutoStage: React.FC<{
   if (isFullScreenCustomVisual && CustomVisualComponent) {
     const mountCleanExplainerUnderlay =
       spec.stageType === "CLEAN_EXPLAINER" && Boolean(spec.explainerPalette);
+    const hideHorizon = Boolean(spec.customVisual && spec.customVisual.startsWith("FROG_"));
     return (
       <g id={`universal-auto-stage-${spec.id}`} data-fullscreen-visual="true">
         {mountCleanExplainerUnderlay && (
@@ -2743,6 +2744,7 @@ export const UniversalAutoStage: React.FC<{
             palette={spec.explainerPalette}
             frame={stageRenderFrame}
             uid={spec.id}
+            hideHorizon={hideHorizon}
           />
         )}
         <g id={`layer-custom-visual-fullscreen-${spec.id}`}>

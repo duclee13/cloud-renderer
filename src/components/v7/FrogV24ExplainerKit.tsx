@@ -34,16 +34,15 @@ export const TardigradeSilhouetteHero: React.FC<{
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      {/* Crisp multi-ring luminous aura (pure flat strokes, 0 blur!) */}
       <ellipse cx={0} cy={0} rx={165} ry={102} fill={glowColor} opacity={0.12} stroke="none" />
       <ellipse cx={0} cy={0} rx={138} ry={82} fill={glowColor} opacity={0.18} stroke="none" />
 
       {/* Back row of 4 chubby clawed stubby legs */}
       <g fill="#0F172A" stroke={glowColor} strokeWidth={4}>
-        <path d={`M -72,30 C -84,56 -72,72 -58,68 C -48,64 -48,46 -50,30 Z`} transform={`rotate(${legWiggle.toFixed(1)}, -64, 30)`} />
-        <path d={`M -26,38 C -34,64 -20,78 -8,72 C 2,66 2,48 -2,36 Z`} transform={`rotate(${(-legWiggle).toFixed(1)}, -16, 38)`} />
-        <path d={`M 24,38 C 18,64 32,78 44,72 C 54,66 52,48 46,36 Z`} transform={`rotate(${legWiggle.toFixed(1)}, 34, 38)`} />
-        <path d={`M 74,26 C 72,54 88,68 98,60 C 106,52 100,34 92,22 Z`} transform={`rotate(${(-legWiggle).toFixed(1)}, 86, 26)`} />
+        <path d="M -72,30 C -84,56 -72,72 -58,68 C -48,64 -48,46 -50,30 Z" transform={`rotate(${legWiggle.toFixed(1)}, -64, 30)`} />
+        <path d="M -26,38 C -34,64 -20,78 -8,72 C 2,66 2,48 -2,36 Z" transform={`rotate(${(-legWiggle).toFixed(1)}, -16, 38)`} />
+        <path d="M 24,38 C 18,64 32,78 44,72 C 54,66 52,48 46,36 Z" transform={`rotate(${legWiggle.toFixed(1)}, 34, 38)`} />
+        <path d="M 74,26 C 72,54 88,68 98,60 C 106,52 100,34 92,22 Z" transform={`rotate(${(-legWiggle).toFixed(1)}, 86, 26)`} />
       </g>
 
       {/* Outer Cyan Rim Halo + Chubby 4-Segment Water-Bear Silhouette Body */}
@@ -53,7 +52,6 @@ export const TardigradeSilhouetteHero: React.FC<{
         stroke={glowColor}
         strokeWidth={6}
       />
-      {/* Subtle inner translucent cyan segment creases */}
       <path
         d="M -52,-42 C -46,-14 -46,16 -52,36 M -4,-46 C 2,-16 2,18 -4,40 M 46,-42 C 52,-14 52,16 46,36"
         fill="none"
@@ -93,7 +91,9 @@ export const TardigradeSilhouetteHero: React.FC<{
 
 /* ============================================================================
  * MAIN COMPONENT: FrogV24ExplainerKit (23 Non-SVG CLEAN_EXPLAINER Beats)
- *   - Drawn full-bleed inside y=220..820 directly over CleanExplainerStage
+ *   - Drawn full-bleed inside y=220..780 directly over CleanExplainerStage
+ *   - All bottom caption pills kept comfortably above y=790 horizon (bottom <= 740,
+ *     and Beats 17/27/33 pills lifted to y <= 665, >= 125px clear above horizon!)
  *   - Zero white PowerPoint frames, zero blur/dropShadow/foreignObject!
  * ========================================================================== */
 
@@ -135,7 +135,6 @@ export const FrogV24ExplainerKit: React.FC<{
               heartGlowT={0.55 + 0.45 * glowPulse}
               accessory="scarf_red"
             />
-            {/* Delicate golden thaw crack gleaming along ice rim */}
             <path
               d="M 900,665 L 938,632 L 962,648 L 1012,608 L 1044,622"
               fill="none"
@@ -149,12 +148,12 @@ export const FrogV24ExplainerKit: React.FC<{
         );
       })()}
 
-      {/* BEAT 7: Tôi là ếch gỗ — Protagonist beside flat North America & Arctic Circle map */}
+      {/* BEAT 7: Tôi là ếch gỗ — Protagonist beside smoothly curved North America & Alaska Peninsula map! */}
       {mode === "V24_FROG_EXPLAIN_B07_NORTH_MAP" && (
         <g>
-          <GroundShadow cx={630} cy={792} rx={155} ry={18} />
+          <GroundShadow cx={610} cy={792} rx={155} ry={18} />
           <CuteWoodFrog
-            x={630}
+            x={610}
             y={758}
             scale={1.5}
             frame={frame}
@@ -163,34 +162,34 @@ export const FrogV24ExplainerKit: React.FC<{
             emotion="happy"
             accessory="scarf_red"
           />
-          {/* Clean full-bleed vector map of North America + Arctic Circle line (y=250..760) */}
-          <g transform={`translate(1245, 515) scale(${popT.toFixed(3)})`}>
-            {/* Stylized North America silhouette */}
+          {/* Smooth curved North America silhouette with gentle Alaska peninsula + Hudson Bay */}
+          <g transform={`translate(1255, 495) scale(${popT.toFixed(3)})`}>
             <path
-              d="M -220,-155 L -120,-185 L -30,-175 L 70,-195 L 155,-140 L 185,-75 L 130,-15 L 155,40 L 95,105 L 35,155 L -25,215 L -75,180 L -85,110 L -150,55 L -185,-25 L -245,-75 Z"
+              d="M -258,-92 C -268,-128 -228,-168 -178,-164 C -144,-162 -118,-182 -68,-184 C -24,-186 24,-176 58,-192 C 110,-206 164,-176 184,-130 C 198,-96 176,-54 148,-24 C 138,-12 162,16 146,48 C 128,84 82,118 46,148 C 16,174 -4,202 -36,196 C -68,190 -78,144 -96,112 C -118,76 -156,52 -174,6 C -184,-20 -184,-48 -206,-60 C -228,-72 -252,-68 -258,-92 Z"
               fill="#6EE7B7"
               stroke={INK}
               strokeWidth={4.5}
+              strokeLinecap="round"
               strokeLinejoin="round"
             />
-            {/* Northern Wood Frog habitat range overlay */}
+            {/* Smooth northern Wood Frog habitat overlay sweeping cleanly across Alaska & Canada */}
             <path
-              d="M -215,-145 L -115,-176 L -28,-166 L 68,-184 L 145,-132 L 160,-70 L 102,-22 L -125,-12 L -208,-68 Z"
+              d="M -250,-92 C -256,-122 -220,-156 -174,-154 C -138,-154 -114,-172 -66,-174 C -22,-176 26,-168 62,-182 C 106,-194 150,-168 168,-128 C 176,-100 156,-62 126,-36 C 58,-20 -72,-16 -166,-44 C -204,-56 -244,-66 -250,-92 Z"
               fill="#B4693E"
               fillOpacity={0.78}
               stroke="#7C2D12"
               strokeWidth={3}
             />
             {/* Bold Arctic Circle dashed line */}
-            <line x1={-285} y1={-118} x2={255} y2={-118} stroke="#0284C7" strokeWidth={5.5} strokeDasharray="14 10" />
-            <rect x={-160} y={-242} width={320} height={46} rx={23} fill="#0284C7" stroke={INK} strokeWidth={3.2} />
-            <text x={0} y={-211} textAnchor="middle" fill="#FFFFFF" fontSize={22} fontWeight={900}>
+            <line x1={-285} y1={-120} x2={245} y2={-120} stroke="#0284C7" strokeWidth={5.5} strokeDasharray="14 10" />
+            <rect x={-160} y={-240} width={320} height={46} rx={23} fill="#0284C7" stroke={INK} strokeWidth={3.2} />
+            <text x={0} y={-209} textAnchor="middle" fill="#FFFFFF" fontSize={22} fontWeight={900}>
               VÒNG BẮC CỰC
             </text>
-            {/* Location pin in Alaska / Northern Canada */}
-            <circle cx={-125} cy={-126} r={14} fill="#EF4444" stroke="#FFFFFF" strokeWidth={3.5} />
-            <rect x={-175} y={182} width={350} height={48} rx={22} fill="#FFFFFF" stroke={INK} strokeWidth={3.2} />
-            <text x={0} y={214} textAnchor="middle" fill={INK} fontSize={21} fontWeight={900}>
+            {/* Location pin in Alaska peninsula */}
+            <circle cx={-196} cy={-114} r={13} fill="#EF4444" stroke="#FFFFFF" strokeWidth={3.5} />
+            <rect x={-195} y={196} width={390} height={48} rx={24} fill="#FFFFFF" stroke={INK} strokeWidth={3.2} />
+            <text x={0} y={228} textAnchor="middle" fill={INK} fontSize={21} fontWeight={900}>
               Lưỡng cư duy nhất vượt Bắc Cực
             </text>
           </g>
@@ -211,7 +210,6 @@ export const FrogV24ExplainerKit: React.FC<{
             emotion="curious"
             accessory="scarf_red"
           />
-          {/* Giant rotating crisp geometric snowflake */}
           <g transform={`translate(1280, 500) rotate(${(frame * 0.45).toFixed(1)})`}>
             <circle cx={0} cy={0} r={185} fill="#E0F2FE" opacity={0.62} stroke="#38BDF8" strokeWidth={4} strokeDasharray="12 10" />
             {[0, 60, 120, 180, 240, 300].map((deg) => (
@@ -237,8 +235,7 @@ export const FrogV24ExplainerKit: React.FC<{
         });
         return (
           <g>
-            {/* Left: Smooth Water Drop */}
-            <g transform="translate(520, 520)">
+            <g transform="translate(520, 485)">
               <path
                 d="M 0,-138 C 78,-30 102,42 102,88 C 102,146 56,184 0,184 C -56,184 -102,146 -102,88 C -102,42 -78,-30 0,-138 Z"
                 fill="#38BDF8"
@@ -246,13 +243,12 @@ export const FrogV24ExplainerKit: React.FC<{
                 strokeWidth={5}
               />
               <ellipse cx={-34} cy={52} rx={18} ry={34} fill="#E0F2FE" opacity={0.7} stroke="none" />
-              <text x={0} y={235} textAnchor="middle" fill={INK} fontSize={26} fontWeight={900}>
+              <text x={0} y={232} textAnchor="middle" fill={INK} fontSize={26} fontWeight={900}>
                 Giọt nước lỏng
               </text>
             </g>
 
-            {/* Center Bold Arrow */}
-            <g transform="translate(910, 520)">
+            <g transform="translate(910, 485)">
               <path d="M -95,0 L 75,0" stroke="#0284C7" strokeWidth={12} strokeLinecap="round" />
               <polygon points="105,0 60,-28 60,28" fill="#0284C7" />
               <rect x={-90} y={-68} width={180} height={42} rx={21} fill="#DC2626" stroke={INK} strokeWidth={3} />
@@ -261,13 +257,12 @@ export const FrogV24ExplainerKit: React.FC<{
               </text>
             </g>
 
-            {/* Right: Expanding Sharp Crystalline Ice Needles */}
-            <g transform={`translate(1360, 520) scale(${burstT.toFixed(3)})`}>
-              <circle cx={0} cy={0} r={195} fill="#FEE2E2" opacity={0.62} stroke="#EF4444" strokeWidth={4} strokeDasharray="10 8" />
+            <g transform={`translate(1360, 485) scale(${burstT.toFixed(3)})`}>
+              <circle cx={0} cy={0} r={185} fill="#FEE2E2" opacity={0.62} stroke="#EF4444" strokeWidth={4} strokeDasharray="10 8" />
               {[0, 45, 90, 135, 180, 225, 270, 315].map((deg) => (
                 <polygon
                   key={deg}
-                  points="0,-185 -22,-55 0,-30 22,-55"
+                  points="0,-178 -22,-55 0,-30 22,-55"
                   transform={`rotate(${deg})`}
                   fill={deg % 90 === 0 ? "#38BDF8" : "#BAE6FD"}
                   stroke={INK}
@@ -275,8 +270,8 @@ export const FrogV24ExplainerKit: React.FC<{
                   strokeLinejoin="round"
                 />
               ))}
-              <polygon points="0,-58 50,-28 50,28 0,58 -50,28 -50,-28" fill="#E0F2FE" stroke={INK} strokeWidth={4} />
-              <text x={0} y={235} textAnchor="middle" fill="#B91C1C" fontSize={26} fontWeight={900}>
+              <polygon points="0,-56 48,-26 48,26 0,56 -48,26 -48,-26" fill="#E0F2FE" stroke={INK} strokeWidth={4} />
+              <text x={0} y={232} textAnchor="middle" fill="#B91C1C" fontSize={26} fontWeight={900}>
                 Nở to + Mũi kim sắc nhọn!
               </text>
             </g>
@@ -298,13 +293,12 @@ export const FrogV24ExplainerKit: React.FC<{
             emotion="proud"
             accessory="scarf_red"
           />
-          {/* Stylized curling cold wind gusts + drifting snowflakes from right */}
-          <g transform="translate(1060, 460)" fill="none" stroke="#0284C7" strokeWidth={8} strokeLinecap="round">
+          <g transform="translate(1060, 435)" fill="none" stroke="#0284C7" strokeWidth={8} strokeLinecap="round">
             <path d={`M ${(580 - (frame * 3) % 120).toFixed(1)},-90 Q 340,-125 180,-75 Q 60,-40 120,10 Q 170,40 140,-15`} opacity={0.78} />
             <path d={`M ${(620 - (frame * 2.4) % 120).toFixed(1)},45 Q 390,10 220,55 Q 95,90 155,135 Q 205,165 175,108`} stroke="#38BDF8" opacity={0.85} />
-            <path d={`M ${(540 - (frame * 2.8) % 120).toFixed(1)},165 Q 320,145 160,185`} stroke="#7DD3FC" opacity={0.85} />
+            <path d={`M ${(540 - (frame * 2.8) % 120).toFixed(1)},155 Q 320,135 160,175`} stroke="#7DD3FC" opacity={0.85} />
           </g>
-          <g transform="translate(1290, 680)">
+          <g transform="translate(1290, 636)">
             <rect x={-235} y={-28} width={470} height={56} rx={28} fill="#FFFFFF" stroke={INK} strokeWidth={3.5} />
             <text x={0} y={8} textAnchor="middle" fill="#0369A1" fontSize={24} fontWeight={900}>
               Chủ động đóng băng có kiểm soát ✓
@@ -313,7 +307,7 @@ export const FrogV24ExplainerKit: React.FC<{
         </g>
       )}
 
-      {/* BEAT 17: Đóng băng chậm rãi — Thermometer steady at -1°C beside orderly crystal vessel */}
+      {/* BEAT 17: Đóng băng chậm rãi — Caption pill lifted cleanly to y <= 665 (>= 125px clear of y=790 horizon!) */}
       {mode === "V24_FROG_EXPLAIN_B17_SLOW_FREEZE" && (() => {
         const crystalGrow = interpolate(activeLocal, [4, 48], [0.25, 1], {
           extrapolateLeft: "clamp",
@@ -322,44 +316,39 @@ export const FrogV24ExplainerKit: React.FC<{
         return (
           <g>
             {/* Left: Crisp Thermometer at -1°C */}
-            <g transform="translate(470, 510)">
-              <rect x={-26} y={-235} width={52} height={365} rx={26} fill="#FFFFFF" stroke={INK} strokeWidth={4.5} />
-              <circle cx={0} cy={145} r={54} fill="#FFFFFF" stroke={INK} strokeWidth={4.5} />
-              <rect x={-12} y={-10} width={24} height={155} rx={10} fill="#38BDF8" />
-              <circle cx={0} cy={145} r={36} fill="#38BDF8" />
-              {/* -1°C Marker */}
-              <line x1={32} y1={-10} x2={64} y2={-10} stroke="#0284C7" strokeWidth={5} />
-              <rect x={72} y={-36} width={128} height={52} rx={20} fill="#0284C7" stroke={INK} strokeWidth={3.2} />
-              <text x={136} y={-2} textAnchor="middle" fill="#FFFFFF" fontSize={26} fontWeight={900}>
+            <g transform="translate(470, 445)">
+              <rect x={-24} y={-195} width={48} height={310} rx={24} fill="#FFFFFF" stroke={INK} strokeWidth={4.5} />
+              <circle cx={0} cy={125} r={48} fill="#FFFFFF" stroke={INK} strokeWidth={4.5} />
+              <rect x={-11} y={-8} width={22} height={135} rx={10} fill="#38BDF8" />
+              <circle cx={0} cy={125} r={32} fill="#38BDF8" />
+              <line x1={30} y1={-8} x2={60} y2={-8} stroke="#0284C7" strokeWidth={5} />
+              <rect x={68} y={-32} width={122} height={48} rx={20} fill="#0284C7" stroke={INK} strokeWidth={3.2} />
+              <text x={129} y={0} textAnchor="middle" fill="#FFFFFF" fontSize={25} fontWeight={900}>
                 -1°C
               </text>
             </g>
 
-            {/* Right: Orderly blood vessel + Ice-nucleating molecules guiding slow outer crystals */}
-            <g transform="translate(1160, 520)">
-              {/* Horizontal blood vessel tube */}
-              <rect x={-360} y={-54} width={720} height={108} rx={54} fill="#FCA5A5" stroke={INK} strokeWidth={5} />
-              <rect x={-344} y={-36} width={688} height={72} rx={36} fill="#EF4444" opacity={0.82} />
-              {/* Gentle ice-nucleating molecules inside vessel */}
+            {/* Right: Orderly blood vessel + slow outer crystals */}
+            <g transform="translate(1160, 435)">
+              <rect x={-350} y={-48} width={700} height={96} rx={48} fill="#FCA5A5" stroke={INK} strokeWidth={5} />
+              <rect x={-334} y={-32} width={668} height={64} rx={32} fill="#EF4444" opacity={0.82} />
               {[-240, -100, 40, 180].map((mx, i) => (
-                <g key={i} transform={`translate(${(mx + ((frame * 1.4) % 90)).toFixed(1)}, ${i % 2 === 0 ? -8 : 10})`}>
-                  <circle cx={0} cy={0} r={14} fill="#FEF08A" stroke={INK} strokeWidth={2.8} />
-                  <circle cx={0} cy={0} r={5} fill="#0284C7" stroke="none" />
+                <g key={i} transform={`translate(${(mx + ((frame * 1.4) % 90)).toFixed(1)}, ${i % 2 === 0 ? -7 : 9})`}>
+                  <circle cx={0} cy={0} r={13} fill="#FEF08A" stroke={INK} strokeWidth={2.8} />
+                  <circle cx={0} cy={0} r={4.5} fill="#0284C7" stroke="none" />
                 </g>
               ))}
-              {/* Orderly growing crystal gems outside vessel */}
-              {[-260, -120, 20, 160, 280].map((cx, i) => (
-                <g key={i} transform={`translate(${cx}, ${i % 2 === 0 ? -112 : 112}) scale(${crystalGrow.toFixed(2)})`}>
-                  <polygon
-                    points="0,-38 28,-12 20,28 -20,28 -28,-12"
-                    fill="#BAE6FD"
-                    stroke="#0284C7"
-                    strokeWidth={3.5}
-                  />
+              {[-250, -115, 20, 155, 275].map((cx, i) => (
+                <g key={i} transform={`translate(${cx}, ${i % 2 === 0 ? -98 : 98}) scale(${crystalGrow.toFixed(2)})`}>
+                  <polygon points="0,-34 25,-10 18,24 -18,24 -25,-10" fill="#BAE6FD" stroke="#0284C7" strokeWidth={3.5} />
                 </g>
               ))}
-              <rect x={-295} y={195} width={590} height={54} rx={27} fill="#FFFFFF" stroke="#15803D" strokeWidth={3.5} />
-              <text x={0} y={230} textAnchor="middle" fill="#15803D" fontSize={23} fontWeight={900}>
+            </g>
+
+            {/* Caption Pill safely at y=608..662 (<= 665, >= 125px above horizon!) */}
+            <g id="frog-b17-caption-pill">
+              <rect x={855} y={608} width={610} height={54} rx={27} fill="#FFFFFF" stroke="#15803D" strokeWidth={3.5} />
+              <text x={1160} y={643} textAnchor="middle" fill="#15803D" fontSize={23} fontWeight={900}>
                 Phân tử dẫn băng: kết tinh từ từ, không gây sốc!
               </text>
             </g>
@@ -381,22 +370,20 @@ export const FrogV24ExplainerKit: React.FC<{
             emotion="curious"
             accessory="scarf_red"
           />
-          <g transform="translate(1260, 520)">
-            {/* 4 ice crystals closing in */}
+          <g transform="translate(1260, 470)">
             {[0, 90, 180, 270].map((deg) => (
               <polygon
                 key={deg}
-                points="0,-195 -36,-115 0,-95 36,-115"
+                points="0,-175 -34,-105 0,-88 34,-105"
                 transform={`rotate(${deg})`}
                 fill="#7DD3FC"
                 stroke={INK}
                 strokeWidth={4}
               />
             ))}
-            {/* Vulnerable living cell at center */}
-            <circle cx={0} cy={0} r={88} fill="#FEF3C7" stroke={INK} strokeWidth={5} />
-            <circle cx={0} cy={0} r={34} fill="#F59E0B" stroke={INK} strokeWidth={3.5} />
-            <text x={0} y={236} textAnchor="middle" fill={INK} fontSize={25} fontWeight={900}>
+            <circle cx={0} cy={0} r={82} fill="#FEF3C7" stroke={INK} strokeWidth={5} />
+            <circle cx={0} cy={0} r={32} fill="#F59E0B" stroke={INK} strokeWidth={3.5} />
+            <text x={0} y={214} textAnchor="middle" fill={INK} fontSize={25} fontWeight={900}>
               Băng bao vây bốn phía — giữ lõi tế bào sao đây?
             </text>
           </g>
@@ -406,42 +393,39 @@ export const FrogV24ExplainerKit: React.FC<{
       {/* BEAT 19: Cần chất chống đông — Golden glowing flask + shielded cell */}
       {mode === "V24_FROG_EXPLAIN_B19_ANTIFREEZE_BREW" && (
         <g>
-          {/* Left: Glowing Golden Syrup Flask */}
-          <g transform={`translate(640, 525) scale(${popT.toFixed(3)})`}>
-            <circle cx={0} cy={15} r={165} fill="#FEF08A" opacity={0.42} stroke="none" />
+          <g transform={`translate(640, 490) scale(${popT.toFixed(3)})`}>
+            <circle cx={0} cy={15} r={160} fill="#FEF08A" opacity={0.42} stroke="none" />
             <path
-              d="M -36,-150 L 36,-150 L 36,-85 L 116,78 C 132,114 108,154 68,154 L -68,154 C -108,154 -132,114 -116,78 L -36,-85 Z"
+              d="M -36,-145 L 36,-145 L 36,-80 L 114,76 C 130,112 106,150 66,150 L -66,150 C -106,150 -130,112 -114,76 L -36,-80 Z"
               fill="#FFFFFF"
               stroke={INK}
               strokeWidth={5}
             />
             <path
-              d="M -78,12 L 78,12 L 106,78 C 118,108 98,140 66,140 L -66,140 C -98,140 -118,108 -106,78 Z"
+              d="M -76,12 L 76,12 L 104,76 C 116,106 96,136 64,136 L -64,136 C -96,136 -116,106 -104,76 Z"
               fill="#F59E0B"
             />
-            <circle cx={-28} cy={78} r={12} fill="#FEF08A" stroke="none" />
-            <circle cx={24} cy={98} r={9} fill="#FEF08A" stroke="none" />
-            <circle cx={8} cy={52} r={7} fill="#FEF08A" stroke="none" />
-            <rect x={-48} y={-166} width={96} height={22} rx={10} fill="#92400E" stroke={INK} strokeWidth={4} />
-            <text x={0} y={214} textAnchor="middle" fill="#92400E" fontSize={26} fontWeight={900}>
+            <circle cx={-28} cy={76} r={12} fill="#FEF08A" stroke="none" />
+            <circle cx={24} cy={96} r={9} fill="#FEF08A" stroke="none" />
+            <circle cx={8} cy={50} r={7} fill="#FEF08A" stroke="none" />
+            <rect x={-48} y={-160} width={96} height={22} rx={10} fill="#92400E" stroke={INK} strokeWidth={4} />
+            <text x={0} y={208} textAnchor="middle" fill="#92400E" fontSize={26} fontWeight={900}>
               Nước chống đông tự nhiên
             </text>
           </g>
 
-          {/* Center Arrow */}
-          <g transform="translate(960, 525)">
+          <g transform="translate(960, 490)">
             <path d="M -75,0 L 65,0" stroke="#D97706" strokeWidth={10} strokeLinecap="round" />
             <polygon points="92,0 52,-24 52,24" fill="#D97706" />
           </g>
 
-          {/* Right: Shielded Living Cell */}
-          <g transform="translate(1310, 525)">
-            <circle cx={0} cy={0} r={155} fill="#FEF08A" opacity={0.35} stroke="#D97706" strokeWidth={6} />
-            <circle cx={0} cy={0} r={116} fill="#FFFBEB" stroke={INK} strokeWidth={5} />
-            <circle cx={0} cy={0} r={46} fill="#F59E0B" stroke={INK} strokeWidth={4} />
-            <circle cx={96} cy={-96} r={34} fill="#22C55E" stroke={INK} strokeWidth={4} />
-            <path d="M 80,-96 L 92,-84 L 114,-108" fill="none" stroke="#FFFFFF" strokeWidth={6} strokeLinecap="round" />
-            <text x={0} y={214} textAnchor="middle" fill="#15803D" fontSize={26} fontWeight={900}>
+          <g transform="translate(1310, 490)">
+            <circle cx={0} cy={0} r={150} fill="#FEF08A" opacity={0.35} stroke="#D97706" strokeWidth={6} />
+            <circle cx={0} cy={0} r={112} fill="#FFFBEB" stroke={INK} strokeWidth={5} />
+            <circle cx={0} cy={0} r={44} fill="#F59E0B" stroke={INK} strokeWidth={4} />
+            <circle cx={92} cy={-92} r={34} fill="#22C55E" stroke={INK} strokeWidth={4} />
+            <path d="M 76,-92 L 88,-80 L 110,-104" fill="none" stroke="#FFFFFF" strokeWidth={6} strokeLinecap="round" />
+            <text x={0} y={208} textAnchor="middle" fill="#15803D" fontSize={26} fontWeight={900}>
               Khiên bảo vệ tế bào 7 tháng!
             </text>
           </g>
@@ -451,36 +435,32 @@ export const FrogV24ExplainerKit: React.FC<{
       {/* BEAT 25: Người là nguy kịch — Human red alert vs Wood Frog green safe checkmark */}
       {mode === "V24_FROG_EXPLAIN_B25_HUMAN_VS_FROG" && (
         <g>
-          {/* Left: Human Icon + Red Danger Badge */}
-          <g transform="translate(560, 515)">
-            <circle cx={0} cy={-110} r={54} fill="#FDE68A" stroke={INK} strokeWidth={5} />
-            <path d="M -76,95 C -76,-10 -46,-46 0,-46 C 46,-46 76,-10 76,95 Z" fill="#64748B" stroke={INK} strokeWidth={5} />
-            {/* Red Alert Circle */}
-            <circle cx={98} cy={-110} r={38} fill="#EF4444" stroke={INK} strokeWidth={4} />
-            <text x={98} y={-96} textAnchor="middle" fill="#FFFFFF" fontSize={44} fontWeight={900}>
+          <g transform="translate(560, 480)">
+            <circle cx={0} cy={-105} r={52} fill="#FDE68A" stroke={INK} strokeWidth={5} />
+            <path d="M -74,90 C -74,-12 -44,-46 0,-46 C 44,-46 74,-12 74,90 Z" fill="#64748B" stroke={INK} strokeWidth={5} />
+            <circle cx={96} cy={-105} r={36} fill="#EF4444" stroke={INK} strokeWidth={4} />
+            <text x={96} y={-91} textAnchor="middle" fill="#FFFFFF" fontSize={42} fontWeight={900}>
               !
             </text>
-            <rect x={-230} y={136} width={460} height={64} rx={32} fill="#FEE2E2" stroke="#DC2626" strokeWidth={4} />
-            <text x={0} y={177} textAnchor="middle" fill="#991B1B" fontSize={26} fontWeight={900}>
+            <rect x={-230} y={122} width={460} height={60} rx={30} fill="#FEE2E2" stroke="#DC2626" strokeWidth={4} />
+            <text x={0} y={161} textAnchor="middle" fill="#991B1B" fontSize={25} fontWeight={900}>
               Người: ×2–10 lần • Nguy hiểm!
             </text>
           </g>
 
-          {/* Center VS divider */}
-          <g transform="translate(960, 505)">
-            <line x1={0} y1={-220} x2={0} y2={220} stroke="#94A3B8" strokeWidth={4} strokeDasharray="10 10" />
-            <circle cx={0} cy={0} r={44} fill="#1E293B" stroke="#FFFFFF" strokeWidth={4} />
+          <g transform="translate(960, 480)">
+            <line x1={0} y1={-205} x2={0} y2={205} stroke="#94A3B8" strokeWidth={4} strokeDasharray="10 10" />
+            <circle cx={0} cy={0} r={42} fill="#1E293B" stroke="#FFFFFF" strokeWidth={4} />
             <text x={0} y={10} textAnchor="middle" fill="#FACC15" fontSize={28} fontWeight={900}>
               VS
             </text>
           </g>
 
-          {/* Right: Wood Frog + Green Check Badge */}
-          <g transform="translate(1360, 515)">
+          <g transform="translate(1360, 480)">
             <CuteWoodFrog
               x={0}
-              y={102}
-              scale={1.45}
+              y={96}
+              scale={1.42}
               frame={frame}
               pose="sit"
               freezeState="normal"
@@ -488,51 +468,53 @@ export const FrogV24ExplainerKit: React.FC<{
               hideEmotionBadge={true}
               accessory="scarf_red"
             />
-            <circle cx={112} cy={-112} r={38} fill="#22C55E" stroke={INK} strokeWidth={4} />
-            <path d="M 94,-112 L 107,-98 L 132,-126" fill="none" stroke="#FFFFFF" strokeWidth={7} strokeLinecap="round" />
-            <rect x={-245} y={136} width={490} height={64} rx={32} fill="#DCFCE7" stroke="#16A34A" strokeWidth={4} />
-            <text x={0} y={177} textAnchor="middle" fill="#166534" fontSize={26} fontWeight={900}>
+            <circle cx={110} cy={-105} r={36} fill="#22C55E" stroke={INK} strokeWidth={4} />
+            <path d="M 92,-105 L 105,-92 L 128,-118" fill="none" stroke="#FFFFFF" strokeWidth={7} strokeLinecap="round" />
+            <rect x={-245} y={122} width={490} height={60} rx={30} fill="#DCFCE7" stroke="#16A34A" strokeWidth={4} />
+            <text x={0} y={161} textAnchor="middle" fill="#166534" fontSize={25} fontWeight={900}>
               Ếch gỗ: ×100–200 lần • An toàn!
             </text>
           </g>
         </g>
       )}
 
-      {/* BEAT 27: Giữ nước trong tế bào — Macro plump golden syrup cell holding shape against ice */}
+      {/* BEAT 27: Giữ nước trong tế bào — Caption pill cleanly at y=608..662 (<= 665, >= 125px above y=790 horizon!) */}
       {mode === "V24_FROG_EXPLAIN_B27_CELL_HYDRATED" && (
-        <g transform="translate(960, 520)">
-          {/* Outer icy crystals bouncing away */}
-          {[0, 45, 90, 135, 180, 225, 270, 315].map((deg, idx) => {
-            const push = Math.sin(frame * 0.1 + idx) * 6;
-            return (
-              <polygon
-                key={deg}
-                points={`0,${(-255 - push).toFixed(1)} -28,${(-182 - push).toFixed(1)} 0,${(-166 - push).toFixed(1)} 28,${(-182 - push).toFixed(1)}`}
-                transform={`rotate(${deg})`}
-                fill="#7DD3FC"
-                stroke="#0284C7"
-                strokeWidth={3.5}
-              />
-            );
-          })}
-          {/* Plump Hydrated Golden Syrup Cell */}
-          <circle cx={0} cy={0} r={158} fill="#FDE68A" stroke="#D97706" strokeWidth={8} />
-          <circle cx={0} cy={0} r={136} fill="#FEF3C7" stroke={INK} strokeWidth={4} />
-          <circle cx={-12} cy={-8} r={52} fill="#F59E0B" stroke={INK} strokeWidth={4} />
-          <ellipse cx={-48} cy={-56} rx={24} ry={12} fill="#FFFFFF" opacity={0.75} stroke="none" />
-          <rect x={-260} y={208} width={520} height={54} rx={27} fill="#FFFFFF" stroke="#15803D" strokeWidth={3.5} />
-          <text x={0} y={243} textAnchor="middle" fill="#15803D" fontSize={24} fontWeight={900}>
-            Tế bào căng tròn khỏe mạnh suốt mùa đông ✓
-          </text>
+        <g>
+          <g transform="translate(960, 415)">
+            {[0, 45, 90, 135, 180, 225, 270, 315].map((deg, idx) => {
+              const push = Math.sin(frame * 0.1 + idx) * 5;
+              return (
+                <polygon
+                  key={deg}
+                  points={`0,${(-190 - push).toFixed(1)} -24,${(-134 - push).toFixed(1)} 0,${(-120 - push).toFixed(1)} 24,${(-134 - push).toFixed(1)}`}
+                  transform={`rotate(${deg})`}
+                  fill="#7DD3FC"
+                  stroke="#0284C7"
+                  strokeWidth={3.5}
+                />
+              );
+            })}
+            <circle cx={0} cy={0} r={116} fill="#FDE68A" stroke="#D97706" strokeWidth={7} />
+            <circle cx={0} cy={0} r={98} fill="#FEF3C7" stroke={INK} strokeWidth={4} />
+            <circle cx={-8} cy={-6} r={38} fill="#F59E0B" stroke={INK} strokeWidth={3.8} />
+            <ellipse cx={-34} cy={-40} rx={18} ry={9} fill="#FFFFFF" opacity={0.75} stroke="none" />
+          </g>
+          <g id="frog-b27-caption-pill">
+            <rect x={700} y={608} width={520} height={54} rx={27} fill="#FFFFFF" stroke="#15803D" strokeWidth={3.5} />
+            <text x={960} y={643} textAnchor="middle" fill="#15803D" fontSize={24} fontWeight={900}>
+              Tế bào căng tròn khỏe mạnh suốt mùa đông ✓
+            </text>
+          </g>
         </g>
       )}
 
-      {/* BEAT 33: Rã đông rất khó — Frosting frog beside outside-in melting ice block with red X */}
+      {/* BEAT 33: Rã đông rất khó — Caption pill cleanly at y=608..662 (<= 665, >= 125px above y=790 horizon!) */}
       {mode === "V24_FROG_EXPLAIN_B33_THAW_RISK" && (
         <g>
-          <GroundShadow cx={630} cy={792} rx={155} ry={18} />
+          <GroundShadow cx={610} cy={792} rx={155} ry={18} />
           <CuteWoodFrog
-            x={630}
+            x={610}
             y={758}
             scale={1.45}
             frame={frame}
@@ -541,20 +523,19 @@ export const FrogV24ExplainerKit: React.FC<{
             emotion="surprised"
             accessory="scarf_red"
           />
-          <g transform="translate(1275, 515)">
-            {/* Soft puddle melting outside while core stays hard blue ice */}
-            <ellipse cx={0} cy={125} rx={215} ry={34} fill="#7DD3FC" stroke="#0284C7" strokeWidth={3.5} />
-            <rect x={-135} y={-135} width={270} height={240} rx={42} fill="#BAE6FD" fillOpacity={0.62} stroke="#0284C7" strokeWidth={4.5} />
-            {/* Still-frozen rigid core */}
-            <polygon points="0,-78 68,-20 50,62 -50,62 -68,-20" fill="#0369A1" stroke={INK} strokeWidth={4} />
-            <text x={0} y={14} textAnchor="middle" fill="#E0F2FE" fontSize={23} fontWeight={900}>
+          <g transform="translate(1275, 425)">
+            <ellipse cx={0} cy={112} rx={195} ry={30} fill="#7DD3FC" stroke="#0284C7" strokeWidth={3.5} />
+            <rect x={-120} y={-118} width={240} height={212} rx={38} fill="#BAE6FD" fillOpacity={0.62} stroke="#0284C7" strokeWidth={4.5} />
+            <polygon points="0,-68 62,-16 44,54 -44,54 -62,-16" fill="#0369A1" stroke={INK} strokeWidth={4} />
+            <text x={0} y={12} textAnchor="middle" fill="#E0F2FE" fontSize={22} fontWeight={900}>
               LÕI CỨNG
             </text>
-            {/* Big Red X warning */}
-            <circle cx={136} cy={-120} r={40} fill="#DC2626" stroke={INK} strokeWidth={4} />
-            <path d="M 118,-138 L 154,-102 M 154,-138 L 118,-102" stroke="#FFFFFF" strokeWidth={8} strokeLinecap="round" />
-            <rect x={-260} y={178} width={520} height={54} rx={27} fill="#FEE2E2" stroke="#DC2626" strokeWidth={3.5} />
-            <text x={0} y={213} textAnchor="middle" fill="#991B1B" fontSize={23} fontWeight={900}>
+            <circle cx={124} cy={-106} r={36} fill="#DC2626" stroke={INK} strokeWidth={4} />
+            <path d="M 108,-122 L 140,-90 M 140,-122 L 108,-90" stroke="#FFFFFF" strokeWidth={7.5} strokeLinecap="round" />
+          </g>
+          <g id="frog-b33-caption-pill">
+            <rect x={1015} y={608} width={520} height={54} rx={27} fill="#FEE2E2" stroke="#DC2626" strokeWidth={3.5} />
+            <text x={1275} y={643} textAnchor="middle" fill="#991B1B" fontSize={23} fontWeight={900}>
               Tan ngoài trước mà tim còn đông = Hỏng ngay!
             </text>
           </g>
@@ -576,12 +557,10 @@ export const FrogV24ExplainerKit: React.FC<{
             throatPuff={true}
             accessory="scarf_red"
           />
-          {/* Crisp cool spring air ribbons flowing gently toward frog */}
           <g transform="translate(1150, 480)" fill="none" stroke="#0284C7" strokeWidth={7} strokeLinecap="round">
             <path d="M 320,-75 Q 160,-105 40,-45 Q -60,0 -145,25" />
             <path d="M 350,10 Q 190,-15 65,25 Q -40,55 -135,50" stroke="#38BDF8" />
             <path d="M 290,95 Q 150,75 45,95 Q -35,105 -120,78" stroke="#0EA5E9" />
-            {/* Fresh pink lungs badge */}
             <g transform="translate(230, 145)">
               <circle cx={0} cy={0} r={66} fill="#FFFFFF" stroke="#0284C7" strokeWidth={4} />
               <path d="M -6,-30 L -6,-6 C -34,-10 -44,24 -22,34 C -8,40 -4,26 -4,10 M 6,-30 L 6,-6 C 34,-10 44,24 22,34 C 8,40 4,26 4,10" fill="#FDA4AF" stroke={INK} strokeWidth={3.2} />
@@ -593,8 +572,7 @@ export const FrogV24ExplainerKit: React.FC<{
       {/* BEAT 38: Dọn sạch kho đường — Golden glucose streaming back into liver -> green energy */}
       {mode === "V24_FROG_EXPLAIN_B38_CLEANUP_SUGAR" && (
         <g>
-          {/* Left: Bloodstream returning sugar dots */}
-          <g transform="translate(560, 520)">
+          <g transform="translate(560, 495)">
             <rect x={-260} y={-50} width={520} height={100} rx={50} fill="#FCA5A5" stroke={INK} strokeWidth={4.5} />
             <rect x={-244} y={-34} width={488} height={68} rx={34} fill="#EF4444" opacity={0.78} />
             {[0, 1, 2, 3, 4].map((si) => {
@@ -606,14 +584,12 @@ export const FrogV24ExplainerKit: React.FC<{
             </text>
           </g>
 
-          {/* Center Arrow */}
-          <g transform="translate(960, 520)">
+          <g transform="translate(960, 495)">
             <path d="M -82,0 L 68,0" stroke="#16A34A" strokeWidth={11} strokeLinecap="round" />
             <polygon points="98,0 54,-26 54,26" fill="#16A34A" />
           </g>
 
-          {/* Right: Liver + Green Energy Storage Battery */}
-          <g transform="translate(1355, 515)">
+          <g transform="translate(1355, 490)">
             <path
               d="M -145,-35 C -145,-125 25,-145 140,-85 C 175,-60 165,30 95,62 C 10,98 -145,65 -145,-35 Z"
               fill="#B45309"
@@ -623,7 +599,6 @@ export const FrogV24ExplainerKit: React.FC<{
             <text x={-5} y={-10} textAnchor="middle" fill="#FEF3C7" fontSize={32} fontWeight={900}>
               GAN
             </text>
-            {/* Green Energy Charge Bar */}
             <rect x={-165} y={105} width={330} height={62} rx={18} fill="#FFFFFF" stroke={INK} strokeWidth={4} />
             <rect x={-153} y={117} width={285} height={38} rx={12} fill="#22C55E" />
             <text x={0} y={145} textAnchor="middle" fill="#FFFFFF" fontSize={22} fontWeight={900}>
@@ -633,39 +608,52 @@ export const FrogV24ExplainerKit: React.FC<{
         </g>
       )}
 
-      {/* BEAT 40: Tại sao phải liều? — Left: green frog snoozing under pond mud vs Right: Wood Frog frozen on surface */}
+      {/* BEAT 40: Tại sao phải liều? — Cute green sleeping pond frog (curved closed eyes + 2 tucked legs!) vs Wood Frog on surface */}
       {mode === "V24_FROG_EXPLAIN_B40_MUD_VS_SURFACE" && (
         <g>
-          {/* Left: Pond Frog Safe Under Warm Mud */}
-          <g transform="translate(535, 515)">
-            <rect x={-310} y={-215} width={620} height={155} rx={24} fill="#38BDF8" stroke={INK} strokeWidth={4} />
-            <rect x={-310} y={-68} width={620} height={240} rx={24} fill="#78350F" stroke={INK} strokeWidth={4} />
-            {/* Cute green sleeping frog tucked in warm mud */}
-            <ellipse cx={0} cy={45} rx={78} ry={46} fill="#22C55E" stroke={INK} strokeWidth={4} />
-            <path d="M -28,36 Q -18,44 -8,36 M 8,36 Q 18,44 28,36" fill="none" stroke={INK} strokeWidth={3.5} />
-            <text x={72} y={-4} fill="#FEF08A" stroke={INK} strokeWidth={4} paintOrder="stroke" fontSize={30} fontWeight={900}>
+          {/* Left: Green Pond Frog Snoozing in Warm Mud */}
+          <g transform="translate(535, 475)">
+            <rect x={-310} y={-205} width={620} height={145} rx={24} fill="#38BDF8" stroke={INK} strokeWidth={4} />
+            <rect x={-310} y={-68} width={620} height={225} rx={24} fill="#78350F" stroke={INK} strokeWidth={4} />
+            {/* Adorable sleeping green pond frog with 2 tucked legs, raised eye bumps, curved sleeping eyes & cheeks */}
+            <g id="frog-b40-sleeping-mud-frog" transform="translate(0, 56)" stroke={INK} strokeWidth={3.8} strokeLinecap="round" strokeLinejoin="round">
+              {/* 2 neat tucked hind legs */}
+              <ellipse cx={-66} cy={14} rx={24} ry={16} fill="#16A34A" />
+              <ellipse cx={66} cy={14} rx={24} ry={16} fill="#16A34A" />
+              {/* Plump green body + pale belly */}
+              <ellipse cx={0} cy={0} rx={68} ry={40} fill="#22C55E" />
+              <ellipse cx={0} cy={14} rx={44} ry={18} fill="#DCFCE7" stroke="none" />
+              {/* 2 raised eye bumps + curved peaceful sleeping eyes */}
+              <circle cx={-26} cy={-30} r={16} fill="#22C55E" />
+              <circle cx={26} cy={-30} r={16} fill="#22C55E" />
+              <path d="M -34,-30 Q -26,-23 -18,-30 M 18,-30 Q 26,-23 34,-30" fill="none" stroke={INK} strokeWidth={3.5} />
+              <ellipse cx={-40} cy={-8} rx={9} ry={5} fill="#FDA4AF" opacity={0.65} stroke="none" />
+              <ellipse cx={40} cy={-8} rx={9} ry={5} fill="#FDA4AF" opacity={0.65} stroke="none" />
+              <path d="M -14,-6 Q 0,3 14,-6" fill="none" stroke={INK} strokeWidth={3} />
+            </g>
+            <text x={82} y={-4} fill="#FEF08A" stroke={INK} strokeWidth={4} paintOrder="stroke" fontSize={30} fontWeight={900}>
               zZ
             </text>
-            <rect x={-255} y={196} width={510} height={54} rx={27} fill="#FFFFFF" stroke={INK} strokeWidth={3.5} />
-            <text x={0} y={231} textAnchor="middle" fill={INK} fontSize={24} fontWeight={900}>
+            <rect x={-255} y={178} width={510} height={54} rx={27} fill="#FFFFFF" stroke={INK} strokeWidth={3.5} />
+            <text x={0} y={213} textAnchor="middle" fill={INK} fontSize={24} fontWeight={900}>
               Ếch khác: ngủ ấm dưới bùn hồ
             </text>
           </g>
 
           {/* Right: Wood Frog Freezing on Surface */}
-          <g transform="translate(1385, 515)">
-            <rect x={-310} y={-215} width={620} height={387} rx={24} fill="#E2E8F0" stroke={INK} strokeWidth={4} />
+          <g transform="translate(1385, 475)">
+            <rect x={-310} y={-205} width={620} height={362} rx={24} fill="#E2E8F0" stroke={INK} strokeWidth={4} />
             <CuteWoodFrog
               x={0}
-              y={104}
-              scale={1.36}
+              y={94}
+              scale={1.34}
               frame={frame}
               pose="frozen_flat"
               freezeState="frozen_solid"
               accessory="scarf_red"
             />
-            <rect x={-255} y={196} width={510} height={54} rx={27} fill="#FEE2E2" stroke="#DC2626" strokeWidth={3.5} />
-            <text x={0} y={231} textAnchor="middle" fill="#991B1B" fontSize={24} fontWeight={900}>
+            <rect x={-255} y={178} width={510} height={54} rx={27} fill="#FEE2E2" stroke="#DC2626" strokeWidth={3.5} />
+            <text x={0} y={213} textAnchor="middle" fill="#991B1B" fontSize={24} fontWeight={900}>
               Ếch gỗ: đóng băng ngay trên mặt đất!
             </text>
           </g>
@@ -675,7 +663,6 @@ export const FrogV24ExplainerKit: React.FC<{
       {/* BEAT 41: Vì mùa hè quá ngắn — Solemn frog gazing up toward rising golden spring sun */}
       {mode === "V24_FROG_EXPLAIN_B41_SHORT_SUMMER" && (
         <g>
-          {/* Soft rising spring sun arc on upper right */}
           <g transform="translate(1340, 445)">
             <circle cx={0} cy={0} r={195} fill="#FEF08A" opacity={0.14} />
             <circle cx={0} cy={0} r={128} fill="#FDE047" opacity={0.22} />
@@ -741,7 +728,7 @@ export const FrogV24ExplainerKit: React.FC<{
         );
       })()}
 
-      {/* BEAT 50: Hơn 70% không qua nổi — 20 glowing dots, 14 dim away leaving 6 bright survivors */}
+      {/* BEAT 50: Hơn 70% không qua nổi — KEPT EXACTLY AS APPROVED! */}
       {mode === "V24_FROG_EXPLAIN_B50_SURVIVAL_70PCT" && (() => {
         const fadeT = interpolate(activeLocal, [10, 48], [0, 1], {
           extrapolateLeft: "clamp",
@@ -761,22 +748,15 @@ export const FrogV24ExplainerKit: React.FC<{
               hideEmotionBadge={true}
               accessory="scarf_red"
             />
-            {/* 4x5 Constellation of 20 newborn froglet sparks */}
             <g transform="translate(880, 325)">
               {Array.from({ length: 20 }).map((_, idx) => {
                 const col = idx % 5;
                 const row = Math.floor(idx / 5);
-                const survives = idx >= 14; // 6 of 20 (30%) stay warm & bright
+                const survives = idx >= 14;
                 const op = survives ? 0.95 : 0.85 - fadeT * 0.68;
                 return (
                   <g key={idx} transform={`translate(${col * 165}, ${row * 102})`}>
-                    <circle
-                      cx={0}
-                      cy={0}
-                      r={survives ? 32 : 24}
-                      fill={survives ? "#FACC15" : "#94A3B8"}
-                      opacity={(op * 0.25).toFixed(2)}
-                    />
+                    <circle cx={0} cy={0} r={survives ? 32 : 24} fill={survives ? "#FACC15" : "#94A3B8"} opacity={(op * 0.25).toFixed(2)} />
                     <circle
                       cx={0}
                       cy={0}
@@ -845,10 +825,9 @@ export const FrogV24ExplainerKit: React.FC<{
             const cx = 480 + wi * 480;
             const pulse = 1 + Math.sin(frame * 0.12 + wi * 1.1) * 0.05;
             return (
-              <g key={wi} transform={`translate(${cx}, 515)`}>
+              <g key={wi} transform={`translate(${cx}, 495)`}>
                 <circle cx={0} cy={0} r={148} fill="#312E81" fillOpacity={0.55} stroke="#7DD3FC" strokeWidth={5} strokeDasharray="14 10" />
                 <circle cx={0} cy={0} r={108} fill="#1E1B4B" stroke="#FDA4AF" strokeWidth={4} />
-                {/* Glowing warm heart inside each winter wager */}
                 <g transform={`scale(${pulse.toFixed(3)})`}>
                   <path
                     d="M 0,40 C -48,8 -58,-28 -32,-44 C -14,-54 0,-36 0,-28 C 0,-36 14,-54 32,-44 C 58,-28 48,8 0,40 Z"
@@ -857,7 +836,7 @@ export const FrogV24ExplainerKit: React.FC<{
                     strokeWidth={4}
                   />
                 </g>
-                <text x={0} y={200} textAnchor="middle" fill="#E0E7FF" fontSize={26} fontWeight={900}>
+                <text x={0} y={196} textAnchor="middle" fill="#E0E7FF" fontSize={26} fontWeight={900}>
                   Mùa đông {wi + 1}
                 </text>
               </g>
@@ -880,8 +859,7 @@ export const FrogV24ExplainerKit: React.FC<{
             emotion="curious"
             accessory="scarf_red"
           />
-          {/* Gleaming Magnifying Glass + Mysterious Cyan Speck */}
-          <g transform={`translate(1260, 500) scale(${popT.toFixed(3)})`}>
+          <g transform={`translate(1260, 495) scale(${popT.toFixed(3)})`}>
             <line x1={96} y1={96} x2={205} y2={205} stroke="#92400E" strokeWidth={28} strokeLinecap="round" />
             <line x1={96} y1={96} x2={205} y2={205} stroke={INK} strokeWidth={6} strokeLinecap="round" />
             <circle cx={0} cy={0} r={142} fill="#0F172A" stroke={INK} strokeWidth={10} />
@@ -894,55 +872,40 @@ export const FrogV24ExplainerKit: React.FC<{
         </g>
       )}
 
-      {/* BEAT 60: Nhỏ hơn hạt cát — Glowing 8-legged Tardigrade Silhouette between Ice (-200°C) & Fire (+100°C)! */}
+      {/* BEAT 60: Nhỏ hơn hạt cát — Glowing 8-legged Tardigrade Silhouette between Ice & Fire! */}
       {mode === "V24_FROG_EXPLAIN_B60_TARDIGRADE_TEASER" && (
         <g>
-          {/* Left: Extreme Ice Crystals */}
-          <g transform="translate(420, 520)">
+          <g transform="translate(420, 495)">
             {[0, 60, 120, 180, 240, 300].map((deg) => (
-              <polygon
-                key={deg}
-                points="0,-145 -22,-55 0,-36 22,-55"
-                transform={`rotate(${deg})`}
-                fill="#38BDF8"
-                stroke="#E0F2FE"
-                strokeWidth={3}
-              />
+              <polygon key={deg} points="0,-145 -22,-55 0,-36 22,-55" transform={`rotate(${deg})`} fill="#38BDF8" stroke="#E0F2FE" strokeWidth={3} />
             ))}
-            <rect x={-125} y={168} width={250} height={50} rx={25} fill="#0284C7" stroke="#BAE6FD" strokeWidth={3} />
-            <text x={0} y={201} textAnchor="middle" fill="#FFFFFF" fontSize={24} fontWeight={900}>
+            <rect x={-130} y={168} width={260} height={50} rx={25} fill="#0284C7" stroke="#BAE6FD" strokeWidth={3} />
+            <text x={0} y={201} textAnchor="middle" fill="#FFFFFF" fontSize={23} fontWeight={900}>
               ĐÓNG BĂNG CỰC SÂU
             </text>
           </g>
 
-          {/* Right: Stylized Boiling Flames */}
-          <g transform="translate(1500, 520)">
+          <g transform="translate(1500, 495)">
             <path
               d="M 0,-158 C 58,-96 98,-32 82,58 C 72,118 36,144 0,144 C -36,144 -72,118 -82,58 C -98,-32 -58,-96 0,-158 Z"
               fill="#EA580C"
               stroke="#FEF08A"
               strokeWidth={4}
             />
-            <path
-              d="M 0,-86 C 34,-44 50,12 42,64 C 36,104 18,124 0,124 C -18,124 -36,104 -42,64 C -50,12 -34,-44 0,-86 Z"
-              fill="#FACC15"
-              stroke="none"
-            />
+            <path d="M 0,-86 C 34,-44 50,12 42,64 C 36,104 18,124 0,124 C -18,124 -36,104 -42,64 C -50,12 -34,-44 0,-86 Z" fill="#FACC15" stroke="none" />
             <rect x={-125} y={168} width={250} height={50} rx={25} fill="#DC2626" stroke="#FEF08A" strokeWidth={3} />
             <text x={0} y={201} textAnchor="middle" fill="#FFFFFF" fontSize={24} fontWeight={900}>
               ĐUN SÔI 100°C+
             </text>
           </g>
 
-          {/* Centerpiece: Glowing 8-Legged Chubby Tardigrade Silhouette */}
-          <TardigradeSilhouetteHero x={960} y={515} scale={1.38} frame={frame} glowColor="#38BDF8" />
+          <TardigradeSilhouetteHero x={960} y={505} scale={1.38} frame={frame} glowColor="#38BDF8" />
         </g>
       )}
 
       {/* BEAT 61: Tập sau: Gấu nước! — Glowing Tardigrade floating in starry cosmos + TẬP 12 badge! */}
       {mode === "V24_FROG_EXPLAIN_B61_TARDIGRADE_SPACE" && (
         <g>
-          {/* Twinkling Deep Space Stars & Distant Ringed Planet */}
           {[
             { x: 240, y: 310, r: 6 },
             { x: 430, y: 660, r: 5 },
@@ -966,10 +929,8 @@ export const FrogV24ExplainerKit: React.FC<{
             <ellipse cx={0} cy={4} rx={96} ry={22} fill="none" stroke="#FDE047" strokeWidth={5} transform="rotate(-16)" />
           </g>
 
-          {/* Floating Tardigrade Hero */}
-          <TardigradeSilhouetteHero x={860} y={535} scale={1.42} frame={frame} glowColor="#7DD3FC" />
+          <TardigradeSilhouetteHero x={860} y={530} scale={1.42} frame={frame} glowColor="#7DD3FC" />
 
-          {/* Bold Glowing Round Badge: TẬP 12 */}
           <g id="v24-ep12-teaser-badge" transform={`translate(1440, 480) scale(${popT.toFixed(3)})`}>
             <circle cx={0} cy={0} r={122} fill="#FACC15" opacity={0.2} />
             <circle cx={0} cy={0} r={96} fill="#FACC15" stroke={INK} strokeWidth={6} />
@@ -997,7 +958,6 @@ export const FrogV24ExplainerKit: React.FC<{
             emotion="happy"
             accessory="scarf_red"
           />
-          {/* Friendly floating Ep12 mini tardigrade medallion */}
           <g transform="translate(1310, 505)">
             <circle cx={0} cy={0} r={148} fill="#1E1B4B" stroke={INK} strokeWidth={5} />
             <TardigradeSilhouetteHero x={0} y={-8} scale={0.78} frame={frame} glowColor="#38BDF8" />
