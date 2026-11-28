@@ -14,6 +14,7 @@ export type AutoStageType =
   | "SCHOOL_CLASSROOM"
   | "HOME_KITCHEN"
   | "FOREST_PARK"
+  | "FOREST_WINTER_STAGE"
   | "OCEAN_UNDERWATER"
   | "BACKYARD_BALCONY_PET"
   | "SCIENCE_LAB_ROOM"
@@ -303,6 +304,63 @@ export type OceanDetailId =
   | "V24_EXPLAIN_LOOK_UP_LIGHTS"
   | "V24_EXPLAIN_OUTRO_CHOICE";
 
+/** V24.0 Tập 11: 5 sắc thái mùa cho bối cảnh rừng phương Bắc FOREST_WINTER_STAGE */
+export type ForestSeasonId =
+  | "DEEP_WINTER"
+  | "AUTUMN"
+  | "EARLY_WINTER"
+  | "SPRING_THAW"
+  | "SUMMER";
+
+/** V24.0 Tập 11: Chi tiết sân khấu FOREST_WINTER_STAGE (20 cảnh) & CLEAN_EXPLAINER FrogV24ExplainerKit (23 cảnh) */
+export type ForestDetailId =
+  | "NONE"
+  // FOREST_WINTER_STAGE continuous story scenes
+  | "FROG_FOREST_B01_FROZEN_STONE"
+  | "FROG_FOREST_B02_BOOT_NEAR_MISS"
+  | "FROG_FOREST_B06_SPRING_REVIVE"
+  | "FROG_FOREST_B09_AUTUMN_PREP"
+  | "FROG_FOREST_B13_FIRST_FROST"
+  | "FROG_FOREST_B20_FREEZE_THAW_CYCLE"
+  | "FROG_FOREST_B28_BLIZZARD"
+  | "FROG_FOREST_B31_ABSOLUTE_SILENCE"
+  | "FROG_FOREST_B32_SPRING_SUNLIGHT"
+  | "FROG_FOREST_B39_RUSH_FORWARD"
+  | "FROG_FOREST_B42_FIRST_TO_POOL"
+  | "FROG_FOREST_B44_SAFE_NO_FISH"
+  | "FROG_FOREST_B45_SPRING_CHORUS"
+  | "FROG_FOREST_B49_BABIES_ON_LAND"
+  | "FROG_FOREST_B53_PROUD_WATCH"
+  | "FROG_FOREST_B54_MOSS_ROCK_REST"
+  | "FROG_FOREST_B55_LEAVES_FALL_AGAIN"
+  | "FROG_FOREST_B56_PREPARE_AGAIN"
+  | "FROG_FOREST_B57_SEE_YOU_SPRING"
+  | "FROG_FOREST_B58_STILL_ALIVE"
+  // CLEAN_EXPLAINER FrogV24ExplainerKit scenes
+  | "V24_FROG_EXPLAIN_B05_NOT_DEAD"
+  | "V24_FROG_EXPLAIN_B07_NORTH_MAP"
+  | "V24_FROG_EXPLAIN_B08_SNOWFLAKE_MYSTERY"
+  | "V24_FROG_EXPLAIN_B10_WATER_NEEDLES"
+  | "V24_FROG_EXPLAIN_B14_EMBRACE_FREEZE"
+  | "V24_FROG_EXPLAIN_B17_SLOW_FREEZE"
+  | "V24_FROG_EXPLAIN_B18_WAIT_HOW"
+  | "V24_FROG_EXPLAIN_B19_ANTIFREEZE_BREW"
+  | "V24_FROG_EXPLAIN_B25_HUMAN_VS_FROG"
+  | "V24_FROG_EXPLAIN_B27_CELL_HYDRATED"
+  | "V24_FROG_EXPLAIN_B33_THAW_RISK"
+  | "V24_FROG_EXPLAIN_B36_FIRST_BREATH"
+  | "V24_FROG_EXPLAIN_B38_CLEANUP_SUGAR"
+  | "V24_FROG_EXPLAIN_B40_MUD_VS_SURFACE"
+  | "V24_FROG_EXPLAIN_B41_SHORT_SUMMER"
+  | "V24_FROG_EXPLAIN_B47_SILENT_RIPPLE"
+  | "V24_FROG_EXPLAIN_B50_SURVIVAL_70PCT"
+  | "V24_FROG_EXPLAIN_B51_LIFESPAN_3Y"
+  | "V24_FROG_EXPLAIN_B52_THREE_WAGERS"
+  | "V24_FROG_EXPLAIN_B59_TOUGHER_CREATURE"
+  | "V24_FROG_EXPLAIN_B60_TARDIGRADE_TEASER"
+  | "V24_FROG_EXPLAIN_B61_TARDIGRADE_SPACE"
+  | "V24_FROG_EXPLAIN_B62_OUTRO_WAVE";
+
 /** V23.0: Chủ đề giao diện bảng nghiên cứu cho HOST_EXPLAIN_OVERLAY (mặc định LAB_WHITEBOARD) */
 export type HostBoardTheme = "LAB_WHITEBOARD" | "NATURE_FIELD_BOARD";
 
@@ -414,6 +472,10 @@ export interface AutoEpisodeBeat {
   oceanBubble?: string;
   /** V23.5: Sinh vật đang nói trong OCEAN_UNDERWATER ("OCTOPUS" | "SHARK") */
   oceanSpeaker?: "OCTOPUS" | "SHARK";
+  /** V24.0 Tập 11: Sắc thái mùa cho FOREST_WINTER_STAGE ("DEEP_WINTER" | "AUTUMN" | "EARLY_WINTER" | "SPRING_THAW" | "SUMMER") */
+  forestSeason?: ForestSeasonId;
+  /** V24.0 Tập 11: Chi tiết sân khấu FOREST_WINTER_STAGE & CLEAN_EXPLAINER (FrogV24ExplainerKit) */
+  forestDetail?: ForestDetailId;
   /** V22.5: Chế độ Freeze-Frame Host giải thích (phủ màn trắng sữa 0.84 phẳng lên nền freezeStage) */
   overlayMode?: "HOST_EXPLAIN";
   /** V22.5: Bối cảnh đời thường đứng yên làm nền cho HOST_EXPLAIN_OVERLAY (vd: SCHOOL_CLASSROOM, CITY_LIVING_ROOM) */
@@ -487,6 +549,7 @@ export const VALID_STAGE_TYPES: readonly AutoStageType[] = [
   "SCHOOL_CLASSROOM",
   "HOME_KITCHEN",
   "FOREST_PARK",
+  "FOREST_WINTER_STAGE",
   "OCEAN_UNDERWATER",
   "BACKYARD_BALCONY_PET",
   "SCIENCE_LAB_ROOM",
@@ -1456,6 +1519,59 @@ const VALID_OCEAN_DETAILS: readonly OceanDetailId[] = [
   "V24_EXPLAIN_LOOK_UP_LIGHTS",
   "V24_EXPLAIN_OUTRO_CHOICE",
 ];
+export const VALID_FOREST_SEASONS: readonly ForestSeasonId[] = [
+  "DEEP_WINTER",
+  "AUTUMN",
+  "EARLY_WINTER",
+  "SPRING_THAW",
+  "SUMMER",
+];
+const VALID_FOREST_DETAILS: readonly ForestDetailId[] = [
+  "NONE",
+  "FROG_FOREST_B01_FROZEN_STONE",
+  "FROG_FOREST_B02_BOOT_NEAR_MISS",
+  "FROG_FOREST_B06_SPRING_REVIVE",
+  "FROG_FOREST_B09_AUTUMN_PREP",
+  "FROG_FOREST_B13_FIRST_FROST",
+  "FROG_FOREST_B20_FREEZE_THAW_CYCLE",
+  "FROG_FOREST_B28_BLIZZARD",
+  "FROG_FOREST_B31_ABSOLUTE_SILENCE",
+  "FROG_FOREST_B32_SPRING_SUNLIGHT",
+  "FROG_FOREST_B39_RUSH_FORWARD",
+  "FROG_FOREST_B42_FIRST_TO_POOL",
+  "FROG_FOREST_B44_SAFE_NO_FISH",
+  "FROG_FOREST_B45_SPRING_CHORUS",
+  "FROG_FOREST_B49_BABIES_ON_LAND",
+  "FROG_FOREST_B53_PROUD_WATCH",
+  "FROG_FOREST_B54_MOSS_ROCK_REST",
+  "FROG_FOREST_B55_LEAVES_FALL_AGAIN",
+  "FROG_FOREST_B56_PREPARE_AGAIN",
+  "FROG_FOREST_B57_SEE_YOU_SPRING",
+  "FROG_FOREST_B58_STILL_ALIVE",
+  "V24_FROG_EXPLAIN_B05_NOT_DEAD",
+  "V24_FROG_EXPLAIN_B07_NORTH_MAP",
+  "V24_FROG_EXPLAIN_B08_SNOWFLAKE_MYSTERY",
+  "V24_FROG_EXPLAIN_B10_WATER_NEEDLES",
+  "V24_FROG_EXPLAIN_B14_EMBRACE_FREEZE",
+  "V24_FROG_EXPLAIN_B17_SLOW_FREEZE",
+  "V24_FROG_EXPLAIN_B18_WAIT_HOW",
+  "V24_FROG_EXPLAIN_B19_ANTIFREEZE_BREW",
+  "V24_FROG_EXPLAIN_B25_HUMAN_VS_FROG",
+  "V24_FROG_EXPLAIN_B27_CELL_HYDRATED",
+  "V24_FROG_EXPLAIN_B33_THAW_RISK",
+  "V24_FROG_EXPLAIN_B36_FIRST_BREATH",
+  "V24_FROG_EXPLAIN_B38_CLEANUP_SUGAR",
+  "V24_FROG_EXPLAIN_B40_MUD_VS_SURFACE",
+  "V24_FROG_EXPLAIN_B41_SHORT_SUMMER",
+  "V24_FROG_EXPLAIN_B47_SILENT_RIPPLE",
+  "V24_FROG_EXPLAIN_B50_SURVIVAL_70PCT",
+  "V24_FROG_EXPLAIN_B51_LIFESPAN_3Y",
+  "V24_FROG_EXPLAIN_B52_THREE_WAGERS",
+  "V24_FROG_EXPLAIN_B59_TOUGHER_CREATURE",
+  "V24_FROG_EXPLAIN_B60_TARDIGRADE_TEASER",
+  "V24_FROG_EXPLAIN_B61_TARDIGRADE_SPACE",
+  "V24_FROG_EXPLAIN_B62_OUTRO_WAVE",
+];
 const VALID_HOST_HIGHLIGHTS: readonly HostBoardHighlightId[] = [
   "NONE",
   "LEFT",
@@ -1521,6 +1637,22 @@ function sanitizeOceanDetailId(raw: unknown): OceanDetailId | undefined {
   const norm = raw.trim().toUpperCase().replace(/[\s-]+/g, "_");
   return (VALID_OCEAN_DETAILS as readonly string[]).includes(norm)
     ? (norm as OceanDetailId)
+    : undefined;
+}
+
+function sanitizeForestSeasonId(raw: unknown): ForestSeasonId | undefined {
+  if (typeof raw !== "string") return undefined;
+  const norm = raw.trim().toUpperCase().replace(/[\s-]+/g, "_");
+  return (VALID_FOREST_SEASONS as readonly string[]).includes(norm)
+    ? (norm as ForestSeasonId)
+    : undefined;
+}
+
+function sanitizeForestDetailId(raw: unknown): ForestDetailId | undefined {
+  if (typeof raw !== "string") return undefined;
+  const norm = raw.trim().toUpperCase().replace(/[\s-]+/g, "_");
+  return (VALID_FOREST_DETAILS as readonly string[]).includes(norm)
+    ? (norm as ForestDetailId)
     : undefined;
 }
 
@@ -1673,6 +1805,8 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
     const livingRoomDetail = sanitizeLivingRoomDetailId(rb?.livingRoomDetail);
     const balconyDetail = sanitizeBalconyDetailId(rb?.balconyDetail);
     const oceanDetail = sanitizeOceanDetailId(rb?.oceanDetail);
+    const forestSeason = sanitizeForestSeasonId(rb?.forestSeason ?? rb?.season);
+    const forestDetail = sanitizeForestDetailId(rb?.forestDetail ?? rb?.frogDetail);
     const oceanBubble =
       typeof rb?.oceanBubble === "string" && rb.oceanBubble.trim()
         ? rb.oceanBubble.trim().slice(0, 96)
@@ -1709,7 +1843,7 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       typeof rb?.timeBadge === "string" && rb.timeBadge.trim()
         ? rb.timeBadge.trim().slice(0, 32)
         : undefined;
-    const explainerPalette = sanitizeExplainerPalette(rb?.explainerPalette);
+    const explainerPalette = sanitizeExplainerPalette(rb?.explainerPalette ?? rb?.cleanTheme);
     const beatStoryMode = sanitizeStoryMode(rb?.storyMode) ?? (episodeStoryMode && episodeStoryMode !== "CLASSIC_HOST" ? episodeStoryMode : undefined);
     const flashback = rb?.flashback === true ? true : undefined;
     const timeOfDay = matchEnum(rb?.timeOfDay, VALID_TIME_OF_DAY, "DAY");
@@ -1758,6 +1892,8 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
 
     const rawVisualCode = typeof rb?.customVisual === "string" && rb.customVisual.trim()
       ? rb.customVisual.trim()
+      : typeof rb?.visualId === "string" && rb.visualId.trim()
+      ? rb.visualId.trim()
       : typeof rb?.visualCode === "string" && rb.visualCode.trim()
       ? rb.visualCode.trim()
       : "";
@@ -1791,6 +1927,8 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       ...(livingRoomDetail && livingRoomDetail !== "NONE" ? { livingRoomDetail } : {}),
       ...(balconyDetail && balconyDetail !== "NONE" ? { balconyDetail } : {}),
       ...(oceanDetail && oceanDetail !== "NONE" ? { oceanDetail } : {}),
+      ...(forestSeason ? { forestSeason } : {}),
+      ...(forestDetail && forestDetail !== "NONE" ? { forestDetail } : {}),
       ...(oceanBubble ? { oceanBubble } : {}),
       ...(oceanSpeaker ? { oceanSpeaker } : {}),
       ...(overlayMode ? { overlayMode } : {}),

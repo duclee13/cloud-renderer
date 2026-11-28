@@ -2147,3 +2147,333 @@ export const CuteDolphin: React.FC<CuteDolphinProps> = ({
     </g>
   );
 };
+
+/* ============================================================================
+ * 9. CuteWoodFrog — Northern Wood Frog (Lithobates sylvaticus) for Episode 11 V24.0
+ *    - Signature Palette: Warm chestnut-brown back (#B4693E), warm cream belly (#FDE68A),
+ *      signature dark-slate robber's mask (#1E293B) sweeping past both eyes, crisp #1E293B strokeWidth=4
+ *    - 3 freezeState modes:
+ *      * "normal": Warm chestnut-brown, sparkling dark eyes, gentle breathing
+ *      * "frosting": Cool frost-tinted back, subtle ice crystals clinging along ridge
+ *      * "frozen_solid": Ice-slate body (#94A3B8/#BAE6FD), milky-white frozen eyes, sharp 0-blur ice crust, 0 motion
+ *    - Supports all 8 accessories (esp. "scarf_red"), ageVariant ("adult" | "baby" | "elder"),
+ *      throatPuff (spring breath/chorus), heartGlowT (0..1 warm inner revive spark), 0 blur, 0 body wobble!
+ * ========================================================================== */
+
+export type CuteWoodFrogPose = "sit" | "hop" | "wave" | "frozen_flat";
+export type WoodFrogFreezeState = "normal" | "frosting" | "frozen_solid";
+
+export interface CuteWoodFrogProps extends AnimalSpriteBaseProps {
+  pose?: CuteWoodFrogPose;
+  freezeState?: WoodFrogFreezeState;
+  hideEmotionBadge?: boolean;
+  /** Gently expands vocal sac / throat for first spring breath & mating chorus */
+  throatPuff?: boolean;
+  /** 0..1 warm golden heartbeat glow inside chest when frozen_solid */
+  heartGlowT?: number;
+}
+
+const WoodFrogIceCrustStatic: React.FC = React.memo(() => (
+  <g id="wood-frog-ice-crust" stroke="#0284C7" strokeWidth={2.6} strokeLinejoin="round">
+    {/* Translucent faceted ice plates encasing frozen frog (0 blur, pure crisp polygons) */}
+    <polygon points="-66,-18 -46,-54 -8,-66 36,-58 68,-26 62,4 -62,4" fill="#BAE6FD" fillOpacity={0.34} />
+    <polygon points="-58,-4 -40,-44 -22,-32 -36,2" fill="#E0F2FE" fillOpacity={0.55} />
+    <polygon points="18,-56 44,-48 56,-14 34,-24" fill="#E0F2FE" fillOpacity={0.5} />
+    {/* Sharp protruding crystal spikes along upper rim */}
+    <polygon points="-44,-48 -54,-72 -30,-56" fill="#E0F2FE" fillOpacity={0.82} />
+    <polygon points="-4,-62 4,-84 16,-60" fill="#BAE6FD" fillOpacity={0.85} />
+    <polygon points="36,-52 54,-70 48,-40" fill="#E0F2FE" fillOpacity={0.82} />
+    <polygon points="-62,-16 -78,-26 -58,-4" fill="#BAE6FD" fillOpacity={0.78} />
+    <polygon points="60,-18 78,-28 62,-4" fill="#E0F2FE" fillOpacity={0.78} />
+    {/* Crisp specular ice facets */}
+    <path d="M -32,-48 L -14,-54 M 12,-46 L 28,-38 M -44,-22 L -28,-16" stroke="#FFFFFF" strokeWidth={2.4} opacity={0.85} />
+  </g>
+));
+WoodFrogIceCrustStatic.displayName = "WoodFrogIceCrustStatic";
+
+const WoodFrogFrostEdgeStatic: React.FC = React.memo(() => (
+  <g id="wood-frog-frost-edge" stroke="#38BDF8" strokeWidth={2.2} strokeLinejoin="round">
+    <polygon points="-40,-44 -48,-60 -30,-48" fill="#E0F2FE" fillOpacity={0.82} />
+    <polygon points="10,-54 18,-68 24,-50" fill="#BAE6FD" fillOpacity={0.82} />
+    <polygon points="44,-36 58,-46 50,-26" fill="#E0F2FE" fillOpacity={0.82} />
+    <circle cx={-16} cy={-44} r={3.5} fill="#FFFFFF" stroke="none" opacity={0.85} />
+    <circle cx={34} cy={-38} r={3} fill="#FFFFFF" stroke="none" opacity={0.85} />
+  </g>
+));
+WoodFrogFrostEdgeStatic.displayName = "WoodFrogFrostEdgeStatic";
+
+export const CuteWoodFrog: React.FC<CuteWoodFrogProps> = ({
+  x,
+  y,
+  scale = 1,
+  flipX = false,
+  frame,
+  pose = "sit",
+  freezeState = "normal",
+  emotion = "happy",
+  accessory = "none",
+  ageVariant = "adult",
+  hideEmotionBadge = false,
+  throatPuff = false,
+  heartGlowT = 0,
+}) => {
+  const isFrozen = freezeState === "frozen_solid";
+  const isFrosting = freezeState === "frosting";
+  const isHopping = pose === "hop" && !isFrozen;
+  const isWaving = pose === "wave" && !isFrozen;
+  const isFlat = pose === "frozen_flat" || isFrozen;
+
+  const ageScale = ageVariant === "baby" ? 0.72 : 1;
+  const effScale = scale * ageScale;
+  const dir = flipX ? -1 : 1;
+
+  // Strictly 0 body wobble; frozen frog stays completely motionless!
+  const breathY = isFrozen ? 1 : computeAnimalBreathScaleY(frame, 41);
+  const hopArcY = isHopping ? -Math.abs(Math.sin(frame * 0.22)) * 34 : 0;
+  const waveDeg = isWaving ? Math.sin(frame * 0.26) * 20 : 0;
+  const puffScale = throatPuff && !isFrozen ? 1 + 0.22 * (0.5 + 0.5 * Math.sin(frame * 0.22)) : 1;
+
+  // Palette locked by freezeState (chestnut brown #B4693E + cream #FDE68A -> frosting -> ice slate #94A3B8/#BAE6FD)
+  const backColor = isFrozen ? "#94A3B8" : isFrosting ? "#8E7A70" : "#B4693E";
+  const ridgeColor = isFrozen ? "#CBD5E1" : isFrosting ? "#A8988E" : "#C97D4F";
+  const bellyColor = isFrozen ? "#BAE6FD" : isFrosting ? "#E2E8F0" : "#FDE68A";
+  const legDarkColor = isFrozen ? "#64748B" : isFrosting ? "#736259" : "#96522C";
+  const maskColor = isFrozen ? "#334155" : "#1E293B";
+
+  const eyeRadius = ageVariant === "baby" ? 8.2 : 7.2;
+  const blinking = !isFrozen && isAnimalBlinking(frame, 63);
+  const effectiveHideBadge = hideEmotionBadge || isFrozen;
+
+  return (
+    <g
+      id={`animal-cute-wood-frog-${pose}`}
+      data-freeze-state={freezeState}
+      transform={`translate(${x.toFixed(1)}, ${(y + hopArcY).toFixed(1)}) scale(${(dir * effScale).toFixed(3)}, ${effScale.toFixed(3)})`}
+      stroke={INK}
+      strokeWidth={STROKE_W}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {!isHopping && <FlatGroundShadow cy={4} rx={isFlat ? 68 : 62} ry={10} />}
+
+      <g transform={`scale(1, ${breathY.toFixed(4)})`}>
+        {/* Folded Back Hind Legs (or extended when hopping!) */}
+        {isHopping ? (
+          <g fill={legDarkColor}>
+            <path d="M -38,-14 C -68,-6 -86,10 -92,22 C -76,20 -56,8 -34,-2 Z" />
+            <path d="M 38,-14 C 66,-6 84,10 90,22 C 74,20 54,8 34,-2 Z" />
+          </g>
+        ) : (
+          <g fill={legDarkColor}>
+            {/* Left & Right folded muscular frog thighs + webbed feet */}
+            <ellipse cx={-48} cy={-16} rx={22} ry={17} />
+            <path d="M -68,-4 C -74,2 -64,6 -44,4 L -32,2 L -56,-8 Z" fill={backColor} />
+            <ellipse cx={48} cy={-16} rx={22} ry={17} />
+            <path d="M 68,-4 C 74,2 64,6 44,4 L 32,2 L 56,-8 Z" fill={backColor} />
+          </g>
+        )}
+
+        {/* Plump Rounded Wood Frog Body */}
+        <ellipse
+          cx={0}
+          cy={isFlat ? -24 : -30}
+          rx={isFlat ? 54 : 50}
+          ry={isFlat ? 26 : 33}
+          fill={backColor}
+        />
+
+        {/* Subtle Dorsal Tan Ridge + Cel-Shade */}
+        <path
+          d={
+            isFlat
+              ? "M -34,-34 Q 0,-42 34,-34"
+              : "M -32,-42 Q 0,-52 32,-42"
+          }
+          fill="none"
+          stroke={ridgeColor}
+          strokeWidth={4.5}
+          opacity={0.75}
+        />
+        <ellipse
+          cx={0}
+          cy={isFlat ? -15 : -19}
+          rx={isFlat ? 35 : 33}
+          ry={isFlat ? 15 : 21}
+          fill={bellyColor}
+          stroke="none"
+        />
+        <path
+          d={
+            isFlat
+              ? "M -46,-14 C -20,2 20,2 46,-14 C 20,-4 -20,-4 -46,-14 Z"
+              : "M -44,-14 C -18,4 18,4 44,-14 C 18,-3 -18,-3 -44,-14 Z"
+          }
+          fill="#0F172A"
+          opacity="0.11"
+          stroke="none"
+        />
+        {ageVariant === "elder" && <AnimalElderDesatVeil cx={0} cy={-28} rx={48} ry={28} />}
+
+        {/* Optional Vocal Sac / First-Breath Throat Puff */}
+        {throatPuff && !isFrozen && (
+          <ellipse
+            cx={0}
+            cy={-28}
+            rx={(21 * puffScale).toFixed(1)}
+            ry={(14 * puffScale).toFixed(1)}
+            fill="#FEF3C7"
+            stroke={INK}
+            strokeWidth={3}
+          />
+        )}
+
+        {/* Optional Warm Inner Heart Glow (Beat 5 & Beat 58 revive spark!) */}
+        {heartGlowT > 0.01 && (
+          <g id="wood-frog-inner-heart-glow" transform="translate(0, -24)" opacity={Math.min(1, heartGlowT).toFixed(2)}>
+            <circle cx={0} cy={0} r={22} fill="#FACC15" opacity={0.28} stroke="none" />
+            <circle cx={0} cy={0} r={13} fill="#FB7185" opacity={0.48} stroke="none" />
+            <path
+              d="M 0,7 C -9,1 -11,-6 -6,-9 C -3,-11 0,-7 0,-5 C 0,-7 3,-11 6,-9 C 11,-6 9,1 0,7 Z"
+              fill="#FDE047"
+              stroke="#EA580C"
+              strokeWidth={1.8}
+            />
+          </g>
+        )}
+
+        {/* Front Arms: Standing / Waving */}
+        {!isFlat && (
+          <g>
+            {/* Left arm planted firmly */}
+            <path d="M -26,-26 C -34,-14 -32,-4 -26,2" fill="none" stroke={backColor} strokeWidth={11} />
+            <path d="M -26,-26 C -34,-14 -32,-4 -26,2" fill="none" stroke={INK} strokeWidth={STROKE_W} />
+            <ellipse cx={-26} cy={3} rx={8} ry={4.5} fill={backColor} strokeWidth={3} />
+
+            {/* Right arm (waves happily when pose="wave") */}
+            {isWaving ? (
+              <g transform={`translate(28, -28) rotate(${(-46 + waveDeg).toFixed(1)})`}>
+                <path d="M 0,0 C 10,-12 18,-22 24,-30" fill="none" stroke={backColor} strokeWidth={11} />
+                <path d="M 0,0 C 10,-12 18,-22 24,-30" fill="none" stroke={INK} strokeWidth={STROKE_W} />
+                <circle cx={26} cy={-32} r={7.5} fill={backColor} strokeWidth={3} />
+              </g>
+            ) : (
+              <g>
+                <path d="M 26,-26 C 34,-14 32,-4 26,2" fill="none" stroke={backColor} strokeWidth={11} />
+                <path d="M 26,-26 C 34,-14 32,-4 26,2" fill="none" stroke={INK} strokeWidth={STROKE_W} />
+                <ellipse cx={26} cy={3} rx={8} ry={4.5} fill={backColor} strokeWidth={3} />
+              </g>
+            )}
+          </g>
+        )}
+
+        {/* Neck Accessory (e.g. Protagonist "scarf_red"!) */}
+        {isNeckAccessory(accessory) && (
+          <g>
+            <AnimalAccessory type={accessory} anchorX={0} anchorY={isFlat ? -28 : -36} scale={0.96} />
+            {isFrozen && (
+              <rect
+                x={-26}
+                y={isFlat ? -35 : -43}
+                width={52}
+                height={14}
+                rx={7}
+                fill="#E0F2FE"
+                opacity={0.42}
+                stroke="#38BDF8"
+                strokeWidth={2}
+              />
+            )}
+          </g>
+        )}
+
+        {/* Head + Signature Wood Frog Dark Robber's Mask Sweeping Across Both Eyes */}
+        <g transform={`translate(0, ${isFlat ? -40 : -52})`}>
+          {/* Raised Frog Eye Bumps */}
+          <circle cx={-21} cy={-16} r={14.5} fill={backColor} />
+          <circle cx={21} cy={-16} r={14.5} fill={backColor} />
+
+          {/* Wide Friendly Amphibian Head Dome */}
+          <ellipse cx={0} cy={0} rx={42} ry={24} fill={backColor} />
+
+          {/* Signature Wood Frog Dark Mask Sweeping Behind/Across Eyes */}
+          <path
+            d="M -41,-4 C -36,-16 -16,-18 -6,-10 C -4,-4 -14,2 -32,2 C -38,2 -41,0 -41,-4 Z"
+            fill={maskColor}
+            stroke="none"
+          />
+          <path
+            d="M 41,-4 C 36,-16 16,-18 6,-10 C 4,-4 14,2 32,2 C 38,2 41,0 41,-4 Z"
+            fill={maskColor}
+            stroke="none"
+          />
+          {/* Authentic Crisp Thin White Upper-Lip Stripe */}
+          <path
+            d="M -33,3 Q 0,9 33,3"
+            fill="none"
+            stroke={isFrozen ? "#E0F2FE" : "#F8FAFC"}
+            strokeWidth={3.2}
+            opacity={0.85}
+          />
+
+          {/* Eyes: Milky-White Frozen vs Expressive CreatureFace */}
+          {isFrozen ? (
+            <g id="wood-frog-frozen-eyes">
+              <circle cx={-21} cy={-13} r={eyeRadius + 1.5} fill="#F1F5F9" stroke="#334155" strokeWidth={2.8} />
+              <circle cx={21} cy={-13} r={eyeRadius + 1.5} fill="#F1F5F9" stroke="#334155" strokeWidth={2.8} />
+              <circle cx={-21} cy={-13} r={eyeRadius * 0.55} fill="#CBD5E1" stroke="none" />
+              <circle cx={21} cy={-13} r={eyeRadius * 0.55} fill="#CBD5E1" stroke="none" />
+              {/* Tiny crystalline frost glints */}
+              <path d="M -25,-16 L -18,-10 M 17,-16 L 24,-10" stroke="#FFFFFF" strokeWidth={2} />
+              {/* Still frozen mouth line */}
+              <path d="M -14,9 Q 0,11 14,9" fill="none" stroke={INK} strokeWidth={2.8} />
+            </g>
+          ) : (
+            <g>
+              {/* Soft white sclera behind cute sparkling eyes */}
+              {!blinking && emotion !== "sleepy" && (
+                <>
+                  <circle cx={-21} cy={-13} r={eyeRadius + 2.2} fill="#FFFFFF" stroke={INK} strokeWidth={2.6} />
+                  <circle cx={21} cy={-13} r={eyeRadius + 2.2} fill="#FFFFFF" stroke={INK} strokeWidth={2.6} />
+                </>
+              )}
+              <CreatureFace
+                emotion={emotion}
+                ageVariant={ageVariant}
+                frame={frame}
+                blinkSeed={63}
+                flipX={flipX}
+                layout="front"
+                mouthStyle="smile"
+                eyeSpread={21}
+                eyeY={-13}
+                eyeRadius={eyeRadius - 0.6}
+                cheekSpread={29}
+                cheekY={5}
+                mouthY={10}
+                badgeX={44}
+                badgeY={-26}
+                hideEmotionBadge={effectiveHideBadge}
+              />
+            </g>
+          )}
+
+          {accessory === "glasses_round" && (
+            <AnimalAccessory type="glasses_round" anchorX={0} anchorY={-13} eyeSpread={21} scale={0.96} />
+          )}
+          {isHeadAccessory(accessory) && (
+            <AnimalAccessory
+              type={accessory}
+              anchorX={accessory === "flower_pink" ? -26 : 0}
+              anchorY={accessory === "flower_pink" ? -24 : -30}
+              scale={0.86}
+            />
+          )}
+        </g>
+
+        {/* Frosting or Solid Ice Encasement Overlay (0 blur!) */}
+        {isFrosting && <WoodFrogFrostEdgeStatic />}
+        {isFrozen && <WoodFrogIceCrustStatic />}
+      </g>
+    </g>
+  );
+};

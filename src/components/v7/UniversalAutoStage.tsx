@@ -37,8 +37,10 @@ import { CuratedAnimatedProp } from "./AutoPropLibrary";
 import { EPISODE_VISUAL_REGISTRY, type EpisodeVisualProps } from "./episodeVisuals";
 import { GroundShadow } from "../SceneBackdropKit";
 import { CleanExplainerStage } from "../CleanExplainerStage";
+import { ForestWinterStage } from "../ForestWinterStage";
 import { KineticHeadlineLayer } from "../KineticHeadlineLayer";
 import { OctopusV24ExplainerKit, isOctopusV24ExplainerMode } from "./OctopusV24ExplainerKit";
+import { FrogV24ExplainerKit, isFrogV24ExplainerMode } from "./FrogV24ExplainerKit";
 import {
   FOREST_PARK_BACKDROP,
   OCEAN_UNDERWATER_BACKDROP,
@@ -2716,6 +2718,7 @@ export const UniversalAutoStage: React.FC<{
     effectiveStageType === "CITY_STREET" ||
     effectiveStageType === "CITY_STREET_PARK" ||
     effectiveStageType === "FOREST_PARK" ||
+    effectiveStageType === "FOREST_WINTER_STAGE" ||
     effectiveStageType === "BACKYARD_BALCONY_PET" ||
     effectiveStageType === "WATER_POND_OCEAN";
 
@@ -2727,11 +2730,21 @@ export const UniversalAutoStage: React.FC<{
   const hasCustomVisual = Boolean(CustomVisualComponent);
   const isFullScreenCustomVisual = Boolean(CustomVisualComponent && spec.fullScreenVisual === true);
 
-  // V20.0 / V23.6: Chế độ hoạt họa tràn màn hình 1920x1080 — nhúng trực tiếp <svg> thuần (0% HTML layout overhead)
+  // V20.0 / V23.6 / V24.0: Chế độ hoạt họa tràn màn hình 1920x1080 — nhúng trực tiếp <svg> thuần (0% HTML layout overhead)
+  // Khi stageType="CLEAN_EXPLAINER" kèm explainerPalette (V24.0 Full-Bleed Science Visuals) -> vẽ CleanExplainerStage làm nền tràn khung bên dưới!
   // Phụ đề phía dưới (zIndex 60) và chapterBanner phía trên (zIndex 45) vẫn do V7MovieComposition giữ ở layer trên cùng.
   if (isFullScreenCustomVisual && CustomVisualComponent) {
+    const mountCleanExplainerUnderlay =
+      spec.stageType === "CLEAN_EXPLAINER" && Boolean(spec.explainerPalette);
     return (
       <g id={`universal-auto-stage-${spec.id}`} data-fullscreen-visual="true">
+        {mountCleanExplainerUnderlay && (
+          <CleanExplainerStage
+            palette={spec.explainerPalette}
+            frame={stageRenderFrame}
+            uid={spec.id}
+          />
+        )}
         <g id={`layer-custom-visual-fullscreen-${spec.id}`}>
           <svg
             x={CUSTOM_VISUAL_FULLSCREEN_RECT.left}
@@ -3493,6 +3506,17 @@ export const UniversalAutoStage: React.FC<{
         {effectiveStageType === "FOREST_PARK" && (
           <FOREST_PARK_BACKDROP timeOfDay={spec.timeOfDay} frame={stageRenderFrame} uid={spec.id} />
         )}
+        {effectiveStageType === "FOREST_WINTER_STAGE" && (
+          <ForestWinterStage
+            season={spec.forestSeason}
+            detail={spec.forestDetail}
+            timeOfDay={spec.timeOfDay}
+            frame={stageRenderFrame}
+            localFrame={localFrame}
+            durationFrames={durationFrames}
+            uid={spec.id}
+          />
+        )}
         {effectiveStageType === "OCEAN_UNDERWATER" && (
           <OCEAN_UNDERWATER_BACKDROP timeOfDay={spec.timeOfDay} frame={stageRenderFrame} uid={spec.id} />
         )}
@@ -3529,6 +3553,14 @@ export const UniversalAutoStage: React.FC<{
                 spec.actors.length === 0)) && (
               <OctopusV24ExplainerKit
                 mode={spec.oceanDetail ?? "V24_EXPLAIN_INTRO_WAVE"}
+                frame={stageRenderFrame}
+                localFrame={localFrame}
+                durationFrames={durationFrames}
+              />
+            )}
+            {isFrogV24ExplainerMode(spec.forestDetail) && (
+              <FrogV24ExplainerKit
+                mode={spec.forestDetail!}
                 frame={stageRenderFrame}
                 localFrame={localFrame}
                 durationFrames={durationFrames}

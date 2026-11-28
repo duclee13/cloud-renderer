@@ -1,5 +1,15 @@
 import React from 'react';
 import {
+  FrogClinicalDeathVisual,
+  FrogIceDangerVisual,
+  FrogExtracellularFreezeVisual,
+  FrogAutumnCyclesVisual,
+  FrogGlucoseAntifreezeVisual,
+  FrogAlaskaExtremeVisual,
+  FrogInsideOutThawVisual,
+  FrogVernalPoolRaceVisual,
+} from './woodFrogVisualsV24';
+import {
   GumIngredientsSplitVisual,
   EsophagusSlideVisual,
   StomachAcidDissolveVisual,
@@ -452,4 +462,14 @@ export const EPISODE_VISUAL_REGISTRY: Record<string, React.FC<EpisodeVisualProps
   // Episode 10 V24.0 Story-First Animal POV (2 Emotional Twist Full-Screen SVGs)
   OCTO_SHORT_LIFESPAN: OctoShortLifespanVisual,
   OCTO_MOTHER_SACRIFICE: OctoMotherSacrificeVisual,
+
+  // Episode 11 V24.0 Story-First Animal POV (8 Full-Bleed Science Visuals: Wood Frog Freeze Tolerance)
+  FROG_CLINICAL_DEATH: FrogClinicalDeathVisual,
+  FROG_ICE_DANGER: FrogIceDangerVisual,
+  FROG_EXTRACELLULAR_FREEZE: FrogExtracellularFreezeVisual,
+  FROG_AUTUMN_CYCLES: FrogAutumnCyclesVisual,
+  FROG_GLUCOSE_ANTIFREEZE: FrogGlucoseAntifreezeVisual,
+  FROG_ALASKA_EXTREME: FrogAlaskaExtremeVisual,
+  FROG_INSIDE_OUT_THAW: FrogInsideOutThawVisual,
+  FROG_VERNAL_POOL_RACE: FrogVernalPoolRaceVisual,
 };

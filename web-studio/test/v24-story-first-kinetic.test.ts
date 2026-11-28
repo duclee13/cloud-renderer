@@ -33,8 +33,10 @@ import {
   CuteOctopus,
   CuteShark,
   CuteDolphin,
+  CuteWoodFrog,
   type AnimalAccessoryType,
   type AnimalAgeVariant,
+  type WoodFrogFreezeState,
 } from "../src/components/AnimalSpriteKit";
 import {
   UniversalAutoStage,
@@ -849,4 +851,165 @@ test("V24 #7: Episode 10 V24.0 (68 beats ANIMAL_POV, 0 HOST_EXPLAIN, 0 headline 
   const registered = validatorMod.loadRegisteredCustomVisuals();
   const report = validatorMod.validateEpisodeData(rawJson, registered);
   assert.equal(report.errors.length, 0, `validate_episode.mjs must report 0 errors: ${JSON.stringify(report.errors)}`);
+});
+
+test("V24 #8: Episode 11 Wood Frog (62 beats ANIMAL_POV, CuteWoodFrog, 5-season ForestWinterStage, 8 Full-Bleed Science Visuals, Ep12 Tardigrade Teaser, 0-pop emotional)", async () => {
+  // 1. Static zero-blur/forbidden SVG audit on all new Episode 11 source files
+  for (const rel of [
+    "../src/components/ForestWinterStage.tsx",
+    "../src/components/v7/FrogV24ExplainerKit.tsx",
+    "../src/components/v7/episodeVisuals/woodFrogVisualsV24.tsx",
+  ]) {
+    const src = fs.readFileSync(path.resolve(__dirname, rel), "utf8");
+    assertZeroForbiddenSvg(src, rel);
+  }
+
+  // 2. CuteWoodFrog sprite renders all 3 freezeState modes + scarf_red + baby variant with 0 blur
+  for (const freezeState of ["normal", "frosting", "frozen_solid"] as readonly WoodFrogFreezeState[]) {
+    const svg = renderToStaticMarkup(
+      React.createElement(
+        "svg",
+        { viewBox: "0 0 1920 1080" },
+        React.createElement(CuteWoodFrog, {
+          x: 820,
+          y: 805,
+          frame: 24,
+          freezeState,
+          accessory: "scarf_red",
+          ageVariant: "adult",
+        })
+      )
+    );
+    assert.ok(svg.includes(`data-freeze-state="${freezeState}"`), `CuteWoodFrog renders freezeState=${freezeState}`);
+    assert.ok(svg.includes('id="animal-accessory-scarf_red"'), "CuteWoodFrog renders scarf_red");
+    assert.ok(svg.includes('stroke="#1E293B"'), "CuteWoodFrog preserves #1E293B stroke");
+    assert.ok(svg.includes('stroke-width="4"'), "CuteWoodFrog preserves strokeWidth=4");
+    if (freezeState === "normal") {
+      assert.ok(svg.includes("#B4693E") && svg.includes("#FDE68A"), "Normal frog uses chestnut #B4693E + cream #FDE68A");
+    }
+    if (freezeState === "frozen_solid") {
+      assert.ok(svg.includes('id="wood-frog-ice-crust"') && svg.includes('id="wood-frog-frozen-eyes"'), "Frozen frog renders ice crust & milky eyes");
+    }
+    assertZeroForbiddenSvg(svg, `CuteWoodFrog(${freezeState})`);
+  }
+
+  // 3. Load & verify Episode 11 JSON (synced studio + root copies)
+  const epStudioPath = path.resolve(__dirname, "../episodes/tai_sao_ech_go_dong_bang_van_song_v24.json");
+  const epRootPath = path.resolve(__dirname, "../../tai_sao_ech_go_dong_bang_van_song_v24.json");
+  assert.ok(fs.existsSync(epStudioPath), "Missing web-studio/episodes/tai_sao_ech_go_dong_bang_van_song_v24.json");
+  assert.ok(fs.existsSync(epRootPath), "Missing synced root tai_sao_ech_go_dong_bang_van_song_v24.json");
+
+  const rawText = fs.readFileSync(epStudioPath, "utf8");
+  const rootText = fs.readFileSync(epRootPath, "utf8");
+  assert.equal(rawText, rootText, "Root copy and web-studio copy of Ep11 V24 JSON must stay synced");
+
+  const rawJson = JSON.parse(rawText);
+  const ep = sanitizeAndValidateEpisode(rawJson);
+
+  assert.equal(ep.storyMode, "ANIMAL_POV");
+  assert.equal(ep.bgmEnabled, true);
+  assert.equal(ep.sfxEnabled, true);
+  assert.equal(ep.beats.length, 62, "Ep11 must have exactly 62 beats");
+  assert.ok(!/\b\d{2}:\d{2}\b/.test(rawText), "Ep11 JSON must contain 0 digital clock timestamps (HH:MM)");
+
+  const expectedFrogVisuals = new Set([
+    "FROG_CLINICAL_DEATH",
+    "FROG_ICE_DANGER",
+    "FROG_EXTRACELLULAR_FREEZE",
+    "FROG_AUTUMN_CYCLES",
+    "FROG_GLUCOSE_ANTIFREEZE",
+    "FROG_ALASKA_EXTREME",
+    "FROG_INSIDE_OUT_THAW",
+    "FROG_VERNAL_POOL_RACE",
+  ]);
+  const seenVisuals = new Set<string>();
+  const seenSeasons = new Set<string>();
+  let forestStageCount = 0;
+  let explainerKitCount = 0;
+  let fullBleedVisualCount = 0;
+
+  for (const beat of ep.beats) {
+    assert.notEqual(beat.stageType, "HOST_EXPLAIN_OVERLAY", `${beat.id} must not use HOST_EXPLAIN_OVERLAY`);
+    assert.equal(beat.chapterBanner, undefined, `${beat.id} must hide HỒI X banner`);
+    assert.ok(beat.kineticHeadline && beat.kineticHeadline.text.length <= 21, `${beat.id} headline "${beat.kineticHeadline?.text}" must be <= 21 chars`);
+    assert.ok(!/[0-9zZ—]/.test(beat.ttsText), `${beat.id} ttsText must be pure Vietnamese without digits, z/Z, or em-dash: ${beat.ttsText}`);
+
+    const svg = renderToStaticMarkup(
+      React.createElement(
+        "svg",
+        { viewBox: "0 0 1920 1080" },
+        React.createElement(UniversalAutoStage, {
+          spec: beat,
+          frame: 30,
+          localFrame: 30,
+          durationFrames: 180,
+          u: 0.25,
+          fps: 45,
+        })
+      )
+    );
+    assert.ok(svg.includes('id="layer-kinetic-headline"'), `${beat.id} renders KineticHeadlineLayer`);
+    assertZeroForbiddenSvg(svg, `Ep11 ${beat.id}`);
+
+    if (beat.stageType === "FOREST_WINTER_STAGE") {
+      forestStageCount++;
+      assert.ok(beat.forestSeason, `${beat.id} specifies forestSeason`);
+      seenSeasons.add(beat.forestSeason!);
+      assert.ok(svg.includes('id="stage-forest-winter"'), `${beat.id} renders ForestWinterStage`);
+    } else if (beat.customVisual) {
+      fullBleedVisualCount++;
+      assert.ok(expectedFrogVisuals.has(beat.customVisual), `${beat.id} uses expected FROG_* visual`);
+      assert.ok(beat.customVisual in EPISODE_VISUAL_REGISTRY, `${beat.id} visual registered in EPISODE_VISUAL_REGISTRY`);
+      seenVisuals.add(beat.customVisual);
+      assert.ok(svg.includes('id="stage-clean-explainer"'), `${beat.id} mounts CleanExplainerStage underlay beneath full-bleed visual`);
+    } else {
+      explainerKitCount++;
+      assert.equal(beat.stageType, "CLEAN_EXPLAINER");
+      assert.ok(svg.includes('id="stage-clean-explainer"'), `${beat.id} renders CleanExplainerStage`);
+      assert.ok(svg.includes("frog-v24-explainer-kit-"), `${beat.id} renders FrogV24ExplainerKit (never empty!)`);
+      if (beat.id === "b60" || beat.id === "b61") {
+        assert.ok(svg.includes('id="v24-tardigrade-silhouette-teaser"'), `${beat.id} renders 8-legged Tardigrade teaser silhouette`);
+      }
+      if (beat.id === "b61") {
+        assert.ok(svg.includes('id="v24-ep12-teaser-badge"') && svg.includes("TẬP 12"), "Beat 61 displays TẬP 12 badge");
+      }
+    }
+  }
+
+  assert.equal(forestStageCount, 20, "Ep11 must have 20 FOREST_WINTER_STAGE beats");
+  assert.equal(explainerKitCount, 23, "Ep11 must have 23 FrogV24ExplainerKit CLEAN_EXPLAINER beats");
+  assert.equal(fullBleedVisualCount, 19, "Ep11 must have 19 full-bleed science visual beats");
+  assert.equal(seenVisuals.size, 8, "All 8 FROG_* full-bleed science visuals are used");
+  assert.equal(seenSeasons.size, 5, "All 5 forest seasons are covered");
+
+  // 4. Verify zero pop/headline_pop SFX on ALL EMOTIONAL/SILENT beats (Beat 31 & Beats 41-55)
+  const timeline = ep.beats.map((b, idx) => ({
+    id: b.id,
+    startFrame: idx * 180,
+    durationFrames: 180,
+    stageType: b.stageType,
+    autoStageSpec: b,
+  }));
+  const sfxPlan = resolveAutoSfxPlan(timeline, 45, true, ep.storyMode);
+  for (const ev of sfxPlan) {
+    const beat = ep.beats[ev.beatIndex];
+    if (beat.bgmMood === "EMOTIONAL" || beat.bgmMood === "SILENT") {
+      assert.notEqual(ev.cueId, "pop", `${beat.id} (${beat.bgmMood}) must NEVER play pop`);
+      assert.notEqual(ev.cueId, "headline_pop", `${beat.id} (${beat.bgmMood}) must NEVER play headline_pop`);
+    }
+  }
+  const bgmSegs = resolveV24BgmSegments(timeline, 45, true);
+  for (const silentIdx of [30, 46]) {
+    const f = silentIdx * 180;
+    assert.ok(
+      bgmSegs.every((seg) => f < seg.startFrame || f >= seg.startFrame + seg.durationFrames),
+      `Beat ${silentIdx + 1} (SILENT) has zero active BGM`
+    );
+  }
+
+  // 5. Run validate_episode.mjs programmatic validation -> must achieve 0 critical errors!
+  const validatorMod = await import("../scripts/validate_episode.mjs");
+  const registered = validatorMod.loadRegisteredCustomVisuals();
+  const report = validatorMod.validateEpisodeData(rawJson, registered);
+  assert.equal(report.errors.length, 0, `Ep11 validate_episode.mjs must report 0 errors: ${JSON.stringify(report.errors)}`);
 });
