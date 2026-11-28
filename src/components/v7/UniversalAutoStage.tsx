@@ -1273,7 +1273,7 @@ const CityLivingRoomStaticFurniture = React.memo<{
 }>(({ timeOfDay, hasPetDog = false, openFloorOutro = false }) => {
     const isNight = timeOfDay === "NIGHT";
     const isSunset = timeOfDay === "SUNSET";
-    const sofaX = openFloorOutro ? 620 : hasPetDog ? 540 : 650;
+    const sofaX = openFloorOutro ? 870 : hasPetDog ? 540 : 650;
     const sofaY = openFloorOutro ? 536 : hasPetDog ? 592 : 565;
     const tableX = openFloorOutro ? 1515 : hasPetDog ? 1425 : 1245;
     return (
@@ -2677,8 +2677,10 @@ export const UniversalAutoStage: React.FC<{
   u: number;
   groundY?: number;
   fps?: number;
-}> = ({ spec, frame, localFrame, durationFrames, u, groundY = 840, fps = 60 }) => {
+  isContinuationHost?: boolean;
+}> = ({ spec, frame, localFrame, durationFrames, u, groundY = 840, fps = 60, isContinuationHost = false }) => {
   const isHostExplain = spec.stageType === "HOST_EXPLAIN_OVERLAY" || spec.overlayMode === "HOST_EXPLAIN";
+  const holdHostVeilSteady = Boolean(isHostExplain && (isContinuationHost || spec.transitionIn === "CUT"));
   const effectiveStageType = isHostExplain ? (spec.freezeStage ?? "SCHOOL_CLASSROOM") : spec.stageType;
   const stageRenderFrame = isHostExplain ? (spec.freezeFrame ?? 90) : frame;
   const resolvedBoardTheme = spec.boardTheme ?? "LAB_WHITEBOARD";
@@ -3182,7 +3184,8 @@ export const UniversalAutoStage: React.FC<{
     }
 
     // V22.5: Hiệu ứng trượt mượt vào khung hình (~12 frame) cho Host bên trái trong HOST_EXPLAIN_OVERLAY
-    if (isHostExplain && hasHostWhiteboard && aIdx === 0) {
+    // Khi chuyển liên tiếp giữa 2 beat Host cùng bối cảnh (holdHostVeilSteady), giữ BOY đứng vững không nhảy!
+    if (isHostExplain && hasHostWhiteboard && aIdx === 0 && !holdHostVeilSteady) {
       const slideT = smoothstep(0, 1, Math.min(1, localFrame / 12));
       actorX = actorX - (1 - slideT) * 110;
     }
@@ -3401,7 +3404,11 @@ export const UniversalAutoStage: React.FC<{
   );
   const hasLivingRoomDog = isLivingRoomDogMode;
   const hasLivingRoomPet = isLivingRoomDogMode || isLivingRoomCatMode;
-  const hostVeilOpacity = isHostExplain ? 0.84 * Math.min(1, Math.max(0.25, localFrame / 12)) : 0;
+  const hostVeilOpacity = isHostExplain
+    ? holdHostVeilSteady
+      ? 0.84
+      : 0.84 * Math.min(1, Math.max(0.25, localFrame / 12))
+    : 0;
 
   return (
     <g id={`universal-auto-stage-${spec.id}`}>
@@ -3850,9 +3857,15 @@ export const UniversalAutoStage: React.FC<{
           const renderCupInFrontForSip =
             ra.activeHandProp === "CUP_SODA" && ra.v18ActionPose === "SIP_DRINK";
 
+          const showFlatGroundShadow =
+            isHostExplain ||
+            (effectiveStageType === "CITY_LIVING_ROOM" &&
+              spec.livingRoomDetail === "OUTRO_OPEN_FLOOR" &&
+              !actor.seated);
+
           return (
             <g key={`auto_actor_${spec.id}_${aIdx}`}>
-              {isHostExplain && (
+              {showFlatGroundShadow && (
                 <GroundShadow
                   cx={Math.round(ra.actorX)}
                   cy={Math.round(ra.actorGroundY + 4)}

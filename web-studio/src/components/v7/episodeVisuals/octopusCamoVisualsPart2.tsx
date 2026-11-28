@@ -205,7 +205,7 @@ export const OctoPolarizedLightVisual: React.FC<EpisodeVisualProps> = ({
             </text>
 
             {/* Clean Octopus eye cross-section with wires neatly BEHIND retina */}
-            <g transform="translate(372, 245)" stroke={INK} strokeWidth={3.5} strokeLinejoin="round">
+            <g transform="translate(342, 245)" stroke={INK} strokeWidth={3.5} strokeLinejoin="round">
               <circle cx={0} cy={0} r={128} fill="#FFFFFF" />
               {/* Unbroken continuous retina arc */}
               <path d="M 46,-116 A 122,122 0 0 1 46,116" fill="none" stroke="#16A34A" strokeWidth={15} strokeLinecap="round" />
@@ -219,10 +219,10 @@ export const OctoPolarizedLightVisual: React.FC<EpisodeVisualProps> = ({
               <text x={-186} y={-20} textAnchor="middle" fill="#0369A1" stroke="none" fontSize={18} fontWeight={900}>
                 Ánh sáng
               </text>
-              {/* Clean badge outside */}
-              <OctoCheckCircle cx={224} cy={-86} r={24} />
-              <text x={224} y={-44} textAnchor="middle" fill="#15803D" stroke="none" fontSize={19} fontWeight={900}>
-                Liên mạch 100%
+              {/* Clean badge safely outside the green retina arc (+28px right margin) */}
+              <OctoCheckCircle cx={252} cy={-88} r={24} />
+              <text x={252} y={-42} textAnchor="middle" fill="#15803D" stroke="none" fontSize={19} fontWeight={900}>
+                Liền mạch 100%
               </text>
             </g>
 
@@ -255,9 +255,9 @@ export const OctoDreamingSleepVisual: React.FC<EpisodeVisualProps> = ({
   const activeStep = step ?? visualStep ?? 0;
   const dreamPhase = (Math.sin(frame * 0.12) + 1) / 2;
   const activeColors = {
-    main: mixHexColor('#FB923C', '#0EA5E9', dreamPhase),
-    belly: mixHexColor('#FFEDD5', '#E0F2FE', dreamPhase),
-    spot: mixHexColor('#DC2626', '#1D4ED8', dreamPhase),
+    main: mixHexColor('#C4365D', '#0EA5E9', dreamPhase),
+    belly: mixHexColor('#FCE7F3', '#E0F2FE', dreamPhase),
+    spot: mixHexColor('#881337', '#1D4ED8', dreamPhase),
   };
 
   return (
@@ -1137,20 +1137,21 @@ export const OctoHumanTechVisual: React.FC<EpisodeVisualProps> = ({
               2. Màn hình dẻo siêu tiết kiệm điện
             </text>
 
-            {/* Clean curved flexible reflective screen */}
+            {/* Clean curved flexible reflective screen (tiles raised 22px, text safely below screen & >= 20px below tiles!) */}
             <g transform="translate(368, 245)" stroke={INK} strokeWidth={3.8} strokeLinejoin="round">
               <path
-                d="M -220,-90 Q 0,-138 220,-90 L 220,92 Q 0,44 -220,92 Z"
+                d="M -220,-106 Q 0,-148 220,-106 L 220,58 Q 0,24 -220,58 Z"
                 fill="#FFFFFF"
                 stroke="#0284C7"
                 strokeWidth={7}
               />
-              {/* Vivid reflective RGB tiles on flexible screen */}
-              <rect x={-162} y={-52} width={96} height={86} rx={14} fill="#F59E0B" />
-              <rect x={-48} y={-62} width={96} height={86} rx={14} fill="#10B981" />
-              <rect x={66} y={-52} width={96} height={86} rx={14} fill="#38BDF8" />
-              <text x={0} y={64} textAnchor="middle" fill="#0369A1" stroke="none" fontSize={20} fontWeight={900}>
-                Phản chiếu ánh sáng tự nhiên — không cần đèn nền!
+              {/* Vivid reflective RGB tiles raised cleanly 22px higher */}
+              <rect x={-162} y={-74} width={96} height={78} rx={14} fill="#F59E0B" />
+              <rect x={-48} y={-84} width={96} height={78} rx={14} fill="#10B981" />
+              <rect x={66} y={-74} width={96} height={78} rx={14} fill="#38BDF8" />
+              {/* Caption positioned cleanly below the curved border (y=114, 56px below border & 110px below tiles) */}
+              <text x={0} y={114} textAnchor="middle" fill="#0369A1" stroke="none" fontSize={20} fontWeight={900}>
+                Phản chiếu ánh sáng tự nhiên – không cần đèn nền!
               </text>
             </g>
 

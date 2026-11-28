@@ -1316,7 +1316,7 @@ export const CuteLizard: React.FC<CuteLizardProps> = ({
 };
 
 /* ============================================================================
- * 6. CuteOctopus — Friendly Coral-Orange (#FB923C) or Pastel-Purple (#C084FC) Octopus
+ * 6. CuteOctopus — Friendly Plum-Red (#C4365D) or Pastel-Purple (#C084FC) Octopus
  *    Poses: "float" | "crawl" | "wave"
  * ========================================================================== */
 
@@ -1346,9 +1346,11 @@ export const CuteOctopus: React.FC<CuteOctopusProps> = ({
   papillaeBumps = false,
   blueRings = false,
 }) => {
-  const mainColor = colorOverride?.main ?? (variant === "purple" ? "#C084FC" : "#FB923C");
-  const bellyColor = colorOverride?.belly ?? (variant === "purple" ? "#F3E8FF" : "#FFEDD5");
-  const spotColor = colorOverride?.spot ?? (variant === "purple" ? "#9333EA" : "#EA580C");
+  const mainColor = colorOverride?.main ?? (variant === "purple" ? "#C084FC" : "#C4365D");
+  const bellyColor = colorOverride?.belly ?? (variant === "purple" ? "#F3E8FF" : "#FCE7F3");
+  const spotColor = colorOverride?.spot ?? (variant === "purple" ? "#9333EA" : "#FCE7F3");
+  const celShadeFill = colorOverride ? "#0F172A" : variant === "purple" ? "#581C87" : "#881337";
+  const celShadeOpacity = colorOverride ? "0.11" : "0.18";
   const breathY = 1 + 0.012 * Math.sin((frame + 41) * 0.08);
   const floatBobY = pose === "float" ? Math.sin(frame * 0.09) * 7 : 0;
   const curiousTilt = emotion === "curious" ? 5 : 0;
@@ -1425,8 +1427,8 @@ export const CuteOctopus: React.FC<CuteOctopusProps> = ({
           <ellipse cx={0} cy={16} rx={32} ry={20} fill={bellyColor} stroke="none" />
           <path
             d="M -42,16 C -22,38 22,38 42,16 C 22,44 -22,44 -42,16 Z"
-            fill="#0F172A"
-            opacity="0.11"
+            fill={celShadeFill}
+            opacity={celShadeOpacity}
             stroke="none"
           />
           {blueRings ? (

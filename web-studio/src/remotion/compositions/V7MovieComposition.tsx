@@ -167,6 +167,19 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
   const currSpec = currentBeat?.autoStageSpec;
   const prevIsFullSvg = Boolean(prevSpec && isFullScreenCustomVisualBeat(prevSpec));
   const currIsFullSvg = Boolean(currSpec && isFullScreenCustomVisualBeat(currSpec));
+  const prevIsHost = Boolean(
+    prevSpec && (prevSpec.stageType === "HOST_EXPLAIN_OVERLAY" || prevSpec.overlayMode === "HOST_EXPLAIN")
+  );
+  const currIsHost = Boolean(
+    currSpec && (currSpec.stageType === "HOST_EXPLAIN_OVERLAY" || currSpec.overlayMode === "HOST_EXPLAIN")
+  );
+  const isContinuationHost = Boolean(
+    prevSpec &&
+      currSpec &&
+      prevIsHost &&
+      currIsHost &&
+      (prevSpec.freezeStage ?? "SCHOOL_CLASSROOM") === (currSpec.freezeStage ?? "SCHOOL_CLASSROOM")
+  );
   const isSameStageCut = Boolean(
     prevSpec &&
       currSpec &&
@@ -174,7 +187,9 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
       !currIsFullSvg &&
       prevSpec.stageType === currSpec.stageType
   );
-  const isHostOrStageSvgBoundary = Boolean(prevSpec && currSpec && prevIsFullSvg !== currIsFullSvg);
+  const isHostOrStageSvgBoundary = Boolean(
+    prevSpec && currSpec && (prevIsFullSvg !== currIsFullSvg || prevIsHost !== currIsHost)
+  );
 
   const clampedRequestedTransition = isSameStageCut
     ? 0
@@ -536,6 +551,7 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
               u={layerProgressU}
               groundY={groundY}
               fps={fps}
+              isContinuationHost={layerBeat === currentBeat && isContinuationHost}
             />
           ) : isKassStoryBeat && layerBeat.kassSceneMode ? (
             <KassStorySceneLayer

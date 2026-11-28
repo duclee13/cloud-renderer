@@ -1724,17 +1724,56 @@ const HostOctopusCamoNatureBoardStaticCore: React.FC<{
         stroke="#14532D"
         strokeWidth={2.6}
       />
-      <text
-        x={1240}
-        y={140}
-        textAnchor="middle"
-        fill="#FFFFFF"
-        fontSize={21}
-        fontWeight={900}
-        fontFamily={FONT}
-      >
-        {boardTitle}
-      </text>
+      {(() => {
+        const hasHeaderStamp =
+          highlight === "OCTO_COLORBLIND_PARADOX" ||
+          highlight === "OCTO_DREAM_CLOUD" ||
+          highlight === "OCTO_BATTERY_DRAIN";
+        return (
+          <>
+            <text
+              x={hasHeaderStamp ? 1192 : 1240}
+              y={139}
+              textAnchor="middle"
+              fill="#FFFFFF"
+              fontSize={hasHeaderStamp ? 19.5 : 21}
+              fontWeight={900}
+              fontFamily={FONT}
+            >
+              {boardTitle}
+            </text>
+            {/* Clean Contextual Stamp inside right end of green header (56px clear above Panel 3 title!) */}
+            {highlight === "OCTO_COLORBLIND_PARADOX" && (
+              <g id="octo-header-stamp-colorblind" transform="translate(1686, 132) scale(0.74)">
+                <rect x={-52} y={-24} width={44} height={48} rx={10} fill="#F8FAFC" stroke={INK} strokeWidth={2.8} />
+                <rect x={-46} y={-18} width={14} height={36} rx={3} fill="#0F172A" />
+                <rect x={-28} y={-18} width={14} height={36} rx={3} fill="#94A3B8" />
+                <circle cx={20} cy={0} r={24} fill="#F59E0B" stroke={INK} strokeWidth={3} />
+                <text x={20} y={9} textAnchor="middle" fill="#FFFFFF" fontSize={28} fontWeight={900} fontFamily={FONT}>
+                  ?
+                </text>
+              </g>
+            )}
+            {highlight === "OCTO_DREAM_CLOUD" && (
+              <g id="octo-header-stamp-dream" transform="translate(1692, 132) scale(0.76)">
+                <circle cx={-16} cy={4} r={16} fill="#38BDF8" stroke={INK} strokeWidth={2.6} />
+                <circle cx={4} cy={-4} r={20} fill="#F472B6" stroke={INK} strokeWidth={2.6} />
+                <circle cx={22} cy={4} r={15} fill="#FACC15" stroke={INK} strokeWidth={2.6} />
+                <text x={4} y={6} textAnchor="middle" fill="#FFFFFF" fontSize={16} fontWeight={900} fontFamily={FONT}>
+                  zZ
+                </text>
+              </g>
+            )}
+            {highlight === "OCTO_BATTERY_DRAIN" && (
+              <g id="octo-header-stamp-battery" transform="translate(1692, 132) scale(0.8)">
+                <rect x={-32} y={-18} width={54} height={36} rx={8} fill="#FFFFFF" stroke={INK} strokeWidth={3} />
+                <rect x={22} y={-8} width={8} height={16} rx={3} fill={INK} />
+                <rect x={-25} y={-11} width={16} height={22} rx={4} fill="#EF4444" />
+              </g>
+            )}
+          </>
+        );
+      })()}
 
       {/* Ô TRÁI (x=710..1046, y=172..546): 1. Màn hình da 3 lớp */}
       <g id="octo-board-panel-left" transform="translate(710, 172)">
@@ -1800,7 +1839,7 @@ const HostOctopusCamoNatureBoardStaticCore: React.FC<{
           <circle cx={0} cy={0} r={60} fill="#FEF9C3" stroke="#D97706" strokeWidth={3} />
           <path
             d="M -46,24 L -46,8 Q -32,-26 -18,4 Q -4,-34 10,2 Q 26,-24 40,8 L 46,24 Z"
-            fill="#FB923C"
+            fill="#C4365D"
             stroke={INK}
             strokeWidth={3}
             strokeLinejoin="round"
@@ -1859,36 +1898,6 @@ const HostOctopusCamoNatureBoardStaticCore: React.FC<{
           → Phối màu chuẩn dù bị mù màu!
         </text>
       </g>
-
-      {/* Clean Corner Context Stamps (zero overlap with panel text!) */}
-      {highlight === "OCTO_COLORBLIND_PARADOX" && (
-        <g transform="translate(1720, 206)">
-          <rect x={-52} y={-24} width={44} height={48} rx={10} fill="#F8FAFC" stroke={INK} strokeWidth={2.8} />
-          <rect x={-46} y={-18} width={14} height={36} rx={3} fill="#0F172A" />
-          <rect x={-28} y={-18} width={14} height={36} rx={3} fill="#94A3B8" />
-          <circle cx={20} cy={0} r={24} fill="#F59E0B" stroke={INK} strokeWidth={3} />
-          <text x={20} y={9} textAnchor="middle" fill="#FFFFFF" fontSize={28} fontWeight={900} fontFamily={FONT}>
-            ?
-          </text>
-        </g>
-      )}
-      {highlight === "OCTO_DREAM_CLOUD" && (
-        <g transform="translate(1724, 206)">
-          <circle cx={-16} cy={4} r={16} fill="#38BDF8" stroke={INK} strokeWidth={2.6} />
-          <circle cx={4} cy={-4} r={20} fill="#F472B6" stroke={INK} strokeWidth={2.6} />
-          <circle cx={22} cy={4} r={15} fill="#FACC15" stroke={INK} strokeWidth={2.6} />
-          <text x={4} y={6} textAnchor="middle" fill="#FFFFFF" fontSize={16} fontWeight={900} fontFamily={FONT}>
-            zZ
-          </text>
-        </g>
-      )}
-      {highlight === "OCTO_BATTERY_DRAIN" && (
-        <g transform="translate(1724, 206)">
-          <rect x={-32} y={-18} width={54} height={36} rx={8} fill="#FFFFFF" stroke={INK} strokeWidth={3} />
-          <rect x={22} y={-8} width={8} height={16} rx={3} fill={INK} />
-          <rect x={-25} y={-11} width={16} height={22} rx={4} fill="#EF4444" />
-        </g>
-      )}
     </g>
   );
 });
@@ -2475,8 +2484,8 @@ const OceanCreatureBubble: React.FC<{
   const boxH = lines.length > 1 ? 94 : 64;
   const safeCx = Math.max(boxW / 2 + 40, Math.min(1920 - boxW / 2 - 40, cx));
   const safeCy = Math.max(135, Math.min(480, cy));
-  const tagText = speakerLabel ? `[${speakerLabel}]` : undefined;
-  const tagW = tagText ? Math.max(118, tagText.length * 10.5 + 24) : 0;
+  const tagText = speakerLabel ? speakerLabel.trim() : undefined;
+  const tagW = tagText ? Math.max(84, tagText.length * 11 + 28) : 0;
 
   return (
     <g id="ocean-creature-speech-bubble" opacity={opacity.toFixed(3)}>
@@ -2507,7 +2516,7 @@ const OceanCreatureBubble: React.FC<{
         fill="#FFFFFF"
         stroke="none"
       />
-      {/* Speaker label pill perched cleanly on top-left corner */}
+      {/* Clean speaker label pill without square brackets ("Tuộc" / "Cá mập") */}
       {tagText && (
         <g transform={`translate(${(safeCx - boxW / 2 + 24).toFixed(1)}, ${(safeCy - boxH / 2 - 14).toFixed(1)})`}>
           <rect
@@ -2516,7 +2525,7 @@ const OceanCreatureBubble: React.FC<{
             width={tagW}
             height={30}
             rx={15}
-            fill={speakerLabel?.includes("Cá mập") ? "#0369A1" : "#EA580C"}
+            fill={speakerLabel?.includes("Cá mập") ? "#0369A1" : "#C4365D"}
             stroke={INK}
             strokeWidth={2.4}
           />
@@ -2574,7 +2583,7 @@ export const OceanUnderwaterStoryKit: React.FC<{
 
   const activeLocal = localFrame ?? frame;
   const showBubble = Boolean(!isHostExplain && bubble && bubble.trim().length > 0);
-  const speakerLabel = speaker === "SHARK" ? "Cá mập nói" : "Tuộc nói";
+  const speakerLabel = speaker === "SHARK" ? "Cá mập" : "Tuộc";
 
   // Beat 1: CuteOctopus crawls gently across bright sand toward reef rock
   const crawlT = interpolate(activeLocal, [0, durationFrames], [0, 1], {
@@ -2590,52 +2599,52 @@ export const OceanUnderwaterStoryKit: React.FC<{
     easing: Easing.out(Easing.cubic),
   });
 
-  // Beat 3: Instant <0.5s camouflage morph from bright coral (#FB923C) -> rocky slate-moss (#64748B) + 3D bumps; Shark swims past puzzled!
+  // Beat 3: Instant <0.5s camouflage morph from plum-red (#C4365D) -> rocky slate-moss (#64748B) + 3D bumps; Shark swims past puzzled!
   const camoT = interpolate(activeLocal, [4, 26], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
     easing: Easing.out(Easing.cubic),
   });
   const beat3OctoColors = {
-    main: blendOctoHex("#FB923C", "#64748B", camoT),
-    belly: blendOctoHex("#FFEDD5", "#94A3B8", camoT),
-    spot: blendOctoHex("#EA580C", "#16A34A", camoT),
+    main: blendOctoHex("#C4365D", "#64748B", camoT),
+    belly: blendOctoHex("#FCE7F3", "#94A3B8", camoT),
+    spot: blendOctoHex("#FCE7F3", "#16A34A", camoT),
   };
   const sharkPassX = interpolate(activeLocal, [10, durationFrames], [1360, 420], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // Beat 27: Proud unfreeze return from rock camo back to bright coral-orange!
+  // Beat 27: Proud unfreeze return from rock camo back to friendly plum-red (#C4365D)!
   const uncamoT = interpolate(activeLocal, [0, 24], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
     easing: Easing.out(Easing.cubic),
   });
   const beat27OctoColors = {
-    main: blendOctoHex("#64748B", "#FB923C", uncamoT),
-    belly: blendOctoHex("#94A3B8", "#FFEDD5", uncamoT),
-    spot: blendOctoHex("#16A34A", "#EA580C", uncamoT),
+    main: blendOctoHex("#64748B", "#C4365D", uncamoT),
+    belly: blendOctoHex("#94A3B8", "#FCE7F3", uncamoT),
+    spot: blendOctoHex("#16A34A", "#FCE7F3", uncamoT),
   };
   const farSharkX = interpolate(activeLocal, [0, durationFrames], [1480, 1780], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // Beat 45: Playful morph from pink coral (#F472B6) back to bright coral-orange (#FB923C)
+  // Beat 45: Smooth morph from pink coral (#F472B6) back to default plum-red (#C4365D) right beside the right coral bush!
   const pinkRevealT = interpolate(activeLocal, [14, 42], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
     easing: Easing.out(Easing.cubic),
   });
   const beat45OctoColors = {
-    main: blendOctoHex("#F472B6", "#FB923C", pinkRevealT),
-    belly: blendOctoHex("#FCE7F3", "#FFEDD5", pinkRevealT),
-    spot: blendOctoHex("#DB2777", "#EA580C", pinkRevealT),
+    main: blendOctoHex("#F472B6", "#C4365D", pinkRevealT),
+    belly: blendOctoHex("#FCE7F3", "#FCE7F3", pinkRevealT),
+    spot: blendOctoHex("#DB2777", "#FCE7F3", pinkRevealT),
   };
 
-  // Beat 46 & 58: Friendly smiling shark cruising gently across top water
-  const friendlySharkX = interpolate(activeLocal, [0, durationFrames], [1480, 1180], {
+  // Beat 46: Friendly smiling shark glides in from upper-left toward Tuộc (who stays continuously at x=1375 beside coral!)
+  const beat46SharkX = interpolate(activeLocal, [0, durationFrames], [430, 810], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -2768,14 +2777,15 @@ export const OceanUnderwaterStoryKit: React.FC<{
 
       {mode === "OCTO_SHARK_FRIENDLY" && (
         <>
-          <CuteShark x={friendlySharkX} y={420} scale={1.32} flipX={true} frame={frame} pose="swim" emotion="happy" />
-          <CuteOctopus x={830} y={760} scale={1.2} frame={frame} pose="wave" emotion="happy" />
+          {/* Spatial continuity with Beat 45: Tuộc stays right beside right pink coral (x=1375, y=776), Shark approaches smiling from left/top! */}
+          <CuteShark x={beat46SharkX} y={415} scale={1.32} flipX={false} frame={frame} pose="swim" emotion="happy" />
+          <CuteOctopus x={1375} y={776} scale={1.18} frame={frame} pose="wave" emotion="happy" />
           {showBubble && (
             <OceanCreatureBubble
-              cx={speaker === "SHARK" ? Math.max(520, Math.min(1440, friendlySharkX)) : 830}
-              cy={speaker === "SHARK" ? 215 : 490}
-              tailX={speaker === "SHARK" ? Math.max(480, Math.min(1460, friendlySharkX - 24)) : 830}
-              tailY={speaker === "SHARK" ? 328 : 610}
+              cx={speaker === "SHARK" ? Math.max(420, Math.min(1150, beat46SharkX)) : 1320}
+              cy={speaker === "SHARK" ? 215 : 485}
+              tailX={speaker === "SHARK" ? Math.max(420, Math.min(1180, beat46SharkX + 40)) : 1370}
+              tailY={speaker === "SHARK" ? 328 : 618}
               text={bubble!}
               speakerLabel={speakerLabel}
               localFrame={activeLocal}

@@ -440,7 +440,7 @@ test("V23 #7: Episode 10 (60 beats, 16 OCTO_* Full-Screen SVGs, OCEAN_UNDERWATER
   assert.ok(b50.text.includes("đáp án B") && b50.ttsText.includes("đáp án bê"), "b50 displays 'đáp án B' & reads 'đáp án bê'");
 
   // Render key story, Host+Board (Ocean & Living Room), Solo Host, and Open-Floor Outro beats
-  const sampleIds = ["b01", "b03", "b04", "b05", "b27", "b28", "b30", "b37", "b45", "b50", "b58", "b59", "b60"];
+  const sampleIds = ["b01", "b03", "b04", "b05", "b27", "b28", "b30", "b37", "b45", "b46", "b50", "b57", "b58", "b59", "b60"];
   for (const bid of sampleIds) {
     const beat = ep10.beats.find((b) => b.id === bid)!;
     const svg = renderToStaticMarkup(
@@ -450,28 +450,49 @@ test("V23 #7: Episode 10 (60 beats, 16 OCTO_* Full-Screen SVGs, OCEAN_UNDERWATER
         React.createElement(UniversalAutoStage, {
           spec: beat,
           frame: 60,
-          localFrame: 60,
+          localFrame: bid === "b57" ? 0 : 60,
           durationFrames: 225,
           u: 0.35,
           fps: 45,
+          isContinuationHost: bid === "b57",
         })
       )
     );
     assertCleanFlatSvg(svg, `Ep10 ${bid}`);
+    if (bid === "b01") {
+      assert.ok(svg.includes("#C4365D"), "b01 renders CuteOctopus default plum-red #C4365D");
+      assert.ok(svg.includes(">Tuộc<") && !svg.includes("[Tuộc nói]"), "b01 displays clean Tuộc tag without brackets");
+    }
     if (bid === "b03") {
       assert.ok(svg.includes('id="ocean-story-kit-OCTO_ROCK_CAMO"'), "b03 renders OCEAN_UNDERWATER camo kit");
-      assert.ok(svg.includes("[Cá mập nói]"), "b03 displays [Cá mập nói] tag");
+      assert.ok(svg.includes(">Cá mập<") && !svg.includes("[Cá mập nói]"), "b03 displays clean Cá mập tag without brackets");
     }
     if (bid === "b04") {
       assert.ok(svg.includes('id="host-board-octopus-camo-static"'), "b04 renders OCTOPUS_INVISIBLE_CAMO Nature Field Board");
       assert.ok(svg.includes('id="stage-ocean-underwater"'), "b04 freezes OCEAN_UNDERWATER");
     }
+    if (bid === "b05") {
+      assert.ok(svg.includes('id="octo-header-stamp-colorblind"'), "b05 places stamp neatly in green header (no Panel 3 overlap)");
+    }
+    if (bid === "b28" || bid === "b30" || bid === "b37") {
+      assert.equal(beat.timeOfDay, "SUNSET", `${bid} uses warm-bright SUNSET living room tone`);
+      assert.ok(svg.includes("#FFEDD5"), `${bid} renders warm cream living room wall (not dark #1E293B)`);
+    }
     if (bid === "b30" || bid === "b37") {
       assert.ok(svg.includes('id="stage-city-living-room"'), `${bid} freezes CITY_LIVING_ROOM`);
       assert.ok(!svg.includes('id="living-room-pet-dog"'), `${bid} does not spawn stray Episode 7 dog`);
     }
+    if (bid === "b46") {
+      assert.ok(svg.includes("translate(1375.0, 776.0)"), "b46 keeps CuteOctopus continuously beside right coral bush");
+    }
     if (bid === "b50") {
       assert.ok(!svg.includes('id="host-board-octopus-camo-static"'), "Solo Host b50 centers BOY without board behind him");
+    }
+    if (bid === "b57") {
+      assert.ok(svg.includes('fill="#F8FAFC" opacity="0.840"'), "b57 locks Host veil steady at 0.840 from frame 0 (no flash)");
+    }
+    if (bid === "b59" || bid === "b60") {
+      assert.ok(svg.includes('cx="680" cy="856"') && svg.includes('cx="960" cy="856"'), `${bid} draws grounded shadows under Dad & BOY`);
     }
   }
 
@@ -491,8 +512,14 @@ test("V23 #7: Episode 10 (60 beats, 16 OCTO_* Full-Screen SVGs, OCEAN_UNDERWATER
     );
     assert.ok(svg.startsWith("<svg"), `${b.customVisual} renders pure root <svg>`);
     assertCleanFlatSvg(svg, `Ep10 SVG ${b.id} (${b.customVisual}#${b.visualStep ?? 0})`);
+    if (b.id === "b26") {
+      assert.ok(svg.includes("Liền mạch 100%") && svg.includes('x="252"'), "b26 shifts Liền mạch 100% cleanly outside retina arc");
+    }
     if (b.id === "b34") {
       assert.ok(svg.includes("#DC2626") && svg.includes("CẢNH BÁO CỰC ĐỘC!"), "b34 renders high-contrast #DC2626 alert badge");
+    }
+    if (b.id === "b41") {
+      assert.ok(svg.includes('y="114"') && svg.includes("Phản chiếu ánh sáng tự nhiên"), "b41 places display caption cleanly below screen & tiles");
     }
   }
 

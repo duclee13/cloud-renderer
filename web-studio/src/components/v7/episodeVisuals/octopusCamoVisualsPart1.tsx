@@ -32,9 +32,9 @@ export const OctoSpeedVsChameleonVisual: React.FC<EpisodeVisualProps> = ({
         })
       : 0;
   const octoColors = {
-    main: mixHexColor('#FB923C', '#14B8A6', shiftT),
-    belly: mixHexColor('#FFEDD5', '#CCFBF1', shiftT),
-    spot: mixHexColor('#EA580C', '#0F766E', shiftT),
+    main: mixHexColor('#C4365D', '#14B8A6', shiftT),
+    belly: mixHexColor('#FCE7F3', '#CCFBF1', shiftT),
+    spot: mixHexColor('#FCE7F3', '#0F766E', shiftT),
   };
   const chamBlink = isAnimalBlinking(frame, 33);
 
@@ -480,7 +480,7 @@ export const Octo3dPapillaeVisual: React.FC<EpisodeVisualProps> = ({
         })
       : 0;
   const peakH = bumpT * 78;
-  const skinColor = mixHexColor('#FB923C', '#64748B', bumpT);
+  const skinColor = mixHexColor('#C4365D', '#64748B', bumpT);
 
   return (
     <svg viewBox="0 0 1920 1080" width="100%" height="100%" style={{ display: 'block', fontFamily: FONT }}>
