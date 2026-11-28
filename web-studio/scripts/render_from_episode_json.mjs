@@ -450,6 +450,7 @@ async function prepareCloudEpisodePlan({
       outputWavPath: mixedAllWav,
       cacheDir: SOUND_DESIGN_CACHE_DIR,
       sfxEnabled: episode.sfxEnabled,
+      bgmEnabled: episode.bgmEnabled,
     });
 
     const masterAudioM4aPath = path.join(planDir, 'master_episode_audio.m4a');
@@ -467,6 +468,9 @@ async function prepareCloudEpisodePlan({
       beats: compiledBeats,
       showDebugHud: false,
       renderMuted: true,
+      ...(episode.storyMode ? { storyMode: episode.storyMode } : {}),
+      ...(episode.sfxEnabled !== undefined ? { sfxEnabled: episode.sfxEnabled } : {}),
+      ...(episode.bgmEnabled !== undefined ? { bgmEnabled: episode.bgmEnabled } : {}),
     };
     const inputPropsPath = path.join(webStudioRoot, 'episodes', 'cloud_input_props.json');
     fs.mkdirSync(path.dirname(inputPropsPath), { recursive: true });

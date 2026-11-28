@@ -33,6 +33,7 @@ import {
   CharacterStoryOverlays,
 } from "../components/cards/StoryInfographicCards";
 import { AudioSfxLayer } from "../../components/AudioSfxLayer";
+import type { StoryMode } from "../../lib/v7/episodeJsonSchema";
 import { LocalBeVietnamProFontStyle } from "../localFonts";
 import { generateSfxDataUrl } from "../../lib/sfxGenerator";
 import { compileScriptBeats, ScriptBeat } from "../../animscript/actionLibrary";
@@ -91,8 +92,12 @@ export interface V7MoviePayload {
   fps: number;
   beats: ScriptBeat[];
   showDebugHud?: boolean;
+  /** V24.0: Chế độ kể chuyện ("CLASSIC_HOST" | "ANIMAL_POV" | "HUMAN_ANIMAL_POV") */
+  storyMode?: StoryMode;
   /** V23.0: Bật/tắt lớp Auto-SFX (mặc định true) */
   sfxEnabled?: boolean;
+  /** V24.0: Bật/tắt nhạc nền Multi-Mood BGM từ public/bgm/ (mặc định false để Tập 1–10 không đổi) */
+  bgmEnabled?: boolean;
   /** V23.6: Bỏ mount toàn bộ <Audio> khi worker Cloud render chunk hình câm (--muted) */
   renderMuted?: boolean;
   renderConfig?: HybridRenderConfig;
@@ -104,8 +109,12 @@ export interface V7MovieCompositionProps {
   v7MoviePayload?: V7MoviePayload;
   beats?: ScriptBeat[];
   showDebugHud?: boolean;
+  /** V24.0: Chế độ kể chuyện cấp tập */
+  storyMode?: StoryMode;
   /** V23.0: Bật/tắt lớp Auto-SFX (mặc định true) */
   sfxEnabled?: boolean;
+  /** V24.0: Bật/tắt nhạc nền Multi-Mood BGM V24 (mặc định false) */
+  bgmEnabled?: boolean;
   /** V23.6: Bỏ mount toàn bộ <Audio> khi worker Cloud render chunk hình câm (--muted) */
   renderMuted?: boolean;
 }
@@ -295,10 +304,15 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
         layerBeat.autoStageSpec &&
         isFullScreenCustomVisualBeat(layerBeat.autoStageSpec)
     );
+    const episodeStoryMode =
+      props.storyMode ??
+      props.payload?.storyMode ??
+      props.v7MoviePayload?.storyMode ??
+      layerBeat.autoStageSpec?.storyMode;
     const hideTopChapterBanner = Boolean(
       isAutoStageBeat &&
         layerBeat.autoStageSpec &&
-        shouldHideTopChapterBanner(layerBeat.autoStageSpec)
+        shouldHideTopChapterBanner(layerBeat.autoStageSpec, episodeStoryMode)
     );
     const rawFloatingHeader = hideTopChapterBanner
       ? undefined
@@ -953,8 +967,10 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
 
       {/* =========================================================================
           1B. V13.0 NHẠC NỀN BGM (3 HỒI CROSSFADE -22dB) & 6 SFX TỰ ĐỘNG (CHO REMOTION PREVIEW)
+              - Khi bật V24 bgmEnabled=true -> nhường BGM cho gói V24 public/bgm/ trong AudioSfxLayer để không phát chồng
          ========================================================================= */}
       {!isRenderMuted &&
+        !(props.bgmEnabled ?? props.payload?.bgmEnabled ?? props.v7MoviePayload?.bgmEnabled ?? false) &&
         (() => {
           const activeSound = props.payload?.soundDesign ?? props.v7MoviePayload?.soundDesign;
           if (!activeSound) return null;
@@ -1017,6 +1033,12 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
             props.payload?.sfxEnabled ??
             props.v7MoviePayload?.sfxEnabled ??
             true
+          }
+          bgmEnabled={
+            props.bgmEnabled ??
+            props.payload?.bgmEnabled ??
+            props.v7MoviePayload?.bgmEnabled ??
+            false
           }
         />
       )}

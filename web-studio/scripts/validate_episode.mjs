@@ -402,6 +402,7 @@ export const VALID_STAGE_TYPE_SET = new Set([
   'ANECHOIC_CHAMBER',
   'EXPLAINER_POLKA_DOT',
   'HOST_EXPLAIN_OVERLAY',
+  'CLEAN_EXPLAINER',
 ]);
 
 export const VALID_ACTOR_PRESET_SET = new Set([

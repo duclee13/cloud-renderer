@@ -36,6 +36,8 @@ import { LotusPondBackdrop } from "./TadpoleMovieStages";
 import { CuratedAnimatedProp } from "./AutoPropLibrary";
 import { EPISODE_VISUAL_REGISTRY, type EpisodeVisualProps } from "./episodeVisuals";
 import { GroundShadow } from "../SceneBackdropKit";
+import { CleanExplainerStage } from "../CleanExplainerStage";
+import { KineticHeadlineLayer } from "../KineticHeadlineLayer";
 import {
   FOREST_PARK_BACKDROP,
   OCEAN_UNDERWATER_BACKDROP,
@@ -2508,8 +2510,15 @@ export function isHostExplainOverlayBeat(spec?: AutoEpisodeBeat | null): boolean
  * hoặc đang hiển thị Full-Screen SVG (tránh đè lên bảng trắng & pill tiêu đề của sơ đồ Full-Screen).
  * Chỉ giữ banner trên các cảnh đời thường thoáng phía trên (như SCHOOL_CLASSROOM, COUNTRYSIDE_YARD, CITY_LIVING_ROOM...).
  */
-export function shouldHideTopChapterBanner(spec?: AutoEpisodeBeat | null): boolean {
+export function shouldHideTopChapterBanner(
+  spec?: AutoEpisodeBeat | null,
+  episodeStoryMode?: "CLASSIC_HOST" | "ANIMAL_POV" | "HUMAN_ANIMAL_POV"
+): boolean {
   if (!spec) return false;
+  const effectiveStoryMode = episodeStoryMode ?? spec.storyMode ?? "CLASSIC_HOST";
+  if (effectiveStoryMode === "ANIMAL_POV" || effectiveStoryMode === "HUMAN_ANIMAL_POV") {
+    return true;
+  }
   return isFullScreenCustomVisualBeat(spec) || isHostExplainOverlayBeat(spec);
 }
 
@@ -2740,6 +2749,12 @@ export const UniversalAutoStage: React.FC<{
             />
           </svg>
         </g>
+        <KineticHeadlineLayer
+          headline={spec.kineticHeadline}
+          timeBadge={spec.timeBadge}
+          localFrame={localFrame}
+          fps={fps}
+        />
       </g>
     );
   }
@@ -3504,6 +3519,9 @@ export const UniversalAutoStage: React.FC<{
         {effectiveStageType === "ANECHOIC_CHAMBER" && (
           <AnechoicChamberBackdrop timeOfDay={spec.timeOfDay} frame={stageRenderFrame} groundY={groundY} />
         )}
+        {effectiveStageType === "CLEAN_EXPLAINER" && (
+          <CleanExplainerStage palette={spec.explainerPalette} frame={stageRenderFrame} uid={spec.id} />
+        )}
         {effectiveStageType === "EXPLAINER_POLKA_DOT" && (
           <>
             <MemoExplainerPolkaDotBackdrop
@@ -3859,6 +3877,7 @@ export const UniversalAutoStage: React.FC<{
 
           const showFlatGroundShadow =
             isHostExplain ||
+            effectiveStageType === "CLEAN_EXPLAINER" ||
             (effectiveStageType === "CITY_LIVING_ROOM" &&
               spec.livingRoomDetail === "OUTRO_OPEN_FLOOR" &&
               !actor.seated);
@@ -4273,6 +4292,16 @@ export const UniversalAutoStage: React.FC<{
             </g>
           );
         })()}
+
+      {/* 6. V24.0 KINETIC HEADLINE & TIME BADGE (0-BLUR, NGOÀI NHÓM ZOOM CAMERA) */}
+      {(spec.kineticHeadline || spec.timeBadge) && (
+        <KineticHeadlineLayer
+          headline={spec.kineticHeadline}
+          timeBadge={spec.timeBadge}
+          localFrame={localFrame}
+          fps={fps}
+        />
+      )}
     </g>
   );
 };

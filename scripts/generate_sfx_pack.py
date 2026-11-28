@@ -155,6 +155,86 @@ def gen_alert_soft():
     return normalize_and_fade(out, target_peak=0.76, fade_ms=4.0)
 
 
+def gen_headline_pop():
+    """0.12s bright crisp pop for KineticHeadline (440 -> 880 Hz, 6ms attack, smooth decay, 0 click)."""
+    dur = 0.12
+    n = int(round(dur * SAMPLE_RATE))
+    attack_sec = 0.006
+    phase = 0.0
+    out = []
+    for i in range(n):
+        t = i / SAMPLE_RATE
+        u = t / dur
+        freq = 440.0 + (880.0 - 440.0) * (u ** 0.65)
+        phase += TWO_PI * freq / SAMPLE_RATE
+        attack = min(1.0, t / attack_sec) if attack_sec > 0 else 1.0
+        decay = math.exp(-t * 28.0)
+        tone = math.sin(phase) + 0.22 * math.sin(2.0 * phase) + 0.06 * math.sin(3.0 * phase)
+        out.append(tone * attack * decay)
+    return normalize_and_fade(out, target_peak=0.80, fade_ms=3.0)
+
+
+def gen_tick_clock():
+    """0.08s crisp wooden mechanical clock tick (1200 Hz + low 2400 Hz, very fast 25ms decay)."""
+    dur = 0.08
+    n = int(round(dur * SAMPLE_RATE))
+    out = []
+    for i in range(n):
+        t = i / SAMPLE_RATE
+        attack = min(1.0, t / 0.002)
+        env = math.exp(-t / 0.025)
+        body = math.sin(TWO_PI * 1200.0 * t) + 0.28 * math.sin(TWO_PI * 2400.0 * t)
+        wood = 0.20 * math.sin(TWO_PI * 620.0 * t) * math.exp(-t / 0.012)
+        out.append((body + wood) * attack * env)
+    return normalize_and_fade(out, target_peak=0.78, fade_ms=2.0)
+
+
+def gen_heartbeat_soft():
+    """0.46s warm 2-beat heartbeat (lub-dub: 68 Hz -> 52 Hz, two pulses 0.16s apart)."""
+    dur = 0.46
+    n = int(round(dur * SAMPLE_RATE))
+    out = [0.0] * n
+    pulses = [(0.02, 1.0, 68.0, 52.0, 0.14), (0.18, 0.78, 64.0, 48.0, 0.18)]
+    for start_s, gain, f_start, f_end, p_dur in pulses:
+        p_start = int(round(start_s * SAMPLE_RATE))
+        p_len = int(round(p_dur * SAMPLE_RATE))
+        phase = 0.0
+        for j in range(p_len):
+            idx = p_start + j
+            if idx >= n:
+                break
+            lt = j / SAMPLE_RATE
+            u = lt / p_dur
+            freq = f_start + (f_end - f_start) * u
+            phase += TWO_PI * freq / SAMPLE_RATE
+            attack = min(1.0, lt / 0.014)
+            decay = math.exp(-lt * 18.0)
+            tone = math.sin(phase) + 0.25 * math.sin(2.0 * phase)
+            out[idx] += tone * attack * decay * gain
+    return normalize_and_fade(out, target_peak=0.82, fade_ms=5.0)
+
+
+def gen_sparkle_warm():
+    """0.52s warm rising 3-note arpeggio (C6 1046.5 Hz, E6 1318.5 Hz, G6 1568 Hz, staggered 0.08s)."""
+    dur = 0.52
+    n = int(round(dur * SAMPLE_RATE))
+    out = [0.0] * n
+    notes = [(0.00, 1046.5, 0.85), (0.08, 1318.5, 0.90), (0.16, 1568.0, 1.0)]
+    for start_s, freq, gain in notes:
+        s_idx = int(round(start_s * SAMPLE_RATE))
+        for idx in range(s_idx, n):
+            lt = (idx - s_idx) / SAMPLE_RATE
+            attack = min(1.0, lt / 0.010)
+            decay = math.exp(-lt * 7.2)
+            tone = (
+                math.sin(TWO_PI * freq * lt)
+                + 0.20 * math.sin(TWO_PI * (freq * 2.0) * lt) * math.exp(-lt * 10.0)
+                + 0.12 * math.sin(TWO_PI * (freq * 0.5) * lt)
+            )
+            out[idx] += tone * attack * decay * gain
+    return normalize_and_fade(out, target_peak=0.80, fade_ms=6.0)
+
+
 def main():
     repo_root = Path(__file__).resolve().parent.parent
     out_dir = repo_root / "web-studio" / "public" / "sfx"
@@ -166,6 +246,11 @@ def main():
         ("whoosh_out.wav", gen_whoosh(0.22, 320.0, 170.0, seed=2302)),
         ("ding_warm.wav", gen_ding_warm()),
         ("alert_soft.wav", gen_alert_soft()),
+        # V24.0 Expanded Story-First & Kinetic SFX
+        ("headline_pop.wav", gen_headline_pop()),
+        ("tick_clock.wav", gen_tick_clock()),
+        ("heartbeat_soft.wav", gen_heartbeat_soft()),
+        ("sparkle_warm.wav", gen_sparkle_warm()),
     ]
 
     for filename, samples in specs:

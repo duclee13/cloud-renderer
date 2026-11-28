@@ -19,8 +19,8 @@ import fs from "fs";
 import path from "path";
 import os from "os";
 import { execSync } from "child_process";
-import type { AutoEpisodeBeat, AutoSfxCueId } from "./episodeJsonSchema.ts";
-import { resolveAutoSfxPlan } from "./autoSfxPlanner.ts";
+import type { AutoBgmMood, AutoEpisodeBeat, AutoSfxCueId } from "./episodeJsonSchema.ts";
+import { resolveAutoSfxPlan, resolveV24BgmSegments } from "./autoSfxPlanner.ts";
 
 export type BgmTrackId = "BGM_STORY_CALM" | "BGM_TENSE_PULSE" | "BGM_WARM_OUTRO";
 
@@ -70,8 +70,8 @@ export interface SoundDesignBeatInput {
   calloutTriggerPhrase?: string;
   sfxText?: string;
   narrationText?: string;
-  bgmMood?: BgmTrackId;
-  /** V17–V23: Thông số cảnh JSON tự động để Auto-SFX V23.0 bắt chuyển cảnh chính xác */
+  bgmMood?: AutoBgmMood;
+  /** V17–V24: Thông số cảnh JSON tự động để Auto-SFX V23/V24 & BGM V24 bắt chuyển cảnh chính xác */
   autoStageSpec?: AutoEpisodeBeat;
   /** V23.0: Ghi đè hiệu ứng Auto-SFX cấp beat */
   sfxCue?: AutoSfxCueId;
@@ -625,7 +625,14 @@ export function ensureSoundDesignAssets(cacheDir = SOUND_DESIGN_CACHE_DIR): Soun
  * Tự động suy luận bản nhạc nền BGM phù hợp cho từng phân cảnh của mọi kịch bản
  */
 export function inferBgmMoodForBeat(beat: SoundDesignBeatInput, index: number, totalBeats: number): BgmTrackId {
-  if (beat.bgmMood) return beat.bgmMood;
+  if (beat.bgmMood) {
+    if (beat.bgmMood === "BGM_STORY_CALM" || beat.bgmMood === "BGM_TENSE_PULSE" || beat.bgmMood === "BGM_WARM_OUTRO") {
+      return beat.bgmMood;
+    }
+    if (beat.bgmMood === "TENSE") return "BGM_TENSE_PULSE";
+    if (beat.bgmMood === "EMOTIONAL") return "BGM_WARM_OUTRO";
+    return "BGM_STORY_CALM";
+  }
 
   const mode = beat.hornetSceneMode || "";
   const kassMode = beat.kassSceneMode || "";
@@ -981,6 +988,8 @@ export interface MixMasterAudioParams {
   cacheDir?: string;
   /** V23.0: Bật/tắt trộn thêm gói Auto-SFX public/sfx/*.wav vào Master Audio Cloud (mặc định true) */
   sfxEnabled?: boolean;
+  /** V24.0: Bật/tắt trộn nhạc nền Multi-Mood BGM public/bgm/*.wav (mặc định false để Tập 1–10 không đổi) */
+  bgmEnabled?: boolean;
 }
 
 export interface MixMasterAudioResult {
@@ -990,11 +999,27 @@ export interface MixMasterAudioResult {
   durationSec: number;
 }
 
+function resampleFloat32Mono(samples: Float32Array, fromRate: number, toRate: number): Float32Array {
+  if (fromRate === toRate || samples.length === 0) return samples;
+  const ratio = fromRate / toRate;
+  const outLen = Math.max(1, Math.round(samples.length / ratio));
+  const out = new Float32Array(outLen);
+  for (let i = 0; i < outLen; i++) {
+    const srcIdx = i * ratio;
+    const lo = Math.floor(srcIdx);
+    const hi = Math.min(samples.length - 1, lo + 1);
+    const frac = srcIdx - lo;
+    out[i] = samples[lo] * (1 - frac) + samples[hi] * frac;
+  }
+  return out;
+}
+
 /**
  * Bộ Trộn Âm Thanh Phòng Thu 32-bit Float (Zero Clipping, Sample-Accurate):
  * - Resample giọng đọc chủ đạo lên 44.1kHz (giữ nguyên âm lượng 0dB sắc nét)
  * - Trộn 3 lớp Nhạc Nền BGM loop với crossfade 0.65s–0.8s & fade-in 0.5s / fade-out 0.8s ở mức -22dB (~0.095)
- * - Chèn chính xác từng sample toàn bộ 6 hiệu ứng SFX theo SoundDesignPlan
+ *   (hoặc V24.0 Multi-Mood BGM từ public/bgm/*.wav ở mức 0.065 khi bgmEnabled === true)
+ * - Chèn chính xác từng sample toàn bộ các hiệu ứng SFX theo SoundDesignPlan + V23/V24 Auto-SFX
  * - Qua soft-limiter (0.94) để tuyệt đối không vỡ tiếng và xuất WAV 44.1kHz 16-bit
  */
 export function mixMasterAudioWithSoundDesign(params: MixMasterAudioParams): MixMasterAudioResult {
@@ -1021,42 +1046,82 @@ export function mixMasterAudioWithSoundDesign(params: MixMasterAudioParams): Mix
       mixBuf[i] = voiceDecoded.samples[i];
     }
 
-    // 2. Nạp & trộn 3 đoạn BGM có loop mượt + crossfade chồng lấn 0.5s giữa các hồi
-    const decodedBgm: Partial<Record<BgmTrackId, Float32Array>> = {};
-    const getBgm = (id: BgmTrackId): Float32Array => {
-      if (!decodedBgm[id]) {
-        decodedBgm[id] = decodeWavToFloat32Mono(assets.bgm[id]).samples;
+    // 2. Nhạc nền BGM: V24.0 Multi-Mood public/bgm/*.wav khi bgmEnabled === true; mặc định giữ nguyên V13 BGM cho Tập 1–10
+    if (params.bgmEnabled === true) {
+      const v24BgmSegments = resolveV24BgmSegments(params.beats, fps, true);
+      if (v24BgmSegments.length > 0) {
+        const cwd = process.cwd();
+        const bgmPublicDir =
+          path.basename(cwd).toLowerCase() === "web-studio"
+            ? path.join(cwd, "public", "bgm")
+            : path.join(cwd, "web-studio", "public", "bgm");
+        const decodedV24Bgm: Record<string, Float32Array | null> = {};
+        for (const seg of v24BgmSegments) {
+          if (!(seg.fileName in decodedV24Bgm)) {
+            const wavFile = path.join(bgmPublicDir, seg.fileName);
+            if (fs.existsSync(wavFile)) {
+              const dec = decodeWavToFloat32Mono(wavFile);
+              decodedV24Bgm[seg.fileName] = resampleFloat32Mono(dec.samples, dec.sampleRate, SAMPLE_RATE);
+            } else {
+              decodedV24Bgm[seg.fileName] = null;
+            }
+          }
+          const bgmData = decodedV24Bgm[seg.fileName];
+          if (!bgmData || bgmData.length === 0) continue;
+
+          const startSample = Math.max(0, Math.floor((seg.startFrame / fps) * SAMPLE_RATE));
+          const endSample = Math.min(
+            targetSamples,
+            Math.floor(((seg.startFrame + seg.durationFrames) / fps) * SAMPLE_RATE)
+          );
+          const fadeSamples = Math.max(1, Math.floor((seg.fadeFrames / fps) * SAMPLE_RATE));
+          for (let s = startSample; s < endSample; s++) {
+            const localIdx = s - startSample;
+            const remainIdx = endSample - 1 - s;
+            let env = 1.0;
+            if (localIdx < fadeSamples) env *= localIdx / fadeSamples;
+            if (remainIdx < fadeSamples) env *= remainIdx / fadeSamples;
+            mixBuf[s] += bgmData[localIdx % bgmData.length] * seg.volume * env;
+          }
+        }
       }
-      return decodedBgm[id]!;
-    };
-
-    for (let segIdx = 0; segIdx < plan.bgmSegments.length; segIdx++) {
-      const seg = plan.bgmSegments[segIdx];
-      const bgmData = getBgm(seg.trackId);
-      const isFirst = segIdx === 0;
-      const isLast = segIdx === plan.bgmSegments.length - 1;
-      const overlapSamples = Math.floor(0.45 * SAMPLE_RATE);
-
-      const startSample = Math.max(0, Math.floor((seg.startFrame / fps) * SAMPLE_RATE) - (isFirst ? 0 : overlapSamples));
-      const endSample = Math.min(
-        targetSamples,
-        Math.floor((seg.endFrame / fps) * SAMPLE_RATE) + (isLast ? 0 : overlapSamples)
-      );
-      const fadeInSamples = Math.max(1, Math.floor(seg.fadeInSec * SAMPLE_RATE));
-      const fadeOutSamples = Math.max(1, Math.floor(seg.fadeOutSec * SAMPLE_RATE));
-
-      for (let s = startSample; s < endSample; s++) {
-        const localIdx = s - startSample;
-        const remainIdx = endSample - 1 - s;
-        let env = 1.0;
-        if (localIdx < fadeInSamples) {
-          env *= localIdx / fadeInSamples;
+    } else {
+      const decodedBgm: Partial<Record<BgmTrackId, Float32Array>> = {};
+      const getBgm = (id: BgmTrackId): Float32Array => {
+        if (!decodedBgm[id]) {
+          decodedBgm[id] = decodeWavToFloat32Mono(assets.bgm[id]).samples;
         }
-        if (remainIdx < fadeOutSamples) {
-          env *= remainIdx / fadeOutSamples;
+        return decodedBgm[id]!;
+      };
+
+      for (let segIdx = 0; segIdx < plan.bgmSegments.length; segIdx++) {
+        const seg = plan.bgmSegments[segIdx];
+        const bgmData = getBgm(seg.trackId);
+        const isFirst = segIdx === 0;
+        const isLast = segIdx === plan.bgmSegments.length - 1;
+        const overlapSamples = Math.floor(0.45 * SAMPLE_RATE);
+
+        const startSample = Math.max(0, Math.floor((seg.startFrame / fps) * SAMPLE_RATE) - (isFirst ? 0 : overlapSamples));
+        const endSample = Math.min(
+          targetSamples,
+          Math.floor((seg.endFrame / fps) * SAMPLE_RATE) + (isLast ? 0 : overlapSamples)
+        );
+        const fadeInSamples = Math.max(1, Math.floor(seg.fadeInSec * SAMPLE_RATE));
+        const fadeOutSamples = Math.max(1, Math.floor(seg.fadeOutSec * SAMPLE_RATE));
+
+        for (let s = startSample; s < endSample; s++) {
+          const localIdx = s - startSample;
+          const remainIdx = endSample - 1 - s;
+          let env = 1.0;
+          if (localIdx < fadeInSamples) {
+            env *= localIdx / fadeInSamples;
+          }
+          if (remainIdx < fadeOutSamples) {
+            env *= remainIdx / fadeOutSamples;
+          }
+          const loopSample = bgmData[localIdx % bgmData.length];
+          mixBuf[s] += loopSample * seg.volume * env;
         }
-        const loopSample = bgmData[localIdx % bgmData.length];
-        mixBuf[s] += loopSample * seg.volume * env;
       }
     }
 

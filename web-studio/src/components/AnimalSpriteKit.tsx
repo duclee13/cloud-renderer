@@ -14,6 +14,19 @@ export type CreatureEmotion =
   | "sleepy"
   | "proud";
 
+export type AnimalAccessoryType =
+  | "none"
+  | "tie_blue"
+  | "scarf_red"
+  | "flower_pink"
+  | "glasses_round"
+  | "cap_orange"
+  | "crown_gold"
+  | "bandana_green"
+  | "hat_black";
+
+export type AnimalAgeVariant = "adult" | "baby" | "elder";
+
 export interface AnimalSpriteBaseProps {
   x: number;
   y: number;
@@ -21,6 +34,10 @@ export interface AnimalSpriteBaseProps {
   flipX?: boolean;
   frame: number;
   emotion?: CreatureEmotion;
+  /** V24.0: Optional character-identifying micro-prop (default "none") */
+  accessory?: AnimalAccessoryType;
+  /** V24.0: Optional age variant ("adult" | "baby" | "elder", default "adult") */
+  ageVariant?: AnimalAgeVariant;
 }
 
 /** Smooth 5-frame blink every 110 frames, desynchronized per species via seedOffset */
@@ -114,15 +131,150 @@ const SharkCuteTeethStatic: React.FC = React.memo(() => (
 SharkCuteTeethStatic.displayName = "SharkCuteTeethStatic";
 
 /* ============================================================================
+ * V24.0 MICRO-PROPS ACCESSORY HELPER (`AnimalAccessory`) — 0 blur, stroke="#1E293B" strokeWidth={3}
+ *   - Supports 8 character-identifying micro-props across all 8 AnimalSpriteKit species:
+ *     "tie_blue" | "scarf_red" | "flower_pink" | "glasses_round"
+ *     | "cap_orange" | "crown_gold" | "bandana_green" | "hat_black"
+ * ========================================================================== */
+
+export interface AnimalAccessoryProps {
+  type?: AnimalAccessoryType;
+  anchorX: number;
+  anchorY: number;
+  scale?: number;
+  layout?: "front" | "side";
+  eyeSpread?: number;
+}
+
+export const AnimalAccessory: React.FC<AnimalAccessoryProps> = React.memo(
+  ({ type = "none", anchorX, anchorY, scale = 1, layout = "front", eyeSpread = 12 }) => {
+    if (!type || type === "none") return null;
+
+    return (
+      <g
+        id={`animal-accessory-${type}`}
+        transform={`translate(${anchorX.toFixed(1)}, ${anchorY.toFixed(1)}) scale(${scale.toFixed(3)})`}
+        stroke={INK}
+        strokeWidth={3}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        {type === "tie_blue" && (
+          <g>
+            {/* Clean collar knot + crisp blue tie hanging on chest/neck */}
+            <polygon points="-7,-3 7,-3 5,6 -5,6" fill="#1D4ED8" />
+            <polygon points="-5,6 5,6 9,26 0,34 -9,26" fill="#3B82F6" />
+            <line x1={-4} y1={14} x2={5} y2={11} stroke="#93C5FD" strokeWidth={2.2} />
+            <line x1={-5} y1={22} x2={6} y2={19} stroke="#93C5FD" strokeWidth={2.2} />
+          </g>
+        )}
+
+        {type === "scarf_red" && (
+          <g>
+            {/* Cozy wrapped red scarf + trailing end */}
+            <rect x={-26} y={-7} width={52} height={14} rx={7} fill="#EF4444" />
+            <path d="M 8,5 L 18,28 L 28,24 L 20,4 Z" fill="#DC2626" />
+            <line x1={-14} y1={-4} x2={-14} y2={4} stroke="#FCA5A5" strokeWidth={2.4} />
+            <line x1={2} y1={-4} x2={2} y2={4} stroke="#FCA5A5" strokeWidth={2.4} />
+          </g>
+        )}
+
+        {type === "bandana_green" && (
+          <g>
+            {/* Triangle explorer green bandana tied around neck */}
+            <rect x={-24} y={-6} width={48} height={10} rx={5} fill="#15803D" />
+            <polygon points="-16,3 16,3 0,24" fill="#22C55E" />
+            <circle cx={0} cy={12} r={2.5} fill="#DCFCE7" stroke="none" />
+          </g>
+        )}
+
+        {type === "flower_pink" && (
+          <g>
+            {/* Cute 5-petal pastel pink blossom with warm yellow center */}
+            <circle cx={0} cy={-9} r={6.5} fill="#F472B6" />
+            <circle cx={9} cy={-3} r={6.5} fill="#F472B6" />
+            <circle cx={6} cy={7} r={6.5} fill="#F472B6" />
+            <circle cx={-6} cy={7} r={6.5} fill="#F472B6" />
+            <circle cx={-9} cy={-3} r={6.5} fill="#F472B6" />
+            <circle cx={0} cy={0} r={5} fill="#FACC15" />
+          </g>
+        )}
+
+        {type === "cap_orange" && (
+          <g>
+            {/* Sporty rounded orange baseball cap with front brim */}
+            <path d="M -24,6 C -24,-18 20,-18 22,6 Z" fill="#F97316" />
+            <path d="M 4,6 L 34,8 C 32,14 14,13 0,10 Z" fill="#EA580C" />
+            <circle cx={-2} cy={-14} r={3.5} fill="#FDE047" />
+          </g>
+        )}
+
+        {type === "crown_gold" && (
+          <g>
+            {/* Little royal gold 3-point crown */}
+            <polygon points="-18,8 -20,-12 -8,-2 0,-18 8,-2 20,-12 18,8" fill="#FACC15" />
+            <rect x={-18} y={4} width={36} height={6} rx={3} fill="#EAB308" />
+            <circle cx={0} cy={-3} r={2.8} fill="#EF4444" stroke="none" />
+          </g>
+        )}
+
+        {type === "hat_black" && (
+          <g>
+            {/* Classic detective / gentleman top hat with gold band */}
+            <ellipse cx={0} cy={6} rx={28} ry={6} fill="#1E293B" />
+            <rect x={-18} y={-20} width={36} height={26} rx={5} fill="#334155" />
+            <rect x={-18} y={-2} width={36} height={6} fill="#FACC15" stroke="none" />
+          </g>
+        )}
+
+        {type === "glasses_round" && (
+          layout === "side" ? (
+            <g>
+              <line x1={-18} y1={-1} x2={-9} y2={-1} stroke={INK} strokeWidth={3} />
+              <circle cx={0} cy={0} r={10} fill="#E0F2FE" fillOpacity={0.42} stroke={INK} strokeWidth={3} />
+              <path d="M -4,-4 L -1,-1" stroke="#FFFFFF" strokeWidth={2} />
+            </g>
+          ) : (
+            <g>
+              <circle cx={-eyeSpread} cy={0} r={10} fill="#E0F2FE" fillOpacity={0.42} stroke={INK} strokeWidth={3} />
+              <circle cx={eyeSpread} cy={0} r={10} fill="#E0F2FE" fillOpacity={0.42} stroke={INK} strokeWidth={3} />
+              <path d={`M ${-eyeSpread + 10},0 Q 0,-3 ${eyeSpread - 10},0`} fill="none" stroke={INK} strokeWidth={3} />
+            </g>
+          )
+        )}
+      </g>
+    );
+  }
+);
+AnimalAccessory.displayName = "AnimalAccessory";
+
+/** Subtle flat translucent veil for ageVariant === "elder" (0 CSS/SVG filters) */
+const AnimalElderDesatVeil: React.FC<{ rx: number; ry: number; cx?: number; cy?: number }> = React.memo(
+  ({ rx, ry, cx = 0, cy = 0 }) => (
+    <ellipse cx={cx} cy={cy} rx={rx} ry={ry} fill="#E2E8F0" opacity="0.2" stroke="none" />
+  )
+);
+AnimalElderDesatVeil.displayName = "AnimalElderDesatVeil";
+
+function isHeadAccessory(type?: AnimalAccessoryType): boolean {
+  return type === "flower_pink" || type === "cap_orange" || type === "crown_gold" || type === "hat_black";
+}
+function isNeckAccessory(type?: AnimalAccessoryType): boolean {
+  return type === "tie_blue" || type === "scarf_red" || type === "bandana_green";
+}
+
+/* ============================================================================
  * SHARED CREATURE FACE & EMOTION OVERLAYS (`CreatureFace`)
  *   - Supports "front" (2 eyes + nose/mouth) and "side" (profile eye + cheek + mouth)
  *   - Sparkling eyes (#0F172A + 2 crisp #FFFFFF catchlights), smooth 110f/5f blink
- *   - Pastel rosy cheeks (#FDA4AF, opacity="0.45")
+ *   - Pastel rosy cheeks (#FDA4AF, opacity="0.45"; richer 0.62 for baby)
+ *   - V24.0 ageVariant: "baby" (1.12x eye scale + richer blush) | "elder" (#94A3B8 silver eyebrows)
  *   - Counter-flips text glyphs (?, !, zZ) when flipX=true so symbols never mirror!
  * ========================================================================== */
 
 export interface CreatureFaceProps {
   emotion?: CreatureEmotion;
+  ageVariant?: AnimalAgeVariant;
   frame: number;
   blinkSeed?: number;
   flipX?: boolean;
@@ -280,6 +432,7 @@ export const CreatureEmotionBadge: React.FC<{
 
 export const CreatureFace: React.FC<CreatureFaceProps> = ({
   emotion = "happy",
+  ageVariant = "adult",
   frame,
   blinkSeed = 17,
   flipX = false,
@@ -299,7 +452,13 @@ export const CreatureFace: React.FC<CreatureFaceProps> = ({
   const blink = isAnimalBlinking(frame, blinkSeed);
   const shimmerX = emotion === "surprised" ? Math.sin(frame * 0.55) * 0.8 : 0;
   const shimmerY = emotion === "surprised" ? Math.cos(frame * 0.45) * 0.8 : 0;
-  const effEyeR = emotion === "surprised" ? eyeRadius * 1.2 : emotion === "scared" ? eyeRadius * 1.08 : eyeRadius;
+  const babyEyeMul = ageVariant === "baby" ? 1.12 : 1;
+  const effEyeR =
+    (emotion === "surprised" ? eyeRadius * 1.2 : emotion === "scared" ? eyeRadius * 1.08 : eyeRadius) * babyEyeMul;
+  const cheekOpacity = ageVariant === "baby" ? "0.62" : "0.45";
+  const cheekScale = ageVariant === "baby" ? 1.12 : 1;
+  const browStroke = ageVariant === "elder" ? "#94A3B8" : INK;
+  const browWidth = ageVariant === "elder" ? 3.5 : 2.8;
 
   if (layout === "side") {
     return (
@@ -308,36 +467,44 @@ export const CreatureFace: React.FC<CreatureFaceProps> = ({
         <ellipse
           cx={eyeSpread + 2}
           cy={cheekY}
-          rx={eyeRadius * 1.15}
-          ry={eyeRadius * 0.68}
+          rx={eyeRadius * 1.15 * cheekScale}
+          ry={eyeRadius * 0.68 * cheekScale}
           fill={CHEEK_PINK}
-          opacity="0.45"
+          opacity={cheekOpacity}
           stroke="none"
         />
 
-        {/* Eyebrow by emotion */}
+        {/* Eyebrow by emotion (plus soft silver-gray brow for ageVariant="elder") */}
         {emotion === "curious" && (
           <path
             d={`M ${eyeSpread - effEyeR},${eyeY - effEyeR - 5} Q ${eyeSpread},${eyeY - effEyeR - 10} ${eyeSpread + effEyeR},${eyeY - effEyeR - 4}`}
             fill="none"
-            stroke={INK}
-            strokeWidth={2.8}
+            stroke={browStroke}
+            strokeWidth={browWidth}
           />
         )}
         {emotion === "scared" && (
           <path
             d={`M ${eyeSpread - effEyeR},${eyeY - effEyeR - 2} L ${eyeSpread + effEyeR},${eyeY - effEyeR - 7}`}
             fill="none"
-            stroke={INK}
-            strokeWidth={2.8}
+            stroke={browStroke}
+            strokeWidth={browWidth}
           />
         )}
         {emotion === "proud" && (
           <path
             d={`M ${eyeSpread - effEyeR},${eyeY - effEyeR - 5} Q ${eyeSpread},${eyeY - effEyeR - 8} ${eyeSpread + effEyeR},${eyeY - effEyeR - 3}`}
             fill="none"
-            stroke={INK}
-            strokeWidth={2.8}
+            stroke={browStroke}
+            strokeWidth={browWidth}
+          />
+        )}
+        {ageVariant === "elder" && emotion !== "curious" && emotion !== "scared" && emotion !== "proud" && (
+          <path
+            d={`M ${eyeSpread - effEyeR - 1},${eyeY - effEyeR - 4} Q ${eyeSpread},${eyeY - effEyeR - 7} ${eyeSpread + effEyeR + 1},${eyeY - effEyeR - 4}`}
+            fill="none"
+            stroke="#94A3B8"
+            strokeWidth={3.5}
           />
         )}
 
@@ -405,49 +572,55 @@ export const CreatureFace: React.FC<CreatureFaceProps> = ({
   // FRONT 2-EYE EXPRESSIVE FACE
   return (
     <g className={`creature-face-front-${emotion}`}>
-      {/* Pastel Rosy Cheeks (#FDA4AF, opacity="0.45") */}
+      {/* Pastel Rosy Cheeks (#FDA4AF, opacity="0.45"; richer 0.62 for baby) */}
       <ellipse
         cx={-cheekSpread}
         cy={cheekY}
-        rx={eyeRadius * 1.25}
-        ry={eyeRadius * 0.72}
+        rx={eyeRadius * 1.25 * cheekScale}
+        ry={eyeRadius * 0.72 * cheekScale}
         fill={CHEEK_PINK}
-        opacity="0.45"
+        opacity={cheekOpacity}
         stroke="none"
       />
       <ellipse
         cx={cheekSpread}
         cy={cheekY}
-        rx={eyeRadius * 1.25}
-        ry={eyeRadius * 0.72}
+        rx={eyeRadius * 1.25 * cheekScale}
+        ry={eyeRadius * 0.72 * cheekScale}
         fill={CHEEK_PINK}
-        opacity="0.45"
+        opacity={cheekOpacity}
         stroke="none"
       />
 
-      {/* Emotion Eyebrows */}
+      {/* Emotion Eyebrows (plus soft silver-gray brows for ageVariant="elder") */}
       {emotion === "curious" && (
-        <g fill="none" stroke={INK} strokeWidth={2.6}>
+        <g fill="none" stroke={browStroke} strokeWidth={ageVariant === "elder" ? 3.5 : 2.6}>
           <path d={`M ${-eyeSpread - effEyeR},${eyeY - effEyeR - 3} Q ${-eyeSpread},${eyeY - effEyeR - 5} ${-eyeSpread + effEyeR},${eyeY - effEyeR - 3}`} />
           <path d={`M ${eyeSpread - effEyeR},${eyeY - effEyeR - 6} Q ${eyeSpread},${eyeY - effEyeR - 11} ${eyeSpread + effEyeR},${eyeY - effEyeR - 5}`} />
         </g>
       )}
       {emotion === "surprised" && (
-        <g fill="none" stroke={INK} strokeWidth={2.6}>
+        <g fill="none" stroke={browStroke} strokeWidth={ageVariant === "elder" ? 3.5 : 2.6}>
           <path d={`M ${-eyeSpread - effEyeR},${eyeY - effEyeR - 5} Q ${-eyeSpread},${eyeY - effEyeR - 10} ${-eyeSpread + effEyeR},${eyeY - effEyeR - 5}`} />
           <path d={`M ${eyeSpread - effEyeR},${eyeY - effEyeR - 5} Q ${eyeSpread},${eyeY - effEyeR - 10} ${eyeSpread + effEyeR},${eyeY - effEyeR - 5}`} />
         </g>
       )}
       {emotion === "scared" && (
-        <g fill="none" stroke={INK} strokeWidth={2.8}>
+        <g fill="none" stroke={browStroke} strokeWidth={ageVariant === "elder" ? 3.5 : 2.8}>
           <line x1={-eyeSpread - effEyeR} y1={eyeY - effEyeR - 2} x2={-eyeSpread + effEyeR} y2={eyeY - effEyeR - 7} />
           <line x1={eyeSpread - effEyeR} y1={eyeY - effEyeR - 7} x2={eyeSpread + effEyeR} y2={eyeY - effEyeR - 2} />
         </g>
       )}
       {emotion === "proud" && (
-        <g fill="none" stroke={INK} strokeWidth={2.6}>
+        <g fill="none" stroke={browStroke} strokeWidth={ageVariant === "elder" ? 3.5 : 2.6}>
           <path d={`M ${-eyeSpread - effEyeR},${eyeY - effEyeR - 4} Q ${-eyeSpread},${eyeY - effEyeR - 8} ${-eyeSpread + effEyeR},${eyeY - effEyeR - 3}`} />
           <path d={`M ${eyeSpread - effEyeR},${eyeY - effEyeR - 3} Q ${eyeSpread},${eyeY - effEyeR - 8} ${eyeSpread + effEyeR},${eyeY - effEyeR - 4}`} />
+        </g>
+      )}
+      {ageVariant === "elder" && (emotion === "happy" || emotion === "sleepy") && (
+        <g fill="none" stroke="#94A3B8" strokeWidth={3.5}>
+          <path d={`M ${-eyeSpread - effEyeR - 1},${eyeY - effEyeR - 4} Q ${-eyeSpread},${eyeY - effEyeR - 7} ${-eyeSpread + effEyeR + 1},${eyeY - effEyeR - 4}`} />
+          <path d={`M ${eyeSpread - effEyeR - 1},${eyeY - effEyeR - 4} Q ${eyeSpread},${eyeY - effEyeR - 7} ${eyeSpread + effEyeR + 1},${eyeY - effEyeR - 4}`} />
         </g>
       )}
 
@@ -539,6 +712,8 @@ export const CuteCat: React.FC<CuteCatProps> = ({
   pose = "sit",
   variant = "orange",
   emotion,
+  accessory = "none",
+  ageVariant = "adult",
   hasTail = true,
   disableMidairWobble = false,
 }) => {
@@ -620,6 +795,10 @@ export const CuteCat: React.FC<CuteCatProps> = ({
               opacity="0.10"
               stroke="none"
             />
+            {ageVariant === "elder" && <AnimalElderDesatVeil cx={0} cy={-6} rx={54} ry={28} />}
+            {isNeckAccessory(accessory) && (
+              <AnimalAccessory type={accessory} anchorX={34} anchorY={-8} scale={0.92} />
+            )}
             {/* Expressive Head */}
             <g transform={`translate(56, -24) rotate(${curiousTilt})`}>
               <g transform={`rotate(${(-earTwitch).toFixed(1)}, -16, -24)`}>
@@ -633,9 +812,11 @@ export const CuteCat: React.FC<CuteCatProps> = ({
               <circle cx={0} cy={0} r={30} fill={furMain} />
               <CatForeheadStripes color={furStripe} />
               <ellipse cx={0} cy={10} rx={16} ry={11} fill={furLight} stroke="none" />
+              {ageVariant === "elder" && <AnimalElderDesatVeil rx={30} ry={30} />}
               <polygon points="-4,5 4,5 0,10" fill="#FB7185" stroke="none" />
               <CreatureFace
                 emotion={resolvedEmotion}
+                ageVariant={ageVariant}
                 frame={frame}
                 blinkSeed={17}
                 flipX={flipX}
@@ -650,6 +831,17 @@ export const CuteCat: React.FC<CuteCatProps> = ({
                 badgeY={-34}
                 parentRotationDeg={midairRot + curiousTilt}
               />
+              {accessory === "glasses_round" && (
+                <AnimalAccessory type="glasses_round" anchorX={0} anchorY={-4} eyeSpread={11} scale={0.92} />
+              )}
+              {isHeadAccessory(accessory) && (
+                <AnimalAccessory
+                  type={accessory}
+                  anchorX={accessory === "flower_pink" ? -16 : 0}
+                  anchorY={accessory === "flower_pink" ? -24 : -28}
+                  scale={0.92}
+                />
+              )}
               <path d="M -22,6 L -38,2 M -22,12 L -38,14 M 22,6 L 38,2 M 22,12 L 38,14" strokeWidth={2.3} />
             </g>
           </g>
@@ -676,6 +868,10 @@ export const CuteCat: React.FC<CuteCatProps> = ({
               stroke={furStripe}
               strokeWidth={4}
             />
+            {ageVariant === "elder" && <AnimalElderDesatVeil cx={0} cy={-78} rx={56} ry={46} />}
+            {isNeckAccessory(accessory) && (
+              <AnimalAccessory type={accessory} anchorX={38} anchorY={-68} />
+            )}
             <g transform={`translate(56, -98) rotate(${curiousTilt})`}>
               <polygon points="-24,-18 -30,-48 -4,-30" fill={furMain} />
               <polygon points="24,-18 30,-48 4,-30" fill={furMain} />
@@ -684,9 +880,11 @@ export const CuteCat: React.FC<CuteCatProps> = ({
               <circle cx={0} cy={0} r={32} fill={furMain} />
               <CatForeheadStripes color={furStripe} />
               <ellipse cx={0} cy={11} rx={16} ry={11} fill={furLight} stroke="none" />
+              {ageVariant === "elder" && <AnimalElderDesatVeil rx={32} ry={32} />}
               <polygon points="-4,5 4,5 0,10" fill="#FB7185" stroke="none" />
               <CreatureFace
                 emotion={resolvedEmotion}
+                ageVariant={ageVariant}
                 frame={frame}
                 blinkSeed={17}
                 flipX={flipX}
@@ -701,6 +899,16 @@ export const CuteCat: React.FC<CuteCatProps> = ({
                 badgeY={-36}
                 parentRotationDeg={curiousTilt}
               />
+              {accessory === "glasses_round" && (
+                <AnimalAccessory type="glasses_round" anchorX={0} anchorY={-4} eyeSpread={11} />
+              )}
+              {isHeadAccessory(accessory) && (
+                <AnimalAccessory
+                  type={accessory}
+                  anchorX={accessory === "flower_pink" ? -17 : 0}
+                  anchorY={accessory === "flower_pink" ? -25 : -30}
+                />
+              )}
               <path d="M -24,6 L -40,2 M -24,12 L -40,15 M 24,6 L 40,2 M 24,12 L 40,15" strokeWidth={2.4} />
             </g>
           </g>
@@ -732,6 +940,10 @@ export const CuteCat: React.FC<CuteCatProps> = ({
               opacity="0.11"
               stroke="none"
             />
+            {ageVariant === "elder" && <AnimalElderDesatVeil cx={0} cy={-58} rx={56} ry={33} />}
+            {isNeckAccessory(accessory) && (
+              <AnimalAccessory type={accessory} anchorX={36} anchorY={-66} />
+            )}
             {/* Head */}
             <g transform={`translate(52, -96) rotate(${curiousTilt})`}>
               <g transform={`rotate(${(-earTwitch).toFixed(1)}, -15, -24)`}>
@@ -745,9 +957,11 @@ export const CuteCat: React.FC<CuteCatProps> = ({
               <circle cx={0} cy={0} r={32} fill={furMain} />
               <CatForeheadStripes color={furStripe} />
               <ellipse cx={0} cy={11} rx={17} ry={12} fill={furLight} stroke="none" />
+              {ageVariant === "elder" && <AnimalElderDesatVeil rx={32} ry={32} />}
               <polygon points="-4,5 4,5 0,10" fill="#FB7185" stroke="none" />
               <CreatureFace
                 emotion={resolvedEmotion}
+                ageVariant={ageVariant}
                 frame={frame}
                 blinkSeed={17}
                 flipX={flipX}
@@ -762,6 +976,16 @@ export const CuteCat: React.FC<CuteCatProps> = ({
                 badgeY={-36}
                 parentRotationDeg={curiousTilt}
               />
+              {accessory === "glasses_round" && (
+                <AnimalAccessory type="glasses_round" anchorX={0} anchorY={-5} eyeSpread={11} />
+              )}
+              {isHeadAccessory(accessory) && (
+                <AnimalAccessory
+                  type={accessory}
+                  anchorX={accessory === "flower_pink" ? -17 : 0}
+                  anchorY={accessory === "flower_pink" ? -25 : -30}
+                />
+              )}
               <path d="M -24,6 L -40,2 M -24,12 L -40,14 M 24,6 L 40,2 M 24,12 L 40,14" strokeWidth={2.3} />
             </g>
           </g>
@@ -782,9 +1006,13 @@ export const CuteCat: React.FC<CuteCatProps> = ({
               opacity="0.10"
               stroke="none"
             />
+            {ageVariant === "elder" && <AnimalElderDesatVeil cx={0} cy={-46} rx={42} ry={44} />}
             {/* Front neat paws */}
             <ellipse cx={-15} cy={-4} rx={12} ry={8} fill={furLight} />
             <ellipse cx={15} cy={-4} rx={12} ry={8} fill={furLight} />
+            {isNeckAccessory(accessory) && (
+              <AnimalAccessory type={accessory} anchorX={0} anchorY={-80} />
+            )}
             {/* Head */}
             <g transform={`translate(0, -112) rotate(${curiousTilt})`}>
               <g transform={`rotate(${(-earTwitch).toFixed(1)}, -16, -24)`}>
@@ -804,9 +1032,11 @@ export const CuteCat: React.FC<CuteCatProps> = ({
               />
               <CatForeheadStripes color={furStripe} />
               <ellipse cx={0} cy={12} rx={18} ry={12} fill={furLight} stroke="none" />
+              {ageVariant === "elder" && <AnimalElderDesatVeil rx={34} ry={34} />}
               <polygon points="-4,5 4,5 0,10" fill="#FB7185" stroke="none" />
               <CreatureFace
                 emotion={resolvedEmotion}
+                ageVariant={ageVariant}
                 frame={frame}
                 blinkSeed={17}
                 flipX={flipX}
@@ -821,6 +1051,16 @@ export const CuteCat: React.FC<CuteCatProps> = ({
                 badgeY={-36}
                 parentRotationDeg={curiousTilt}
               />
+              {accessory === "glasses_round" && (
+                <AnimalAccessory type="glasses_round" anchorX={0} anchorY={-5} eyeSpread={12} />
+              )}
+              {isHeadAccessory(accessory) && (
+                <AnimalAccessory
+                  type={accessory}
+                  anchorX={accessory === "flower_pink" ? -18 : 0}
+                  anchorY={accessory === "flower_pink" ? -26 : -32}
+                />
+              )}
               <path d="M -25,6 L -42,2 M -25,12 L -42,15 M 25,6 L 42,2 M 25,12 L 42,15" strokeWidth={2.3} />
             </g>
           </g>
@@ -849,6 +1089,8 @@ export const CuteDog: React.FC<CuteDogProps> = ({
   frame,
   pose = "sit",
   emotion,
+  accessory = "none",
+  ageVariant = "adult",
 }) => {
   const resolvedEmotion: CreatureEmotion = emotion ?? (pose === "yawn" ? "sleepy" : "happy");
   const breathY = computeAnimalBreathScaleY(frame, 20);
@@ -893,9 +1135,13 @@ export const CuteDog: React.FC<CuteDogProps> = ({
               opacity="0.11"
               stroke="none"
             />
+            {ageVariant === "elder" && <AnimalElderDesatVeil cx={0} cy={-64} rx={60} ry={35} />}
             {/* Red collar + gold tag */}
             <path d="M 28,-86 Q 44,-68 50,-48" fill="none" stroke="#DC2626" strokeWidth={9} />
             <circle cx={46} cy={-48} r={6} fill="#FACC15" strokeWidth={2.4} />
+            {isNeckAccessory(accessory) && (
+              <AnimalAccessory type={accessory} anchorX={44} anchorY={-68} />
+            )}
           </>
         ) : (
           <>
@@ -907,10 +1153,14 @@ export const CuteDog: React.FC<CuteDogProps> = ({
               opacity="0.11"
               stroke="none"
             />
+            {ageVariant === "elder" && <AnimalElderDesatVeil cx={0} cy={-48} rx={45} ry={45} />}
             <ellipse cx={-16} cy={-4} rx={14} ry={9} fill="#FBBF24" />
             <ellipse cx={16} cy={-4} rx={14} ry={9} fill="#FBBF24" />
             <path d="M -26,-86 Q 0,-74 26,-86" fill="none" stroke="#DC2626" strokeWidth={9} />
             <circle cx={0} cy={-74} r={6} fill="#FACC15" strokeWidth={2.4} />
+            {isNeckAccessory(accessory) && (
+              <AnimalAccessory type={accessory} anchorX={0} anchorY={-82} />
+            )}
           </>
         )}
 
@@ -942,6 +1192,7 @@ export const CuteDog: React.FC<CuteDogProps> = ({
             stroke="none"
           />
           <ellipse cx={0} cy={13} rx={23} ry={16} fill="#FEF3C7" stroke="none" />
+          {ageVariant === "elder" && <AnimalElderDesatVeil rx={36} ry={36} />}
           {/* Cute Round Nose + tiny shine */}
           <ellipse cx={0} cy={4} rx={8} ry={6} fill={INK} stroke="none" />
           <circle cx={-2.5} cy={2.2} r={2} fill="#FFFFFF" opacity="0.7" stroke="none" />
@@ -949,6 +1200,7 @@ export const CuteDog: React.FC<CuteDogProps> = ({
           {/* Shared Face + Special Yawn Mouth */}
           <CreatureFace
             emotion={resolvedEmotion}
+            ageVariant={ageVariant}
             frame={frame}
             blinkSeed={43}
             flipX={flipX}
@@ -963,6 +1215,16 @@ export const CuteDog: React.FC<CuteDogProps> = ({
             badgeX={36}
             badgeY={-32}
           />
+          {accessory === "glasses_round" && (
+            <AnimalAccessory type="glasses_round" anchorX={0} anchorY={-9} eyeSpread={12} />
+          )}
+          {isHeadAccessory(accessory) && (
+            <AnimalAccessory
+              type={accessory}
+              anchorX={accessory === "flower_pink" ? -22 : 0}
+              anchorY={accessory === "flower_pink" ? -24 : -34}
+            />
+          )}
           {pose === "yawn" && (
             <g>
               <ellipse cx={0} cy={19} rx={10 + yawnAmt * 4} ry={9 + yawnAmt * 5} fill="#9F1239" strokeWidth={3} />
@@ -996,6 +1258,8 @@ export const CuteBird: React.FC<CuteBirdProps> = ({
   pose = "perch",
   variant = "blue",
   emotion = "happy",
+  accessory = "none",
+  ageVariant = "adult",
 }) => {
   const bodyColor = variant === "yellow" ? "#FDE047" : "#38BDF8";
   const wingColor = variant === "yellow" ? "#F59E0B" : "#0284C7";
@@ -1050,12 +1314,17 @@ export const CuteBird: React.FC<CuteBirdProps> = ({
           opacity="0.11"
           stroke="none"
         />
+        {ageVariant === "elder" && <AnimalElderDesatVeil cx={0} cy={-48} rx={37} ry={29} />}
+        {isNeckAccessory(accessory) && (
+          <AnimalAccessory type={accessory} anchorX={18} anchorY={-50} scale={0.72} />
+        )}
 
         {/* Expressive Bird Head */}
         <g transform={`translate(24, -70) rotate(${headTilt.toFixed(1)})`}>
           <circle cx={0} cy={0} r={24} fill={bodyColor} />
           {/* Cute tuft feather on crown */}
           <path d="M -4,-23 Q -10,-34 -1,-31 Q 4,-36 6,-24" fill={bodyColor} strokeWidth={3.2} />
+          {ageVariant === "elder" && <AnimalElderDesatVeil rx={24} ry={24} />}
           {/* Neat Orange Beak */}
           <polygon
             points={emotion === "surprised" ? "20,-7 38,-1 20,3" : "20,-5 38,2 20,9"}
@@ -1064,6 +1333,7 @@ export const CuteBird: React.FC<CuteBirdProps> = ({
           {emotion === "surprised" && <polygon points="20,3 35,8 20,11" fill="#EA580C" />}
           <CreatureFace
             emotion={emotion}
+            ageVariant={ageVariant}
             frame={frame}
             blinkSeed={71}
             flipX={flipX}
@@ -1077,6 +1347,17 @@ export const CuteBird: React.FC<CuteBirdProps> = ({
             badgeY={-28}
             parentRotationDeg={headTilt}
           />
+          {accessory === "glasses_round" && (
+            <AnimalAccessory type="glasses_round" anchorX={8} anchorY={-5} layout="side" scale={0.82} />
+          )}
+          {isHeadAccessory(accessory) && (
+            <AnimalAccessory
+              type={accessory}
+              anchorX={accessory === "flower_pink" ? -10 : 0}
+              anchorY={accessory === "flower_pink" ? -18 : -24}
+              scale={0.78}
+            />
+          )}
         </g>
 
         {/* Front Wing */}
@@ -1114,6 +1395,8 @@ export const CuteAnt: React.FC<CuteAntProps> = ({
   frame,
   pose = "walk",
   emotion = "happy",
+  accessory = "none",
+  ageVariant = "adult",
 }) => {
   const breathY = computeAnimalBreathScaleY(frame, 55);
   const legA = Math.sin(frame * 0.28) * 10;
@@ -1157,6 +1440,10 @@ export const CuteAnt: React.FC<CuteAntProps> = ({
         {/* Thorax */}
         <ellipse cx={2} cy={-34} rx={18} ry={14} fill="#B45309" />
         <ellipse cx={0} cy={-40} rx={9} ry={4} fill="#FDE68A" stroke="none" opacity="0.32" />
+        {ageVariant === "elder" && <AnimalElderDesatVeil cx={-18} cy={-36} rx={44} ry={20} />}
+        {isNeckAccessory(accessory) && (
+          <AnimalAccessory type={accessory} anchorX={16} anchorY={-34} scale={0.68} />
+        )}
 
         {/* Friendly Big-Eyed Head */}
         <g transform={`translate(38, -44) rotate(${curiousTilt})`}>
@@ -1176,8 +1463,10 @@ export const CuteAnt: React.FC<CuteAntProps> = ({
 
           <circle cx={0} cy={0} r={23} fill="#D97706" />
           <ellipse cx={6} cy={8} rx={12} ry={9} fill="#FDE68A" stroke="none" opacity="0.55" />
+          {ageVariant === "elder" && <AnimalElderDesatVeil rx={23} ry={23} />}
           <CreatureFace
             emotion={emotion}
+            ageVariant={ageVariant}
             frame={frame}
             blinkSeed={89}
             flipX={flipX}
@@ -1191,6 +1480,17 @@ export const CuteAnt: React.FC<CuteAntProps> = ({
             badgeX={26}
             badgeY={-24}
           />
+          {accessory === "glasses_round" && (
+            <AnimalAccessory type="glasses_round" anchorX={7} anchorY={-5} layout="side" scale={0.84} />
+          )}
+          {isHeadAccessory(accessory) && (
+            <AnimalAccessory
+              type={accessory}
+              anchorX={accessory === "flower_pink" ? -12 : -2}
+              anchorY={accessory === "flower_pink" ? -17 : -22}
+              scale={0.74}
+            />
+          )}
         </g>
 
         {/* Overhead Leaf when pose="carry" */}
@@ -1226,6 +1526,8 @@ export const CuteLizard: React.FC<CuteLizardProps> = ({
   pose = "stand",
   hasTail = true,
   emotion = "happy",
+  accessory = "none",
+  ageVariant = "adult",
 }) => {
   const breathY = computeAnimalBreathScaleY(frame, 13);
   const isRunning = pose === "run";
@@ -1280,6 +1582,10 @@ export const CuteLizard: React.FC<CuteLizardProps> = ({
           stroke="none"
         />
         <LizardDorsalSpotsStatic />
+        {ageVariant === "elder" && <AnimalElderDesatVeil cx={-4} cy={-20} rx={45} ry={19} />}
+        {isNeckAccessory(accessory) && (
+          <AnimalAccessory type={accessory} anchorX={24} anchorY={-20} scale={0.74} />
+        )}
 
         {/* Front Legs */}
         <g>
@@ -1293,8 +1599,10 @@ export const CuteLizard: React.FC<CuteLizardProps> = ({
         <g transform={`translate(48, -28) rotate(${curiousTilt})`}>
           <ellipse cx={0} cy={0} rx={28} ry={23} fill="#4ADE80" />
           <path d="M -14,10 Q 6,22 24,8 L 16,18 L -10,16 Z" fill="#FEF08A" stroke="none" />
+          {ageVariant === "elder" && <AnimalElderDesatVeil rx={27} ry={22} />}
           <CreatureFace
             emotion={emotion}
+            ageVariant={ageVariant}
             frame={frame}
             blinkSeed={29}
             flipX={flipX}
@@ -1309,6 +1617,17 @@ export const CuteLizard: React.FC<CuteLizardProps> = ({
             badgeY={-30}
             parentRotationDeg={climbRot + curiousTilt}
           />
+          {accessory === "glasses_round" && (
+            <AnimalAccessory type="glasses_round" anchorX={8} anchorY={-6} layout="side" scale={0.86} />
+          )}
+          {isHeadAccessory(accessory) && (
+            <AnimalAccessory
+              type={accessory}
+              anchorX={accessory === "flower_pink" ? -12 : 0}
+              anchorY={accessory === "flower_pink" ? -18 : -24}
+              scale={0.8}
+            />
+          )}
         </g>
       </g>
     </g>
@@ -1342,6 +1661,8 @@ export const CuteOctopus: React.FC<CuteOctopusProps> = ({
   pose = "float",
   variant = "coral",
   emotion = "happy",
+  accessory = "none",
+  ageVariant = "adult",
   colorOverride,
   papillaeBumps = false,
   blueRings = false,
@@ -1414,6 +1735,10 @@ export const CuteOctopus: React.FC<CuteOctopusProps> = ({
           );
         })}
 
+        {isNeckAccessory(accessory) && (
+          <AnimalAccessory type={accessory} anchorX={0} anchorY={-24} scale={1.06} />
+        )}
+
         {/* Round Bulbous Cute Head + Pastel Underside + Flat Cel-Shading */}
         <g transform={`translate(0, -64) rotate(${curiousTilt})`}>
           {papillaeBumps && (
@@ -1442,8 +1767,10 @@ export const CuteOctopus: React.FC<CuteOctopusProps> = ({
           ) : (
             <OctopusHeadSpotsStatic spotColor={spotColor} />
           )}
+          {ageVariant === "elder" && <AnimalElderDesatVeil rx={47} ry={43} />}
           <CreatureFace
             emotion={emotion}
+            ageVariant={ageVariant}
             frame={frame}
             blinkSeed={61}
             flipX={flipX}
@@ -1458,6 +1785,17 @@ export const CuteOctopus: React.FC<CuteOctopusProps> = ({
             badgeX={48}
             badgeY={-32}
           />
+          {accessory === "glasses_round" && (
+            <AnimalAccessory type="glasses_round" anchorX={0} anchorY={4} eyeSpread={15} scale={1.12} />
+          )}
+          {isHeadAccessory(accessory) && (
+            <AnimalAccessory
+              type={accessory}
+              anchorX={accessory === "flower_pink" ? -26 : 0}
+              anchorY={accessory === "flower_pink" ? -34 : -44}
+              scale={1.06}
+            />
+          )}
         </g>
       </g>
     </g>
@@ -1484,6 +1822,8 @@ export const CuteShark: React.FC<CuteSharkProps> = ({
   frame,
   pose = "swim",
   emotion = "happy",
+  accessory = "none",
+  ageVariant = "adult",
 }) => {
   const breathY = computeAnimalBreathScaleY(frame, 67);
   const isSwimming = pose === "swim";
@@ -1533,8 +1873,12 @@ export const CuteShark: React.FC<CuteSharkProps> = ({
           opacity="0.11"
           stroke="none"
         />
+        {ageVariant === "elder" && <AnimalElderDesatVeil cx={4} cy={-36} rx={68} ry={30} />}
 
         <SharkGillLinesStatic />
+        {isNeckAccessory(accessory) && (
+          <AnimalAccessory type={accessory} anchorX={14} anchorY={-28} scale={0.96} />
+        )}
 
         {/* Cute Friendly Smile + Rounded Triangle Teeth */}
         <path d="M 24,-22 Q 44,-10 62,-22" fill="#9F1239" stroke={INK} strokeWidth={3} />
@@ -1543,6 +1887,7 @@ export const CuteShark: React.FC<CuteSharkProps> = ({
         {/* Expressive Friendly Eye + Rosy Cheek + Emotion Badge */}
         <CreatureFace
           emotion={emotion}
+          ageVariant={ageVariant}
           frame={frame}
           blinkSeed={53}
           flipX={flipX}
@@ -1555,6 +1900,17 @@ export const CuteShark: React.FC<CuteSharkProps> = ({
           badgeX={66}
           badgeY={-74}
         />
+        {accessory === "glasses_round" && (
+          <AnimalAccessory type="glasses_round" anchorX={44} anchorY={-44} layout="side" scale={1} />
+        )}
+        {isHeadAccessory(accessory) && (
+          <AnimalAccessory
+            type={accessory}
+            anchorX={accessory === "flower_pink" ? 26 : 36}
+            anchorY={accessory === "flower_pink" ? -64 : -68}
+            scale={0.95}
+          />
+        )}
 
         {/* Pectoral Fin */}
         <g transform={`translate(-6, -18) rotate(${(Math.sin(frame * 0.14) * 6).toFixed(1)})`}>
@@ -1587,6 +1943,8 @@ export const CuteDolphin: React.FC<CuteDolphinProps> = ({
   pose = "swim",
   halfAsleep = false,
   emotion = "happy",
+  accessory = "none",
+  ageVariant = "adult",
 }) => {
   const breathY = computeAnimalBreathScaleY(frame, 79);
   const isJumping = pose === "jump";
@@ -1642,6 +2000,10 @@ export const CuteDolphin: React.FC<CuteDolphinProps> = ({
           opacity="0.11"
           stroke="none"
         />
+        {ageVariant === "elder" && <AnimalElderDesatVeil cx={2} cy={-34} rx={64} ry={28} />}
+        {isNeckAccessory(accessory) && (
+          <AnimalAccessory type={accessory} anchorX={22} anchorY={-24} scale={0.9} />
+        )}
 
         {/* Friendly Dolphin Smile */}
         <path d="M 48,-26 Q 64,-18 82,-25" fill="none" stroke={INK} strokeWidth={3} />
@@ -1652,7 +2014,18 @@ export const CuteDolphin: React.FC<CuteDolphinProps> = ({
             {/* Subtle dashed hemisphere divider on forehead */}
             <line x1={38} y1={-62} x2={38} y2={-28} stroke="#0369A1" strokeWidth={2.2} strokeDasharray="4 4" opacity="0.65" />
             {/* Left Side: Sleeping Closed Eye + Rosy Cheek + Rising zZ */}
-            <ellipse cx={22} cy={-34} rx={6.5} ry={4} fill={CHEEK_PINK} opacity="0.45" stroke="none" />
+            <ellipse
+              cx={22}
+              cy={-34}
+              rx={ageVariant === "baby" ? 7.3 : 6.5}
+              ry={ageVariant === "baby" ? 4.5 : 4}
+              fill={CHEEK_PINK}
+              opacity={ageVariant === "baby" ? "0.62" : "0.45"}
+              stroke="none"
+            />
+            {ageVariant === "elder" && (
+              <path d="M 16,-52 Q 24,-55 31,-52" fill="none" stroke="#94A3B8" strokeWidth={3.4} />
+            )}
             <path d="M 18,-44 Q 24,-39 30,-44" fill="none" stroke={INK} strokeWidth={3.2} />
             <g transform={`translate(18, -72) scale(${unflip}, 1)`}>
               <text
@@ -1671,12 +2044,24 @@ export const CuteDolphin: React.FC<CuteDolphinProps> = ({
               </text>
             </g>
             {/* Right Side: Wide-Awake Sparkling Eye + Rosy Cheek */}
-            <ellipse cx={54} cy={-34} rx={6.5} ry={4} fill={CHEEK_PINK} opacity="0.45" stroke="none" />
-            <SparkleEye cx={52} cy={-44} r={5.8} />
+            <ellipse
+              cx={54}
+              cy={-34}
+              rx={ageVariant === "baby" ? 7.3 : 6.5}
+              ry={ageVariant === "baby" ? 4.5 : 4}
+              fill={CHEEK_PINK}
+              opacity={ageVariant === "baby" ? "0.62" : "0.45"}
+              stroke="none"
+            />
+            {ageVariant === "elder" && (
+              <path d="M 45,-53 Q 52,-56 59,-53" fill="none" stroke="#94A3B8" strokeWidth={3.4} />
+            )}
+            <SparkleEye cx={52} cy={-44} r={ageVariant === "baby" ? 6.5 : 5.8} />
           </g>
         ) : (
           <CreatureFace
             emotion={emotion}
+            ageVariant={ageVariant}
             frame={frame}
             blinkSeed={97}
             flipX={flipX}
@@ -1689,6 +2074,23 @@ export const CuteDolphin: React.FC<CuteDolphinProps> = ({
             badgeX={64}
             badgeY={-72}
             parentRotationDeg={bodyRot}
+          />
+        )}
+        {accessory === "glasses_round" && (
+          <AnimalAccessory
+            type="glasses_round"
+            anchorX={halfAsleep ? 52 : 46}
+            anchorY={-44}
+            layout="side"
+            scale={0.94}
+          />
+        )}
+        {isHeadAccessory(accessory) && (
+          <AnimalAccessory
+            type={accessory}
+            anchorX={accessory === "flower_pink" ? 22 : 34}
+            anchorY={accessory === "flower_pink" ? -62 : -66}
+            scale={0.92}
           />
         )}
 

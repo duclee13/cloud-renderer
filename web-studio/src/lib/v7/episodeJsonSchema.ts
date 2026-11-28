@@ -23,12 +23,32 @@ export type AutoStageType =
   | "SPACE_COSMOS"
   | "ANECHOIC_CHAMBER"
   | "EXPLAINER_POLKA_DOT"
-  | "HOST_EXPLAIN_OVERLAY";
+  | "HOST_EXPLAIN_OVERLAY"
+  | "CLEAN_EXPLAINER";
 
 export type AutoTimeOfDay = "DAY" | "SUNSET" | "NIGHT";
 export type AutoWeather = "CLEAR" | "RAIN" | "STORM" | "FLOOD";
 export type AutoTransitionIn = "CROSSFADE" | "CUT";
-export type AutoBgmMood = "BGM_STORY_CALM" | "BGM_TENSE_PULSE" | "BGM_WARM_OUTRO";
+export type V24BgmMood = "CURIOUS" | "TENSE" | "EMOTIONAL" | "SILENT";
+export type AutoBgmMood = "BGM_STORY_CALM" | "BGM_TENSE_PULSE" | "BGM_WARM_OUTRO" | V24BgmMood;
+export type StoryMode = "CLASSIC_HOST" | "ANIMAL_POV" | "HUMAN_ANIMAL_POV";
+export type KineticHeadlineTone = "GOLD" | "ALERT" | "SUCCESS" | "INFO" | "EMOTION";
+export type KineticHeadlinePosition = "TOP_CENTER" | "TOP_LEFT" | "TOP_RIGHT";
+export interface KineticHeadlineSpec {
+  text: string;
+  tone?: KineticHeadlineTone;
+  subText?: string;
+  position?: KineticHeadlinePosition;
+  delayFrames?: number;
+  tiltDeg?: number;
+}
+export type ExplainerPaletteId =
+  | "SKY_BLUE"
+  | "WARM_CREAM"
+  | "LAVENDER_NIGHT"
+  | "MINT_FRESH"
+  | "ALERT_CORAL"
+  | "SOFT_SLATE";
 export type AutoVoiceTone =
   | "HOOK_INTRIGUE"
   | "CALM_STORY"
@@ -250,8 +270,18 @@ export type OceanDetailId =
 /** V23.0: Chủ đề giao diện bảng nghiên cứu cho HOST_EXPLAIN_OVERLAY (mặc định LAB_WHITEBOARD) */
 export type HostBoardTheme = "LAB_WHITEBOARD" | "NATURE_FIELD_BOARD";
 
-/** V23.0: Ghi đè hiệu ứng âm thanh Auto-SFX trên từng beat (hoặc "none" để tắt cục bộ) */
-export type AutoSfxCueId = "pop" | "whoosh_in" | "whoosh_out" | "ding" | "alert" | "none";
+/** V23.0–V24.0: Ghi đè hiệu ứng âm thanh Auto-SFX trên từng beat (hoặc "none" để tắt cục bộ) */
+export type AutoSfxCueId =
+  | "pop"
+  | "whoosh_in"
+  | "whoosh_out"
+  | "ding"
+  | "alert"
+  | "headline_pop"
+  | "tick"
+  | "heartbeat"
+  | "sparkle"
+  | "none";
 
 /** V22.5–V23.5: Điểm nhấn nổi bật trên bảng trắng / sổ tay thiên nhiên trong HOST_EXPLAIN_OVERLAY */
 export type HostBoardHighlightId =
@@ -360,8 +390,16 @@ export interface AutoEpisodeBeat {
   boardTheme?: HostBoardTheme;
   /** V23.0: Tiêu đề phụ tùy chỉnh cho bảng Sổ Tay Thiên Nhiên (NATURE_FIELD_BOARD) */
   natureBoardTitle?: string;
-  /** V23.0: Ghi đè hiệu ứng Auto-SFX của beat (hoặc "none" để tắt cục bộ) */
+  /** V23.0–V24.0: Ghi đè hiệu ứng Auto-SFX của beat (hoặc "none" để tắt cục bộ) */
   sfxCue?: AutoSfxCueId;
+  /** V24.0: Chế độ kể chuyện đồng bộ từ cấp tập ("CLASSIC_HOST" | "ANIMAL_POV" | "HUMAN_ANIMAL_POV") */
+  storyMode?: StoryMode;
+  /** V24.0: Chữ tiêu đề nổi bật sắc nét 0-blur (thay bảng trắng ở các tập Story-First) */
+  kineticHeadline?: KineticHeadlineSpec;
+  /** V24.0: Thẻ mốc thời gian / số thứ tự góc trên trái (vd: "22:00", "03:00", "-3 GIỜ", "#1") */
+  timeBadge?: string;
+  /** V24.0: Bảng màu gradient sạch cho stageType="CLEAN_EXPLAINER" */
+  explainerPalette?: ExplainerPaletteId;
   /** V22.4: Khi true -> phủ lớp hồi tưởng (Flashback Overlay SVG phẳng: kem/sepia mờ, khung viền trắng 4 cạnh, tag "Hồi tưởng") */
   flashback?: boolean;
   timeOfDay: AutoTimeOfDay;
@@ -390,6 +428,10 @@ export interface AutoEpisodeSpec {
   title: string;
   slug: string;
   topic?: string;
+  /** V24.0: Chế độ kể chuyện ("CLASSIC_HOST" mặc định | "ANIMAL_POV" | "HUMAN_ANIMAL_POV") */
+  storyMode?: StoryMode;
+  /** V24.0: Bật/tắt nhạc nền Multi-Mood BGM V24 từ public/bgm/ (mặc định false để Tập 1–10 không đổi) */
+  bgmEnabled?: boolean;
   /** V22.2: Bảng nghiên cứu mặc định cấp tập cho các cảnh SCIENCE_LAB_ROOM (beat có thể ghi đè riêng) */
   labBoard?: LabBoardId;
   /** V23.0: Giao diện bảng mặc định cấp tập cho HOST_EXPLAIN_OVERLAY (mặc định LAB_WHITEBOARD) */
@@ -419,12 +461,42 @@ export const VALID_STAGE_TYPES: readonly AutoStageType[] = [
   "ANECHOIC_CHAMBER",
   "EXPLAINER_POLKA_DOT",
   "HOST_EXPLAIN_OVERLAY",
+  "CLEAN_EXPLAINER",
 ];
 
 export const VALID_TIME_OF_DAY: readonly AutoTimeOfDay[] = ["DAY", "SUNSET", "NIGHT"];
 export const VALID_WEATHER: readonly AutoWeather[] = ["CLEAR", "RAIN", "STORM", "FLOOD"];
 export const VALID_TRANSITION_IN: readonly AutoTransitionIn[] = ["CROSSFADE", "CUT"];
-export const VALID_BGM_MOOD: readonly AutoBgmMood[] = ["BGM_STORY_CALM", "BGM_TENSE_PULSE", "BGM_WARM_OUTRO"];
+export const VALID_BGM_MOOD: readonly AutoBgmMood[] = [
+  "BGM_STORY_CALM",
+  "BGM_TENSE_PULSE",
+  "BGM_WARM_OUTRO",
+  "CURIOUS",
+  "TENSE",
+  "EMOTIONAL",
+  "SILENT",
+];
+export const VALID_STORY_MODES: readonly StoryMode[] = ["CLASSIC_HOST", "ANIMAL_POV", "HUMAN_ANIMAL_POV"];
+export const VALID_KINETIC_HEADLINE_TONES: readonly KineticHeadlineTone[] = [
+  "GOLD",
+  "ALERT",
+  "SUCCESS",
+  "INFO",
+  "EMOTION",
+];
+export const VALID_KINETIC_HEADLINE_POSITIONS: readonly KineticHeadlinePosition[] = [
+  "TOP_CENTER",
+  "TOP_LEFT",
+  "TOP_RIGHT",
+];
+export const VALID_EXPLAINER_PALETTES: readonly ExplainerPaletteId[] = [
+  "SKY_BLUE",
+  "WARM_CREAM",
+  "LAVENDER_NIGHT",
+  "MINT_FRESH",
+  "ALERT_CORAL",
+  "SOFT_SLATE",
+];
 export const VALID_VOICE_TONE: readonly AutoVoiceTone[] = [
   "HOOK_INTRIGUE",
   "CALM_STORY",
@@ -1391,7 +1463,18 @@ function sanitizeHostBoardHighlightId(raw: unknown): HostBoardHighlightId | unde
 }
 
 const VALID_BOARD_THEMES: readonly HostBoardTheme[] = ["LAB_WHITEBOARD", "NATURE_FIELD_BOARD"];
-const VALID_SFX_CUES: readonly AutoSfxCueId[] = ["pop", "whoosh_in", "whoosh_out", "ding", "alert", "none"];
+const VALID_SFX_CUES: readonly AutoSfxCueId[] = [
+  "pop",
+  "whoosh_in",
+  "whoosh_out",
+  "ding",
+  "alert",
+  "headline_pop",
+  "tick",
+  "heartbeat",
+  "sparkle",
+  "none",
+];
 
 function sanitizeHostBoardTheme(raw: unknown): HostBoardTheme | undefined {
   if (typeof raw !== "string") return undefined;
@@ -1409,6 +1492,63 @@ function sanitizeAutoSfxCueId(raw: unknown): AutoSfxCueId | undefined {
     : undefined;
 }
 
+function sanitizeStoryMode(raw: unknown): StoryMode | undefined {
+  if (typeof raw !== "string") return undefined;
+  const norm = raw.trim().toUpperCase().replace(/[\s-]+/g, "_");
+  return (VALID_STORY_MODES as readonly string[]).includes(norm)
+    ? (norm as StoryMode)
+    : undefined;
+}
+
+function sanitizeExplainerPalette(raw: unknown): ExplainerPaletteId | undefined {
+  if (typeof raw !== "string") return undefined;
+  const norm = raw.trim().toUpperCase().replace(/[\s-]+/g, "_");
+  return (VALID_EXPLAINER_PALETTES as readonly string[]).includes(norm)
+    ? (norm as ExplainerPaletteId)
+    : undefined;
+}
+
+function sanitizeKineticHeadline(raw: unknown): KineticHeadlineSpec | undefined {
+  if (!raw || typeof raw !== "object") return undefined;
+  const obj = raw as Record<string, unknown>;
+  const text = typeof obj.text === "string" ? obj.text.trim().slice(0, 64) : "";
+  if (!text) return undefined;
+
+  const rawTone = typeof obj.tone === "string" ? obj.tone.trim().toUpperCase() : "";
+  const tone = (VALID_KINETIC_HEADLINE_TONES as readonly string[]).includes(rawTone)
+    ? (rawTone as KineticHeadlineTone)
+    : undefined;
+
+  const subText =
+    typeof obj.subText === "string" && obj.subText.trim()
+      ? obj.subText.trim().slice(0, 84)
+      : undefined;
+
+  const rawPos = typeof obj.position === "string" ? obj.position.trim().toUpperCase().replace(/[\s-]+/g, "_") : "";
+  const position = (VALID_KINETIC_HEADLINE_POSITIONS as readonly string[]).includes(rawPos)
+    ? (rawPos as KineticHeadlinePosition)
+    : undefined;
+
+  const delayFrames =
+    obj.delayFrames !== undefined && obj.delayFrames !== null && Number.isFinite(Number(obj.delayFrames))
+      ? Math.max(0, Math.min(90, Math.round(Number(obj.delayFrames))))
+      : undefined;
+
+  const tiltDeg =
+    obj.tiltDeg !== undefined && obj.tiltDeg !== null && Number.isFinite(Number(obj.tiltDeg))
+      ? Number(clampNum(obj.tiltDeg, -12, 12, -2).toFixed(1))
+      : undefined;
+
+  return {
+    text,
+    ...(tone ? { tone } : {}),
+    ...(subText ? { subText } : {}),
+    ...(position ? { position } : {}),
+    ...(delayFrames !== undefined ? { delayFrames } : {}),
+    ...(tiltDeg !== undefined ? { tiltDeg } : {}),
+  };
+}
+
 /**
  * Chuẩn hóa, tự sửa enum sai lệch và làm sạch tuyệt đối kịch bản JSON từ AI thành AutoEpisodeSpec hợp lệ 100%.
  */
@@ -1420,6 +1560,10 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
 
   const rawTitle = typeof root.title === "string" && root.title.trim() ? root.title.trim() : fallbackTopic;
   const rawSlug = typeof root.slug === "string" && root.slug.trim() ? slugifyVietnamese(root.slug) : slugifyVietnamese(rawTitle);
+  const episodeStoryMode = sanitizeStoryMode(root.storyMode);
+  const episodeBgmEnabled = typeof root.bgmEnabled === "boolean" ? root.bgmEnabled : undefined;
+  const hideStoryChapterBanner =
+    episodeStoryMode === "ANIMAL_POV" || episodeStoryMode === "HUMAN_ANIMAL_POV";
   const episodeLabBoard = sanitizeLabBoardId(root.labBoard);
   const episodeBoardTheme = sanitizeHostBoardTheme(root.boardTheme);
   const episodeSfxEnabled = typeof root.sfxEnabled === "boolean" ? root.sfxEnabled : undefined;
@@ -1443,9 +1587,11 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       typeof rb?.headerTitle === "string" && rb.headerTitle.trim()
         ? rb.headerTitle.trim().slice(0, 64)
         : undefined;
-    // V20.0–V20.1: Đồng bộ chapterBanner <-> headerTitle; cho phép bỏ trống hoàn toàn (không sinh banner mặc định)
-    const chapterBanner = explicitlyBlankBanner ? undefined : rawChapterBanner ?? rawHeaderTitle;
-    const headerTitle = explicitlyBlankBanner ? undefined : rawHeaderTitle ?? rawChapterBanner;
+    // V20.0–V20.1 & V24.0: Đồng bộ chapterBanner <-> headerTitle; tự động ẩn banner HỒI X khi storyMode là ANIMAL_POV / HUMAN_ANIMAL_POV
+    const chapterBanner =
+      explicitlyBlankBanner || hideStoryChapterBanner ? undefined : rawChapterBanner ?? rawHeaderTitle;
+    const headerTitle =
+      explicitlyBlankBanner || hideStoryChapterBanner ? undefined : rawHeaderTitle ?? rawChapterBanner;
 
     const stageType = matchEnum(rb?.stageType, VALID_STAGE_TYPES, "SIMPLE_GRASS_FIELD", STAGE_ALIASES);
     const labBoard =
@@ -1488,6 +1634,13 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
         ? rb.natureBoardTitle.trim().slice(0, 72)
         : undefined;
     const sfxCue = sanitizeAutoSfxCueId(rb?.sfxCue);
+    const kineticHeadline = sanitizeKineticHeadline(rb?.kineticHeadline);
+    const timeBadge =
+      typeof rb?.timeBadge === "string" && rb.timeBadge.trim()
+        ? rb.timeBadge.trim().slice(0, 32)
+        : undefined;
+    const explainerPalette = sanitizeExplainerPalette(rb?.explainerPalette);
+    const beatStoryMode = sanitizeStoryMode(rb?.storyMode) ?? (episodeStoryMode && episodeStoryMode !== "CLASSIC_HOST" ? episodeStoryMode : undefined);
     const flashback = rb?.flashback === true ? true : undefined;
     const timeOfDay = matchEnum(rb?.timeOfDay, VALID_TIME_OF_DAY, "DAY");
     const weather = matchEnum(rb?.weather, VALID_WEATHER, "CLEAR");
@@ -1505,11 +1658,11 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
     const bgmMood = matchEnum(rb?.bgmMood, VALID_BGM_MOOD, defaultMood);
     const voiceTone = rb?.voiceTone
       ? matchEnum(rb.voiceTone, VALID_VOICE_TONE, "CALM_STORY")
-      : bgmMood === "BGM_TENSE_PULSE"
+      : bgmMood === "BGM_TENSE_PULSE" || bgmMood === "TENSE"
       ? "TENSE_CLIMAX"
       : idx === 0
       ? "HOOK_INTRIGUE"
-      : bgmMood === "BGM_WARM_OUTRO"
+      : bgmMood === "BGM_WARM_OUTRO" || bgmMood === "EMOTIONAL"
       ? "SLOW_EMOTIONAL"
       : "CALM_STORY";
 
@@ -1533,10 +1686,12 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       };
     }
 
-    const customVisual =
-      typeof rb?.customVisual === "string" && rb.customVisual.trim()
-        ? rb.customVisual.trim().slice(0, 80)
-        : undefined;
+    const rawVisualCode = typeof rb?.customVisual === "string" && rb.customVisual.trim()
+      ? rb.customVisual.trim()
+      : typeof rb?.visualCode === "string" && rb.visualCode.trim()
+      ? rb.visualCode.trim()
+      : "";
+    const customVisual = rawVisualCode ? rawVisualCode.slice(0, 80) : undefined;
     const visualStep =
       rb?.visualStep !== undefined &&
       rb?.visualStep !== null &&
@@ -1574,6 +1729,10 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       ...(boardTheme ? { boardTheme } : {}),
       ...(natureBoardTitle ? { natureBoardTitle } : {}),
       ...(sfxCue ? { sfxCue } : {}),
+      ...(beatStoryMode ? { storyMode: beatStoryMode } : {}),
+      ...(kineticHeadline ? { kineticHeadline } : {}),
+      ...(timeBadge ? { timeBadge } : {}),
+      ...(explainerPalette ? { explainerPalette } : {}),
       ...(flashback ? { flashback: true } : {}),
       timeOfDay,
       weather,
@@ -1597,6 +1756,8 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
     title: rawTitle,
     slug: rawSlug,
     ...(typeof root.topic === "string" && root.topic.trim() ? { topic: root.topic.trim() } : { topic: fallbackTopic }),
+    ...(episodeStoryMode ? { storyMode: episodeStoryMode } : {}),
+    ...(episodeBgmEnabled !== undefined ? { bgmEnabled: episodeBgmEnabled } : {}),
     ...(episodeLabBoard ? { labBoard: episodeLabBoard } : {}),
     ...(episodeBoardTheme ? { boardTheme: episodeBoardTheme } : {}),
     ...(episodeSfxEnabled !== undefined ? { sfxEnabled: episodeSfxEnabled } : {}),
