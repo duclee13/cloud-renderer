@@ -516,7 +516,7 @@ test("V24 #7: Episode 10 V24.0 (68 beats ANIMAL_POV, 0 HOST_EXPLAIN, 0 headline 
   assert.equal(ep.storyMode, "ANIMAL_POV", "Ep10 V24 must use storyMode=ANIMAL_POV");
   assert.equal(ep.bgmEnabled, true, "Ep10 V24 must enable V24 Multi-Mood BGM");
   assert.equal(ep.sfxEnabled, true, "Ep10 V24 must enable Auto-SFX");
-  assert.equal(ep.beats.length, 68, "Ep10 V24 must contain exactly 68 beats");
+  assert.equal(ep.beats.length, 65, "Ep10 V24 must contain exactly 65 beats");
 
   // 0 unnatural digital clock times (HH:MM) anywhere in Ep10 V24 JSON!
   assert.ok(!/\b\d{2}:\d{2}\b/.test(rawText), "Ep10 V24 JSON must contain 0 digital clock timestamps (HH:MM)");
@@ -536,7 +536,11 @@ test("V24 #7: Episode 10 V24.0 (68 beats ANIMAL_POV, 0 HOST_EXPLAIN, 0 headline 
   assert.equal(ep.beats[47].timeBadge, undefined, "Beat 48 omits timeBadge");
   assert.equal(ep.beats[49].timeBadge, undefined, "Beat 50 omits timeBadge to avoid repeating 1 – 2 NĂM");
   assert.equal(ep.beats[57].timeBadge, "SÁNG HÔM SAU");
-  assert.equal(ep.beats[63].timeBadge, "NGÀY MỚI");
+  assert.equal(ep.beats[59].customVisual, "OCTO_HUMAN_TECH", "Beat 60 flows straight from mother arc into reef protection");
+  assert.equal(ep.beats[59].visualStep, 2);
+  assert.equal(ep.beats[60].timeBadge, "NGÀY MỚI");
+  assert.equal(ep.beats[64].kineticHeadline?.text, "CÒN BẠN THÌ SAO?");
+  assert.equal(ep.beats[64].kineticHeadline?.tone, "EMOTION");
 
   const reusedV23Svgs = new Set([
     "OCTO_SPEED_VS_CHAMELEON",
@@ -613,6 +617,10 @@ test("V24 #7: Episode 10 V24.0 (68 beats ANIMAL_POV, 0 HOST_EXPLAIN, 0 headline 
       if (beat.id === "b49" || beat.id === "b57") {
         assert.ok(!svg.includes(">?<"), `${beat.id} solemn beat must NOT show floating yellow '?' badge`);
       }
+      if (beat.id === "b65") {
+        assert.ok(svg.includes('id="octo-v24-outro-gentle-wave"'), "Beat 65 renders clean gentle outro without quiz cards");
+        assert.ok(!svg.includes("Tàng hình chớp mắt") && !svg.includes("Mơ bằng màu sắc"), "Beat 65 omits quiz choice cards");
+      }
       assertZeroForbiddenSvg(svg, `Ep10 V24 CLEAN_EXPLAINER ${beat.id}`);
     } else if (beat.stageType === "OCEAN_UNDERWATER") {
       oceanStageCount++;
@@ -633,16 +641,12 @@ test("V24 #7: Episode 10 V24.0 (68 beats ANIMAL_POV, 0 HOST_EXPLAIN, 0 headline 
       assert.ok(svg.includes('id="stage-ocean-underwater"'), `${beat.id} renders OCEAN_UNDERWATER`);
       assert.ok(svg.includes("ocean-story-kit-V24_OCEAN_"), `${beat.id} renders upgraded OceanUnderwaterStoryKit`);
       assert.ok(!svg.includes("[Tuộc nói]") && !svg.includes("[Cá mập nói]"), `${beat.id} has no bracketed speaker tags`);
-      if (beat.id === "b01" || beat.id === "b02" || beat.id === "b03" || beat.id === "b66") {
+      if (beat.id === "b01" || beat.id === "b02" || beat.id === "b03" || beat.id === "b63") {
         assert.ok(svg.includes('id="octo-rock-camo-texture"'), `${beat.id} renders mossy stone camo texture`);
         assert.ok(svg.includes('stroke-opacity="0.45"'), `${beat.id} softens body stroke opacity to 0.45 in rock camo`);
       }
       if (beat.id === "b32") {
         assert.ok(svg.includes('id="v24-lunch-target-crab"'), "Beat 32 renders orange-red crab ahead of Tuộc");
-      }
-      if (beat.id === "b60") {
-        assert.ok(svg.includes('id="animal-accessory-glasses_round"'), "Beat 60 renders Cụ Tuộc glasses_round");
-        assert.ok(svg.includes('stroke="#94A3B8"'), "Beat 60 renders Cụ Tuộc elder eyebrows");
       }
       assertZeroForbiddenSvg(svg, `Ep10 V24 OCEAN_UNDERWATER ${beat.id}`);
     }
@@ -652,7 +656,30 @@ test("V24 #7: Episode 10 V24.0 (68 beats ANIMAL_POV, 0 HOST_EXPLAIN, 0 headline 
   assert.deepEqual([...lifespanSteps].sort(), [0, 1], "OCTO_SHORT_LIFESPAN must cover steps 0 & 1");
   assert.deepEqual([...motherSteps].sort(), [0, 1, 2], "OCTO_MOTHER_SACRIFICE must cover steps 0, 1 & 2");
   assert.equal(cleanExplainerStageCount, 13, "Must have all 13 non-SVG CLEAN_EXPLAINER beats");
-  assert.equal(oceanStageCount, 20, "Must have all 20 OCEAN_UNDERWATER beats");
+  assert.equal(oceanStageCount, 19, "Must have all 19 OCEAN_UNDERWATER beats after cutting Beat 60 detour");
+
+  // Verify continuous opening shark motion handoff Beat 1 end (x=1240) == Beat 2 start (x=1240) and Beat 2 end (x=920) == Beat 3 start (x=920)
+  const extractSharkX = (beat: (typeof ep.beats)[number], localFrame: number): number => {
+    const svg = renderToStaticMarkup(
+      React.createElement(
+        "svg",
+        { viewBox: "0 0 1920 1080" },
+        React.createElement(UniversalAutoStage, {
+          spec: beat,
+          frame: localFrame,
+          localFrame,
+          durationFrames: 180,
+          u: localFrame / 180,
+          fps: 45,
+        })
+      )
+    );
+    const m = svg.match(/id="animal-cute-shark-swim" transform="translate\(([-0-9.]+),/);
+    assert.ok(m, `Expected CuteShark transform on ${beat.id}`);
+    return Number(m[1]);
+  };
+  assert.equal(extractSharkX(ep.beats[0], 180), extractSharkX(ep.beats[1], 0), "Shark Beat 1->2 handoff must be continuous");
+  assert.equal(extractSharkX(ep.beats[1], 180), extractSharkX(ep.beats[2], 0), "Shark Beat 2->3 handoff must be continuous");
 
   // Render the 2 brand-new V24 SVGs across every step & verify content + 0 blur
   const ShortLifespanComp = EPISODE_VISUAL_REGISTRY.OCTO_SHORT_LIFESPAN;
@@ -680,7 +707,7 @@ test("V24 #7: Episode 10 V24.0 (68 beats ANIMAL_POV, 0 HOST_EXPLAIN, 0 headline 
     assertZeroForbiddenSvg(svg, `OCTO_MOTHER_SACRIFICE step ${s}`);
   }
 
-  // Verify V24 Multi-Mood BGM segments (includes SILENT gap at Beat 49!) and Auto-SFX across all 68 beats
+  // Verify V24 Multi-Mood BGM segments (includes SILENT gap at Beat 49!) and Auto-SFX across all 65 beats
   const timeline = ep.beats.map((b, idx) => ({
     id: b.id,
     startFrame: idx * 180,
@@ -699,7 +726,7 @@ test("V24 #7: Episode 10 V24.0 (68 beats ANIMAL_POV, 0 HOST_EXPLAIN, 0 headline 
     "Beat 49 (SILENT) has zero active BGM segment"
   );
   const sfxPlan = resolveAutoSfxPlan(timeline, 45, true);
-  assert.equal(sfxPlan.length, 68, "All 68 beats emit clean non-overlapping SFX cues");
+  assert.equal(sfxPlan.length, 65, "All 65 beats emit clean non-overlapping SFX cues");
 
   // Run validate_episode.mjs programmatic validation -> must achieve 0 critical errors!
   const validatorMod = await import("../scripts/validate_episode.mjs");

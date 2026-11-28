@@ -552,33 +552,29 @@ export const OctopusV24ExplainerKit: React.FC<OctopusV24ExplainerKitProps> = ({
         </g>
       )}
 
-      {/* BEAT 68: Bạn chọn phép nào? — Tuộc waving between 2 choice cards amidst cheerful bubbles */}
+      {/* BEAT 65: Còn bạn thì sao? — Tuộc waving warmly amidst gentle light specks (no quiz cards!) */}
       {safeMode === "V24_EXPLAIN_OUTRO_CHOICE" && (
-        <g>
+        <g id="octo-v24-outro-gentle-wave">
           <GroundShadow cx={960} cy={792} rx={160} ry={18} />
-          {/* Left Choice Card: Tàng hình 0,2 giây */}
-          <g transform={`translate(430, ${(495 + Math.sin(frame * 0.07) * 7).toFixed(1)})`}>
-            <rect x={-190} y={-88} width={380} height={176} rx={30} fill="#FFFFFF" stroke="#0284C7" strokeWidth={4.5} />
-            <circle cx={0} cy={-26} r={34} fill="#E0F2FE" stroke="#0284C7" strokeWidth={3.5} />
-            <text x={0} y={-16} textAnchor="middle" fill="#0369A1" fontSize={26} fontWeight={900} fontFamily={FONT}>
-              0,2s
-            </text>
-            <text x={0} y={48} textAnchor="middle" fill="#0F172A" fontSize={26} fontWeight={900} fontFamily={FONT}>
-              Tàng hình chớp mắt
-            </text>
-          </g>
-
-          {/* Right Choice Card: Mơ bằng màu sắc */}
-          <g transform={`translate(1490, ${(495 + Math.sin(frame * 0.07 + 1.6) * 7).toFixed(1)})`}>
-            <rect x={-190} y={-88} width={380} height={176} rx={30} fill="#FFFFFF" stroke="#DB2777" strokeWidth={4.5} />
-            <circle cx={-18} cy={-24} r={20} fill="#38BDF8" stroke={INK} strokeWidth={3} />
-            <circle cx={2} cy={-32} r={24} fill="#F472B6" stroke={INK} strokeWidth={3} />
-            <circle cx={24} cy={-24} r={19} fill="#FACC15" stroke={INK} strokeWidth={3} />
-            <text x={0} y={48} textAnchor="middle" fill="#0F172A" fontSize={26} fontWeight={900} fontFamily={FONT}>
-              Mơ bằng màu sắc
-            </text>
-          </g>
-
+          {/* Gentle floating luminous specks matching the warm reflective closing mood */}
+          {[
+            { x: 560, y: 420, r: 7, c: "#FFFFFF" },
+            { x: 690, y: 560, r: 5.5, c: "#FEF08A" },
+            { x: 780, y: 360, r: 6.5, c: "#FFFFFF" },
+            { x: 1140, y: 375, r: 6.5, c: "#FEF08A" },
+            { x: 1245, y: 545, r: 5.5, c: "#FFFFFF" },
+            { x: 1365, y: 430, r: 7, c: "#FFFFFF" },
+            { x: 640, y: 690, r: 4.5, c: "#FEF08A" },
+            { x: 1290, y: 685, r: 4.5, c: "#FEF08A" },
+          ].map((dot, idx) => (
+            <g
+              key={idx}
+              transform={`translate(${dot.x}, ${(dot.y + Math.sin(frame * 0.06 + idx * 1.1) * 10).toFixed(1)})`}
+            >
+              <circle cx={0} cy={0} r={dot.r * 1.9} fill={dot.c} opacity={0.22} />
+              <circle cx={0} cy={0} r={dot.r} fill={dot.c} opacity={0.82} />
+            </g>
+          ))}
           <CuteOctopus
             x={960}
             y={748}

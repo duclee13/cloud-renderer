@@ -2821,9 +2821,13 @@ export const OceanUnderwaterStoryKit: React.FC<{
           - All one-shot morphs & motions strictly clamped!
          ==================================================================== */}
 
-      {/* Beat 1 (BÌNH MINH): Big Shark gliding overhead; Tuộc seamlessly camouflaged as mossy gray stone with blinking eyes */}
+      {/* Beat 1 (BÌNH MINH): Continuous shark glide x=1560 -> 1240, y=420 -> 475 above rock-camo Tuộc */}
       {mode === "V24_OCEAN_DAWN_SHARK_OVERHEAD" && (() => {
-        const sX = interpolate(activeLocal, [0, durationFrames], [1560, 1040], {
+        const sX = interpolate(activeLocal, [0, durationFrames], [1560, 1240], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        });
+        const sY = interpolate(activeLocal, [0, durationFrames], [420, 475], {
           extrapolateLeft: "clamp",
           extrapolateRight: "clamp",
         });
@@ -2832,7 +2836,7 @@ export const OceanUnderwaterStoryKit: React.FC<{
             <CuteOctopus
               x={692}
               y={782}
-              scale={1.06}
+              scale={1.08}
               frame={frame}
               pose="crawl"
               emotion="happy"
@@ -2843,14 +2847,18 @@ export const OceanUnderwaterStoryKit: React.FC<{
               hideCheeks={true}
               hideEmotionBadge={true}
             />
-            <CuteShark x={sX} y={370} scale={1.48} flipX={true} frame={frame} pose="swim" emotion="curious" />
+            <CuteShark x={sX} y={sY} scale={1.48} flipX={true} frame={frame} pose="swim" emotion="curious" />
           </>
         );
       })()}
 
-      {/* Beat 2 (BÌNH MINH): Tense close pass — Shark swoops dangerously low one handspan above stone Tuộc */}
+      {/* Beat 2 (BÌNH MINH): Seamless handoff x=1240 -> 920, y=475 -> 525 right over stone Tuộc */}
       {mode === "V24_OCEAN_SHARK_CLOSE_PASS" && (() => {
-        const sX = interpolate(activeLocal, [0, durationFrames], [1180, 740], {
+        const sX = interpolate(activeLocal, [0, durationFrames], [1240, 920], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        });
+        const sY = interpolate(activeLocal, [0, durationFrames], [475, 525], {
           extrapolateLeft: "clamp",
           extrapolateRight: "clamp",
         });
@@ -2870,17 +2878,21 @@ export const OceanUnderwaterStoryKit: React.FC<{
               hideCheeks={true}
               hideEmotionBadge={true}
             />
-            <CuteShark x={sX} y={535} scale={1.52} flipX={true} frame={frame} pose="swim" emotion="curious" />
+            <CuteShark x={sX} y={sY} scale={1.48} flipX={true} frame={frame} pose="swim" emotion="curious" />
           </>
         );
       })()}
 
-      {/* Beat 3 (BÌNH MINH): Shark with '?' glides completely past toward left; stone Tuộc stays blended into rock */}
+      {/* Beat 3 (BÌNH MINH): Seamless handoff x=920 -> -120, y=525 -> 445 gliding completely past left! */}
       {mode === "V24_OCEAN_SHARK_SWIMS_PAST" && (() => {
-        const sX = interpolate(activeLocal, [0, durationFrames], [780, 140], {
+        const sX = interpolate(activeLocal, [0, durationFrames], [920, -120], {
           extrapolateLeft: "clamp",
           extrapolateRight: "clamp",
           easing: Easing.out(Easing.quad),
+        });
+        const sY = interpolate(activeLocal, [0, durationFrames], [525, 445], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
         });
         return (
           <>
@@ -2898,7 +2910,7 @@ export const OceanUnderwaterStoryKit: React.FC<{
               hideCheeks={true}
               hideEmotionBadge={true}
             />
-            <CuteShark x={sX} y={425} scale={1.38} flipX={true} frame={frame} pose="swim" emotion="curious" />
+            <CuteShark x={sX} y={sY} scale={1.48} flipX={true} frame={frame} pose="swim" emotion="curious" />
           </>
         );
       })()}
