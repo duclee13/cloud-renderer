@@ -19,7 +19,7 @@ import fs from "fs";
 import path from "path";
 import os from "os";
 import { execSync } from "child_process";
-import type { AutoBgmMood, AutoEpisodeBeat, AutoSfxCueId } from "./episodeJsonSchema.ts";
+import type { AutoBgmMood, AutoEpisodeBeat, AutoSfxCueId, StoryMode } from "./episodeJsonSchema.ts";
 import { resolveAutoSfxPlan, resolveV24BgmSegments } from "./autoSfxPlanner.ts";
 
 export type BgmTrackId = "BGM_STORY_CALM" | "BGM_TENSE_PULSE" | "BGM_WARM_OUTRO";
@@ -990,6 +990,8 @@ export interface MixMasterAudioParams {
   sfxEnabled?: boolean;
   /** V24.0: Bật/tắt trộn nhạc nền Multi-Mood BGM public/bgm/*.wav (mặc định false để Tập 1–10 không đổi) */
   bgmEnabled?: boolean;
+  /** V24.0: StoryMode cấp tập để Auto-SFX tắt auto-pop trong hồi EMOTIONAL/SILENT */
+  storyMode?: StoryMode;
 }
 
 export interface MixMasterAudioResult {
@@ -1125,8 +1127,8 @@ export function mixMasterAudioWithSoundDesign(params: MixMasterAudioParams): Mix
       }
     }
 
-    // 3. Trộn chính xác từng sample toàn bộ các cue SFX (V13 legacy + V23.0 public/sfx/*.wav)
-    const v23AutoSfxEvents = resolveAutoSfxPlan(params.beats, fps, params.sfxEnabled ?? true);
+    // 3. Trộn chính xác từng sample toàn bộ các cue SFX (V13 legacy + V23.0/V24.0 public/sfx/*.wav)
+    const v23AutoSfxEvents = resolveAutoSfxPlan(params.beats, fps, params.sfxEnabled ?? true, params.storyMode);
     const v23CoveredFrames = new Set<number>(
       v23AutoSfxEvents.filter((ev) => ev.cueId === "whoosh_in" || ev.cueId === "whoosh_out").map((ev) => ev.startFrame)
     );

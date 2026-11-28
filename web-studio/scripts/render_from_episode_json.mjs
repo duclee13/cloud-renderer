@@ -451,6 +451,7 @@ async function prepareCloudEpisodePlan({
       cacheDir: SOUND_DESIGN_CACHE_DIR,
       sfxEnabled: episode.sfxEnabled,
       bgmEnabled: episode.bgmEnabled,
+      storyMode: episode.storyMode,
     });
 
     const masterAudioM4aPath = path.join(planDir, 'master_episode_audio.m4a');

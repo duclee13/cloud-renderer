@@ -10,12 +10,16 @@ import {
   type V24BgmFileName,
 } from "../lib/v7/autoSfxPlanner";
 
+import type { StoryMode } from "../lib/v7/episodeJsonSchema";
+
 export interface AudioSfxLayerProps {
   beats: readonly AutoSfxBeatLike[];
   /** Master toggle for V23.0–V24.0 Auto-SFX layer (defaults to true) */
   sfxEnabled?: boolean;
   /** Master toggle for V24.0 Multi-Mood BGM loops (defaults to false for 100% Ep 1–10 backward compatibility) */
   bgmEnabled?: boolean;
+  /** Optional V24.0 StoryMode forwarded to autoSfxPlanner for emotional/silent pop suppression */
+  storyMode?: StoryMode;
   /** Skip mounting <Audio> decoders when rendering silent video chunks on Cloud 20-VM workers */
   muted?: boolean;
   /** Optional volume multiplier clamped strictly inside safe range (default 1.0 -> 0.18..0.22) */
@@ -41,6 +45,7 @@ export const AudioSfxLayer: React.FC<AudioSfxLayerProps> = ({
   beats,
   sfxEnabled = true,
   bgmEnabled = false,
+  storyMode,
   muted = false,
   volumeScale = 1,
   availableFiles = DEFAULT_AVAILABLE_SFX_FILES,
@@ -50,8 +55,8 @@ export const AudioSfxLayer: React.FC<AudioSfxLayerProps> = ({
   const { fps } = useVideoConfig();
 
   const events = React.useMemo(
-    () => (sfxEnabled && !muted ? resolveAutoSfxPlan(beats, fps, sfxEnabled) : []),
-    [beats, fps, sfxEnabled, muted]
+    () => (sfxEnabled && !muted ? resolveAutoSfxPlan(beats, fps, sfxEnabled, storyMode) : []),
+    [beats, fps, sfxEnabled, storyMode, muted]
   );
 
   const bgmSegments = React.useMemo(

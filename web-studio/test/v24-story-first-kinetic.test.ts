@@ -196,6 +196,94 @@ test("V24 #2: autoSfxPlanner resolves headline_pop, tick, heartbeat, sparkle, BG
   assert.equal(bgmSegs[2].startFrame, 720);
   assert.equal(bgmSegs[2].durationFrames, 180);
 
+  // V24 Emotional/Silent auto-pop suppression rule:
+  // In ANIMAL_POV / HUMAN_ANIMAL_POV, beats with bgmMood=EMOTIONAL|SILENT MUST NOT auto-insert pop or headline_pop
+  // (only fire explicit sfxCue like sparkle/heartbeat/tick/ding or timeBadge ticks).
+  for (const mode of ["ANIMAL_POV", "HUMAN_ANIMAL_POV"] as const) {
+    const emoEp = sanitizeAndValidateEpisode({
+      title: `V24 Emotional Mute Test (${mode})`,
+      slug: `v24_emo_mute_${mode.toLowerCase()}`,
+      storyMode: mode,
+      bgmEnabled: true,
+      beats: [
+        {
+          id: "e1",
+          text: "Cảnh mở đầu hồi cảm xúc có tiêu đề kinetic nhưng không đặt sfxCue.",
+          ttsText: "Cảnh mở đầu hồi cảm xúc có tiêu đề kinetic nhưng không đặt sfxCue.",
+          stageType: "CLEAN_EXPLAINER",
+          explainerPalette: "LAVENDER_NIGHT",
+          kineticHeadline: { text: "GIẤC MƠ CỦA TÔI", tone: "EMOTION" },
+          bgmMood: "EMOTIONAL",
+          actors: [],
+        },
+        {
+          id: "e2",
+          text: "Cảnh SVG full-screen trong hồi cảm xúc không đặt sfxCue.",
+          ttsText: "Cảnh SVG full-screen trong hồi cảm xúc không đặt sfxCue.",
+          stageType: "CLEAN_EXPLAINER",
+          customVisual: "OCTO_DREAMING_SLEEP",
+          visualStep: 0,
+          fullScreenVisual: true,
+          bgmMood: "EMOTIONAL",
+          actors: [],
+        },
+        {
+          id: "e3",
+          text: "Khoảnh khắc lặng im có tiêu đề nhưng không đặt sfxCue.",
+          ttsText: "Khoảnh khắc lặng im có tiêu đề nhưng không đặt sfxCue.",
+          stageType: "CLEAN_EXPLAINER",
+          kineticHeadline: { text: "LẶNG YÊN", tone: "ALERT" },
+          bgmMood: "SILENT",
+          actors: [],
+        },
+        {
+          id: "e4",
+          text: "Khoảnh khắc lặng im đặt tường minh heartbeat.",
+          ttsText: "Khoảnh khắc lặng im đặt tường minh heartbeat.",
+          stageType: "CLEAN_EXPLAINER",
+          sfxCue: "heartbeat",
+          bgmMood: "SILENT",
+          actors: [],
+        },
+        {
+          id: "e5",
+          text: "Khoảnh khắc cảm xúc đặt tường minh sparkle.",
+          ttsText: "Khoảnh khắc cảm xúc đặt tường minh sparkle.",
+          stageType: "CLEAN_EXPLAINER",
+          sfxCue: "sparkle",
+          bgmMood: "EMOTIONAL",
+          actors: [],
+        },
+        {
+          id: "e6",
+          text: "Khoảnh khắc cảm xúc đặt tường minh tick.",
+          ttsText: "Khoảnh khắc cảm xúc đặt tường minh tick.",
+          stageType: "CLEAN_EXPLAINER",
+          sfxCue: "tick",
+          bgmMood: "EMOTIONAL",
+          actors: [],
+        },
+      ],
+    });
+    const emoTimeline = emoEp.beats.map((b, idx) => ({
+      id: b.id,
+      startFrame: idx * 180,
+      durationFrames: 180,
+      stageType: b.stageType,
+      autoStageSpec: b,
+    }));
+    const emoEvents = resolveAutoSfxPlan(emoTimeline, 45, true, mode);
+    assert.deepEqual(
+      emoEvents.map((ev) => ({ id: ev.beatId, cue: ev.cueId })),
+      [
+        { id: "e4", cue: "heartbeat" },
+        { id: "e5", cue: "sparkle" },
+        { id: "e6", cue: "tick" },
+      ],
+      `${mode} must suppress auto pop/headline_pop on EMOTIONAL/SILENT beats while allowing explicit cues`
+    );
+  }
+
   // Zero-Regression on Episode 9 & Episode 10
   const v24OnlyCues = new Set(["headline_pop", "tick", "heartbeat", "sparkle"]);
   for (const epFile of [
@@ -536,11 +624,34 @@ test("V24 #7: Episode 10 V24.0 (68 beats ANIMAL_POV, 0 HOST_EXPLAIN, 0 headline 
   assert.equal(ep.beats[47].timeBadge, undefined, "Beat 48 omits timeBadge");
   assert.equal(ep.beats[49].timeBadge, undefined, "Beat 50 omits timeBadge to avoid repeating 1 – 2 NĂM");
   assert.equal(ep.beats[57].timeBadge, "SÁNG HÔM SAU");
-  assert.equal(ep.beats[59].customVisual, "OCTO_HUMAN_TECH", "Beat 60 flows straight from mother arc into reef protection");
-  assert.equal(ep.beats[59].visualStep, 2);
+  // Beat 60: natural underwater ocean reef home scene (no OCTO_HUMAN_TECH poster card, but OCTO_HUMAN_TECH stays registered for Ep10 V23)
+  assert.equal(ep.beats[59].stageType, "OCEAN_UNDERWATER");
+  assert.equal(ep.beats[59].oceanDetail, "V24_OCEAN_REEF_HOME_SWIM");
+  assert.equal(ep.beats[59].customVisual, undefined);
+  assert.equal(ep.beats[59].kineticHeadline?.text, "NGÔI NHÀ DƯỚI BIỂN");
+  assert.equal(ep.beats[59].kineticHeadline?.tone, "EMOTION");
+  assert.equal(ep.beats[59].bgmMood, "EMOTIONAL");
+  assert.equal(ep.beats[59].sfxCue, "none");
+  assert.ok("OCTO_HUMAN_TECH" in EPISODE_VISUAL_REGISTRY, "OCTO_HUMAN_TECH must remain registered for Ep10 V23");
+  // Beat 61-64 preserved; Beat 65 unified outro
   assert.equal(ep.beats[60].timeBadge, "NGÀY MỚI");
-  assert.equal(ep.beats[64].kineticHeadline?.text, "CÒN BẠN THÌ SAO?");
-  assert.equal(ep.beats[64].kineticHeadline?.tone, "EMOTION");
+  assert.equal(ep.beats[64].kineticHeadline?.text, "HẸN GẶP LẠI!");
+  assert.equal(ep.beats[64].kineticHeadline?.tone, "GOLD");
+  assert.equal(ep.beats[64].bgmMood, "CURIOUS");
+  assert.equal(ep.beats[64].sfxCue, "sparkle");
+
+  // Emotional arc SFX cleanliness: mute pop/headline_pop on emotional beats, keep only heartbeat(49), tick(50,58), sparkle(47,55,59)
+  const expectedMutedEmotional = new Set(["b46", "b48", "b51", "b52", "b53", "b54", "b56", "b57", "b60"]);
+  for (const bid of expectedMutedEmotional) {
+    const b = ep.beats.find((x) => x.id === bid);
+    assert.equal(b?.sfxCue, "none", `${bid} in emotional arc must set sfxCue="none"`);
+  }
+  assert.equal(ep.beats.find((x) => x.id === "b49")?.sfxCue, "heartbeat");
+  assert.equal(ep.beats.find((x) => x.id === "b50")?.sfxCue, "tick");
+  assert.equal(ep.beats.find((x) => x.id === "b58")?.sfxCue, "tick");
+  assert.equal(ep.beats.find((x) => x.id === "b47")?.sfxCue, "sparkle");
+  assert.equal(ep.beats.find((x) => x.id === "b55")?.sfxCue, "sparkle");
+  assert.equal(ep.beats.find((x) => x.id === "b59")?.sfxCue, "sparkle");
 
   const reusedV23Svgs = new Set([
     "OCTO_SPEED_VS_CHAMELEON",
@@ -556,7 +667,6 @@ test("V24 #7: Episode 10 V24.0 (68 beats ANIMAL_POV, 0 HOST_EXPLAIN, 0 headline 
     "OCTO_MIMIC_MASTER",
     "OCTO_ENERGY_COST",
     "OCTO_DREAMING_SLEEP",
-    "OCTO_HUMAN_TECH",
   ]);
   const seenReused = new Set<string>();
   const lifespanSteps = new Set<number>();
@@ -652,11 +762,11 @@ test("V24 #7: Episode 10 V24.0 (68 beats ANIMAL_POV, 0 HOST_EXPLAIN, 0 headline 
     }
   }
 
-  assert.equal(seenReused.size, 14, "Must reuse all 14 V23 OCTO_* SVGs");
+  assert.equal(seenReused.size, 13, "Must reuse 13 V23 OCTO_* SVGs (OCTO_HUMAN_TECH kept in registry for Ep10 V23)");
   assert.deepEqual([...lifespanSteps].sort(), [0, 1], "OCTO_SHORT_LIFESPAN must cover steps 0 & 1");
   assert.deepEqual([...motherSteps].sort(), [0, 1, 2], "OCTO_MOTHER_SACRIFICE must cover steps 0, 1 & 2");
   assert.equal(cleanExplainerStageCount, 13, "Must have all 13 non-SVG CLEAN_EXPLAINER beats");
-  assert.equal(oceanStageCount, 19, "Must have all 19 OCEAN_UNDERWATER beats after cutting Beat 60 detour");
+  assert.equal(oceanStageCount, 20, "Must have all 20 OCEAN_UNDERWATER beats (including Beat 60 reef home swim)");
 
   // Verify continuous opening shark motion handoff Beat 1 end (x=1240) == Beat 2 start (x=1240) and Beat 2 end (x=920) == Beat 3 start (x=920)
   const extractSharkX = (beat: (typeof ep.beats)[number], localFrame: number): number => {
@@ -725,8 +835,14 @@ test("V24 #7: Episode 10 V24.0 (68 beats ANIMAL_POV, 0 HOST_EXPLAIN, 0 headline 
     bgmSegs.every((seg) => beat49Start < seg.startFrame || beat49Start >= seg.startFrame + seg.durationFrames),
     "Beat 49 (SILENT) has zero active BGM segment"
   );
-  const sfxPlan = resolveAutoSfxPlan(timeline, 45, true);
-  assert.equal(sfxPlan.length, 65, "All 65 beats emit clean non-overlapping SFX cues");
+  const sfxPlan = resolveAutoSfxPlan(timeline, 45, true, ep.storyMode);
+  assert.equal(sfxPlan.length, 56, "56 non-muted beats emit clean non-overlapping SFX cues (9 emotional beats muted)");
+  for (const bid of expectedMutedEmotional) {
+    assert.ok(
+      sfxPlan.every((ev) => ev.beatId !== bid),
+      `Muted emotional beat ${bid} must NOT emit any SFX event`
+    );
+  }
 
   // Run validate_episode.mjs programmatic validation -> must achieve 0 critical errors!
   const validatorMod = await import("../scripts/validate_episode.mjs");

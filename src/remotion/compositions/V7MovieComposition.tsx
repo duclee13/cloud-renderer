@@ -1028,6 +1028,11 @@ export const V7MovieComposition: React.FC<V7MovieCompositionProps> = (props) => 
         <AudioSfxLayer
           beats={beats}
           muted={isRenderMuted}
+          storyMode={
+            props.storyMode ??
+            props.payload?.storyMode ??
+            props.v7MoviePayload?.storyMode
+          }
           sfxEnabled={
             props.sfxEnabled ??
             props.payload?.sfxEnabled ??

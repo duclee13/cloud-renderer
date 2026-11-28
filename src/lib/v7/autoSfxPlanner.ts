@@ -7,7 +7,7 @@
  * - 100% zero regression on Episodes 1–10 (V24 rules trigger ONLY when V24 fields are present)
  */
 
-import type { AutoEpisodeBeat, AutoSfxCueId, V24BgmMood } from "./episodeJsonSchema.ts";
+import type { AutoEpisodeBeat, AutoSfxCueId, StoryMode, V24BgmMood } from "./episodeJsonSchema.ts";
 
 export type AutoSfxFileName =
   | "pop_soft.wav"
@@ -172,7 +172,8 @@ function beatHasKineticHeadline(beat?: AutoSfxBeatLike): boolean {
 export function resolveAutoSfxPlan(
   beats: readonly AutoSfxBeatLike[],
   fps = 45,
-  sfxEnabled = true
+  sfxEnabled = true,
+  episodeStoryMode?: StoryMode
 ): ResolvedAutoSfxEvent[] {
   if (!sfxEnabled || !Array.isArray(beats) || beats.length === 0) return [];
 
@@ -205,6 +206,12 @@ export function resolveAutoSfxPlan(
       const prevBadge = normalizeTimeBadge(prev);
       const hasNewTimeBadge = Boolean(currBadge && currBadge !== prevBadge);
       const hasKineticHeadline = beatHasKineticHeadline(curr);
+      const effectiveStoryMode = spec?.storyMode ?? episodeStoryMode;
+      const isV24StoryMode =
+        effectiveStoryMode === "ANIMAL_POV" || effectiveStoryMode === "HUMAN_ANIMAL_POV";
+      const currBgmMood = normalizeV24BgmMood(spec?.bgmMood ?? curr.bgmMood);
+      const muteAutoPopInEmotional =
+        isV24StoryMode && (currBgmMood === "EMOTIONAL" || currBgmMood === "SILENT");
 
       if (currHost && !prevHost && i > 0) {
         chosenCue = "whoosh_in";
@@ -221,11 +228,11 @@ export function resolveAutoSfxPlan(
       } else if (hasNewTimeBadge) {
         chosenCue = "tick";
         reason = `V24 timeBadge changed ("${currBadge}")`;
-      } else if (hasKineticHeadline) {
+      } else if (hasKineticHeadline && !muteAutoPopInEmotional) {
         chosenCue = "headline_pop";
         extraDelayFrames = Math.max(0, Math.round(spec?.kineticHeadline?.delayFrames ?? 0));
         reason = `V24 kineticHeadline ("${spec?.kineticHeadline?.text?.trim()}")`;
-      } else if (currSvg || (!currHost && beatHasSpeechBubble(curr) && i > 0)) {
+      } else if (!muteAutoPopInEmotional && (currSvg || (!currHost && beatHasSpeechBubble(curr) && i > 0))) {
         chosenCue = "pop";
         reason = currSvg
           ? `Full-Screen SVG step (${spec?.customVisual}#${spec?.visualStep ?? 0})`

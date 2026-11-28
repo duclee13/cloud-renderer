@@ -3241,7 +3241,7 @@ export const OceanUnderwaterStoryKit: React.FC<{
         );
       })()}
 
-      {/* Beat 59 (05:30): Mother's gift — Tuộc glowing proudly in vivid plum-red under morning rays */}
+      {/* Beat 59 (SÁNG HÔM SAU): Mother's gift — Tuộc glowing proudly in vivid plum-red under morning rays */}
       {mode === "V24_OCEAN_MORNING_PROUD_GLOW" && (
         <>
           <circle cx={960} cy={650} r={195} fill="#FEF08A" opacity={0.18} />
@@ -3265,6 +3265,45 @@ export const OceanUnderwaterStoryKit: React.FC<{
           />
         </>
       )}
+
+      {/* Beat 60: Natural underwater ocean home — Tuộc (bandana_green, happy) swimming smoothly across sunlit coral reef */}
+      {mode === "V24_OCEAN_REEF_HOME_SWIM" && (() => {
+        const swimX = interpolate(activeLocal, [0, durationFrames], [700, 1140], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        });
+        const swimY = Number((665 + Math.sin(frame * 0.065) * 14).toFixed(1));
+        return (
+          <>
+            <g id="v24-ocean-reef-home-sunbeams" opacity={0.22}>
+              <polygon points="320,0 590,0 860,820 560,820" fill="#BAE6FD" />
+              <polygon points="820,0 1120,0 1390,820 1090,820" fill="#FEF9C3" />
+              <polygon points="1300,0 1540,0 1760,820 1510,820" fill="#BAE6FD" />
+            </g>
+            {[0, 1, 2, 3, 4].map((bi) => (
+              <circle
+                key={bi}
+                cx={620 + bi * 175}
+                cy={Number((690 - bi * 42 - Math.sin(frame * 0.07 + bi * 1.1) * 16).toFixed(1))}
+                r={5.5 + (bi % 3) * 2.5}
+                fill="#E0F2FE"
+                fillOpacity={0.58}
+                stroke="#38BDF8"
+                strokeWidth={2}
+              />
+            ))}
+            <CuteOctopus
+              x={swimX}
+              y={swimY}
+              scale={1.26}
+              frame={frame}
+              pose="float"
+              emotion="happy"
+              accessory="bandana_green"
+            />
+          </>
+        );
+      })()}
 
       {/* Beat 60: Tuộc (bandana_green) chatting warmly with Cụ Tuộc (elder + glasses_round) */}
       {mode === "V24_OCEAN_ELDER_CHAT" && (
