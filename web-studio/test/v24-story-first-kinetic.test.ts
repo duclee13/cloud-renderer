@@ -40,6 +40,7 @@ import {
   UniversalAutoStage,
   shouldHideTopChapterBanner,
 } from "../src/components/v7/UniversalAutoStage";
+import { EPISODE_VISUAL_REGISTRY } from "../src/components/v7/episodeVisuals";
 
 const FORBIDDEN_SVG_PATTERNS = [
   "<feGaussianBlur",
@@ -475,6 +476,9 @@ test("V24 #6: Static source audit confirms 0 forbidden SVG filters/tags and Node
     "../src/components/AnimalSpriteKit.tsx",
     "../src/components/AudioSfxLayer.tsx",
     "../src/components/v7/UniversalAutoStage.tsx",
+    "../src/components/v7/OctopusV24ExplainerKit.tsx",
+    "../src/components/v7/HostExplainAndStageKits.tsx",
+    "../src/components/v7/episodeVisuals/octopusCamoVisualsV24.tsx",
     "../src/lib/v7/autoSfxPlanner.ts",
     "../src/lib/v7/soundDesignEngine.ts",
   ];
@@ -494,4 +498,181 @@ test("V24 #6: Static source audit confirms 0 forbidden SVG filters/tags and Node
       assert.ok(imp.endsWith(".ts"), `${rel} relative import "${imp}" must explicitly end with .ts for Node v24 ESM`);
     }
   }
+});
+
+test("V24 #7: Episode 10 V24.0 (68 beats ANIMAL_POV, 0 HOST_EXPLAIN, 0 headline overlap on 14 V23 SVGs, 2 new SVGs, OctopusV24ExplainerKit & OceanStoryKit)", async () => {
+  const epStudioPath = path.resolve(__dirname, "../episodes/tai_sao_bach_tuoc_doi_mau_tang_hinh_v24.json");
+  const epRootPath = path.resolve(__dirname, "../../tai_sao_bach_tuoc_doi_mau_tang_hinh_v24.json");
+  assert.ok(fs.existsSync(epStudioPath), "Missing web-studio/episodes/tai_sao_bach_tuoc_doi_mau_tang_hinh_v24.json");
+  assert.ok(fs.existsSync(epRootPath), "Missing synced root tai_sao_bach_tuoc_doi_mau_tang_hinh_v24.json");
+
+  const rawText = fs.readFileSync(epStudioPath, "utf8");
+  const rootText = fs.readFileSync(epRootPath, "utf8");
+  assert.equal(rawText, rootText, "Root copy and web-studio copy of Ep10 V24 JSON must stay synced");
+
+  const rawJson = JSON.parse(rawText);
+  const ep = sanitizeAndValidateEpisode(rawJson);
+
+  assert.equal(ep.storyMode, "ANIMAL_POV", "Ep10 V24 must use storyMode=ANIMAL_POV");
+  assert.equal(ep.bgmEnabled, true, "Ep10 V24 must enable V24 Multi-Mood BGM");
+  assert.equal(ep.sfxEnabled, true, "Ep10 V24 must enable Auto-SFX");
+  assert.equal(ep.beats.length, 68, "Ep10 V24 must contain exactly 68 beats");
+
+  const reusedV23Svgs = new Set([
+    "OCTO_SPEED_VS_CHAMELEON",
+    "OCTO_SKIN_PIXELS",
+    "OCTO_3_SKIN_LAYERS",
+    "OCTO_3D_PAPILLAE",
+    "OCTO_BRAIN_TO_SKIN",
+    "OCTO_HUMAN_VS_EYE",
+    "OCTO_W_PUPIL_PRISM",
+    "OCTO_SKIN_EYES",
+    "OCTO_POLARIZED_LIGHT",
+    "OCTO_COMMUNICATION_MOOD",
+    "OCTO_MIMIC_MASTER",
+    "OCTO_ENERGY_COST",
+    "OCTO_DREAMING_SLEEP",
+    "OCTO_HUMAN_TECH",
+  ]);
+  const seenReused = new Set<string>();
+  const lifespanSteps = new Set<number>();
+  const motherSteps = new Set<number>();
+
+  let cleanExplainerStageCount = 0;
+  let oceanStageCount = 0;
+
+  for (const beat of ep.beats) {
+    assert.notEqual(beat.stageType, "HOST_EXPLAIN_OVERLAY", `${beat.id} must NOT use HOST_EXPLAIN_OVERLAY`);
+    assert.notEqual(beat.overlayMode, "HOST_EXPLAIN", `${beat.id} must NOT set overlayMode=HOST_EXPLAIN`);
+    assert.equal(beat.chapterBanner, undefined, `${beat.id} must hide HỒI X chapterBanner in ANIMAL_POV`);
+    assert.ok(beat.text.trim().length > 0 && beat.ttsText.trim().length > 0, `${beat.id} must have narration`);
+    assert.ok(!/[0-9zZ]/.test(beat.ttsText), `${beat.id} ttsText must contain pure Vietnamese (no digits or z/Z): ${beat.ttsText}`);
+
+    if (beat.customVisual) {
+      assert.ok(
+        beat.customVisual in EPISODE_VISUAL_REGISTRY,
+        `${beat.id} customVisual "${beat.customVisual}" must exist in EPISODE_VISUAL_REGISTRY`
+      );
+      if (reusedV23Svgs.has(beat.customVisual)) {
+        seenReused.add(beat.customVisual);
+        assert.equal(
+          beat.kineticHeadline,
+          undefined,
+          `${beat.id} (${beat.customVisual}) must NOT set kineticHeadline on reused V23 SVG`
+        );
+      }
+      if (beat.customVisual === "OCTO_SHORT_LIFESPAN") {
+        lifespanSteps.add(beat.visualStep ?? 0);
+        assert.ok(beat.kineticHeadline?.text, `${beat.id} OCTO_SHORT_LIFESPAN should include kineticHeadline`);
+      }
+      if (beat.customVisual === "OCTO_MOTHER_SACRIFICE") {
+        motherSteps.add(beat.visualStep ?? 0);
+        assert.ok(beat.kineticHeadline?.text, `${beat.id} OCTO_MOTHER_SACRIFICE should include kineticHeadline`);
+      }
+    } else if (beat.stageType === "CLEAN_EXPLAINER") {
+      cleanExplainerStageCount++;
+      const svg = renderToStaticMarkup(
+        React.createElement(
+          "svg",
+          { viewBox: "0 0 1920 1080" },
+          React.createElement(UniversalAutoStage, {
+            spec: beat,
+            frame: 30,
+            localFrame: 30,
+            durationFrames: 180,
+            u: 0.25,
+            fps: 45,
+          })
+        )
+      );
+      assert.ok(svg.includes('id="stage-clean-explainer"'), `${beat.id} renders CleanExplainerStage`);
+      assert.ok(svg.includes("octopus-v24-explainer-kit-"), `${beat.id} renders OctopusV24ExplainerKit foreground`);
+      assert.ok(svg.includes("animal-cute-octopus-"), `${beat.id} renders foreground CuteOctopus`);
+      assert.ok(svg.includes('id="layer-kinetic-headline"'), `${beat.id} renders KineticHeadlineLayer`);
+      assert.ok(!svg.includes('id="layer-host-explain-veil"'), `${beat.id} has no freeze veil`);
+      assertZeroForbiddenSvg(svg, `Ep10 V24 CLEAN_EXPLAINER ${beat.id}`);
+    } else if (beat.stageType === "OCEAN_UNDERWATER") {
+      oceanStageCount++;
+      const svg = renderToStaticMarkup(
+        React.createElement(
+          "svg",
+          { viewBox: "0 0 1920 1080" },
+          React.createElement(UniversalAutoStage, {
+            spec: beat,
+            frame: 30,
+            localFrame: 30,
+            durationFrames: 180,
+            u: 0.25,
+            fps: 45,
+          })
+        )
+      );
+      assert.ok(svg.includes('id="stage-ocean-underwater"'), `${beat.id} renders OCEAN_UNDERWATER`);
+      assert.ok(svg.includes("ocean-story-kit-V24_OCEAN_"), `${beat.id} renders upgraded OceanUnderwaterStoryKit`);
+      assert.ok(!svg.includes("[Tuộc nói]") && !svg.includes("[Cá mập nói]"), `${beat.id} has no bracketed speaker tags`);
+      if (beat.id === "b60") {
+        assert.ok(svg.includes('id="animal-accessory-glasses_round"'), "Beat 60 renders Cụ Tuộc glasses_round");
+        assert.ok(svg.includes('stroke="#94A3B8"'), "Beat 60 renders Cụ Tuộc elder eyebrows");
+      }
+      assertZeroForbiddenSvg(svg, `Ep10 V24 OCEAN_UNDERWATER ${beat.id}`);
+    }
+  }
+
+  assert.equal(seenReused.size, 14, "Must reuse all 14 V23 OCTO_* SVGs");
+  assert.deepEqual([...lifespanSteps].sort(), [0, 1], "OCTO_SHORT_LIFESPAN must cover steps 0 & 1");
+  assert.deepEqual([...motherSteps].sort(), [0, 1, 2], "OCTO_MOTHER_SACRIFICE must cover steps 0, 1 & 2");
+  assert.equal(cleanExplainerStageCount, 13, "Must have all 13 non-SVG CLEAN_EXPLAINER beats");
+  assert.equal(oceanStageCount, 20, "Must have all 20 OCEAN_UNDERWATER beats");
+
+  // Render the 2 brand-new V24 SVGs across every step & verify content + 0 blur
+  const ShortLifespanComp = EPISODE_VISUAL_REGISTRY.OCTO_SHORT_LIFESPAN;
+  for (const s of [0, 1]) {
+    const svg = renderToStaticMarkup(
+      React.createElement(ShortLifespanComp, { progress: 0.5, frame: 30, fps: 45, step: s, visualStep: s })
+    );
+    assert.ok(svg.includes("1 – 2 NĂM"), `OCTO_SHORT_LIFESPAN step ${s} displays 1 – 2 NĂM`);
+    assert.ok(svg.includes('id="animal-accessory-bandana_green"'), `OCTO_SHORT_LIFESPAN step ${s} shows Tuộc bandana_green`);
+    assertZeroForbiddenSvg(svg, `OCTO_SHORT_LIFESPAN step ${s}`);
+  }
+
+  const MotherSacrificeComp = EPISODE_VISUAL_REGISTRY.OCTO_MOTHER_SACRIFICE;
+  for (const s of [0, 1, 2]) {
+    const svg = renderToStaticMarkup(
+      React.createElement(MotherSacrificeComp, { progress: 0.5, frame: 36, fps: 45, step: s, visualStep: s })
+    );
+    assert.ok(svg.includes('id="animal-accessory-flower_pink"'), `OCTO_MOTHER_SACRIFICE step ${s} shows Mẹ Tuộc flower_pink`);
+    assert.ok(svg.includes("#C4365D"), `OCTO_MOTHER_SACRIFICE step ${s} preserves plum-red #C4365D`);
+    if (s === 2) {
+      assert.ok(svg.includes('id="octo-v24-baby-octopuses"'), "OCTO_MOTHER_SACRIFICE step 2 renders baby octopuses");
+      assert.ok(svg.includes('opacity="0.62"'), "OCTO_MOTHER_SACRIFICE step 2 renders baby ageVariant cheeks");
+    }
+    assertZeroForbiddenSvg(svg, `OCTO_MOTHER_SACRIFICE step ${s}`);
+  }
+
+  // Verify V24 Multi-Mood BGM segments (includes SILENT gap at Beat 49!) and Auto-SFX across all 68 beats
+  const timeline = ep.beats.map((b, idx) => ({
+    id: b.id,
+    startFrame: idx * 180,
+    durationFrames: 180,
+    stageType: b.stageType,
+    autoStageSpec: b,
+  }));
+  const bgmSegs = resolveV24BgmSegments(timeline, 45, true);
+  assert.ok(bgmSegs.length >= 6, "Ep10 V24 resolves multiple BGM mood segments with SILENT dramatic pause");
+  assert.ok(bgmSegs.some((seg) => seg.mood === "TENSE"), "Includes TENSE BGM segments");
+  assert.ok(bgmSegs.some((seg) => seg.mood === "CURIOUS"), "Includes CURIOUS BGM segments");
+  assert.ok(bgmSegs.some((seg) => seg.mood === "EMOTIONAL"), "Includes EMOTIONAL BGM segments");
+  const beat49Start = 48 * 180;
+  assert.ok(
+    bgmSegs.every((seg) => beat49Start < seg.startFrame || beat49Start >= seg.startFrame + seg.durationFrames),
+    "Beat 49 (SILENT) has zero active BGM segment"
+  );
+  const sfxPlan = resolveAutoSfxPlan(timeline, 45, true);
+  assert.equal(sfxPlan.length, 68, "All 68 beats emit clean non-overlapping SFX cues");
+
+  // Run validate_episode.mjs programmatic validation -> must achieve 0 critical errors!
+  const validatorMod = await import("../scripts/validate_episode.mjs");
+  const registered = validatorMod.loadRegisteredCustomVisuals();
+  const report = validatorMod.validateEpisodeData(rawJson, registered);
+  assert.equal(report.errors.length, 0, `validate_episode.mjs must report 0 errors: ${JSON.stringify(report.errors)}`);
 });

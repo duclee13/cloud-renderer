@@ -38,6 +38,7 @@ import { EPISODE_VISUAL_REGISTRY, type EpisodeVisualProps } from "./episodeVisua
 import { GroundShadow } from "../SceneBackdropKit";
 import { CleanExplainerStage } from "../CleanExplainerStage";
 import { KineticHeadlineLayer } from "../KineticHeadlineLayer";
+import { OctopusV24ExplainerKit, isOctopusV24ExplainerMode } from "./OctopusV24ExplainerKit";
 import {
   FOREST_PARK_BACKDROP,
   OCEAN_UNDERWATER_BACKDROP,
@@ -3520,7 +3521,20 @@ export const UniversalAutoStage: React.FC<{
           <AnechoicChamberBackdrop timeOfDay={spec.timeOfDay} frame={stageRenderFrame} groundY={groundY} />
         )}
         {effectiveStageType === "CLEAN_EXPLAINER" && (
-          <CleanExplainerStage palette={spec.explainerPalette} frame={stageRenderFrame} uid={spec.id} />
+          <>
+            <CleanExplainerStage palette={spec.explainerPalette} frame={stageRenderFrame} uid={spec.id} />
+            {(isOctopusV24ExplainerMode(spec.oceanDetail) ||
+              (spec.storyMode === "ANIMAL_POV" &&
+                spec.labBoard === "OCTOPUS_INVISIBLE_CAMO" &&
+                spec.actors.length === 0)) && (
+              <OctopusV24ExplainerKit
+                mode={spec.oceanDetail ?? "V24_EXPLAIN_INTRO_WAVE"}
+                frame={stageRenderFrame}
+                localFrame={localFrame}
+                durationFrames={durationFrames}
+              />
+            )}
+          </>
         )}
         {effectiveStageType === "EXPLAINER_POLKA_DOT" && (
           <>

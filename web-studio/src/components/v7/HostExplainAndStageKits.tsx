@@ -2813,6 +2813,541 @@ export const OceanUnderwaterStoryKit: React.FC<{
           )}
         </>
       )}
+
+      {/* ====================================================================
+          V24.0 ANIMAL_POV OCEAN_UNDERWATER SCENES (Episode 10 V24 — 20 Beats)
+          - Tuộc wears accessory="bandana_green" (plum-red #C4365D)
+          - Zero [Tuộc nói] / [Cá mập nói] text badges, zero body wobble!
+          - All one-shot morphs & motions strictly clamped!
+         ==================================================================== */}
+
+      {/* Beat 1 (06:15): Big Shark gliding overhead; Tuộc disguised as gray mossy stone with blinking eyes */}
+      {mode === "V24_OCEAN_DAWN_SHARK_OVERHEAD" && (() => {
+        const sX = interpolate(activeLocal, [0, durationFrames], [1560, 1040], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        });
+        return (
+          <>
+            <CuteOctopus
+              x={692}
+              y={782}
+              scale={1.06}
+              frame={frame}
+              pose="crawl"
+              emotion="happy"
+              colorOverride={{ main: "#64748B", belly: "#94A3B8", spot: "#16A34A" }}
+              papillaeBumps={true}
+            />
+            <CuteShark x={sX} y={370} scale={1.48} flipX={true} frame={frame} pose="swim" emotion="curious" />
+          </>
+        );
+      })()}
+
+      {/* Beat 2 (06:15): Tense close pass — Shark swoops dangerously low one handspan above stone Tuộc */}
+      {mode === "V24_OCEAN_SHARK_CLOSE_PASS" && (() => {
+        const sX = interpolate(activeLocal, [0, durationFrames], [1180, 740], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        });
+        return (
+          <>
+            <CuteOctopus
+              x={692}
+              y={782}
+              scale={1.08}
+              frame={frame}
+              pose="crawl"
+              emotion="scared"
+              colorOverride={{ main: "#64748B", belly: "#94A3B8", spot: "#16A34A" }}
+              papillaeBumps={true}
+            />
+            <CuteShark x={sX} y={535} scale={1.52} flipX={true} frame={frame} pose="swim" emotion="curious" />
+          </>
+        );
+      })()}
+
+      {/* Beat 3 (06:15): Shark with '?' glides completely past toward left; stone Tuộc stays calm */}
+      {mode === "V24_OCEAN_SHARK_SWIMS_PAST" && (() => {
+        const sX = interpolate(activeLocal, [0, durationFrames], [780, 140], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+          easing: Easing.out(Easing.quad),
+        });
+        return (
+          <>
+            <CuteOctopus
+              x={692}
+              y={782}
+              scale={1.08}
+              frame={frame}
+              pose="crawl"
+              emotion="happy"
+              colorOverride={{ main: "#64748B", belly: "#94A3B8", spot: "#16A34A" }}
+              papillaeBumps={true}
+            />
+            <CuteShark x={sX} y={425} scale={1.38} flipX={true} frame={frame} pose="swim" emotion="curious" />
+          </>
+        );
+      })()}
+
+      {/* Beat 4 (06:15): Gray rock smoothly reveals plum-red Tuộc (#C4365D, bandana_green) waving! */}
+      {mode === "V24_OCEAN_ROCK_REVEAL_TUOC" && (() => {
+        const revT = interpolate(activeLocal, [4, 28], [0, 1], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+          easing: Easing.out(Easing.cubic),
+        });
+        return (
+          <CuteOctopus
+            x={725}
+            y={776}
+            scale={1.22}
+            frame={frame}
+            pose="wave"
+            emotion="happy"
+            accessory={revT > 0.45 ? "bandana_green" : "none"}
+            colorOverride={{
+              main: blendOctoHex("#64748B", "#C4365D", revT),
+              belly: blendOctoHex("#94A3B8", "#FCE7F3", revT),
+              spot: blendOctoHex("#16A34A", "#FCE7F3", revT),
+            }}
+            papillaeBumps={revT < 0.45}
+          />
+        );
+      })()}
+
+      {/* Beat 8 (07:00): Bright sunlit morning crawl along the coral reef */}
+      {mode === "V24_OCEAN_MORNING_CRAWL" && (() => {
+        const cx = interpolate(activeLocal, [0, durationFrames], [740, 1080], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        });
+        return (
+          <CuteOctopus
+            x={cx}
+            y={792}
+            scale={1.22}
+            frame={frame}
+            pose="crawl"
+            emotion="happy"
+            accessory="bandana_green"
+          />
+        );
+      })()}
+
+      {/* Beat 16 (09:30): Harsh diagonal sunlit rays on spiky reef; Tuộc pauses thoughtfully */}
+      {mode === "V24_OCEAN_HARSH_SUN_REEF" && (
+        <>
+          <g opacity={0.22}>
+            <polygon points="520,0 740,0 1020,820 790,820" fill="#FEF08A" />
+            <polygon points="940,0 1160,0 1440,820 1210,820" fill="#FEF9C3" />
+          </g>
+          <CuteOctopus
+            x={1120}
+            y={786}
+            scale={1.2}
+            frame={frame}
+            pose="crawl"
+            emotion="curious"
+            accessory="bandana_green"
+          />
+        </>
+      )}
+
+      {/* Beat 32 (13:30): Lunch hunt — Tuộc happily glides past pink coral reef */}
+      {mode === "V24_OCEAN_LUNCH_HUNT" && (() => {
+        const cx = interpolate(activeLocal, [0, durationFrames], [1080, 1290], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        });
+        return (
+          <CuteOctopus
+            x={cx}
+            y={784}
+            scale={1.2}
+            frame={frame}
+            pose="crawl"
+            emotion="happy"
+            accessory="bandana_green"
+          />
+        );
+      })()}
+
+      {/* Beat 33 (15:00): Tuộc meets bigger dark-crimson territorial octopus rival */}
+      {mode === "V24_OCEAN_TERRITORIAL_RIVAL" && (
+        <>
+          <CuteOctopus
+            x={650}
+            y={786}
+            scale={1.16}
+            frame={frame}
+            pose="crawl"
+            emotion="surprised"
+            accessory="bandana_green"
+          />
+          <CuteOctopus
+            x={1240}
+            y={776}
+            scale={1.38}
+            flipX={true}
+            frame={frame + 17}
+            pose="float"
+            emotion="surprised"
+            colorOverride={{ main: "#7F1D1D", belly: "#FCA5A5", spot: "#450A0A" }}
+          />
+        </>
+      )}
+
+      {/* Beat 35 (15:00): Tuộc shifts to peaceful pale pink; rival octopus relaxes & glides away */}
+      {mode === "V24_OCEAN_PEACE_PALE_PASS" && (() => {
+        const paleT = interpolate(activeLocal, [4, 26], [0, 1], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+          easing: Easing.out(Easing.cubic),
+        });
+        const rivalX = interpolate(activeLocal, [18, durationFrames], [1220, 1740], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        });
+        return (
+          <>
+            <CuteOctopus
+              x={680}
+              y={786}
+              scale={1.16}
+              frame={frame}
+              pose="crawl"
+              emotion="happy"
+              accessory="bandana_green"
+              colorOverride={{
+                main: blendOctoHex("#C4365D", "#FBCFE8", paleT),
+                belly: blendOctoHex("#FCE7F3", "#FFF1F2", paleT),
+                spot: blendOctoHex("#FCE7F3", "#F9A8D4", paleT),
+              }}
+            />
+            <CuteOctopus
+              x={rivalX}
+              y={695}
+              scale={1.32}
+              flipX={false}
+              frame={frame + 21}
+              pose="float"
+              emotion="happy"
+              colorOverride={{
+                main: blendOctoHex("#7F1D1D", "#B91C1C", paleT),
+                belly: "#FEE2E2",
+                spot: "#7F1D1D",
+              }}
+            />
+          </>
+        );
+      })()}
+
+      {/* Beat 36 (15:45): Tuộc halts abruptly before tiny golden Blue-Ringed Octopus! */}
+      {mode === "V24_OCEAN_BLUE_RING_STOP" && (
+        <>
+          <CuteOctopus
+            x={640}
+            y={784}
+            scale={1.18}
+            frame={frame}
+            pose="crawl"
+            emotion="surprised"
+            accessory="bandana_green"
+          />
+          <CuteOctopus
+            x={1190}
+            y={798}
+            scale={0.72}
+            flipX={true}
+            frame={frame + 9}
+            pose="crawl"
+            emotion="proud"
+            colorOverride={{ main: "#EAB308", belly: "#FEF9C3", spot: "#CA8A04" }}
+            blueRings={true}
+          />
+        </>
+      )}
+
+      {/* Beat 38 (16:30): Tuộc admiring famous striped sandy Mimic Octopus gliding on open sand */}
+      {mode === "V24_OCEAN_ADMIRE_MIMIC" && (() => {
+        const mimicX = interpolate(activeLocal, [0, durationFrames], [1180, 1410], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        });
+        return (
+          <>
+            <CuteOctopus
+              x={580}
+              y={786}
+              scale={1.14}
+              frame={frame}
+              pose="crawl"
+              emotion="curious"
+              accessory="bandana_green"
+            />
+            <CuteOctopus
+              x={mimicX}
+              y={712}
+              scale={1.12}
+              frame={frame + 27}
+              pose="float"
+              emotion="proud"
+              colorOverride={{ main: "#D6C09E", belly: "#FEF3C7", spot: "#78350F" }}
+            />
+          </>
+        );
+      })()}
+
+      {/* Beat 41 (18:30): Sunset fatigue — Tuộc (sleepy) slowly crawls back into reef rock crevice */}
+      {mode === "V24_OCEAN_SUNSET_TIRED_CAVE" && (() => {
+        const tx = interpolate(activeLocal, [0, durationFrames], [1020, 745], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        });
+        return (
+          <>
+            <rect x={0} y={0} width={1920} height={1080} fill="#EA580C" opacity={0.14} />
+            <CuteOctopus
+              x={tx}
+              y={788}
+              scale={1.16}
+              flipX={true}
+              frame={frame}
+              pose="crawl"
+              emotion="sleepy"
+              accessory="bandana_green"
+            />
+          </>
+        );
+      })()}
+
+      {/* Beat 45 (20:00): Night descends — Tuộc tucked quietly in reef rock alcove, pale relaxed skin */}
+      {mode === "V24_OCEAN_NIGHT_SLEEP_CAVE" && (() => {
+        const restT = interpolate(activeLocal, [0, 36], [0, 1], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        });
+        return (
+          <>
+            <rect x={0} y={0} width={1920} height={1080} fill="#0F172A" opacity={0.44} />
+            <CuteOctopus
+              x={725}
+              y={784}
+              scale={1.14}
+              frame={frame}
+              pose="crawl"
+              emotion="sleepy"
+              accessory="bandana_green"
+              colorOverride={{
+                main: blendOctoHex("#C4365D", "#E2E8F0", restT * 0.72),
+                belly: "#F8FAFC",
+                spot: "#CBD5E1",
+              }}
+            />
+          </>
+        );
+      })()}
+
+      {/* Beat 58 (05:30): Dawn breaks — golden sunbeams stream down as Tuộc steps out of cave */}
+      {mode === "V24_OCEAN_DAWN_WAKE" && (() => {
+        const wakeX = interpolate(activeLocal, [0, durationFrames], [720, 920], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        });
+        return (
+          <>
+            <g opacity={0.26}>
+              <polygon points="360,0 640,0 920,820 620,820" fill="#FEF08A" />
+              <polygon points="880,0 1180,0 1440,820 1140,820" fill="#FDE68A" />
+            </g>
+            <CuteOctopus
+              x={wakeX}
+              y={786}
+              scale={1.2}
+              frame={frame}
+              pose="crawl"
+              emotion="happy"
+              accessory="bandana_green"
+            />
+          </>
+        );
+      })()}
+
+      {/* Beat 59 (05:30): Mother's gift — Tuộc glowing proudly in vivid plum-red under morning rays */}
+      {mode === "V24_OCEAN_MORNING_PROUD_GLOW" && (
+        <>
+          <circle cx={960} cy={650} r={195} fill="#FEF08A" opacity={0.18} />
+          {[0, 1, 2, 3, 4, 5].map((si) => (
+            <path
+              key={si}
+              d="M 0,-11 L 3,-3 L 11,0 L 3,3 L 0,11 L -3,3 L -11,0 L -3,-3 Z"
+              transform={`translate(${740 + si * 88}, ${(540 + Math.sin(frame * 0.1 + si) * 28).toFixed(1)})`}
+              fill="#FEF08A"
+              opacity={0.78}
+            />
+          ))}
+          <CuteOctopus
+            x={960}
+            y={728}
+            scale={1.32}
+            frame={frame}
+            pose="float"
+            emotion="proud"
+            accessory="bandana_green"
+          />
+        </>
+      )}
+
+      {/* Beat 60: Tuộc (bandana_green) chatting warmly with Cụ Tuộc (elder + glasses_round) */}
+      {mode === "V24_OCEAN_ELDER_CHAT" && (
+        <>
+          <CuteOctopus
+            x={720}
+            y={786}
+            scale={1.18}
+            frame={frame}
+            pose="wave"
+            emotion="happy"
+            accessory="bandana_green"
+          />
+          <CuteOctopus
+            x={1210}
+            y={782}
+            scale={1.28}
+            flipX={true}
+            frame={frame + 31}
+            pose="crawl"
+            emotion="happy"
+            ageVariant="elder"
+            accessory="glasses_round"
+          />
+        </>
+      )}
+
+      {/* Beat 64 (06:00): New day begins — school of big fish silhouettes overhead; Tuộc approaches rock */}
+      {mode === "V24_OCEAN_NEW_DAY_FISH" && (() => {
+        const fishShift = interpolate(activeLocal, [0, durationFrames], [0, -340], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        });
+        const tx = interpolate(activeLocal, [0, durationFrames], [990, 740], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        });
+        return (
+          <>
+            <g opacity={0.34} fill="#0C4A6E" transform={`translate(${fishShift.toFixed(1)}, 0)`}>
+              {[
+                { x: 1120, y: 270, s: 1.0 },
+                { x: 1290, y: 315, s: 0.85 },
+                { x: 1440, y: 260, s: 1.08 },
+                { x: 1590, y: 330, s: 0.9 },
+              ].map((f, idx) => (
+                <g key={idx} transform={`translate(${f.x}, ${f.y}) scale(${f.s})`}>
+                  <path d="M -56,0 C -34,-24 22,-24 54,0 C 22,24 -34,24 -56,0 Z" />
+                  <polygon points="50,0 78,-18 72,0 78,18" />
+                </g>
+              ))}
+            </g>
+            <CuteOctopus
+              x={tx}
+              y={786}
+              scale={1.18}
+              flipX={true}
+              frame={frame}
+              pose="crawl"
+              emotion="happy"
+              accessory="bandana_green"
+            />
+          </>
+        );
+      })()}
+
+      {/* Beat 65: Fast morph (<0.5s) from plum-red #C4365D into gray rocky stone with 3D bumps! */}
+      {mode === "V24_OCEAN_FAST_MORPH_ROCK" && (() => {
+        const mT = interpolate(activeLocal, [2, 22], [0, 1], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+          easing: Easing.out(Easing.cubic),
+        });
+        return (
+          <CuteOctopus
+            x={692}
+            y={782}
+            scale={1.12}
+            frame={frame}
+            pose="crawl"
+            emotion="happy"
+            accessory={mT < 0.45 ? "bandana_green" : "none"}
+            colorOverride={{
+              main: blendOctoHex("#C4365D", "#64748B", mT),
+              belly: blendOctoHex("#FCE7F3", "#94A3B8", mT),
+              spot: blendOctoHex("#FCE7F3", "#16A34A", mT),
+            }}
+            papillaeBumps={mT > 0.4}
+          />
+        );
+      })()}
+
+      {/* Beat 66: Close-up cute rock wink amidst shimmering bubbles */}
+      {mode === "V24_OCEAN_ROCK_CUTE_WINK" && (() => {
+        // Trigger a deliberate cute blink right around localFrame 24..34!
+        const winkFrame = activeLocal >= 24 && activeLocal <= 34 ? 106 : 20;
+        return (
+          <>
+            <CuteOctopus
+              x={692}
+              y={782}
+              scale={1.14}
+              frame={winkFrame}
+              pose="crawl"
+              emotion="happy"
+              colorOverride={{ main: "#64748B", belly: "#94A3B8", spot: "#16A34A" }}
+              papillaeBumps={true}
+            />
+            {[0, 1, 2, 3, 4].map((bi) => (
+              <circle
+                key={bi}
+                cx={580 + bi * 74}
+                cy={Number((710 - bi * 34 - Math.sin(frame * 0.08 + bi) * 16).toFixed(1))}
+                r={6 + (bi % 3) * 3}
+                fill="#E0F2FE"
+                fillOpacity={0.62}
+                stroke="#38BDF8"
+                strokeWidth={2}
+              />
+            ))}
+          </>
+        );
+      })()}
+
+      {/* Beat 67: Final reveal — rock pops right back to plum-red Tuộc (bandana_green) waving goodbye! */}
+      {mode === "V24_OCEAN_FINAL_REVEAL_WAVE" && (() => {
+        const popT = interpolate(activeLocal, [4, 24], [0, 1], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+          easing: Easing.out(Easing.cubic),
+        });
+        return (
+          <CuteOctopus
+            x={940}
+            y={758}
+            scale={1.34}
+            frame={frame}
+            pose="wave"
+            emotion="happy"
+            accessory={popT > 0.35 ? "bandana_green" : "none"}
+            colorOverride={{
+              main: blendOctoHex("#64748B", "#C4365D", popT),
+              belly: blendOctoHex("#94A3B8", "#FCE7F3", popT),
+              spot: blendOctoHex("#16A34A", "#FCE7F3", popT),
+            }}
+            papillaeBumps={popT < 0.35}
+          />
+        );
+      })()}
     </g>
   );
 };

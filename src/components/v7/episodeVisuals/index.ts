@@ -228,6 +228,10 @@ import {
   OctoQuickQuizVisual,
   OctoSummary3CardsVisual,
 } from './octopusCamoVisualsPart2';
+import {
+  OctoShortLifespanVisual,
+  OctoMotherSacrificeVisual,
+} from './octopusCamoVisualsV24';
 
 export type EpisodeVisualProps = {
   progress: number;
@@ -445,4 +449,7 @@ export const EPISODE_VISUAL_REGISTRY: Record<string, React.FC<EpisodeVisualProps
   OCTO_HUMAN_TECH: OctoHumanTechVisual,
   OCTO_QUICK_QUIZ: OctoQuickQuizVisual,
   OCTO_SUMMARY_3_CARDS: OctoSummary3CardsVisual,
+  // Episode 10 V24.0 Story-First Animal POV (2 Emotional Twist Full-Screen SVGs)
+  OCTO_SHORT_LIFESPAN: OctoShortLifespanVisual,
+  OCTO_MOTHER_SACRIFICE: OctoMotherSacrificeVisual,
 };

@@ -256,7 +256,7 @@ export type BalconyDetailId =
   | "SAFETY_NET_SIT"
   | "OUTRO_OPEN_FLOOR";
 
-/** V23.5: Chi tiết phụ trợ cho OCEAN_UNDERWATER (Tập 10 — Bạch tuộc Tuộc & Cá mập hiền) */
+/** V23.5–V24.0: Chi tiết phụ trợ cho OCEAN_UNDERWATER & CLEAN_EXPLAINER chủ đề Bạch tuộc (Tập 10 V23 + V24 ANIMAL_POV) */
 export type OceanDetailId =
   | "NONE"
   | "OCTO_CRAWL_REEF"
@@ -265,7 +265,42 @@ export type OceanDetailId =
   | "OCTO_PROUD_RETURN"
   | "OCTO_CORAL_MAGIC"
   | "OCTO_SHARK_FRIENDLY"
-  | "OCTO_OUTRO_WAVE";
+  | "OCTO_OUTRO_WAVE"
+  // V24.0 OCEAN_UNDERWATER Story-First Animal POV scenes
+  | "V24_OCEAN_DAWN_SHARK_OVERHEAD"
+  | "V24_OCEAN_SHARK_CLOSE_PASS"
+  | "V24_OCEAN_SHARK_SWIMS_PAST"
+  | "V24_OCEAN_ROCK_REVEAL_TUOC"
+  | "V24_OCEAN_MORNING_CRAWL"
+  | "V24_OCEAN_HARSH_SUN_REEF"
+  | "V24_OCEAN_LUNCH_HUNT"
+  | "V24_OCEAN_TERRITORIAL_RIVAL"
+  | "V24_OCEAN_PEACE_PALE_PASS"
+  | "V24_OCEAN_BLUE_RING_STOP"
+  | "V24_OCEAN_ADMIRE_MIMIC"
+  | "V24_OCEAN_SUNSET_TIRED_CAVE"
+  | "V24_OCEAN_NIGHT_SLEEP_CAVE"
+  | "V24_OCEAN_DAWN_WAKE"
+  | "V24_OCEAN_MORNING_PROUD_GLOW"
+  | "V24_OCEAN_ELDER_CHAT"
+  | "V24_OCEAN_NEW_DAY_FISH"
+  | "V24_OCEAN_FAST_MORPH_ROCK"
+  | "V24_OCEAN_ROCK_CUTE_WINK"
+  | "V24_OCEAN_FINAL_REVEAL_WAVE"
+  // V24.0 CLEAN_EXPLAINER OctopusV24ExplainerKit scenes
+  | "V24_EXPLAIN_INTRO_WAVE"
+  | "V24_EXPLAIN_COLORBLIND_GRAY"
+  | "V24_EXPLAIN_CAMO_PROUD"
+  | "V24_EXPLAIN_BLUE_MYSTERY"
+  | "V24_EXPLAIN_THINKING_CHIN"
+  | "V24_EXPLAIN_EYES_CLOSED_SENSE"
+  | "V24_EXPLAIN_LOW_BATTERY"
+  | "V24_EXPLAIN_NIGHT_DREAM"
+  | "V24_EXPLAIN_SILENT_TRUTH"
+  | "V24_EXPLAIN_MOTHER_MEMORY"
+  | "V24_EXPLAIN_MOTHER_FADE"
+  | "V24_EXPLAIN_LOOK_UP_LIGHTS"
+  | "V24_EXPLAIN_OUTRO_CHOICE";
 
 /** V23.0: Chủ đề giao diện bảng nghiên cứu cho HOST_EXPLAIN_OVERLAY (mặc định LAB_WHITEBOARD) */
 export type HostBoardTheme = "LAB_WHITEBOARD" | "NATURE_FIELD_BOARD";
@@ -1385,6 +1420,39 @@ const VALID_OCEAN_DETAILS: readonly OceanDetailId[] = [
   "OCTO_CORAL_MAGIC",
   "OCTO_SHARK_FRIENDLY",
   "OCTO_OUTRO_WAVE",
+  "V24_OCEAN_DAWN_SHARK_OVERHEAD",
+  "V24_OCEAN_SHARK_CLOSE_PASS",
+  "V24_OCEAN_SHARK_SWIMS_PAST",
+  "V24_OCEAN_ROCK_REVEAL_TUOC",
+  "V24_OCEAN_MORNING_CRAWL",
+  "V24_OCEAN_HARSH_SUN_REEF",
+  "V24_OCEAN_LUNCH_HUNT",
+  "V24_OCEAN_TERRITORIAL_RIVAL",
+  "V24_OCEAN_PEACE_PALE_PASS",
+  "V24_OCEAN_BLUE_RING_STOP",
+  "V24_OCEAN_ADMIRE_MIMIC",
+  "V24_OCEAN_SUNSET_TIRED_CAVE",
+  "V24_OCEAN_NIGHT_SLEEP_CAVE",
+  "V24_OCEAN_DAWN_WAKE",
+  "V24_OCEAN_MORNING_PROUD_GLOW",
+  "V24_OCEAN_ELDER_CHAT",
+  "V24_OCEAN_NEW_DAY_FISH",
+  "V24_OCEAN_FAST_MORPH_ROCK",
+  "V24_OCEAN_ROCK_CUTE_WINK",
+  "V24_OCEAN_FINAL_REVEAL_WAVE",
+  "V24_EXPLAIN_INTRO_WAVE",
+  "V24_EXPLAIN_COLORBLIND_GRAY",
+  "V24_EXPLAIN_CAMO_PROUD",
+  "V24_EXPLAIN_BLUE_MYSTERY",
+  "V24_EXPLAIN_THINKING_CHIN",
+  "V24_EXPLAIN_EYES_CLOSED_SENSE",
+  "V24_EXPLAIN_LOW_BATTERY",
+  "V24_EXPLAIN_NIGHT_DREAM",
+  "V24_EXPLAIN_SILENT_TRUTH",
+  "V24_EXPLAIN_MOTHER_MEMORY",
+  "V24_EXPLAIN_MOTHER_FADE",
+  "V24_EXPLAIN_LOOK_UP_LIGHTS",
+  "V24_EXPLAIN_OUTRO_CHOICE",
 ];
 const VALID_HOST_HIGHLIGHTS: readonly HostBoardHighlightId[] = [
   "NONE",
@@ -1692,13 +1760,14 @@ export function sanitizeAndValidateEpisode(rawJson: unknown, fallbackTopic = "Ch
       ? rb.visualCode.trim()
       : "";
     const customVisual = rawVisualCode ? rawVisualCode.slice(0, 80) : undefined;
+    const rawStepVal = rb?.visualStep !== undefined && rb?.visualStep !== null ? rb.visualStep : rb?.step;
     const visualStep =
-      rb?.visualStep !== undefined &&
-      rb?.visualStep !== null &&
-      typeof rb?.visualStep !== "boolean" &&
-      String(rb.visualStep).trim() !== "" &&
-      Number.isFinite(Number(rb.visualStep))
-        ? Math.max(0, Math.round(Number(rb.visualStep)))
+      rawStepVal !== undefined &&
+      rawStepVal !== null &&
+      typeof rawStepVal !== "boolean" &&
+      String(rawStepVal).trim() !== "" &&
+      Number.isFinite(Number(rawStepVal))
+        ? Math.max(0, Math.round(Number(rawStepVal)))
         : undefined;
     const fullScreenVisual =
       typeof rb?.fullScreenVisual === "boolean" ? rb.fullScreenVisual : undefined;
